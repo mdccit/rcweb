@@ -13,16 +13,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
-const email = ref('')
-const password = ref('')
+const email = ref("");
+const password = ref("");
 
 const handleSubmit = () => {
   // Handle login logic here
-  console.log('Email:', email.value)
-  console.log('Password:', password.value)
-}
+  console.log("Email:", email.value);
+  console.log("Password:", password.value);
+};
 </script>
 
 <style scoped>
