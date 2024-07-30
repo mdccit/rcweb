@@ -1,16 +1,26 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+// nuxt.config.ts
+import { defineNuxtConfig } from 'nuxt/config'
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  srcDir: "src/",
+  srcDir: 'src/',
   ssr: true,
-  modules: ["@nuxtjs/tailwindcss", "@nuxtjs/eslint-module", "@nuxt/eslint"],
+
+  modules: [
+    '@nuxtjs/tailwindcss',
+  ],
+
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
-  plugins: ["~/plugins/pinia.js", "~/plugins/router.js"],
+
+  plugins: [
+    '~/plugins/pinia.js'
+  ],
+
   build: {
     rollupOptions: {
       external: [],
@@ -19,6 +29,18 @@ export default defineNuxtConfig({
       // Extend webpack config if necessary
     },
   },
+  css: [
+    '@nuxtjs/tailwindcss',
+    '@/assets/main.css',
+    'flowbite/dist/flowbite.css',
+  ],
 
-  compatibilityDate: "2024-07-30",
-});
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: ['/'],
+    },
+  },
+
+  compatibilityDate: '2024-07-30',
+})

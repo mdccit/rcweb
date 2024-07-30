@@ -1,54 +1,56 @@
 <template>
   <form @submit.prevent="handleSubmit">
-    <div>
-      <label for="email">Email:</label>
-      <input type="email" v-model="email" required />
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+        Username
+      </label>
+      <input
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="username"
+        type="text"
+        placeholder="Username"
+        v-model="username"
+      />
     </div>
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" v-model="password" required />
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+        Password
+      </label>
+      <input
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="password"
+        type="password"
+        placeholder="Password"
+        v-model="password"
+      />
     </div>
-    <button type="submit">Login</button>
+    <div class="flex items-center justify-between">
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        type="submit"
+      >
+        Sign In
+      </button>
+    </div>
   </form>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue'
 
-const email = ref("");
-const password = ref("");
+const username = ref('')
+const password = ref('')
 
 const handleSubmit = () => {
-  // Handle login logic here
-  console.log("Email:", email.value);
-  console.log("Password:", password.value);
-};
+  // Handle login logic
+  console.log('Username:', username.value)
+  console.log('Password:', password.value)
+}
 </script>
 
 <style scoped>
 form {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
+  max-width: 400px;
   margin: auto;
-}
-
-div {
-  margin-bottom: 10px;
-}
-
-label {
-  margin-bottom: 5px;
-}
-
-input {
-  padding: 8px;
-  font-size: 16px;
-}
-
-button {
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
 }
 </style>
