@@ -73,7 +73,8 @@ const handleSubmit = async () => {
         role: response.data.role,
         token: response.data.token
       })
-      router.push('/dashboard')
+      localStorage.setItem('token', response.data.token)  // Set token in local storage
+      router.push('/admin/dashboard')
     } else {
       error.value = response.display_message
     }

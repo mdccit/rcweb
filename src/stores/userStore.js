@@ -15,12 +15,14 @@ export const useUserStore = defineStore('user', {
       this.user = user;
       if (process.client) {
         localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', user.token);  // Store token separately for easy access
       }
     },
     clearUser() {
       this.user = null;
       if (process.client) {
         localStorage.removeItem('user');
+        localStorage.removeItem('token');  // Remove token from local storage
       }
       const router = useRouter();
       router.push('/');
@@ -33,4 +35,3 @@ export const useUserStore = defineStore('user', {
     },
   },
 });
-
