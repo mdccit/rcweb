@@ -1,4 +1,3 @@
-// nuxt.config.ts
 import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
@@ -6,9 +5,29 @@ export default defineNuxtConfig({
   srcDir: 'src/',
   ssr: true,
 
+  css: [
+    '@/assets/main.css',
+    'flowbite/dist/flowbite.css',
+  ],
+
   modules: [
     '@nuxtjs/tailwindcss',
   ],
+
+  tailwindcss: {
+    config: {
+      content: [
+        './src/**/*.{vue,js,ts,jsx,tsx}',
+        'node_modules/flowbite-vue/**/*.{js,jsx,ts,tsx,vue}'
+      ],
+      theme: {
+        extend: {},
+      },
+      plugins: [
+        require('flowbite/plugin')
+      ],
+    },
+  },
 
   postcss: {
     plugins: {
@@ -42,5 +61,5 @@ export default defineNuxtConfig({
     },
   },
 
-  compatibilityDate: '2024-07-30',
+  compatibilityDate: '2024-07-31',
 })
