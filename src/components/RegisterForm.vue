@@ -30,7 +30,7 @@
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
         >
-          Sign In
+          Register
         </button>
       </div>
     </form>
@@ -50,7 +50,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { login } from '~/services/mockAuthService'
+import { register } from '~/services/mockAuthService'
 import { useUserStore } from '~/stores/userStore'
 
 const email = ref('')
@@ -65,7 +65,7 @@ const handleSubmit = async () => {
   try {
     error.value = ''
     successMessage.value = ''
-    const response = await login(email.value, password.value)
+    const response = await register(email.value, password.value)
     if (response.status === 200) {
       successMessage.value = response.display_message
       userStore.setUser({

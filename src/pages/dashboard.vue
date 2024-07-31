@@ -16,11 +16,7 @@ const token = userStore.user?.token
 </script>
 
 <style scoped>
-h1 {
-  color: #333;
-}
-
-p {
-  font-size: 16px;
+.container {
+  max-width: 600px;
 }
 </style>

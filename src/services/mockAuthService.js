@@ -27,3 +27,16 @@ export const login = async (email, password) => {
     };
   }
 };
+
+export const register = async (email, password) => {
+  // Assume registration is always successful and assigns a role of 'user'
+  return {
+    status: 200,
+    message: "User Registration Successful",
+    display_message: "User Registration Successful",
+    data: {
+      role: 'user',
+      token: "user_mocked_token_12345"
+    }
+  };
+};
