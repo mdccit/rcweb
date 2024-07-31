@@ -1,6 +1,7 @@
-export default ({ $config }) => {
+const createApiService = ($config) => {
   const baseUrl = $config.apiUrl;
 
+  console.log("Base URL in apiService:", baseUrl);  // Add this log to check the baseUrl
 
   const handleResponse = async (response) => {
     const data = await response.json();
@@ -13,8 +14,8 @@ export default ({ $config }) => {
 
   const getHeaders = () => ({
     'Content-Type': 'application/json',
-    'access_key': process.env.ACCESS_KEY,
-    'lang': process.env.DEFAULT_LANG,
+    'access_key': $config.accessKey,
+    'lang': $config.defaultLang,
   });
 
   const getRequest = async (url) => {
@@ -26,8 +27,7 @@ export default ({ $config }) => {
   };
 
   const postRequest = async (url, body) => {
-
-
+    console.log("Post Request Body:", body);  // Add this log to check the body
     const response = await fetch(`${baseUrl}${url}`, {
       method: 'POST',
       headers: getHeaders(),
@@ -64,3 +64,5 @@ export default ({ $config }) => {
 
   return { getRequest, postRequest, putRequest, patchRequest, deleteRequest };
 };
+
+export default createApiService;

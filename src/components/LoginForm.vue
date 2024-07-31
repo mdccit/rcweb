@@ -1,92 +1,32 @@
 <template>
-  <div>
-    <form @submit.prevent="handleSubmit" class="max-w-md mx-auto mt-10">
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-          Email
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="email"
-          type="email"
-          placeholder="Email"
-          v-model="email"
-        />
-      </div>
-      <div class="mb-6">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-          Password
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="password"
-          type="password"
-          placeholder="Password"
-          v-model="password"
-        />
-      </div>
-      <div class="flex items-center justify-between">
-        <button
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          type="submit"
-        >
-          Sign In
-        </button>
-      </div>
-    </form>
-    <div v-if="error" class="mt-4">
-      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-        <span class="block sm:inline">{{ error }}</span>
-      </div>
+  <form @submit.prevent="submitForm">
+    <div class="mb-4">
+      <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+      <input v-model="email" type="email" id="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
     </div>
-    <div v-if="successMessage" class="mt-4">
-      <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-        <span class="block sm:inline">{{ successMessage }}</span>
-      </div>
+    <div class="mb-4">
+      <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+      <input v-model="password" type="password" id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
     </div>
-  </div>
+    <div class="flex items-center justify-between">
+      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Login</button>
+    </div>
+  </form>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { login } from '~/services/mockAuthService'
-import { useUserStore } from '~/stores/userStore'
+import { ref } from 'vue';
 
-const email = ref('')
-const password = ref('')
-const error = ref('')
-const successMessage = ref('')
+const email = ref('');
+const password = ref('');
 
-const userStore = useUserStore()
-const router = useRouter()
+const emit = defineEmits(['submit']);
 
-const handleSubmit = async () => {
-  try {
-    error.value = ''
-    successMessage.value = ''
-    const response = await login(email.value, password.value)
-    if (response.status === 200) {
-      successMessage.value = response.display_message
-      userStore.setUser({
-        email: email.value,
-        role: response.data.role,
-        token: response.data.token
-      })
-      localStorage.setItem('token', response.data.token)  // Set token in local storage
-      router.push('/admin/dashboard')
-    } else {
-      error.value = response.display_message
-    }
-  } catch (err) {
-    error.value = err.message
-  }
-}
+const submitForm = () => {
+  emit('submit', { email: email.value, password: password.value });
+};
 </script>
 
 <style scoped>
-form {
-  max-width: 400px;
-  margin: auto;
-}
+/* Add your styles here */
 </style>

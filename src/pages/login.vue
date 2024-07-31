@@ -11,15 +11,18 @@
 
 <script setup>
 import LoginForm from '~/components/LoginForm.vue';
-import { login } from '~/services/authService';
-
 import { useNuxtApp } from '#app';
-import createAuthService from '~/services/authService';
+import createAuthService from '~/services/authService.js';
 
 const nuxtApp = useNuxtApp();
-const authService = createAuthService(nuxtApp.$config);
+const authService = createAuthService(nuxtApp.$config.public);
 
-const handleLogin = async (email, password) => {
+console.log("Nuxt App Config:", nuxtApp.$config.public);  // Log to check the config in the component
+
+const handleLogin = async ({ email, password }) => {
+  console.log("Email:", email);  // Log to check the email value
+  console.log("Password:", password);  // Log to check the password value
+
   try {
     const result = await authService.login(email, password);
     console.log(result);
@@ -27,7 +30,6 @@ const handleLogin = async (email, password) => {
     console.error(error.message);
   }
 };
-handleLogin();
 </script>
 
 <style scoped>
