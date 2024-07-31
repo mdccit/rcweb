@@ -50,11 +50,14 @@
 <script setup>
 import { ref } from 'vue'
 import { login } from '~/services/mockAuthService'
+import { useUserStore } from '~/stores/userStore'
 
 const email = ref('')
 const password = ref('')
 const error = ref('')
 const successMessage = ref('')
+
+const userStore = useUserStore()
 
 const handleSubmit = async () => {
   try {
@@ -63,6 +66,11 @@ const handleSubmit = async () => {
     const response = await login(email.value, password.value)
     if (response.status === 200) {
       successMessage.value = response.display_message
+      userStore.setUser({
+        email: email.value,
+        role: response.data.role,
+        token: response.data.token
+      })
     } else {
       error.value = response.display_message
     }
