@@ -1,5 +1,6 @@
 import { defineNuxtConfig } from 'nuxt/config';
 import { resolve } from 'path';
+require('dotenv').config();
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -15,6 +16,7 @@ export default defineNuxtConfig({
   tailwindcss: {
     configPath: '~/tailwind.config.js', // Specify the path to the Tailwind config file
     viewer: false,
+    jit: true, 
   },
   postcss: {
     plugins: {
@@ -22,19 +24,21 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-
+  runtimeConfig: {
+    public: {
+      apiUrl: process.env.NUXT_PUBLIC_API_URL,
+      accessKey: process.env.ACCESS_KEY,
+      defaultLang: process.env.DEFAULT_LANG,
+    }
+  },
   plugins: [
     '~/plugins/pinia.js',
     '~/plugins/initUser.js',
+    '~/plugins/runtimeConfig.js',
   ],
 
   build: {
-    rollupOptions: {
-      external: [],
-    },
-    extend(config, { isDev, isClient }) {
-      // Extend webpack config if necessary
-    },
+   
   },
   alias: {
     '@': resolve(__dirname, './src'),
@@ -61,6 +65,9 @@ export default defineNuxtConfig({
       routes: ['/'],
     },
   },
+  buildModules: [
+    '@nuxtjs/tailwindcss',
+  ],
 
   compatibilityDate: '2024-07-31',
 })
