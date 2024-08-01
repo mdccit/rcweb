@@ -67,6 +67,7 @@ export default defineNuxtConfig({
   },
   buildModules: [
     '@nuxtjs/tailwindcss',
+    '@pinia/nuxt',
   ],
 
   compatibilityDate: '2024-07-31',
