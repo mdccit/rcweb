@@ -28,9 +28,9 @@
              rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10
               focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400
                dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-
-            Sign up with google</button>
-          <img src="googleIcon">
+               
+            <span><img class="absolute -mt-13" src="@/assets/images/google_icon.png"></span>Sign up with google</button>
+        
         </div>
         <div class="w-full pt-4">
           <hr>
@@ -41,37 +41,43 @@
             <div>
               <label for="first_name" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">I am</label>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-4">
 
-              <div>
-                <input id="default-radio-1" type="radio" value="" name="default-radio" class=" tile-radio-buttons">
-                <label for="default-radio-1">Default radio</label>
-
+              <div class="radio">
+                <input class="radio-input" id="player" type="radio" value="" name="default-radio">
+                <div class="radio-tile">
+                  <img src="@/assets/images/coach_icon.png">
+                  <label for="player">coach</label>
+                </div>
+              </div>
+              <div class="radio">
+                <input class="radio-input" id="coach" type="radio" value="" name="default-radio">
+                <div class="radio-tile">
+                  <img src="@/assets/images/coach_icon.png">
+                  <label for="coach">coach</label>
+                </div>
+              </div>
+              <div class="radio">
+                <input class="radio-input" id="parent" type="radio" value="" name="default-radio">
+                <div class="radio-tile">
+                  <img src="@/assets/images/coach_icon.png">
+                  <label for="parent">coach</label>
+                </div>
+              </div>
+              <div class="radio">
+                <input class="radio-input" id="business" type="radio" value="" name="default-radio">
+                <div class="radio-tile">
+                  <img src="@/assets/images/coach_icon.png">
+                  <label for="business">coach</label>
+                </div>
               </div>
 
-              <div>
-                <input id="default-radio-1" type="radio" value="" name="default-radio"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Default
-                  radio</label>
+              
 
-              </div>
+              
 
-              <div>
-                <input id="default-radio-1" type="radio" value="" name="default-radio"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Default
-                  radio</label>
-
-              </div>
-
-              <div>
-                <input id="default-radio-1" type="radio" value="" name="default-radio"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Default
-                  radio</label>
-
-              </div>
+              
+            
 
             </div>
 
@@ -114,16 +120,16 @@
                 <div class="">
                   <label for="password"
                     class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Password</label>
-                  
-                  
-                    <input type="password" id="password"
+
+
+                  <input type="password" id="password"
                     class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="•••••••••" required />
                 </div>
               </div>
               <div class="">
                 <div class="">
-                  
+
                   <label for="confirm_password"
                     class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Confirm password</label>
                   <input type="password" id="confirm_password"
@@ -369,5 +375,5 @@
 
 <script setup>
 import RegisterForm from '~/components/RegisterForm.vue';
-import googleIcon from '@/assets/images/google_icon.png';
+// import googleIcon from '@/assets/images/google_icon.png';
 </script>

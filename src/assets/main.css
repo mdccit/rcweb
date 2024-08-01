@@ -4,8 +4,33 @@
 @import 'tailwindcss/utilities';
 @import 'flowbite';
 
-.tile-radio-buttons{
-    width: 150px !important;
-    border-radius: 10px !important;
+
+.radio-input {
+    position: absolute;
     height: 100px !important;
-}
+    width: 150px !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+    z-index: 2 !important;
+    opacity: 0 !important;
+  }
+
+.radio-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 65%;
+    border: 2px solid blue;
+    border-radius: 8px;
+    transition: all 300ms ease;
+  }
+
+  .radio-input:checked+.radio-tile {
+    background-color:blue;
+    transform: scale(1.1);
+  }
+  .-mt-13{
+    margin-top: -3px;
+  }

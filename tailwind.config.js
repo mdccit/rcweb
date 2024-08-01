@@ -13,8 +13,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        primaryBlue: '#0085FF', // Primary Blue color
-    
+        primaryBlue: '#0085FF', // Primary Blue color   
+      },
+      spacing: {
+        '-19': '-19px',
       },
     },
   },
