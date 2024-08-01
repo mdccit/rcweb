@@ -3,3 +3,9 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import 'flowbite';
+
+.tile-radio-buttons{
+    width: 150px !important;
+    border-radius: 10px !important;
+    height: 100px !important;
+}

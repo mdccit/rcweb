@@ -11,7 +11,12 @@ export default {
     "node_modules/flowbite-vue/**/*.{js,jsx,ts,tsx,vue}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primaryBlue: '#0085FF', // Primary Blue color
+    
+      },
+    },
   },
   plugins: [
     require('flowbite/plugin')
