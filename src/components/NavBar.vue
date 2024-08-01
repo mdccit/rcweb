@@ -14,40 +14,30 @@
   </nav>
 </template>
 
-<script>
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-import { useUserStore } from '@/stores/userStore';
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/user';
 
-export default {
-  setup() {
-    const userStore = useUserStore();
-    const router = useRouter()
+const userStore = useUserStore();
+const router = useRouter();
 
-    const isLoggedIn = computed(() => !!userStore.user?.token)
-    const token = computed(() => userStore.token)
-    
-    const login = () => {
-      // Handle login logic
-      router.push('/login')
-    };
+const isLoggedIn = computed(() => !!userStore.user?.token);
 
-    const register = () => {
-      router.push('/register')
-    };
+onMounted(() => {
+  userStore.initializeUser();
+});
 
-    const logout = () => {
-      // Handle logout logic
-      userStore.clearUser();
-    };
+const login = () => {
+  router.push('/login');
+};
 
-    return {
-      login,
-      register,
-      logout,
-      isLoggedIn: userStore.isLoggedIn,
-    };
-  },
+const register = () => {
+  router.push('/register');
+};
+
+const logout = () => {
+  userStore.clearUser();
 };
 </script>
 

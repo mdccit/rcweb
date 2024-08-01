@@ -12,6 +12,7 @@ export default defineNuxtConfig({
   ],
   modules: [
     '@nuxtjs/tailwindcss',
+    '@pinia/nuxt',
   ],
   tailwindcss: {
     configPath: '~/tailwind.config.js', // Specify the path to the Tailwind config file
@@ -24,6 +25,13 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  pinia: {
+    autoImports: [
+      // automatically imports `defineStore`
+      'defineStore',
+      // automatically imports `storeToRefs`
+      'storeToRefs',
+    ],
   runtimeConfig: {
     public: {
       apiUrl: process.env.NUXT_PUBLIC_API_URL,

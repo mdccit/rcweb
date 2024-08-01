@@ -9,10 +9,10 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import Navbar from "~/components/NavBar.vue";
-import LoadingSpinner from "~/components/LoadingSpinner.vue";
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import Navbar from '~/components/NavBar.vue';
+import LoadingSpinner from '~/components/LoadingSpinner.vue';
 
 const loading = ref(false);
 const router = useRouter();
