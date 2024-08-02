@@ -12,7 +12,7 @@
               fill="white"></path>
           </svg></a></div>
       <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg soverflow-hidden sm:max-w-4xl">
-        <div class="flex items-center space-x-4 my-8">
+        <div class="flex items-center space-x-4 my-5">
           <div class="flex self-center items-center"><a href="https://qa1.recruited.qualitapps.com/login"
               class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full"><svg class="w-4 h-4"
                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
@@ -28,9 +28,9 @@
              rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10
               focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400
                dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-               
+
             <span><img class="absolute -mt-13" src="@/assets/images/google_icon.png"></span>Sign up with google</button>
-        
+
         </div>
         <div class="w-full pt-4">
           <hr>
@@ -38,50 +38,7 @@
         <!-- Form -->
         <form data-splade-id="AMBdDdQhgroJnNm0" method="POST" class="pt-4">
           <fieldset>
-            <div>
-              <label for="first_name" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">I am</label>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-4">
-
-              <div class="radio">
-                <input class="radio-input" id="player" type="radio" value="" name="default-radio">
-                <div class="radio-tile">
-                  <img src="@/assets/images/coach_icon.png">
-                  <label for="player">coach</label>
-                </div>
-              </div>
-              <div class="radio">
-                <input class="radio-input" id="coach" type="radio" value="" name="default-radio">
-                <div class="radio-tile">
-                  <img src="@/assets/images/coach_icon.png">
-                  <label for="coach">coach</label>
-                </div>
-              </div>
-              <div class="radio">
-                <input class="radio-input" id="parent" type="radio" value="" name="default-radio">
-                <div class="radio-tile">
-                  <img src="@/assets/images/coach_icon.png">
-                  <label for="parent">coach</label>
-                </div>
-              </div>
-              <div class="radio">
-                <input class="radio-input" id="business" type="radio" value="" name="default-radio">
-                <div class="radio-tile">
-                  <img src="@/assets/images/coach_icon.png">
-                  <label for="business">coach</label>
-                </div>
-              </div>
-
-              
-
-              
-
-              
-            
-
-            </div>
-
-
+          
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2">
               <div class="space-y-4">
 
@@ -139,17 +96,21 @@
               </div>
             </div>
 
-
-            <div class="px-5 py-2.5 mt-4 font-normal rounded-lg bg-primary/10 mb-5">
-              <p class="text-sm text-gray-600"><svg class="w-4 h-4 inline mr-1" xmlns="http://www.w3.org/2000/svg"
-                  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+            <div class="space-y-4 mt-5">
+              <p class="text-sm text-warning-600">
+                <svg class=" mb-2 text-orange-400 w-4 h-4 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24"
+                  height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                   stroke-linecap="round" stroke-linejoin="round">
                   <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
                   <path d="M12 9h.01"></path>
                   <path d="M11 12h1v4h1"></path>
-                </svg> Once you sign up, you will be able to fill out your profile in more depth. </p>
+                </svg>
+
+                Once you sign up, you will be able to fill out your profile in more depth.
+              </p>
             </div>
-            <div class="flex items-center justify-end">
+
+            <div class="flex items-center justify-end mt-5">
               <button type="button" class="text-white bg-blue-700 bg-primaryBlue hover:bg-blue-800 focus:outline-none focus:ring-4 
               focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 
               dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -164,7 +125,7 @@
       <!-- STEP 2  -->
 
       <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg soverflow-hidden sm:max-w-4xl">
-        <div class="flex items-center space-x-4 my-8">
+        <div class="flex items-center space-x-4 ">
           <div class="flex self-center items-center"><a href="https://qa1.recruited.qualitapps.com/login"
               class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full"><svg class="w-4 h-4"
                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
@@ -183,9 +144,44 @@
         <form data-splade-id="AMBdDdQhgroJnNm0" method="POST" class="pt-4">
           <fieldset>
 
+            <div>
+              <label for="first_name" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">I am</label>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-4">
+
+              <div class="radio">
+                <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="player" type="radio" value="" name="default-radio">
+                <div class="radio-tile rounded-md flex flex-col items-center justify-center border border-gray-300 h-full transition-all duration-300 ease-in">
+                  <img class="mt-1" src="@/assets/images/coach_icon.png">
+                  <label for="player" class="text-sm mb-2" >Player</label>
+                </div>
+              </div>
+              <div class="radio">
+                <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="coach" type="radio" value="" name="default-radio">
+                <div class="radio-tile rounded-md flex flex-col items-center justify-center border border-gray-300 h-full transition-all duration-300 ease-in">
+                  <img class="mt-1" src="@/assets/images/coach_icon.png">
+                  <label for="coach" class="text-sm mb-2" >Coach</label>
+                </div>
+              </div>
+              <div class="radio">
+                <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="parent" type="radio" value="" name="default-radio">
+                <div class="radio-tile rounded-md flex flex-col items-center justify-center border border-gray-300 h-full transition-all duration-300 ease-in">
+                  <img class="mt-1" src="@/assets/images/coach_icon.png">
+                  <label for="parent" class="text-sm mb-2" >Parent</label>
+                </div>
+              </div>
+              <div class="radio">
+                <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="business" type="radio" value="" name="default-radio">
+                <div class="radio-tile rounded-md flex flex-col items-center justify-center border border-gray-300 h-full transition-all duration-300 ease-in">
+                  <img class="mt-1" src="@/assets/images/coach_icon.png">
+                  <label for="business" class="text-sm mb-2" >Business</label>
+                </div>
+              </div>
+
+            </div>
+
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-2">
               <div class="space-y-4">
-
                 <div class="">
                   <label for="first_name" class=" font-normal block mb-2 text-sm text-gray-900 dark:text-white">Country
                     *</label>
@@ -242,9 +238,12 @@
               </div>
 
               <div>
-                <label for="first_name" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Height
-                  <span class="ml-right">Aligned to End</span>
-                </label>
+                <div class="grid grid-cols-10  items-center mb-2 ">
+                  <label for="first_name" class="block col-span-5  text-sm font-normal text-gray-900 dark:text-white">Height</label>
+                  <label for="first_name" class="block col-span-5 text-sm font-normal dark:text-white text-right text-blue-600"> Aligned to End</label>
+          
+                </div>
+                
                 <div class="grid grid-cols-10 gap-3 items-center ">
                   <input type="text" id="first_name"
                     class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -319,16 +318,42 @@
               </div>
             </div>
 
-            <div class="px-5 py-2.5 mt-4 font-normal rounded-lg bg-primary/10 mb-5">
-              <p class="text-sm text-gray-600"><svg class="w-4 h-4 inline mr-1" xmlns="http://www.w3.org/2000/svg"
-                  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+            <div class="space-y-4 mt-5">
+              <div class="flex items-center">
+                <input id="link-checkbox" type="checkbox" value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="link-checkbox" class="ms-2 text-sm font-normal text-gray-900 dark:text-gray-300"> <a>I certify I
+                  am currently not enrolled in a U.S. school or have already informed the school of my choice to
+                  transfer, registering in the Transfer Portal. </a>.</label>
+              </div>
+            </div>
+
+            <div class="space-y-4 mt-5">
+              <p class="text-sm text-warning-600">
+                <svg class=" mb-2 text-orange-400 w-4 h-4 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24"
+                  height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                   stroke-linecap="round" stroke-linejoin="round">
                   <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
                   <path d="M12 9h.01"></path>
                   <path d="M11 12h1v4h1"></path>
-                </svg> Once you sign up, you will be able to fill out your profile in more depth. </p>
+                </svg>
+
+                If you are currently enrolled, you need inform your school that you are looking to be recruited. If you
+                have questions, email hello@recruited.pro and we will help!
+              </p>
             </div>
-            <div class="flex items-center justify-end">
+
+            <div class="space-y-4 mt-5">
+              <div class="flex items-center">
+                <input id="link-checkbox" type="checkbox" value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="link-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree
+                  with the <a href="#" class="text-blue-600 dark:text-blue-500 hover:underline">terms and
+                    conditions</a>.</label>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-end mt-6">
               <button type="button" class="text-white bg-blue-700 bg-primaryBlue hover:bg-blue-800 focus:outline-none focus:ring-4 
               focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 
               dark:hover:bg-blue-700 dark:focus:ring-blue-800">
