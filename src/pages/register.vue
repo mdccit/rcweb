@@ -7,11 +7,15 @@
 
 <script setup>
 import RegisterForm from '~/components/RegisterForm.vue';
-import { register } from '~/services/authService';
+import createAuthService from '~/services/authService';
+import { useRuntimeConfig } from '#app';
+
+const $config = useRuntimeConfig();
+const authService = createAuthService($config);
 
 const handleRegister = async (email, password) => {
   try {
-    const result = await register(email, password);
+    const result = await authService.register(email, password);
     console.log(result);
   } catch (error) {
     console.error(error.message);

@@ -3,12 +3,9 @@ import createApiService from './apiService';
 const createAuthService = ($config) => {
   const apiService = createApiService($config);
 
-  console.log("API Service Config:", $config);  // Add this log to check the config
   const login = async (email, password) => {
     const url = '/auth/login';
     const body = { email, password };
-
-    console.log("Login Request Body:", body);  // Add this log to check the body
 
     try {
       const response = await apiService.postRequest(url, body);

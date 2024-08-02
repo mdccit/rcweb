@@ -1,5 +1,6 @@
 import { defineNuxtConfig } from 'nuxt/config';
 import { resolve } from 'path';
+import vuetify from '@vuetify/vite-plugin'
 require('dotenv').config();
 
 export default defineNuxtConfig({
@@ -12,12 +13,11 @@ export default defineNuxtConfig({
   ],
   modules: [
     '@nuxtjs/tailwindcss',
-    '@pinia/nuxt',
   ],
   tailwindcss: {
-    configPath: '~/tailwind.config.js', // Specify the path to the Tailwind config file
+    configPath: '~/tailwind.config.js',
     viewer: false,
-    jit: true, 
+    jit: true,
   },
   postcss: {
     plugins: {
@@ -27,27 +27,24 @@ export default defineNuxtConfig({
   },
   pinia: {
     autoImports: [
-      // automatically imports `defineStore`
       'defineStore',
-      // automatically imports `storeToRefs`
       'storeToRefs',
     ],
+  },
   runtimeConfig: {
     public: {
       apiUrl: process.env.NUXT_PUBLIC_API_URL,
       accessKey: process.env.ACCESS_KEY,
       defaultLang: process.env.DEFAULT_LANG,
-    }
+    },
   },
   plugins: [
     '~/plugins/pinia.js',
     '~/plugins/initUser.js',
     '~/plugins/runtimeConfig.js',
+    '~/plugins/vuetify.ts',
   ],
-
-  build: {
-   
-  },
+  build: { transpile: ['vuetify'],},
   alias: {
     '@': resolve(__dirname, './src'),
     '~~': resolve(__dirname, './src'),
@@ -60,13 +57,6 @@ export default defineNuxtConfig({
     '@store': resolve(__dirname, './src/store'),
     '@assets': resolve(__dirname, './src/assets')
   },
-
-  css: [
-    '@nuxtjs/tailwindcss',
-    '@/assets/main.css',
-    'flowbite/dist/flowbite.css',
-  ],
-
   nitro: {
     prerender: {
       crawlLinks: true,
@@ -79,4 +69,4 @@ export default defineNuxtConfig({
   ],
 
   compatibilityDate: '2024-07-31',
-})
+});
