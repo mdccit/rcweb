@@ -53,7 +53,7 @@ import { useFetch } from '#app'
 const search = ref('')
 const headers = [
   { text: 'Flag', value: 'flag', sortable: false },
-  { text: 'Name', value: 'name', sortable: true },
+  { text: 'Name', value: 'name.common', sortable: true },
   { text: 'Population', value: 'population', sortable: true },
   { text: 'Region', value: 'region', sortable: true },
   { text: 'Capital', value: 'capital', sortable: true },
@@ -68,7 +68,6 @@ const options = ref({
 })
 const loading = ref(false)
 
-// Fetch data from the API
 const fetchData = async () => {
   loading.value = true
   try {
@@ -82,7 +81,6 @@ const fetchData = async () => {
   }
 }
 
-// Watch options and search to update filtered items
 watch([options, search], fetchData, { immediate: true })
 
 onMounted(fetchData)
@@ -98,7 +96,6 @@ const filteredItems = computed(() => {
     )
   }
 
-  // Sort items
   if (options.value.sortBy.length > 0) {
     filtered = filtered.sort((a, b) => {
       const sortKey = options.value.sortBy[0]
@@ -110,10 +107,8 @@ const filteredItems = computed(() => {
     })
   }
 
-  // Paginate items
   const start = (options.value.page - 1) * options.value.itemsPerPage
-  const end = start + options.value.itemsPerPage
-  return filtered.slice(start, end)
+  return filtered.slice(start, start + options.value.itemsPerPage)
 })
 
 const totalPages = computed(() => Math.ceil(totalItems.value / options.value.itemsPerPage))

@@ -4,14 +4,20 @@
     <p class="mb-2">Email: {{ email }}</p>
     <p>Token: {{ token }}</p>
   </div>
-  <div>
+  <!-- <div>
     <DataTable />
+  </div> -->
+
+  <div>
+    <h1>Image Upload with Crop and Resize</h1>
+    <ImageUpload />
   </div>
 </template>
 
 <script setup>
 import { useUserStore } from '~/stores/userStore';
-import DataTable from '~/components/DataTable.vue';
+// import DataTable from '~/components/EPDataTable.vue';
+import ImageUpload from '~/components/common/ImageUpload.vue'
 
 const userStore = useUserStore()
 

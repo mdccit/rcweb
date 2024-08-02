@@ -10,6 +10,7 @@ export default defineNuxtConfig({
   css: [
     '~/assets/main.css',
     'flowbite/dist/flowbite.css',
+    'element-plus/dist/index.css'
   ],
   modules: [
     '@nuxtjs/tailwindcss',
@@ -43,6 +44,7 @@ export default defineNuxtConfig({
     '~/plugins/initUser.js',
     '~/plugins/runtimeConfig.js',
     '~/plugins/vuetify.ts',
+    '~/plugins/element-plus.ts'
   ],
   build: { transpile: ['vuetify'],},
   alias: {
