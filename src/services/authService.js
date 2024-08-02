@@ -27,7 +27,42 @@ const createAuthService = ($config) => {
     }
   };
 
-  return { login, register };
+  const getGoogleAuthUrl = async () => {
+    const url = '/auth/google-auth-url';
+
+    try {
+      const response = await apiService.getRequest(url);
+      return response.data.authUrl;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to fetch Google auth URL');
+    }
+  };
+
+  const googleLogin = async (authCode) => {
+    const url = '/auth/google-login';
+    const body = { auth_code: authCode };
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to login with Google');
+    }
+  };
+
+  const googleRegister = async (authCode) => {
+    const url = '/auth/google-register';
+    const body = { auth_code: authCode };
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register with Google');
+    }
+  };
+
+  return { login, register, getGoogleAuthUrl, googleLogin, googleRegister };
 };
 
 export default createAuthService;

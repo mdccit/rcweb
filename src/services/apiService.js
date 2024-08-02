@@ -1,7 +1,6 @@
-const createApiService = ($config) => {
-  const baseUrl = $config.apiUrl;
-
-  console.log("Base URL in apiService:", baseUrl);  // Add this log to check the baseUrl
+const createApiService = (config) => {
+  // Destructure the properties from the config
+  const { apiUrl, accessKey, defaultLang } = config;
 
   const handleResponse = async (response) => {
     const data = await response.json();
@@ -14,12 +13,12 @@ const createApiService = ($config) => {
 
   const getHeaders = () => ({
     'Content-Type': 'application/json',
-    'access_key': $config.accessKey,
-    'lang': $config.defaultLang,
+    'access_key': accessKey,
+    'lang': defaultLang,
   });
 
   const getRequest = async (url) => {
-    const response = await fetch(`${baseUrl}${url}`, {
+    const response = await fetch(`${apiUrl}${url}`, {
       method: 'GET',
       headers: getHeaders(),
     });
@@ -27,8 +26,8 @@ const createApiService = ($config) => {
   };
 
   const postRequest = async (url, body) => {
-    console.log("Post Request Body:", body);  // Add this log to check the body
-    const response = await fetch(`${baseUrl}${url}`, {
+    console.log("Post Request Body:", body);
+    const response = await fetch(`${apiUrl}${url}`, {
       method: 'POST',
       headers: getHeaders(),
       body: JSON.stringify(body),
@@ -37,7 +36,7 @@ const createApiService = ($config) => {
   };
 
   const putRequest = async (url, body) => {
-    const response = await fetch(`${baseUrl}${url}`, {
+    const response = await fetch(`${apiUrl}${url}`, {
       method: 'PUT',
       headers: getHeaders(),
       body: JSON.stringify(body),
@@ -46,7 +45,7 @@ const createApiService = ($config) => {
   };
 
   const patchRequest = async (url, body) => {
-    const response = await fetch(`${baseUrl}${url}`, {
+    const response = await fetch(`${apiUrl}${url}`, {
       method: 'PATCH',
       headers: getHeaders(),
       body: JSON.stringify(body),
@@ -55,7 +54,7 @@ const createApiService = ($config) => {
   };
 
   const deleteRequest = async (url) => {
-    const response = await fetch(`${baseUrl}${url}`, {
+    const response = await fetch(`${apiUrl}${url}`, {
       method: 'DELETE',
       headers: getHeaders(),
     });

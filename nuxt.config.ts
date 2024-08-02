@@ -42,7 +42,8 @@ export default defineNuxtConfig({
   plugins: [
     '~/plugins/pinia.js',
     '~/plugins/initUser.js',
-    '~/plugins/runtimeConfig.js',
+    '~/plugins/apiConfig.js',
+    '~/plugins/apiService.js',
     '~/plugins/vuetify.ts',
     '~/plugins/element-plus.ts'
   ],
