@@ -1,22 +1,39 @@
-
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-@import 'flowbite';
-
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "flowbite";
 
 .radio-input {
-    width: 150px !important;
-  }
+  width: 150px !important;
+}
 
 .radio-tile {
-    width: 65%;
-  }
+  width: 65%;
+}
 
-  .radio-input:checked+.radio-tile {
-    background-color:blue;
-    /* transform: scale(1.1); */
-  }
-  .-mt-13{
-    margin-top: -3px;
-  }
+.tile-icon {
+  background-image: url("images/player-gray.png");
+  width: 33px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.radio-input:checked ~ .radio-tile {
+  background-color: #0085ff;
+  color: white;
+}
+
+.radio-input:checked ~ .tile-icon {
+  background-image: url("images/player-white.png") !important;
+  width: 33px;
+  height: 40px;
+  background-color: #ff0000;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 5;
+}
+
+.-mt-13 {
+  margin-top: -3px;
+}

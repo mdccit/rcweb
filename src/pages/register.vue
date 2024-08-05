@@ -111,7 +111,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-5">
-              <button type="button" class="text-white bg-blue-700 bg-primaryBlue hover:bg-blue-800 focus:outline-none focus:ring-4 
+              <button type="button" class="text-white  bg-blue-500  hover:bg-blue-800 focus:outline-none focus:ring-4 
               focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 
               dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Sign up now for free
@@ -152,7 +152,8 @@
               <div class="radio">
                 <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="player" type="radio" value="" name="default-radio">
                 <div class="radio-tile rounded-md flex flex-col items-center justify-center border border-gray-300 h-full transition-all duration-300 ease-in">
-                  <img class="mt-1" src="@/assets/images/coach_icon.png">
+                  <!-- <img class="mt-1" src="@/assets/images/coach_icon.png"> -->
+                  <div class="tile-icon"></div>
                   <label for="player" class="text-sm mb-2" >Player</label>
                 </div>
               </div>
@@ -354,7 +355,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-6">
-              <button type="button" class="text-white bg-blue-700 bg-primaryBlue hover:bg-blue-800 focus:outline-none focus:ring-4 
+              <button type="button" class="text-white bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-4 
               focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 
               dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Sign up now for free
