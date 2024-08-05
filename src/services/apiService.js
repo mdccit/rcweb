@@ -1,6 +1,11 @@
 const createApiService = (config) => {
+  // Ensure config is provided
+  if (!config) {
+    throw new Error('Configuration is not provided');
+  }
+
   // Destructure the properties from the config
-  const { apiUrl, accessKey, defaultLang } = config;
+  const { apiUrl, accessKey, defaultLang } = config;d
 
   const handleResponse = async (response) => {
     const data = await response.json();

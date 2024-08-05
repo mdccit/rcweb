@@ -35,14 +35,8 @@ import createAuthService from '~/services/authService'
 import { useRuntimeConfig } from '#app'
 import { useUserStore } from '~/stores/userStore'
 
-// Initialize runtime config
-const config = useRuntimeConfig().public;
-
-console.log('Component Config:', config); // Debugging log
-
 // Initialize auth service with the config
-const authService = createAuthService(config);
-
+const { $authService } = this;
 const error = ref('')
 const successMessage = ref('')
 const route = useRoute()
@@ -55,7 +49,7 @@ const initiateGoogleAuth = async (type) => {
   try {
     authType.value = type;
     localStorage.setItem('authType', type);
-    const authUrl = await authService.getGoogleAuthUrl();
+    const authUrl = await $authService.getGoogleAuthUrl();
     window.location.href = authUrl; // Redirect the user to the Google authentication URL
   } catch (err) {
     error.value = err.message;

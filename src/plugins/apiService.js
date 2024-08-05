@@ -1,15 +1,13 @@
 import createApiService from '~/services/apiService';
 
 export default defineNuxtPlugin((nuxtApp) => {
-  const config = nuxtApp.$apiConfig;
 
-  if (!config) {
-    console.error("Config is not provided!");
-    return;
+  const apiConfig = nuxtApp.$apiConfig; 
+  if (!apiConfig) {
+    throw new Error("Configuration is not provided");
   }
 
-  const apiService = createApiService(config);
-
+  const apiService = createApiService(apiConfig);
   // Make the apiService available globally
   nuxtApp.provide('apiService', apiService);
 });

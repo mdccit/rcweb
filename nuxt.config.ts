@@ -45,7 +45,8 @@ export default defineNuxtConfig({
     '~/plugins/initUser.js',
     '~/plugins/apiService.js',
     '~/plugins/vuetify.ts',
-    '~/plugins/element-plus.ts'
+    '~/plugins/element-plus.ts',
+    '~/plugins/authService.js',
   ],
   build: { transpile: ['vuetify'],},
   alias: {
@@ -62,7 +63,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     prerender: {
-      crawlLinks: true,
+      crawlLinks: false,
       routes: ['/'],
     },
   },
