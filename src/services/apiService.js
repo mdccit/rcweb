@@ -1,15 +1,10 @@
-// src/services/apiService.js
-
 const createApiService = (config) => {
-  // Ensure config is provided
   if (!config) {
     throw new Error('Configuration is not provided');
   }
 
-  // Destructure the properties from the config
   const { apiUrl, accessKey, defaultLang } = config;
 
-  // Response handler
   const handleResponse = async (response) => {
     const data = await response.json();
     if (!response.ok) {
@@ -19,9 +14,9 @@ const createApiService = (config) => {
     return data;
   };
 
-  // GET request method
   const getRequest = async (url) => {
     try {
+      console.log('getRequest called');
       const response = await fetch(`${apiUrl}${url}`, {
         method: 'GET',
         headers: {
@@ -36,7 +31,6 @@ const createApiService = (config) => {
     }
   };
 
-  // POST request method
   const postRequest = async (url, body) => {
     try {
       const response = await fetch(`${apiUrl}${url}`, {
@@ -54,7 +48,6 @@ const createApiService = (config) => {
     }
   };
 
-  // PUT request method
   const putRequest = async (url, body) => {
     try {
       const response = await fetch(`${apiUrl}${url}`, {
@@ -72,7 +65,6 @@ const createApiService = (config) => {
     }
   };
 
-  // DELETE request method
   const deleteRequest = async (url) => {
     try {
       const response = await fetch(`${apiUrl}${url}`, {
@@ -89,7 +81,6 @@ const createApiService = (config) => {
     }
   };
 
-  // PATCH request method
   const patchRequest = async (url, body) => {
     try {
       const response = await fetch(`${apiUrl}${url}`, {

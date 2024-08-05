@@ -1,13 +1,9 @@
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
+  moduleFileExtensions: ['js', 'jsx', 'json', 'vue', 'ts', 'tsx'],
   transform: {
     '^.+\\.vue$': 'vue-jest',
-    '^.+\\.jsx?$': 'babel-jest',
-    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.js$': 'babel-jest',
+    '^.+\\.ts$': 'ts-jest',
   },
-  moduleFileExtensions: ['js', 'jsx', 'json', 'vue', 'ts', 'tsx'],
-  testMatch: ['**/tests/unit/**/*.spec.[jt]s?(x)'],
-  collectCoverage: true,
-  collectCoverageFrom: ['**/*.{js,vue,ts}', '!**/node_modules/**'],
-};
+  testEnvironment: 'jsdom',
+}

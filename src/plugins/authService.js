@@ -1,9 +1,8 @@
-// src/plugins/authService.js
 import createAuthService from '@/services/authService';
 
 export default defineNuxtPlugin((nuxtApp) => {
   const apiService = nuxtApp.$apiService;
-  console.log('API Service in authService:', apiService); // Debug log
+  console.log('API Service in authService plugin:', apiService); // Debug log
   if (!apiService) {
     console.error("apiService is not available!");
     return;
