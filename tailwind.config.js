@@ -13,6 +13,7 @@ export default {
     colors: {
       black: '#000000',
       white: '#FFFFFF',
+      primary:'#0085FF',
       azureblue: '#0284c7',
       steelBlue: '#0085FF',//primary color
       lightSteelBlue: '#779BD8',
