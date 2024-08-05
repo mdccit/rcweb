@@ -38,6 +38,8 @@ import { useUserStore } from '~/stores/userStore'
 // Initialize runtime config
 const config = useRuntimeConfig().public;
 
+console.log('Component Config:', config); // Debugging log
+
 // Initialize auth service with the config
 const authService = createAuthService(config);
 

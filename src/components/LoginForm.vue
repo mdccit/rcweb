@@ -13,20 +13,40 @@
     </div>
   </form>
 </template>
-
 <script setup>
 import { ref } from 'vue';
+import createApiService from '~/services/apiService';
+import { useRuntimeConfig } from '#app';
+
+// Initialize runtime config
+const config = useRuntimeConfig();
+
+// Initialize API service with the config
+const apiService = createApiService(config);
 
 const email = ref('');
 const password = ref('');
+const error = ref('');
 
-const emit = defineEmits(['submit']);
-
-const submitForm = () => {
-  emit('submit', { email: email.value, password: password.value });
+const login = async () => {
+  try {
+    const url = '/auth/login';
+    const body = { email: email.value, password: password.value };
+    const response = await apiService.postRequest(url, body);
+    // Handle successful login, e.g., store token, redirect, etc.
+    console.log('Login successful:', response);
+  } catch (err) {
+    error.value = err.message || 'Login failed';
+  }
 };
 </script>
 
 <style scoped>
-/* Add your styles here */
+.login-form {
+  max-width: 300px;
+  margin: auto;
+}
+.error {
+  color: red;
+}
 </style>

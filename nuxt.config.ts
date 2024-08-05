@@ -1,7 +1,8 @@
 import { defineNuxtConfig } from 'nuxt/config';
 import { resolve } from 'path';
-import vuetify from '@vuetify/vite-plugin'
-require('dotenv').config();
+import vuetify from '@vuetify/vite-plugin';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -42,7 +43,6 @@ export default defineNuxtConfig({
   plugins: [
     '~/plugins/pinia.js',
     '~/plugins/initUser.js',
-    '~/plugins/apiConfig.js',
     '~/plugins/apiService.js',
     '~/plugins/vuetify.ts',
     '~/plugins/element-plus.ts'
