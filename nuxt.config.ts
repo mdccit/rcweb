@@ -41,12 +41,13 @@ export default defineNuxtConfig({
     },
   },
   plugins: [
+    '~/plugins/runtimeConfig.js', 
+    '~/plugins/apiService.js',    
+    '~/plugins/authService.js',
     '~/plugins/pinia.js',
     '~/plugins/initUser.js',
-    '~/plugins/apiService.js',
     '~/plugins/vuetify.ts',
     '~/plugins/element-plus.ts',
-    '~/plugins/authService.js',
   ],
   build: { transpile: ['vuetify'],},
   alias: {

@@ -1,3 +1,5 @@
+// src/services/apiService.js
+
 const createApiService = (config) => {
   // Ensure config is provided
   if (!config) {
@@ -5,8 +7,9 @@ const createApiService = (config) => {
   }
 
   // Destructure the properties from the config
-  const { apiUrl, accessKey, defaultLang } = config;d
+  const { apiUrl, accessKey, defaultLang } = config;
 
+  // Response handler
   const handleResponse = async (response) => {
     const data = await response.json();
     if (!response.ok) {
@@ -16,57 +19,101 @@ const createApiService = (config) => {
     return data;
   };
 
-  const getHeaders = () => ({
-    'Content-Type': 'application/json',
-    'access_key': accessKey,
-    'lang': defaultLang,
-  });
-
+  // GET request method
   const getRequest = async (url) => {
-    const response = await fetch(`${apiUrl}${url}`, {
-      method: 'GET',
-      headers: getHeaders(),
-    });
-    return handleResponse(response);
+    try {
+      const response = await fetch(`${apiUrl}${url}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'access_key': accessKey,
+          'lang': defaultLang,
+        },
+      });
+      return await handleResponse(response);
+    } catch (error) {
+      throw new Error(error.message || 'Error making GET request');
+    }
   };
 
+  // POST request method
   const postRequest = async (url, body) => {
-    console.log("Post Request Body:", body);
-    const response = await fetch(`${apiUrl}${url}`, {
-      method: 'POST',
-      headers: getHeaders(),
-      body: JSON.stringify(body),
-    });
-    return handleResponse(response);
+    try {
+      const response = await fetch(`${apiUrl}${url}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'access_key': accessKey,
+          'lang': defaultLang,
+        },
+        body: JSON.stringify(body),
+      });
+      return await handleResponse(response);
+    } catch (error) {
+      throw new Error(error.message || 'Error making POST request');
+    }
   };
 
+  // PUT request method
   const putRequest = async (url, body) => {
-    const response = await fetch(`${apiUrl}${url}`, {
-      method: 'PUT',
-      headers: getHeaders(),
-      body: JSON.stringify(body),
-    });
-    return handleResponse(response);
+    try {
+      const response = await fetch(`${apiUrl}${url}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'access_key': accessKey,
+          'lang': defaultLang,
+        },
+        body: JSON.stringify(body),
+      });
+      return await handleResponse(response);
+    } catch (error) {
+      throw new Error(error.message || 'Error making PUT request');
+    }
   };
 
-  const patchRequest = async (url, body) => {
-    const response = await fetch(`${apiUrl}${url}`, {
-      method: 'PATCH',
-      headers: getHeaders(),
-      body: JSON.stringify(body),
-    });
-    return handleResponse(response);
-  };
-
+  // DELETE request method
   const deleteRequest = async (url) => {
-    const response = await fetch(`${apiUrl}${url}`, {
-      method: 'DELETE',
-      headers: getHeaders(),
-    });
-    return handleResponse(response);
+    try {
+      const response = await fetch(`${apiUrl}${url}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'access_key': accessKey,
+          'lang': defaultLang,
+        },
+      });
+      return await handleResponse(response);
+    } catch (error) {
+      throw new Error(error.message || 'Error making DELETE request');
+    }
   };
 
-  return { getRequest, postRequest, putRequest, patchRequest, deleteRequest };
+  // PATCH request method
+  const patchRequest = async (url, body) => {
+    try {
+      const response = await fetch(`${apiUrl}${url}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'access_key': accessKey,
+          'lang': defaultLang,
+        },
+        body: JSON.stringify(body),
+      });
+      return await handleResponse(response);
+    } catch (error) {
+      throw new Error(error.message || 'Error making PATCH request');
+    }
+  };
+
+  return {
+    getRequest,
+    postRequest,
+    putRequest,
+    deleteRequest,
+    patchRequest,
+  };
 };
 
 export default createApiService;

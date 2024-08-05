@@ -29,20 +29,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import createAuthService from '~/services/authService'
-import { useRuntimeConfig } from '#app'
-import { useUserStore } from '~/stores/userStore'
+import { ref, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import { useUserStore } from '~/stores/userStore';
 
 // Initialize auth service with the config
-const { $authService } = this;
-const error = ref('')
-const successMessage = ref('')
-const route = useRoute()
-const router = useRouter()
-const userStore = useUserStore()
-const authType = ref('')
+const error = ref('');
+const successMessage = ref('');
+const route = useRoute();
+const router = useRouter();
+const userStore = useUserStore();
+const authType = ref('');
+
+// Access authService from the context
+const { $authService } = useNuxtApp();
+console.log('Auth Service in component:', $authService); // Debug log
 
 // Function to handle Google authentication
 const initiateGoogleAuth = async (type) => {
@@ -65,9 +66,9 @@ const handleGoogleAuthCallback = async () => {
     try {
       let response;
       if (type === 'login') {
-        response = await authService.googleLogin(code);
+        response = await $authService.googleLogin(code);
       } else {
-        response = await authService.googleRegister(code);
+        response = await $authService.googleRegister(code);
       }
       successMessage.value = response.display_message;
       const token = response.data.token;
