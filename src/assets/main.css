@@ -14,9 +14,13 @@
   }
 
   .radio-input:checked+.radio-tile {
-    background-color:blue;
+    background-color:primaryblue;
     /* transform: scale(1.1); */
   }
   .-mt-13{
     margin-top: -3px;
+  }
+
+  .icon-postion{
+    background-position: 0 0;
   }
