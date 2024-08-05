@@ -1,3 +1,5 @@
+// src/services/apiService.js
+
 const createApiService = (config) => {
   if (!config) {
     throw new Error('Configuration is not provided');
@@ -16,7 +18,6 @@ const createApiService = (config) => {
 
   const getRequest = async (url) => {
     try {
-      console.log('getRequest called');
       const response = await fetch(`${apiUrl}${url}`, {
         method: 'GET',
         headers: {

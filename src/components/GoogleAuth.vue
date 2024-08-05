@@ -33,6 +33,7 @@ import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 
+// Initialize auth service with the config
 const error = ref('');
 const successMessage = ref('');
 const route = useRoute();

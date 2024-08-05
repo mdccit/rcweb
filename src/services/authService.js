@@ -1,5 +1,5 @@
+// src/services/authService.js
 const createAuthService = (apiService) => {
-  console.log('apiService in createAuthService:', apiService); // Debug log
   const login = async (email, password) => {
     const url = '/auth/login';
     const body = { email, password };
