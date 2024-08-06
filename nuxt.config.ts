@@ -1,6 +1,5 @@
 import { defineNuxtConfig } from 'nuxt/config';
 import { resolve } from 'path';
-import vuetify from '@vuetify/vite-plugin';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -48,7 +47,7 @@ export default defineNuxtConfig({
     '~/plugins/vuetify.ts',
     '~/plugins/element-plus.ts',
   ],
-  build: { transpile: ['vuetify'],},
+  build: { transpile: ['vuetify']},
   alias: {
     '@': resolve(__dirname, './src'),
     '~~': resolve(__dirname, './src'),
@@ -73,4 +72,11 @@ export default defineNuxtConfig({
   ],
 
   compatibilityDate: '2024-07-31',
+  vite:{
+    server: {
+      hmr: {
+        overlay: false,
+      },
+    },
+  }
 });

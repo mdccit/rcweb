@@ -29,7 +29,7 @@ const createAuthService = (apiService) => {
 
     try {
       const response = await apiService.getRequest(url);
-      return response.authUrl; // Assuming response contains authUrl directly
+      return response.data.authUrl; 
     } catch (error) {
       throw new Error(error.message || 'Failed to fetch Google auth URL');
     }

@@ -4,14 +4,12 @@
     <div class="flex justify-center space-x-4">
       <button
         class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        @click="initiateGoogleAuth('login')"
-      >
+        @click="initiateGoogleAuth('login')">
         Continue with Google (Login)
       </button>
       <button
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        @click="initiateGoogleAuth('register')"
-      >
+        @click="initiateGoogleAuth('register')">
         Continue with Google (Register)
       </button>
     </div>
@@ -30,27 +28,27 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
+import { useNuxtApp } from '#app';
 
 // Initialize auth service with the config
 const error = ref('');
 const successMessage = ref('');
-const route = useRoute();
 const router = useRouter();
 const userStore = useUserStore();
 const authType = ref('');
 
 // Access authService from the context
-const { $authService } = useNuxtApp();
-console.log('Auth Service in component:', $authService); // Debug log
-
+const nuxtApp = useNuxtApp();
+const $authService = nuxtApp.$authService;
 // Function to handle Google authentication
 const initiateGoogleAuth = async (type) => {
   try {
     authType.value = type;
     localStorage.setItem('authType', type);
     const authUrl = await $authService.getGoogleAuthUrl();
+    console.log(authUrl);
     window.location.href = authUrl; // Redirect the user to the Google authentication URL
   } catch (err) {
     error.value = err.message;
@@ -83,8 +81,12 @@ const handleGoogleAuthCallback = async () => {
   }
 };
 
-// Call handleGoogleAuthCallback when the component is mounted
-onMounted(handleGoogleAuthCallback);
+onMounted(() => {
+  console.log("component mounted");
+});
+
+// // Call handleGoogleAuthCallback when the component is mounted
+// onMounted(handleGoogleAuthCallback);
 </script>
 
 <style scoped>
