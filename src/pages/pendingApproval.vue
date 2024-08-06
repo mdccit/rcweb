@@ -19,9 +19,6 @@
                     Go back to Home
                 </button>
                 </div>
-
-               
-
             </div>
         </div>
     </div>
