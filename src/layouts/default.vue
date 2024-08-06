@@ -2,7 +2,7 @@
   <div>
     <Navbar />
     <LoadingSpinner v-if="loading" />
-    <main v-else>
+    <main class="min-h-screen bg-gray-100" v-else>
       <NuxtPage />
     </main>
   </div>

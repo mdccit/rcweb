@@ -3,3 +3,24 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import 'flowbite';
+
+
+.radio-input {
+    width: 150px !important;
+  }
+
+.radio-tile {
+    width: 65%;
+  }
+
+  .radio-input:checked+.radio-tile {
+    background-color:primaryblue;
+    /* transform: scale(1.1); */
+  }
+  .-mt-13{
+    margin-top: -3px;
+  }
+
+  .icon-postion{
+    background-position: 0 0;
+  }
