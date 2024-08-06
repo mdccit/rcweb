@@ -8,34 +8,19 @@ export default defineNuxtConfig({
   css: [
     '~/assets/main.css',
     'flowbite/dist/flowbite.css',
+    'element-plus/dist/index.css',
+    '@nuxtjs/tailwindcss',
+    'flowbite/dist/flowbite.css',
   ],
   modules: [
     '@nuxtjs/tailwindcss',
   ],
-  tailwindcss: {
-    configPath: '~/tailwind.config.js', // Specify the path to the Tailwind config file
-    viewer: false,
-  },
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
-  },
-
+  
   plugins: [
     '~/plugins/pinia.js',
     '~/plugins/initUser.js',
+    '~/plugins/element-plus.ts'
   ],
-
-  build: {
-    rollupOptions: {
-      external: [],
-    },
-    extend(config, { isDev, isClient }) {
-      // Extend webpack config if necessary
-    },
-  },
   alias: {
     '@': resolve(__dirname, './src'),
     '~~': resolve(__dirname, './src'),
@@ -49,12 +34,6 @@ export default defineNuxtConfig({
     '@assets': resolve(__dirname, './src/assets')
   },
 
-  css: [
-    '@nuxtjs/tailwindcss',
-    '@/assets/main.css',
-    'flowbite/dist/flowbite.css',
-  ],
-
   nitro: {
     prerender: {
       crawlLinks: true,
@@ -63,4 +42,12 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2024-07-31',
+
+  vite:{
+    server: {
+      hmr: {
+        overlay: false,
+      },
+    },
+  }
 })

@@ -16,13 +16,15 @@
   "dependencies": {
     "@nuxt/eslint": "^0.3.13",
     "@nuxtjs/eslint-module": "^4.1.0",
+    "@popperjs/core": "^2.9.3",
+    "element-plus": "^2.7.8",
     "nuxt": "^3.11.2",
     "pinia": "^2.2.0",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^6.12.0",
+    "@nuxtjs/tailwindcss": "^6.12.1",
     "ajv": "^7.2.4",
     "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",

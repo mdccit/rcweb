@@ -174,7 +174,7 @@
             tennis players and coaches worldwide. We are here to help you get noticed and connect with the right people.
           </p>
         </div>
-        
+
         <div class="flex-1 self-center">
           <div class="flex flex-col gap-4">
             <p><svg class="w-6 h-6 mr-4 inline-block" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -228,10 +228,13 @@
       </div>
     </section>
   </div>
+
+  <EPDataTable/>
 </template>
 
 <script setup>
 import { useUserStore } from '~/stores/userStore'
+import {EPDataTable} from '~/components/EPDataTable.vue'
 
 const userStore = useUserStore()
 
