@@ -233,9 +233,8 @@
 </template>
 
 <script setup>
-import { useUserStore } from '~/stores/userStore'
-import {EPDataTable} from '~/components/EPDataTable.vue'
-
+import { useUserStore } from '~/stores/userStore';
+import EPDataTable from '~/components/EPDataTable.vue';
 const userStore = useUserStore()
 
 const email = userStore.user?.email

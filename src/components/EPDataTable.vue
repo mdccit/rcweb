@@ -115,6 +115,12 @@ const handlePageChange = (newPage) => {
 }
 </script>
 
+<script>
+export default {
+  name: 'EPDataTable'
+}
+</script>
+
 <style scoped>
 .el-card {
   padding: 20px;

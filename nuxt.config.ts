@@ -7,9 +7,7 @@ export default defineNuxtConfig({
   ssr: true,
   css: [
     '~/assets/main.css',
-    'flowbite/dist/flowbite.css',
     'element-plus/dist/index.css',
-    '@nuxtjs/tailwindcss',
     'flowbite/dist/flowbite.css',
   ],
   modules: [
