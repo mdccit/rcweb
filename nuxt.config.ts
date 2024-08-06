@@ -1,5 +1,7 @@
 import { defineNuxtConfig } from 'nuxt/config';
 import { resolve } from 'path';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -7,14 +9,17 @@ export default defineNuxtConfig({
   ssr: true,
   css: [
     '~/assets/main.css',
+    'element-plus/dist/index.css',
     'flowbite/dist/flowbite.css',
+    'element-plus/dist/index.css'
   ],
   modules: [
     '@nuxtjs/tailwindcss',
   ],
   tailwindcss: {
-    configPath: '~/tailwind.config.js', // Specify the path to the Tailwind config file
+    configPath: '~/tailwind.config.js',
     viewer: false,
+    jit: true,
   },
   postcss: {
     plugins: {
@@ -22,20 +27,27 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-
-  plugins: [
-    '~/plugins/pinia.js',
-    '~/plugins/initUser.js',
-  ],
-
-  build: {
-    rollupOptions: {
-      external: [],
-    },
-    extend(config, { isDev, isClient }) {
-      // Extend webpack config if necessary
+  pinia: {
+    autoImports: [
+      'defineStore',
+      'storeToRefs',
+    ],
+  },
+  runtimeConfig: {
+    public: {
+      apiUrl: process.env.NUXT_PUBLIC_API_URL,
+      accessKey: process.env.ACCESS_KEY,
+      defaultLang: process.env.DEFAULT_LANG,
     },
   },
+  plugins: [
+    '~/plugins/runtimeConfig.js',
+    '~/plugins/services.js', // Ensure this is listed here
+    '~/plugins/pinia.js',
+    '~/plugins/initUser.js',
+    '~/plugins/element-plus.ts',
+  ],
+  build: {},
   alias: {
     '@': resolve(__dirname, './src'),
     '~~': resolve(__dirname, './src'),
@@ -48,19 +60,23 @@ export default defineNuxtConfig({
     '@store': resolve(__dirname, './src/store'),
     '@assets': resolve(__dirname, './src/assets')
   },
-
-  css: [
-    '@nuxtjs/tailwindcss',
-    '@/assets/main.css',
-    'flowbite/dist/flowbite.css',
-  ],
-
   nitro: {
     prerender: {
-      crawlLinks: true,
+      crawlLinks: false,
       routes: ['/'],
     },
   },
+  buildModules: [
+    '@nuxtjs/tailwindcss',
+    '@pinia/nuxt',
+  ],
 
   compatibilityDate: '2024-07-31',
-})
+  vite:{
+    server: {
+      hmr: {
+        overlay: false,
+      },
+    },
+  }
+});
