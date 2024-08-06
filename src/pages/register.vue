@@ -402,4 +402,18 @@
 <script setup>
 import RegisterForm from '~/components/RegisterForm.vue';
 // import googleIcon from '@/assets/images/google_icon.png';
+import createAuthService from '~/services/authService';
+import { useRuntimeConfig } from '#app';
+
+const $config = useRuntimeConfig();
+const authService = createAuthService($config);
+
+const handleRegister = async (email, password) => {
+  try {
+    const result = await authService.register(email, password);
+    console.log(result);
+  } catch (error) {
+    console.error(error.message);
+  }
+};
 </script>

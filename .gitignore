@@ -29,4 +29,5 @@ setup.sh
 pnpm-lock.yaml
 package-lock.json
 
+#test
 coverage/*

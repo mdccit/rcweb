@@ -159,40 +159,31 @@
   </nav>
 </template>
 
-<script>
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/userStore';
 
-export default {
-  setup() {
-    const userStore = useUserStore();
-    const router = useRouter()
+const userStore = useUserStore();
+const router = useRouter();
 
     const isLoggedIn = computed(() => !!userStore.user?.token)
     const token = computed(() => userStore.token)
 
-    const login = () => {
-      // Handle login logic
-      router.push('/login')
-    };
+onMounted(() => {
+  userStore.initializeUser();
+});
 
-    const register = () => {
-      router.push('/register')
-    };
+const login = () => {
+  router.push('/login');
+};
 
-    const logout = () => {
-      // Handle logout logic
-      userStore.clearUser();
-    };
+const register = () => {
+  router.push('/register');
+};
 
-    return {
-      login,
-      register,
-      logout,
-      isLoggedIn: userStore.isLoggedIn,
-    };
-  },
+const logout = () => {
+  userStore.clearUser();
 };
 </script>
 

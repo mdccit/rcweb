@@ -229,12 +229,15 @@
     </section>
   </div>
 
-  <EPDataTable/>
+  <div>
+    <EPDataTable />
+  </div>
 </template>
 
 <script setup>
 import { useUserStore } from '~/stores/userStore';
-import EPDataTable from '~/components/EPDataTable.vue';
+import  EPDataTable from '~/components/EPDataTable.vue';
+
 const userStore = useUserStore()
 
 const email = userStore.user?.email

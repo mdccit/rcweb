@@ -1,21 +1,71 @@
-export const login = async (email, password) => {
-  const url = `${process.env.NUXT_PUBLIC_API_URL}/auth/login`
-  const headers = {
-    'access_key': process.env.ACCESS_KEY,
-    'lang': process.env.DEFAULT_LANG,
-    'Content-Type': 'application/json',
-  }
+// src/services/authService.js
+const createAuthService = (apiService) => {
+  const login = async (email, password) => {
+    const url = '/auth/login';
+    const body = { email, password };
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: headers,
-    body: JSON.stringify({ email, password }),
-  })
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to login');
+    }
+  };
 
-  if (!response.ok) {
-    const error = await response.json()
-    throw new Error(error.message || 'Failed to login')
-  }
+  const register = async (email, password) => {
+    const url = '/auth/register';
+    const body = { email, password };
 
-  return await response.json()
-}
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const getGoogleAuthUrl = async () => {
+    const url = '/auth/google-auth-url';
+
+    try {
+      const response = await apiService.getRequest(url);
+      return response.data.authUrl; 
+    } catch (error) {
+      throw new Error(error.message || 'Failed to fetch Google auth URL');
+    }
+  };
+
+  const googleLogin = async (authCode) => {
+    const url = '/auth/google-login';
+    const body = { auth_code: authCode };
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to login with Google');
+    }
+  };
+
+  const googleRegister = async (authCode) => {
+    const url = '/auth/google-register';
+    const body = { auth_code: authCode };
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register with Google');
+    }
+  };
+
+  return {
+    login,
+    register,
+    getGoogleAuthUrl,
+    googleLogin,
+    googleRegister,
+  };
+};
+
+export default createAuthService;

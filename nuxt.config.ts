@@ -1,5 +1,7 @@
 import { defineNuxtConfig } from 'nuxt/config';
 import { resolve } from 'path';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -9,16 +11,43 @@ export default defineNuxtConfig({
     '~/assets/main.css',
     'element-plus/dist/index.css',
     'flowbite/dist/flowbite.css',
+    'element-plus/dist/index.css'
   ],
   modules: [
     '@nuxtjs/tailwindcss',
   ],
-  
+  tailwindcss: {
+    configPath: '~/tailwind.config.js',
+    viewer: false,
+    jit: true,
+  },
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
+  pinia: {
+    autoImports: [
+      'defineStore',
+      'storeToRefs',
+    ],
+  },
+  runtimeConfig: {
+    public: {
+      apiUrl: process.env.NUXT_PUBLIC_API_URL,
+      accessKey: process.env.ACCESS_KEY,
+      defaultLang: process.env.DEFAULT_LANG,
+    },
+  },
   plugins: [
+    '~/plugins/runtimeConfig.js',
+    '~/plugins/services.js', // Ensure this is listed here
     '~/plugins/pinia.js',
     '~/plugins/initUser.js',
-    '~/plugins/element-plus.ts'
+    '~/plugins/element-plus.ts',
   ],
+  build: {},
   alias: {
     '@': resolve(__dirname, './src'),
     '~~': resolve(__dirname, './src'),
@@ -31,16 +60,18 @@ export default defineNuxtConfig({
     '@store': resolve(__dirname, './src/store'),
     '@assets': resolve(__dirname, './src/assets')
   },
-
   nitro: {
     prerender: {
-      crawlLinks: true,
+      crawlLinks: false,
       routes: ['/'],
     },
   },
+  buildModules: [
+    '@nuxtjs/tailwindcss',
+    '@pinia/nuxt',
+  ],
 
   compatibilityDate: '2024-07-31',
-
   vite:{
     server: {
       hmr: {
@@ -48,4 +79,4 @@ export default defineNuxtConfig({
       },
     },
   }
-})
+});
