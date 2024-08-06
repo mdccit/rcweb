@@ -19,7 +19,6 @@
     "@nuxt/eslint": "^0.3.13",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@pinia/nuxt": "^0.5.2",
-    "@vuetify/vite-plugin": "1.0.0-alpha.11",
     "@vueuse/core": "^10.11.0",
     "cropperjs": "^1.6.2",
     "dotenv": "^16.4.5",
@@ -30,8 +29,7 @@
     "vue": "^3.4.35",
     "vue-cropperjs": "^5.0.0",
     "vue-router": "^4.4.1",
-    "vue-toastification": "^1.7.14",
-    "vuetify": "^3.6.14"
+    "vue-toastification": "^1.7.14"
   },
   "devDependencies": {
     "@nuxt/types": "^2.18.1",

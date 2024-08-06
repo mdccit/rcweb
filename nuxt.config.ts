@@ -44,10 +44,9 @@ export default defineNuxtConfig({
     '~/plugins/services.js', // Ensure this is listed here
     '~/plugins/pinia.js',
     '~/plugins/initUser.js',
-    '~/plugins/vuetify.ts',
     '~/plugins/element-plus.ts',
   ],
-  build: { transpile: ['vuetify']},
+  build: {},
   alias: {
     '@': resolve(__dirname, './src'),
     '~~': resolve(__dirname, './src'),

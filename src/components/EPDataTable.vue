@@ -65,6 +65,7 @@
 import { ref, watch, computed, onMounted } from 'vue'
 import { useFetch } from '#app'
 
+
 const search = ref('')
 const items = ref([])
 const totalItems = ref(0)
@@ -112,6 +113,12 @@ const filteredItems = computed(() => {
 
 const handlePageChange = (newPage) => {
   options.value.page = newPage
+}
+</script>
+
+<script>
+export default {
+  name: 'EPDataTable'
 }
 </script>
 

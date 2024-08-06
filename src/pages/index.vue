@@ -4,10 +4,15 @@
     <p class="mb-2">Email: {{ email }}</p>
     <p>Token: {{ token }}</p>
   </div>
+
+  <div>
+    <EPDataTable />
+  </div>
 </template>
 
 <script setup>
-import { useUserStore } from '~/stores/userStore'
+import { useUserStore } from '~/stores/userStore';
+import  EPDataTable from '~/components/EPDataTable.vue';
 
 const userStore = useUserStore()
 
