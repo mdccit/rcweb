@@ -12,6 +12,19 @@ const createAuthService = (apiService) => {
     }
   };
 
+  const logout = async (request_body) => {
+    const url = '/auth/logout';
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to Logout');
+    }
+  };
+
+
   const register = async (request_body) => {
     const url = '/auth/register';
     const body = request_body;

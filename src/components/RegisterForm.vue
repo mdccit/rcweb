@@ -37,20 +37,26 @@
         <!-- Form -->
         <form @submit.prevent="handleSubmit" class="pt-4">
           <fieldset>
-            <div v-if="error" class="mb-4 text-red-600">{{ error }}</div>
+            <div v-if="errors && errors.length" class="mb-4 text-red-600">
+              <ul>
+                <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+              </ul>
+            </div>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2">
               <div class="space-y-4">
                 <div>
-                  <label for="firstname" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">First name</label>
-                  <input type="text" id="firstname" v-model="firstname"
+                  <label for="firstname" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">First
+                    name</label>
+                  <input type="text" id="firstname" v-model="firstname" autocomplete="given-name"
                     class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="John" required />
                 </div>
               </div>
               <div class="space-y-4">
                 <div>
-                  <label for="lastname" class="font-normal block mb-2 text-sm text-gray-900 dark:text-white">Last name</label>
-                  <input type="text" id="lastname" v-model="lastname"
+                  <label for="lastname" class="font-normal block mb-2 text-sm text-gray-900 dark:text-white">Last
+                    name</label>
+                  <input type="text" id="lastname" v-model="lastname" autocomplete="family-name"
                     class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Carter" required />
                 </div>
@@ -59,8 +65,9 @@
 
             <div class="space-y-4">
               <div class="pt-2">
-                <label for="email" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Email address</label>
-                <input type="email" id="email" v-model="email"
+                <label for="email" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Email
+                  address</label>
+                <input type="email" id="email" v-model="email" autocomplete="email"
                   class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="john.doe@company.com" required />
               </div>
@@ -69,16 +76,18 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2 pt-3">
               <div class="space-y-4">
                 <div>
-                  <label for="password" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Password</label>
-                  <input type="password" id="password" v-model="password"
+                  <label for="password"
+                    class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Password</label>
+                  <input type="password" id="password" v-model="password" autocomplete="new-password"
                     class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="•••••••••" required />
                 </div>
               </div>
               <div>
                 <div>
-                  <label for="confirmPassword" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Confirm password</label>
-                  <input type="password" id="confirmPassword" v-model="confirmPassword"
+                  <label for="confirmPassword"
+                    class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Confirm password</label>
+                  <input type="password" id="confirmPassword" v-model="confirmPassword" autocomplete="new-password"
                     class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="•••••••••" required />
                 </div>
@@ -125,6 +134,7 @@ const password = ref('');
 const confirmPassword = ref('');
 const error = ref('');
 const successMessage = ref('');
+const errors = ref([]);
 
 const userStore = useUserStore();
 const router = useRouter();
@@ -134,8 +144,11 @@ const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 
 const handleSubmit = async () => {
+  console.log('submitting');
+  errors.value = [];
   if (password.value !== confirmPassword.value) {
-    error.value = 'Passwords do not match';
+    errors.value.push('Passwords do not match');
+    console.log(error.value);
     return;
   }
   try {
@@ -148,16 +161,24 @@ const handleSubmit = async () => {
     });
 
     if (response.status === 200) {
-      userStore.setUser({    
+      userStore.setUser({
         token: response.data.token
       });
       localStorage.setItem('token', response.data.token);
       router.push(`/register-step-2/${response.data.user_id}`);
     } else {
-      error.value = response.data.display_message;
+      errors.value.push(response.data.display_message);
     }
   } catch (err) {
-    error.value = err.response?.data?.message || err.message;
+    if (err.response?.data?.message) {
+      if (Array.isArray(err.response.data.message)) {
+        errors.value = err.response.data.message;
+      } else {
+        errors.value = [err.response.data.message];
+      }
+    } else {
+      errors.value = [err.response?.data?.message || err.message];
+    }
   }
 };
 </script>
