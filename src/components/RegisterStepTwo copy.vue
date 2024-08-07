@@ -56,10 +56,11 @@
             <div class="space-y-4">
               <div>
                 <label for="country" class="font-normal block mb-2 text-sm text-gray-900 dark:text-white">Country *</label>
-                <CountryDropdown :countries="countries" v-model="selectedCountry" />
-                <!-- <select v-model="country" class="bg-gray-50 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50" id="country" required>
-                  <option v-for="country in countries" :key="country.code" :value="country.code">{{ country.name }}</option>
-                </select> -->
+                <select v-model="country" class="bg-gray-50 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50" id="country" required>
+                  <option value="country1">Country 1</option>
+                  <option value="country2">Country 2</option>
+                  <option value="country3">Country 3</option>
+                </select>
               </div>
             </div>
 
@@ -186,13 +187,10 @@
   </div>
 </template>
 
-
 <script setup>
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import authService from '~/services/authService';
-import { loadCountryList } from '~/services/commonService';
-import CountryDropdown from '~/components/common/select/CountryDropdown.vue';
 
 const role = ref('');
 const country = ref('');
@@ -211,18 +209,8 @@ const notEnrolled = ref(false);
 const termsAccepted = ref(false);
 const error = ref('');
 const route = useRoute();
-
-const selectedCountry = ref(null);
-const countries = ref([]);
 const router = useRouter();
 const userId = route.params.userId;
-
-const roles = [
-  { value: 'player', label: 'Player', icon: '@/assets/images/player_icon.png' },
-  { value: 'coach', label: 'Coach', icon: '@/assets/images/coach_icon.png' },
-  { value: 'parent', label: 'Parent', icon: '@/assets/images/parent_icon.png' },
-  { value: 'business', label: 'Business', icon: '@/assets/images/business_icon.png' }
-];
 
 const commonFields = [
   { id: 'country', label: 'Country', type: 'select', model: country, options: [{ value: 'country1', label: 'Country 1' }, { value: 'country2', label: 'Country 2' }, { value: 'country3', label: 'Country 3' }] },
@@ -317,18 +305,6 @@ const handleSubmitStep2 = async () => {
     error.value = err.response?.data?.message || err.message;
   }
 };
-
-onMounted(async () => {
-  try {
-    console.log('loading countries');
-    const response = await loadCountryList();
-    countries.value = response.data.countries;
-    console.log('countries loading : '); 
-    console.log(countries.value);
-  } catch (err) {
-    error.value = 'Failed to load country list';
-  }
-});
 </script>
 
 <style scoped>
