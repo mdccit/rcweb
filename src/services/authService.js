@@ -12,9 +12,9 @@ const createAuthService = (apiService) => {
     }
   };
 
-  const register = async (email, password) => {
+  const register = async (request_body) => {
     const url = '/auth/register';
-    const body = { email, password };
+    const body = request_body;
 
     try {
       const response = await apiService.postRequest(url, body);
