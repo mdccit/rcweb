@@ -1,6 +1,12 @@
 <template>
-    <div>
-      <EPDataTable />
+    <div class="p-5 card">
+      <div class="mb-3">
+            <h1> <b>Moderation</b> </h1>
+        </div>
+        <div class="p-8">
+          <EPDataTable />
+        </div>
+     
     </div>
   </template>
   
