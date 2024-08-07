@@ -1,13 +1,13 @@
 <template>
-      <RegisterForm />
+    <RegisterForm />
 </template>
 
 <script setup>
-import RegisterForm from '~/components/RegisterForm.vue';
+import RegisterForm from '~/components/RegisterStepTwo.vue';
 </script>
 
 <style scoped>
-.register-container {
+.form-container {
   max-width: 600px;
   margin: auto;
   padding: 1rem;

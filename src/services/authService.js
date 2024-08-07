@@ -12,15 +12,41 @@ const createAuthService = (apiService) => {
     }
   };
 
-  const register = async (email, password) => {
+  const logout = async (request_body) => {
+    const url = '/auth/logout';
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to Logout');
+    }
+  };
+
+
+  const register = async (request_body) => {
     const url = '/auth/register';
-    const body = { email, password };
+    const body = request_body;
 
     try {
       const response = await apiService.postRequest(url, body);
       return response;
     } catch (error) {
       throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+
+  const registerStep2 = async (userDetails) => {
+    const url = '/auth/register-step-2';
+    const body = userDetails;
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Failed to register 2');
     }
   };
 
@@ -62,6 +88,7 @@ const createAuthService = (apiService) => {
   return {
     login,
     register,
+    registerStep2,
     getGoogleAuthUrl,
     googleLogin,
     googleRegister,
