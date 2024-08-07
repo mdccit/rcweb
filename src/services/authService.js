@@ -24,6 +24,19 @@ const createAuthService = (apiService) => {
     }
   };
 
+
+  const registerStep2 = async (userDetails) => {
+    const url = '/auth/register-step-2';
+    const body = userDetails;
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Failed to register 2');
+    }
+  };
+
   const getGoogleAuthUrl = async () => {
     const url = '/auth/google-auth-url';
 
@@ -62,6 +75,7 @@ const createAuthService = (apiService) => {
   return {
     login,
     register,
+    registerStep2,
     getGoogleAuthUrl,
     googleLogin,
     googleRegister,

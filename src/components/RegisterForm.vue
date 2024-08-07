@@ -20,7 +20,7 @@
                 <path d="M15 6l-6 6l6 6"></path>
               </svg> <span class="sr-only">Go back</span></a></div>
           <div class="self-center">
-            <h1 class="text-2xl font-bold text-primary"> Let's sign up!</h1>
+            <h1 class="text-2xl font-bold text-primary">Let's sign up!</h1>
           </div>
         </div>
         <div class="w-full">
@@ -29,31 +29,27 @@
               focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400
                dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
 
-            <span><img class="absolute -mt-13" src="@/assets/images/google_icon.png"></span>Sign up with google</button>
-
+            <span><img class="absolute -mt-13" src="@/assets/images/google_icon.png"></span>Sign up with Google</button>
         </div>
         <div class="w-full pt-4">
           <hr>
         </div>
         <!-- Form -->
-        <form data-splade-id="AMBdDdQhgroJnNm0" method="POST" class="pt-4">
+        <form @submit.prevent="handleSubmit" class="pt-4">
           <fieldset>
-          
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2">
               <div class="space-y-4">
-
                 <div>
                   <label for="first_name" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">First
                     name</label>
-                  <input type="text" id="firstname"   v-model="firstname"
+                  <input type="text" id="firstname" v-model="firstname"
                     class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="John" required />
                 </div>
-
               </div>
               <div class="space-y-4">
                 <div>
-                  <label for="first_name" class=" font-normal block mb-2 text-sm text-gray-900 dark:text-white">Last
+                  <label for="first_name" class="font-normal block mb-2 text-sm text-gray-900 dark:text-white">Last
                     name</label>
                   <input type="text" id="lastname" v-model="lastname"
                     class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -75,21 +71,16 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2 pt-3">
               <div class="space-y-4">
                 <div class="">
-                  <label for="password"
-                    class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Password</label>
-
-
-                  <input type="password" id="password"  v-model="password"
+                  <label for="password" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Password</label>
+                  <input type="password" id="password" v-model="password"
                     class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="•••••••••" required />
                 </div>
               </div>
               <div class="">
                 <div class="">
-
-                  <label for="confirmPassword"
-                    class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Confirm password</label>
-                  <input type="password" id="confirmPassword"  v-model="confirmPassword"
+                  <label for="confirmPassword" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Confirm password</label>
+                  <input type="password" id="confirmPassword" v-model="confirmPassword"
                     class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="•••••••••" required />
                 </div>
@@ -105,13 +96,12 @@
                   <path d="M12 9h.01"></path>
                   <path d="M11 12h1v4h1"></path>
                 </svg>
-
                 Once you sign up, you will be able to fill out your profile in more depth.
               </p>
             </div>
 
             <div class="flex items-center justify-end mt-5">
-              <button type="button" @click="handleSubmit()" class="text-white  bg-blue-500  hover:bg-blue-800 focus:outline-none focus:ring-4 
+              <button type="submit"  class="text-white bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-4 
               focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 
               dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Sign up now for free
@@ -120,282 +110,7 @@
           </fieldset>
         </form>
       </div>
-
-
-      <!-- STEP 2  -->
-
-      <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg soverflow-hidden sm:max-w-4xl">
-        <div class="flex items-center space-x-4 ">
-          <div class="flex self-center items-center"><a href="https://qa1.recruited.qualitapps.com/login"
-              class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full"><svg class="w-4 h-4"
-                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M15 6l-6 6l6 6"></path>
-              </svg> <span class="sr-only">Go back</span></a></div>
-          <div class="self-center">
-            <h1 class="text-2xl font-bold text-primary">Let’s get started !</h1>
-          </div>
-        </div>
-        <div class="w-full">
-
-          <!-- <img src="src/assets/images/google_icon.png"> -->
-        </div>
-        <!-- Form -->
-        <form data-splade-id="AMBdDdQhgroJnNm0" method="POST" class="pt-4">
-          <fieldset>
-
-            <div>
-              <label for="first_name" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">I am</label>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-4">
-
-              <div class="radio">
-                <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="player" type="radio" value="" name="default-radio">
-                <div class="radio-tile rounded-md flex flex-col items-center justify-center border border-gray-300 h-full transition-all duration-300 ease-in">
-                  <!-- <img class="mt-1" src="@/assets/images/coach_icon.png"> -->
-                  <div class="tile-icon"></div>
-                  <label for="player" class="text-sm mb-2" >Player</label>
-                </div>
-              </div>
-              <div class="radio">
-                <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="coach" type="radio" value="" name="default-radio">
-                <div class="radio-tile rounded-md flex flex-col items-center justify-center border border-gray-300 h-full transition-all duration-300 ease-in">
-                  <img class="mt-1" src="@/assets/images/coach_icon.png">
-                  <label for="coach" class="text-sm mb-2" >Coach</label>
-                </div>
-              </div>
-              <div class="radio">
-                <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="parent" type="radio" value="" name="default-radio">
-                <div class="radio-tile rounded-md flex flex-col items-center justify-center border border-gray-300 h-full transition-all duration-300 ease-in">
-                  <img class="mt-1" src="@/assets/images/coach_icon.png">
-                  <label for="parent" class="text-sm mb-2" >Parent</label>
-                </div>
-              </div>
-              <div class="radio">
-                <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="business" type="radio" value="" name="default-radio">
-                <div class="radio-tile rounded-md flex flex-col items-center justify-center border border-gray-300 h-full transition-all duration-300 ease-in">
-                  <img class="mt-1" src="@/assets/images/coach_icon.png">
-                  <label for="business" class="text-sm mb-2" >Business</label>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-2">
-              <div class="space-y-4">
-                <div class="">
-                  <label for="first_name" class=" font-normal block mb-2 text-sm text-gray-900 dark:text-white">Country
-                    *</label>
-                  <select name="role" data-validation-key="role"
-                    class=" bg-gray-50 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                    id="role" required="">
-                    <option value="player">Country 1</option>
-                    <option value="coach">Country 2</option>
-                    <option value="parent">Country 3</option>
-                  </select>
-                </div>
-
-              </div>
-
-              <div class="space-y-4">
-                <div class="">
-                  <label for="first_name"
-                    class=" font-normal block mb-2 text-sm text-gray-900 dark:text-white">Nationality *</label>
-                  <select name="role" data-validation-key="role"
-                    class=" bg-gray-50 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                    id="role" required="">
-                    <option value="player">Country 1</option>
-                    <option value="coach">Country 2</option>
-                    <option value="parent">Country 3</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label for="first_name" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Mobile
-                  No</label>
-                <div class="grid grid-cols-10 gap-3 items-center">
-                  <input type="text" id="first_name"
-                    class="col-span-2 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Code" required />
-
-                  <input type="text" id="first_name"
-                    class=" col-span-8 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Number" required />
-                </div>
-              </div>
-
-              <div class="space-y-4">
-                <div class="">
-                  <label for="first_name" class=" font-normal block mb-2 text-sm text-gray-900 dark:text-white">Gender
-                    *</label>
-                  <select name="role" data-validation-key="role"
-                    class="block bg-gray-50 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                    id="role" required="">
-                    <option value="player">Male</option>
-                    <option value="coach">Female</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <div class="grid grid-cols-10  items-center mb-2 ">
-                  <label for="first_name" class="block col-span-5  text-sm font-normal text-gray-900 dark:text-white">Height</label>
-                  <label for="first_name" class="block col-span-5 text-sm font-normal dark:text-white text-right text-blue-600"> Aligned to End</label>
-          
-                </div>
-                
-                <div class="grid grid-cols-10 gap-3 items-center ">
-                  <input type="text" id="first_name"
-                    class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Ft" required />
-
-                  <input type="text" id="first_name"
-                    class=" col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="In" required />
-                </div>
-              </div>
-
-              <div class="space-y-4">
-                <div class="">
-                  <label for="first_name"
-                    class=" font-normal block mb-2 text-sm text-gray-900 dark:text-white">Handedness *</label>
-                  <select name="role" data-validation-key="role"
-                    class="block bg-gray-50 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                    id="role" required="">
-                    <option value="player">Left</option>
-                    <option value="coach">Right</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="space-y-4">
-                <div>
-                  <label for="first_name"
-                    class=" font-normal block mb-2 text-sm text-gray-900 dark:text-white">Budget</label>
-                  <input type="text" id="first_name"
-                    class=" border bg-gray-50 h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Carter" required />
-                </div>
-              </div>
-
-              <div>
-
-                <div class="grid grid-cols-10 gap-3 items-center">
-                  <div class="col-span-5 ">
-                    <label for="first_name" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">UTR
-                    </label>
-                    <input type="text" id="first_name"
-                      class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="" required />
-                  </div>
-
-                  <div class="col-span-5 ">
-                    <label for="first_name" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">GPA
-                    </label>
-                    <input type="text" id="first_name"
-                      class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="" required />
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label for="first_name" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Graduation
-                  Month/Year 
-                </label>
-                <div class="relative max-w-sm">
-                  <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                      <path
-                        d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                    </svg>
-                  </div>
-                  <input datepicker id="default-datepicker" type="text"
-                    class=" bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Select date">
-                </div>
-              </div>
-            </div>
-
-            <div class="space-y-4 mt-5">
-              <div class="flex items-center">
-                <input id="link-checkbox" type="checkbox" value=""
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="link-checkbox" class="ms-2 text-sm font-normal text-gray-900 dark:text-gray-300"> <a>I certify I
-                  am currently not enrolled in a U.S. school or have already informed the school of my choice to
-                  transfer, registering in the Transfer Portal. </a>.</label>
-              </div>
-            </div>
-
-            <div class="space-y-4 mt-5">
-              <p class="text-sm text-warning-600">
-                <svg class=" mb-2 text-orange-400 w-4 h-4 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24"
-                  height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
-                  <path d="M12 9h.01"></path>
-                  <path d="M11 12h1v4h1"></path>
-                </svg>
-
-                If you are currently enrolled, you need inform your school that you are looking to be recruited. If you
-                have questions, email hello@recruited.pro and we will help!
-              </p>
-            </div>
-
-            <div class="space-y-4 mt-5">
-              <div class="flex items-center">
-                <input id="link-checkbox" type="checkbox" value=""
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="link-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree
-                  with the <a href="#" class="text-blue-600 dark:text-blue-500 hover:underline">terms and
-                    conditions</a>.</label>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-end mt-6">
-              <button type="button" class="text-white bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-4 
-              focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 
-              dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Sign up now for free
-              </button>
-            </div>
-          </fieldset>
-        </form>
-      </div>
-
-
-    </div><!----><!---->
-    <div class="fixed z-40 inset-0 grid grid-cols-3 grid-flow-row-3 pointer-events-none">
-      <div class="relative">
-        <div class="absolute w-full h-full flex flex-col p-4 space-y-4 items-start justify-start"></div>
-      </div>
-      <div class="relative">
-        <div class="absolute w-full h-full flex flex-col p-4 space-y-4 items-center justify-start"></div>
-      </div>
-      <div class="relative">
-        <div class="absolute w-full h-full flex flex-col p-4 space-y-4 items-end justify-start"></div>
-      </div>
-      <div class="relative">
-        <div class="absolute w-full h-full flex flex-col p-4 space-y-4 items-start justify-center"></div>
-      </div>
-      <div class="relative">
-        <div class="absolute w-full h-full flex flex-col p-4 space-y-4 items-center justify-center"></div>
-      </div>
-      <div class="relative">
-        <div class="absolute w-full h-full flex flex-col p-4 space-y-4 items-end justify-center"></div>
-      </div>
-      <div class="relative">
-        <div class="absolute w-full h-full flex flex-col p-4 space-y-4 items-start justify-end"></div>
-      </div>
-      <div class="relative">
-        <div class="absolute w-full h-full flex flex-col p-4 space-y-4 items-center justify-end"></div>
-      </div>
-      <div class="relative">
-        <div class="absolute w-full h-full flex flex-col p-4 space-y-4 items-end justify-end"></div>
-      </div>
-    </div><!---->
+    </div>
   </div>
 </template>
 
@@ -441,7 +156,7 @@ const handleSubmit = async () => {
         token: response.data.token
       });
       localStorage.setItem('token', response.data.token);  // Set token in local storage
-      router.push('/dashboard');
+      router.push(`/register-step-2/${response.data.user_id}`);
     } else {
       error.value = response.data.message;
     }
