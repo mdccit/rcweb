@@ -8,10 +8,11 @@ export default defineNuxtConfig({
   srcDir: 'src/',
   ssr: true,
   css: [
-    '~/assets/main.css',
+    '@/assets/css/tailwind.css', // Ensure this is the first CSS file
     'element-plus/dist/index.css',
     'flowbite/dist/flowbite.css',
-    'element-plus/dist/index.css'
+    'element-plus/dist/index.css',
+    '~/assets/main.css',
   ],
   modules: [
     '@nuxtjs/tailwindcss',
@@ -19,12 +20,15 @@ export default defineNuxtConfig({
   tailwindcss: {
     configPath: '~/tailwind.config.js',
     viewer: false,
-    jit: true,
   },
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
+  build: {
+    postcss: {
+      postcssOptions: {
+        plugins: {
+          tailwindcss: {},
+          autoprefixer: {},
+        },
+      },
     },
   },
   pinia: {
@@ -42,13 +46,12 @@ export default defineNuxtConfig({
   },
   plugins: [
     '~/plugins/runtimeConfig.js',
-    '~/plugins/services.js', // Ensure this is listed here
+    '~/plugins/services.js',
     '~/plugins/pinia.js',
     '~/plugins/initUser.js',
     '~/plugins/element-plus.ts',
     '~/plugins/i18n.js'
   ],
-  build: {},
   alias: {
     '@': resolve(__dirname, './src'),
     '~~': resolve(__dirname, './src'),
@@ -71,9 +74,8 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
   ],
-
   compatibilityDate: '2024-07-31',
-  vite:{
+  vite: {
     server: {
       hmr: {
         overlay: false,
