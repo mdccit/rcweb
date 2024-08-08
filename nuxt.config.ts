@@ -46,6 +46,7 @@ export default defineNuxtConfig({
     '~/plugins/pinia.js',
     '~/plugins/initUser.js',
     '~/plugins/element-plus.ts',
+    '~/plugins/i18n.js'
   ],
   build: {},
   alias: {

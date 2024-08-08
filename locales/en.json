@@ -1,0 +1,22 @@
+{
+  "hello": "Hello",
+  "welcome": "Welcome",
+  "register": {
+    "title": "Let’s get started!",
+    "role": "I am",
+    "player": "Player",
+    "coach": "Coach",
+    "parent": "Parent",
+    "business": "Business",
+    "country": "Country",
+    "nationality": "Nationality",
+    "mobileCode": "Mobile Code",
+    "mobileNumber": "Mobile Number",
+    "gender": "Gender",
+    "height": {
+      "ft": "Height (Ft)",
+      "in": "Height (In)"
+    },
+    "budget": "Budget"
+  }
+}
