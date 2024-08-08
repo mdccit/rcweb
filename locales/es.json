@@ -1,0 +1,22 @@
+{
+  "hello": "Hola",
+  "welcome": "Bienvenido",
+  "register": {
+    "title": "¡Empecemos!",
+    "role": "Yo soy",
+    "player": "Jugador",
+    "coach": "Entrenador",
+    "parent": "Padre",
+    "business": "Negocio",
+    "country": "País",
+    "nationality": "Nacionalidad",
+    "mobileCode": "Código Móvil",
+    "mobileNumber": "Número Móvil",
+    "gender": "Género",
+    "height": {
+      "ft": "Altura (Pies)",
+      "in": "Altura (Pulgadas)"
+    },
+    "budget": "Presupuesto"
+  }
+}

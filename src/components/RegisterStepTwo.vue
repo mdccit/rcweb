@@ -13,7 +13,7 @@
           </a>
         </div>
         <div class="self-center">
-          <h1 class="text-2xl font-bold text-primary">Let’s get started!</h1>
+          <h1 class="text-2xl font-bold text-primary">{{ $t('register.title') }}</h1>
         </div>
       </div>
       <div class="w-full"></div>
