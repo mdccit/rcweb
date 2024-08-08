@@ -77,7 +77,7 @@
               <div>
                 <label for="nationality"
                   class="font-normal block mb-2 text-sm text-gray-900 dark:text-white">Nationality *</label>
-                <CountryDropdown :countries="countries" v-model="nationality" id="nationality" label="Nationality *" />
+                <NationalityDropdown :nationalities="nationalities" v-model="nationality" id="nationality" label="Nationality *" />
               </div>
             </div>
 
@@ -235,8 +235,9 @@
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import authService from '~/services/authService';
-import { loadCountryList } from '~/services/commonService';
+import { loadCountryList, loadNationalityList, loadBudgetList, loadGenderList } from '~/services/commonService';
 import CountryDropdown from '~/components/common/select/CountryDropdown.vue';
+import NationalityDropdown from '~/components/common/select/NationalityDropdown.vue';
 
 const role = ref('');
 const country = ref('');
@@ -258,6 +259,9 @@ const route = useRoute();
 
 const selectedCountry = ref(null);
 const countries = ref([]);
+const nationalities = ref([]);
+const budgets = ref([]);
+const genders = ref([]);
 const router = useRouter();
 const userId = route.params.userId;
 
@@ -370,8 +374,17 @@ const loadCountries = async () => {
   }
 };
 
+const loadNationalities = async () => {
+  try {
+    nationalities.value = await loadNationalityList();
+  } catch (err) {
+    console.error('Error loading nationalities:', err);
+  }
+};
+
 onMounted(() => {
   loadCountries();
+  loadNationalities();
 });
 </script>
 
