@@ -98,12 +98,14 @@
               <div>
                 <label for="gender" class="font-normal block mb-2 text-sm text-gray-900 dark:text-white">Gender
                   *</label>
-                <select v-model="gender"
+
+                  <GenderDropdown :genders="genders" v-model="gender" id="gender" label="Gender *" />
+                <!-- <select v-model="gender"
                   class="block bg-gray-50 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
                   id="gender" required>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
-                </select>
+                </select> -->
               </div>
             </div>
 
@@ -129,21 +131,23 @@
               <div>
                 <label for="handedness" class="font-normal block mb-2 text-sm text-gray-900 dark:text-white">Handedness
                   *</label>
-                <select v-model="handedness"
+                  <HandednessDropdown :handedness="handednesses" v-model="handedness" id="handedness" label="Handness *" />
+                <!-- <select v-model="handedness"
                   class="block bg-gray-50 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                  id="handedness" required>
+                  id="" required>
                   <option value="left">Left</option>
                   <option value="right">Right</option>
-                </select>
+                </select> -->
               </div>
             </div>
 
             <div class="space-y-4">
               <div>
                 <label for="budget" class="font-normal block mb-2 text-sm text-gray-900 dark:text-white">Budget</label>
-                <input type="text" id="budget" v-model="budget"
+                <BudgetDropdown :player_budgets="budgets" v-model="budgets" id="budgets" label="Budgets *" />
+                <!-- <input type="text" id="budget" v-model="budget"
                   class="border bg-gray-50 h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Budget" required />
+                  placeholder="Budget" required /> -->
               </div>
             </div>
 
@@ -235,10 +239,12 @@
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import authService from '~/services/authService';
-import { loadCountryList, loadNationalityList, loadBudgetList, loadGenderList } from '~/services/commonService';
+import { loadCountryList, loadNationalityList, loadBudgetList, loadGenderList , loadHandnessList } from '~/services/commonService';
 import CountryDropdown from '~/components/common/select/CountryDropdown.vue';
 import NationalityDropdown from '~/components/common/select/NationalityDropdown.vue';
-
+import GenderDropdown from '~/components/common/select/GenderDropdown.vue';
+import BudgetDropdown from '~/components/common/select/BudgetDropdown.vue';
+import HandednessDropdown from '~/components/common/select/HandednessDropdown.vue';
 const role = ref('');
 const country = ref('');
 const nationality = ref('');
@@ -262,6 +268,7 @@ const countries = ref([]);
 const nationalities = ref([]);
 const budgets = ref([]);
 const genders = ref([]);
+const handednesses = ref([]);
 const router = useRouter();
 const userId = route.params.userId;
 
@@ -382,9 +389,36 @@ const loadNationalities = async () => {
   }
 };
 
+const loadGenders = async () => {
+  try {
+    genders.value = await loadGenderList();
+  } catch (err) {
+    console.error('Error loading genders:', err);
+  }
+};
+
+const loadBudgets = async () => {
+  try {
+    budgets.value = await loadBudgetList();
+  } catch (err) {
+    console.error('Error loading budgets:', err);
+  }
+};
+
+const loadHandness = async () => {
+  try {
+    handednesses.value = await loadHandnessList();
+  } catch (err) {
+    console.error('Error loading handess:', err);
+  }
+};
+
 onMounted(() => {
   loadCountries();
   loadNationalities();
+  loadGenders();
+  loadBudgets();
+  loadHandness();
 });
 </script>
 

@@ -62,3 +62,18 @@ export const loadGenderList = async () => {
     throw error;
   }
 };
+
+export const loadHandnessList = async () => {
+  try {
+    const { $apiService } = useNuxtApp();
+    const response = await $apiService.getRequest('/common/load-combo-list');
+    if (response.status === 200) {
+      return response.data.handedness;
+    } else {
+      throw new Error(response.display_message);
+    }
+  } catch (error) {
+    console.error('Error loading gender list:', error);
+    throw error;
+  }
+};

@@ -2,7 +2,7 @@
   <div>
     <select v-model="selected" @change="updateValue" placeholder="Code" class="bg-gray-50 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50" id="mobileCode" required>
       <option v-for="code in codes" :key="code.value" :value="code.value">
-        {{ nationality.label }}
+        {{ code.label }}
       </option>
     </select>
   </div>
