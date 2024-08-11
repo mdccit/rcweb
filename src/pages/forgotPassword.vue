@@ -38,21 +38,23 @@
                         we will help you.</li>
                 </ul>
                 <div class="m-12"></div>
-                <form data-splade-id="1z9AwMnuvoZEkEl5" method="POST" action="https://recruited.pro/forgot-password">
+                <form data-splade-id="1z9AwMnuvoZEkEl5" @submit.prevent="sendResetPasswordRequest(email)">
                     <fieldset class="space-y-4">
                         <div class=""><label class="block"><span class="block mb-1 text-gray-700 font-sans"> Email <span
                                         aria-hidden="true" class="text-red-600"
                                         title="This field is required">*</span></span>
                                 <div class="flex rounded-lg border border-gray-300 shadow-sm"><input
                                         class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                        name="email" type="email" data-validation-key="email" id="email" required=""
-                                        autofocus=""></div>
+                                        name="email" type="email" v-model="email" data-validation-key="email" id="email"
+                                        required="" autofocus=""></div>
                             </label><!----></div>
-                        <div class="flex items-center justify-end mt-4"><button type="submit"
-                                class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
-                                <div class="flex flex-row items-center justify-center"><!----><span class=""> Email
+                        <div class="flex items-center justify-end mt-4">
+                            <button type="submit"
+                                class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-primary border-transparent focus:border-primary-300 focus:ring-primary-200">
+                                <div class="flex flex-row items-center justify-center"><span class=""> Email
                                         reset link </span></div>
-                            </button></div>
+                            </button>
+                        </div>
                     </fieldset>
                 </form>
             </div>
@@ -92,20 +94,19 @@
 </template>
 
 <script setup>
-import RegisterForm from '~/components/RegisterForm.vue';
-// import googleIcon from '@/assets/images/google_icon.png';
-import createAuthService from '~/services/authService';
-import { useRuntimeConfig } from '#app';
+import { ref } from 'vue'; 
+import { useNuxtApp } from '#app';
 
-const $config = useRuntimeConfig();
-const authService = createAuthService($config);
+const nuxtApp = useNuxtApp();
+const $authService = nuxtApp.$authService;
+const email = ref('');
 
-const sendRestPasswordRequest = async (email, password) => {
+const sendResetPasswordRequest = async () => {  // No need to pass email as a parameter
     try {
-        const result = await authService.register(email, password);
-        console.log(result);
+        const result = await $authService.resetPasswordRequest(email.value);  // Use email.value
+        console.log('Reset password request sent:', result);
     } catch (error) {
-        console.error(error.message);
+        console.error('Error sending reset password request:', error.message);
     }
 };
 </script>

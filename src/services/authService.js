@@ -85,6 +85,19 @@ const createAuthService = (apiService) => {
     }
   };
 
+  const resetPasswordRequest = async (email) => {
+    const url = '/auth/forgot-password-request';
+    const body = { email };
+  
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to send reset password request');
+    }
+  };
+  
+
   return {
     login,
     register,
@@ -92,6 +105,7 @@ const createAuthService = (apiService) => {
     getGoogleAuthUrl,
     googleLogin,
     googleRegister,
+    resetPasswordRequest,
   };
 };
 
