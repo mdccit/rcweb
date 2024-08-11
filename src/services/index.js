@@ -13,6 +13,5 @@ export const initializeServices = () => {
   const authService = createAuthService(apiService);
 
   console.log('Initialized Services:', { apiService, authService }); // Debug log
-
   return { apiService, authService };
 };
