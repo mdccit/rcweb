@@ -8,10 +8,11 @@ export default defineNuxtConfig({
   srcDir: 'src/',
   ssr: true,
   css: [
-    '~/assets/main.css',
+    '~/assets/main.css',    
+    '@/assets/css/tailwind.css',
     'element-plus/dist/index.css',
     'flowbite/dist/flowbite.css',
-    'element-plus/dist/index.css'
+    'element-plus/dist/index.css',
   ],
   modules: [
     '@nuxtjs/tailwindcss',
@@ -46,8 +47,18 @@ export default defineNuxtConfig({
     '~/plugins/pinia.js',
     '~/plugins/initUser.js',
     '~/plugins/element-plus.ts',
+    '~/plugins/flowbite-vue.js',
   ],
-  build: {},
+  build: {
+    postcss: {
+      postcssOptions: {
+        plugins: {
+          tailwindcss: {},
+          autoprefixer: {},
+        },
+      },
+    },
+  },
   alias: {
     '@': resolve(__dirname, './src'),
     '~~': resolve(__dirname, './src'),
