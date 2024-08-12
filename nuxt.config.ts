@@ -18,7 +18,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
   ],
   tailwindcss: {
-    configPath: '~/tailwind.config.js',
+    configPath: '~/tailwind.config.ts',
     viewer: false,
   },
   build: {
