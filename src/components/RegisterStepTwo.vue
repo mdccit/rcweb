@@ -20,7 +20,7 @@
       <form @submit.prevent="handleSubmitStep2" class="pt-4">
         <fieldset>
           <div>
-            <label for="role" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">I am</label>
+            <label for="role" class="block mb-2 text-sm font-normal text-gray-900 dark:text-primary">I am</label>
           </div>
           <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-4">
             <div class="radio">
@@ -64,7 +64,7 @@
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-2">
             <div class="space-y-4">
               <div>
-                <label for="country" class="font-normal block mb-2 text-sm text-gray-900 dark:text-white">Country
+                <label for="country" class="font-normal block mb-2 text-sm text-gray-900 dark:text-primary">Country
                   *</label>
                 <CountryDropdown :countries="countries" v-model="country" id="country" label="Country *" />
                 <!-- <select v-model="country" class="bg-gray-50 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50" id="country" required>
@@ -76,27 +76,27 @@
             <div class="space-y-4">
               <div>
                 <label for="nationality"
-                  class="font-normal block mb-2 text-sm text-gray-900 dark:text-white">Nationality *</label>
+                  class="font-normal block mb-2 text-sm text-gray-900 dark:text-primary">Nationality *</label>
                 <NationalityDropdown :nationalities="nationalities" v-model="nationality" id="nationality" label="Nationality *" />
               </div>
             </div>
 
             <div>
-              <label for="mobileCode" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Mobile
+              <label for="mobileCode" class="block mb-2 text-sm font-normal text-gray-900 dark:text-primary">Mobile
                 No</label>
               <div class="grid grid-cols-10 gap-3 items-center">
                 <input type="text" id="mobileCode" v-model="mobileCode"
-                  class="col-span-2 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="col-span-2 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Code" required />
                 <input type="text" id="mobileNumber" v-model="mobileNumber"
-                  class="col-span-8 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="col-span-8 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Number" required />
               </div>
             </div>
 
             <div class="space-y-4">
               <div>
-                <label for="gender" class="font-normal block mb-2 text-sm text-gray-900 dark:text-white">Gender
+                <label for="gender" class="font-normal block mb-2 text-sm text-gray-900 dark:text-primary">Gender
                   *</label>
 
                   <GenderDropdown :genders="genders" v-model="gender" id="gender" label="Gender *" />
@@ -112,24 +112,24 @@
             <div>
               <div class="grid grid-cols-10 items-center mb-2">
                 <label for="heightFt"
-                  class="block col-span-5 text-sm font-normal text-gray-900 dark:text-white">Height</label>
+                  class="block col-span-5 text-sm font-normal text-gray-900 dark:text-primary">Height</label>
                 <label for="heightFt"
-                  class="block col-span-5 text-sm font-normal dark:text-white text-right text-blue-600">Aligned to
+                  class="block col-span-5 text-sm font-normal dark:text-primary text-right text-blue-600">Aligned to
                   End</label>
               </div>
               <div class="grid grid-cols-10 gap-3 items-center">
                 <input type="text" id="heightFt" v-model="heightFt"
-                  class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Ft" required />
                 <input type="text" id="heightIn" v-model="heightIn"
-                  class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="In" required />
               </div>
             </div>
 
             <div class="space-y-4">
               <div>
-                <label for="handedness" class="font-normal block mb-2 text-sm text-gray-900 dark:text-white">Handedness
+                <label for="handedness" class="font-normal block mb-2 text-sm text-gray-900 dark:text-primary">Handedness
                   *</label>
                   <HandednessDropdown :handedness="handednesses" v-model="handedness" id="handedness" label="Handness *" />
                 <!-- <select v-model="handedness"
@@ -143,10 +143,10 @@
 
             <div class="space-y-4">
               <div>
-                <label for="budget" class="font-normal block mb-2 text-sm text-gray-900 dark:text-white">Budget</label>
+                <label for="budget" class="font-normal block mb-2 text-sm text-gray-900 dark:text-primary">Budget</label>
                 <BudgetDropdown :player_budgets="budgets" v-model="budgets" id="budgets" label="Budgets *" />
                 <!-- <input type="text" id="budget" v-model="budget"
-                  class="border bg-gray-50 h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="border bg-gray-50 h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Budget" required /> -->
               </div>
             </div>
@@ -154,22 +154,22 @@
             <div>
               <div class="grid grid-cols-10 gap-3 items-center">
                 <div class="col-span-5">
-                  <label for="utr" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">UTR</label>
+                  <label for="utr" class="block mb-2 text-sm font-normal text-gray-900 dark:text-primary">UTR</label>
                   <input type="text" id="utr" v-model="utr"
-                    class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="UTR" required />
                 </div>
                 <div class="col-span-5">
-                  <label for="gpa" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">GPA</label>
+                  <label for="gpa" class="block mb-2 text-sm font-normal text-gray-900 dark:text-primary">GPA</label>
                   <input type="text" id="gpa" v-model="gpa"
-                    class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="GPA" required />
                 </div>
               </div>
             </div>
 
             <div>
-              <label for="graduation" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Graduation
+              <label for="graduation" class="block mb-2 text-sm font-normal text-gray-900 dark:text-primary">Graduation
                 Month/Year</label>
               <div class="relative max-w-sm">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
@@ -180,7 +180,7 @@
                   </svg>
                 </div>
                 <input datepicker id="graduation" v-model="graduation" type="text"
-                  class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Select date">
               </div>
             </div>
@@ -224,7 +224,7 @@
 
           <div class="flex items-center justify-end mt-6">
             <button type="submit"
-              class="text-white bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              class="text-primary bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               Sign up now for free
             </button>
           </div>
