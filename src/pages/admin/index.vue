@@ -31,7 +31,7 @@
             <h3 class="text-lg font-semibold mb-2">Security Reminder</h3>
             <p>Store passwords and 2FA tokens in Bitwarden. <b>Make sure each password is as long as possible and IS
                 NOT MEMORABLE. YOU SHOULD ONLY REMEMBER YOUR BITWARDEN (and, optionally, Google Workspace)
-                PASSWORD.)</b> Do not share sensitive credentials with anyone, even if they ask you to, in any
+                PASSWORD.</b> Do not share sensitive credentials with anyone, even if they ask you to, in any
               message format.</p>
           </div>
           <div class="p-6 border border-border rounded-lg">
