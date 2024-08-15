@@ -10,7 +10,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primaryblue: '#3D7FFF',
+        blue: '#3D7FFF',
         black: '#000000',
         white: '#FFFFFF',
         azureblue: '#0284c7',
@@ -36,6 +36,12 @@ export default {
         red: '#E60000',
         orangeRed: '#FF0000',
         lightPink: '#FFA9A9'
+      },
+      blue:{
+        500: '#3D7FFF',
+        600: '#3D7FFF',
+        700: '#3D7FFF',
+        800: '#3D7FFF',
       },
       green: {
         50: '#EFFDF5',
