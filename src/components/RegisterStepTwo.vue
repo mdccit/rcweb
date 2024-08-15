@@ -77,7 +77,8 @@
               <div>
                 <label for="nationality"
                   class="font-normal block mb-2 text-sm text-gray-900 dark:text-primary">Nationality *</label>
-                <NationalityDropdown :nationalities="nationalities" v-model="nationality" id="nationality" label="Nationality *" />
+                <NationalityDropdown :nationalities="nationalities" v-model="nationality" id="nationality"
+                  label="Nationality *" />
               </div>
             </div>
 
@@ -85,11 +86,12 @@
               <label for="mobileCode" class="block mb-2 text-sm font-normal text-gray-900 dark:text-primary">Mobile
                 No</label>
               <div class="grid grid-cols-10 gap-3 items-center">
-                <input type="text" id="mobileCode" v-model="mobileCode"
+                <CountryCodeDropdown :country_codes="country_codes" v-model="mobileCode" id="mobileCode" label="Country Code*" />
+                <!-- <input type="text" id="mobileCode" v-model="mobileCode"
                   class="col-span-2 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Code" required />
+                  placeholder="Code" required /> -->
                 <input type="text" id="mobileNumber" v-model="mobileNumber"
-                  class="col-span-8 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="col-span-6 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Number" required />
               </div>
             </div>
@@ -99,7 +101,7 @@
                 <label for="gender" class="font-normal block mb-2 text-sm text-gray-900 dark:text-primary">Gender
                   *</label>
 
-                  <GenderDropdown :genders="genders" v-model="gender" id="gender" label="Gender *" />
+                <GenderDropdown :genders="genders" v-model="gender" id="gender" label="Gender *" />
                 <!-- <select v-model="gender"
                   class="block bg-gray-50 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
                   id="gender" required>
@@ -129,9 +131,11 @@
 
             <div class="space-y-4">
               <div>
-                <label for="handedness" class="font-normal block mb-2 text-sm text-gray-900 dark:text-primary">Handedness
+                <label for="handedness"
+                  class="font-normal block mb-2 text-sm text-gray-900 dark:text-primary">Handedness
                   *</label>
-                  <HandednessDropdown :handedness="handednesses" v-model="handedness" id="handedness" label="Handness *" />
+                <HandednessDropdown :handedness="handednesses" v-model="handedness" id="handedness"
+                  label="Handness *" />
                 <!-- <select v-model="handedness"
                   class="block bg-gray-50 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
                   id="" required>
@@ -143,7 +147,8 @@
 
             <div class="space-y-4">
               <div>
-                <label for="budget" class="font-normal block mb-2 text-sm text-gray-900 dark:text-primary">Budget</label>
+                <label for="budget"
+                  class="font-normal block mb-2 text-sm text-gray-900 dark:text-primary">Budget</label>
                 <BudgetDropdown :player_budgets="budgets" v-model="budgets" id="budgets" label="Budgets *" />
                 <!-- <input type="text" id="budget" v-model="budget"
                   class="border bg-gray-50 h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -171,18 +176,32 @@
             <div>
               <label for="graduation" class="block mb-2 text-sm font-normal text-gray-900 dark:text-primary">Graduation
                 Month/Year</label>
-              <div class="relative max-w-sm">
-                <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                  <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                  </svg>
+                <div class="relative max-w-sm">
+                  <div class="absolute inset-y-0 left-0 flex items-center ps-3.5 pointer-events-none">
+                    <svg
+                      class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
+                      />
+                    </svg>
+                  </div>
+              
+                  <client-only>
+                    <input
+                      type="month"
+                      v-model="graduation"
+                      @focus="showPicker"
+                      ref="monthInput"
+                      class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Select Month/Year"
+                    />
+                  </client-only>
                 </div>
-                <input datepicker id="graduation" v-model="graduation" type="text"
-                  class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Select date">
-              </div>
             </div>
           </div>
 
@@ -239,12 +258,16 @@
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import authService from '~/services/authService';
-import { loadCountryList, loadNationalityList, loadBudgetList, loadGenderList , loadHandnessList } from '~/services/commonService';
+import { loadCountryList, loadNationalityList, loadBudgetList, loadGenderList, loadHandnessList } from '~/services/commonService';
+import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
 import CountryDropdown from '~/components/common/select/CountryDropdown.vue';
 import NationalityDropdown from '~/components/common/select/NationalityDropdown.vue';
 import GenderDropdown from '~/components/common/select/GenderDropdown.vue';
 import BudgetDropdown from '~/components/common/select/BudgetDropdown.vue';
 import HandednessDropdown from '~/components/common/select/HandednessDropdown.vue';
+// import DatePicker from 'vue-datepicker-next';
+// import 'vue-datepicker-next/index.css';
+
 const role = ref('');
 const country = ref('');
 const nationality = ref('');
@@ -267,11 +290,19 @@ const selectedCountry = ref(null);
 const countries = ref([]);
 const nationalities = ref([]);
 const budgets = ref([]);
+const country_codes = ref([]);
 const genders = ref([]);
 const handednesses = ref([]);
 const router = useRouter();
 const userId = route.params.userId;
+const monthInput = ref(null);
 
+
+function showPicker() {
+  if (monthInput.value) {
+    monthInput.value.showPicker(); // This method is available in some browsers for date inputs
+  }
+}
 const roles = [
   { value: 'player', label: 'Player', icon: '@/assets/images/player_icon.png' },
   { value: 'coach', label: 'Coach', icon: '@/assets/images/coach_icon.png' },
@@ -413,7 +444,16 @@ const loadHandness = async () => {
   }
 };
 
+const loadCountryCodes = async () => {
+  try {
+    country_codes.value = await loadCountryList();
+  } catch (err) {
+    console.error('Error loading country codes:', err);
+  }
+};
+
 onMounted(() => {
+  loadCountryCodes();
   loadCountries();
   loadNationalities();
   loadGenders();
