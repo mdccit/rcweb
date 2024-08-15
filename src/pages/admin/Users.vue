@@ -2,6 +2,7 @@
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <div class="flex w-full justify-between gap-8 mb-3">
             <h2 class="font-bold text-lg self-center"> All Users </h2>
+
             <div class="">
                 <a href="https://qa1.recruited.qualitapps.com/admin/users/create">
                     <button type="submit" class=" border rounded-full shadow-sm font-bold py-2.5 px-8 
@@ -22,12 +23,19 @@
             </div>
         </div>
         <UserTable></UserTable>
-        <userModal></userModal>
-        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            type="button">
-            Toggle modal
-        </button>
+
+        <!-- Admin User Create Modal Component -->
+        <!-- Header with "Create New" Button -->
+        <div class="flex justify-between mb-3">
+            <h2 class="font-bold text-lg">All Users</h2>
+            <button @click="showModal = true"
+                class="bg-blue-700 text-white font-medium rounded-lg px-4 py-2 hover:bg-blue-800">
+                Show Modal 
+               
+            </button>
+        </div>
+        <!-- Admin User Create Modal Component -->
+        <AdminUserCreateModal :isVisible="showModal" @close="showModal = false" />
     </div>
 
 
@@ -35,26 +43,31 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import UserTable from '~/components/tables/UserTable.vue';
 import { useUserStore } from '~/stores/userStore'
-import { userModal} from '~/components/shared/adminUserCreateModal.vue'
+import AdminUserCreateModal from '~/components/shared/adminUserCreateModal.vue';
 
+
+const showModal = ref(false);
 const userStore = useUserStore()
 
-const email = userStore.user?.email
-const token = userStore.user?.token
+const email = userStore.user?.email;
+const token = userStore.user?.token;
+
+// Reference to the modal component
+const modalRef = ref(null);
+
+// Function to open the modal
+const openModal = () => {
+    modalRef.value.openModal();
+};
+
 </script>
 
 <style scoped>
 .container {
     max-width: 600px;
 }
-</style>
 
-<script>
-export default {
-components: {
-    userModal,
-    },
-}
-</script>
+</style>
