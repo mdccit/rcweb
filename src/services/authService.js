@@ -85,6 +85,46 @@ const createAuthService = (apiService) => {
     }
   };
 
+  const resetPasswordRequest = async (email) => {
+    const url = '/auth/forgot-password-request';
+    const body = { email };
+  
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to send reset password request');
+    }
+  };
+  
+
+  const resetPassword = async (password_reset_id, recovery_code, password, password_confirmation) => {
+    // Check if password_reset_id is provided
+    if (!password_reset_id) {
+        throw new Error('Password reset ID is required.');
+    }
+
+    // Construct the URL with the password_reset_id
+    const url = `/auth/reset-password/${password_reset_id}`;
+
+    // Prepare the request body
+    const body = {
+      recovery_code,
+      password,
+      password_confirmation,
+    };
+  
+    try {
+      // Make the API request
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      // Handle any errors that occur during the request
+      throw new Error(error.message || 'Failed to reset password');
+    }
+  };
+
+
   return {
     login,
     register,
@@ -92,6 +132,8 @@ const createAuthService = (apiService) => {
     getGoogleAuthUrl,
     googleLogin,
     googleRegister,
+    resetPasswordRequest,
+    resetPassword,
   };
 };
 
