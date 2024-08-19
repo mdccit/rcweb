@@ -1,6 +1,6 @@
 import createApiService from './apiService';
 import createAuthService from './authService';
-import createAdminService from './admin/adminService';
+import createAdminService from './adminService';
 import { useRuntimeConfig } from '#app';
 
 export const initializeServices = () => {
@@ -11,7 +11,7 @@ export const initializeServices = () => {
 
   const apiService = createApiService(config);
   const authService = createAuthService(apiService);
-  const adminService = createAdminService(adminService);
+  const adminService = createAdminService(apiService);
 
   return { apiService, authService , adminService };
 };
