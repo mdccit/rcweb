@@ -625,18 +625,20 @@
 
 </template>
 
+<style scoped>
+.container {
+    max-width: 600px;
+}
+</style>
+
+
 <script setup>
 import { ref } from 'vue';
 import UserTable from '~/components/tables/UserTable.vue';
-import { useUserStore } from '~/stores/userStore'
-import AdminUserCreateModal from '~/components/shared/adminUserCreateModal.vue';
+import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.vue';
 
 
 const showModal = ref(false);
-const userStore = useUserStore()
-
-const email = userStore.user?.email;
-const token = userStore.user?.token;
 
 // Reference to the modal component
 const modalRef = ref(null);
@@ -646,10 +648,7 @@ const openModal = () => {
     modalRef.value.openModal();
 };
 
-</script>
 
-<style scoped>
-.container {
-    max-width: 600px;
-}
-</style>
+
+
+</script>

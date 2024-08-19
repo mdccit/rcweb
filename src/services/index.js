@@ -1,17 +1,17 @@
 import createApiService from './apiService';
 import createAuthService from './authService';
+import createAdminService from './admin/adminService';
 import { useRuntimeConfig } from '#app';
 
 export const initializeServices = () => {
   const config = useRuntimeConfig().public;
-  console.log('Runtime Config in initializeServices:', config); // Debug log
   if (!config.apiUrl || !config.accessKey || !config.defaultLang) {
     throw new Error('API configuration is incomplete');
   }
 
   const apiService = createApiService(config);
   const authService = createAuthService(apiService);
+  const adminService = createAdminService(adminService);
 
-  console.log('Initialized Services:', { apiService, authService }); // Debug log
-  return { apiService, authService };
+  return { apiService, authService , adminService };
 };

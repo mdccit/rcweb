@@ -22,53 +22,69 @@
                 <div class="p-6 space-y-6">
                     <!-- Form Fields -->
                     <div>
-                        <label for="name" class="block text-sm font-normal text-gray-900 light:text-gray">Name</label>
-                        <input type="text" id="name"
+                        <label for="firstname" class="block text-sm font-normal text-gray-900 light:text-gray">First Name</label>
+                        <input type="text" id="firstname" v-model="firstname"
                             class="bg-transparent block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 light:bg-gray-600 light:border-gray-500 dark:text-white"
                             placeholder="Enter Name" />
                     </div>
                     <div>
-                        <label for="price" class="block text-sm font-normal text-gray-900 light:text-gray">Email</label>
-                        <input type="email" id="price"
+                        <label for="lastname" class="block text-sm font-normal text-gray-900 light:text-gray">Last Name</label>
+                        <input type="text" id="lastname" v-model="lastname"
+                            class="bg-transparent block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 light:bg-gray-600 light:border-gray-500 dark:text-white"
+                            placeholder="Enter Name" />
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-normal text-gray-900 light:text-gray">Email</label>
+                        <input type="email" id="email"
                             class=" bg-transparent block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 light:bg-gray-600 light:border-gray-500 dark:text-white"
                             placeholder="Enter Email" />
 
                         <div class="flex items-end text-right mt-2">
-                            <input checked id="checked-checkbox" type="checkbox" value=""
+                            <input checked id="checked-checkbox" type="checkbox" value="" v-model="is_set_email_verified"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
                             <label for="checked-checkbox"
                                 class="ms-2 text-sm font-normal text-gray-600 light:text-gray-300 ">Set email verified</label>
                         </div>
                     </div>
                     <div>
-                        <label for="price"
+                        <label for="password"
                             class=" bg-transparent block text-sm font-normal text-gray-900 light:text-gray">Password</label>
-                        <input type="password" id="price"
+                        <input type="password" id="password" v-model="password"
                             class="block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 light:bg-gray-600 light:border-gray-500 light:text-gray"
                             placeholder="Enter password" />
                     </div>
                     <div>
+                        <label for="password_confirmation"
+                            class=" bg-transparent block text-sm font-normal text-gray-900 light:text-gray">Confirm Password</label>
+                        <input type="password_confirmation" id="password_confirmation" v-model="password_confirmation"
+                            class="block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 light:bg-gray-600 light:border-gray-500 light:text-gray"
+                            placeholder="Confirm password" />
+                    </div>
+                    <div>
                         <label for="countries"
                             class="block mb-2 text-sm font-normal text-gray-900 light:text-white">Role</label>
-                        <select id="countries"
+                        <select id="countries" v-model="user_role"
                             class="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-600 light:border-gray-600 dark:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500">
                             <option selected>Choose a Role</option>
-                            <option value="US">United States</option>
-                            <option value="CA">Canada</option>
-                            <option value="FR">France</option>
-                            <option value="DE">Germany</option>
+                            <option value="1">Default</option>
+                            <option value="2">Admin</option>
+                            <option value="3">Operator</option>
+                            <option value="4">Player</option>
+                            <option value="5">Coach</option>
+                            <option value="6">Business Manager</option>
+                            <option value="7">Parent</option>
                         </select>
                     </div>
                     <div>
-                        <label for="mobileCode"
+                        <label for="phone_code_country"
                             class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Mobile No</label>
                         <div class="grid grid-cols-10 gap-3 items-center">
-                            <input type="text" id="mobileCode" v-model="mobileCode"
+                            <input type="text" id="phone_code_country" v-model="phone_code_country"
                                 class="col-span-2 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
                                 focus:border-blue-500 block w-full p-2.5 light:bg-gray-600 light:border-gray-600 
                                 dark:placeholder-gray-600 light:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Code" required />
-                            <input type="text" id="mobileNumber" v-model="mobileNumber"
+                            <input type="text" id="phone_number" v-model="phone_number"
                                 class="font-normal col-span-8 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
                                 focus:border-blue-500 block w-full p-2.5 light:bg-gray-600 light:border-gray-600 dark:placeholder-gray-600 
                                light:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -92,7 +108,40 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '~/stores/userStore';
+import { useNuxtApp } from '#app';
 import { defineProps, defineEmits } from 'vue';
+
+
+const first_name = ref('');
+const last_name = ref('');
+const email = ref('');
+const user_role = ref('');
+const is_set_email_verified = ref('');
+const password = ref('');
+const password_confirmation = ref('');
+const phone_code_country = ref('');
+const phone_number = ref('');
+const error = ref('');
+const successMessage = ref('');
+const errors = ref([]);
+const userStore = useUserStore()
+const router = useRouter();
+
+// Access authService from the context
+const nuxtApp = useNuxtApp();
+const $authService = nuxtApp.$authService;
+
+// Reference to the modal component
+const modalRef = ref(null);
+
+// Function to open the modal
+const openModal = () => {
+    modalRef.value.openModal();
+};
+
 
 const props = defineProps({
     isVisible: {
@@ -107,4 +156,49 @@ function handleSubmit() {
     // Handle form submission logic here
     emit('close');
 }
+
+const submitRegistration = async () => {
+  console.log('submitting');
+  errors.value = [];
+  if (password.value !== confirmPassword.value) {
+    errors.value.push('Passwords do not match');
+    console.log(error.value);
+    return;
+  }
+  try {
+    const response = await $adminService.new_user_register({
+      first_name: first_name.value,
+      last_name: last_name.value,
+      email: email.value,
+      user_role: user_role.value,
+      is_set_email_verified: is_set_email_verified.value,
+      password: password.value,
+      password_confirmation: password_confirmation.value,
+      phone_code_country: phone_code_country.value,
+      phone_number: phone_number.value,
+    });
+
+    if (response.status === 200) {
+      userStore.setUser({
+        token: response.data.token
+      });
+      localStorage.setItem('token', response.data.token);
+      router.push(`/register-step-2/${response.data.user_id}`);
+    } else {
+      errors.value.push(response.data.display_message);
+    }
+  } catch (err) {
+    if (err.response?.data?.message) {
+      if (Array.isArray(err.response.data.message)) {
+        errors.value = err.response.data.message;
+      } else {
+        errors.value = [err.response.data.message];
+      }
+    } else {
+      errors.value = [err.response?.data?.message || err.message];
+    }
+  }
+};
+
+
 </script>
