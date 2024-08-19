@@ -12,7 +12,7 @@ export default defineNuxtConfig({
     'element-plus/dist/index.css',
     'flowbite/dist/flowbite.css',
     'element-plus/dist/index.css',
-    '~/assets/main.css',
+    '~/assets/main.css'
   ],
   modules: [
     '@nuxtjs/tailwindcss',
