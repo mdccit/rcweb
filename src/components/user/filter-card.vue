@@ -31,13 +31,13 @@
                 </a>
                 <span class="text-steelBlue bg-steelBlueLight79 text-sm rounded-md p-1">5+ new</span>
             </li>
-            <li class="flex justify-between items-center mb-2  hover:bg-lightGray">
+            <!-- <li class="flex justify-between items-center mb-2  hover:bg-lightGray">
                 <a href="#" class="flex items-center w-full text-black p-2 rounded-md">
                     <img class="w-5" src="../../assets/css/images/sports.png" alt="">
                     <span class="pl-2.5">Events</span>
                 </a>
-            </li>
-            <li class="flex justify-between items-center hover:bg-lightGray">
+            </li> -->
+            <!-- <li class="flex justify-between items-center hover:bg-lightGray">
                 <a href="#" class="flex items-center text-black p-2 rounded-md">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
@@ -49,8 +49,8 @@
                 </a>
                 <span class="text-steelBlue text-sm p-1 bg-steelBlueLight79 text-sm rounded-md">9+
                     new</span>
-            </li>
-            <li class="flex justify-between items-center hover:bg-lightGray">
+            </li> -->
+            <!-- <li class="flex justify-between items-center hover:bg-lightGray">
                 <a href="#" class="flex items-center  text-black p-2 rounded-md">
                     <div class="bg-lightPink p-1 rounded">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -70,7 +70,7 @@
 
                     <span class="pl-2.5">Coaches</span>
                 </a>
-            </li>
+            </li> -->
         </ul>
     </div>
     <!-- End Fiter Section  -->

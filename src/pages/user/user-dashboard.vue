@@ -4,8 +4,9 @@
             <section class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
                 <!-- Start Filter Section  -->
                 <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
-                     <filterCard> </filterCard>
-                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
+                    <filterCard> </filterCard>
+                    <!-- start call card -->
+                    <!-- <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
 
                             <div class="flex items-center space-x-4 w-48">
@@ -27,7 +28,8 @@
                         <div class="flex justify-center mt-3">
                             <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Book a call</button>
                         </div>
-                    </div>
+                    </div> -->
+                    <!-- end call card -->
                 </div>
                 <!-- End Filter Section  -->
 
@@ -36,7 +38,8 @@
                     <!--start card 01 -->
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6">
                         <div class="flex items-center">
-                            <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-12 h-12 mr-4">
+                            <img src="../../assets/user/images/Rectangle 117.png" alt=""
+                                class="rounded-lg w-12 h-12 mr-4">
                             <input type="text" placeholder="Write your thoughts..."
                                 class="flex-grow text-ceil bg-culturedBlue  rounded-xl py-2 px-4 focus:outline-none focus:border-blue-500">
                         </div>
@@ -64,7 +67,7 @@
 
                                     <span class="text-amber pl-1.5">Video</span>
                                 </button>
-                                <button
+                                <!-- <button
                                     class="flex items-center space-x-1 text-lightred px-3 py-1 rounded-md text-sm bg-culturedBlue">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green"
                                         class="size-4">
@@ -76,9 +79,9 @@
                                     </svg>
 
                                     <span class="text-green pl-1.5">Event</span>
-                                </button>
+                                </button> -->
                             </div>
-                            <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Post</button>
+                            <button class="bg-primaryblue text-white px-8 py-2 rounded-lg text-sm">Post</button>
                         </div>
                     </div>
                     <!--end card 01 -->
@@ -137,7 +140,8 @@
                                 <a href="#" class="text-steelBlue hover:underline mt-2 block">Show more...</a>
                                 <div class="flex items-center justify-between mt-4">
                                     <div class="flex items-center space-x-4">
-                                        <button class="flex items-center space-x-1 transition duration-0 hover:duration-150">
+                                        <button
+                                            class="flex items-center space-x-1 transition duration-0 hover:duration-150">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="size-4">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -285,7 +289,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="flex items-center space-x-4 mt-3">
+                                <div class="flex space-x-4 mt-3">
                                     <img src="../../assets/user/images/Rectangle 117.png" alt=""
                                         class="rounded-lg w-12 h-12 mr-4">
                                     <div>
@@ -298,7 +302,7 @@
                                             without relying on meaningful content.</p>
                                     </div>
                                 </div>
-                                <div class="flex items-center space-x-4 mt-4">
+                                <div class="flex space-x-4 mt-4 ml-20">
                                     <img src="../../assets/user/images/Rectangle 117.png" alt=""
                                         class="rounded-lg w-12 h-12 mr-4">
                                     <div>
@@ -318,7 +322,7 @@
                         </div>
                         <hr class="mt-3 mb-3 text-pigeonBlue">
                         <div class="mt-4 flex items-start space-x-4">
-                            <img src="../../assets/user/images/Rectangle 117.pn" alt="User Image"
+                            <img src="../../assets/user/images/Rectangle 117.png" alt="User Image"
                                 class="w-12 h-12 rounded-lg">
                             <div class="relative  w-full ">
                                 <input type="text" placeholder="Write your comment..."
@@ -461,12 +465,13 @@
                 <!-- End Chat Section -->
 
                 <!-- Start Pending Req. Section -->
-                <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
-                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3">
+                <!-- <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
+                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3"> -->
                         <!-- start pending request section -->
-                        <h2 class="text-lg font-semibold mb-4">Pending requests</h2>
+                        <!-- <h2 class="text-lg font-semibold mb-4">Pending requests</h2>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
-                            <img src="../../assets/user/images/Rectangle 117.png" alt="" class="w-16 h-16 rounded-lg mr-4">
+                            <img src="../../assets/user/images/Rectangle 117.png" alt=""
+                                class="w-16 h-16 rounded-lg mr-4">
                             <div class="flex-1">
                                 <h3 class="text-sm font-medium mb-1.5">Ralph Edwards</h3>
                                 <p class="text-xs text-darkSlateBlue">Tennis player at Whittier College</p>
@@ -478,7 +483,8 @@
                             </div>
                         </div>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
-                            <img src="../../assets/user/images/Rectangle 117.png" alt="" class="w-16 h-16 rounded-lg mr-4">
+                            <img src="../../assets/user/images/Rectangle 117.png" alt=""
+                                class="w-16 h-16 rounded-lg mr-4">
                             <div class="flex-1">
                                 <h3 class="text-sm font-medium mb-1.5">Ralph Edwards</h3>
                                 <p class="text-xs text-darkSlateBlue">Tennis player at Whittier College</p>
@@ -490,7 +496,8 @@
                             </div>
                         </div>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
-                            <img src="../../assets/user/images/Rectangle 117.png" alt="" class="w-16 h-16 rounded-lg mr-4">
+                            <img src="../../assets/user/images/Rectangle 117.png" alt=""
+                                class="w-16 h-16 rounded-lg mr-4">
                             <div class="flex-1">
                                 <h3 class="text-sm font-medium mb-1.5">Ralph Edwards</h3>
                                 <p class="text-xs text-darkSlateBlue">Tennis player at Whittier College</p>
@@ -500,12 +507,13 @@
                                         class="bg-lightGray text-steelBlue text-xs px-2 py-1 rounded">Decline</button>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- end pending request section -->
                         <!-- start latest contacts section -->
-                        <h2 class="text-lg font-semibold mt-4 mb-4">Latest contacts</h2>
+                        <!-- <h2 class="text-lg font-semibold mt-4 mb-4">Latest contacts</h2>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
-                            <img src="../../assets/user/images/Rectangle 117.png" alt="" class="w-16 h-16 rounded-lg mr-4">
+                            <img src="../../assets/user/images/Rectangle 117.png" alt=""
+                                class="w-16 h-16 rounded-lg mr-4">
                             <div class="flex-1">
                                 <h3 class="text-sm font-medium mb-1.5">Ralph Edwards</h3>
                                 <p class="text-xs text-darkSlateBlue">Tennis player at Whittier College</p>
@@ -515,7 +523,8 @@
                             </div>
                         </div>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
-                            <img src="../../assets/user/images/Rectangle 117.png" alt="" class="w-16 h-16 rounded-lg mr-4">
+                            <img src="../../assets/user/images/Rectangle 117.png" alt=""
+                                class="w-16 h-16 rounded-lg mr-4">
                             <div class="flex-1">
                                 <h3 class="text-sm font-medium mb-1.5">Ralph Edwards</h3>
                                 <p class="text-xs text-darkSlateBlue">Tennis player at Whittier College</p>
@@ -533,14 +542,15 @@
                                         d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
                             </button>
-                        </div>
+                        </div> -->
                         <!-- end latest contacts section -->
-                    </div>
+                    <!-- </div> -->
                     <!-- start chat card -->
-                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
+                    <!-- <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
                         <h2 class="text-lg font-semibold mb-4">Chat</h2>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
-                            <img src="../../assets/user/images/Rectangle 117.png" alt="" class="w-16 h-16 rounded-lg mr-4">
+                            <img src="../../assets/user/images/Rectangle 117.png" alt=""
+                                class="w-16 h-16 rounded-lg mr-4">
                             <div class="flex-1">
                                 <div class="flex justify-between items-center">
 
@@ -552,7 +562,8 @@
                             </div>
                         </div>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
-                            <img src="../../assets/user/images/Rectangle 126.png" alt="" class="w-16 h-16 rounded-lg mr-4">
+                            <img src="../../assets/user/images/Rectangle 126.png" alt=""
+                                class="w-16 h-16 rounded-lg mr-4">
                             <div class="flex-1">
                                 <div class="flex justify-between items-center">
 
@@ -565,7 +576,8 @@
                             </div>
                         </div>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
-                            <img src="../../assets/user/images/Rectangle 126.png" alt="" class="w-16 h-16 rounded-lg mr-4">
+                            <img src="../../assets/user/images/Rectangle 126.png" alt=""
+                                class="w-16 h-16 rounded-lg mr-4">
                             <div class="flex-1">
                                 <div class="flex justify-between items-center">
 
@@ -586,9 +598,9 @@
                                 </svg>
                             </button>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- end chat card -->
-                </div>
+                <!-- </div> -->
                 <!-- End Pending Req. Section -->
             </section>
         </div>
@@ -599,8 +611,8 @@
 import filterCard from '~/components/user/filter-card.vue';
 
 export default {
-  components: {
-    filterCard
-  }
+    components: {
+        filterCard
+    }
 }
 </script>
