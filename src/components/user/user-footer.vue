@@ -4,12 +4,12 @@
         <section class="grid grid-cols-10 px-4 h-14 drop-shadow-md border-t border-t-poloBlue">
             <div class="col-span-1 md:block hidden">
                 <a class="flex items-center pt-2">
-                    <img class="w-10" src="../assets/css/images/glyph-imprint.png" alt="">
+                    <img class="w-10" src="../../assets/images/glyph-imprint.png" alt="">
                 </a>
             </div>
             <div class="col-span-9">
                 <div class="p-2 md:block hidden">
-                    <h6 class="text-sm">© 2024 Recruited Sports, Inc. All rights reserved.</h6>
+                    <h6 class="text-sm text-black">© 2024 Recruited Sports, Inc. All rights reserved.</h6>
                     <p class="text-xs text-ceil">Vamos! Recruited is currently in open beta. Please report any issues
                         you may encounter and send suggestions to hello (at) recruited (dot) pro.</p>
                 </div>
