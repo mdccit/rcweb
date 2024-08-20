@@ -605,7 +605,7 @@
             </div>
         </div>
 
-        <UserTable></UserTable>
+        <AdminUserTable></AdminUserTable>
 
         <!-- Admin User Create Modal Component -->
         <!-- Header with "Create New" Button -->
@@ -634,7 +634,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import UserTable from '~/components/tables/UserTable.vue';
+import AdminUserTable from '~/components/tables/AdminUserTable.vue';
 import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.vue';
 
 
