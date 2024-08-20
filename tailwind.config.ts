@@ -75,12 +75,6 @@ module.exports = {
   variants: {
     extend: {},
   },
-  safelist: [
-    {
-      pattern: /bg-(red|green|blue|yellow|indigo|purple|pink|primaryBlue)-(\d{1,3})/,
-      variants: ['hover', 'focus'], // Optional: Include variants if needed
-    },
-  ],
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
