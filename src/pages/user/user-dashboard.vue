@@ -41,7 +41,8 @@
                             <img src="../../assets/user/images/Rectangle 117.png" alt=""
                                 class="rounded-lg w-12 h-12 mr-4">
                             <input type="text" placeholder="Write your thoughts..."
-                                class="flex-grow text-ceil bg-culturedBlue  rounded-xl py-2 px-4 focus:outline-none focus:border-blue-500">
+                                class="flex-grow text-ceil bg-ceil rounded-xl border-none py-2 px-4 "
+                                style="background-color:#F4F6F9; color:#8CA4CE;">
                         </div>
                         <div class="flex justify-between items-center mt-4">
                             <div class="flex space-x-2">
@@ -96,7 +97,7 @@
                                         <img src="../../assets/user/images/whitter collage.png" alt=""
                                             class="rounded-lg w-12 h-12 mr-4">
                                         <div>
-                                            <div class="text-lg font-semibold">Whittier College</div>
+                                            <div class="text-lg font-semibold text-black">Whittier College</div>
                                             <div class="flex items-center space-x-2">
                                                 <div class="bg-lightPink p-1 rounded">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -137,15 +138,14 @@
                                     beach. We are a nationally ranked liberal arts school for academics, value, and for
                                     a transformative experience.
                                 </p>
-                                <a href="#" class="text-steelBlue hover:underline mt-2 block">Show more...</a>
+                                <a href="#" class="text-steelBlue hover:underline mt-2 bloc text-sm">Show more...</a>
                                 <div class="flex items-center justify-between mt-4">
                                     <div class="flex items-center space-x-4">
-                                        <button
-                                            class="flex items-center space-x-1 transition duration-0 hover:duration-150">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="size-4">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                        <button class="flex items-center space-x-1 text-red-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                fill="currentColor" class="size-6">
+                                                <path
+                                                    d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" />
                                             </svg>
 
                                             <span class="text-darkSlateBlue">100</span>
@@ -161,7 +161,7 @@
                                         </button>
                                         <button class="flex items-center space-x-1 text-gray-500">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                stroke-width="1.5" stroke="currentColor" class="size-4">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" />
                                             </svg>
@@ -186,7 +186,7 @@
                                 class="w-12 h-12 rounded-lg">
                             <div class="relative  w-full ">
                                 <input type="text" placeholder="Write your comment..."
-                                    class="text-ceil bg-culturedBlue w-full rounded-xl py-2 px-4 focus:outline-none focus:border-blue-500">
+                                    class="text-ceil bg-culturedBlue w-full rounded-xl py-2 px-4 border-none" style="background-color:#F4F6F9; color:#8CA4CE;">
                                 <span class="absolute inset-y-0 right-0 flex items-center pl-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6 text-ceil pr-2">
@@ -217,13 +217,13 @@
                                         <img src="../../assets/user/images/Rectangle 126.png" alt=""
                                             class="rounded-lg w-12 h-12 mr-4">
                                         <div>
-                                            <div class="text-lg font-semibold">Dianne Russell</div>
+                                            <div class="text-lg font-semibold text-black">Dianne Russell</div>
                                             <div class="flex items-center space-x-2">
                                                 <div class="bg-mintGreen p-1 rounded">
                                                     <img src="../../assets/user/images/man-medal.png" alt=""
                                                         class=" w-4 h-4">
                                                 </div>
-                                                <div class="text-sm ml-2">4 hour ago</div>
+                                                <div class="text-sm ml-2 text-black">4 hour ago</div>
                                             </div>
                                         </div>
                                     </div>
@@ -288,7 +288,7 @@
                                         </button>
                                         <button class="flex items-center space-x-1 text-gray-500">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                stroke-width="1.5" stroke="currentColor" class="size-4">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" />
                                             </svg>
@@ -309,7 +309,7 @@
                                     <img src="../../assets/user/images/Rectangle 117.png" alt=""
                                         class="rounded-lg w-12 h-12 mr-4">
                                     <div>
-                                        <div class="text-lg font-semibold">Jane Cooper</div>
+                                        <div class="text-lg font-semibold text-black">Jane Cooper</div>
                                         <div class="flex items-center space-x-2">
                                             <div class="text-darkSlateBlue text-sm">15 min ago</div>
                                         </div>
@@ -322,7 +322,7 @@
                                     <img src="../../assets/user/images/Rectangle 117.png" alt=""
                                         class="rounded-lg w-12 h-12 mr-4">
                                     <div>
-                                        <div class="text-lg font-semibold">Jane Cooper</div>
+                                        <div class="text-lg font-semibold text-black">Jane Cooper</div>
                                         <div class="flex items-center space-x-2">
                                             <div class="text-darkSlateBlue text-sm">2 min ago</div>
                                         </div>
@@ -333,7 +333,8 @@
                                 </div>
 
 
-                                <a href="#" class="text-steelBlue hover:underline mt-2 block">Show all comments...</a>
+                                <a href="#" class="text-steelBlue hover:underline mt-2 block text-sm">Show all
+                                    comments...</a>
                             </div>
                         </div>
                         <hr class="mt-3 mb-3 text-pigeonBlue">
@@ -342,7 +343,8 @@
                                 class="w-12 h-12 rounded-lg">
                             <div class="relative  w-full ">
                                 <input type="text" placeholder="Write your comment..."
-                                    class="text-ceil bg-culturedBlue w-full rounded-xl py-2 px-4 focus:outline-none focus:border-blue-500">
+                                    class="text-ceil bg-ceil w-full rounded-xl py-2 px-4 border-none"
+                                    style="background-color:#F4F6F9; color:#8CA4CE;">
                                 <span class="absolute inset-y-0 right-0 flex items-center pl-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6 text-ceil pr-2">
@@ -373,7 +375,8 @@
                                         <img src="../../assets/user/images/Rectangle 117.png" alt=""
                                             class="rounded-lg w-12 h-12 mr-4">
                                         <div>
-                                            <div class="text-lg font-semibold">East Texas Baptist University</div>
+                                            <div class="text-lg font-semibold text-black">East Texas Baptist University
+                                            </div>
                                             <div class="flex items-center space-x-2">
                                                 <div class="bg-lightPink p-1 rounded">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -440,7 +443,7 @@
                                         </button>
                                         <button class="flex items-center space-x-1 text-gray-500">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                stroke-width="1.5" stroke="currentColor" class="size-4">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" />
                                             </svg>
@@ -465,7 +468,8 @@
                                 class="w-12 h-12 rounded-lg">
                             <div class="relative  w-full ">
                                 <input type="text" placeholder="Write your comment..."
-                                    class="text-ceil bg-culturedBlue w-full rounded-xl py-2 px-4 focus:outline-none focus:border-blue-500">
+                                    class=" text-ceil bg-ceil w-full rounded-xl py-2 px-4 border-none"
+                                    style="background-color:#F4F6F9; color:#8CA4CE;">
                                 <span class="absolute inset-y-0 right-0 flex items-center pl-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6 text-ceil pr-2">

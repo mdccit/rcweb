@@ -2,7 +2,7 @@
     <!-- Start Filter Section  -->
     <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3">
         <div class="flex justify-between items-center mb-4">
-            <h2 class="text-lg font-semibold">Filters</h2>
+            <h2 class="text-lg font-semibold text-black">Filters</h2>
             <button class="flex text-ceil text-sm">
                 <svg class="w-3 h-3 mt-1 mr-1" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd"
@@ -26,7 +26,12 @@
             </li>
             <li class="flex justify-between items-center mb-2 hover:bg-lightGray">
                 <a href="#" class="flex items-center text-black p-2 rounded-md">
-                    <img class="w-5" src="../../assets/css/images/posts.png" alt="">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-4">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z" />
+                    </svg>
+
                     <span class="pl-2.5">Posts</span>
                 </a>
                 <span class="text-steelBlue bg-steelBlueLight79 text-sm rounded-md p-1">5+ new</span>
