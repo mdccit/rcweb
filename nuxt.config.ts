@@ -4,29 +4,36 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  // devtools: { enabled: true },
   srcDir: 'src/',
   ssr: true,
   css: [
     '@/assets/css/tailwind.css', // Ensure this is the first CSS file
     'element-plus/dist/index.css',
     'flowbite/dist/flowbite.css',
-    'element-plus/dist/index.css',
     '~/assets/main.css'
   ],
   modules: [
+    '@vueuse/nuxt',
+    '@nuxt/ui',
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/color-mode',
+    // '@pinia/nuxt',
   ],
   tailwindcss: {
     configPath: '~/tailwind.config.ts',
     viewer: false,
   },
   build: {
+    transpile: ['@headlessui/vue'],
     postcss: {
       postcssOptions: {
         plugins: {
-          tailwindcss: {},
-          autoprefixer: {},
+          'postcss-nested': {},
+          'postcss-import': {},
+          'tailwindcss': {},
+          'autoprefixer' : {},
+
         },
       },
     },
@@ -71,10 +78,11 @@ export default defineNuxtConfig({
       routes: ['/'],
     },
   },
-  buildModules: [
-    '@nuxtjs/tailwindcss',
-    '@pinia/nuxt',
-  ],
+  colorMode: {
+    classSuffix: '',
+    fallback: 'light',
+    storageKey: 'color-mode',
+  },
   compatibilityDate: '2024-07-31',
   vite: {
     server: {

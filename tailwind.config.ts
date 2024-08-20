@@ -1,15 +1,26 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+
+const defaultTheme = require('tailwindcss/defaultTheme');
+
+module.exports = {
+  darkMode: 'class',
   content: [
         "./src/components/**/*.{js,vue,ts}",
         "./src/layouts/**/*.vue",
         "./src/pages/**/*.vue",
         "./src/plugins/**/*.{js,ts}",
         "./app.vue",
+        "./nuxt.config.{js,ts}",
+        './app.vue',
+        './assets/**/*.{css,scss}',
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['"Inter var"', ...defaultTheme.fontFamily.sans],
+      },
       colors: {
+        primaryblue: '#3D7FFF',
         blue: '#3D7FFF',
         black: '#000000',
         white: '#FFFFFF',
@@ -37,13 +48,16 @@ export default {
         orangeRed: '#FF0000',
         lightPink: '#FFA9A9'
       },
-      blue:{
-        500: '#3D7FFF',
-        600: '#3D7FFF',
-        700: '#3D7FFF',
-        800: '#3D7FFF',
+      testred: {
+        lightest: '#efdfa4',
+        lighter: '#f1cb8a',
+        light: '#f5b575',
+        DEFAULT: '#f89f68',
+        dark: '#fb8762',
+        darker: '#f86e61',
+        darkest: '#f15764'
       },
-      green: {
+      nut: {
         50: '#EFFDF5',
         100: '#D9FBE8',
         200: '#B3F5D1',
@@ -58,5 +72,20 @@ export default {
       }
     },
   },
-  plugins: [],
-}
+  variants: {
+    extend: {},
+  },
+  safelist: [
+    {
+      pattern: /bg-(red|green|blue|yellow|indigo|purple|pink|primaryBlue)-(\d{1,3})/,
+      variants: ['hover', 'focus'], // Optional: Include variants if needed
+    },
+  ],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/aspect-ratio'),
+  ],
+};
+
+
