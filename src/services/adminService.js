@@ -12,8 +12,25 @@ const createAdminService = (apiService) => {
     }
   };
 
+  const list_users = async (request_body) => {
+    const url = '/admin/users';
+    const body = request_body;
+
+    try {
+      const response = await apiService.getRequest(url, body);
+      if (response && response.data && response.data && response.data.dataSets) {
+        return response.data.dataSets;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
   return {
     new_user_register,
+    list_users,
   };
 };
 
