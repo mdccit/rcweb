@@ -128,8 +128,8 @@
                         <div class="relative hidden sm:hidden md:block">
 
                             <input type="text" id="search-navbar"
-                                class="block w-96 p-2 ps-10 text-sm text-gray-900 border border-b-poloBlue border-poloBlue rounded-3xl bg-graySnowDrift focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Search...">
+                                class="block w-96 p-2 ps-10 text-sm border border-b-poloBlue border-lightSteelBlue rounded-2xl bg-ceil"
+                                style="background-color:#F4F6F9; color:#8CA4CE; border-color:#779BD8;" placeholder="Search...">
                             <div class="absolute inset-y-2.5 end-5 flex ps-3 pointer-events-none">
                                 <span class="mr-2"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="steelBlue" class="size-4">
@@ -277,7 +277,7 @@
                             src="../../assets/user/images/Rectangle 117.png" alt="">
                     </div>
                     <div class="p-2 hidden sm:hidden md:hidden lg:block">
-                        <h6 class="text-sm">Jacob Johnes</h6>
+                        <h6 class="text-sm text-black">Jacob Johnes</h6>
                         <p class="text-xs text-limegreen">Online</p>
                     </div>
                     <!-- start mobile view arrow -->
