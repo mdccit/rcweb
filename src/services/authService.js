@@ -1,4 +1,3 @@
-// src/services/authService.js
 const createAuthService = (apiService) => {
   const login = async (email, password) => {
     const url = '/auth/login';
