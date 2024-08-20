@@ -161,13 +161,21 @@
                                         </button>
                                         <button class="flex items-center space-x-1 text-gray-500">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" />
+                                            </svg>
+                                            <span class="text-darkSlateBlue">3</span>
+                                        </button>
+                                        <!-- <button class="flex items-center space-x-1 text-gray-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="size-4">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
                                             </svg>
 
                                             <span class="text-darkSlateBlue">7</span>
-                                        </button>
+                                        </button> -->
                                     </div>
                                 </div>
                             </div>
@@ -280,13 +288,21 @@
                                         </button>
                                         <button class="flex items-center space-x-1 text-gray-500">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" />
+                                            </svg>
+                                            <span class="text-darkSlateBlue">3</span>
+                                        </button>
+                                        <!-- <button class="flex items-center space-x-1 text-gray-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="size-4">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
                                             </svg>
 
                                             <span class="text-darkSlateBlue">7</span>
-                                        </button>
+                                        </button> -->
                                     </div>
                                 </div>
                                 <div class="flex space-x-4 mt-3">
@@ -424,13 +440,21 @@
                                         </button>
                                         <button class="flex items-center space-x-1 text-gray-500">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" />
+                                            </svg>
+                                            <span class="text-darkSlateBlue">3</span>
+                                        </button>
+                                        <!-- <button class="flex items-center space-x-1 text-gray-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="size-4">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
                                             </svg>
 
                                             <span class="text-darkSlateBlue">7</span>
-                                        </button>
+                                        </button> -->
                                     </div>
                                 </div>
                             </div>
@@ -467,8 +491,8 @@
                 <!-- Start Pending Req. Section -->
                 <!-- <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3"> -->
-                        <!-- start pending request section -->
-                        <!-- <h2 class="text-lg font-semibold mb-4">Pending requests</h2>
+                <!-- start pending request section -->
+                <!-- <h2 class="text-lg font-semibold mb-4">Pending requests</h2>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
                             <img src="../../assets/user/images/Rectangle 117.png" alt=""
                                 class="w-16 h-16 rounded-lg mr-4">
@@ -508,9 +532,9 @@
                                 </div>
                             </div>
                         </div> -->
-                        <!-- end pending request section -->
-                        <!-- start latest contacts section -->
-                        <!-- <h2 class="text-lg font-semibold mt-4 mb-4">Latest contacts</h2>
+                <!-- end pending request section -->
+                <!-- start latest contacts section -->
+                <!-- <h2 class="text-lg font-semibold mt-4 mb-4">Latest contacts</h2>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
                             <img src="../../assets/user/images/Rectangle 117.png" alt=""
                                 class="w-16 h-16 rounded-lg mr-4">
@@ -543,10 +567,10 @@
                                 </svg>
                             </button>
                         </div> -->
-                        <!-- end latest contacts section -->
-                    <!-- </div> -->
-                    <!-- start chat card -->
-                    <!-- <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
+                <!-- end latest contacts section -->
+                <!-- </div> -->
+                <!-- start chat card -->
+                <!-- <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
                         <h2 class="text-lg font-semibold mb-4">Chat</h2>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
                             <img src="../../assets/user/images/Rectangle 117.png" alt=""
@@ -599,7 +623,7 @@
                             </button>
                         </div>
                     </div> -->
-                    <!-- end chat card -->
+                <!-- end chat card -->
                 <!-- </div> -->
                 <!-- End Pending Req. Section -->
             </section>
