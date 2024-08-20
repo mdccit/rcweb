@@ -128,8 +128,8 @@
                         <div class="relative hidden sm:hidden md:block">
 
                             <input type="text" id="search-navbar"
-                                class="block w-96 p-2 ps-10 text-sm border border-b-poloBlue border-lightSteelBlue rounded-2xl bg-ceil"
-                                style="background-color:#F4F6F9; color:#8CA4CE; border-color:#779BD8;" placeholder="Search...">
+                                class="block w-96 p-2 ps-10 text-sm rounded-full border bg-ceil"
+                                style="background-color:#F4F6F9; color:#8CA4CE; border-color: aliceblue;" placeholder="Search...">
                             <div class="absolute inset-y-2.5 end-5 flex ps-3 pointer-events-none">
                                 <span class="mr-2"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="steelBlue" class="size-4">
@@ -281,13 +281,27 @@
                         <p class="text-xs text-limegreen">Online</p>
                     </div>
                     <!-- start mobile view arrow -->
-                    <button class="pl-2">
+                    <button class="pl-2" d="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-5">
+                            stroke="currentColor" class="size-5 text-black">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                         </svg>
 
                     </button>
+                    <div id="dropdownDots"
+                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="dropdownMenuIconButton">
+                            <li>
+                                <a href="#"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">sample 01</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">sample 2</a>
+                            </li>
+                        </ul>
+                        </div>
                       <!-- end mobile view arrow -->
                 </div>
                 <!-- end profile section -->
