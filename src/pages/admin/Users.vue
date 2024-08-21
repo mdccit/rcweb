@@ -5,7 +5,7 @@
 
             <div class="">
 
-                <button type="submit" class=" border rounded-full shadow-sm font-bold py-2.5 px-8 
+                <button  @clik="openCreateUserModal('create', null)" class=" border rounded-full shadow-sm font-bold py-2.5 px-8 
                         focus:outline-none focus:ring focus:ring-opacity-50 
                         bg-blue-500 hover:bg-primary-400 
                         active:bg-primary-600 text-white 
@@ -644,7 +644,14 @@ const showModal = ref(false);
 // Reference to the modal component
 const modalRef = ref(null);
 const selectedAction = ref(''); 
-const selectedUserId = ref(''); 
+const selectedUserId = ref(null); 
+
+
+const openCreateUserModal = ({ action, userId }) => {
+  selectedAction.value = action;
+  selectedUserId.value = userId; // Clear userId if necessary
+  showModal.value = true;
+};
 
 // Function to open the modal
 const openModal = ({ action, userId }) => {
