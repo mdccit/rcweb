@@ -34,6 +34,7 @@ module.exports = {
         darkSlateBlue: '#465A7D',
         poloBlue: '#9EC7D4',
         culturedBlue: '#F6F6F6',
+        lightPale : '#C3E3FF',
         timberwolf: '#D9D9D9',
         graySnowDrift: '#F4F6F9',
         lightGray: '#eeeeee',
