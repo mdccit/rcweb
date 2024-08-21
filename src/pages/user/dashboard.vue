@@ -110,15 +110,20 @@
 
                     <span class="text-darkSlateBlue">100</span>
                   </button>
-                  <button class="flex items-center space-x-1 text-gray-500">
+                  <div id="accordion-collapse1" data-accordion="collapse1">
+                    <h2 id="accordion-collapse-comment-1">
+                  <button class="flex items-center space-x-1  text-darkSlateBlue dark:bg-white dark:text-darkSlateBlue" data-accordion-target="#accordion-collapse-comment-1-body" aria-expanded="false"
+                  aria-controls="accordion-collapse-comment-1-body">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                      stroke="currentColor" class="size-4">
+                      stroke="currentColor" class="size-4" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round"
                         d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
                     </svg>
 
                     <span class="text-darkSlateBlue">0</span>
                   </button>
+                  </h2>
+                  </div>
                   <button class="flex items-center space-x-1 text-gray-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" class="size-4">
@@ -140,30 +145,31 @@
             </div>
           </div>
           <hr class="mt-3 mb-3 text-pigeonBlue">
-          <div class="mt-4">
-            <div class=" flex items-start space-x-4">
-              <img src="../../assets/user/images/Rectangle 117.png" alt="User Image" class="w-12 h-12 rounded-lg">
-              <div class="relative  w-full ">
-                <input type="text" placeholder="Write your comment..."
-                  class="text-ceil bg-culturedBlue w-full rounded-xl py-2 px-4 border-none"
-                  style="background-color:#F4F6F9; color:#8CA4CE;">
-                <span class="absolute inset-y-0 right-0 flex items-center pl-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="size-6 text-ceil pr-2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
-                  </svg>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                    class="size-6 text-ceil pr-2">
-                    <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
-                    <path fill-rule="evenodd"
-                      d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
-                      clip-rule="evenodd" />
-                  </svg>
-                </span>
-              </div>
-              <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Comment</button>
+          <!-- comment section -->
+          <div id="accordion-collapse-comment-1-body" aria-labelledby="accordion-collapse-comment-1"
+            class="z-10 hidden bg-white mt-4 flex items-start space-x-4">
+            <img src="../../assets/user/images/Rectangle 117.png" alt="User Image" class="w-12 h-12 rounded-lg">
+            <div class="relative  w-full ">
+              <input type="text" placeholder="Write your comment..."
+                class=" text-ceil bg-ceil w-full rounded-xl py-2 px-4 border-none"
+                style="background-color:#F4F6F9; color:#8CA4CE;">
+              <span class="absolute inset-y-0 right-0 flex items-center pl-3">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="size-6 text-ceil pr-2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                  class="size-6 text-ceil pr-2">
+                  <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
+                  <path fill-rule="evenodd"
+                    d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+                    clip-rule="evenodd" />
+                </svg>
+
+              </span>
             </div>
+            <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Comment</button>
           </div>
         </div>
         <!--end card 02 -->
@@ -234,15 +240,22 @@
 
                     <span class="text-darkSlateBlue">100</span>
                   </button>
-                  <button class="flex items-center space-x-1 text-gray-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                      stroke="currentColor" class="size-4">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
-                    </svg>
+                  <div id="accordion-collapse2" data-accordion="collapse2">
+                    <h2 id="accordion-collapse-comment-2">
+                      <button type="button"
+                        class="flex items-center space-x-1 text-darkSlateBlue dark:bg-white dark:text-darkSlateBlue"
+                        data-accordion-target="#accordion-collapse-comment-2-body" aria-expanded="false"
+                        aria-controls="accordion-collapse-comment-2-body">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                          stroke="currentColor" class="size-4" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
+                        </svg>
 
-                    <span class="text-darkSlateBlue">0</span>
-                  </button>
+                        <span class="text-darkSlateBlue">0</span>
+                      </button>
+                    </h2>
+                  </div>
                   <button class="flex items-center space-x-1 text-gray-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" class="size-4">
@@ -314,38 +327,36 @@
                   </div>
                 </div>
               </div>
-
-
               <a href="#" class="text-steelBlue hover:underline mt-2 block text-sm">Show all
                 comments...</a>
             </div>
           </div>
-          <div class="mt-4">
-            <hr class="mt-3 mb-3 text-pigeonBlue">
-            <div class="flex items-start space-x-4">
-              <img src="../../assets/user/images/Rectangle 117.png" alt="User Image" class="w-12 h-12 rounded-lg">
-              <div class="relative  w-full ">
-                <input type="text" placeholder="Write your comment..."
-                  class="text-ceil bg-ceil w-full rounded-xl py-2 px-4 border-none"
-                  style="background-color:#F4F6F9; color:#8CA4CE;">
-                <span class="absolute inset-y-0 right-0 flex items-center pl-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="size-6 text-ceil pr-2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
-                  </svg>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                    class="size-6 text-ceil pr-2">
-                    <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
-                    <path fill-rule="evenodd"
-                      d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
-                      clip-rule="evenodd" />
-                  </svg>
+          <hr class="mt-3 mb-3 text-pigeonBlue">
+          <!-- comment section -->
+          <div id="accordion-collapse-comment-2-body" aria-labelledby="accordion-collapse-comment-2"
+            class="z-10 hidden bg-white mt-4 flex items-start space-x-4">
+            <img src="../../assets/user/images/Rectangle 117.png" alt="User Image" class="w-12 h-12 rounded-lg">
+            <div class="relative  w-full ">
+              <input type="text" placeholder="Write your comment..."
+                class=" text-ceil bg-ceil w-full rounded-xl py-2 px-4 border-none"
+                style="background-color:#F4F6F9; color:#8CA4CE;">
+              <span class="absolute inset-y-0 right-0 flex items-center pl-3">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="size-6 text-ceil pr-2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                  class="size-6 text-ceil pr-2">
+                  <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
+                  <path fill-rule="evenodd"
+                    d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+                    clip-rule="evenodd" />
+                </svg>
 
-                </span>
-              </div>
-              <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Comment</button>
+              </span>
             </div>
+            <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Comment</button>
           </div>
         </div>
         <!--end card 03 -->
@@ -435,15 +446,22 @@
 
                     <span class="text-darkSlateBlue">100</span>
                   </button>
-                  <button type="button" @click="toggleSection" aria-expanded="isOpen" aria-controls="sectionContent" class="flex items-center space-x-1 text-gray-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                      stroke="currentColor" class="size-4">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
-                    </svg>
+                  <div id="accordion-collapse" data-accordion="collapse">
+                    <h2 id="accordion-collapse-comment-3">
+                      <button type="button"
+                        class="flex items-center space-x-1 text-darkSlateBlue dark:bg-white dark:text-darkSlateBlue"
+                        data-accordion-target="#accordion-collapse-comment-3-body" aria-expanded="false"
+                        aria-controls="accordion-collapse-comment-3-body">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                          stroke="currentColor" class="size-4" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
+                        </svg>
 
-                    <span class="text-darkSlateBlue">0</span>
-                  </button>
+                        <span class="text-darkSlateBlue">0</span>
+                      </button>
+                    </h2>
+                  </div>
                   <button class="flex items-center space-x-1 text-gray-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" class="size-4">
@@ -464,8 +482,10 @@
               </div>
             </div>
           </div>
-          <div v-show="isOpen" id="sectionContent" class="hidden mt-4 flex items-start space-x-4">
-            <hr class="mt-3 mb-3 text-pigeonBlue">
+          <hr class="mt-3 mb-3 text-pigeonBlue">
+          <!-- comment section -->
+          <div id="accordion-collapse-comment-3-body" aria-labelledby="accordion-collapse-comment-3"
+            class="z-10 hidden bg-white mt-4 flex items-start space-x-4">
             <img src="../../assets/user/images/Rectangle 117.png" alt="User Image" class="w-12 h-12 rounded-lg">
             <div class="relative  w-full ">
               <input type="text" placeholder="Write your comment..."
@@ -487,6 +507,7 @@
 
               </span>
             </div>
+            <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Comment</button>
           </div>
         </div>
         <!--end card 04 -->
@@ -633,6 +654,30 @@
       <!-- End Pending Req. Section -->
     </section>
   </div>
+  <!-- <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover"
+    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    type="button">Dropdown hover <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+      fill="none" viewBox="0 0 10 6">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+    </svg>
+  </button>
+  <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
+      <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+      </li>
+      <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+      </li>
+      <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+      </li>
+      <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+      </li>
+    </ul>
+  </div> -->
+
 </template>
 
 <script setup>

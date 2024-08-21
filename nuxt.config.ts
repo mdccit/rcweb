@@ -57,7 +57,7 @@ export default defineNuxtConfig({
     '~/plugins/pinia.js',
     '~/plugins/initUser.js',
     '~/plugins/element-plus.ts',
-    // '~/plugins/flowbite-vue.js',
+    '~/plugins/flowbite.client.ts',
     '~/plugins/i18n.js'
   ],
   alias: {
