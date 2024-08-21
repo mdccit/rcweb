@@ -4,7 +4,7 @@
     
     <div class="flex flex-grow">
       <!-- Sidebar for Filters -->
-      <aside class="w-full p-4 bg-white shadow-md">
+      <aside class="w-3/5 p-4 bg-white shadow-md">
         <FilterCard />
       </aside>
 
