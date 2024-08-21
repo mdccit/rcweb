@@ -46,7 +46,7 @@
                                     <span class="text-green pl-1.5">Event</span>
                                 </button> -->
             </div>
-            <button class="bg-primaryblue text-white px-8 py-2 rounded-lg text-sm">Post</button>
+            <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Post</button>
           </div>
         </div>
         <!--end card 01 -->
@@ -123,9 +123,8 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" class="size-4">
                       <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" />
+                        d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                     </svg>
-                    <span class="text-darkSlateBlue">3</span>
                   </button>
                   <!-- <button class="flex items-center space-x-1 text-gray-500">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -141,27 +140,29 @@
             </div>
           </div>
           <hr class="mt-3 mb-3 text-pigeonBlue">
-          <div class="mt-4 flex items-start space-x-4">
-            <img src="../../assets/user/images/Rectangle 117.png" alt="User Image" class="w-12 h-12 rounded-lg">
-            <div class="relative  w-full ">
-              <input type="text" placeholder="Write your comment..."
-                class="text-ceil bg-culturedBlue w-full rounded-xl py-2 px-4 border-none"
-                style="background-color:#F4F6F9; color:#8CA4CE;">
-              <span class="absolute inset-y-0 right-0 flex items-center pl-3">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" class="size-6 text-ceil pr-2">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                  class="size-6 text-ceil pr-2">
-                  <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
-                  <path fill-rule="evenodd"
-                    d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
-                    clip-rule="evenodd" />
-                </svg>
-
-              </span>
+          <div class="mt-4">
+            <div class=" flex items-start space-x-4">
+              <img src="../../assets/user/images/Rectangle 117.png" alt="User Image" class="w-12 h-12 rounded-lg">
+              <div class="relative  w-full ">
+                <input type="text" placeholder="Write your comment..."
+                  class="text-ceil bg-culturedBlue w-full rounded-xl py-2 px-4 border-none"
+                  style="background-color:#F4F6F9; color:#8CA4CE;">
+                <span class="absolute inset-y-0 right-0 flex items-center pl-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6 text-ceil pr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
+                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                    class="size-6 text-ceil pr-2">
+                    <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
+                    <path fill-rule="evenodd"
+                      d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </div>
+              <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Comment</button>
             </div>
           </div>
         </div>
@@ -246,9 +247,8 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" class="size-4">
                       <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" />
+                        d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                     </svg>
-                    <span class="text-darkSlateBlue">3</span>
                   </button>
                   <!-- <button class="flex items-center space-x-1 text-gray-500">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -261,6 +261,7 @@
                                         </button> -->
                 </div>
               </div>
+              <hr class="mt-3 mb-3 text-pigeonBlue">
               <div class="flex space-x-4 mt-3">
                 <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-12 h-12 mr-4">
                 <div>
@@ -271,6 +272,20 @@
                   <p class="text-darkSlateBlue text-base mt-2">Lorem ipsum is a placeholder text
                     commonly used to demonstrate the visual form of a document or a typeface
                     without relying on meaningful content.</p>
+
+                  <div class="flex items-center justify-between mt-4">
+                    <div class="flex items-center space-x-4">
+                      <button class="flex items-center space-x-1 text-red-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                          stroke="currentColor" class="size-4">
+                          <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                        </svg>
+
+                        <span class="text-darkSlateBlue">100</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="flex space-x-4 mt-4 ml-20">
@@ -283,6 +298,20 @@
                   <p class="text-darkSlateBlue text-base mt-2">Lorem ipsum is a placeholder text
                     commonly used to demonstrate the visual form of a document or a typeface
                     without relying on meaningful content.</p>
+
+                  <div class="flex items-center justify-between mt-4">
+                    <div class="flex items-center space-x-4">
+                      <button class="flex items-center space-x-1 text-red-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                          stroke="currentColor" class="size-4">
+                          <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                        </svg>
+
+                        <span class="text-darkSlateBlue">100</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -291,28 +320,31 @@
                 comments...</a>
             </div>
           </div>
-          <hr class="mt-3 mb-3 text-pigeonBlue">
-          <div class="mt-4 flex items-start space-x-4">
-            <img src="../../assets/user/images/Rectangle 117.png" alt="User Image" class="w-12 h-12 rounded-lg">
-            <div class="relative  w-full ">
-              <input type="text" placeholder="Write your comment..."
-                class="text-ceil bg-ceil w-full rounded-xl py-2 px-4 border-none"
-                style="background-color:#F4F6F9; color:#8CA4CE;">
-              <span class="absolute inset-y-0 right-0 flex items-center pl-3">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" class="size-6 text-ceil pr-2">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                  class="size-6 text-ceil pr-2">
-                  <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
-                  <path fill-rule="evenodd"
-                    d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
-                    clip-rule="evenodd" />
-                </svg>
+          <div class="mt-4">
+            <hr class="mt-3 mb-3 text-pigeonBlue">
+            <div class="flex items-start space-x-4">
+              <img src="../../assets/user/images/Rectangle 117.png" alt="User Image" class="w-12 h-12 rounded-lg">
+              <div class="relative  w-full ">
+                <input type="text" placeholder="Write your comment..."
+                  class="text-ceil bg-ceil w-full rounded-xl py-2 px-4 border-none"
+                  style="background-color:#F4F6F9; color:#8CA4CE;">
+                <span class="absolute inset-y-0 right-0 flex items-center pl-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6 text-ceil pr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
+                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                    class="size-6 text-ceil pr-2">
+                    <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
+                    <path fill-rule="evenodd"
+                      d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+                      clip-rule="evenodd" />
+                  </svg>
 
-              </span>
+                </span>
+              </div>
+              <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Comment</button>
             </div>
           </div>
         </div>
@@ -322,13 +354,49 @@
         <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
           <div class="flex items-start space-x-4">
             <div class="flex-1">
-              <div class="flex items-center justify-between">
+              <div class="mb-4">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-4">
+                    <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-12 h-12 mr-4">
+                    <div>
+                      <div class="text-lg font-semibold text-black">East Texas Baptist University
+                      </div>
+                      <div class="flex items-center space-x-2">
+                        <div class="bg-lightPale p-1 rounded">
+                          <img src="../../assets/images/player-blue.png" alt="" class="rounded-lg w-4 h-4">
 
-                <div class="flex items-center space-x-4">
-                  <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-12 h-12 mr-4">
-                  <div>
-                    <div class="text-lg font-semibold text-black">East Texas Baptist University
+                        </div>
+                        <div class="text-gray-500 text-sm">2024 04 29</div>
+                      </div>
                     </div>
+                  </div>
+                  <div class="justify-end">
+                    <button>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="steelBlue" class="size-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
+                      </svg>
+                    </button>
+                    <button type="button">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-5 text-periwinkleBlue">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                      </svg>
+
+                    </button>
+                  </div>
+                </div>
+                <p class="mt-4 text-darkSlateBlue text-base">
+                  East Texas Baptist is searching for the best Student Athletes to become Tigers!
+                </p>
+              </div>
+              <div class="rounded-2xl overflow-hidden border border-lightSteelBlue p-4">
+                <div class="flex items-center space-x-4">
+                  <img src="../../assets/user/images/whitter collage.png" alt="" class="rounded-lg w-12 h-12 mr-4">
+                  <div>
+                    <div class="text-md font-semibold text-black">East Texas Baptist University</div>
                     <div class="flex items-center space-x-2">
                       <div class="bg-lightPink p-1 rounded">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -342,35 +410,20 @@
                     </div>
                   </div>
                 </div>
-                <div class="justify-end">
-                  <button>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                      stroke="steelBlue" class="size-5">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
-                    </svg>
-                  </button>
-                  <button>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                      stroke="currentColor" class="size-5 text-periwinkleBlue">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                    </svg>
 
-                  </button>
-                </div>
+                <p class="mt-4 text-darkSlateBlue text-base">
+                  East Texas Baptist is searching for the best Student Athletes to become Tigers!
+                  Our women’s team has been ranked as high as 32nd in the nation and has won an ASC
+                  championship. We have 2 All-Americans in the women’s program history as well. The
+                  2024 season, the women were ranked as high as 46th in the nation and 9th in the West
+                  ITA region.
+                  Our men’s team is the currently in the best season in program history
+                  with a record of 13-5 with many match wins over teams we havnt beaten since 2018.
+                  Our men’s team is projected to be 3rd in the ASC.ETBU has over 40 undergrad programs
+                  and we have a great mix of U.S. and International students in our roster.
+                </p>
               </div>
-              <p class="mt-4 text-darkSlateBlue text-base">
-                East Texas Baptist is searching for the best Student Athletes to become Tigers!
-                Our women’s team has been ranked as high as 32nd in the nation and has won an ASC
-                championship. We have 2 All-Americans in the women’s program history as well. The
-                2024 season, the women were ranked as high as 46th in the nation and 9th in the West
-                ITA region.
-                Our men’s team is the currently in the best season in program history
-                with a record of 13-5 with many match wins over teams we havnt beaten since 2018.
-                Our men’s team is projected to be 3rd in the ASC.ETBU has over 40 undergrad programs
-                and we have a great mix of U.S. and International students in our roster.
-              </p>
+
               <div class="flex items-center justify-between mt-4">
                 <div class="flex items-center space-x-4">
                   <button class="flex items-center space-x-1 text-red-500">
@@ -382,7 +435,7 @@
 
                     <span class="text-darkSlateBlue">100</span>
                   </button>
-                  <button class="flex items-center space-x-1 text-gray-500">
+                  <button type="button" @click="toggleSection" aria-expanded="isOpen" aria-controls="sectionContent" class="flex items-center space-x-1 text-gray-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" class="size-4">
                       <path stroke-linecap="round" stroke-linejoin="round"
@@ -395,9 +448,8 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" class="size-4">
                       <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" />
+                        d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                     </svg>
-                    <span class="text-darkSlateBlue">3</span>
                   </button>
                   <!-- <button class="flex items-center space-x-1 text-gray-500">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -412,8 +464,8 @@
               </div>
             </div>
           </div>
-          <hr class="mt-3 mb-3 text-pigeonBlue">
-          <div class="mt-4 flex items-start space-x-4">
+          <div v-show="isOpen" id="sectionContent" class="hidden mt-4 flex items-start space-x-4">
+            <hr class="mt-3 mb-3 text-pigeonBlue">
             <img src="../../assets/user/images/Rectangle 117.png" alt="User Image" class="w-12 h-12 rounded-lg">
             <div class="relative  w-full ">
               <input type="text" placeholder="Write your comment..."
