@@ -605,7 +605,7 @@
             </div>
         </div>
 
-        <AdminUserTable></AdminUserTable>
+        <AdminUserTable @open-modal="openModal"></AdminUserTable>
 
         <!-- Admin User Create Modal Component -->
         <!-- Header with "Create New" Button -->
@@ -618,7 +618,7 @@
             </button> -->
         </div>
         <!-- Admin User Create Modal Component -->
-        <AdminUserCreateModal :isVisible="showModal" @close="showModal = false" />
+        <AdminUserCreateModal :isVisible="showModal" @close="showModal = false"  :action="selectedAction" :userId="selectedUserId"/>
     </div>
 
 
@@ -639,16 +639,17 @@ import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.v
 
 
 const showModal = ref(false);
-
 // Reference to the modal component
 const modalRef = ref(null);
+const selectedAction = ref(''); 
+const selectedUserId = ref(''); 
 
 // Function to open the modal
-const openModal = () => {
-    modalRef.value.openModal();
+const openModal = ({ action, userId }) => {
+  selectedAction.value = action; // Extract and assign action
+  selectedUserId.value = userId; // Extract and assign userId
+  showModal.value = true;        // Show the modal
 };
-
-
 
 
 </script>
