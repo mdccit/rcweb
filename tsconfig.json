@@ -11,7 +11,14 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"],
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "#app": ["./.nuxt/types/app/index.d.ts"],
+      "#build": ["./.nuxt/types/build/index.d.ts"],
+      "#components": ["./.nuxt/components/index.d.ts"],
+      "#composables": ["./.nuxt/composables/index.d.ts"],
+      "#imports": ["./.nuxt/imports.d.ts"],
+      "#root": ["./"],
+      "#head": ["./.nuxt/types/head.d.ts"]
     },
     "types": ["@types/node", "@nuxt/types"]
   },

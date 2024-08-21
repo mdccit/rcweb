@@ -30,11 +30,11 @@ const createAdminService = (apiService) => {
 
 
   const get_user_details = async (user_id) => {
-    const url = '/admin/users/${user_id}';
-
+    const url = `/admin/users/${user_id}`;
+  
     try {
       const response = await apiService.getRequest(url);
-      if (response && response.data && response.data && response.data.user_basic_info) {
+      if (response && response.data && response.data.user_basic_info) {
         return response.data.user_basic_info;
       } else {
         throw new Error('Unexpected API response structure');
@@ -43,6 +43,7 @@ const createAdminService = (apiService) => {
       throw new Error(error.message || 'Failed to register');
     }
   };
+  
 
   return {
     new_user_register,

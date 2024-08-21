@@ -1,6 +1,6 @@
 <template>
     <!-- Modal Backdrop -->
-    <div v-if="isVisible" id="crud-modal" tabindex="-1" aria-hidden="true"
+    <div v-if="isVisible" id="crud-modal" tabindex="-1" 
       class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <!-- Modal Content Wrapper -->
       <div class="relative w-full max-w-md p-4 mx-auto">
@@ -29,10 +29,8 @@
             </div>
   
             <!-- Form Fields -->
-            <div>
-              <label for="first_name" class="block text-sm font-normal text-gray-900 light:text-gray">First Name</label>
               <input type="text" id="first_name" v-model="first_name"
-                class="bg-transparent block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 light:bg-gray-600 light:border-gray-500 dark:text-white"
+                class="bg-transparent block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 light:bg-gray-600 light:border-gray-500 dark:text-white light:text-primary"
                 placeholder="Enter First Name" />
             </div>
             <div>
@@ -113,49 +111,45 @@
     </div>
   </template>
   
-  <script setup>
-  import { ref, computed, watch, onMounted } from 'vue';
-  import { useNuxtApp } from '#app';
-  import { defineProps, defineEmits } from 'vue';
+<script setup>
+import { ref, computed, watch, onMounted } from 'vue';
+import { useNuxtApp } from '#app';
+import { defineProps, defineEmits } from 'vue';
   
-  // Props and Emits
-  const props = defineProps({
-    isVisible: Boolean,
-    action: String,
-    userId: String,
-  });
-  
-  const emit = defineEmits(['close']);
-  
-  // Form data
-  const first_name = ref('');
-  const last_name = ref('');
-  const email = ref('');
-  const user_role = ref('');
-  const is_set_email_verified = ref(false);
-  const password = ref('');
-  const password_confirmation = ref('');
-  const phone_code_country = ref('');
-  const phone_number = ref('');
-  const errors = ref([]);
-  const successMessage = ref('');
-  
-  // Access adminService from Nuxt App
-  const nuxtApp = useNuxtApp();
-  const $adminService = nuxtApp.$adminService;
-  
+
+const props = defineProps({
+  isVisible: Boolean,
+  action: String,
+  userId: String,
+});
+
+const emit = defineEmits(['close']);
+
+const first_name = ref('');
+const last_name = ref('');
+const email = ref('');
+const user_role = ref('');
+const is_set_email_verified = ref(false);
+const password = ref('');
+const password_confirmation = ref('');
+const phone_code_country = ref('');
+const phone_number = ref('');
+const errors = ref([]);
+const successMessage = ref('');
+
+const nuxtApp = useNuxtApp();
+const $adminService = nuxtApp.$adminService;
+
   // Computed property to split error messages by comma
   const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
-  
-  // Modal Title based on action
-  const modalTitle = computed(() => {
-    if (props.action === 'edit') return 'Edit User';
-    if (props.action === 'view') return 'View User';
-    return 'Create New User';
-  });
-  
-  // Function to submit registration
-  const submitRegistration = async () => {
+
+const modalTitle = computed(() => {
+  if (props.action === 'edit') return 'Edit User';
+  if (props.action === 'view') return 'View User';
+  return 'Create New User';
+});
+
+const submitRegistration = async () => {
     errors.value = [];
     if (password.value !== password_confirmation.value) {
       errors.value.push('Passwords do not match');
@@ -186,38 +180,42 @@
   };
   
   // Fetch user details function
-  const fetchUserDetails = async () => {
-    if (props.userId) {
-      try {
-        const data = await $adminService.get_user_details(props.userId);
-        // Map data to the form fields
-        first_name.value = data.first_name;
-        last_name.value = data.last_name;
-        email.value = data.email;
-        user_role.value = data.user_role;
-        phone_code_country.value = data.phone_code_country;
-        phone_number.value = data.phone_number;
-      } catch (error) {
-        console.error('Failed to load user details:', error.message);
-      }
+const fetchUserDetails = async () => {
+  if (props.userId) {
+    try {
+      const data = await $adminService.get_user_details(props.userId);
+      first_name.value = data.first_name || 'dd';
+      last_name.value = data.last_name || '';
+      email.value = data.email || '';
+      user_role.value = data.user_role || '';
+      phone_code_country.value = data.phone_code_country || '';
+      phone_number.value = data.phone_number || '';
+      is_set_email_verified.value = data.is_set_email_verified || false;
+    } catch (error) {
+      console.error('Failed to load user details:', error.message);
+      errors.value.push('Failed to load user details.');
     }
-  };
-  
-  // Watch for action or userId changes and load data accordingly
-  watch([() => props.action, () => props.userId], () => {
-    if (props.action === 'view' || props.action === 'edit') {
-      fetchUserDetails();
-    }
-  });
-  
-  // Optionally, fetch data when the component is mounted
-  onMounted(() => {
-    if (props.action === 'view' || props.action === 'edit') {
-      fetchUserDetails();
-    }
-  });
-  </script>
-  
+  }
+};
+
+watch([() => props.action, () => props.userId], () => {
+  if (props.action === 'view' || props.action === 'edit') {
+    fetchUserDetails();
+  }
+});
+
+watch(first_name, (newValue, oldValue) => {
+  console.log('First name changed from', oldValue, 'to', newValue);
+});
+
+
+// onMounted(() => {
+//   if (props.action === 'view' || props.action === 'edit') {
+//     fetchUserDetails();
+//   }
+// });
+</script>
+
   <style scoped>
   .error-messages {
     margin-top: 20px;
