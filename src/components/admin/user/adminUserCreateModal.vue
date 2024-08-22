@@ -36,24 +36,34 @@
                     </div>
 
                     <!-- Form Fields -->
-                    <div>
-                        <label for="first_name" class="block text-sm font-normal text-gray-900 light:text-gray">First
-                            Name</label>
-                        <input type="text" id="first_name" v-model="first_name"
-                            class="bg-transparent block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 light:bg-gray-600 light:border-gray-500 dark:text-white"
-                            placeholder="Enter Name" />
+                    <div class="flex">
+                        <div class="w-1/2">
+                            <div class="p-1">
+                                <label for="first_name"
+                                    class="block text-sm font-normal text-gray-900 light:text-gray">First
+                                    Name</label>
+                                <input type="text" id="first_name" v-model="first_name"
+                                    class=" bg-transparent text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500 "
+                                    placeholder="Enter Name" />
+                            </div>
+                        </div>
+                        <div class="w-1/2">
+                            <div class="p-1">
+                                <label for="last_name"
+                                    class="block text-sm font-normal text-gray-900 light:text-gray">Last
+                                    Name</label>
+                                <input type="text" id="last_name" v-model="last_name"
+                                    class="bg-transparent text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500"
+                                    placeholder="Enter Name" />
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label for="last_name" class="block text-sm font-normal text-gray-900 light:text-gray">Last
-                            Name</label>
-                        <input type="text" id="last_name" v-model="last_name"
-                            class="bg-transparent block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 light:bg-gray-600 light:border-gray-500 dark:text-white"
-                            placeholder="Enter Name" />
-                    </div>
-                    <div>
+
+
+                    <div class="mt-0 pt-0">
                         <label for="email" class="block text-sm font-normal text-gray-900 light:text-gray">Email</label>
                         <input type="email" id="email" v-model="email"
-                            class=" bg-transparent block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 light:bg-gray-600 light:border-gray-500 dark:text-white"
+                            class="bg-transparent text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500"
                             placeholder="Enter Email" />
 
                         <div class="flex items-end text-right mt-2">
@@ -65,21 +75,32 @@
                                 verified</label>
                         </div>
                     </div>
-                    <div>
-                        <label for="password"
-                            class=" bg-transparent block text-sm font-normal text-gray-900 light:text-gray">Password</label>
-                        <input type="password" id="password" v-model="password"
-                            class="block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 light:bg-gray-600 light:border-gray-500 light:text-gray"
-                            placeholder="Enter password" />
+
+                    <div class="flex">
+                        <div class="w-1/2">
+                            <div class="p-1">
+                                <label for="password"
+                                    class=" bg-transparent block text-sm font-normal text-gray-900 light:text-gray">Password</label>
+                                <input type="password" id="password" v-model="password"
+                                    class="bg-transparent text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500"
+                                    placeholder="Enter password" />
+                            </div>
+                        </div>
+                        <div class="w-1/2">
+                            <div class="p-1">
+                                <label for="password_confirmation"
+                                    class=" bg-transparent block text-sm font-normal text-gray-900 light:text-gray">Confirm
+                                    Password</label>
+                                <input type="password_confirmation" id="password_confirmation"
+                                    v-model="password_confirmation"
+                                    class="bg-transparent text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500"
+                                    placeholder="Confirm password" />
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label for="password_confirmation"
-                            class=" bg-transparent block text-sm font-normal text-gray-900 light:text-gray">Confirm
-                            Password</label>
-                        <input type="password_confirmation" id="password_confirmation" v-model="password_confirmation"
-                            class="block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 light:bg-gray-600 light:border-gray-500 light:text-gray"
-                            placeholder="Confirm password" />
-                    </div>
+
+
+
                     <div>
                         <label for="countries"
                             class="block mb-2 text-sm font-normal text-gray-900 light:text-white">Role</label>
@@ -126,9 +147,9 @@
 
         <div v-if="successMessage" class="mt-4">
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-              <span class="block sm:inline">{{ successMessage }}</span>
+                <span class="block sm:inline">{{ successMessage }}</span>
             </div>
-          </div>
+        </div>
     </div>
 </template>
 
@@ -169,7 +190,7 @@ const openModal = () => {
 
 // Computed property to split error messages by comma
 const splitErrors = computed(() => {
-  return errors.value.flatMap((error) => error.split(','));
+    return errors.value.flatMap((error) => error.split(','));
 });
 
 const props = defineProps({
