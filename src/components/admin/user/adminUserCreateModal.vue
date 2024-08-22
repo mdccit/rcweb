@@ -10,7 +10,7 @@
             <div class="relative bg-white rounded-lg shadow light:bg-gray-700">
                 <!-- Modal Header -->
                 <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray">Create New User</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray">{{ modalTitle }}</h3>
                     <button @click="$emit('close')"
                         class="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center light:hover:bg-gray-600 light:hover:text-white">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -154,7 +154,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch , onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
@@ -189,15 +189,19 @@ const openModal = () => {
 };
 
 // Computed property to split error messages by comma
-const splitErrors = computed(() => {
-    return errors.value.flatMap((error) => error.split(','));
+const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
+
+const modalTitle = computed(() => {
+    if (props.action === 'edit') return 'Edit User';
+    if (props.action === 'view') return 'View User';
+    return 'Create New User';
 });
 
+
 const props = defineProps({
-    isVisible: {
-        type: Boolean,
-        required: true,
-    },
+    isVisible: Boolean,
+    action: String,
+    userId: String,
 });
 
 const emit = defineEmits(['close']);
@@ -247,6 +251,38 @@ const submitRegistration = async () => {
 };
 
 
+// Fetch user details function
+const fetchUserDetails = async () => {
+    if (props.userId) {
+        try {
+            const data = await $adminService.get_user_details(props.userId);
+console.log(data);
+            first_name.value = data.first_name || '';
+            last_name.value = data.last_name || '';
+            email.value = data.email || '';
+            user_role.value = data.user_role || '';
+            phone_code_country.value = data.phone_code_country || ''; // Adjust if needed
+            phone_number.value = data.phone_number || '';             // Adjust if needed
+            is_set_email_verified.value = data.is_approved === 1;
+        } catch (error) {
+            console.error('Failed to load user details:', error.message);
+            errors.value.push('Failed to load user details.');
+        }
+    }
+};
+
+watch([() => props.action, () => props.userId], () => {
+  if (props.action === 'view' || props.action === 'edit') {
+    fetchUserDetails();
+  }
+});
+
+
+onMounted(() => {
+  if (props.action === 'view' || props.action === 'edit') {
+    fetchUserDetails();
+  }
+});
 </script>
 
 <style scoped>

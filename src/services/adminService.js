@@ -35,7 +35,7 @@ const createAdminService = (apiService) => {
     try {
       const response = await apiService.getRequest(url);
       if (response && response.data && response.data.user_basic_info) {
-        return response.data;
+        return response.data.user_basic_info;
       } else {
         throw new Error('Unexpected API response structure');
       }

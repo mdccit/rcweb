@@ -100,9 +100,10 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onMounted } from 'vue';
+import { ref, watch, computed, onMounted, defineEmits } from 'vue';
 import { useNuxtApp } from '#app';
 
+const emit = defineEmits(['open-modal']);
 const search = ref('');
 const items = ref([]);
 const totalItems = ref(0);
@@ -119,8 +120,6 @@ const fetchData = async () => {
   loading.value = true
   try {
     const users = await $adminService.list_users();
-    console.log('data');
-    console.log(users);
     items.value = users;
     totalItems.value = users.length
   } catch (error) {
@@ -153,13 +152,11 @@ const filteredItems = computed(() => {
 });
 
 const viewDetails = (row) => {
-  console.log('Viewing details for:', row);
-  // Implement view details logic here
+  emit('open-modal', { action: 'view', userId: row.id});
 };
 
 const editRecord = (row) => {
-  console.log('Editing record for:', row);
-  // Implement edit record logic here
+  emit('open-modal', { action: 'edit', userId: row.id});
 };
 
 const deleteRecord = (row) => {

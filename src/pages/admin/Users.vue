@@ -618,7 +618,7 @@
             </button> -->
         </div>
         <!-- Admin User Create Modal Component -->
-        <AdminUserCreateModal :isVisible="showModal" @close="showModal = false"  :action="selectedAction" :userId="selectedUserId"/>    
+        <AdminUserCreateModal @open-modal="openModal" :isVisible="showModal" @close="showModal = false"  :action="selectedAction" :userId="selectedUserId"/>    
 
 
     </div>
