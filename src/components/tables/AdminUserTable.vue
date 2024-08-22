@@ -50,7 +50,7 @@
       <el-table-column label="Actions">
         <template v-slot="scope">
           <!-- Select Record Button -->
-          <button @click="selectRecord(scope.row)"
+          <button @click="viewDetails(scope.row)"
             class="text-white bg-blue-100 hover:bg-blue-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             <svg class="w-5 h-5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
               viewBox="0 0 24 24" stroke="currentColor">
@@ -65,7 +65,7 @@
               <el-dropdown-menu>
                 <el-dropdown-item @click.native="viewDetails(scope.row)">View Details</el-dropdown-item>
                 <el-dropdown-item @click.native="editRecord(scope.row)">Edit Record</el-dropdown-item>
-                <el-dropdown-item divided @click.native="deleteRecord(scope.row)">Delete Record</el-dropdown-item>
+                <!-- <el-dropdown-item divided @click.native="deleteRecord(scope.row)">Delete Record</el-dropdown-item> -->
               </el-dropdown-menu>
             </template>
 
@@ -100,9 +100,10 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onMounted } from 'vue';
+import { ref, watch, computed, onMounted, defineEmits } from 'vue';
 import { useNuxtApp } from '#app';
 
+const emit = defineEmits(['open-modal']);
 const search = ref('');
 const items = ref([]);
 const totalItems = ref(0);
@@ -119,8 +120,6 @@ const fetchData = async () => {
   loading.value = true
   try {
     const users = await $adminService.list_users();
-    console.log('data');
-    console.log(users);
     items.value = users;
     totalItems.value = users.length
   } catch (error) {
@@ -153,13 +152,11 @@ const filteredItems = computed(() => {
 });
 
 const viewDetails = (row) => {
-  console.log('Viewing details for:', row);
-  // Implement view details logic here
+  emit('open-modal', { action: 'view', userId: row.id });
 };
 
 const editRecord = (row) => {
-  console.log('Editing record for:', row);
-  // Implement edit record logic here
+  emit('open-modal', { action: 'edit', userId: row.id });
 };
 
 const deleteRecord = (row) => {
