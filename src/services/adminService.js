@@ -44,11 +44,28 @@ const createAdminService = (apiService) => {
     }
   };
   
+  const list_schools = async (page = 1, per_page_items = 5) => {
+    const url = `/admin/schools?page=${page}&per_page_items=${per_page_items}`;
+  
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data && response.data.dataSets) {
+        return response.data.dataSets;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve schools');
+    }
+  };
+  
+
 
   return {
     new_user_register,
     list_users,
     get_user_details,
+    list_schools,
   };
 };
 
