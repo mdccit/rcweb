@@ -5,7 +5,7 @@
 
             <div class="">
 
-                <button type="submit" class=" border rounded-full shadow-sm font-bold py-2.5 px-8 
+                <button  @clik="openCreateUserModal('create', null)" class=" border rounded-full shadow-sm font-bold py-2.5 px-8 
                         focus:outline-none focus:ring focus:ring-opacity-50 
                         bg-blue-500 hover:bg-primary-400 
                         active:bg-primary-600 text-white 
@@ -605,7 +605,7 @@
             </div>
         </div>
 
-        <AdminUserTable></AdminUserTable>
+        <AdminUserTable @open-modal="openModal"></AdminUserTable>
 
         <!-- Admin User Create Modal Component -->
         <!-- Header with "Create New" Button -->
@@ -618,7 +618,9 @@
             </button> -->
         </div>
         <!-- Admin User Create Modal Component -->
-        <AdminUserCreateModal :isVisible="showModal" @close="showModal = false" />
+        <AdminUserCreateModal :isVisible="showModal" @close="showModal = false"  :action="selectedAction" :userId="selectedUserId"/>    
+
+
     </div>
 
 
@@ -639,16 +641,24 @@ import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.v
 
 
 const showModal = ref(false);
-
 // Reference to the modal component
 const modalRef = ref(null);
+const selectedAction = ref(''); 
+const selectedUserId = ref(null); 
 
-// Function to open the modal
-const openModal = () => {
-    modalRef.value.openModal();
+
+const openCreateUserModal = ({ action, userId }) => {
+  selectedAction.value = action;
+  selectedUserId.value = userId; // Clear userId if necessary
+  showModal.value = true;
 };
 
-
+// Function to open the modal
+const openModal = ({ action, userId }) => {
+  selectedAction.value = action; // Extract and assign action
+  selectedUserId.value = userId; // Extract and assign userId
+  showModal.value = true;        // Show the modal
+};
 
 
 </script>

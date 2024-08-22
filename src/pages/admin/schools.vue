@@ -18,7 +18,7 @@
 
         </div>
 
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8 mb-3">
+        <!-- <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8 mb-3">
             <div><span class="text-gray-500 text-sm font-bold uppercase mb-2 text-center"> Schools Added 30d </span>
                 <div class="my-4"></div>
                 <div class="vue-apexcharts" style="min-height: 315px;">
@@ -593,9 +593,11 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <schoolTable></schoolTable>
+       
+        <schoolTable @open-modal="openModal"></schoolTable>
+
 
         <!-- Admin User Create Modal Component -->
         <!-- Header with "Create New" Button -->
@@ -609,7 +611,7 @@
 
 <script setup>
 import { useUserStore } from '~/stores/userStore'
-import schoolTable from '~/components/tables/schoolTables.vue';
+import schoolTable from '~/components/tables/AdminSchoolTable.vue';
 import schoolCreateModal from '~/components/shared/schoolCreateModal.vue';
 
 const userStore = useUserStore()
