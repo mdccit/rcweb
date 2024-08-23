@@ -251,23 +251,7 @@
 </template>
 
 <script setup>
-import { useUserStore } from '~/stores/userStore'
-import schoolTable from '~/components/tables/schoolTables.vue';
-import schoolCreateModal from '~/components/shared/schoolCreateModal.vue';
 
-const userStore = useUserStore()
-
-const email = userStore.user?.email
-const token = userStore.user?.token
-
-// Reference to the modal component
-const modalRef = ref(null);
-
-// Function to open the modal
-const openModal = () => {
-    modalRef.value.openModal();
-    console.log('open')
-}
 
 </script>
 

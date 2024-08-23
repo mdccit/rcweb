@@ -87,7 +87,7 @@
                                             name="media[]" aria-controls="filepond--assistant-ilhb3ppsi"
                                             aria-labelledby="filepond--drop-label-ilhb3ppsi" multiple=""
                                             data-server="false"><a class="filepond--credits" aria-hidden="true"
-                                            href="https://pqina.nl/" target="_blank" rel="noopener noreferrer"
+                                            href="" target="_blank" rel="noopener noreferrer"
                                             style="transform: translateY(34px);">Powered by PQINA</a>
                                         <div class="filepond--drop-label"
                                             style="transform: translate3d(0px, 0px, 0px); opacity: 1;"><label
@@ -148,24 +148,6 @@
 </template>
 
 <script setup>
-import { useUserStore } from '~/stores/userStore'
-import schoolTable from '~/components/tables/AdminSchoolTable.vue';
-import schoolCreateModal from '~/components/shared/schoolCreateModal.vue';
-import BusinessTable from '~/components/tables/BusinessTable.vue';
-
-const userStore = useUserStore()
-
-const email = userStore.user?.email
-const token = userStore.user?.token
-
-// Reference to the modal component
-const modalRef = ref(null);
-
-// Function to open the modal
-const openModal = () => {
-    modalRef.value.openModal();
-    console.log('open')
-}
 
 
 </script>
