@@ -5,7 +5,7 @@
 
             <div class="">
 
-                <button  @clik="openCreateUserModal('create', null)" class=" border rounded-full shadow-sm font-bold py-2.5 px-8 
+                <button @clik="openCreateUserModal('create', null)" class=" border rounded-full shadow-sm font-bold py-2.5 px-8 
                         focus:outline-none focus:ring focus:ring-opacity-50 
                         bg-blue-500 hover:bg-primary-400 
                         active:bg-primary-600 text-white 
@@ -502,7 +502,8 @@
                                             transform="rotate(-45 1082.4261722564697 216.71015644073486)">
                                             <tspan id="SvgjsTspan2055">15 Aug</tspan>
                                             <title>15 Aug</title>
-                                        </text></g>
+                                        </text>
+                                    </g>
                                 </g>
                                 <g id="SvgjsG2077" class="apexcharts-yaxis-annotations"></g>
                                 <g id="SvgjsG2078" class="apexcharts-xaxis-annotations"></g>
@@ -618,7 +619,8 @@
             </button> -->
         </div>
         <!-- Admin User Create Modal Component -->
-        <AdminUserCreateModal @open-modal="openModal" :isVisible="showModal" @close="showModal = false"  :action="selectedAction" :userId="selectedUserId"/>    
+        <AdminUserCreateModal @open-modal="openModal" :isVisible="showModal" @close="showModal = false"
+            :action="selectedAction" :userId="selectedUserId" ref="userModal" />
 
 
     </div>
@@ -643,21 +645,26 @@ import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.v
 const showModal = ref(false);
 // Reference to the modal component
 const modalRef = ref(null);
-const selectedAction = ref(''); 
-const selectedUserId = ref(null); 
+const selectedAction = ref('');
+const selectedUserId = ref(null);
 
 
 const openCreateUserModal = ({ action, userId }) => {
-  selectedAction.value = action;
-  selectedUserId.value = userId; // Clear userId if necessary
-  showModal.value = true;
+    selectedAction.value = action;
+    selectedUserId.value = userId; // Clear userId if necessary
+    showModal.value = true;
+    nextTick(() => {
+        if (modalAction.value === 'create') {
+            $refs.userModal.clearForm();
+        }
+    });
 };
 
 // Function to open the modal
 const openModal = ({ action, userId }) => {
-  selectedAction.value = action; // Extract and assign action
-  selectedUserId.value = userId; // Extract and assign userId
-  showModal.value = true;        // Show the modal
+    selectedAction.value = action; // Extract and assign action
+    selectedUserId.value = userId; // Extract and assign userId
+    showModal.value = true;        // Show the modal
 };
 
 

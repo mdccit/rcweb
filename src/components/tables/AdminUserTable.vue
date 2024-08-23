@@ -50,14 +50,14 @@
       <el-table-column label="Actions">
         <template v-slot="scope">
           <!-- Select Record Button -->
-          <button @click="editRecord(scope.row)"
+          <!-- <button @click="viewDetails(scope.row)"
             class="text-white bg-blue-100 hover:bg-blue-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             <svg class="w-5 h-5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
               viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
               <path stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
             </svg>
-          </button>
+          </button> -->
 
           <!-- Dropdown Menu -->
           <el-dropdown>
@@ -65,7 +65,6 @@
               <el-dropdown-menu>
                 <el-dropdown-item @click.native="viewDetails(scope.row)">View Details</el-dropdown-item>
                 <el-dropdown-item @click.native="editRecord(scope.row)">Edit Record</el-dropdown-item>
-                <el-dropdown-item divided @click.native="deleteRecord(scope.row)">Delete Record</el-dropdown-item>
               </el-dropdown-menu>
             </template>
 
@@ -101,9 +100,11 @@
 
 <script setup>
 import { ref, watch, computed, onMounted, defineEmits } from 'vue';
+import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 
 const emit = defineEmits(['open-modal']);
+const router = useRouter();
 const search = ref('');
 const items = ref([]);
 const totalItems = ref(0);
@@ -151,17 +152,25 @@ const filteredItems = computed(() => {
   return filtered.slice(start, end);
 });
 
+
 const viewDetails = (row) => {
-  emit('open-modal', { action: 'view', userId: row.id});
+  router.push({
+    path: '/admin/userAccountDetails',
+    params: {
+      action: 'view',
+      userId: row.id
+    }
+  });
 };
 
 const editRecord = (row) => {
-  emit('open-modal', { action: 'edit', userId: row.id});
-};
-
-const deleteRecord = (row) => {
-  console.log('Deleting record for:', row);
-  // Implement delete record logic here
+  router.push({
+    path: '/admin/userAccountDetails',
+    params: {
+      action: 'edit',
+      userId: row.id
+    }
+  });
 };
 
 
