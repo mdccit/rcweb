@@ -610,10 +610,11 @@
                 </div>
             </div>
             <div class="my-16"></div>
-            <data value="">
+            <div>
             <BusinessTable></BusinessTable>
-        </data>
         </div>
+        </div>
+        
     </div>
 
   
