@@ -85,6 +85,21 @@
 
             <div class="my-8"></div>
 
+            <!-- Other Names Input -->
+            <div class="w-full">
+                <label class="block">
+                    <span class="block mb-1 text-gray-700 font-sans">Other Names</span>
+                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                        <input
+                            class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
+                            v-model="other_names" name="name" type="text" data-validation-key="other-names" />
+                    </div>
+                </label>
+            </div>
+
+            <div class="my-8"></div>
+
+
             <!-- Email Address Input -->
             <div class="">
                 <div class="w-full">
@@ -103,14 +118,13 @@
                     <label class="flex items-center">
                         <input name="set_email_verified" v-model="is_set_email_verified" type="checkbox"
                             data-validation-key="set_email_verified"
-                            class="rounded-full text-black p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                            true-value="1" false-value="false" value="1" />
-                        <span class="ml-4">Set email verified</span>
+                            class="rounded-full text-black p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50" />
+                        <span class="ml-4 text-black">Set email verified</span>
                     </label>
                 </div>
 
                 <!-- Resend Verification Email Link -->
-                <div class="mt-4 flex justify-end gap-2">
+                <div class="mt-4 flex text-black justify-end gap-2">
                     Or
                     <a href="https://qa1.recruited.qualitapps.com/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7/send-verification-email"
                         class="bg-gray-200 opacity-60 hover:opacity-100 p-2 rounded">
@@ -178,19 +192,8 @@
                                 <span aria-hidden="true" class="text-red-600" title="This field is required">*</span>
                             </span>
                             <div class="relative">
-                                <CountryCodeDropdown />
-                                <!-- <select v-model="phone_code_country" name="phone_code" data-validation-key="phone_code"
-                                    class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                                    id="country" required="" onchange="handleCountryCodeChange(this)">
-                                    <option disabled="" selected="" value="null">Country code</option>
-                                    <option value="+244">Angola (+244)</option>
-                                    <option value="+1-264">Anguilla (+1-264)</option>
-                                    <option value="+672">Norfolk Island (+672)</option>
-                                    <option value="+1-268">Antigua and Barbuda (+1-268)</option>
-                                    <option value="+54">Argentina (+54)</option>
-                                    <option value="+374">Armenia (+374)</option>
-                                    <option value="+297">Aruba (+297)</option>
-                                </select> -->
+                                <CountryCodeDropdown :country_codes="country_codes" v-model="phone_code_country"
+                                    name="phone_code" data-validation-key="phone_code" />
                             </div>
                         </label>
                     </div>
@@ -204,7 +207,7 @@
                                 <div class="flex rounded-lg border border-gray-300 shadow-sm">
                                     <input
                                         class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                        name="phone_number" type="number" data-validation-key="phone_number"
+                                        name="phone_number" type="text" data-validation-key="phone_number"
                                         v-model="phone_number" id="phone_number" step="0.01" required=""
                                         placeholder="123456789" />
                                 </div>
@@ -221,7 +224,7 @@
                 <label class="block">
                     <span class="block mb-1 text-gray-700 font-sans">Role</span>
                     <div class="relative">
-                       
+
                         <select v-model="user_role" name="role" data-validation-key="role"
                             class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
                             <option value="2">Admin</option>
@@ -247,6 +250,9 @@
         </div>
 
         <div class="my-16"></div>
+
+        <!-- Notification Component -->
+        <Notification v-if="showNotification" :message="notificationMessage" :duration="3000" />
     </div>
 </template>
 
@@ -261,17 +267,19 @@ import { useRoute } from 'vue-router';
 import userEditSection from '~/components/admin/user/userEditSections.vue';
 import { loadCountryList } from '~/services/commonService';
 import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
+import Notification from '~/components/common/Notification.vue';
 
 const route = useRoute(); // Use useRoute to access query parameters
 
 // const first_name = ref('');
-const first_name = ref('Initial Name');
+const first_name = ref('');
 const last_name = ref('');
+const other_names = ref('');
 const id = ref('');
 const email = ref('');
 const user_role = ref('');
 const is_approved = ref('');
-const is_set_email_verified = ref('');
+const is_set_email_verified = ref(false);
 const password = ref('');
 const password_confirmation = ref('');
 const phone_code_country = ref('');
@@ -279,8 +287,11 @@ const phone_number = ref('');
 const error = ref('');
 const successMessage = ref('');
 const errors = ref([]);
+const country_codes = ref([]);
 const userStore = useUserStore()
 const router = useRouter();
+const showNotification = ref(false);
+const notificationMessage = ref('');
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -338,6 +349,7 @@ const updateUserDetails = async () => {
             user_id: id.value,
             first_name: first_name.value,
             last_name: last_name.value,
+            other_names: other_names.value,
             email: email.value,
             user_role: user_role.value,
             is_set_email_verified: is_set_email_verified.value,
@@ -349,10 +361,15 @@ const updateUserDetails = async () => {
         });
 
         if (response.status === 200) {
-            successMessage.value = response.display_message;
+            notificationMessage.value = response.display_message;
+            showNotification.value = true;
         } else {
-            errors.value.push(response.data.display_message);
+            errors.value.push(response.display_message);
+            notificationMessage.value = response.display_message;
+            showNotification.value = true;
         }
+
+
     } catch (err) {
         if (err.response?.data?.message) {
             if (Array.isArray(err.response.data.message)) {
@@ -374,9 +391,10 @@ const fetchUserDetails = async (userId) => {
         id.value = data.id,
             first_name.value = data.first_name || '';
         last_name.value = data.last_name || '';
+        other_names.value = data.other_names || '';
         email.value = data.email || '';
         is_approved.value = data.is_approved,
-        user_role.value = data.user_role || '';
+            user_role.value = data.user_role_id || '';
         phone_code_country.value = data.phone_code_country || ''; // Adjust if needed
         phone_number.value = data.phone_number || '';             // Adjust if needed
         is_set_email_verified.value = data.is_approved === 1;
@@ -388,17 +406,18 @@ const fetchUserDetails = async (userId) => {
 
 
 const loadCountryCodes = async () => {
-  try {
-    country_codes.value = await loadCountryList();
-  } catch (err) {
-    console.error('Error loading country codes:', err);
-  }
+    try {
+        country_codes.value = await loadCountryList();
+    } catch (err) {
+        console.error('Error loading country codes:', err);
+    }
 };
 
 function clearForm() {
     id.value = '';
     first_name.value = '';
     last_name.value = '';
+    other_names.value = '';
     email.value = '';
     password.value = '';
     password_confirmation.value = '';
