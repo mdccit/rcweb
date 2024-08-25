@@ -12,6 +12,19 @@ const createAdminService = (apiService) => {
     }
   };
 
+  const user_update = async (request_body) => {
+    
+    const url = `/admin/user-update/${request_body.user_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+  
   const list_users = async (request_body) => {
     const url = '/admin/users';
     const body = request_body;
@@ -66,6 +79,7 @@ const createAdminService = (apiService) => {
     list_users,
     get_user_details,
     list_schools,
+    user_update
   };
 };
 
