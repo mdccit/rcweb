@@ -64,7 +64,7 @@
             <div class="w-full">
                 <label class="block">
                     <span class="block mb-1 text-gray-700 font-sans">First Name {{ first_name }}</span>
-                    <input v-model="first_name" type="text" :disabled="false"
+                    <input v-model="first_name" type="text"  :disabled="action === 'view'"
                         class="block text-black w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300" />
                 </label>
             </div>
@@ -78,7 +78,7 @@
                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
                         <input
                             class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
-                            v-model="last_name" name="name" type="text" data-validation-key="name" />
+                            v-model="last_name" name="name" type="text" data-validation-key="name"  :disabled="action === 'view'" />
                     </div>
                 </label>
             </div>
@@ -92,7 +92,7 @@
                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
                         <input
                             class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
-                            v-model="other_names" name="name" type="text" data-validation-key="other-names" />
+                            v-model="other_names" name="name" type="text" data-validation-key="other-names"  :disabled="action === 'view'" />
                     </div>
                 </label>
             </div>
@@ -108,7 +108,7 @@
                         <div class="flex rounded-lg border border-gray-300 shadow-sm">
                             <input v-model="email"
                                 class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                name="email" type="text" data-validation-key="email" />
+                                name="email" type="text" data-validation-key="email"  :disabled="action === 'view'" />
                         </div>
                     </label>
                 </div>
@@ -118,8 +118,8 @@
                     <label class="flex items-center">
                         <input name="set_email_verified" v-model="is_set_email_verified" type="checkbox"
                             data-validation-key="set_email_verified"
-                            class="rounded-full text-black p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50" />
-                        <span class="ml-4 text-black">Set email verified</span>
+                            class="rounded-full text-black p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"  :disabled="action === 'view'" />
+                        <span class="ml-4 text-black">Set email verified {{ action }}</span>
                     </label>
                 </div>
 
@@ -127,7 +127,7 @@
                 <div class="mt-4 flex text-black justify-end gap-2">
                     Or
                     <a href="https://qa1.recruited.qualitapps.com/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7/send-verification-email"
-                        class="bg-gray-200 opacity-60 hover:opacity-100 p-2 rounded">
+                        class="bg-gray-200 opacity-60 hover:opacity-100 p-2 rounded"  :disabled="action === 'view'">
                         send again
                     </a>
                 </div>
@@ -142,7 +142,7 @@
                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
                         <input
                             class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                            name="password" v-model="password" type="text" data-validation-key="password" />
+                            name="password" v-model="password" type="text" data-validation-key="password"  :disabled="action === 'view'" />
                     </div>
                 </label>
             </div>
@@ -154,7 +154,7 @@
                 <label class="block">
                     <span class="block mb-1 text-gray-700 font-sans">Approved</span>
                     <div class="relative">
-                        <select v-model="is_approved" name="is_approved" data-validation-key="is_approved"
+                        <select v-model="is_approved" name="is_approved" data-validation-key="is_approved"  :disabled="action === 'view'"
                             class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
                             <option value="1">Yes</option>
                             <option value="0">No</option>
@@ -193,7 +193,7 @@
                             </span>
                             <div class="relative">
                                 <CountryCodeDropdown :country_codes="country_codes" v-model="phone_code_country"
-                                    name="phone_code" data-validation-key="phone_code" />
+                                    name="phone_code" data-validation-key="phone_code"  :disabled="action === 'view'" />
                             </div>
                         </label>
                     </div>
@@ -209,7 +209,7 @@
                                         class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                         name="phone_number" type="text" data-validation-key="phone_number"
                                         v-model="phone_number" id="phone_number" step="0.01" required=""
-                                        placeholder="123456789" />
+                                        placeholder="123456789"  :disabled="action === 'view'" />
                                 </div>
                             </label>
                         </div>
@@ -226,7 +226,7 @@
                     <div class="relative">
 
                         <select v-model="user_role" name="role" data-validation-key="role"
-                            class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
+                            class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"  :disabled="action === 'view'">
                             <option value="2">Admin</option>
                             <option value="3">Operator</option>
                             <option value="4">Player</option>
@@ -241,7 +241,7 @@
             <div class="my-8"></div>
 
             <!-- Submit Button -->
-            <button type="submit" @click="updateUserDetails"
+            <button type="submit" @click="updateUserDetails" v-if="action !== 'view'"
                 class="border bg-blue-500 rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
                 <div class="flex flex-row items-center justify-center">
                     <span>Save changes </span>
@@ -305,40 +305,33 @@ defineExpose({ clearForm });
 // Computed property to split error messages by comma
 const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
 
-const modalTitle = computed(() => {
-    if (props.action === 'edit') return 'Edit User';
-    if (props.action === 'view') return 'View User';
-    return 'Create New User';
-});
-
-
-const props = defineProps({
-    action: String,
-    userId: String,
-});
-
+const action = ref(route.params.action || 'view'); // default to 'view' if action not provided
+const userId = ref(route.params.userId || '');
 
 onMounted(() => {
     loadCountryCodes();
-    const action = route.query.action;
-    const userId = route.query.userId;
-    if (action === 'view' || action === 'edit') {
-        fetchUserDetails(userId);
+
+    // Update the refs directly
+    action.value = route.query.action || 'view';
+    userId.value = route.query.userId || '';
+
+    if (action.value === 'view' || action.value === 'edit') {
+        fetchUserDetails(userId.value);
     }
 });
 
-watch([() => route.query.action, () => route.query.userId], () => {
-    const action = route.query.action || props.action;
-    const userId = route.query.userId || props.userId;
+// Watch for changes in the route query parameters
+watch([() => route.query.action, () => route.query.userId], ([newAction, newUserId]) => {
+    action.value = newAction || 'view';
+    userId.value = newUserId || '';
 
-    if (action === 'create') {
+    if (action.value === 'create') {
         clearForm();  // Clear form for "create"
-    } else if (action === 'edit' || action === 'view') {
+    } else if (action.value === 'edit' || action.value === 'view') {
         errors.value = [];  // Clear errors for "edit" & "view"
-        fetchUserDetails(userId);  // Fetch user details for "edit" & "view"
+        fetchUserDetails(userId.value);  // Fetch user details for "edit" & "view"
     }
 });
-
 
 
 //Update User

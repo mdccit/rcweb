@@ -41,7 +41,7 @@
                                     Name</label>
                                 <input type="text" id="first_name" v-model="first_name"
                                     class=" bg-transparent text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500 "
-                                    placeholder="Enter Name" :disabled="props.action === 'view'" />
+                                    placeholder="Enter Name" />
                             </div>
                         </div>
                         <div class="w-1/2">
@@ -51,7 +51,7 @@
                                     Name</label>
                                 <input type="text" id="last_name" v-model="last_name"
                                     class="bg-transparent text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500"
-                                    placeholder="Enter Name" :disabled="props.action === 'view'" />
+                                    placeholder="Enter Name" />
                             </div>
                         </div>
                     </div>
@@ -60,13 +60,13 @@
                         <label for="email" class="block text-sm font-normal text-gray-900 light:text-gray">Email</label>
                         <input type="email" id="email" v-model="email"
                             class="bg-transparent text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500"
-                            placeholder="Enter Email" :disabled="props.action === 'view'" />
+                            placeholder="Enter Email"  />
 
                         <div class="flex items-end text-right mt-2">
                             <input checked id="checked-checkbox" type="checkbox" value=""
                                 v-model="is_set_email_verified"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600"
-                                :disabled="props.action === 'view'">
+                               >
                             <label for="checked-checkbox"
                                 class="ms-2 text-sm font-normal text-gray-600 light:text-gray-300">Set email
                                 verified</label>
@@ -150,8 +150,6 @@
 
 <script setup>
 import { ref, computed, watch , onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
 import { defineProps, defineEmits, defineExpose} from 'vue';
 
@@ -168,8 +166,6 @@ const phone_number = ref('');
 const error = ref('');
 const successMessage = ref('');
 const errors = ref([]);
-const userStore = useUserStore()
-const router = useRouter();
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();

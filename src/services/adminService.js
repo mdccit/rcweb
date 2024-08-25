@@ -73,13 +73,40 @@ const createAdminService = (apiService) => {
   };
   
 
+  const school_register = async (request_body) => {
+    const url = '/admin/school-register';
+    const body = request_body;
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const school_update = async (request_body) => {
+    
+    const url = `/admin/school-update/${request_body.school_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
 
   return {
     new_user_register,
     list_users,
     get_user_details,
     list_schools,
-    user_update
+    user_update,
+    school_register,
+    school_update
   };
 };
 
