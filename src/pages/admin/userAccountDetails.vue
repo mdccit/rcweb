@@ -180,25 +180,151 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import UserTable from '~/components/tables/UserTable.vue';
-import { useUserStore } from '~/stores/userStore'
-import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.vue';
 
+import { ref, computed, watch , onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '~/stores/userStore';
+import { useNuxtApp } from '#app';
+import { defineProps, defineEmits, defineExpose} from 'vue';
 
-const showModal = ref(false);
+const first_name = ref('');
+const last_name = ref('');
+const email = ref('');
+const user_role = ref('');
+const is_set_email_verified = ref('');
+const password = ref('');
+const password_confirmation = ref('');
+const phone_code_country = ref('');
+const phone_number = ref('');
+const error = ref('');
+const successMessage = ref('');
+const errors = ref([]);
 const userStore = useUserStore()
+const router = useRouter();
 
-const email = userStore.user?.email;
-const token = userStore.user?.token;
+// Access authService from the context
+const nuxtApp = useNuxtApp();
+const $adminService = nuxtApp.$adminService;
 
 // Reference to the modal component
 const modalRef = ref(null);
+const emit = defineEmits(['close']);
+defineExpose({ clearForm });
 
-// Function to open the modal
-const openModal = () => {
-    modalRef.value.openModal();
+// Computed property to split error messages by comma
+const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
+
+const modalTitle = computed(() => {
+    if (props.action === 'edit') return 'Edit User';
+    if (props.action === 'view') return 'View User';
+    return 'Create New User';
+});
+
+
+const props = defineProps({
+    isVisible: Boolean,
+    action: String,
+    userId: String,
+});
+
+
+onMounted(() => {
+  if (props.action === 'view' || props.action === 'edit') {
+    fetchUserDetails();
+  }
+});
+
+watch(() => props.isVisible, (newValue) => {
+    if (newValue) {
+        if (props.action === 'create') {
+            clearForm();  // Clear form for "create"
+        } else if (props.action === 'edit' || props.action === 'view') {
+            errors.value = [];  // Clear only errors for "edit" & "view"
+        }
+    }
+});
+
+watch([() => props.action, () => props.userId], () => {
+  if (props.action === 'view' || props.action === 'edit') {
+    fetchUserDetails();
+  }
+});
+
+
+//Update User
+const updateUserDetails = async () => {
+    console.log('submitting');
+    errors.value = [];
+    if (password.value !== password_confirmation.value) {
+        errors.value.push('Passwords do not match');
+        console.log(error.value);
+        return;
+    }
+    try {
+        const response = await $adminService.new_user_register({
+            first_name: first_name.value,
+            last_name: last_name.value,
+            email: email.value,
+            user_role: user_role.value,
+            is_set_email_verified: is_set_email_verified.value,
+            password: password.value,
+            password_confirmation: password_confirmation.value,
+            phone_code_country: phone_code_country.value,
+            phone_number: phone_number.value,
+        });
+
+        if (response.status === 200) {
+            successMessage.value = response.display_message;
+        } else {
+            errors.value.push(response.data.display_message);
+        }
+    } catch (err) {
+        if (err.response?.data?.message) {
+            if (Array.isArray(err.response.data.message)) {
+                errors.value = err.response.data.message;
+            } else {
+                errors.value = [err.response.data.message];
+            }
+        } else {
+            errors.value = [err.response?.data?.message || err.message];
+        }
+    }
 };
+
+
+// Fetch user details function
+const fetchUserDetails = async () => {
+    if (props.userId) {
+        try {
+            const data = await $adminService.get_user_details(props.userId);
+            first_name.value = data.first_name || '';
+            last_name.value = data.last_name || '';
+            email.value = data.email || '';
+            user_role.value = data.user_role || '';
+            phone_code_country.value = data.phone_code_country || ''; // Adjust if needed
+            phone_number.value = data.phone_number || '';             // Adjust if needed
+            is_set_email_verified.value = data.is_approved === 1;
+        } catch (error) {
+            console.error('Failed to load user details:', error.message);
+            errors.value.push('Failed to load user details.');
+        }
+    }
+};
+
+
+function clearForm() {
+    first_name.value = '';
+    last_name.value = '';
+    email.value = '';
+    password.value = '';
+    password_confirmation.value = '';
+    user_role.value = '';
+    phone_code_country.value = '';
+    phone_number.value = '';
+    is_set_email_verified.value = false;
+    errors.value = [];
+}
+
 
 </script>
 
