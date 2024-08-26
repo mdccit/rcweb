@@ -106,37 +106,32 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onMounted, defineEmits } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 
-const emit = defineEmits(['open-modal']);
+const router = useRouter();
 const search = ref('');
-const items = ref([]); // Initialize as an array
+const items = ref([]);
 const totalItems = ref(0);
 const options = ref({
   page: 1,
-  itemsPerPage: 5,  // Default to 2 items per page
+  itemsPerPage: 10,
 });
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
 
-// Fetch data from the API
 const fetchData = async (page = 1, per_page_items = 5) => {
   loading.value = true;
   try {
-    const response = await $adminService.list_schools(page, per_page_items);
-
-    console.log(response);
-    if (response && response.data && response.data) {
-      items.value = response.data; // Extract the list of schools
-      totalItems.value = response.data.total; // Extract the total number of items
-    } else {
-      items.value = [];
-      totalItems.value = 0;
-    }
+    const dataSets = await $adminService.list_schools(page, per_page_items);
+    items.value = dataSets.data; // Data for the current page
+    totalItems.value = dataSets.total; // Total number of items across all pages
+    options.value.page = dataSets.current_page; // Current page
+    options.value.itemsPerPage = dataSets.per_page; // Items per page
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
   } finally {
     loading.value = false;
   }
@@ -145,7 +140,9 @@ const fetchData = async (page = 1, per_page_items = 5) => {
 // Watch options and search to update filtered items
 watch([options, search], () => fetchData(options.value.page, options.value.itemsPerPage), { immediate: true });
 
-onMounted(() => fetchData(options.value.page, options.value.itemsPerPage));
+onMounted(() => {
+  fetchData(options.value.page, options.value.itemsPerPage);
+});
 
 const filteredItems = computed(() => {
   let filtered = Array.isArray(items.value) ? items.value : [];
@@ -164,11 +161,23 @@ const filteredItems = computed(() => {
 });
 
 const viewDetails = (row) => {
-  emit('open-modal', { action: 'view', userId: row.id });
+  router.push({
+    path: '/school/schoolGeneralDetails',
+    query: {
+      action: 'view',
+      userId: row.id
+    }
+  });
 };
 
 const editRecord = (row) => {
-  emit('open-modal', { action: 'edit', userId: row.id });
+  router.push({
+    path: '/school/schoolGeneralDetails',
+    query: {
+      action: 'edit',
+      userId: row.id
+    }
+  });
 };
 
 const deleteRecord = (row) => {
@@ -178,13 +187,15 @@ const deleteRecord = (row) => {
 
 const handlePageChange = (newPage) => {
   options.value.page = newPage;
-}
+  fetchData(newPage, options.value.itemsPerPage);
+};
 
 const formatDate = (dateString) => {
   const options = { year: 'numeric', month: 'short', day: 'numeric' };
   return new Date(dateString).toLocaleDateString(undefined, options);
 };
 </script>
+
 
 
 <script>

@@ -63,18 +63,17 @@
                 </div>
             </div>
         </div>
-
-        <!-- Notification Component -->
-        <Notification v-if="showNotification" :message="notificationMessage" :duration="5000" />
     </div>
+
+    <!-- Notification Component -->
+    <Notification v-if="showNotification" :message="notificationMessage" :duration="5000" />
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 import { useNuxtApp } from '#app';
-import { defineProps, defineEmits, defineExpose } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 import Notification from '~/components/common/Notification.vue';
-
 
 const name = ref('');
 const bio = ref('');
@@ -111,6 +110,7 @@ const submitRegistration = async () => {
             showNotification.value = true;
             name.value='';
             bio.value ='';
+            emit('close');
         } else {
             errors.value.push(response.data.display_message);
         }
@@ -126,8 +126,8 @@ const submitRegistration = async () => {
         }
     }
 };
-
 </script>
+
 
 <style scoped>
 .container {
