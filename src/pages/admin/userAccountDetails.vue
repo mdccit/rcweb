@@ -271,7 +271,6 @@ import Notification from '~/components/common/Notification.vue';
 
 const route = useRoute(); // Use useRoute to access query parameters
 
-// const first_name = ref('');
 const first_name = ref('');
 const last_name = ref('');
 const other_names = ref('');

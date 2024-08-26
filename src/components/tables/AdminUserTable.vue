@@ -110,7 +110,7 @@ const items = ref([]);
 const totalItems = ref(0);
 const options = ref({
   page: 1,
-  itemsPerPage: 2,  // 10 items per page
+  itemsPerPage: 10,  // 10 items per page
 });
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
