@@ -70,9 +70,13 @@
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Transcripts </div>
             </a>
-            <a @click="logout"
+            <a @click="login"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              <div class="flex items-center"> Logout </div>
+              <div class="flex items-center"> Login </div>
+            </a>
+            <a @click="logoutUser"
+              class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+              <div class="flex items-center"> Log Out </div>
             </a>
           </div>
           <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -86,7 +90,7 @@
                   </button>
                 </div>
                 <div>
-           
+
                 </div>
               </div>
             </div>
@@ -163,6 +167,9 @@
 
 
   </nav>
+
+  <!-- Notification Component -->
+  <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="5000" />
 </template>
 
 <script setup>
@@ -171,40 +178,43 @@ import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/userStore';
 import { useNuxtApp } from '#app';
 
-const user = ref(null);
+import Notification from '~/components/common/Notification.vue';
+
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 const userStore = useUserStore();
 const router = useRouter();
 
-const isLoggedIn = computed(() => !!userStore.user?.token);
-const token = computed(() => userStore.token);
-const isDropdownOpen = ref(false);
+const showNotification = ref(false);
+const notificationMessage = ref('');
+const error = ref('');
+const notification_type  = ref('');
 
 
-
-const handleSubmit = async () => {
-  if (password.value !== confirmPassword.value) {
-    error.value = 'Passwords do not match';
-    return;
-  }
+const logoutUser = async () => {
   try {
-    const response = await $authService.logout({
-    bearer_token: token
-    });
+    const response = await $authService.logout();
 
     if (response.status === 200) {
-      userStore.clearUser({    
+      userStore.clearUser({
         token: response.data.token
       });
       localStorage.removeItem('token');
+      notificationMessage.value = response.display_message;
+      notification_type.value = 'success';
       router.push(`/login`);
     } else {
-      error.value = response.data.display_message;
+      notificationMessage.value = response.display_message;   
+      notification_type.value = 'failure';
+      router.push(`/login`);
     }
   } catch (err) {
     error.value = err.response?.data?.message || err.message;
+    notification_type.value = 'failure';
+    notificationMessage.value = err.message;
   }
+
+  showNotification.value = true;
 };
 
 
@@ -220,9 +230,7 @@ const register = () => {
   router.push('/register');
 };
 
-const logout = () => {
-  userStore.clearUser();
-};
+
 </script>
 
 <style scoped>

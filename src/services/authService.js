@@ -126,6 +126,7 @@ const createAuthService = (apiService) => {
 
   return {
     login,
+    logout,
     register,
     registerStep2,
     getGoogleAuthUrl,
