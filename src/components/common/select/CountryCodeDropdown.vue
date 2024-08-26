@@ -1,7 +1,7 @@
 <template>
-    <select v-model="selected" @change="updateValue" placeholder="Code" class="col-span-4 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500" id="mobileCode" required>
-      <option v-for="code in country_codes" :key="code.phone_code" :value="code.phone_code">
-        {{ code.phone_code }}
+    <select v-model="selected" @change="updateValue" placeholder="Code" class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50" id="mobileCode" required>
+      <option v-for="code in country_codes" :key="code.phone_code" :value="code.value">
+        {{ '(' + code.phone_code + ') ' + code.label }}
       </option>
     </select>
 </template>
@@ -25,7 +25,7 @@ const emits = defineEmits(['update:modelValue']);
 const selected = ref(props.modelValue);
 
 const updateValue = () => {
-  emits('update:modelValue', selected.value);
+  emits('update:modelValue', Number(selected.value));
 };
 
 watch(

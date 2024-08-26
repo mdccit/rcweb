@@ -50,10 +50,10 @@
           </button>
         </div>
         <div class="w-full">
-          <button type="button" @click="handleGoogleSignUp"
+          <!-- <button type="button" @click="handleGoogleSignUp"
             class="py-2.5 w-full px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
             <span><img class="absolute -mt-13" src="@/assets/images/google_icon.png"></span>Sign up with Google
-          </button>
+          </button> -->
         </div>
         <div class="text-center mt-8 pt-4 text-sm">
           <a href="/register">Don't have an account yet?<br><strong class="text-primary">Create new account</strong></a>
@@ -96,7 +96,11 @@ const handleSubmit = async () => {
         token: response.data.token
       })
       localStorage.setItem('token', response.data.token)  // Set token in local storage
-      router.push('/admin/dashboard')
+      if (response.data.user_permission_type === 'none') {
+        router.push('/user/approval-pending')  // Redirect to pending approval page
+      } else {
+        router.push('/admin/dashboard')  // Redirect to dashboard
+      }
     } else {
       error.value = response.display_message
     }
@@ -104,6 +108,9 @@ const handleSubmit = async () => {
     error.value = err.message
   }
 }
+
+
+
 
 // Function to handle Google sign up (assuming this is what you want to do)
 const handleGoogleSignUp = () => {

@@ -20,32 +20,77 @@
                 </div>
                 <!-- Modal Body -->
                 <div class="p-6 space-y-6">
+
+                    <!-- Display error messages -->
+                    <div v-if="errors.length" class="error-messages">
+                        <p class="error-title">Validation Errors:</p>
+                        <ul class="error-list">
+                            <li v-for="(error, index) in splitErrors" :key="index" class="error-item">
+                                {{ error }}
+                            </li>
+                        </ul>
+                    </div>
+
                     <!-- Form Fields -->
                     <div>
-                        <label for="name" class="block text-sm font-normal text-gray-900 light:text-gray">School Name</label>
-                        <input type="text" id="name"
-                            class="bg-transparent block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 light:bg-gray-600 light:border-gray-500 dark:text-white"
+                        <label for="name" class="block text-sm font-normal text-gray-900 light:text-gray">School
+                            Name</label>
+
+                        <input type="text" id="first_name" v-model="name"
+                            class=" bg-transparent w-full text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500 "
                             placeholder="Enter Name" />
+                    </div>
+
+
+                    <!-- Form Fields -->
+                    <div>
+                        <label for="name" class="block text-sm font-normal text-gray-900 light:text-gray">Bio</label>
+
+                        <input type="text" id="first_name" v-model="bio"
+                            class=" bg-transparent w-full text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500 "
+                            placeholder="Enter Bio" />
                     </div>
 
                 </div>
                 <!-- Modal Footer -->
                 <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-300">
-                    <button @click="handleSubmit"
+                    <button @click="submitRegistration"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Create
-                        </button>
+                    </button>
                     <button @click="$emit('close')"
                         class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 light:bg-gray-700 light:text-gray-300 light:border-gray-500 light:hover:text-white light:hover:bg-gray-600">Cancel</button>
                 </div>
             </div>
         </div>
+
+        <!-- Notification Component -->
+        <Notification v-if="showNotification" :message="notificationMessage" :duration="5000" />
     </div>
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
+import { useNuxtApp } from '#app';
+import { defineProps, defineEmits, defineExpose } from 'vue';
+import Notification from '~/components/common/Notification.vue';
 
+
+const name = ref('');
+const bio = ref('');
+const showNotification = ref(false);
+const notificationMessage = ref('');
+const errors = ref([]);
+
+// Access authService from the context
+const nuxtApp = useNuxtApp();
+const $adminService = nuxtApp.$adminService;
+
+// Reference to the modal component
+const emit = defineEmits(['close']);
+
+// Computed property to split error messages by comma
+const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
 const props = defineProps({
     isVisible: {
         type: Boolean,
@@ -53,10 +98,59 @@ const props = defineProps({
     },
 });
 
-const emit = defineEmits(['close']);
+const submitRegistration = async () => {
+    errors.value = [];
+    try {
+        const response = await $adminService.school_register({
+            name: name.value,
+            bio: bio.value
+        });
 
-function handleSubmit() {
-    // Handle form submission logic here
-    emit('close');
-}
+        if (response.status === 200) {
+            notificationMessage.value = response.display_message;
+            showNotification.value = true;
+            name.value='';
+            bio.value ='';
+        } else {
+            errors.value.push(response.data.display_message);
+        }
+    } catch (err) {
+        if (err.response?.data?.message) {
+            if (Array.isArray(err.response.data.message)) {
+                errors.value = err.response.data.message;
+            } else {
+                errors.value = [err.response.data.message];
+            }
+        } else {
+            errors.value = [err.response?.data?.message || err.message];
+        }
+    }
+};
+
 </script>
+
+<style scoped>
+.container {
+    max-width: 600px;
+}
+
+.error-messages {
+    margin-top: 20px;
+    color: red;
+}
+
+.error-title {
+    font-weight: bold;
+}
+
+.error-list {
+    list-style-type: disc;
+    /* Ensure bullet points are shown */
+    margin-left: 20px;
+    /* Indent the list */
+}
+
+.error-item {
+    margin-bottom: 5px;
+}
+</style>

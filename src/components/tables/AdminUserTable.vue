@@ -156,7 +156,7 @@ const filteredItems = computed(() => {
 const viewDetails = (row) => {
   router.push({
     path: '/admin/userAccountDetails',
-    params: {
+    query: {
       action: 'view',
       userId: row.id
     }
@@ -166,7 +166,7 @@ const viewDetails = (row) => {
 const editRecord = (row) => {
   router.push({
     path: '/admin/userAccountDetails',
-    params: {
+    query: {
       action: 'edit',
       userId: row.id
     }
