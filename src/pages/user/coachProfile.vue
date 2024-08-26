@@ -5,23 +5,74 @@
             <!-- start cover photo section -->
             <section class="w-full mb-5">
                 <img class="w-full h-[400px] rounded-xl" src="../../assets/user/images/coach-cover.jpg " alt="">
+                <span>
+                    <div class="-mt-[144px]">
+                        <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
+
+                            <div
+                                class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
+                                <div class="text-center">
+                                    <img class="mx-auto w-[200px] h-[200px] rounded-xl"
+                                        src="../../assets/user/images/coachProPic.png" alt="">
+                                </div>
+                                <div class="">
+                                    <div class="text-left mt-[70px] ">
+                                        <h2 class="text-lg font-semibold  text-white text-3xl">Jane Cooper</h2>
+                                        <h5 class=" text-md  text-white font-normal text-black text-primaryblue">Tennis
+                                            player
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="">
+                                </div>
+                                <div class="">
+                                </div>
+                                <div class="mt-[70px]">
+                                    <div>
+                                        <button type="button" class=" w-[45px] h-[45px] text-blue-500  focus:outline-none focus:ring-4 focus:ring-blue-300
+                             font-medium rounded-full text-sm text-center me-2 mb-2 bg-white
+                              hover:bg-blue-200 dark:focus:ring-blue-800 p-0">
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-6 mx-auto">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                            </svg>
+
+                                        </button>
+                                        <button type="button" class=" w-[45px] h-[45px] text-blue-500  focus:outline-none focus:ring-4 focus:ring-blue-300
+                             font-medium rounded-full text-sm text-center me-2 mb-2 bg-white
+                              hover:bg-blue-200 dark:focus:ring-blue-800 p-0">
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-6 mx-auto">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
+                                            </svg>
+
+
+                                        </button>
+                                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300
+                             font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600
+                              dark:hover:bg-blue-700 dark:focus:ring-blue-800 font-normal">Connect+
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </span>
+
             </section>
             <section class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
                 <!-- Start Profile pic section  -->
                 <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
 
-                    <div>
-                        <div class="text-center">
-                            <img class="mx-auto w-[200px] h-[200px] rounded-xl"
-                                src="../../assets/user/images/coachProPic.png" alt="">
-                            <h3 class="text-lg font-semibold text-center text-black">Jane Cooper</h3>
-                            <h5 class="text-normal text-md text-center text-black text-primaryblue">Tennis player</h5>
-                        </div>
-                    </div>
 
-
-
-                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
+                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3">
                         <div class="flex items-center justify-between">
 
                             <div class="flex items-center space-x-4 w-48">
@@ -355,75 +406,45 @@
 
                 <!-- Start UTR Section -->
                 <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
-                    <div>
-                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300
-                             font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600
-                              dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                            </svg>
-
-                        </button>
-                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300
-                             font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600
-                              dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                                stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round"
-                                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                            </svg>
-
-
-                        </button>
-                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300
-                             font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600
-                              dark:hover:bg-blue-700 dark:focus:ring-blue-800">Connect+
-                        </button>
-                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300
-                             font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600
-                              dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                                stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round"
-                                    d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg>
-
-                        </button>
-                    </div>
-                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-blue-500 p-3">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="">
-                                <h2 class="text-lg font-semibold mb-4">UTR score</h2>
+                    <div
+                        class="h-[80px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 h-auto">
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="... text-center">
+                                <img class="mx-auto w-[60px] h-[60px] rounded-full "
+                                    src="../../assets/user/images/whitter collage.png" alt="">
                             </div>
-                            <div class="">
-                                <h2 class="text-lg font-semibold mb-4">50.00</h2>
-                            </div>
-                            <div class="">
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">ATP Ranking</p>
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">ITF Ranking</p>
-                            </div>
-                            <div class="">
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">Unknown</p>
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">Unknown</p>
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">Unknown</p>
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">Unknown</p>
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">Unknown</p>
+                            <div class="col-span-2 ...">
+                                <p class="text-black text-sm">Coach at Whittier College</p>
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">Lorem ipsum is a
+                                    placeholder
+                                </p>
+                                <button type="button"
+                                    class="mt-3 btn-sm py-2.5 px-5 me-2 mb-2 text-xs text-blue-500 focus:outline-none bg-white rounded-full border border-blue-500 hover:bg-blue-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-blue-700 light:focus:ring-gray-700 light:bg-gray-800 light:text-gray-400 dark:border-blue-600 light:hover:text-white light:hover:bg-gray-700">Manage</button>
                             </div>
                         </div>
+                    </div>
 
+                    <div
+                        class="h-[70px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="...">
+                                <img class="mx-auto w-[45px] h-[45px] rounded-xl "
+                                    src="../../assets/user/images/Group 348.png" alt="">
+                            </div>
+                            <div class="col-span-2 ...">
+                                <p class="text-xs text-black leading-relaxed mx-auto mt-3">Mykonos Town, Mykonos,
+                                    Greece
+                                </p>
 
-
+                            </div>
+                        </div>
 
                     </div>
 
                 </div>
+
+
+
                 <!-- End Pending Req. Section -->
             </section>
         </div>
