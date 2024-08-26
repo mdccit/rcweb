@@ -279,8 +279,8 @@
                                         </label><!----></div>
                                 </div>
                             </div>
-                            <div class="my-24"></div><button type="submit"
-                                class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
+                            <div class="my-24 mt-5"></div><button type="submit"
+                                class="border bg-blue-500 rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
                                 <div class="flex flex-row items-center justify-center"><!----><span class=""> Save
                                         changes </span></div>
                             </button>
