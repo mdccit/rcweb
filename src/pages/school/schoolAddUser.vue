@@ -1,13 +1,13 @@
 <template>
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <div class="flex w-full justify-between gap-8">
-            <div class="flex items-center gap-4"><a href="https://qa1.recruited.qualitapps.com/admin/schools"><svg
-                        class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            <div class="flex items-center gap-4"><NuxtLink to="/school/schoolStaff"><svg
+                        class="w-6 text-black h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path d="M15 6l-6 6l6 6"></path>
-                    </svg></a>
-                <h2 class="font-bold text-lg self-center"> Editing: SchoolAdm1 </h2>
+                    </svg></NuxtLink>
+                <h2 class="font-bold text-black text-lg self-center"> Editing: SchoolAdm1 </h2>
             </div>
             <div class=""><a
                     href="https://qa1.recruited.qualitapps.com/app/school/9c2845cc-7676-45e1-b498-13f930b22e9b"><button
@@ -84,168 +84,10 @@
                         </form>
                     </div>
                 </div>
-                <div class="flex flex-row gap-6 py-6"><a
-                        href="https://qa1.recruited.qualitapps.com/app/u/9c4054a9-baf2-49ff-a570-a917275e500f"
-                        class="flex flex-row gap-4 flex-1"><img
-                            src="https://ui-avatars.com/api/?name=T+U+0&amp;color=7F9CF5&amp;background=EBF4FF"
-                            alt="User profile picture" class="h-12 w-12 rounded-full">
-                        <div class="self-center flex-1"><strong class="capitalize">Test User 022</strong>
-                            <p class="opacity-75 line-clamp-1"></p>
-                        </div>
-                    </a>
-                    <div class="self-center">
-                        <form data-splade-id="QQHcpGyWQLmR6UJ0" method="POST"
-                            action="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/users/store">
-                            <fieldset>
-                                <div class=""><button type="submit"
-                                        class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
-                                        Add to school </button></div>
-                            </fieldset>
-                        </form>
-                    </div>
+                <div class="flex flex-row gap-6 py-6">
                 </div>
-                <div class="flex flex-row gap-6 py-6"><a
-                        href="https://qa1.recruited.qualitapps.com/app/u/9c442619-f10e-479f-b66a-85620132a300"
-                        class="flex flex-row gap-4 flex-1"><img
-                            src="https://ui-avatars.com/api/?name=T+U&amp;color=7F9CF5&amp;background=EBF4FF"
-                            alt="User profile picture" class="h-12 w-12 rounded-full">
-                        <div class="self-center flex-1"><strong class="capitalize">Test User</strong>
-                            <p class="opacity-75 line-clamp-1"></p>
-                        </div>
-                    </a>
-                    <div class="self-center">
-                        <form data-splade-id="9t9wolQWRu8pFYzT" method="POST"
-                            action="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/users/store">
-                            <fieldset>
-                                <div class=""><button type="submit"
-                                        class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
-                                        Add to school </button></div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-                <div class="flex flex-row gap-6 py-6"><a
-                        href="https://qa1.recruited.qualitapps.com/app/u/9c487ea2-78bb-4b2e-bac8-e96d0367408b"
-                        class="flex flex-row gap-4 flex-1"><img
-                            src="https://ui-avatars.com/api/?name=T+u&amp;color=7F9CF5&amp;background=EBF4FF"
-                            alt="User profile picture" class="h-12 w-12 rounded-full">
-                        <div class="self-center flex-1"><strong class="capitalize">Test user</strong>
-                            <p class="opacity-75 line-clamp-1"></p>
-                        </div>
-                    </a>
-                    <div class="self-center">
-                        <form data-splade-id="Im7Mb4acpsvNfKrS" method="POST"
-                            action="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/users/store">
-                            <fieldset>
-                                <div class=""><button type="submit"
-                                        class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
-                                        Add to school </button></div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-                <div class="flex flex-row gap-6 py-6"><a
-                        href="https://qa1.recruited.qualitapps.com/app/u/9c487f2e-a49d-4144-ab04-9400cb403e9b"
-                        class="flex flex-row gap-4 flex-1"><img
-                            src="https://ui-avatars.com/api/?name=t+1&amp;color=7F9CF5&amp;background=EBF4FF"
-                            alt="User profile picture" class="h-12 w-12 rounded-full">
-                        <div class="self-center flex-1"><strong class="capitalize">test 123</strong>
-                            <p class="opacity-75 line-clamp-1"></p>
-                        </div>
-                    </a>
-                    <div class="self-center">
-                        <form data-splade-id="YKbRD9Lp5dAk22mI" method="POST"
-                            action="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/users/store">
-                            <fieldset>
-                                <div class=""><button type="submit"
-                                        class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
-                                        Add to school </button></div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-                <div class="flex flex-row gap-6 py-6"><a
-                        href="https://qa1.recruited.qualitapps.com/app/u/9c487fb1-d5fa-4e46-aea8-e4da880d71a5"
-                        class="flex flex-row gap-4 flex-1"><img
-                            src="https://ui-avatars.com/api/?name=c+5&amp;color=7F9CF5&amp;background=EBF4FF"
-                            alt="User profile picture" class="h-12 w-12 rounded-full">
-                        <div class="self-center flex-1"><strong class="capitalize">coach 557</strong>
-                            <p class="opacity-75 line-clamp-1"></p>
-                        </div>
-                    </a>
-                    <div class="self-center">
-                        <form data-splade-id="MzWP1ElBlm1H2HcL" method="POST"
-                            action="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/users/store">
-                            <fieldset class="opacity-50">
-                                <div class=""><button type="submit"
-                                        class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
-                                        Add to school </button></div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-                <div class="flex flex-row gap-6 py-6"><a
-                        href="https://qa1.recruited.qualitapps.com/app/u/9c52657c-14a7-439d-a36d-fa1a29e28071"
-                        class="flex flex-row gap-4 flex-1"><img
-                            src="https://ui-avatars.com/api/?name=D+B+U&amp;color=7F9CF5&amp;background=EBF4FF"
-                            alt="User profile picture" class="h-12 w-12 rounded-full">
-                        <div class="self-center flex-1"><strong class="capitalize">DEF Business User</strong>
-                            <p class="opacity-75 line-clamp-1"></p>
-                        </div>
-                    </a>
-                    <div class="self-center">
-                        <form data-splade-id="htDmRfcJoml0kkd2" method="POST"
-                            action="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/users/store">
-                            <fieldset>
-                                <div class=""><button type="submit"
-                                        class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
-                                        Add to school </button></div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-                <div class="flex flex-row gap-6 py-6"><a
-                        href="https://qa1.recruited.qualitapps.com/app/u/9c5ee7eb-f260-45d1-b218-a9cfacdcff0f"
-                        class="flex flex-row gap-4 flex-1"><img
-                            src="https://ui-avatars.com/api/?name=u+u&amp;color=7F9CF5&amp;background=EBF4FF"
-                            alt="User profile picture" class="h-12 w-12 rounded-full">
-                        <div class="self-center flex-1"><strong class="capitalize">user user</strong>
-                            <p class="opacity-75 line-clamp-1"></p>
-                        </div>
-                    </a>
-                    <div class="self-center">
-                        <form data-splade-id="3Tcgs4RnJpnbeZTB" method="POST"
-                            action="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/users/store">
-                            <fieldset>
-                                <div class=""><button type="submit"
-                                        class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
-                                        Add to school </button></div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-                <div class="flex flex-row gap-6 py-6"><a
-                        href="https://qa1.recruited.qualitapps.com/app/u/9c80ea3a-b429-4985-bb3b-ae8348b111e1"
-                        class="flex flex-row gap-4 flex-1"><img
-                            src="https://ui-avatars.com/api/?name=B+t&amp;color=7F9CF5&amp;background=EBF4FF"
-                            alt="User profile picture" class="h-12 w-12 rounded-full">
-                        <div class="self-center flex-1"><strong class="capitalize">Bsuser testNum</strong>
-                            <p class="opacity-75 line-clamp-1"></p>
-                        </div>
-                    </a>
-                    <div class="self-center">
-                        <form data-splade-id="uLbownfp8rNMHfEt" method="POST"
-                            action="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/users/store">
-                            <fieldset>
-                                <div class=""><button type="submit"
-                                        class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
-                                        Add to school </button></div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
+                <div class="p-20"></div>
             </div>
-            <div class="p-20"></div>
         </div>
     </div>
 </template>
