@@ -98,6 +98,33 @@ const createAdminService = (apiService) => {
     }
   };
 
+  const get_player_details = async (user_id) => {
+    const url = `/admin/player-get/${user_id}`;
+  
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data && response.data.user_profile_info) {
+        return response.data;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const player_update = async (user_id,request_body) => {
+    
+    const url = `/admin/player-update/${user_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
 
   return {
     new_user_register,
@@ -106,7 +133,9 @@ const createAdminService = (apiService) => {
     list_schools,
     user_update,
     school_register,
-    school_update
+    school_update,
+    get_player_details,
+    player_update
   };
 };
 
