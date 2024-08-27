@@ -1,26 +1,27 @@
 <template>
 
-
-    <!-- Display error messages -->
-    <div v-if="errors.length" class="error-messages">
-        <p class="error-title">Validation Errors:</p>
-        <ul class="error-list">
-            <li v-for="(error, index) in splitErrors" :key="index" class="error-item">
-                {{ error }}
-            </li>
-        </ul>
-    </div>
-
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <div class="flex w-full justify-between gap-8">
-            <div class="flex items-center gap-4"><a href="https://qa1.recruited.qualitapps.com/admin/schools"><svg
-                        class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M15 6l-6 6l6 6"></path>
-                    </svg></a>
-                <h2 class="font-bold text-lg self-center"> Editing: SchoolAdm1 </h2>
-            </div>
+            <div class="flex items-center gap-4">
+                <NuxtLink to="/admin/schools">
+                  <svg
+                    class="w-6 h-6 text-gray-500"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M15 6l-6 6l6 6"></path>
+                  </svg>
+                </NuxtLink>
+                <h2 class="font-bold text-black text-lg self-center"> Editing: {{ name }} </h2>
+              </div>
+              
             <div class=""><a
                     href="https://qa1.recruited.qualitapps.com/app/school/9c2845cc-7676-45e1-b498-13f930b22e9b"><button
                         type="submit"
@@ -37,10 +38,9 @@
         <div class="flex gap-x-4"><a
                 href="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b"><button
                     class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200"> General
-                    Details </button></a><a
-                href="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/teams"><button
+                    Details </button></a>  <NuxtLink to="/school/schoolStaff"><button
                     class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50"> Staff
-                    &amp; Teams </button></a><a
+                    &amp; Teams </button></NuxtLink><a
                 href="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/sync"><button
                     class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
                     Synchronization </button></a><a
@@ -133,6 +133,7 @@
 
                     </label><!----></div>
                 <div class="my-8"></div>
+
                 <div class="flex justify-between gap-x-2 mb-2">
                     <div class="w-full">
                         <label class="block">
@@ -142,11 +143,11 @@
                                 <div class="mr-1"><select name="is_approved" data-validation-key="is_approved"
                                         v-model="is_approved"
                                         class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
-                                        <option value="1"> Yes </option>
-                                        <option value="0"> No </option>
-                                    </select></div><!---->
+                                        <option :value="true"> Yes </option>
+                                        <option :value="false"> No </option>
+                                    </select></div>
                             </div>
-                        </label><!---->
+                        </label>
                     </div>
                     <div class="w-full"><label class="block"><span class="block mb-1 text-gray-700 font-sans">
                                 Verified </span>
@@ -154,11 +155,12 @@
                                 <div class="mr-1"><select name="is_verified" data-validation-key="is_verified"
                                         v-model="is_verified"
                                         class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
-                                        <option value="1"> Yes </option>
-                                        <option value="0"> No </option>
-                                    </select></div><!---->
+                                        <option :value="true"> Yes </option>
+                                        <option :value="false"> No </option>
+                                    </select></div>
                             </div>
-                        </label><!----></div>
+                        </label>
+                    </div>
                 </div>
                 <div class="flex justify-between gap-x-2 my-8">
                     <div class="w-1/2"><label class="block"><span class="block mb-1 text-gray-700 font-sans">
@@ -173,9 +175,11 @@
                                         <option value="atlantic_10"> Atlantic 10 </option>
                                         <option value="atlantic_sun"> Atlantic Sun </option>
                                         <option value="northern_sun"> Northern Sun </option>
-                                    </select></div><!---->
+                                    </select>
+                                </div>
                             </div>
-                        </label><!----></div>
+                        </label>
+                    </div>
                     <div class="w-1/2"><label class="block"><span class="block mb-1 text-gray-700 font-sans">
                                 Division </span>
                             <div class="relative">
@@ -187,10 +191,12 @@
                                         <option value="division_iii"> Division III </option>
                                         <option value="naia"> NAIA </option>
                                         <option value="njcaa"> NJCAA </option>
-                                    </select></div><!---->
+                                    </select></div>
                             </div>
-                        </label><!----></div>
+                        </label>
+                    </div>
                 </div>
+
                 <div class="my-4"></div>
 
                 <button @click="updateSchoolDetails"
@@ -199,13 +205,27 @@
                         <span class=""> Save changes</span>
                     </div>
                 </button>
-            </div>
-            <div class="my-16"></div>
-        </div>
 
-        <!-- Notification Component -->
-        <Notification v-if="showNotification" :message="notificationMessage" :duration="3000" />
+                
+              <!-- Display error messages -->
+              <div v-if="errors.length" class="error-messages">
+                <p class="error-title">Validation Errors:</p>
+                <ul class="error-list">
+                    <li v-for="(error, index) in splitErrors" :key="index" class="error-item">
+                        {{ error }}
+                    </li>
+                </ul>
+            </div>
+            </div>
+
+            <div class="my-16"></div>
+          
+
+        </div>
     </div>
+
+    <!-- Notification Component -->
+    <Notification v-if="showNotification" :message="notificationMessage" :duration="3000" />
 </template>
 
 <script setup>
@@ -223,7 +243,7 @@ const route = useRoute(); // Use useRoute to access query parameters
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
 
-const errors = ref([]);;
+const errors = ref([]);
 const userStore = useUserStore();
 const router = useRouter();
 const showNotification = ref(false);
@@ -245,17 +265,31 @@ const splitErrors = computed(() => errors.value.flatMap((error) => error.split('
 const action = ref(route.params.action || 'view'); // default to 'view' if action not provided
 const userId = ref(route.params.userId || '');
 
+onMounted(() => {
+
+    // Update the refs directly
+    action.value = route.query.action || 'view';
+    userId.value = route.query.userId || '';
+
+    if (action.value === 'view' || action.value === 'edit') {
+        fetchSchoolDetails(userId.value);
+    }
+});
 
 //Update School
 const updateSchoolDetails = async () => {
     errors.value = [];
     try {
+        // Convert boolean values to integers (1 or 0)
+        const isVerifiedValue = is_verified.value ? 1 : 0;
+        const isApprovedValue = is_approved.value ? 1 : 0;
+
         const response = await $adminService.school_update({
             school_id: school_id.value,
             name: name.value,
             bio: bio.value,
-            is_verified: is_verified.value,
-            is_approved: is_approved.value,
+            is_verified: isVerifiedValue,
+            is_approved: isApprovedValue,
             conference: conference.value,
             division: division.value,
         });
@@ -279,6 +313,27 @@ const updateSchoolDetails = async () => {
         } else {
             errors.value = [err.response?.data?.message || err.message];
         }
+    }
+};
+
+
+// Fetch School Details
+const fetchSchoolDetails = async (schoolId) => {
+    console.log('loading');
+    errors.value = [];
+    try {
+        const data = await $adminService.get_school_details(schoolId);
+        school_id.value = data.id || '';
+        name.value = data.name || '';
+        bio.value = data.bio || '';
+        conference.value = data.conference || '';
+        division.value = data.division || '';
+        // Convert 0/1 to boolean for form fields
+        is_verified.value = data.is_verified === 1;
+        is_approved.value = data.is_approved === 1;
+    } catch (error) {
+        console.error('Failed to load school details:', error.message);
+        errors.value.push('Failed to load school details.');
     }
 };
 

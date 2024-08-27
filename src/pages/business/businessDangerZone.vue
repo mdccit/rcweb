@@ -9,30 +9,34 @@
                     </svg></a>
                 <h2 class="font-bold text-lg self-center text-black"> Editing: DEF Business </h2>
             </div>
-            <div class=""><a
-                    href="https://qa1.recruited.qualitapps.com/app/business/9c7d0c22-c388-4383-8da0-4d83319cf4ba"><button
-                        type="submit"
+            <div class="">
+                <NuxtLink to="businessGeneral">
+                    <button type="submit"
                         class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
                         View <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M17 7l-10 10"></path>
                             <path d="M8 7l9 0l0 9"></path>
-                        </svg></button></a></div>
+                        </svg>
+                    </button>
+                    </NuxtLink>
+            </div>
         </div>
     </div>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex gap-x-4"><a
-                    href="https://qa1.recruited.qualitapps.com/admin/businesses/9c7d0c22-c388-4383-8da0-4d83319cf4ba"><button
-                        class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
-                        General Details </button></a><a
-                    href="https://qa1.recruited.qualitapps.com/admin/businesses/9c7d0c22-c388-4383-8da0-4d83319cf4ba/teams"><button
-                        class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
-                        Members </button></a><a
-                    href="https://qa1.recruited.qualitapps.com/admin/businesses/9c7d0c22-c388-4383-8da0-4d83319cf4ba/danger-zone"><button
+            <div class="flex gap-x-4">
+                <NuxtLink to="businessGeneral"><button
                         class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200">
-                        Danger Zone </button></a></div>
+                        General Details </button></NuxtLink>
+                <NuxtLink to="businessMembers"><button
+                        class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200">
+                        Members </button></NuxtLink>
+                <NuxtLink to="businessDangerZone"><button
+                        class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
+                        Danger Zone </button></NuxtLink>
+            </div>
             <div class="my-8"></div>
             <div class="">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">

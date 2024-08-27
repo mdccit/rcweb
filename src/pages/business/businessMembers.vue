@@ -23,27 +23,29 @@
     </div>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex gap-x-4"><a
-                    href="https://qa1.recruited.qualitapps.com/admin/businesses/9c7d0c22-c388-4383-8da0-4d83319cf4ba"><button
-                        class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
-                        General Details </button></a><a
-                    href="https://qa1.recruited.qualitapps.com/admin/businesses/9c7d0c22-c388-4383-8da0-4d83319cf4ba/teams"><button
+            <div class="flex gap-x-4">
+                <NuxtLink to="businessGeneral"><button
                         class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200">
-                        Members </button></a><a
-                    href="https://qa1.recruited.qualitapps.com/admin/businesses/9c7d0c22-c388-4383-8da0-4d83319cf4ba/danger-zone"><button
+                        General Details </button></NuxtLink>
+                <NuxtLink to="businessMembers"><button
+                        class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200">
+                        Members </button></NuxtLink>
+                <NuxtLink to="businessDangerZone"><button
                         class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
-                        Danger Zone </button></a></div>
+                        Danger Zone </button></NuxtLink>
+
+            </div>
             <div class="my-8"></div>
             <div class="">
                 <div class="my-8"></div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
                     <div class="flex justify-between">
                         <div class="flex-1 text-2xl font-bold mb-4 text-black"> All Members </div>
-                        <div class=""><a
-                                href="https://qa1.recruited.qualitapps.com/admin/businesses/9c7d0c22-c388-4383-8da0-4d83319cf4ba/users/create"><button
-                                    type="submit"
+                        <div class="">
+                            <NuxtLink to="/business/BusinessAdd"><button @click="addMembers"
                                     class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
-                                    Add User </button></a></div>
+                                    Add User </button></NuxtLink>
+                        </div>
                     </div>
                     <div class="grid gap-4">
                         <div class="flex flex-col lg:flex-row gap-6 py-2">
@@ -86,24 +88,67 @@
 </template>
 
 <script setup>
-import { useUserStore } from '~/stores/userStore'
-import schoolTable from '~/components/tables/AdminSchoolTable.vue';
-import schoolCreateModal from '~/components/shared/schoolCreateModal.vue';
-import BusinessTable from '~/components/tables/BusinessTable.vue';
 
-const userStore = useUserStore()
+import { ref, computed, watch, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '~/stores/userStore';
+import { useNuxtApp } from '#app';
+import { useRoute } from 'vue-router';
+import Notification from '~/components/common/Notification.vue';
 
-const email = userStore.user?.email
-const token = userStore.user?.token
+const route = useRoute(); // Use useRoute to access query parameters
 
-// Reference to the modal component
-const modalRef = ref(null);
+// Access $adminService from the context
+const nuxtApp = useNuxtApp();
+const $adminService = nuxtApp.$adminService;
 
-// Function to open the modal
-const openModal = () => {
-    modalRef.value.openModal();
-    console.log('open')
-}
+const errors = ref([]);  // Array to hold error messages
+const userStore = useUserStore();  // User store
+const router = useRouter();  // Vue Router instance
+const showNotification = ref(false);  // Boolean to show/hide notification
+const notificationMessage = ref('');  // Message for the notification
+
+// Define action, school_id, and staff as reactive refs
+const action = ref('');  // Action type (e.g., manage, view)
+const school_id = ref('');  // School ID
+const staff = ref([]);  // Array to hold staff data
+
+onMounted(() => {
+    // Set initial values for action and school_id from route query parameters
+    action.value = route.query.action || 'manage';
+    school_id.value = route.query.school_id || '';
+
+    // Fetch school staff data if action is 'manage'
+    if (action.value === 'manage') {
+        fetchSchoolStaff(school_id.value);
+    }
+});
+
+// Fetch School Staff
+const fetchSchoolStaff = async (schoolId) => {
+    console.log('loading');
+    errors.value = [];  // Clear any existing errors
+    try {
+        // Fetch staff data from the API using $adminService
+        const staffData = await $adminService.list_school_staff(schoolId);
+        console.log(staffData);
+        staff.value = staffData || [];  // Set the fetched data to the staff ref
+    } catch (error) {
+        console.error('Failed to load school staff details:', error.message);
+        errors.value.push('Failed to load school staff details.');
+    }
+};
+
+
+const addMembers = (row) => {
+  router.push({
+    path: '/business/businesAdd',
+    query: {
+      action: 'add',
+      business_id: row.id
+    }
+  });
+};
 
 </script>
 

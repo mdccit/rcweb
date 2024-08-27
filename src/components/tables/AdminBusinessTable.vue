@@ -13,29 +13,6 @@
 
       </button>
 
-      <!-- Dropdown menu -->
-      <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-          <li>
-            <a href="#"
-              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-          </li>
-          <li>
-            <a href="#"
-              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-          </li>
-          <li>
-            <a href="#"
-              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-          </li>
-          <li>
-            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
-              out</a>
-          </li>
-        </ul>
-      </div>
-
-
       <button id="dropdownToggleButton" data-dropdown-toggle="dropdownToggle"
         class="text-white bg-blue-100 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         type="button">
@@ -102,43 +79,30 @@
           <span>{{ formatDate(scope.row.joined_at) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Actions">
-        <!-- Dropdown Menu -->
-        <el-dropdown>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item @click.native="viewDetails(scope.row)">View Details</el-dropdown-item>
-              <el-dropdown-item @click.native="editRecord(scope.row)">Edit Record</el-dropdown-item>
-              <el-dropdown-item @click.native="manageStaff(scope.row)">Manage Staff</el-dropdown-item>
-              <el-dropdown-item>
-                <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                  <label class="inline-flex items-center w-full cursor-pointer">
-                    <input type="checkbox" value="" class="sr-only peer">
-                    <div
-                      class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600">
-                    </div>
-                    <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Subscribe to
-                      newsletter</span>
-                  </label>
-                </div>
-              </el-dropdown-item>
-              <!-- <el-dropdown-item divided @click.native="deleteRecord(scope.row)">Delete Record</el-dropdown-item> -->
-            </el-dropdown-menu>
+        <!-- Actions Column -->
+        <el-table-column label="Actions">
+          <template v-slot="scope">
+            <el-dropdown>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item @click.native="viewDetails(scope.row)">View Details</el-dropdown-item>
+                  <el-dropdown-item @click.native="editRecord(scope.row)">Edit Record</el-dropdown-item>
+                  <el-dropdown-item @click.native="manageMembers(scope.row)">Manage Members</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+              <el-button size="small" class="inline-flex items-center text-sm ml-2">
+                <svg class="w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 4h2m2 0h.01m1.415 2.585a2 2 0 0 1 0 2.828l-9 9a2 2 0 0 1-1.414.586H4v-3a2 2 0 0 1 .586-1.414l9-9a2 2 0 0 1 2.828 0z" />
+                </svg>
+                <el-icon>
+                  <i class="el-icon-arrow-down"></i>
+                </el-icon>
+              </el-button>
+            </el-dropdown>
           </template>
-
-          <!-- Dropdown Button with Left Margin and Dropdown Icon -->
-          <el-button size="small" class="inline-flex items-center text-sm ml-2">
-            <svg class="w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M11 4h2m2 0h.01m1.415 2.585a2 2 0 0 1 0 2.828l-9 9a2 2 0 0 1-1.414.586H4v-3a2 2 0 0 1 .586-1.414l9-9a2 2 0 0 1 2.828 0z" />
-            </svg>
-            <el-icon>
-              <i class="el-icon-arrow-down"></i>
-            </el-icon>
-          </el-button>
-        </el-dropdown>
-      </el-table-column>
+        </el-table-column>
     </el-table>
 
     <el-pagination v-model:current-page="options.page" :page-size="options.itemsPerPage" :total="totalItems"
@@ -233,7 +197,7 @@ const filteredItems = computed(() => {
 // Function to navigate to view details
 const viewDetails = (row) => {
   router.push({
-    path: '/school/schoolGeneralDetails',
+    path: '/business/businessGeneral',
     query: {
       action: 'view',
       userId: row.id
@@ -244,7 +208,7 @@ const viewDetails = (row) => {
 // Function to navigate to edit record
 const editRecord = (row) => {
   router.push({
-    path: '/school/schoolGeneralDetails',
+    path: '/business/businessGeneral',
     query: {
       action: 'edit',
       userId: row.id
@@ -252,12 +216,12 @@ const editRecord = (row) => {
   });
 };
 
-const manageStaff = (row) => {
+const manageMembers = (row) => {
   router.push({
-    path: '/school/schoolStaff',
+    path: '/business/businessMembers',
     query: {
       action: 'manage',
-      school_id: row.id
+      business_id: row.id
     }
   });
 };
