@@ -189,6 +189,20 @@ const createAdminService = (apiService) => {
     }
   };
   
+  const user_delete = async (user_id) => {
+    const url = `/admin/user-delete/${user_id}`;
+  
+    try {
+      const response = await apiService.deleteRequest(url);
+      if (response && response.data && response.data.user_basic_info) {
+        return response.data.user_basic_info;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
 
 
   return {
@@ -204,7 +218,8 @@ const createAdminService = (apiService) => {
     list_business,
     get_business_members,
     search_business_users,
-    user_session_delete
+    user_session_delete,
+    user_delete
   };
 };
 

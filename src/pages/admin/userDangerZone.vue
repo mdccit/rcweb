@@ -49,15 +49,15 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
                     <div class="grid grid-cols-2 gap-4">
                         <div class="border-2 p-4 rounded">
-                            <form data-splade-id="lG7kPED3SwnY6Kgk" method="DELETE"
-                                action="https://qa1.recruited.qualitapps.com/admin/users/9c9ad039-6106-40d6-92de-b5c7556b05a7/danger-zone">
-                                <fieldset> Delete user <div class=""><button type="submit"
+                            <!-- <form data-splade-id="lG7kPED3SwnY6Kgk" 
+                                > -->
+                                <fieldset> Delete user <div class=""><button type="submit" @click="deleteShowModal = true"
                                             class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-red-500 hover:bg-red-700 text-white border-transparent focus:border-red-700 focus:ring-red-200">
                                             <div class="flex flex-row items-center justify-center"><!----><span
                                                     class=""> Delete account </span></div>
                                         </button></div>
                                 </fieldset>
-                            </form>
+                            <!-- </form> -->
                         </div>
                         <div class="border-2 p-4 rounded">
                             <form data-splade-id="Hpo3ObWiUibl9vmk" method="POST"
@@ -95,6 +95,9 @@
         </div>
          <!-- Admin User Session delete Modal Component -->
          <AdminUserLogoutSession :isVisible="showModal" @close="showModal = false" :userId="userId" />
+
+         <!-- Admin User  delete Modal Component -->
+         <AdminUserDelete :isVisible="deleteShowModal" @close="deleteShowModal = false" :userId="userId" />
     </div>
 
 </template>
@@ -105,6 +108,8 @@ import UserTable from '~/components/tables/UserTable.vue';
 import { useUserStore } from '~/stores/userStore'
 import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.vue';
 import AdminUserLogoutSession from '~/components/admin/user/adminUserLogoutSession.vue';
+import AdminUserDelete from '~/components/admin/user/adminUserDelete.vue';
+
 import { useRouter } from 'vue-router';
 
 const route = useRoute()
@@ -112,6 +117,8 @@ const route = useRoute()
 const userId = ref(route.params.userId || '9cdb23b4-7bc3-4b9b-9693-390267e73266');
 
 const showModal = ref(false);
+const deleteShowModal = ref(false);
+
 const userStore = useUserStore()
 
 const email = userStore.user?.email;
