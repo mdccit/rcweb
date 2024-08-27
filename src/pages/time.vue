@@ -6,4 +6,6 @@
 
 <script setup>
 import DatetimePicker from '~/components/common/DatetimePicker.vue';
+import DatetimePicker from '@/components/common/DatetimePicker.vue';
+
 </script>
