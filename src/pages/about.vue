@@ -1,8 +1,8 @@
 <template>
-    <div id="maincontent">
-        <div class="relative z-10 container mt-8">
+    <div id="maincontent bg-white-100">
+        <div class="relative z-10 container mt-8  bg-white-100">
             <main class="flex flex-col lg:flex-row gap-12">
-                <div class="flex-1">
+                <div class="flex-1 text-black">
                     <div class="font-bold tracking-wider mb-2 opacity-50 text-lg uppercase">About Recruited</div>
                     <h1 class="text-5xl text-black md:text-6xl font-bold"> A revolution in college tennis recruitment
                     </h1>
@@ -59,7 +59,7 @@
                 <div class="flex-1"><img src="@/assets/images/banner4.png" alt="Tennis court" class="w-full h-auto"></div>
             </main>
             <section class="container mt-8 pb-16" id="team">
-                <div class="container">
+                <div class="container text-black">
                     <h2 class="text-4xl font-bold mt-20 mb-8 text-center">Our Team</h2>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div class="border border-border rounded-lg px-8 py-12 text-center"><img src="@/assets/images/ivan.png"
@@ -92,7 +92,7 @@
                     </div>
                 </div>
             </section>
-            <section class="container my-16 max-w-4xl  flex flex-col lg:flex-row gap-20">
+            <section class="section container my-16 max-w-4xl  flex flex-col lg:flex-row gap-20 text-black">
                 <div>
                     <h2 class="text-4xl font-bold mb-8">Our Mission</h2>
                     <p class="text-xl max-w-xl"> At our core, we are dedicated to empowering aspiring student-athletes
@@ -116,10 +116,10 @@
                     <h2 class="text-4xl font-bold mb-8">Contacts</h2>
                     <p class="mt-8"><strong>Need customer support?</strong><br><a
                             href="mailto:hello@recruited.pro?subject=Help request&amp;body=Hi, I am having trouble with this ... I am using this device (phone/tablet/desktop/laptop) ... I can't do this ..."
-                            class="text-primary font-bold">hello@recruited.pro</a></p>
+                            class="text-blue-500 font-bold">hello@recruited.pro</a></p>
                     <p class="mt-8"><strong>See something wrong?</strong><br><a
                             href="mailto:legal@recruited.pro?subject=Legal request&amp;body=Hi, I am having trouble with this ... I am using this device (phone/tablet/desktop/laptop) ... I can't do this ..."
-                            class="text-primary font-bold">legal@recruited.pro</a></p>
+                            class="text-blue-500  font-bold">legal@recruited.pro</a></p>
                     <p class="mt-8"><strong>Business Address</strong><br> Recruited Sports Inc.<br> 455 Palm Tree
                         Drive<br> Bradenton,<br> Florida<br> US, 34210<br></p>
                 </div>
