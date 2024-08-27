@@ -18,7 +18,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">     
-            <BusinessTable></BusinessTable>   
+            <AdminBusinessTable></AdminBusinessTable>   
         </div>
         
     </div>
@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import BusinessTable from '~/components/tables/BusinessTable.vue';
+import AdminBusinessTable from '~/components/tables/AdminBusinessTable.vue';
 
 
 </script>

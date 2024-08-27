@@ -116,7 +116,7 @@ const handleSubmit = async () => {
         token: response.data.token
       })
       localStorage.setItem('token', response.data.token)  // Set token in local storage
-      if (response.data.user_permission_type === 'none') {
+      if (response.data.user_permission_type === 'none' && (response.data.user_role == 'coach' && response.data.user_role == 'business')) {
         router.push('/user/approval-pending');  // Redirect to pending approval page
       } else {
         router.push('/admin/dashboard');  // Redirect to dashboard
