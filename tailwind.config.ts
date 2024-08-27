@@ -34,6 +34,7 @@ module.exports = {
         darkSlateBlue: '#465A7D',
         poloBlue: '#9EC7D4',
         culturedBlue: '#F6F6F6',
+        lightPale : '#C3E3FF',
         timberwolf: '#D9D9D9',
         graySnowDrift: '#F4F6F9',
         lightGray: '#eeeeee',
@@ -75,12 +76,6 @@ module.exports = {
   variants: {
     extend: {},
   },
-  safelist: [
-    {
-      pattern: /bg-(red|green|blue|yellow|indigo|purple|pink|primaryBlue)-(\d{1,3})/,
-      variants: ['hover', 'focus'], // Optional: Include variants if needed
-    },
-  ],
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
