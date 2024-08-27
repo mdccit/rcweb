@@ -71,15 +71,14 @@
                             </form>
                         </div>
                         <div class="border-2 p-4 rounded">
-                            <form data-splade-id="0wHwJIPukhfUwTOg" method="POST"
-                                action="https://qa1.recruited.qualitapps.com/admin/users/9c9ad039-6106-40d6-92de-b5c7556b05a7/danger-zone/logout-sessions">
-                                <fieldset> Log out sessions <div class=""><button type="submit"
+                            <!-- <form data-splade-id="0wHwJIPukhfUwTOg"> -->
+                                <fieldset> Log out sessions <div class=""><button type="button" @click="showModal = true"
                                             class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
                                             <div class="flex flex-row items-center justify-center"><!----><span
                                                     class=""> Log out sessions </span></div>
                                         </button></div>
                                 </fieldset>
-                            </form>
+                            <!-- </form> -->
                         </div>
                         <div class="border-2 p-4 rounded">
                             <div class=""> Send notification to user manually </div><a
@@ -94,6 +93,8 @@
                 </div>
             </div>
         </div>
+         <!-- Admin User Session delete Modal Component -->
+         <AdminUserLogoutSession :isVisible="showModal" @close="showModal = false" :userId="userId" />
     </div>
 
 </template>
@@ -103,7 +104,12 @@ import { ref } from 'vue';
 import UserTable from '~/components/tables/UserTable.vue';
 import { useUserStore } from '~/stores/userStore'
 import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.vue';
+import AdminUserLogoutSession from '~/components/admin/user/adminUserLogoutSession.vue';
+import { useRouter } from 'vue-router';
 
+const route = useRoute()
+
+const userId = ref(route.params.userId || '9cdb23b4-7bc3-4b9b-9693-390267e73266');
 
 const showModal = ref(false);
 const userStore = useUserStore()
