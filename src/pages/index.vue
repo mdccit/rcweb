@@ -3,11 +3,13 @@
     <main class="container max-w-6xl py-10 text-center">
       <h1 class="text-5xl text-black md:text-7xl max-w-[800px] mx-auto font-bold"> Connecting tennis talent worldwide
       </h1>
-      <p class="my-10 text-2xl max-w-3xl mx-auto"> Play tennis or coach a tennis team? Get noticed, even if you are
-        outside of the States. Recruited is here to make finding worldwide talent easier. </p><a
+      <p class="my-10 text-2xl max-w-3xl mx-auto text-black"> Play tennis or coach a tennis team? Get noticed, even if you are
+        outside of the States. Recruited is here to make finding worldwide talent easier. </p>
+        <a
         href="https://qa1.recruited.qualitapps.com/register" onclick="dataLayer.push({'event': 'star_signup'});"
-        class=" bg-primary border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50  hover:bg-primary-400 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200 !px-20 !py-4"><span
-          class="text-xl">Sign up for free</span></a>
+        class=" bg-blue-500 border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50  hover:bg-primary-400 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200 !px-20 !py-4">
+        <span
+          class="text-xl ">Sign up for free</span></a>
       <p class="text-purple-800 font-bold mt-8"><svg class="w-6 h-6 inline-block" xmlns="http://www.w3.org/2000/svg"
           width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
           stroke-linecap="round" stroke-linejoin="round">
@@ -165,11 +167,11 @@
         <div class="p-24"></div>
       </div>
     </section>
-    <section class="container -mt-80"><img src="@/assets/images/home2.png" alt="picture of this website"
+    <section class="container -mt-80 text-black"><img src="@/assets/images/home2.png" alt="picture of this website"
         class="w-full -mt-10 max-w-4xl mx-auto h-auto">
       <div class="my-20 max-w-5xl mx-auto flex flex-col lg:flex-row gap-8">
         <div class="flex-1">
-          <h2 class="text-4xl font-bold text-primary mb-8"> Recruited is already better than an agent </h2>
+          <h2 class="text-4xl font-bold text-blue-500 mb-8"> Recruited is already better than an agent </h2>
           <p class="text-lg font-medium mb-8"> Recruited is the first platform to offer a comprehensive solution for
             tennis players and coaches worldwide. We are here to help you get noticed and connect with the right people.
           </p>
@@ -215,23 +217,21 @@
           </div>
         </div>
       </div>
-      <div class="max-w-3xl bg-primary rounded-xl p-12 md:p-20 text-white mx-auto text-center">
+      <div class="max-w-3xl bg-blue-500 rounded-xl p-12 md:p-20 text-white mx-auto text-center">
         <h2 class="text-4xl font-bold mb-8"> Recruited is in open beta and quickly growing! Sign up for free today!
         </h2>
         <p class="text-lg font-medium mb-8"> Recruited is the first platform to offer a comprehensive solution for
           tennis players and coaches worldwide. We are here to help you get noticed and connect with the right people.
         </p>
         <a href="https://qa1.recruited.qualitapps.com/register" onclick="dataLayer.push({'event': 'star_signup'});"
-          class="border bg-blue-500 rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200 !px-20 !py-4"
-          data-v-inspector="src/pages/index.vue:7:95" data-v-02281a80=""><span class="text-xl"
+          class="border bg-white  rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600  text-gray border-transparent focus:border-primary-300 focus:ring-primary-200 !px-20 !py-4"
+          data-v-inspector="src/pages/index.vue:7:95" data-v-02281a80="">
+          <span class="text-xl text-black"
             data-v-inspector="src/pages/index.vue:9:270" data-v-02281a80="">Sign up for free</span></a>
       </div>
     </section>
   </div>
 
-  <div>
-    <EPDataTable />
-  </div>
 </template>
 
 <script setup>
