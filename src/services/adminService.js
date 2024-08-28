@@ -98,6 +98,83 @@ const createAdminService = (apiService) => {
     }
   };
 
+  const list_school_staff = async (school_id) => {
+    const url = `/admin/schools/users/${school_id}`;
+  
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data) {
+        return response.data;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
+  
+
+  const get_school_details = async (user_id) => {
+    const url = `/admin/schools/${user_id}`;
+  
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data) {
+        return response.data;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to get details');
+    }
+  };
+
+  const list_business = async (page = 1, per_page_items = 10) => {
+    const url = `/admin/businesses?page=${page}&per_page_items=${per_page_items}`;
+  
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data && response.data.dataSets) {
+        return response.data.dataSets;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
+
+  const get_business_members = async (business_id) => {
+    const url = `/admin/businesses/users/${business_id}`;
+  
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data && response.data.dataSets) {
+        return response.data.dataSets;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
+  
+  const search_business_users = async (business_id) => {
+    const url = `/admin/businesses/search-users/${business_id}?page=${page}&per_page_items=${per_page_items}`;
+  
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data && response.data.dataSets) {
+        return response.data.dataSets;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
+  
+
   const get_player_details = async (user_id) => {
     const url = `/admin/player-get/${user_id}`;
   
@@ -133,6 +210,12 @@ const createAdminService = (apiService) => {
     list_schools,
     user_update,
     school_register,
+    school_update,
+    list_school_staff,
+    get_school_details,
+    list_business,
+    get_business_members,
+    search_business_users,
     school_update,
     get_player_details,
     player_update

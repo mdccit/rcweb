@@ -56,14 +56,14 @@
       <el-table-column label="Actions">
         <template v-slot="scope">
           <!-- Select Record Button -->
-          <button @click="viewDetails(scope.row)"
+          <!-- <button @click="viewDetails(scope.row)"
             class="text-white bg-blue-100 hover:bg-blue-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             <svg class="w-5 h-5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
               viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
               <path stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
             </svg>
-          </button>
+          </button> -->
 
           <!-- Dropdown Menu -->
           <el-dropdown>
@@ -71,6 +71,7 @@
               <el-dropdown-menu>
                 <el-dropdown-item @click.native="viewDetails(scope.row)">View Details</el-dropdown-item>
                 <el-dropdown-item @click.native="editRecord(scope.row)">Edit Record</el-dropdown-item>
+                <el-dropdown-item @click.native="manageStaff(scope.row)">Manage Staff</el-dropdown-item>
                 <!-- <el-dropdown-item divided @click.native="deleteRecord(scope.row)">Delete Record</el-dropdown-item> -->
               </el-dropdown-menu>
             </template>
@@ -100,13 +101,13 @@
 
     <!-- Pagination -->
     <el-pagination v-model:current-page="options.page" :page-size="options.itemsPerPage" :total="totalItems"
-      layout="prev, pager, next" @current-change="handlePageChange">
-    </el-pagination>
+      layout="prev, pager, next" @current-change="handlePageChange" />
+
   </el-card>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 
@@ -122,44 +123,67 @@ const loading = ref(false);
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
 
-const fetchData = async (page = 1, per_page_items = 5) => {
+// Function to fetch data from the server
+const fetchData = async () => {
   loading.value = true;
   try {
-    const dataSets = await $adminService.list_schools(page, per_page_items);
+    const per_page_items = options.value.itemsPerPage;
+    const current_page = options.value.page;
+    const search_term = search.value; // Get the search term
+
+    // Fetch data from the server with pagination and search parameters
+    const dataSets = await $adminService.list_schools(current_page, per_page_items, search_term);
+
+    // Update the table data
     items.value = dataSets.data; // Data for the current page
     totalItems.value = dataSets.total; // Total number of items across all pages
     options.value.page = dataSets.current_page; // Current page
     options.value.itemsPerPage = dataSets.per_page; // Items per page
   } catch (error) {
-    console.error(error.message);
+    console.error('Error fetching data:', error.message);
   } finally {
     loading.value = false;
   }
-}
+};
 
-// Watch options and search to update filtered items
-watch([options, search], () => fetchData(options.value.page, options.value.itemsPerPage), { immediate: true });
+// Watch pagination options and search term to refetch data
+watch([options, search], () => {
+  fetchData();
+}, { immediate: true });
 
+// On mount, fetch the initial data
 onMounted(() => {
-  fetchData(options.value.page, options.value.itemsPerPage);
+  fetchData();
 });
+
+// Handle search submission
+const applySearch = () => {
+  options.value.page = 1; // Reset to first page on new search
+  fetchData();
+};
+
+// Handle page change
+const handlePageChange = (newPage) => {
+  options.value.page = newPage;
+  fetchData();
+};
+
+// Format date function
+const formatDate = (dateString) => {
+  const options = { year: 'numeric', month: 'short', day: 'numeric' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+};
 
 const filteredItems = computed(() => {
-  let filtered = Array.isArray(items.value) ? items.value : [];
+  if (!search.value) return items.value;
 
-  if (search.value) {
-    filtered = filtered.filter(item =>
-      item.name.toLowerCase().includes(search.value.toLowerCase()) ||
-      (item.bio && item.bio.toLowerCase().includes(search.value.toLowerCase()))
-    );
-  }
-
-  // Paginate items
-  const start = (options.value.page - 1) * options.value.itemsPerPage;
-  const end = start + options.value.itemsPerPage;
-  return filtered.slice(start, end);
+  return items.value.filter(item =>
+    item.name.toLowerCase().includes(search.value.toLowerCase()) ||
+    (item.bio && item.bio.toLowerCase().includes(search.value.toLowerCase()))
+  );
 });
 
+// Function to navigate to view details
 const viewDetails = (row) => {
   router.push({
     path: '/school/schoolGeneralDetails',
@@ -170,6 +194,7 @@ const viewDetails = (row) => {
   });
 };
 
+// Function to navigate to edit record
 const editRecord = (row) => {
   router.push({
     path: '/school/schoolGeneralDetails',
@@ -180,22 +205,16 @@ const editRecord = (row) => {
   });
 };
 
-const deleteRecord = (row) => {
-  console.log('Deleting record for:', row);
-  // Implement delete record logic here
-};
-
-const handlePageChange = (newPage) => {
-  options.value.page = newPage;
-  fetchData(newPage, options.value.itemsPerPage);
-};
-
-const formatDate = (dateString) => {
-  const options = { year: 'numeric', month: 'short', day: 'numeric' };
-  return new Date(dateString).toLocaleDateString(undefined, options);
+const manageStaff = (row) => {
+  router.push({
+    path: '/school/schoolStaff',
+    query: {
+      action: 'manage',
+      school_id: row.id
+    }
+  });
 };
 </script>
-
 
 
 <script>
