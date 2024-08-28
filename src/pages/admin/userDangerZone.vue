@@ -118,7 +118,7 @@ import { useRouter } from 'vue-router';
 
 const route = useRoute()
 
-const userId = ref(route.params.userId || '9cd53369-71a8-4fb6-85a2-c9ce59258e93');
+const userId = ref(route.params.userId || '');
 
 const notificationMessage = ref('');
 const showNotification = ref(false);
