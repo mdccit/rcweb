@@ -19,7 +19,7 @@ const createApiService = (config) => {
     return {
       'Content-Type': 'application/json',
       'AccessKey': accessKey,
-      'lang': defaultLang,
+      'Lang': defaultLang,
       'Authorization': token ? `Bearer ${token}` : '', // Include the token if it exists
     };
   };

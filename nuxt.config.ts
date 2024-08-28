@@ -84,7 +84,12 @@ export default defineNuxtConfig({
     storageKey: 'color-mode',
   },
   compatibilityDate: '2024-07-31',
-  vite: {
+vite: {
+    resolve: {
+      alias: {
+        '@popperjs/core': require.resolve('@popperjs/core'),
+      },
+    },
     server: {
       hmr: {
         overlay: false,
