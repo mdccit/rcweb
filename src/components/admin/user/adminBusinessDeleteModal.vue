@@ -6,9 +6,9 @@
            class="relative bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-sm transform transition-all sm:my-8 sm:max-w-lg sm:w-full sm:p-6">
            <div class="sm:flex sm:items-start">
                <div class="text-center sm:mt-0 sm:text-left">
-                   <h3 class="text-lg leading-6 font-medium text-gray-900">Delete School</h3>
+                   <h3 class="text-lg leading-6 font-medium text-gray-900">Delete Business</h3>
                    <div class="mt-2">
-                       <p class="text-sm text-gray-500">Are you sure you want to delete this school? This action is
+                       <p class="text-sm text-gray-500">Are you sure you want to delete this business? This action is
                            irreversible and will delete all user data and associated records.</p>
                    </div><!----><!---->
                </div>
@@ -67,9 +67,9 @@ const submit = async () => {
     
     try {
 
-        const response = await $adminService.business_delete(props.schoolId);
+        const response = await $adminService.business_delete(props.businesslId);
         if (response.status === 200) {
-            console.log(response)
+            
             successMessage.value = response.display_message;
             emit('emitMessage',response.display_message)
             emit('close');

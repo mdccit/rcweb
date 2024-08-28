@@ -69,7 +69,7 @@ const submit = async () => {
 
         const response = await $adminService.school_delete(props.schoolId);
         if (response.status === 200) {
-            console.log(response)
+            
             successMessage.value = response.display_message;
             emit('emitMessage',response.display_message)
             emit('close');

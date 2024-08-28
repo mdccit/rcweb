@@ -49,31 +49,41 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
                     <div class="grid grid-cols-2 gap-4">
                         <div class="border-2 p-4 rounded">
-                            <form data-splade-id="lG7kPED3SwnY6Kgk" method="DELETE"
-                                action="https://qa1.recruited.qualitapps.com/admin/users/9c9ad039-6106-40d6-92de-b5c7556b05a7/danger-zone">
-                                <fieldset> Delete Business <div class=""><button type="submit"
+                            
+                                <fieldset> Delete Business <div class=""><button type="submit" @click="showModal = true"
                                             class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-red-500 hover:bg-red-700 text-white border-transparent focus:border-red-700 focus:ring-red-200">
                                             <div class="flex flex-row items-center justify-center"><!----><span
                                                     class=""> Delete account </span></div>
                                         </button></div>
                                 </fieldset>
-                            </form>
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Admin Business delete Modal Component -->
+       <AdminBusinessDeleteModal :isVisible="showModal" @close="showModal = false" :businesslId="businesslId" @emitMessage="notification" />
+
+       <!-- Notification Component -->
+       <Notification v-if="showNotification" :message="notificationMessage" :duration="8000" />
     </div>
 
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import UserTable from '~/components/tables/UserTable.vue';
 import { useUserStore } from '~/stores/userStore'
-import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.vue';
+import AdminBusinessDeleteModal from '~/components/admin/user/adminBusinessDeleteModal.vue';
+import Notification from '~/components/common/Notification.vue';
+import { useRouter } from 'vue-router';
 
+const route = useRoute()
 
+const businesslId = ref(route.params.businesslId || '9cdfb2fd-161e-4738-b0c6-479a553eeda3');
+
+const notificationMessage = ref('');
+const showNotification = ref(false);
 const showModal = ref(false);
 const userStore = useUserStore()
 
@@ -88,6 +98,11 @@ const openModal = () => {
     modalRef.value.openModal();
 };
 
+const notification = (message) =>{
+    
+    notificationMessage.value = message;
+    showNotification.value =true
+}
 </script>
 
 <style scoped>
