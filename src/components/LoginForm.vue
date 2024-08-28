@@ -132,7 +132,7 @@ const handleSubmit = async () => {
   } catch (err) {
     error.value = err.message;
     notificationMessage.value = err.message;
-    showNotification.value = true;
+    // showNotification.value = true;
     if (err.response?.data?.message) {
             if (Array.isArray(err.response.data.message)) {
                 errors.value = err.response.data.message;
