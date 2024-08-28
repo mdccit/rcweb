@@ -176,11 +176,11 @@ const createAdminService = (apiService) => {
   
   const user_session_delete = async (user_id) => {
     const url = `/admin/user-session-delete/${user_id}`;
-  
     try {
       const response = await apiService.deleteRequest(url);
-      if (response && response.data && response.data.user_basic_info) {
-        return response.data.user_basic_info;
+
+      if (response) {
+        return response;
       } else {
         throw new Error('Unexpected API response structure');
       }
@@ -194,8 +194,8 @@ const createAdminService = (apiService) => {
   
     try {
       const response = await apiService.deleteRequest(url);
-      if (response && response.data && response.data.user_basic_info) {
-        return response.data.user_basic_info;
+      if (response) {
+        return response;
       } else {
         throw new Error('Unexpected API response structure');
       }

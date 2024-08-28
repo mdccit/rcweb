@@ -18,7 +18,7 @@ const createApiService = (config) => {
     const token = localStorage.getItem('token');
     return {
       'Content-Type': 'application/json',
-      'access_key': accessKey,
+      'AccessKey': accessKey,
       'lang': defaultLang,
       'Authorization': token ? `Bearer ${token}` : '', // Include the token if it exists
     };

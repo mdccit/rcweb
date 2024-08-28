@@ -1,6 +1,6 @@
 <template>
     <!-- Modal Backdrop -->
-    <div v-if="isVisible" id="crud-modal" tabindex="-1" aria-hidden="true"
+    <div v-if="isVisible" id="crud-modal" tabindex="-1" 
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
 
         <div id="headlessui-dialog-panel-17" data-headlessui-state="open" unmount="true"
@@ -15,7 +15,7 @@
                     </div><!----><!---->
                 </div>
             </div>
-            <div class="mt-4 text-center"><button dusk="splade-confirm-confirm" type="button" @click="submitRegistration"
+            <div class="mt-4 text-center"><button dusk="splade-confirm-confirm" type="button" @click="submit"
                     class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto sm:text-sm bg-blue-500 hover:bg-blue-700 focus:ring-primary-500">Proceed
                     and continue</button>
                     <button dusk="splade-confirm-cancel" type="button" @click="$emit('close')"
@@ -43,7 +43,8 @@ const $adminService = nuxtApp.$adminService;
 
 // Reference to the modal component
 const modalRef = ref(null);
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close','emitMessage']);
+
 
 
 // Function to open the modal
@@ -68,15 +69,21 @@ function handleSubmit() {
     emit('close');
 }
 
-const submitRegistration = async () => {
-    
-    try {
+const submit = async () => {
 
+    try {
         const response = await $adminService.user_session_delete(props.userId);
-        console.log(response)
+
         if (response.status === 200) {
+            
             successMessage.value = response.display_message;
+            emit('emitMessage',response.display_message)
+            emit('close');
+
+
         } else {
+            emit('emitMessage',response.display_message)
+            emit('close');
             errors.value.push(response.data.display_message);
         }
     } catch (err) {

@@ -94,10 +94,13 @@
             </div>
         </div>
          <!-- Admin User Session delete Modal Component -->
-         <AdminUserLogoutSession :isVisible="showModal" @close="showModal = false" :userId="userId" />
+         <AdminUserLogoutSession :isVisible="showModal" @close="showModal = false" :userId="userId" @emitMessage="notification" />
 
          <!-- Admin User  delete Modal Component -->
-         <AdminUserDelete :isVisible="deleteShowModal" @close="deleteShowModal = false" :userId="userId" />
+         <AdminUserDelete :isVisible="deleteShowModal" @close="deleteShowModal = false" :userId="userId" @emitMessage="notification" />
+
+         <!-- Notification Component -->
+        <Notification v-if="showNotification" :message="notificationMessage" :duration="8000" />
     </div>
 
 </template>
@@ -109,12 +112,16 @@ import { useUserStore } from '~/stores/userStore'
 import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.vue';
 import AdminUserLogoutSession from '~/components/admin/user/adminUserLogoutSession.vue';
 import AdminUserDelete from '~/components/admin/user/adminUserDelete.vue';
+import Notification from '~/components/common/Notification.vue';
 
 import { useRouter } from 'vue-router';
 
 const route = useRoute()
 
-const userId = ref(route.params.userId || '9cdb23b4-7bc3-4b9b-9693-390267e73266');
+const userId = ref(route.params.userId || '9cd53369-71a8-4fb6-85a2-c9ce59258e93');
+
+const notificationMessage = ref('');
+const showNotification = ref(false);
 
 const showModal = ref(false);
 const deleteShowModal = ref(false);
@@ -131,6 +138,13 @@ const modalRef = ref(null);
 const openModal = () => {
     modalRef.value.openModal();
 };
+
+
+const notification = (message) =>{
+    
+    notificationMessage.value = message;
+    showNotification.value =true
+}
 
 </script>
 
