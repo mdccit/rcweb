@@ -42,9 +42,9 @@
                     <div class="flex justify-between">
                         <div class="flex-1 text-2xl font-bold mb-4 text-black"> All Members </div>
                         <div class="">
-                            <NuxtLink to="/business/BusinessAdd"><button @click="addMembers"
+                            <button @click="addMembers"
                                     class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
-                                    Add User </button></NuxtLink>
+                                    Add User </button>
                         </div>
                     </div>
                     <div class="grid gap-4">
@@ -110,27 +110,27 @@ const notificationMessage = ref('');  // Message for the notification
 
 // Define action, school_id, and staff as reactive refs
 const action = ref('');  // Action type (e.g., manage, view)
-const school_id = ref('');  // School ID
+const business_id = ref('');  // School ID
 const staff = ref([]);  // Array to hold staff data
 
 onMounted(() => {
     // Set initial values for action and school_id from route query parameters
     action.value = route.query.action || 'manage';
-    school_id.value = route.query.school_id || '';
+    business_id.value = route.query.business_id || '';
 
     // Fetch school staff data if action is 'manage'
     if (action.value === 'manage') {
-        fetchSchoolStaff(school_id.value);
+        fetchSchoolStaff(business_id.value);
     }
 });
 
 // Fetch School Staff
-const fetchSchoolStaff = async (schoolId) => {
+const fetchSchoolStaff = async (business_id) => {
     console.log('loading');
     errors.value = [];  // Clear any existing errors
     try {
         // Fetch staff data from the API using $adminService
-        const staffData = await $adminService.list_school_staff(schoolId);
+        const staffData = await $adminService.get_business_members(business_id);
         console.log(staffData);
         staff.value = staffData || [];  // Set the fetched data to the staff ref
     } catch (error) {
@@ -139,18 +139,19 @@ const fetchSchoolStaff = async (schoolId) => {
     }
 };
 
-
-const addMembers = (row) => {
+// Corrected addMembers function
+const addMembers = () => {
   router.push({
-    path: '/business/businesAdd',
+    path: '/business/businessAdd',
     query: {
       action: 'add',
-      business_id: row.id
+      businessId: business_id.value // Correctly pass the business_id value
     }
   });
 };
 
 </script>
+
 
 <style scoped>
 .container {
