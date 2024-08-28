@@ -30,12 +30,12 @@
         </div>
       </label>
     </div>
-    <div class="flex items-center mb-4">
+    <div class="flex items-center mb-4 mt-5">
       <div class="mr-3">
         <label class="flex items-center">
-          <input name="remember" type="checkbox" data-validation-key="remember"
-            class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
-          <span class="ml-4">Remember me</span>
+          <input name="remember" type="checkbox" data-validation-key="remember" v-model="rememberMe"
+            class="rounded-full  p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
+          <span class="ml-4 text-black ">Remember me</span>
         </label>
       </div>
     </div>
@@ -57,15 +57,15 @@
       <a href="/register">Don't have an account yet?<br><strong class="text-primary">Create new account</strong></a>
     </div>
 
-         <!-- Display error messages -->
-         <div v-if="errors.length" class="error-messages">
-          <!-- <p class="error-title">Validation Errors:</p> -->
-          <ul class="error-list">
-              <li v-for="(error, index) in splitErrors" :key="index" class="error-item">
-                  {{ error }}
-              </li>
-          </ul>
-      </div>
+    <!-- Display error messages -->
+    <div v-if="errors.length" class="error-messages">
+      <!-- <p class="error-title">Validation Errors:</p> -->
+      <ul class="error-list">
+        <li v-for="(error, index) in splitErrors" :key="index" class="error-item">
+          {{ error }}
+        </li>
+      </ul>
+    </div>
 
     <!-- Notification Component -->
     <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
@@ -78,10 +78,12 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
+import Cookies from 'js-cookie';
 
 import Notification from '~/components/common/Notification.vue';
 
 const email = ref('');
+const rememberMe = ref(false);
 const password = ref('');
 const error = ref('');
 const notification_type = ref('');
@@ -116,6 +118,13 @@ const handleSubmit = async () => {
         token: response.data.token
       })
       localStorage.setItem('token', response.data.token)  // Set token in local storage
+
+      if (rememberMe.value) {
+        Cookies.set('session', response.data.token, { expires: 1 }); // Set cookie for 24 hours
+      } else {
+        Cookies.set('session', response.data.token);
+      }
+
       if (response.data.user_permission_type === 'none' && (response.data.user_role == 'coach' && response.data.user_role == 'business')) {
         router.push('/user/approval-pending');  // Redirect to pending approval page
       } else {
@@ -134,14 +143,14 @@ const handleSubmit = async () => {
     notificationMessage.value = err.message;
     showNotification.value = true;
     if (err.response?.data?.message) {
-            if (Array.isArray(err.response.data.message)) {
-                errors.value = err.response.data.message;
-            } else {
-                errors.value = [err.response.data.message];
-            }
-        } else {
-            errors.value = [err.response?.data?.message || err.message];
-        }
+      if (Array.isArray(err.response.data.message)) {
+        errors.value = err.response.data.message;
+      } else {
+        errors.value = [err.response.data.message];
+      }
+    } else {
+      errors.value = [err.response?.data?.message || err.message];
+    }
 
   }
 }
@@ -161,27 +170,28 @@ form {
   max-width: 400px;
   margin: auto;
 }
+
 .container {
-    max-width: 400px;
+  max-width: 400px;
 }
 
 .error-messages {
-    margin-top: 20px;
-    color: red;
+  margin-top: 20px;
+  color: red;
 }
 
 .error-title {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .error-list {
-    list-style-type: disc;
-    /* Ensure bullet points are shown */
-    margin-left: 20px;
-    /* Indent the list */
+  list-style-type: disc;
+  /* Ensure bullet points are shown */
+  margin-left: 20px;
+  /* Indent the list */
 }
 
 .error-item {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 </style>
