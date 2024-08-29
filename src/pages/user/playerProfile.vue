@@ -400,8 +400,8 @@
                 <!-- Start UTR Section -->
                 <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
                     <div>
-                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300
-                             font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600
+                        <button type="button" class=" w-[50px] h-[50px] text-blue-500 bg-secondary hover:bg-blue-100 focus:outline-none focus:ring-4 focus:ring-blue-300
+                             font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 
                               dark:hover:bg-blue-700 dark:focus:ring-blue-800">
 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
