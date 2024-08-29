@@ -3,74 +3,11 @@
 
     <section class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
       <div class="col-span-5 sm:col-span-4 md:col-span-5 lg:col-span-2 xl:col-span-4">
-
-        <!-- Iterate over posts and display them -->
-        <div v-for="post in posts" :key="post.id" class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
-          <div class="flex items-start space-x-4">
-            <div class="flex-1">
-              <div class="mb-4">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center space-x-4">
-                    <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-12 h-12 mr-4">
-                    <div>
-                      <div class="text-lg font-semibold text-black">{{ post.user_id }}</div>
-                      <div class="text-gray-500 text-sm">{{ post.updated_at }}</div>
-                    </div>
-                  </div>
-                </div>
-
-                <h3 v-if="post.type === 'blog' || post.type === 'event'" class="mt-4 text-darkSlateBlue text-base">
-                  {{ post.title }}
-                </h3>
-                <p class="mt-4 text-darkSlateBlue text-base">{{ post.description }}</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex items-center justify-between mt-4">
-            <div class="flex items-center space-x-4">
-              <button class="flex items-center space-x-1 text-red-500">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" class="size-4">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                </svg>
-                <span class="text-darkSlateBlue">{{ post.likes_count }}</span>
-              </button>
-              <div>
-                <h2>
-                  <button type="button"
-                    class="flex items-center space-x-1 text-darkSlateBlue dark:bg-white dark:text-darkSlateBlue"
-                    data-accordion-target="#accordion-collapse-comment-2-body" aria-expanded="false"
-                    aria-controls="accordion-collapse-comment-2-body">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                      stroke="currentColor" class="size-4" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
-                    </svg>
-                    <span class="text-darkSlateBlue">{{ post.comments.length }}</span>
-                  </button>
-                </h2>
-              </div>
-            </div>
-          </div>
-
-          <!-- Comment Section Component -->
-          <CommentSection :comments="post.comments" />
-          
-        </div>
-
-      </div>
-    </section>
-
-
-    <section class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
-      <div class="col-span-5 sm:col-span-4 md:col-span-5 lg:col-span-2 xl:col-span-4">
         <!--start card 01 -->
         <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6">
           <div class="flex items-center">
             <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-12 h-12 mr-4">
-            <input type="text" placeholder="Write your thoughts..."
+            <input type="text" placeholder="Write your thoughts..." v-model="newPost.description"
               class="flex-grow text-ceil bg-ceil rounded-xl border-none py-2 px-4 "
               style="background-color:#F4F6F9; color:#8CA4CE;">
           </div>
@@ -97,11 +34,80 @@
                 <span class="text-amber pl-1.5">Video</span>
               </button>
             </div>
-            <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Post</button>
+            <button @click="writePost" class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Post</button>
           </div>
         </div>
         <!--end card 01 -->
+      </div>
+    </section>
 
+
+    <section class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
+      <div class="col-span-5 sm:col-span-4 md:col-span-5 lg:col-span-2 xl:col-span-4">
+
+        <!-- Iterate over posts and display them -->
+        <div v-for="post in posts" :key="post.id"
+          class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
+          <div class="flex items-start space-x-4">
+            <div class="flex-1">
+              <div class="mb-4">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-4">
+                    <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-12 h-12 mr-4">
+                    <div>
+                      <div class="text-lg font-semibold text-black">{{ post.user.display_name }}</div>
+                      <div class="text-gray-500 text-sm">{{ formatDate(post.updated_at) }}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <h3 v-if="post.type === 'blog' || post.type === 'event'" class="mt-4 text-darkSlateBlue text-base">
+                  {{ post.title }}
+                </h3>
+                <p class="mt-4 text-darkSlateBlue text-base">{{ post.description }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between mt-4">
+            <div class="flex items-center space-x-4">
+              <button class="flex items-center space-x-1 text-red-500" @click="likePost(post.id)">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="size-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" 
+                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                </svg>
+                <span class="text-darkSlateBlue">{{ post.likes_count }}</span>
+              </button>
+              <div>
+                <h2>
+                  <button type="button"
+                    class="flex items-center space-x-1 text-darkSlateBlue dark:bg-white dark:text-darkSlateBlue"
+                    data-accordion-target="#accordion-collapse-comment-2-body" aria-expanded="false"
+                    aria-controls="accordion-collapse-comment-2-body">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="size-4" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
+                    </svg>
+                    <span class="text-darkSlateBlue">{{ post.comments.length }}</span>
+                  </button>
+                </h2>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comment Section Component -->
+          <CommentSection :comments="post.comments" />
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <section class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
+      <div class="col-span-5 sm:col-span-4 md:col-span-5 lg:col-span-2 xl:col-span-4">
         <!--start card 02 -->
         <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
           <div class="flex items-start space-x-4">
@@ -134,40 +140,40 @@
                     </svg>
                   </button>
                   <button id="dropdownActionButton" data-dropdown-toggle="dropdownActionButtonDelay"
-                                    data-dropdown-delay="500" data-dropdown-trigger="hover"
-                                    class="text-white bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
-                                    type="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="size-5 text-periwinkleBlue">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                    </svg>
-                                </button>
+                    data-dropdown-delay="500" data-dropdown-trigger="hover"
+                    class="text-white bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                    type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="size-5 text-periwinkleBlue">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                    </svg>
+                  </button>
 
-                                <!-- Action Dropdown menu -->
-                                <div id="dropdownActionButtonDelay" class="z-10 hidden bg-white rounded-lg shadow w-30">
-                                    <ul class="py-2 text-sm" aria-labelledby="dropdownActionButton">
-                                        <li class="text-black">
-                                            <a href="#" class="block px-4 py-2 hover:bg-lightGray flex">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" class="size-4 mr-2">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                                </svg>
-                                                Edit post
-                                            </a>
-                                        </li>
-                                        <li class="text-red">
-                                            <a href="#" class="block px-4 py-2 hover:bg-lightGray flex">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" class="size-4 mr-2">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                                </svg>
-                                                Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                  <!-- Action Dropdown menu -->
+                  <div id="dropdownActionButtonDelay" class="z-10 hidden bg-white rounded-lg shadow w-30">
+                    <ul class="py-2 text-sm" aria-labelledby="dropdownActionButton">
+                      <li class="text-black">
+                        <a href="#" class="block px-4 py-2 hover:bg-lightGray flex">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-4 mr-2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                          </svg>
+                          Edit post
+                        </a>
+                      </li>
+                      <li class="text-red">
+                        <a href="#" class="block px-4 py-2 hover:bg-lightGray flex">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-4 mr-2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                              d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                          </svg>
+                          Delete</a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
               <p class="mt-4 text-darkSlateBlue text-base">
@@ -190,17 +196,19 @@
                   </button>
                   <div id="accordion-collapse1" data-accordion="collapse1">
                     <h2 id="accordion-collapse-comment-1">
-                  <button class="flex items-center space-x-1  text-darkSlateBlue dark:bg-white dark:text-darkSlateBlue" data-accordion-target="#accordion-collapse-comment-1-body" aria-expanded="false"
-                  aria-controls="accordion-collapse-comment-1-body">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                      stroke="currentColor" class="size-4" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
-                    </svg>
+                      <button
+                        class="flex items-center space-x-1  text-darkSlateBlue dark:bg-white dark:text-darkSlateBlue"
+                        data-accordion-target="#accordion-collapse-comment-1-body" aria-expanded="false"
+                        aria-controls="accordion-collapse-comment-1-body">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                          stroke="currentColor" class="size-4" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
+                        </svg>
 
-                    <span class="text-darkSlateBlue">0</span>
-                  </button>
-                  </h2>
+                        <span class="text-darkSlateBlue">0</span>
+                      </button>
+                    </h2>
                   </div>
                   <button class="flex items-center space-x-1 text-gray-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -582,6 +590,14 @@ import CommentSection from '~/components/user/feed/CommentSection.vue';
 
 // State variables
 const posts = ref([]);
+// State to hold new post data
+const newPost = ref({
+  description: '',
+  type: 'post', // default type
+  publisher_type: 'user', // default publisher type
+  title: '',
+});
+
 
 // Access feedService from the context
 const nuxtApp = useNuxtApp();
@@ -596,6 +612,43 @@ onMounted(async () => {
     console.error('Failed to load posts:', error.message);
   }
 });
+
+// Function to create a new post
+const writePost = async () => {
+  try {
+    const response = await $feedService.create_post(newPost.value);
+    loadPosts();
+    // Optionally, reload posts or redirect the user
+  } catch (error) {
+    console.error('Failed to create post:', error.message);
+  }
+};
+
+const likePost = async (post_id) => {
+  console.log('liking');
+  try {
+    const response = await $feedService.like_post(post_id);
+    console.log('Post liked successfully:', response);
+    loadPosts(); // Optionally, reload posts to update the like count
+  } catch (error) {
+    console.error('Failed to like post:', error.message);
+  }
+};
+
+const loadPosts = async () => {
+  try {
+    const response = await $feedService.list_posts({});
+    posts.value = response;
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
+  }
+};
+
+
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString();
+};
 
 
 </script>

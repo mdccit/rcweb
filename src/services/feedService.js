@@ -91,7 +91,7 @@ const createFeedService = (apiService) => {
   };
 
   const like_post = async (post_id,request_body) => {
-    const url = `/feed/posts/${post_id}`;
+    const url = `/feed/posts/${post_id}/like`;
     const body = request_body;
 
     try {
