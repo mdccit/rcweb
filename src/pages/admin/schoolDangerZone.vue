@@ -42,30 +42,41 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
                     <div class="grid grid-cols-2 gap-4">
                         <div class="border-2 p-4 rounded">
-                            <form data-splade-id="50TgoPlddgofU2KW" method="DELETE"
-                                action="https://qa1.recruited.qualitapps.com/admin/schools/9cdafef1-e0ff-4033-b402-6a36f9408551/danger-zone">
-                                <fieldset> Delete school <div class=""><button type="submit"
+                            <fieldset> Delete school <div class=""><button type="submit" @click="showModal = true"
                                             class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-red-500 hover:bg-red-700 text-white border-transparent focus:border-red-700 focus:ring-red-200">
                                             <div class="flex flex-row items-center justify-center"><!----><span
                                                     class=""> Proceed + delete? </span></div>
                                         </button></div>
-                                </fieldset>
-                            </form>
+                            </fieldset>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+       <!-- Admin School delete Modal Component -->
+       <AdminSchoolDeleteModal :isVisible="showModal" @close="showModal = false" :schoolId="schoolId" @emitMessage="notification" />
+
+        <!-- Notification Component -->
+        <Notification v-if="showNotification" :message="notificationMessage" :duration="8000" />
     </div>
 </template>
 
 <script setup>
 import { useUserStore } from '~/stores/userStore'
-import schoolTable from '~/components/tables/schoolTables.vue';
-import schoolCreateModal from '~/components/shared/schoolCreateModal.vue';
+import AdminSchoolDeleteModal from '~/components/admin/user/adminSchoolDeleteModal.vue';
+import Notification from '~/components/common/Notification.vue';
+import { useRouter } from 'vue-router';
+
+const route = useRoute()
 
 const userStore = useUserStore()
 
+const schoolId = ref(route.params.schoolId || '');
+
+const notificationMessage = ref('');
+const showNotification = ref(false);
+const showModal = ref(false);
 const email = userStore.user?.email
 const token = userStore.user?.token
 
@@ -77,6 +88,13 @@ const openModal = () => {
     modalRef.value.openModal();
     console.log('open')
 }
+
+const notification = (message) =>{
+    
+    notificationMessage.value = message;
+    showNotification.value =true
+}
+
 
 </script>
 
