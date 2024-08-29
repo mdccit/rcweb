@@ -77,13 +77,28 @@ export default defineNuxtConfig({
       dir: 'dist'  // Set the output directory to 'dist/'
     },
     prerender: {
-      routes: [],
-      crawlLinks: false,
+      routes: ['/'],
+      onError: (route, error) => {
+        console.error(`Error prerendering route ${route}:`, error);
+      },
+      crawlLinks: false,  // Automatically discover and crawl links
       ignore: [
-        '/admin',
-        '/admin/**',
-        '/user',
-        '/user/**'
+        '/admin',         // Ignore all admin routes
+        '/admin/**',      // Ignore all nested admin routes
+        '/user',          // Ignore all user routes
+        '/user/**',       // Ignore all nested user routes
+        '/dashboard',     // Ignore dashboard route (likely user-specific)
+        '/forgot-password', // Ignore forgot password route
+        '/google-auth',   // Ignore Google authentication route
+        '/login',         // Ignore login route
+        '/pendingApproval', // Ignore pending approval route
+        '/register',      // Ignore register route
+        '/register2',     // Ignore second part of registration
+        '/reset-password', // Ignore reset password route
+        '/time',          // Ignore time page (if it's dynamic)
+        '/unauthorized',  // Ignore unauthorized access page
+        '/about',         // Prerender the About page
+        '/pricing',       // Prerender the Pricing page
       ]
     }
   },
