@@ -73,10 +73,6 @@ export default defineNuxtConfig({
     '@assets': resolve(__dirname, './src/assets')
   },
   nitro: {
-    prerender: {
-      crawlLinks: false,
-      routes: ['/'],
-    },
   },
   colorMode: {
     classSuffix: '',
