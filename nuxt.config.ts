@@ -77,8 +77,8 @@ export default defineNuxtConfig({
       dir: 'dist'  // Set the output directory to 'dist/'
     },
     prerender: {
-      routes: ['/', '/register', '/login'],  // Use '/' for root route
-      crawlLinks: true,  // Automatically discover and crawl links
+      routes: [],
+      crawlLinks: false,
       ignore: [
         '/admin',
         '/admin/**',
