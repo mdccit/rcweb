@@ -203,6 +203,19 @@ const createAdminService = (apiService) => {
     }
   };
 
+  const search_school_sysnchronic_result = async (request_body) => {
+    
+    const url = `/admin/matchResult`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
   return {
     new_user_register,
     list_users,
@@ -218,7 +231,8 @@ const createAdminService = (apiService) => {
     search_business_users,
     school_update,
     get_player_details,
-    player_update
+    player_update,
+    search_school_sysnchronic_result
   };
 };
 
