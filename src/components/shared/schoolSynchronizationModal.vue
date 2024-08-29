@@ -16,6 +16,7 @@
             <h2 class="text-2xl font-bold">Data</h2>
             <div class="my-8"></div>
             <pre class="bg-gray-50 border-2 border-gray-500 rounded p-6">{
+                
     "latest": {
         "school": {
             "zip": "75390-9096",

@@ -312,6 +312,7 @@
                                             class="ml-4">Percentage of international students</span></label><!---->
                                 </div>
                             </div>
+                            
                             <div class="my-4"></div>
                             <div class=""><button type="submit"
                                     class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
