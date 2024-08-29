@@ -100,7 +100,7 @@
                 <label for="gender" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Gender
                   *</label>
 
-                <GenderDropdown :genders="genders" v-model="gender" id="gender" label="Gender *" />
+                <GenderDropDown :genders="genders" v-model="gender" id="gender" label="Gender *" />
                 <!-- <select v-model="gender"
                   class="block bg-gray-50 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
                   id="gender" required>
@@ -252,7 +252,7 @@ import { loadCountryList, loadNationalityList, loadBudgetList, loadGenderList, l
 import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
 import CountryDropdown from '~/components/common/select/CountryDropdown.vue';
 import NationalityDropdown from '~/components/common/select/NationalityDropdown.vue';
-import GenderDropdown from '~/components/common/select/GenderDropdown.vue';
+import GenderDropDown from '~/components/common/select/GenderDropDown.vue';
 import BudgetDropdown from '~/components/common/select/BudgetDropdown.vue';
 import HandednessDropdown from '~/components/common/select/HandednessDropdown.vue';
 // import DatePicker from 'vue-datepicker-next';
