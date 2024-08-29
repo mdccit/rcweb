@@ -73,6 +73,19 @@ export default defineNuxtConfig({
     '@assets': resolve(__dirname, './src/assets')
   },
   nitro: {
+    output: {
+      dir: 'dist'  // Set the output directory to 'dist/'
+    },
+    prerender: {
+      routes: ['/', '/register', '/login'],  // Use '/' for root route
+      crawlLinks: true,  // Automatically discover and crawl links
+      ignore: [
+        '/admin',
+        '/admin/**',
+        '/user',
+        '/user/**'
+      ]
+    }
   },
   colorMode: {
     classSuffix: '',
