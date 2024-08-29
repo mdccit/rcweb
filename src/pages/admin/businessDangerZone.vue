@@ -80,7 +80,7 @@ import { useRouter } from 'vue-router';
 
 const route = useRoute()
 
-const businesslId = ref(route.params.businesslId || '9cdfb2fd-161e-4738-b0c6-479a553eeda3');
+const businesslId = ref(route.params.businesslId || '');
 
 const notificationMessage = ref('');
 const showNotification = ref(false);
