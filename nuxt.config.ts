@@ -85,10 +85,8 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2024-07-31',
 vite: {
-    resolve: {
-      alias: {
-        '@popperjs/core': require.resolve('@popperjs/core'),
-      },
+    optimizeDeps: {
+      include: ['@popperjs/core'],
     },
     server: {
       hmr: {
