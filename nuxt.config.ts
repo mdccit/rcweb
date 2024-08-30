@@ -32,7 +32,7 @@ export default defineNuxtConfig({
           'postcss-nested': {},
           'postcss-import': {},
           'tailwindcss': {},
-          'autoprefixer' : {},
+          'autoprefixer': {},
 
         },
       },
@@ -72,12 +72,24 @@ export default defineNuxtConfig({
     '@store': resolve(__dirname, './src/store'),
     '@assets': resolve(__dirname, './src/assets')
   },
+  target: 'static',
   nitro: {
     output: {
       dir: 'dist'  // Set the output directory to 'dist/'
     },
     prerender: {
-      routes: ['/'],
+      
+      routes: ['/',           // Home
+        '/pricing',    // Pricing
+        '/about',      // About
+        '/terms',      // Terms
+        '/privacy',    // Privacy
+        '/register',   // Register        
+        '/register2',     // Ignore second part of registration
+        '/login',      // Login
+        '/reset-password', // Reset password
+        '/forgot-password', // Ignore forgot password route
+      ],
       onError: (route, error) => {
         console.error(`Error prerendering route ${route}:`, error);
       },
@@ -87,18 +99,11 @@ export default defineNuxtConfig({
         '/admin/**',      // Ignore all nested admin routes
         '/user',          // Ignore all user routes
         '/user/**',       // Ignore all nested user routes
-        '/dashboard',     // Ignore dashboard route (likely user-specific)
-        '/forgot-password', // Ignore forgot password route
+        '/dashboard',     // Ignore dashboard route (likely user-specific)        
         '/google-auth',   // Ignore Google authentication route
-        '/login',         // Ignore login route
-        '/pendingApproval', // Ignore pending approval route
-        '/register',      // Ignore register route
-        '/register2',     // Ignore second part of registration
-        '/reset-password', // Ignore reset password route
+        '/pending-approval', // Ignore pending approval route
         '/time',          // Ignore time page (if it's dynamic)
         '/unauthorized',  // Ignore unauthorized access page
-        '/about',         // Prerender the About page
-        '/pricing',       // Prerender the Pricing page
       ]
     }
   },
@@ -108,7 +113,7 @@ export default defineNuxtConfig({
     storageKey: 'color-mode',
   },
   compatibilityDate: '2024-07-31',
-vite: {
+  vite: {
     optimizeDeps: {
       include: ['@popperjs/core'],
     },
