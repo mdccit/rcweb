@@ -7,6 +7,7 @@ export default defineNuxtConfig({
   // devtools: { enabled: true },
   srcDir: 'src/',
   ssr: true,
+  target: 'universal',
   css: [
     '@/assets/css/tailwind.css', // Ensure this is the first CSS file
     'element-plus/dist/index.css',
@@ -72,18 +73,16 @@ export default defineNuxtConfig({
     '@store': resolve(__dirname, './src/store'),
     '@assets': resolve(__dirname, './src/assets')
   },
-  target: 'static',
   nitro: {
     output: {
-      dir: 'dist'  // Set the output directory to 'dist/'
+      dir: '../dist',  // Set the output directory to 'dist/'
     },
     prerender: {
-      
+      crawlLinks: false,  // Automatically discover and crawl links
+      failOnError: true, // Stop on the first error, to make debugging easier
       routes: ['/',           // Home
         '/pricing',    // Pricing
         '/about',      // About
-        '/terms',      // Terms
-        '/privacy',    // Privacy
         '/register',   // Register        
         '/register2',     // Ignore second part of registration
         '/login',      // Login
@@ -92,8 +91,7 @@ export default defineNuxtConfig({
       ],
       onError: (route, error) => {
         console.error(`Error prerendering route ${route}:`, error);
-      },
-      crawlLinks: false,  // Automatically discover and crawl links
+      },      
       ignore: [
         '/admin',         // Ignore all admin routes
         '/admin/**',      // Ignore all nested admin routes
