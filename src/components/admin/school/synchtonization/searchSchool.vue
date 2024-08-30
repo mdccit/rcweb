@@ -78,7 +78,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch , onMounted } from 'vue';
+import { ref, computed, watch , onMounted ,defineEmits } from 'vue';
 import { useNuxtApp } from '#app';
 
 // Access authService from the context
@@ -93,8 +93,10 @@ const buttonDisable = ref(false)
 const results = ref([])
 const resultCount = ref("No")
 
+const emit = defineEmits(['close']);
+ 
 const props = defineProps({
-  schoolId,
+  schoolId:String,
  
 });
 const submit = async () =>{
@@ -115,15 +117,19 @@ const submit = async () =>{
 const connect = async (result) =>{
     try{
         console.log(result)
-    //     buttonDisable.value = true
-    //     const response = await $adminService.search_school_sysnchronic_result({
-    //         search: search.value
-    //    });
-    //     buttonDisable.value = false
-    //     afterSearch.value = true
-    //     results.value = response.data.dataSets.result
-    //     resultCount.value = response.data.dataSets.result_count != 0 ? response.data.dataSets.result_count :"No"
+        const response = await $adminService.school_connect_gov(props.schoolId,{
+            gov_id: result.id,
+        });
+        console.log(response)
+
+    if (response.status === 200) {
+        emit('connectedSchool',response.display_message)
+    } else {
+        errors.value.push(response.display_message);
+        
+    }
     }catch (err) {
+        console.log(err)
          error.value = err.response?.data?.message || err.message;
     }
 }

@@ -1,12 +1,12 @@
 <template>
    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8"> This school has been matched up to a
         government school. You can now synchronize the data from their source.<br><br> Gov ID:
-        <strong>152381</strong><br><br><br> Wish to disconnect? <form data-splade-id="NXOBIVwqZ9sKqRVD"
+        <strong>{{ props.govId }}</strong><br><br><br> Wish to disconnect? <form data-splade-id="NXOBIVwqZ9sKqRVD"
             method="POST"
             action="https://qa1.recruited.qualitapps.com/admin/schools/9bcd594d-b596-4409-93c0-14cb4dffecc6/sync/disconnect">
             <fieldset><input type="hidden" name="_token" autocomplete="off"
                 value="SMCjyTHMYbxsRFsCUr0LzVyPfyxtnWNPTwNnlr09">
-                <div class=""><button type="submit"
+                <div class=""><button type="button" @click="fetchSyncDisconnect"
                     class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 text-red-500">
                     Disconnect </button></div>
             </fieldset>
@@ -16,7 +16,7 @@
             action="https://qa1.recruited.qualitapps.com/admin/schools/9bcd594d-b596-4409-93c0-14cb4dffecc6/sync/sync">
             <fieldset><input type="hidden" name="_token" autocomplete="off"
                 value="SMCjyTHMYbxsRFsCUr0LzVyPfyxtnWNPTwNnlr09">
-                <div class=""><button type="submit"
+                <div class=""><button type="button" @click="fetchSync"
                     class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
                     Synchronize now </button></div>
             </fieldset>
@@ -161,49 +161,91 @@
                         <p>Details</p>
                     </div>
                 </div>
-                <div class="flex gap-4 border-b-2 px-2 py-4">
+                <div v-for=" history in history" class="flex gap-4 border-b-2 px-2 py-4">
                     <div class="w-1/4">
-                        <p>4 months ago</p>
+                        <p>{{ history.created_at }}</p>
                     </div>
                     <div class="w-1/4">
-                        <p>success</p>
+                        <p>{{  history.status }}</p>
                     </div>
                     <div class="w-1/4">
-                        <p><a
-                            href="https://qa1.recruited.qualitapps.com/admin/users/9bc8ab38-f3f9-4068-a9cd-5cdf2860cec9">
-                            Admin </a></p>
+                        <p>{{ history.created_by }}</p>
                     </div>
                     <div class="w-1/4">
-                        <p><a
-                            href="https://qa1.recruited.qualitapps.com/admin/schools/9bcd594d-b596-4409-93c0-14cb4dffecc6/sync/604">
-                            View details </a></p>
+                        <p><button type="button" @click="viewDetails(history)">
+                            View details</button></p>
                     </div>
                 </div>
-                <div class="flex gap-4 border-b-2 px-2 py-4 bg-gray-400/50">
-                    <div class="w-1/4">
-                        <p>4 months ago</p>
-                    </div>
-                    <div class="w-1/4">
-                        <p>success</p>
-                    </div>
-                    <div class="w-1/4">
-                        <p><a
-                            href="https://qa1.recruited.qualitapps.com/admin/users/9bc8ab38-f3f9-4068-a9cd-5cdf2860cec9">
-                            Admin </a></p>
-                    </div>
-                    <div class="w-1/4">
-                        <p><a
-                            href="https://qa1.recruited.qualitapps.com/admin/schools/9bcd594d-b596-4409-93c0-14cb4dffecc6/sync/368">
-                            View details </a></p>
-                    </div>
-                </div>
+              
             </div>
         </div>
+        <SchoolSynchronizationModal  :isVisible="showModal"  @close="showModal = false" :data="details"  />
 </template>
 
 <script setup>
-import { ref, computed, watch , onMounted } from 'vue';
+import { ref, computed, watch , onMounted , defineEmits} from 'vue';
 import { useNuxtApp } from '#app';
+import SchoolSynchronizationModal from '~/components/admin/school/synchtonization/schoolSynchronizationModal.vue';
+
+// Access authService from the context
+const nuxtApp = useNuxtApp();
+const $adminService = nuxtApp.$adminService;
+
+const showModal = ref(false)
+const disConeected =ref(false)
+const history = ref([])
+const details = ref({});
+const props = defineProps({
+    govId:String,
+    schoolId:String
+ 
+});
+const emit = defineEmits(['emitMessage']);
+
+onMounted(() => {
+   fetchHistory(props.schoolId);
+});
+
+
+const fetchHistory = async (schoolId) => {
+    try {
+        const data = await $adminService.school_sync_history(schoolId);
+         history.value = data
+
+    } catch (error) {
+        console.error('Failed to load user details:', error.message);
+        errors.value.push('Failed to load user details.');
+    }
+};
+
+const fetchSync = async () => {
+    try {
+        const data = await $adminService.school_sync(props.schoolId);
+        emit('emitMessage',data.display_message)
+        fetchHistory(props.schoolId);
+    } catch (error) {
+        console.error('Failed to load user details:', error.message);
+        errors.value.push('Failed to load user details.');
+    }
+};
+
+const fetchSyncDisconnect = async () => {
+    try {
+        const data = await $adminService.school_sync_disconnect(props.schoolId);
+        emit('emitMessage',data.display_message)
+        fetchHistory(props.schoolId);
+        disConeected.value =true
+    } catch (error) {
+        console.error('Failed to load user details:', error.message);
+        errors.value.push('Failed to load user details.');
+    }
+};
+
+const viewDetails = (data) =>{
+    details.value =data
+    showModal.value = true
+}
+
 
 </script>
 

@@ -276,6 +276,55 @@ const createAdminService = (apiService) => {
     }
   };
 
+  const school_connect_gov = async (school_id,request_body) => {
+    
+    const url = `/admin/connect/${school_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+  const school_sync_history = async (school_id) => {
+    
+    const url = `/admin/history/${school_id}`;
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data ) {
+        return response.data;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
+
+  const school_sync = async (school_id) => {
+    
+    const url = `/admin/sync/${school_id}`;
+    try {
+      const response = await apiService.getRequest(url);
+      return response
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
+
+  const school_sync_disconnect = async (school_id) => {
+    
+    const url = `/admin/disconnect/${school_id}`;
+    try {
+      const response = await apiService.getRequest(url);
+      return response
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
   return {
     new_user_register,
     list_users,
@@ -297,7 +346,12 @@ const createAdminService = (apiService) => {
     user_session_delete,
     user_delete,
     school_delete,
-    business_delete
+    business_delete,
+    school_connect_gov,
+    school_sync_history,
+    school_sync,
+    school_sync_disconnect
+
   };
 
 }
