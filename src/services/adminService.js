@@ -203,14 +203,6 @@ const createAdminService = (apiService) => {
     }
   };
 
-  const search_school_sysnchronic_result = async (request_body) => {
-    
-    const url = `/admin/matchResult`;
-    const body = request_body;
-
-    try {
-      const response = await apiService.postRequest(url, body);
-      return response;
   const user_session_delete = async (user_id) => {
     const url = `/admin/user-session-delete/${user_id}`;
     try {
@@ -225,6 +217,19 @@ const createAdminService = (apiService) => {
       throw new Error(error.message || 'Failed to register');
     }
   };
+
+  const search_school_sysnchronic_result = async (request_body) => {
+    
+    const url = `/admin/matchResult`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    }catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  }
   
   const user_delete = async (user_id) => {
     const url = `/admin/user-delete/${user_id}`;
@@ -270,6 +275,7 @@ const createAdminService = (apiService) => {
       throw new Error(error.message || 'Failed to register');
     }
   };
+
   return {
     new_user_register,
     list_users,
@@ -293,6 +299,6 @@ const createAdminService = (apiService) => {
     school_delete,
     business_delete
   };
-};
 
+}
 export default createAdminService;
