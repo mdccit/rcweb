@@ -52,15 +52,13 @@
                         <div class="flex-1 py-8">
                             <h1 class="font-bold mb-4 text-lg">Moderation Request Details</h1>
                             <p class="my-2 text-sm">Reported Item Type: User</p>
-                            <p class="my-2 text-sm">Reported Item ID: 9caacfe4-214f-40eb-9289-038c8819bcc7</p>
-                            <p>Created By: ee et</p>
+                            <p class="my-2 text-sm">Reported Item ID: {{ morderationId }}</p>
+                            <p>Created By:{{ createdBy }}</p>
                             <h2 class="font-bold uppercase text-xs mt-12 mb-4 opacity-50">Take action</h2>
                             <div class="flex flex-wrap gap-4">
-                                <form data-splade-id="QDn9sLywFBS2AngI" method="POST"
-                                    action="https://qa1.recruited.qualitapps.com/admin/moderation/211/close">
                                     <fieldset><input type="hidden" name="_token" autocomplete="off"
                                             value="zfX9IpgKTQoQLj4OnGIfCBdBvRAAZt3CPKps6jHu">
-                                        <div class=""><button type="submit"
+                                        <div class=""><button type="button" @click="closeOrReopen"
                                                 class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200"><span
                                                     class="text-gray-500"><svg class="w-4 h-4 inline mr-1"
                                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -68,14 +66,12 @@
                                                         fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                         <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
                                                         <path d="M9 12l2 2l4 -4"></path>
-                                                    </svg> Close Request / Mark as Done</span></button></div>
+                                                    </svg> {{closeBy != null ? "Reopend Request":"Close Request / Mark as Done"}}</span></button></div>
                                     </fieldset>
-                                </form>
-                                <form data-splade-id="TEnEwevnCgpzeSvT" method="DELETE"
-                                    action="https://qa1.recruited.qualitapps.com/admin/moderation/211">
+                                
                                     <fieldset><input type="hidden" name="_token" autocomplete="off"
                                             value="zfX9IpgKTQoQLj4OnGIfCBdBvRAAZt3CPKps6jHu">
-                                        <div class=""><button type="submit"
+                                        <div class=""><button type="button" @click="deleted"
                                                 class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200"><span
                                                     class="text-red-500"><svg class="w-4 h-4 inline mr-1"
                                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -88,7 +84,7 @@
                                                         <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
                                                     </svg> Permanently Delete Request</span></button></div>
                                     </fieldset>
-                                </form>
+                                
                             </div>
                         </div>
                     </main>
@@ -110,8 +106,6 @@
                             </div>
                             <div class="p-20 text-center opacity-50">No comments yet</div>
                         </div>
-                        <form data-splade-id="elppjvuCSIsRytOD" method="POST"
-                            action="https://qa1.recruited.qualitapps.com/admin/moderation/211/comment">
                             <fieldset class="max-w-xl mx-auto mb-32"><input type="hidden" name="_token"
                                     autocomplete="off" value="zfX9IpgKTQoQLj4OnGIfCBdBvRAAZt3CPKps6jHu">
                                 <div class="mb-4 mt-20"><img
@@ -120,7 +114,7 @@
                                     note as <strong>Admin</strong> &nbsp; </div>
                                 <div>
                                     <label class="block">
-                                        <textarea id="message" rows="4"
+                                        <textarea id="message" rows="4" v-model="comment"
                                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Write your thoughts here..."></textarea>
 
@@ -129,7 +123,7 @@
                                 <div class="my-8"></div>
                                 <div class="flex justify-end">
                                     <div class="">
-                                        <button type="submit"
+                                        <button type="button" @click="comments"
                                             class="border 
                                              rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlueLight79 hover:bg-primary-700 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
                                             <div class="flex flex-row items-center justify-center"><!----><span
@@ -137,7 +131,6 @@
                                         </button></div>
                                 </div>
                             </fieldset>
-                        </form>
                     </aside>
                 </div>
             </div>
@@ -151,12 +144,92 @@
 
 <script setup>
 import { useUserStore } from '~/stores/userStore';
-import EPDataTable from '~/components/EPDataTable.vue';
+import Notification from '~/components/common/Notification.vue';
+import { ref, watch, computed, onMounted } from 'vue';
+import { useNuxtApp } from '#app';
+
+const route = useRoute()
+
+const nuxtApp = useNuxtApp();
+const $adminService = nuxtApp.$adminService;
 
 const userStore = useUserStore()
-
+// const businesslId = ref(route.params.businesslId || '');
+const router = useRouter();
 const email = userStore.user?.email
 const token = userStore.user?.token
+const createdBy = ref("")
+const closeBy =ref(null)
+const comment =ref('')
+
+const morderationId = ref(route.params.morderationId || '9ce354e8-ecb5-40d1-b9d9-11ef4b1b9090');
+
+const fetchData = async (morderationId) => {
+
+    try {
+        const dataSets = await $adminService.morderation_get(morderationId);
+        createdBy.value =dataSets.created_by
+        closeBy.value =dataSets.closed_by
+    } catch (error) {
+      console.error('Error fetching data:', error.message);
+    } finally {
+    }
+};
+
+const fetchComments = async (morderationId) => {
+    try {
+        const dataSets = await $adminService.morderation_comments(morderationId);
+    } catch (error) {
+       console.error('Error fetching data:', error.message);
+    } 
+};
+
+
+const closeOrReopen = async () => {
+    try {
+        if(closeBy.value ===null){
+           await $adminService.morderation_close(morderationId.value);
+
+        }else{
+             await $adminService.morderation_reopen(morderationId.value);
+        }
+        fetchData(morderationId.value);
+    } catch (error) {
+       console.error('Error fetching data:', error.message);
+    }
+};
+
+const deleted = async () => {
+    try {
+        const dataSets = await $adminService.morderation_delete(morderationId.value);
+    } catch (error) {
+       console.error('Error fetching data:', error.message);
+    }
+};
+
+const comments = async () => {
+    try {
+        const dataSets = await $adminService.morderation_comment_add({
+            morderation_id: morderationId.value,
+            comment: comment.value,
+        });
+    } catch (error) {
+       console.error('Error fetching data:', error.message);
+    }
+};
+
+
+
+
+
+  onMounted(() => {
+    fetchData(morderationId.value);
+    fetchComments(morderationId.value);
+
+  });
+  
+  
+
 </script>
 
 <style scoped>
