@@ -211,11 +211,65 @@ const createAdminService = (apiService) => {
     try {
       const response = await apiService.postRequest(url, body);
       return response;
+  const user_session_delete = async (user_id) => {
+    const url = `/admin/user-session-delete/${user_id}`;
+    try {
+      const response = await apiService.deleteRequest(url);
+
+      if (response) {
+        return response;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+  
+  const user_delete = async (user_id) => {
+    const url = `/admin/user-delete/${user_id}`;
+  
+    try {
+      const response = await apiService.deleteRequest(url);
+      if (response) {
+        return response;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
     } catch (error) {
       throw new Error(error.message || 'Failed to register');
     }
   };
 
+  const school_delete = async (school_id) => {
+    const url = `/admin/schools/${school_id}`;
+  
+    try {
+      const response = await apiService.deleteRequest(url);
+      if (response) {
+        return response;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const business_delete = async (business_id) => {
+    const url = `/admin/businesses/${business_id}`;
+  
+    try {
+      const response = await apiService.deleteRequest(url);
+      if (response) {
+        return response;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
   return {
     new_user_register,
     list_users,
@@ -232,7 +286,12 @@ const createAdminService = (apiService) => {
     school_update,
     get_player_details,
     player_update,
-    search_school_sysnchronic_result
+    search_school_sysnchronic_result,
+    search_business_users,
+    user_session_delete,
+    user_delete,
+    school_delete,
+    business_delete
   };
 };
 
