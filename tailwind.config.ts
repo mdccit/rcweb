@@ -48,7 +48,8 @@ module.exports = {
         mintGreen: '#A4FFA2',
         red: '#E60000',
         orangeRed: '#FF0000',
-        lightPink: '#FFA9A9'
+        lightPink: '#FFA9A9',
+        lighterGray: '#DFE4EE',
       },
       testred: {
         lightest: '#efdfa4',
