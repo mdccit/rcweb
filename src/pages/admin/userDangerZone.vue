@@ -49,15 +49,15 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
                     <div class="grid grid-cols-2 gap-4">
                         <div class="border-2 p-4 rounded">
-                            <form data-splade-id="lG7kPED3SwnY6Kgk" method="DELETE"
-                                action="https://qa1.recruited.qualitapps.com/admin/users/9c9ad039-6106-40d6-92de-b5c7556b05a7/danger-zone">
-                                <fieldset> Delete user <div class=""><button type="submit"
+                            <!-- <form data-splade-id="lG7kPED3SwnY6Kgk" 
+                                > -->
+                                <fieldset> Delete user <div class=""><button type="submit" @click="deleteShowModal = true"
                                             class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-red-500 hover:bg-red-700 text-white border-transparent focus:border-red-700 focus:ring-red-200">
                                             <div class="flex flex-row items-center justify-center"><!----><span
                                                     class=""> Delete account </span></div>
                                         </button></div>
                                 </fieldset>
-                            </form>
+                            <!-- </form> -->
                         </div>
                         <div class="border-2 p-4 rounded">
                             <form data-splade-id="Hpo3ObWiUibl9vmk" method="POST"
@@ -71,15 +71,14 @@
                             </form>
                         </div>
                         <div class="border-2 p-4 rounded">
-                            <form data-splade-id="0wHwJIPukhfUwTOg" method="POST"
-                                action="https://qa1.recruited.qualitapps.com/admin/users/9c9ad039-6106-40d6-92de-b5c7556b05a7/danger-zone/logout-sessions">
-                                <fieldset> Log out sessions <div class=""><button type="submit"
+                            <!-- <form data-splade-id="0wHwJIPukhfUwTOg"> -->
+                                <fieldset> Log out sessions <div class=""><button type="button" @click="showModal = true"
                                             class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
                                             <div class="flex flex-row items-center justify-center"><!----><span
                                                     class=""> Log out sessions </span></div>
                                         </button></div>
                                 </fieldset>
-                            </form>
+                            <!-- </form> -->
                         </div>
                         <div class="border-2 p-4 rounded">
                             <div class=""> Send notification to user manually </div><a
@@ -94,6 +93,14 @@
                 </div>
             </div>
         </div>
+         <!-- Admin User Session delete Modal Component -->
+         <AdminUserLogoutSession :isVisible="showModal" @close="showModal = false" :userId="userId" @emitMessage="notification" />
+
+         <!-- Admin User  delete Modal Component -->
+         <AdminUserDelete :isVisible="deleteShowModal" @close="deleteShowModal = false" :userId="userId" @emitMessage="notification" />
+
+         <!-- Notification Component -->
+        <Notification v-if="showNotification" :message="notificationMessage" :duration="8000" />
     </div>
 
 </template>
@@ -103,9 +110,22 @@ import { ref } from 'vue';
 import UserTable from '~/components/tables/UserTable.vue';
 import { useUserStore } from '~/stores/userStore'
 import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.vue';
+import AdminUserLogoutSession from '~/components/admin/user/adminUserLogoutSession.vue';
+import AdminUserDelete from '~/components/admin/user/adminUserDelete.vue';
+import Notification from '~/components/common/Notification.vue';
 
+import { useRouter } from 'vue-router';
+
+const route = useRoute()
+
+const userId = ref(route.params.userId || '');
+
+const notificationMessage = ref('');
+const showNotification = ref(false);
 
 const showModal = ref(false);
+const deleteShowModal = ref(false);
+
 const userStore = useUserStore()
 
 const email = userStore.user?.email;
@@ -118,6 +138,13 @@ const modalRef = ref(null);
 const openModal = () => {
     modalRef.value.openModal();
 };
+
+
+const notification = (message) =>{
+    
+    notificationMessage.value = message;
+    showNotification.value =true
+}
 
 </script>
 
