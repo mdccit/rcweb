@@ -174,11 +174,12 @@ const handleSubmit = async () => {
           token: token
         });
         localStorage.setItem('token', token);
-        router.push(`/register2/${token}`);
-      }else{
+
+        // Use named route navigation
+        router.push({ name: 'register2-token', params: { token: token } });
+      } else {
         errors.value.push('Token is missing in the response.');
       }
-
     } else {
       errors.value.push(response.data.display_message);
     }

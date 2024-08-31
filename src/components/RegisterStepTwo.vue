@@ -21,82 +21,59 @@
         <label for="role" class="block mb-2 text-sm font-normal text-gray-900 dark:text-primary">I am</label>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-4">
-        
+
         <!-- Radio option for Player role -->
-        <div class="radio relative">
-          <input 
-            class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" 
-            id="player" 
-            type="radio" 
-            value="player" 
-            v-model="role" 
-            name="role">
+        <div class="radio relative" @click="role = 'player'" >
+          <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="player" type="radio"
+            value="player" v-model="role" name="role">
           <div
             :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'player' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
             <div class="tile-icon"></div>
-            <label for="player" class="text-sm mb-2">Player</label>
+            <label for="player" class="text-sm text-black mb-2">Player</label>
           </div>
         </div>
-        
+
         <!-- Radio option for Coach role -->
-        <div class="radio relative">
-          <input 
-            class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" 
-            id="coach" 
-            type="radio" 
-            value="coach" 
-            v-model="role" 
-            name="role">
+        <div class="radio relative"  @click="role = 'coach'">
+          <input class="radio-input  absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="coach" type="radio"
+            value="coach" v-model="role" name="role">
           <div
             :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'coach' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
             <img class="mt-1" src="@/assets/images/coach_icon.png">
-            <label for="coach" class="text-sm mb-2">Coach</label>
+            <label for="coach" class="text-sm text-black mb-2">Coach</label>
           </div>
         </div>
-        
+
         <!-- Radio option for Parent role -->
-        <div class="radio relative">
-          <input 
-            class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" 
-            id="parent" 
-            type="radio" 
-            value="parent" 
-            v-model="role" 
-            name="role">
+        <div class="radio relative" @click="role = 'parent'">
+          <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="parent" type="radio"
+            value="parent" v-model="role" name="role">
           <div
             :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'parent' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
             <img class="mt-1" src="@/assets/images/coach_icon.png">
-            <label for="parent" class="text-sm mb-2">Parent</label>
+            <label for="parent" class="text-sm text-black  mb-2">Parent</label>
           </div>
         </div>
-        
+
         <!-- Radio option for Business role -->
-        <div class="radio relative">
-          <input 
-            class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" 
-            id="business" 
-            type="radio" 
-            value="business" 
-            v-model="role" 
-            name="role">
+        <div class="radio relative" @click="role = 'business'" >
+          <input class="radio-input text-black absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="business"
+            type="radio" value="business" v-model="role" name="role">
           <div
             :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'business' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
             <img class="mt-1" src="@/assets/images/coach_icon.png">
-            <label for="business" class="text-sm mb-2">Business</label>
+            <label for="business" class="text-sm text-black  mb-2">Business</label>
           </div>
         </div>
-        
+
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-2">
         <div class="space-y-4">
           <div>
-            <label for="country" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Country
+            <label for="country" class="font-normal text-black block mb-2 text-sm text-gray-900 dark:text-gray">Country
               *</label>
             <CountryDropdown :countries="countries" v-model="country" id="country" label="Country *" />
-            <!-- <select v-model="country" class="bg-gray-50 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50" id="country" required>
-                  <option v-for="country in countries" :key="country.code" :value="country.code">{{ country.name }}</option>
-                </select> -->
           </div>
         </div>
 
@@ -115,9 +92,7 @@
           <div class="grid grid-cols-10 gap-3 items-center">
             <CountryCodeDropdown :country_codes="country_codes" v-model="phone_code_country" name="phone_code"
               data-validation-key="phone_code" :disabled="action === 'view'" />
-            <!-- <input type="text" id="phone_code_country" v-model="phone_code_country"
-                  class="col-span-2 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
-                  placeholder="Code" required /> -->
+
             <input type="text" id="phone_number" v-model="phone_number"
               class="col-span-8 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
               placeholder="Number" required />
@@ -128,14 +103,7 @@
           <div>
             <label for="gender" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Gender
               *</label>
-
             <GenderDropDown :genders="genders" v-model="gender" id="gender" label="Gender *" />
-            <!-- <select v-model="gender"
-                  class="block bg-gray-50 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                  id="gender" required>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select> -->
           </div>
         </div>
 
@@ -162,22 +130,13 @@
             <label for="handedness" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Handedness
               *</label>
             <HandednessDropdown :handedness="handednesses" v-model="handedness" id="handedness" label="Handness *" />
-            <!-- <select v-model="handedness"
-                  class="block bg-gray-50 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                  id="" required>
-                  <option value="left">Left</option>
-                  <option value="right">Right</option>
-                </select> -->
           </div>
         </div>
 
         <div class="space-y-4">
           <div>
             <label for="budget" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Budget</label>
-            <BudgetDropdown :player_budgets="budgets" :modelValue="selectedBudget" v-model="budgets" id="budgets" label="Budgets *" />
-            <!-- <input type="text" id="budget" v-model="budget"
-                  class="border bg-gray-50 h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Budget" required /> -->
+            <BudgetDropdown :player_budgets="budgets" v-model="budgets" id="budgets" label="Budgets *" />
           </div>
         </div>
 
@@ -202,23 +161,23 @@
           <label for="graduation" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Graduation
             Month/Year</label>
           <div class="relative max-w-sm">
-            <div class="absolute inset-y-0 left-0 flex items-center ps-3.5 pointer-events-none">
+            <!-- <div class="absolute inset-y-0 left-0 flex items-center ps-3.5 pointer-events-none">
               <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
               </svg>
-            </div>
+            </div> -->
 
             <client-only>
-              <input type="month" v-model="graduation" @focus="showPicker" ref="monthInput"
+              <input type="month" v-model="graduation"
                 class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Select Month/Year" />
             </client-only>
           </div>
-          <input datepicker id="graduation" v-model="graduation" type="text"
+          <!-- <input datepicker id="graduation" v-model="graduation" type="text"
             class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
-            placeholder="Select date">
+            placeholder="Select date"> -->
         </div>
       </div>
 
@@ -315,6 +274,12 @@ const router = useRouter();
 const userId = route.params.userId;
 const monthInput = ref(null);
 
+defineProps({
+  token: {
+    type: String,
+    required: true
+  }
+});
 
 
 const action = () => {
@@ -386,8 +351,6 @@ const roleFields = computed(() => {
 });
 
 onMounted(() => {
-  token.value = route.query.token || '';
-
   loadCountryCodes();
   loadCountries();
   loadNationalities();
@@ -503,8 +466,12 @@ watch(role, (newRole) => {
   padding: 1rem;
 }
 
-.radio-input:checked+.radio-tile {
+.radio-input:checked + .radio-tile {
   border-color: #2563EB;
   background-color: #EFF6FF;
+}
+
+label input {
+  @apply text-black;
 }
 </style>

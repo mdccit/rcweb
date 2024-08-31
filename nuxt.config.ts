@@ -10,7 +10,10 @@ export default defineNuxtConfig({
   ssr: true,
   target: 'universal',
   router: {
-    middleware: 'customRoutes'
+    base: '/',  // Base URL for your router, assuming your app is served from the root
+  },
+  generate: {
+    fallback: true,  // Generates a 404.html for static hosting fallback
   },
   css: [
     '@/assets/css/tailwind.css', // Ensure this is the first CSS file
