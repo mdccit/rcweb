@@ -37,8 +37,8 @@ const createAuthService = (apiService) => {
   };
 
 
-  const registerStep2 = async (userDetails) => {
-    const url = '/auth/register-step-2';
+  const registerStep2 = async (endpoint_url,userDetails) => {
+    const url = endpoint_url;
     const body = userDetails;
 
     try {
