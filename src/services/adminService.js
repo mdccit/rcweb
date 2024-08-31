@@ -176,7 +176,93 @@ const createAdminService = (apiService) => {
   };
   
 
+  const get_player_details = async (user_id) => {
+    const url = `/admin/player-get/${user_id}`;
+  
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data && response.data.user_profile_info) {
+        return response.data;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
 
+  const player_update = async (user_id,request_body) => {
+    
+    const url = `/admin/player-update/${user_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+  const user_session_delete = async (user_id) => {
+    const url = `/admin/user-session-delete/${user_id}`;
+    try {
+      const response = await apiService.deleteRequest(url);
+
+      if (response) {
+        return response;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+  
+  const user_delete = async (user_id) => {
+    const url = `/admin/user-delete/${user_id}`;
+  
+    try {
+      const response = await apiService.deleteRequest(url);
+      if (response) {
+        return response;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const school_delete = async (school_id) => {
+    const url = `/admin/schools/${school_id}`;
+  
+    try {
+      const response = await apiService.deleteRequest(url);
+      if (response) {
+        return response;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const business_delete = async (business_id) => {
+    const url = `/admin/businesses/${business_id}`;
+  
+    try {
+      const response = await apiService.deleteRequest(url);
+      if (response) {
+        return response;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
   return {
     new_user_register,
     list_users,
@@ -189,7 +275,15 @@ const createAdminService = (apiService) => {
     get_school_details,
     list_business,
     get_business_members,
-    search_business_users
+    search_business_users,
+    school_update,
+    get_player_details,
+    player_update,
+    search_business_users,
+    user_session_delete,
+    user_delete,
+    school_delete,
+    business_delete
   };
 };
 
