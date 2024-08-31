@@ -4,13 +4,13 @@
     <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-4xl">
       <div class="flex items-center space-x-4">
         <div class="flex self-center items-center">
-          <a href="/register-step-1" class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full">
+          <NuxtLink to="/register" class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full">
             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path d="M15 6l-6 6l6 6"></path>
             </svg>
             <span class="sr-only">Go back</span>
-          </a>
+          </NuxtLink>
         </div>
         <div class="self-center">
           <h1 class="text-2xl font-bold text-primary">{{ $t('register.title') }}</h1>
@@ -100,7 +100,7 @@
                 <label for="gender" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Gender
                   *</label>
 
-                <GenderDropdown :genders="genders" v-model="gender" id="gender" label="Gender *" />
+                <GenderDropDown :genders="genders" v-model="gender" id="gender" label="Gender *" />
                 <!-- <select v-model="gender"
                   class="block bg-gray-50 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
                   id="gender" required>
@@ -252,7 +252,7 @@ import { loadCountryList, loadNationalityList, loadBudgetList, loadGenderList, l
 import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
 import CountryDropdown from '~/components/common/select/CountryDropdown.vue';
 import NationalityDropdown from '~/components/common/select/NationalityDropdown.vue';
-import GenderDropdown from '~/components/common/select/GenderDropdown.vue';
+import GenderDropDown from '~/components/common/select/GenderDropDown.vue';
 import BudgetDropdown from '~/components/common/select/BudgetDropdown.vue';
 import HandednessDropdown from '~/components/common/select/HandednessDropdown.vue';
 // import DatePicker from 'vue-datepicker-next';

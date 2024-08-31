@@ -13,11 +13,6 @@ npm install
 # pnpm
 pnpm install
 
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
 ## Development Server
@@ -31,11 +26,6 @@ npm run dev
 # pnpm
 pnpm run dev
 
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
 ## Production
@@ -49,11 +39,6 @@ npm run build
 # pnpm
 pnpm run build
 
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
 Locally preview production build:
@@ -65,11 +50,47 @@ npm run preview
 # pnpm
 pnpm run preview
 
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
+
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+
+## Docker Commands for Running the Application
+
+### 1. Build the Docker Image
+
+To build the Docker image for your application, run the following command:
+
+```bash
+docker build -t recruited-app .
+
+```
+
+### 2. Run the Docker Container
+
+```bash
+docker run -d -p 80:80 --name recruited-app recruited-app
+
+```
+
+### 3. Stop the Docker Container
+
+```bash
+docker stop recruited-app
+
+```
+
+### 4. Stop the Docker Container
+
+```bash
+docker rm recruited-app
+
+```
+
+### 5. View Container Logs
+
+```bash
+docker logs recruited-app
+
+```
