@@ -325,6 +325,31 @@ const createAdminService = (apiService) => {
       throw new Error(error.message || 'Failed to retrieve businesses');
     }
   };
+
+  const school_sync_settings = async (school_id) => {
+    
+    const url = `/admin/sync-settings/${school_id}`;
+    try {
+      const response = await apiService.getRequest(url);
+      return response
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
+
+  const school_sync_settings_update = async (school_id,request_body) => {
+    
+    const url = `/admin/update-setting/${school_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  }
+
   return {
     new_user_register,
     list_users,
@@ -350,7 +375,9 @@ const createAdminService = (apiService) => {
     school_connect_gov,
     school_sync_history,
     school_sync,
-    school_sync_disconnect
+    school_sync_disconnect,
+    school_sync_settings,
+    school_sync_settings_update
 
   };
 

@@ -26,7 +26,7 @@
 
                 <div class="my-8"></div>
 
-                <SyncSchool  v-if="sysncSchoolComponent" :schoolId="schoolId"  :govId="govId" @emitMessage="notification"/>
+                <SyncSchool  v-if="sysncSchoolComponent" :schoolId="schoolId"  :govId="govId" @emitMessage="notification"  @disconnect="disconnect"/>
 
             </div>
         </div>
@@ -98,6 +98,10 @@ const fetchSchoolDetails = async (schoolId) => {
 const search = async () => {
     connectToGovComponent.value = false
     searchComponent.value= true
+};
+
+const disconnect = async () => {
+    connectToGovComponent.value = true
 };
 
 const connectedSchool = (message) =>{
