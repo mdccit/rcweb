@@ -279,7 +279,6 @@ const createAdminService = (apiService) => {
   };
   const morderation_get =async (morderation_id) => {
     const url = `/admin/morderation-get/${morderation_id}`;
-  
     try {
       const response = await apiService.getRequest(url);
       if (response && response.data ) {
@@ -307,23 +306,22 @@ const createAdminService = (apiService) => {
     }
   };
 
-  const morderation_close =async (morderation_id) => {
+  const morderation_close =async (morderation_id,request_body) => {
     const url = `/admin/morderation-close/${morderation_id}`;
-  
+    const body = request_body;
     try {
-      const response = await apiService.getRequest(url);
+      const response = await apiService.putRequest(url,body);
       return response
     } catch (error) {
-      console.log(error)
       throw new Error(error.message || 'Failed to register');
     }
   };
 
-  const morderation_reopen =async (morderation_id) => {
+  const morderation_reopen =async (morderation_id ,request_body) => {
     const url = `/admin/morderation-reopen/${morderation_id}`;
-  
+    const body = request_body;
     try {
-      const response = await apiService.getRequest(url);
+      const response = await apiService.putRequest(url,body);
       return response
     } catch (error) {
       throw new Error(error.message || 'Failed to register');

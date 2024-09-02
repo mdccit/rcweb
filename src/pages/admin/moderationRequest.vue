@@ -105,17 +105,17 @@
                                     visible by admins. </p>
                             </div>
 
-                            <div class="p-6 rounded-lg border bg-white border-border shadow-sm mt-4">
+                            <div v-for="comment in commentList" class="p-6 rounded-lg border bg-white border-border shadow-sm mt-4">
                                     <div class="flex flex-row gap-2">
                                         <img src="https://ui-avatars.com/api/?name=A&color=7F9CF5&background=EBF4FF" alt="User profile picture"
                                             class="h-8 w-8 mr-4 inline-block rounded-full">
-                                        <div class="flex-1"> <b>Admin</b>
-                                            <span class="opacity-50 hidden md:inline-block text-xs ml-2"> 2 days ago
+                                        <div class="flex-1"> <b>{{  comment.first_name }}</b>
+                                            <span class="opacity-50 hidden md:inline-block text-xs ml-2"> 
                                             </span>
                                         </div>
                                     </div>
                                     <div class="markdown ml-14">
-                                        <p>comment</p>
+                                        <p>{{ comment.comment }}</p>
                                     </div>
                                 </div>
 
@@ -161,7 +161,6 @@
 
 <script setup>
 import { useUserStore } from '~/stores/userStore';
-import Notification from '~/components/common/Notification.vue';
 import { ref, watch, computed, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 
@@ -171,18 +170,16 @@ const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
 
 const userStore = useUserStore()
-// const businesslId = ref(route.params.businesslId || '');
 const router = useRouter();
 const email = userStore.user?.email
 const token = userStore.user?.token
 const createdBy = ref("")
 const closeBy =ref(null)
 const comment =ref('')
-
-const morderationId = ref(route.params.morderationId || '9ce354e8-ecb5-40d1-b9d9-11ef4b1b9090');
+const commentList = ref([])
+const morderationId = ref(route.params.morderationId || '');
 
 const fetchData = async (morderationId) => {
-
     try {
         const dataSets = await $adminService.morderation_get(morderationId);
         createdBy.value =dataSets.created_by
@@ -195,7 +192,9 @@ const fetchData = async (morderationId) => {
 
 const fetchComments = async (morderationId) => {
     try {
+        
         const dataSets = await $adminService.morderation_comments(morderationId);
+        commentList.value = dataSets.dataSets;
     } catch (error) {
        console.error('Error fetching data:', error.message);
     } 
@@ -205,10 +204,10 @@ const fetchComments = async (morderationId) => {
 const closeOrReopen = async () => {
     try {
         if(closeBy.value ===null){
-           await $adminService.morderation_close(morderationId.value);
+           await $adminService.morderation_close(morderationId.value,{});
 
         }else{
-             await $adminService.morderation_reopen(morderationId.value);
+             await $adminService.morderation_reopen(morderationId.value,{});
         }
         fetchData(morderationId.value);
     } catch (error) {
@@ -230,13 +229,11 @@ const comments = async () => {
             morderation_id: morderationId.value,
             comment: comment.value,
         });
+        comment.value =""
     } catch (error) {
        console.error('Error fetching data:', error.message);
     }
 };
-
-
-
 
 
   onMounted(() => {
