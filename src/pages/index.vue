@@ -1,23 +1,21 @@
 <template>
   <div id="maincontent">
     <main class="container max-w-6xl py-10 text-center m-auto">
-      <h1 class="text-5xl text-black md:text-7xl max-w-[800px] mx-auto font-bold"> Connecting tennis talent worldwide
-
+      <h1 class="text-5xl text-black md:text-7xl max-w-[800px] mx-auto font-bold">{{ $t('home.title') }}
       </h1>
-      <p class="my-10 text-2xl max-w-3xl mx-auto text-black"> Looking to play college tennis in the U.S.? Recruited is
-        here to find you the right academic, athletic and financial fit. </p>
+      <p class="my-10 text-2xl max-w-3xl mx-auto text-black">{{ $t('home.subheading') }} </p>
       <a href="https://qa1.recruited.qualitapps.com/register" onclick="dataLayer.push({'event': 'star_signup'});"
         class=" bg-blue-500 border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50  hover:bg-primary-400 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200 !px-20 !py-4">
-        <span class="text-xl ">Sign up for free</span></a>
+        <span class="text-xl ">{{ $t('home.sign_up_forfree') }}</span></a>
       <p class="text-purple-800 font-bold mt-8"><svg class="w-6 h-6 inline-block" xmlns="http://www.w3.org/2000/svg"
           width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
           stroke-linecap="round" stroke-linejoin="round">
           <path
             d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z">
           </path>
-        </svg> We just opened signups to everyone! </p><strong class="opacity-50 block my-4 text-gray-600">Trusted by
-        staff
-        from</strong>
+        </svg> {{ $t('home.we_just_opened') }} </p><strong class="opacity-50 block my-4 text-gray-600">
+        {{ $t('home.trusted_by') }}
+      </strong>
       <img src="@/assets/images/schoollogos.png"
         alt="Logos of University of South Florida, Northwestern, Dartmouth and Baylor University"
         class=" h-32 w-[90%] md:w-auto md:h-32 mx-auto">
@@ -26,7 +24,7 @@
       class=" w-full -mt-10 max-w-4xl mx-auto h-auto">
     <section class="-mt-1 bg-black text-white py-32 px-10">
       <div class="container max-w-7xl m-auto">
-        <h2 class="text-4xl md:text-5xl max-w-3xl font-bold mb-16"> Recruited offers…
+        <h2 class="text-4xl md:text-5xl max-w-3xl font-bold mb-16"> {{ $t('home.recruited_offers') }}
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-8">
           <div class="flex flex-col gap-4">
@@ -37,9 +35,8 @@
                 <path d="M17 5m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
                 <path d="M15 22v-4h-2l2 -6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1l2 6h-2v4"></path>
               </svg></div>
-            <div class="flex-1 self-center"><strong>Direct player-coach connections and messaging.</strong> When you
-              visit a profile, click Connect to send a connection request. Once the other person accepts, you will be
-              able to message them.
+            <div class="flex-1 self-center"><strong>{{ $t('home.direct_player_coach') }}</strong>
+              {{ $t('home.when_you') }}
             </div>
           </div>
           <div class="flex flex-col gap-4">
@@ -48,9 +45,9 @@
                 <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
                 <path d="M21 21l-6 -6"></path>
               </svg></div>
-            <div class="flex-1 self-center"><strong>Search for any school with a tennis program in the country.
-              </strong> Use the search page to filter by cost of attendance, degrees offered, tennis ranking or location
-              as well as other criteria. </div>
+            <div class="flex-1 self-center"><strong>{{ $t('home.search_for_any') }}</strong>
+              {{ $t('home.use_the_search') }}
+            </div>
           </div>
           <div class="flex flex-col gap-4">
             <div>
@@ -61,9 +58,8 @@
                   stroke-width="0" fill="currentColor"></path>
               </svg>
             </div>
-            <div class="flex-1 self-center"><strong>Transcript verification
-              </strong>Players can upload a copy of their transcripts (grades) from almost any country and our AI system
-              human staff will then translate and convert your grades to American GPA.
+            <div class="flex-1 self-center"><strong> {{ $t('home.transcript_verification') }}
+              </strong>{{ $t('home.players_can_upload') }}
             </div>
           </div>
           <div class="flex flex-col gap-4">
@@ -74,9 +70,8 @@
                 <path d="M11 17v4"></path>
                 <path d="M7 21h8"></path>
               </svg></div>
-            <div class="flex-1 self-center"><strong>The Recruited Tennis Feed.
-              </strong> Join the global discussion, even as a player. Coaches, parents and athletes can all make posts
-              and participate in the college tennis culture.
+            <div class="flex-1 self-center"><strong>{{ $t('home.the_recruited_tennis_feed') }}
+              </strong>{{ $t('home.join_the_global') }}
             </div>
           </div>
           <div class="flex flex-col gap-4">
@@ -87,9 +82,8 @@
                 <path d="M18 5.3a9 9 0 0 0 0 13.4"></path>
               </svg>
             </div>
-            <div class="flex-1 self-center"><strong>Recruited is FREE!
-              </strong> Everyone can use the platform for free while we are in beta! And the core features will always
-              stay free for all players!
+            <div class="flex-1 self-center"><strong> {{ $t('home.recruited_is_free') }}
+              </strong>{{ $t('home.we_are_in_beta') }}
             </div>
           </div>
           <div class="flex flex-col gap-4">
@@ -99,9 +93,8 @@
                   d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
               </svg>
             </div>
-            <div class="flex-1 self-center"><strong>Personalized help & Consultations.
-              </strong> Get a consultation call with a team of college tennis recruiting experts and more personalized
-              help if wanted. </div>
+            <div class="flex-1 self-center"><strong> {{ $t('home.personalized_help') }}
+              </strong>{{ $t('home.consultation_call_with_a_team') }} </div>
           </div>
           <div class="flex flex-col gap-4">
             <div><svg class="w-12 h-12" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -110,8 +103,8 @@
                 <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
                 <path d="M16 5l3 3"></path>
               </svg></div>
-            <div class="flex-1 self-center"><strong>Detailed page editing. </strong> School and player profiles can get
-              very detailed. Add your achievements, goals, and stats to get noticed by people from all over the world.
+            <div class="flex-1 self-center"><strong> {{ $t('home.detailed_page_editing') }}</strong>
+              {{ $t('home.get_very_detailed') }}
             </div>
           </div>
           <div class="flex flex-col gap-4">
@@ -119,8 +112,8 @@
                 stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
               </svg></div>
-            <div class="flex-1 self-center"><strong>Easy saving of pages by clicking the Heart icon. </strong> In the
-              Lists page, you can organize your favorite schools or users. In Lists, you can also see your connections.
+            <div class="flex-1 self-center"><strong>  {{ $t('home.saving_of_pages') }} </strong> 
+              {{ $t('home.your_favorite_schools') }}
             </div>
           </div>
           <!-- <div class="flex flex-col gap-4">
@@ -169,8 +162,8 @@
                 <path d="M11 15h1"></path>
                 <path d="M12 15v3"></path>
               </svg></div>
-            <div class="flex-1 self-center"><strong>Coming soon: Showcases!</strong> Recruited Showcase Events are set
-              to change the college tennis landscape completely with cheaper ticket prices than market rate and more.
+            <div class="flex-1 self-center"><strong>{{ $t('home.coming_soons') }}</strong>
+              {{ $t('home.recruited_Showcase') }} 
             </div>
           </div>
         </div>
@@ -232,16 +225,14 @@
         </div>
       </div> -->
       <div class="max-w-3xl bg-blue-500 rounded-xl p-12 md:p-20 text-white mx-auto text-center mt-5">
-        <h2 class="text-4xl font-bold mb-8"> Recruited is in open beta and quickly growing! Sign up for free today!
+        <h2 class="text-4xl font-bold mb-8">{{ $t('home.open_beta_and_quickly') }}
         </h2>
-        <p class="text-lg font-medium mb-8"> Recruited is the first platform to offer a comprehensive solution for
-          tennis players and coaches worldwide. We are here to help you get noticed and connect with the right people.
+        <p class="text-lg font-medium mb-8">{{ $t('home.the_first_platform') }} 
         </p>
         <a href="https://qa1.recruited.qualitapps.com/register" onclick="dataLayer.push({'event': 'star_signup'});"
           class="border bg-white  rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600  text-gray border-transparent focus:border-primary-300 focus:ring-primary-200 !px-20 !py-4"
           data-v-inspector="src/pages/index.vue:7:95" data-v-02281a80="">
-          <span class="text-xl text-black" data-v-inspector="src/pages/index.vue:9:270" data-v-02281a80="">Sign up for
-            free</span></a>
+          <span class="text-xl text-black" data-v-inspector="src/pages/index.vue:9:270" data-v-02281a80="">{{ $t('home.sign_up_forfree') }}</span></a>
       </div>
     </section>
   </div>
