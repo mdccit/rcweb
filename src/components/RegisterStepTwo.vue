@@ -23,7 +23,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-4">
 
         <!-- Radio option for Player role -->
-        <div class="radio relative" @click="role = 'player'" >
+        <div class="radio relative" @click="role = 'player'">
           <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="player" type="radio"
             value="player" v-model="role" name="role">
           <div
@@ -34,7 +34,7 @@
         </div>
 
         <!-- Radio option for Coach role -->
-        <div class="radio relative"  @click="role = 'coach'">
+        <div class="radio relative" @click="role = 'coach'">
           <input class="radio-input  absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="coach" type="radio"
             value="coach" v-model="role" name="role">
           <div
@@ -56,7 +56,7 @@
         </div>
 
         <!-- Radio option for Business role -->
-        <div class="radio relative" @click="role = 'business'" >
+        <div class="radio relative" @click="role = 'business'">
           <input class="radio-input text-black absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="business"
             type="radio" value="business" v-model="role" name="role">
           <div
@@ -87,30 +87,20 @@
         </div>
 
         <div>
-          <label for="phone_code_country" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Mobile No</label>
+          <label for="phone_code_country" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Mobile
+            No</label>
           <div class="grid grid-cols-5 gap-3 items-center">
             <!-- Set Country Code dropdown to span 2/5 of the grid -->
-            <CountryCodeDropdown 
-              :country_codes="country_codes" 
-              v-model="phone_code_country" 
-              name="phone_code"
-              data-validation-key="phone_code" 
-              :disabled="action === 'view'" 
-              class="col-span-2" 
-            />
-        
+            <CountryCodeDropdown :country_codes="country_codes" v-model="phone_code_country" name="phone_code"
+              data-validation-key="phone_code" :disabled="action === 'view'" class="col-span-2" />
+
             <!-- Set Phone Number input to span 3/5 of the grid -->
-            <input 
-              type="text" 
-              id="phone_number" 
-              v-model="phone_number"
+            <input type="text" id="phone_number" v-model="phone_number"
               class="col-span-3 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
-              placeholder="Number" 
-              required 
-            />
+              placeholder="Number" required />
           </div>
         </div>
-        
+
 
         <div class="space-y-4">
           <div>
@@ -121,20 +111,40 @@
         </div>
 
         <div>
+          <!-- Height Label with Toggle -->
+          <!-- Height Label with Toggle -->
           <div class="grid grid-cols-10 items-center mb-2">
-            <label for="heightFt"
+            <label for="height_ft"
               class="block col-span-5 text-sm font-normal text-gray-900 dark:text-gray">Height</label>
-            <label for="heightFt"
-              class="block col-span-5 text-sm font-normal dark:text-gray text-right text-blue-600">Aligned to
-              End</label>
+            <div class="col-span-5 text-right">
+              <!-- Toggle Switch for Height Mode using Flowbite -->
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" v-model="height_in_cm" class="sr-only peer" />
+                <div
+                  class="w-11 h-6 bg-gray-200 rounded-full peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                </div>
+                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                  {{ height_in_cm ? 'Centimeters' : 'Feet & Inches' }}
+                </span>
+              </label>
+            </div>
           </div>
-          <div class="grid grid-cols-10 gap-3 items-center">
-            <input type="text" id="heightFt" v-model="heightFt"
+
+          <!-- Height Input Fields for Feet & Inches -->
+          <div v-if="!height_in_cm" class="grid grid-cols-10 gap-3 items-center">
+            <input type="text" id="height_ft" v-model="height_ft"
               class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
               placeholder="Ft" required />
-            <input type="text" id="heightIn" v-model="heightIn"
+            <input type="text" id="height_in" v-model="height_in"
               class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
               placeholder="In" required />
+          </div>
+
+          <!-- Height Input Field for Centimeters -->
+          <div v-if="height_in_cm" class="grid grid-cols-10 gap-3 items-center">
+            <input type="text" id="heightCm" v-model="height_cm"
+              class="col-span-10 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+              placeholder="Cm" required />
           </div>
         </div>
 
@@ -238,7 +248,22 @@
         </button>
       </div>
 
+
+      <!-- Display error messages -->
+      <div v-if="errors.length" class="error-messages">
+        <p class="error-title">Validation Errors:</p>
+        <ul class="error-list">
+          <li v-for="(error, index) in splitErrors" :key="index" class="error-item">
+            {{ error }}
+          </li>
+        </ul>
+      </div>
+
     </div>
+
+
+    <!-- Notification Component -->
+    <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
   </div>
 </template>
 
@@ -246,7 +271,6 @@
 <script setup>
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import authService from '~/services/authService';
 import { loadCountryList, loadNationalityList, loadBudgetList, loadGenderList, loadHandnessList } from '~/services/commonService';
 import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
 import CountryDropdown from '~/components/common/select/CountryDropdown.vue';
@@ -254,7 +278,12 @@ import NationalityDropdown from '~/components/common/select/NationalityDropdown.
 import GenderDropDown from '~/components/common/select/GenderDropDown.vue';
 import BudgetDropdown from '~/components/common/select/BudgetDropdown.vue';
 import HandednessDropdown from '~/components/common/select/HandednessDropdown.vue';
+import Notification from '~/components/common/Notification.vue';
+import { useNuxtApp } from '#app';
 
+// Access authService from the context
+const nuxtApp = useNuxtApp();
+const $authService = nuxtApp.$authService;
 
 
 const token = ref('');
@@ -264,8 +293,11 @@ const nationality = ref('');
 const phone_code_country = ref('');
 const phone_number = ref('');
 const gender = ref('');
-const heightFt = ref('');
-const heightIn = ref('');
+
+const height_in_cm = ref(false);
+const height_ft = ref('');
+const height_in = ref('');
+const height_cm = ref('');
 const handedness = ref('');
 const budget = ref('');
 const selectedBudget = ref('');
@@ -276,6 +308,7 @@ const notEnrolled = ref(false);
 const termsAccepted = ref(false);
 const error = ref('');
 const route = useRoute();
+const errors = ref([]);
 
 const selectedCountry = ref(null);
 const countries = ref([]);
@@ -287,6 +320,9 @@ const handednesses = ref([]);
 const router = useRouter();
 const userId = route.params.userId;
 const monthInput = ref(null);
+
+const showNotification = ref(false);
+const notificationMessage = ref('');
 
 defineProps({
   token: {
@@ -300,6 +336,9 @@ const action = () => {
   // Define what the action should do
   console.log('Action performed');
 };
+
+// Computed property to split error messages by comma
+const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
 
 function showPicker() {
   if (monthInput.value) {
@@ -322,8 +361,8 @@ const commonFields = [
 ];
 
 const playerFields = [
-  { id: 'heightFt', label: 'Height (Ft)', type: 'input', inputType: 'text', model: heightFt, placeholder: 'Ft' },
-  { id: 'heightIn', label: 'Height (In)', type: 'input', inputType: 'text', model: heightIn, placeholder: 'In' },
+  { id: 'height_ft', label: 'Height (Ft)', type: 'input', inputType: 'text', model: height_ft, placeholder: 'Ft' },
+  { id: 'height_in', label: 'Height (In)', type: 'input', inputType: 'text', model: height_in, placeholder: 'In' },
   { id: 'handedness', label: 'Handedness', type: 'select', model: handedness, options: [{ value: 'left', label: 'Left' }, { value: 'right', label: 'Right' }] },
   { id: 'budget', label: 'Budget', type: 'input', inputType: 'text', model: budget, placeholder: 'Budget' },
   { id: 'utr', label: 'UTR', type: 'input', inputType: 'text', model: utr, placeholder: 'UTR' },
@@ -336,8 +375,8 @@ const coachFields = [
 ];
 
 const parentFields = [
-  { id: 'heightFt', label: 'Height (Ft)', type: 'input', inputType: 'text', model: heightFt, placeholder: 'Ft' },
-  { id: 'heightIn', label: 'Height (In)', type: 'input', inputType: 'text', model: heightIn, placeholder: 'In' },
+  { id: 'height_ft', label: 'Height (Ft)', type: 'input', inputType: 'text', model: height_ft, placeholder: 'Ft' },
+  { id: 'height_in', label: 'Height (In)', type: 'input', inputType: 'text', model: height_in, placeholder: 'In' },
   { id: 'handedness', label: 'Handedness', type: 'select', model: handedness, options: [{ value: 'left', label: 'Left' }, { value: 'right', label: 'Right' }] },
   { id: 'budget', label: 'Budget', type: 'input', inputType: 'text', model: budget, placeholder: 'Budget' },
   { id: 'utr', label: 'UTR', type: 'input', inputType: 'text', model: utr, placeholder: 'UTR' },
@@ -372,21 +411,34 @@ onMounted(() => {
   loadBudgets();
   loadHandness();
 });
-
-
+const toggleHeightMode = () => {
+  // Toggle the height mode between 'feet' and 'cm'
+  height_in_cm.value  = !height_in_cm.value;
+};
 const handleSubmitStep2 = async () => {
   console.log('handleSubmitStep2 called');
   try {
     error.value = '';
+    errors.value = [];
     console.log('Preparing data...');
+
+
+    // Trigger validation
+    if (!validateForm()) {
+      return; // Exit if validation fails
+    }
+    // Continue only if there are no validation errors
+    if (errors.value.length > 0) {
+      return; // Exit the function if there are validation errors
+    }
+
     let endpoint;
     const data = {
-      user_id: userId.value,
       role: role.value,
       country: country.value,
       nationality: nationality.value,
-      mobile_code: phone_code_country.value,
-      mobile_number: phone_number.value,
+      phone_code_country: phone_code_country.value,
+      phone_number: phone_number.value,
       gender: gender.value
     };
 
@@ -394,34 +446,77 @@ const handleSubmitStep2 = async () => {
     console.log('Data:', data);
 
     if (role.value === 'player' || role.value === 'parent') {
-      endpoint = `auth/${role.value}-register`;
+      endpoint = `/auth/${role.value}-register`;
       Object.assign(data, {
-        height_ft: heightFt.value,
-        height_in: heightIn.value,
+        height_ft: height_ft.value,
+        height_in: height_in.value,
+        height_in_cm: height_in_cm.value,
+        height_cm: height_cm.value,
+        height_ft: height_ft.value,
+        height_in: height_in.value,
         handedness: handedness.value,
-        budget: budget.value,
+        player_budget: selectedBudget.value,
         utr: utr.value,
         gpa: gpa.value,
-        graduation: graduation.value
+        graduation_month_year: graduation.value
       });
     } else if (role.value === 'coach' || role.value === 'business') {
-      endpoint = `auth/${role.value}-register`;
+      endpoint = `/auth/${role.value}-register`;
     }
 
     console.log('Endpoint:', endpoint);
-    const response = await authService.registerStep2(endpoint, data);
+    const response = await $authService.registerStepTwo(endpoint, data);
 
     if (response.status === 200) {
-      console.log('Registration successful, redirecting to dashboard...');
+      notificationMessage.value = response.display_message;
+      showNotification.value = true;
       router.push('/dashboard');
     } else {
       error.value = response.data.message;
+      errors.value.push(response.message);
+      notificationMessage.value = response.display_message;
+      showNotification.value = true;
       console.log('Registration failed:', response.data.message);
     }
   } catch (err) {
-    error.value = err.response?.data?.message || err.message;
-    console.error('Error during registration:', error.value);
+    if (err.response?.data?.message) {
+      if (Array.isArray(err.response.data.message)) {
+        errors.value = err.response.data.message;
+      } else {
+        errors.value = [err.response.data.message];
+      }
+    } else {
+      errors.value = [err.response?.data?.message || err.message];
+    }
   }
+};
+
+
+const validateForm = () => {
+  errors.value = []; // Clear previous errors
+
+  // Validation: Ensure required fields are filled
+  if (!role.value) {
+    errors.value.push('Role selection is required.');
+  }
+  if (!country.value) {
+    errors.value.push('Country selection is required.');
+  }
+  if (!nationality.value) {
+    errors.value.push('Nationality selection is required.');
+  }
+  if (!phone_code_country.value) {
+    errors.value.push('Mobile code is required.');
+  }
+  if (!phone_number.value) {
+    errors.value.push('Mobile number is required.');
+  }
+  if (!gender.value) {
+    errors.value.push('Gender selection is required.');
+  }
+
+  // Return true if there are no errors, false otherwise
+  return errors.value.length === 0;
 };
 
 
@@ -490,12 +585,32 @@ watch(role, (newRole) => {
   padding: 1rem;
 }
 
-.radio-input:checked + .radio-tile {
+.radio-input:checked+.radio-tile {
   border-color: #2563EB;
   background-color: #EFF6FF;
 }
 
 label input {
   @apply text-black;
+}
+
+.error-messages {
+  margin-top: 20px;
+  color: red;
+}
+
+.error-title {
+  font-weight: bold;
+}
+
+.error-list {
+  list-style-type: disc;
+  /* Ensure bullet points are shown */
+  margin-left: 20px;
+  /* Indent the list */
+}
+
+.error-item {
+  margin-bottom: 5px;
 }
 </style>

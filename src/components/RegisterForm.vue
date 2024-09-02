@@ -169,14 +169,13 @@ const handleSubmit = async () => {
 
     if (response.status === 200) {
       const token = response.data.token;
+      const user_role = response.data.user_role;
       if (token) {
-        userStore.setUser({
-          token: token
-        });
         localStorage.setItem('token', token);
+        localStorage.setItem('user_role', user_role);
 
         // Use named route navigation
-        router.push({ name: 'register2-token', params: { token: token } });
+        router.push({ name: 'register-step-two-token', params: { token: token } });
       } else {
         errors.value.push('Token is missing in the response.');
       }

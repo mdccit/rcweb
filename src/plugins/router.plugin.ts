@@ -3,10 +3,10 @@ export default defineNuxtPlugin((nuxtApp) => {
     const router = vueApp.config.globalProperties.$router;
 
     router.addRoute({
-      name: 'register2-token',
-      path: '/register2/:token',
+      name: 'register-step-two-token',
+      path: '/register-step-two/:token',
       // Update the path to point to the [token].vue file
-      component: () => import('~/pages/register2/[token].vue')  // Correct path to the dynamic component
+      component: () => import('~/pages/register-step-two/[token].vue')  // Correct path to the dynamic component
     });
 
     // Add more routes if needed
