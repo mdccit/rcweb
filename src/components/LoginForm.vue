@@ -15,7 +15,7 @@
                 title="This field is required">*</span></span>
             <div class="flex rounded-lg border border-gray-300 shadow-sm">
               <input v-model="email"
-                class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                class="block px-5 py-3 text-black w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 name="email" type="email" data-validation-key="email" id="email" required autofocus>
             </div>
           </label>
@@ -26,7 +26,7 @@
                 title="This field is required">*</span></span>
             <div class="flex rounded-lg border border-gray-300 shadow-sm">
               <input v-model="password"
-                class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                class="block px-5 py-3 text-black w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 name="password" type="password" data-validation-key="password" id="password" required
                 autocomplete="current-password">
             </div>
@@ -36,8 +36,8 @@
           <div class="mr-3">
             <label class="flex items-center">
               <input name="remember" type="checkbox" data-validation-key="remember"
-                class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
-              <span class="ml-4">Remember me</span>
+                class="rounded-full p-3 border-border-alt text-black shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
+              <span class="ml-4 text-gray-500">Remember me</span>
             </label>
           </div>
         </div>
@@ -51,7 +51,7 @@
         </div>
         <div class="w-full">
           <button type="button" @click="handleGoogleSignUp"
-            class="py-2.5 w-full px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            class="py-2.5 w-full px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700">
             <span><img class="absolute -mt-13" src="@/assets/images/google_icon.png"></span>Sign up with Google
           </button>
         </div>
