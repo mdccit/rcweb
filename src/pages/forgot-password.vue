@@ -55,7 +55,7 @@
                             </label><!----></div>
                         <div class="flex items-center justify-end mt-4">
                             <button type="submit"
-                                class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-primary border-transparent focus:border-primary-300 focus:ring-primary-200">
+                                class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700">
                                 <div class="flex flex-row items-center justify-center"><span class=""> Email
                                         reset link </span></div>
                             </button>
