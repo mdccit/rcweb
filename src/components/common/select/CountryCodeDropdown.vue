@@ -1,11 +1,17 @@
 <template>
-    <select v-model="selected" @change="updateValue" placeholder="Code" class="col-span-4 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500" id="mobileCode" required>
-      <option v-for="code in country_codes" :key="code.phone_code" :value="code.phone_code">
-        {{ code.phone_code }}
-      </option>
-    </select>
+  <select 
+    v-model="selected" 
+    @change="updateValue" 
+    placeholder="Code" 
+    class="block text-black w-full bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 px-5 py-3 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500" 
+    id="mobileCode" 
+    required
+  >
+    <option v-for="code in country_codes" :key="code.phone_code" :value="code.value">
+      {{ '(' + code.phone_code + ') ' + code.label }}
+    </option>
+  </select>
 </template>
-
 <script setup>
 import { defineProps, defineEmits, watch } from 'vue';
 
@@ -25,7 +31,7 @@ const emits = defineEmits(['update:modelValue']);
 const selected = ref(props.modelValue);
 
 const updateValue = () => {
-  emits('update:modelValue', selected.value);
+  emits('update:modelValue', Number(selected.value));
 };
 
 watch(

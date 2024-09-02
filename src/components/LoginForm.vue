@@ -1,14 +1,13 @@
 <template>
   <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-lg">
-    <form @submit.prevent="handleSubmit" method="POST">
-      <fieldset class="space-y-4">
-        <div class="flex mt-2 mb-12 gap-4">
-          <h2 class="self-center text-2xl font-bold flex-1 text-gray-900">Login</h2>
-          <div class="self-center">
-            <a href="https://qa1.recruited.qualitapps.com/forgot-password"
-              class="text-primary text-right block font-bold">Can't sign in?</a>
-          </div>
-        </div>
+    <div class="flex mt-2 mb-12 gap-4">
+      <h2 class="self-center text-2xl font-bold flex-1 text-gray-900">Login</h2>
+      <div class="self-center">
+        <a href="https://qa1.recruited.qualitapps.com/forgot-password"
+          class="text-primary text-right block font-bold">Can't sign in?</a>
+      </div>
+    </div>
+    
         <div class="w-full">
           <label class="block">
             <span class="block mb-1 text-gray-700 font-sans">Email <span aria-hidden="true" class="text-red-600"
@@ -54,12 +53,23 @@
             class="py-2.5 w-full px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700">
             <span><img class="absolute -mt-13" src="@/assets/images/google_icon.png"></span>Sign up with Google
           </button>
-        </div>
-        <div class="text-center mt-8 pt-4 text-sm">
-          <a href="/register">Don't have an account yet?<br><strong class="text-primary">Create new account</strong></a>
-        </div>
-      </fieldset>
-    </form>
+    </div>
+    <div class="text-center mt-8 pt-4 text-sm">
+      <a href="/register">Don't have an account yet?<br><strong class="text-primary">Create new account</strong></a>
+    </div>
+
+    <!-- Display error messages -->
+    <div v-if="errors.length" class="error-messages">
+      <!-- <p class="error-title">Validation Errors:</p> -->
+      <ul class="error-list">
+        <li v-for="(error, index) in splitErrors" :key="index" class="error-item">
+          {{ error }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Notification Component -->
+    <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
   </div>
 </template>
 
@@ -69,18 +79,31 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
+import Cookies from 'js-cookie';
+
+import Notification from '~/components/common/Notification.vue';
 
 const email = ref('');
+const rememberMe = ref(false);
 const password = ref('');
 const error = ref('');
+const notification_type = ref('');
 const successMessage = ref('');
 const router = useRouter();
 const userStore = useUserStore();
+
+const errors = ref([]);;
 const authType = ref('');
+const showNotification = ref(false);
+const notificationMessage = ref('');
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
+
+// Computed property to split error messages by comma
+const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
+
 
 // Function to handle authentication
 const handleSubmit = async () => {
@@ -96,14 +119,45 @@ const handleSubmit = async () => {
         token: response.data.token
       })
       localStorage.setItem('token', response.data.token)  // Set token in local storage
-      router.push('/admin/dashboard')
+
+      if (rememberMe.value) {
+        Cookies.set('session', response.data.token, { expires: 1 }); // Set cookie for 24 hours
+      } else {
+        Cookies.set('session', response.data.token);
+      }
+
+      if (response.data.user_permission_type === 'none' && (response.data.user_role == 'coach' && response.data.user_role == 'business')) {
+        router.push('/user/approval-pending');  // Redirect to pending approval page
+      } else {
+        router.push('/admin/dashboard');  // Redirect to dashboard
+      }
+      notificationMessage.value = response.display_message;
+      showNotification.value = true;
+
     } else {
-      error.value = response.display_message
+      error.value = response.display_message;
+
+      errors.value.push(response.display_message);
     }
   } catch (err) {
-    error.value = err.message
+    error.value = err.message;
+    notificationMessage.value = err.message;
+    showNotification.value = true;
+    if (err.response?.data?.message) {
+      if (Array.isArray(err.response.data.message)) {
+        errors.value = err.response.data.message;
+      } else {
+        errors.value = [err.response.data.message];
+      }
+    } else {
+      errors.value = [err.response?.data?.message || err.message];
+    }
+
   }
 }
+
+
+
 
 // Function to handle Google sign up (assuming this is what you want to do)
 const handleGoogleSignUp = () => {
@@ -116,5 +170,29 @@ const handleGoogleSignUp = () => {
 form {
   max-width: 400px;
   margin: auto;
+}
+
+.container {
+  max-width: 400px;
+}
+
+.error-messages {
+  margin-top: 20px;
+  color: red;
+}
+
+.error-title {
+  font-weight: bold;
+}
+
+.error-list {
+  list-style-type: disc;
+  /* Ensure bullet points are shown */
+  margin-left: 20px;
+  /* Indent the list */
+}
+
+.error-item {
+  margin-bottom: 5px;
 }
 </style>
