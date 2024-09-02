@@ -39,11 +39,19 @@
                                         <li class="me-2">
                                             <a href="#"
                                                 class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                                aria-current="page">Connections</a>
+                                                aria-current="page">Members</a>
+                                        </li>
+                                        <li class="me-2">
+                                            <a href="#"
+                                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Team</a>
                                         </li>
                                         <li class="me-2">
                                             <a href="#"
                                                 class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</a>
+                                        </li>
+                                        <li class="me-2">
+                                            <a href="#"
+                                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Academics</a>
                                         </li>
 
 
