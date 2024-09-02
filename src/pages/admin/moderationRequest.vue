@@ -8,11 +8,11 @@
             <div class="bg-white border-2 border-primary sm:rounded-lg p-8">
 
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex flex-col lg:flex-row gap-12">
+                <div class="flex flex-col lg:flex-row gap-12 text-black">
                     <main class="max-w-[360px] w-full">
                         <div class="flex-1">
-                            <div class="bg-white border-2 border-blue-200 overflow-hidden shadow-sm sm:rounded-lg p-8">
-                                <h1 class="font-bold mb-4 text-lg text-blue-200"><svg class="w-6 h-6 inline mr-2"
+                            <div class="bg-white border border-blue-500 overflow-hidden shadow-sm sm:rounded-lg p-8">
+                                <h1 class="font-bold mb-4 text-lg text-blue-500"><svg class="w-6 h-6 inline mr-2"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
                                         stroke-linejoin="round">
@@ -45,7 +45,7 @@
                             <form data-splade-id="LziEJJXZISMXM7vH" method="POST"
                                 action="https://qa1.recruited.qualitapps.com/admin/moderation/211/approve-user-signup-request">
                                 <fieldset><button type="submit"
-                                        class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200 w-full block">
+                                        class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200 w-full block">
                                         Approve </button></fieldset>
                             </form>
                         </div>
@@ -89,7 +89,7 @@
                         </div>
                     </main>
                     <aside class="flex-1 ">
-                        <div class=" border-2 border-primary bg-white rounded-xl p-12 ">
+                        <div class=" border-2 border-gray-200 bg-white rounded-xl p-12 text-black ">
                             <h2 class="font-bold text-2xl"> Activity Log and Comments </h2>
                             <div class="px-5 py-2.5 my-4 font-bold rounded-lg bg-blue-100">
                                 <p class="text-sm text-blue-800"><svg class="w-4 h-4 inline mr-1"
@@ -104,6 +104,23 @@
                                     </svg> This incident history is only visible to you and comments you leave are only
                                     visible by admins. </p>
                             </div>
+
+                            <div class="p-6 rounded-lg border bg-white border-border shadow-sm mt-4">
+                                    <div class="flex flex-row gap-2">
+                                        <img src="https://ui-avatars.com/api/?name=A&color=7F9CF5&background=EBF4FF" alt="User profile picture"
+                                            class="h-8 w-8 mr-4 inline-block rounded-full">
+                                        <div class="flex-1"> <b>Admin</b>
+                                            <span class="opacity-50 hidden md:inline-block text-xs ml-2"> 2 days ago
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="markdown ml-14">
+                                        <p>comment</p>
+                                    </div>
+                                </div>
+
+
+                            
                             <div class="p-20 text-center opacity-50">No comments yet</div>
                         </div>
                             <fieldset class="max-w-xl mx-auto mb-32"><input type="hidden" name="_token"
@@ -115,7 +132,7 @@
                                 <div>
                                     <label class="block">
                                         <textarea id="message" rows="4" v-model="comment"
-                                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  focus:ring-blue-500 focus:border-blue-500"
                                             placeholder="Write your thoughts here..."></textarea>
 
                                     </label><!---->
@@ -125,7 +142,7 @@
                                     <div class="">
                                         <button type="button" @click="comments"
                                             class="border 
-                                             rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlueLight79 hover:bg-primary-700 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
+                                             rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
                                             <div class="flex flex-row items-center justify-center"><!----><span
                                                     class=""> Create comment </span></div>
                                         </button></div>
@@ -233,9 +250,6 @@ const comments = async () => {
 </script>
 
 <style scoped>
-h1 {
-    color: #333;
-}
 
 p {
     font-size: 16px;
