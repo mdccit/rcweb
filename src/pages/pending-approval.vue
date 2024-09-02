@@ -7,7 +7,7 @@
                     <img class="text-center mx-auto w-8 h-8" img src="@/assets/images/hourglass.gif" alt="">
                 </div>
                 <h1 class="text-2xl font-bold mb-4 text-center mt-4">Hi User</h1>
-                <p class="text-center">We are thrilled to welcome you to Recruited! Your account has been submitted for
+                <p class="text-center text-gray-600">We are thrilled to welcome you to Recruited! Your account has been submitted for
                     approval. We'll
                     notify you as soon as it's approved.
                 
