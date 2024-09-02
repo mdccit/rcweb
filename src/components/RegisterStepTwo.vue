@@ -87,17 +87,30 @@
         </div>
 
         <div>
-          <label for="phone_code_country" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Mobile
-            No</label>
-          <div class="grid grid-cols-10 gap-3 items-center">
-            <CountryCodeDropdown :country_codes="country_codes" v-model="phone_code_country" name="phone_code"
-              data-validation-key="phone_code" :disabled="action === 'view'" />
-
-            <input type="text" id="phone_number" v-model="phone_number"
-              class="col-span-8 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
-              placeholder="Number" required />
+          <label for="phone_code_country" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Mobile No</label>
+          <div class="grid grid-cols-5 gap-3 items-center">
+            <!-- Set Country Code dropdown to span 2/5 of the grid -->
+            <CountryCodeDropdown 
+              :country_codes="country_codes" 
+              v-model="phone_code_country" 
+              name="phone_code"
+              data-validation-key="phone_code" 
+              :disabled="action === 'view'" 
+              class="col-span-2" 
+            />
+        
+            <!-- Set Phone Number input to span 3/5 of the grid -->
+            <input 
+              type="text" 
+              id="phone_number" 
+              v-model="phone_number"
+              class="col-span-3 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
+              placeholder="Number" 
+              required 
+            />
           </div>
         </div>
+        
 
         <div class="space-y-4">
           <div>
@@ -136,7 +149,7 @@
         <div class="space-y-4">
           <div>
             <label for="budget" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Budget</label>
-            <BudgetDropdown :player_budgets="budgets" v-model="budgets" id="budgets" label="Budgets *" />
+            <BudgetDropdown :player_budgets="budgets" v-model="selectedBudget" id="budgets" label="Budgets *" />
           </div>
         </div>
 
@@ -194,7 +207,7 @@
       </div>
 
       <div class="space-y-4 mt-5">
-        <p class="text-sm text-warning-600">
+        <p class="text-sm text-black text-warning-600">
           <svg class="mb-2 text-orange-400 w-4 h-4 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24"
             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
             stroke-linejoin="round">
@@ -255,6 +268,7 @@ const heightFt = ref('');
 const heightIn = ref('');
 const handedness = ref('');
 const budget = ref('');
+const selectedBudget = ref('');
 const utr = ref('');
 const gpa = ref('');
 const graduation = ref('');
@@ -361,11 +375,13 @@ onMounted(() => {
 
 
 const handleSubmitStep2 = async () => {
+  console.log('handleSubmitStep2 called');
   try {
     error.value = '';
+    console.log('Preparing data...');
     let endpoint;
     const data = {
-      user_id: userId,
+      user_id: userId.value,
       role: role.value,
       country: country.value,
       nationality: nationality.value,
@@ -373,6 +389,9 @@ const handleSubmitStep2 = async () => {
       mobile_number: phone_number.value,
       gender: gender.value
     };
+
+    console.log('Role:', role.value);
+    console.log('Data:', data);
 
     if (role.value === 'player' || role.value === 'parent') {
       endpoint = `auth/${role.value}-register`;
@@ -389,17 +408,22 @@ const handleSubmitStep2 = async () => {
       endpoint = `auth/${role.value}-register`;
     }
 
+    console.log('Endpoint:', endpoint);
     const response = await authService.registerStep2(endpoint, data);
 
     if (response.status === 200) {
+      console.log('Registration successful, redirecting to dashboard...');
       router.push('/dashboard');
     } else {
       error.value = response.data.message;
+      console.log('Registration failed:', response.data.message);
     }
   } catch (err) {
     error.value = err.response?.data?.message || err.message;
+    console.error('Error during registration:', error.value);
   }
 };
+
 
 const loadCountries = async () => {
   try {
