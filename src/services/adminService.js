@@ -149,8 +149,8 @@ const createAdminService = (apiService) => {
   
     try {
       const response = await apiService.getRequest(url);
-      if (response && response.data && response.data.dataSets) {
-        return response.data.dataSets;
+      if (response && response.data) {
+        return response.data;
       } else {
         throw new Error('Unexpected API response structure');
       }
@@ -159,13 +159,14 @@ const createAdminService = (apiService) => {
     }
   };
   
-  const search_business_users = async (business_id) => {
-    const url = `/admin/businesses/search-users/${business_id}?page=${page}&per_page_items=${per_page_items}`;
+  const search_business_users = async (business_id,page , per_page_items, search_key = '') => {
+
+    const url = `/admin/businesses/search-users/${business_id}?page=${page}&per_page_items=${per_page_items}&search_key=${search_key}`;
   
     try {
       const response = await apiService.getRequest(url);
-      if (response && response.data && response.data.dataSets) {
-        return response.data.dataSets;
+      if (response && response.data) {
+        return response.data;
       } else {
         throw new Error('Unexpected API response structure');
       }

@@ -169,12 +169,12 @@
                                 <div class="mr-1"><select name="conference" data-validation-key="conference"
                                         v-model="conference"
                                         class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
-                                        <option value="other"> Other </option>
-                                        <option value="acc"> ACC </option>
-                                        <option value="american_athletic"> American Athletic </option>
-                                        <option value="atlantic_10"> Atlantic 10 </option>
-                                        <option value="atlantic_sun"> Atlantic Sun </option>
-                                        <option value="northern_sun"> Northern Sun </option>
+                                        <option value="1"> Other </option>
+                                        <option value="2"> ACC </option>
+                                        <option value="3"> American Athletic </option>
+                                        <option value="4"> Atlantic 10 </option>
+                                        <option value="5"> Atlantic Sun </option>
+                                        <option value="6"> Northern Sun </option>
                                     </select>
                                 </div>
                             </div>
@@ -216,6 +216,7 @@
                     </li>
                 </ul>
             </div>
+            
             </div>
 
             <div class="my-16"></div>
