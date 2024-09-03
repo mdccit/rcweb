@@ -34,11 +34,13 @@
                   <!---->
                 </div>
               </div>
-            </div><a href="/admin/schools"
+            </div>
+            <NuxtLink to="/admin/schools"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              Schools </a><a href="/admin/businesses"
+              Schools </NuxtLink>
+            <NuxtLink to="/admin/businesses"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              Businesses </a>
+              Businesses </NuxtLink>
             <div
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
               style="position: relative;">
@@ -57,23 +59,24 @@
                 <div data-splade-dropdown-id="cXiujGIKssKlZHvP" class="absolute z-40"
                   data-popper-placement="bottom-start"
                   style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(4px, 71.2px, 0px);">
-                  <!---->
                 </div>
               </div>
-            </div><a href="/admin/moderation?filter%5Bis_closed%5D=0"
+            </div>
+            <<NuxtLink to="/admin/moderation?filter%5Bis_closed%5D=0"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Moderation <div
                   class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full">60
                 </div>
               </div>
-            </a><a href="/admin/transcripts"
-              class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              <div class="flex items-center"> Transcripts </div>
-            </a>
-            <a @click="logout"
-              class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              <div class="flex items-center"> Logout </div>
-            </a>
+              </NuxtLink>
+              <NuxtLink to="/admin/transcripts"
+                class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                <div class="flex items-center"> Transcripts </div>
+              </NuxtLink>
+              <a @click="logout"
+                class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                <div class="flex items-center"> Logout </div>
+              </a>
           </div>
           <div class="hidden sm:flex sm:items-center sm:ml-6">
             <div class="ml-3 relative">
@@ -86,7 +89,7 @@
                   </button>
                 </div>
                 <div>
-           
+
                 </div>
               </div>
             </div>
@@ -190,11 +193,11 @@ const handleSubmit = async () => {
   }
   try {
     const response = await $authService.logout({
-    bearer_token: token
+      bearer_token: token
     });
 
     if (response.status === 200) {
-      userStore.clearUser({    
+      userStore.clearUser({
         token: response.data.token
       });
       localStorage.removeItem('token');

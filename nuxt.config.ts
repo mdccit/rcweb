@@ -84,7 +84,7 @@ export default defineNuxtConfig({
         '/pricing',    // Pricing
         '/about',      // About
         '/register',   // Register        
-        '/register2',     // Ignore second part of registration
+        '/register-step-two',     // Ignore second part of registration
         '/login',      // Login
         '/reset-password', // Reset password
         '/forgot-password', // Ignore forgot password route
