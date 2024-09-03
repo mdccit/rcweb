@@ -4,27 +4,39 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  // devtools: { enabled: true },
   srcDir: 'src/',
   ssr: true,
+  target: 'universal',
   css: [
-    '~/assets/main.css',
+    '@/assets/css/tailwind.css', // Ensure this is the first CSS file
     'element-plus/dist/index.css',
     'flowbite/dist/flowbite.css',
-    'element-plus/dist/index.css'
+    '~/assets/main.css'
   ],
   modules: [
+    '@vueuse/nuxt',
+    '@nuxt/ui',
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/color-mode',
+    // '@pinia/nuxt',
   ],
   tailwindcss: {
-    configPath: '~/tailwind.config.js',
+    configPath: '~/tailwind.config.ts',
     viewer: false,
-    jit: true,
   },
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
+  build: {
+    transpile: ['@headlessui/vue'],
+    postcss: {
+      postcssOptions: {
+        plugins: {
+          'postcss-nested': {},
+          'postcss-import': {},
+          'tailwindcss': {},
+          'autoprefixer': {},
+
+        },
+      },
     },
   },
   pinia: {
@@ -42,12 +54,13 @@ export default defineNuxtConfig({
   },
   plugins: [
     '~/plugins/runtimeConfig.js',
-    '~/plugins/services.js', // Ensure this is listed here
+    '~/plugins/services.js',
     '~/plugins/pinia.js',
     '~/plugins/initUser.js',
     '~/plugins/element-plus.ts',
+    '~/plugins/flowbite.client.ts',
+    '~/plugins/i18n.js'
   ],
-  build: {},
   alias: {
     '@': resolve(__dirname, './src'),
     '~~': resolve(__dirname, './src'),
@@ -61,18 +74,47 @@ export default defineNuxtConfig({
     '@assets': resolve(__dirname, './src/assets')
   },
   nitro: {
-    prerender: {
-      crawlLinks: false,
-      routes: ['/'],
+    output: {
+      dir: '../dist',  // Set the output directory to 'dist/'
     },
+    prerender: {
+      crawlLinks: false,  // Automatically discover and crawl links
+      failOnError: true, // Stop on the first error, to make debugging easier
+      routes: ['/',           // Home
+        '/pricing',    // Pricing
+        '/about',      // About
+        '/register',   // Register        
+        '/register2',     // Ignore second part of registration
+        '/login',      // Login
+        '/reset-password', // Reset password
+        '/forgot-password', // Ignore forgot password route
+      ],
+      onError: (route, error) => {
+        console.error(`Error prerendering route ${route}:`, error);
+      },      
+      ignore: [
+        '/admin',         // Ignore all admin routes
+        '/admin/**',      // Ignore all nested admin routes
+        '/user',          // Ignore all user routes
+        '/user/**',       // Ignore all nested user routes
+        '/dashboard',     // Ignore dashboard route (likely user-specific)        
+        '/google-auth',   // Ignore Google authentication route
+        '/pending-approval', // Ignore pending approval route
+        '/time',          // Ignore time page (if it's dynamic)
+        '/unauthorized',  // Ignore unauthorized access page
+      ]
+    }
   },
-  buildModules: [
-    '@nuxtjs/tailwindcss',
-    '@pinia/nuxt',
-  ],
-
+  colorMode: {
+    classSuffix: '',
+    fallback: 'light',
+    storageKey: 'color-mode',
+  },
   compatibilityDate: '2024-07-31',
-  vite:{
+  vite: {
+    optimizeDeps: {
+      include: ['@popperjs/core'],
+    },
     server: {
       hmr: {
         overlay: false,

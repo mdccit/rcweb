@@ -26,8 +26,8 @@
         <div class="w-full">
           <button type="button" class="py-2.5 w-full px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white
              rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10
-              focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400
-               dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 light:bg-gray-800 light:text-gray-400
+               light:border-gray-600 light:hover:text-white light:hover:bg-gray-700">
             <span><img class="absolute -mt-13" src="@/assets/images/google_icon.png"></span>Sign up with Google
           </button>
         </div>
@@ -45,19 +45,19 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2">
               <div class="space-y-4">
                 <div>
-                  <label for="firstname" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">First
+                  <label for="firstname" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">First
                     name</label>
                   <input type="text" id="firstname" v-model="firstname" autocomplete="given-name"
-                    class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
                     placeholder="John" required />
                 </div>
               </div>
               <div class="space-y-4">
                 <div>
-                  <label for="lastname" class="font-normal block mb-2 text-sm text-gray-900 dark:text-white">Last
+                  <label for="lastname" class="font-normal block mb-2 text-sm text-gray-900 light:text-gray">Last
                     name</label>
                   <input type="text" id="lastname" v-model="lastname" autocomplete="family-name"
-                    class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
                     placeholder="Carter" required />
                 </div>
               </div>
@@ -65,10 +65,10 @@
 
             <div class="space-y-4">
               <div class="pt-2">
-                <label for="email" class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Email
+                <label for="email" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Email
                   address</label>
                 <input type="email" id="email" v-model="email" autocomplete="email"
-                  class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
                   placeholder="john.doe@company.com" required />
               </div>
             </div>
@@ -77,18 +77,18 @@
               <div class="space-y-4">
                 <div>
                   <label for="password"
-                    class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Password</label>
+                    class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Password</label>
                   <input type="password" id="password" v-model="password" autocomplete="new-password"
-                    class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
                     placeholder="•••••••••" required />
                 </div>
               </div>
               <div>
                 <div>
                   <label for="confirmPassword"
-                    class="block mb-2 text-sm font-normal text-gray-900 dark:text-white">Confirm password</label>
+                    class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Confirm password</label>
                   <input type="password" id="confirmPassword" v-model="confirmPassword" autocomplete="new-password"
-                    class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
                     placeholder="•••••••••" required />
                 </div>
               </div>
@@ -165,7 +165,7 @@ const handleSubmit = async () => {
         token: response.data.token
       });
       localStorage.setItem('token', response.data.token);
-      router.push(`/register-step-2/${response.data.user_id}`);
+      router.push(`/register2/${response.data.user_id}`);
     } else {
       errors.value.push(response.data.display_message);
     }

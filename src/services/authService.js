@@ -1,4 +1,3 @@
-// src/services/authService.js
 const createAuthService = (apiService) => {
   const login = async (email, password) => {
     const url = '/auth/login';
@@ -38,8 +37,8 @@ const createAuthService = (apiService) => {
   };
 
 
-  const registerStep2 = async (userDetails) => {
-    const url = '/auth/register-step-2';
+  const registerStep2 = async (endpoint_url,userDetails) => {
+    const url = endpoint_url;
     const body = userDetails;
 
     try {
@@ -85,13 +84,56 @@ const createAuthService = (apiService) => {
     }
   };
 
+  const resetPasswordRequest = async (email) => {
+    const url = '/auth/forgot-password-request';
+    const body = { email };
+  
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to send reset password request');
+    }
+  };
+  
+
+  const resetPassword = async (password_reset_id, recovery_code, password, password_confirmation) => {
+    // Check if password_reset_id is provided
+    if (!password_reset_id) {
+        throw new Error('Password reset ID is required.');
+    }
+
+    // Construct the URL with the password_reset_id
+    const url = `/auth/reset-password/${password_reset_id}`;
+
+    // Prepare the request body
+    const body = {
+      recovery_code,
+      password,
+      password_confirmation,
+    };
+  
+    try {
+      // Make the API request
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      // Handle any errors that occur during the request
+      throw new Error(error.message || 'Failed to reset password');
+    }
+  };
+
+
   return {
     login,
+    logout,
     register,
     registerStep2,
     getGoogleAuthUrl,
     googleLogin,
     googleRegister,
+    resetPasswordRequest,
+    resetPassword,
   };
 };
 

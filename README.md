@@ -1,6 +1,34 @@
-# Nuxt 3 Minimal Starter
+# Recruited Web Application - Pipeline Integration Guide
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This document provides guidance for engineers responsible for integrating CI/CD pipelines for the RCWeb application.
+
+## Overview
+
+RCWeb is a Nuxt 3 application designed for user management and other administrative functions. The application is built using modern web technologies, including Nuxt 3, Tailwind CSS, Element Plus, and Pinia for state management.
+
+## Prerequisites
+
+Ensure the following tools are installed on the CI/CD environment:
+
+- Node.js (version 20 or later)
+- npm, pnpm, or yarn (depending on the package manager used)
+- Docker (optional, for containerized builds)
+- Any required environment variables for runtime configuration
+
+## Environment Configuration
+
+The application uses environment variables defined in a `.env` file. Ensure these variables are set correctly in the CI/CD environment:
+
+- `NUXT_PUBLIC_API_URL`: The base URL for the API.
+- `ACCESS_KEY`: Access key for authentication.
+- `DEFAULT_LANG`: Default language for the application.
+
+Example `.env` file:
+```plaintext
+NUXT_PUBLIC_API_URL=https://api.example.com
+ACCESS_KEY=your-access-key
+DEFAULT_LANG=en
+```
 
 ## Setup
 
@@ -13,11 +41,6 @@ npm install
 # pnpm
 pnpm install
 
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
 ## Development Server
@@ -31,11 +54,6 @@ npm run dev
 # pnpm
 pnpm run dev
 
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
 ## Production
@@ -49,11 +67,6 @@ npm run build
 # pnpm
 pnpm run build
 
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
 Locally preview production build:
@@ -65,11 +78,47 @@ npm run preview
 # pnpm
 pnpm run preview
 
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
+
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+
+## Docker Commands for Running the Application
+
+### 1. Build the Docker Image
+
+To build the Docker image for your application, run the following command:
+
+```bash
+docker build -t recruited-app .
+
+```
+
+### 2. Run the Docker Container
+
+```bash
+docker run -d -p 80:80 --name recruited-app recruited-app
+
+```
+
+### 3. Stop the Docker Container
+
+```bash
+docker stop recruited-app
+
+```
+
+### 4. Stop the Docker Container
+
+```bash
+docker rm recruited-app
+
+```
+
+### 5. View Container Logs
+
+```bash
+docker logs recruited-app
+
+```

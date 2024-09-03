@@ -1,5 +1,3 @@
-// src/services/apiService.js
-
 const createApiService = (config) => {
   if (!config) {
     throw new Error('Configuration is not provided');
@@ -16,15 +14,21 @@ const createApiService = (config) => {
     return data;
   };
 
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem('token');
+    return {
+      'Content-Type': 'application/json',
+      'AccessKey': accessKey,
+      'Lang': defaultLang,
+      'Authorization': token ? `Bearer ${token}` : '', // Include the token if it exists
+    };
+  };
+
   const getRequest = async (url) => {
     try {
       const response = await fetch(`${apiUrl}${url}`, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'access_key': accessKey,
-          'lang': defaultLang,
-        },
+        headers: getAuthHeaders(),
       });
       return await handleResponse(response);
     } catch (error) {
@@ -36,11 +40,7 @@ const createApiService = (config) => {
     try {
       const response = await fetch(`${apiUrl}${url}`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'access_key': accessKey,
-          'lang': defaultLang,
-        },
+        headers:getAuthHeaders(),
         body: JSON.stringify(body),
       });
       return await handleResponse(response);
@@ -53,11 +53,7 @@ const createApiService = (config) => {
     try {
       const response = await fetch(`${apiUrl}${url}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'access_key': accessKey,
-          'lang': defaultLang,
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify(body),
       });
       return await handleResponse(response);
@@ -70,11 +66,7 @@ const createApiService = (config) => {
     try {
       const response = await fetch(`${apiUrl}${url}`, {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'access_key': accessKey,
-          'lang': defaultLang,
-        },
+        headers:getAuthHeaders(),
       });
       return await handleResponse(response);
     } catch (error) {
@@ -86,11 +78,7 @@ const createApiService = (config) => {
     try {
       const response = await fetch(`${apiUrl}${url}`, {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'access_key': accessKey,
-          'lang': defaultLang,
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify(body),
       });
       return await handleResponse(response);
