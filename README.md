@@ -94,3 +94,36 @@ docker rm recruited-app
 docker logs recruited-app
 
 ```
+
+# Build and Run Guide
+
+```bash
+# Build for Development
+pnpm run build:dev
+
+# Run Development Build
+node dist/dev/server/index.mjs
+
+==========================================
+
+# Build for QA
+pnpm run build:qa
+
+# Run QA Build
+node dist/qa/server/index.mjs
+
+==========================================
+
+# Build for UAT
+pnpm run build:uat
+
+# Run UAT Build
+node dist/uat/server/index.mjs
+
+==========================================
+
+# Build for Production
+pnpm run build:prod
+
+# Run Production Build
+node dist/production/server/index.mjs
