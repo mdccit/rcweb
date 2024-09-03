@@ -3,7 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
+    "build:dev": "nuxt build --dotenv .env ",
+    "build:qa": "nuxt build --dotenv .env.qa",
+    "build:uat": "nuxt build --dotenv .env.uat",
+    "build:prod": "nuxt build --dotenv .env.production",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -33,12 +36,12 @@
     "vue-cropperjs": "^5.0.0",
     "vue-i18n": "^10.0.0-beta.5",
     "vue-router": "^4.4.1"
-    
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.12.0",
     "ajv": "^7.2.4",
     "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
     "cypress": "^13.13.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",

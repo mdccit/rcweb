@@ -47,6 +47,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
+      
       apiUrl: process.env.NUXT_PUBLIC_API_URL,
       accessKey: process.env.ACCESS_KEY,
       defaultLang: process.env.DEFAULT_LANG,
@@ -74,8 +75,9 @@ export default defineNuxtConfig({
     '@assets': resolve(__dirname, './src/assets')
   },
   nitro: {
+    // preset: 'node-server',
     output: {
-      dir: '../dist',  // Set the output directory to 'dist/'
+      dir: process.env.NUXT_BUILD_PATH,  // Set the output directory to 'dist/'
     },
     prerender: {
       crawlLinks: false,  // Automatically discover and crawl links
