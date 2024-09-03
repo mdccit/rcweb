@@ -1,6 +1,6 @@
 <template>
-    <div id="maincontent bg-white-100">
-        <div class="relative z-10 container mt-8  bg-white-100">
+    <div id="maincontent" class="">
+        <div class="relative z-10 container mt-8 mx-auto my-auto">
             <main class="flex flex-col lg:flex-row gap-12">
                 <div class="flex-1 text-black">
                     <div class="font-bold tracking-wider mb-2 opacity-50 text-lg uppercase">About Recruited</div>
