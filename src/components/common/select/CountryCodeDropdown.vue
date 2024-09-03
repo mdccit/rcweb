@@ -8,7 +8,8 @@
     required
   >
     <option v-for="code in country_codes" :key="code.phone_code" :value="code.value">
-      {{ '(' + code.phone_code + ') ' + code.label }}
+      {{ '(' + code.phone_code + ') '  }}
+      <span class="truncate">{{ code.label }}</span>
     </option>
   </select>
 </template>
@@ -47,5 +48,14 @@ select {
   width: 100%;
   padding: 8px;
   margin-top: 4px;
+}
+
+
+option span.truncate {
+  display: inline-block;
+  max-width: 100px; /* Adjust the width as needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

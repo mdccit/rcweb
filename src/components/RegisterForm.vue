@@ -102,7 +102,7 @@
             </div>
 
             <div class="space-y-4 mt-5">
-              <p class="text-sm text-warning-600">
+              <p class="text-sm text-black text-warning-600">
                 <svg class="mb-2 text-orange-400 w-4 h-4 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24"
                   height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                   stroke-linecap="round" stroke-linejoin="round">
@@ -142,6 +142,7 @@ const confirmPassword = ref('');
 const error = ref('');
 const successMessage = ref('');
 const errors = ref([]);
+const isSubmitting = ref(false); 
 
 const userStore = useUserStore();
 const router = useRouter();
@@ -151,11 +152,13 @@ const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 
 const handleSubmit = async () => {
-  console.log('submitting');
+
+  isSubmitting.value = true;
   errors.value = [];
   if (password.value !== confirmPassword.value) {
     errors.value.push('Passwords do not match');
     console.log(error.value);
+    isSubmitting.value = false;
     return;
   }
   try {
@@ -180,6 +183,7 @@ const handleSubmit = async () => {
         errors.value.push('Token is missing in the response.');
       }
     } else {
+      isSubmitting.value = false;
       errors.value.push(response.data.display_message);
     }
   } catch (err) {
@@ -192,6 +196,8 @@ const handleSubmit = async () => {
     } else {
       errors.value = [err.response?.data?.message || err.message];
     }
+  }finally{
+    isSubmitting.value = false;
   }
 };
 </script>
