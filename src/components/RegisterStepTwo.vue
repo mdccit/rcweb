@@ -18,7 +18,7 @@
       </div>
       <div class="w-full"></div>
       <div>
-        <label for="role" class="block mb-2 text-sm font-normal text-gray-900 dark:text-primary">I am</label>
+        <label for="role" class="block mb-2 text-sm font-normal text-gray-900 mt-3">I am</label>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-4">
 
@@ -50,7 +50,7 @@
             value="parent" v-model="role" name="role">
           <div
             :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'parent' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
-            <img class="mt-1" src="@/assets/images/coach_icon.png">
+            <img class="mt-1" src="@/assets/images/parent.png">
             <label for="parent" class="text-sm text-black  mb-2">Parent</label>
           </div>
         </div>
@@ -61,7 +61,7 @@
             type="radio" value="business" v-model="role" name="role">
           <div
             :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'business' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
-            <img class="mt-1" src="@/assets/images/coach_icon.png">
+            <img class="mt-1" src="@/assets/images/bussiness.png">
             <label for="business" class="text-sm text-black  mb-2">Business</label>
           </div>
         </div>
@@ -72,32 +72,33 @@
 
         <div v-if="roleFields.includes('nationality')">
           <label for="nationality"
-            class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Nationality</label>
+            class="block  text-sm font-normal text-gray-900 dark:text-gray mb-[20px]">Nationality</label>
           <NationalityDropdown :nationalities="nationalities" v-model="nationality" id="nationality"
             label="Nationality" />
         </div>
 
 
         <div class="space-y-4" v-if="roleFields.includes('country')">
-          <label for="country" class="font-normal text-black block mb-2 text-sm text-gray-900 dark:text-gray">Country
+          <label for="country"
+            class="font-normal text-black block text-sm text-gray-900 dark:text-gray mb-[20px]">Country
             *</label>
-          <CountryDropdown :countries="countries" v-model="country" id="country" label="Country *" />
+          <CountryDropdown :countries="countries" v-model="country" id="country" class="mt-0" label="Country *" />
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('phone_code_country')">
           <label for="phone_code_country" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Mobile
             No</label>
-          <div class="grid grid-cols-5 gap-3 items-center">
+          <div class="grid grid-cols-5 gap-3 items-center -mt-[9px]">
             <CountryCodeDropdown :country_codes="country_codes" v-model="phone_code_country" name="phone_code"
-              data-validation-key="phone_code" :disabled="action === 'view'" class="col-span-2" />
+              data-validation-key="phone_code" :disabled="action === 'view'" class="col-span-2 h-12" />
             <input type="text" id="phone_number" v-model="phone_number"
-              class="col-span-3 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
+              class=" mt-[4px] h-12 col-span-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
               placeholder="Number" required />
           </div>
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('gender')">
-          <label for="gender" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Gender *</label>
+          <label for="gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">Gender *</label>
           <GenderDropDown :genders="genders" v-model="gender" id="gender" label="Gender *" />
         </div>
 
@@ -108,32 +109,41 @@
         </div>
 
         <!-- Height Selection with Feet/Inches and Centimeters Toggle -->
-        <div v-if="roleFields.includes('height')" class="space-y-4">
-          <label for="height" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Height</label>
-          <div class="flex items-center space-x-4">
+        <div v-if="roleFields.includes('height')" class="space-y-4 ">
+
+          <div class="flex">
             <!-- Toggle between Feet/Inches and Centimeters -->
-            <div class="flex text-black items-center">
-              <input type="radio" id="height_in_cm" v-model="height_in_cm" :value="true" />
-              <label for="height_in_cm" class="ml-2">Centimeters</label>
+            <div class="flex-1">
+              <label for="height"
+                class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray mr-[20px]">Height</label>
             </div>
-            <div class="flex text-black items-center">
-              <input type="radio" id="height_ft_in" v-model="height_in_cm" :value="false" />
-              <label for="height_ft_in" class="ml-2">Feet/Inches</label>
+
+            <div class="flex-1">
+              <div class="flex text-last">
+                <div class="flex text-black items-center">
+                  <input type="radio" id="height_in_cm" v-model="height_in_cm" :value="true" />
+                  <label for="height_in_cm" class="ml-2">Centimeters</label>
+                </div>
+                <div class="flex text-black items-center ml-3">
+                  <input type="radio" id="height_ft_in" v-model="height_in_cm" :value="false" />
+                  <label for="height_ft_in" class="ml-2">Feet/Inches</label>
+                </div>
+              </div>
             </div>
           </div>
           <!-- Height in Centimeters -->
-          <div v-if="height_in_cm">
+          <div v-if="height_in_cm" class="-mt-[8px]">
             <input type="number" id="height_cm" v-model="height_cm"
-              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              class="bg-gray-50 border h-12 -mt-[8px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Height in cm" />
           </div>
           <!-- Height in Feet/Inches -->
-          <div v-else class="grid grid-cols-10 gap-3 items-center">
+          <div v-else class="grid grid-cols-10 gap-3 items-center -mt-[8px]">
             <input type="number" id="height_ft" v-model="height_ft"
-              class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Ft" />
             <input type="number" id="height_in" v-model="height_in"
-              class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="In" />
           </div>
         </div>
@@ -157,7 +167,7 @@
           <label for="graduation" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Graduation
             Month/Year</label>
           <input type="month" v-model="graduation"
-            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-primary light:focus:ring-blue-500 light:focus:border-blue-500"
             placeholder="Select Month/Year" />
         </div>
 
@@ -205,13 +215,13 @@
               name="player_phone_code" data-validation-key="player_phone_code" :disabled="action === 'view'"
               class="col-span-2" />
             <input type="text" id="player_phone_number" v-model="player_phone_number"
-              class="col-span-3 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
+              class="col-span-3 bg-gray-50 border mt-[4px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
               placeholder="Player Number" required />
           </div>
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('player_gender')">
-          <label for="player_gender" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Player
+          <label for="player_gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">Player
             Gender</label>
           <GenderDropDown :genders="genders" v-model="player_gender" id="player_gender" label="Player Gender" />
         </div>
@@ -224,6 +234,8 @@
         </div>
 
         <div v-if="roleFields.includes('player_height_ft')" class="grid grid-cols-10 gap-3 items-center">
+          <label  class="col-span-10 font-normal block  text-sm text-gray-900 dark:text-gray">Player
+            Height</label>
           <input type="text" id="player_height_ft" v-model="player_height_ft"
             class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
             placeholder="Ft" required />
@@ -256,7 +268,7 @@
           <label for="player_graduation_month_year"
             class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Player Graduation Month/Year</label>
           <input type="month" v-model="player_graduation_month_year"
-            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-primary light:focus:ring-blue-500 light:focus:border-blue-500"
             placeholder="Player Graduation Month/Year" />
         </div>
 
@@ -511,8 +523,8 @@ const handleSubmitStep2 = async () => {
         player_handedness: player_handedness.value,
         player_height_ft: player_height_ft.value,
         player_height_in: player_height_in.value,
-        player_height_in_cm: height_in_cm.value, 
-        player_height_cm: height_cm.value,     
+        player_height_in_cm: height_in_cm.value,
+        player_height_cm: height_cm.value,
         player_budget: player_budget.value,
         player_utr: player_utr.value,
         player_gpa: player_gpa.value,
