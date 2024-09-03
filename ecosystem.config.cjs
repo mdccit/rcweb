@@ -2,10 +2,10 @@ module.exports = {
   apps: [
     {
       name: 'RecruitedV2',
-      port: process.env.NUXT_RUN_PORT,
+      port: 3000,
       exec_mode: 'cluster',
       instances: 'max',
-      script:  process.env.NUXT_BUILD_PATH + '/server/index.mjs'
+      script: './dist/qa/server/index.mjs'
     }
   ]
 }
