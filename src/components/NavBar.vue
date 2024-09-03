@@ -35,8 +35,8 @@
                 </button>
               </div>
               <div>
-                <div data-splade-dropdown-id="2r41iY2btBtCCmx9" class="absolute z-40"
-                  data-popper-placement="bottom-start"
+                <div class="absolute z-40"
+                 
                   style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(4px, 71.2px, 0px);">
                   <!---->
                 </div>
@@ -63,8 +63,7 @@
                       </svg></div>
                   </button></button></div>
               <div>
-                <div data-splade-dropdown-id="cXiujGIKssKlZHvP" class="absolute z-40"
-                  data-popper-placement="bottom-start"
+                <div class="absolute z-40"   
                   style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(4px, 71.2px, 0px);">
                   <!---->
                 </div>
