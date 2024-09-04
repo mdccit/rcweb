@@ -1,13 +1,9 @@
-
 import { useUserStore } from '@/stores/userStore';
 
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(() => {
+  const userStore = useUserStore();
+
   if (process.client) {
-    const userStore = useUserStore(nuxtApp.$pinia);
-    userStore.initializeUser();
-    const token = localStorage.getItem('token');  // Fetch the token from local storage
-    if (token) {
-     
-    }
+    userStore.initializeUser(); // This will now handle both logged-in and non-logged-in cases
   }
 });

@@ -42,11 +42,13 @@
     </div>
     <div>
       <button @click="handleSubmit"
-        class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 text-white border-transparent focus:border-blue-300 focus:ring-blue-200 block w-full">
-        <div class="flex flex-row items-center justify-center">
-          <span>Login</span>
-        </div>
-      </button>
+      class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 text-white border-transparent focus:border-blue-300 focus:ring-blue-200 block w-full"
+      :disabled="loading">
+      <div class="flex flex-row items-center justify-center">
+        <span v-if="!loading">Login</span>
+        <LoadingSpinner v-else />
+      </div>
+    </button>
     </div>
     <div class="w-full mt-5">
       <button type="button" @click="handleGoogleSignUp"
@@ -83,6 +85,8 @@ import { useNuxtApp } from '#app';
 import Cookies from 'js-cookie';
 
 import Notification from '~/components/common/Notification.vue';
+import LoadingSpinner from '~/components/LoadingSpinner.vue';  
+
 
 const email = ref('');
 const rememberMe = ref(false);
@@ -97,6 +101,9 @@ const errors = ref([]);;
 const authType = ref('');
 const showNotification = ref(false);
 const notificationMessage = ref('');
+const loading = ref(false);
+const notificationType = ref('');
+
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -119,8 +126,10 @@ const handleSubmit = async () => {
         email: email.value,
         role: response.data.role,
         token: response.data.token
-      })
-      localStorage.setItem('token', response.data.token)  // Set token in local storage
+      });
+      notification_type.value = 'success';
+      notificationMessage.value = response.display_message;
+      showNotification.value = true;
 
       if (rememberMe.value) {
         Cookies.set('session', response.data.token, { expires: 1 }); // Set cookie for 24 hours
@@ -128,14 +137,13 @@ const handleSubmit = async () => {
         Cookies.set('session', response.data.token);
       }
 
-      if (response.data.user_permission_type === 'none' && (response.data.user_role == 'coach' && response.data.user_role == 'business')) {
-        router.push('/user/approval-pending');  // Redirect to pending approval page
-      } else {
-        router.push('/admin/dashboard');  // Redirect to dashboard
-      }
-     
-      notificationMessage.value = response.display_message;
-      showNotification.value = true;
+      setTimeout(() => {
+        if (response.data.user_permission_type === 'none' && (response.data.user_role == 'coach' && response.data.user_role == 'business')) {
+          router.push('/user/approval-pending');  // Redirect to pending approval page
+        } else {
+          router.push('/admin/dashboard');  // Redirect to dashboard
+        }
+      }, 3000); // Adjust the delay as needed (e.g., 2000ms for 2 seconds)
 
     } else {
       error.value = response.display_message;      
@@ -161,10 +169,45 @@ const handleSubmit = async () => {
 
 // Function to handle Google sign up (assuming this is what you want to do)
 const handleGoogleSignUp = () => {
-  // Add your Google sign up logic here
+    router.push('/google-auth');
 }
 
 
+// Function to handle Google login callback
+const handleGoogleLoginCallback = async () => {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code'); // Extract the auth code from the URL
+
+  if (code) {
+    try {
+      // Call the googleLogin function with the auth code
+      const response = await $authService.googleLogin(code);
+
+      // Show success notification
+      notificationType.value = 'success';
+      notificationMessage.value = response.display_message;
+      showNotification.value = true;
+
+      // Save token to local storage and user store
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+      userStore.setUser({ token });
+
+      // Redirect to dashboard after a short delay
+      setTimeout(() => {
+        router.push('/dashboard'); // Redirect to the dashboard
+      }, 2000); // Adjust delay to ensure the notification is seen
+    } catch (err) {
+      // Show failure notification
+      notificationType.value = 'failure';
+      notificationMessage.value = err.message;
+      showNotification.value = true;
+    }
+  }
+};
+
+// Ensure the Google login is triggered when the component is mounted
+onMounted(handleGoogleLoginCallback);
 
 </script>
 
