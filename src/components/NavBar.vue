@@ -41,7 +41,6 @@
               <div>
                 <div class="absolute z-40"
                   style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(4px, 71.2px, 0px);">
-                  <!---->
                 </div>
               </div>
             </div>

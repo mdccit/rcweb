@@ -41,9 +41,7 @@
         <div class="w-full pt-4">
           <hr>
         </div>
-        <!-- Form -->
-        <form @submit.prevent="handleSubmit" class="pt-4">
-          <fieldset>
+        <!-- Form -->       
             <div v-if="errors && errors.length" class="mb-4 text-red-600">
               <ul>
                 <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
@@ -115,14 +113,12 @@
             </div>
 
             <div class="flex items-center justify-end mt-5">
-              <button type="submit" class="text-white bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-4 
+              <button @click="handleSubmit" class="text-white bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-4 
               focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 
               dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Sign up now for free
               </button>
             </div>
-          </fieldset>
-        </form>
       </div>
     </div>
   </div>
@@ -134,6 +130,8 @@ import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
 
+
+const user_id = ref('');
 const firstname = ref('');
 const lastname = ref('');
 const email = ref('');
