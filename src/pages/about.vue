@@ -76,7 +76,6 @@
                                 alt="Profile picture" class="h-32 rounded-full w-16 md:w-32 h-16 md:h-32 mx-auto mb-6">
                             <h3 class="text-xl font-bold mb-1">Bruno Oliveira</h3>
                             <p class="text-gray-600 mb-8">CCO</p>
-                            <p> {{ $t('about.originally_from_barcelona') }}</p>
                             <p>{{ $t('about.born_in_Belo') }}</p>
                         </div>
                     </div>

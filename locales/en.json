@@ -17,6 +17,7 @@
     "height": {
       "ft": "Height (Ft)",
       "in": "Height (In)"
+      }
     },
     "about":{
       "title": "About Recruited",
@@ -39,5 +40,5 @@
       
     },
     "budget": "Budget"
-  }
 }
+
