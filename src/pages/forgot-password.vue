@@ -49,13 +49,13 @@
                                         aria-hidden="true" class="text-red-600"
                                         title="This field is required">*</span></span>
                                 <div class="flex rounded-lg border border-gray-300 shadow-sm"><input
-                                        class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                        class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring text-black focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                         name="email" type="email" v-model="email" data-validation-key="email" id="email"
                                         required="" autofocus=""></div>
                             </label><!----></div>
                         <div class="flex items-center justify-end mt-4">
                             <button type="submit"
-                                class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-primary border-transparent focus:border-primary-300 focus:ring-primary-200">
+                                class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700">
                                 <div class="flex flex-row items-center justify-center"><span class=""> Email
                                         reset link </span></div>
                             </button>

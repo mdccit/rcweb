@@ -126,12 +126,17 @@
 </template>
 
 <script setup>
-import { useUserStore } from '~/stores/userStore'
+import { useUserStore } from '~/stores/userStore';
+const userStore = useUserStore();
 
-const userStore = useUserStore()
+definePageMeta({
+  middleware: [
+    'auth', 
+    'nuxt-permissions'
+  ],
+  roles: ['player'],
+})
 
-const email = userStore.user?.email
-const token = userStore.user?.token
 </script>
 
 <style scoped>

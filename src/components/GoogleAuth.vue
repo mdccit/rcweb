@@ -13,16 +13,10 @@
         Continue with Google (Register)
       </button>
     </div>
-    <div v-if="error" class="mt-4">
-      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-        <span class="block sm:inline">{{ error }}</span>
-      </div>
-    </div>
-    <div v-if="successMessage" class="mt-4">
-      <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-        <span class="block sm:inline">{{ successMessage }}</span>
-      </div>
-    </div>
+    
+    <!-- Notification Component for showing messages -->
+    <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType" :duration="3000" />
+    
   </div>
 </template>
 
@@ -31,17 +25,23 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
+import Notification from '~/components/common/Notification.vue'; // Import Notification component
 
-// Initialize auth service with the config
 const error = ref('');
 const successMessage = ref('');
 const router = useRouter();
 const userStore = useUserStore();
 const authType = ref('');
 
+// Notification related states
+const showNotification = ref(false);
+const notificationMessage = ref('');
+const notificationType = ref('');
+
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
+
 // Function to handle Google authentication
 const initiateGoogleAuth = async (type) => {
   try {
@@ -51,7 +51,9 @@ const initiateGoogleAuth = async (type) => {
     console.log(authUrl);
     window.location.href = authUrl; // Redirect the user to the Google authentication URL
   } catch (err) {
-    error.value = err.message;
+    notificationType.value = 'failure';
+    notificationMessage.value = err.message;
+    showNotification.value = true;
   }
 };
 
@@ -68,25 +70,29 @@ const handleGoogleAuthCallback = async () => {
       } else {
         response = await $authService.googleRegister(code);
       }
-      successMessage.value = response.display_message;
+      
+      notificationType.value = 'success';
+      notificationMessage.value = response.display_message;
+      showNotification.value = true;
+
       const token = response.data.token;
       if (process.client) {
         localStorage.setItem('token', token);
       }
       userStore.setUser({ token });
-      router.push('/dashboard'); // Redirect to dashboard after successful login/registration
+      setTimeout(() => {
+        router.push('/dashboard'); // Redirect to dashboard after successful login/registration
+      }, 2000); // Adjust delay if needed to ensure notification is seen
     } catch (err) {
-      error.value = err.message;
+      notificationType.value = 'failure';
+      notificationMessage.value = err.message;
+      showNotification.value = true;
     }
   }
 };
 
-onMounted(() => {
-  console.log("component mounted");
-});
-
-// // Call handleGoogleAuthCallback when the component is mounted
-// onMounted(handleGoogleAuthCallback);
+// Ensure the callback is handled when the component is mounted
+onMounted(handleGoogleAuthCallback);
 </script>
 
 <style scoped>
