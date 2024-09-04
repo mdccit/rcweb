@@ -54,7 +54,7 @@ definePageMeta({
     'auth', 
     'nuxt-permissions'
   ],
-  roles: ['player'],
+  roles: ['admin'],
 })
 
 </script>

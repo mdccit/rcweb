@@ -9,6 +9,7 @@ export const useUserStore = defineStore('user', {
     email:null,
   }),
   getters: {
+    isAuthenticated: (state) => !!state.user && !!state.token,
     isLoggedIn: (state) => !!state.token,  // Check if token exists
     role: (state) => state.user_role || 'default',  // Default role if not set
   },
@@ -36,13 +37,21 @@ export const useUserStore = defineStore('user', {
       this.token = user.token;
       this.user_role = user.role || 'default';
       this.user = user;
+    
+      // Set the token and role
       this.setToken(user.token);
       this.setRole(user.role);
       this.setEmail(user.email);
+    
       if (process.client) {
+        // Remove session cookie by setting it to an expired date
+        document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    
+        // Store the user in localStorage
         localStorage.setItem('user', JSON.stringify(user));
       }
     },
+    
     clearUser() {
       this.user = null;
       this.token = null;

@@ -26,13 +26,17 @@
 
 <script setup>
 import { useUserStore } from '~/stores/userStore'
-
 const userStore = useUserStore()
 
-const email = userStore.user?.email
-const token = userStore.user?.token
-</script>
+definePageMeta({
+  middleware: [
+    'auth', 
+    'nuxt-permissions'
+  ],
+  roles: ['default'],
+});
 
+</script>
 <style scoped>
 h1 {
     color: #333;

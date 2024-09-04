@@ -57,6 +57,7 @@ import { useRouter, useRoute } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
+const userStore = useUserStore();
 
 // Initialize necessary instances
 const route = useRoute(); // To access query parameters
@@ -98,6 +99,14 @@ const searchBusinessUsers = async (search_key) => {
         errors.value.push('Failed to load business member details.');
     }
 };
+
+definePageMeta({
+  middleware: [
+    'auth', 
+    'nuxt-permissions'
+  ],
+  roles: ['admin'],
+});
 
 </script>
 
