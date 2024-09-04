@@ -1,6 +1,6 @@
 <template>
   <div>
-    <select v-model="selected" @change="updateValue" placeholder="Countries" class="bg-gray-50 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50" id="country" required>
+    <select v-model="selected" @change="updateValue" placeholder="Countries" class="bg-gray-50 h-12 text-black block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 mt-0" id="country" required>
       <option v-for="country in countries" :key="country.value" :value="country.value">
         {{ country.label }}
       </option>
