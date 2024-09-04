@@ -1,8 +1,8 @@
 <template>
-  <div v-if="visible" class="fixed top-4 right-4 w-96 bg-white border border-gray-200 rounded-lg shadow-lg p-4">
+  <div v-if="visible" :class="notificationClasses" class="fixed top-4 right-4 w-96 border rounded-lg shadow-lg p-4">
     <div class="flex justify-between items-center">
       <div class="flex items-center">
-        <span class="text-lg font-medium text-green-600">{{ message }}</span>
+        <span :class="messageClasses">{{ message }}</span>
       </div>
       <button @click="closeNotification" class="text-gray-500 hover:text-gray-900">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -13,11 +13,16 @@
   </div>
 </template>
 
+
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 const props = defineProps({
   message: String,
+  type: {
+    type: String,
+    default: 'success', // 'success', 'failure', 'warning'
+  },
   duration: {
     type: Number,
     default: 3000
@@ -30,12 +35,31 @@ const closeNotification = () => {
   visible.value = false;
 };
 
+// Set visibility timeout
 if (props.duration > 0) {
   setTimeout(() => {
     visible.value = false;
   }, props.duration);
 }
+
+// Computed classes for notification based on type
+const notificationClasses = computed(() => {
+  return {
+    'bg-green-100 border-green-500': props.type === 'success',
+    'bg-red-100 border-red-500': props.type === 'failure',
+    'bg-yellow-100 border-yellow-500': props.type === 'warning',
+  };
+});
+
+const messageClasses = computed(() => {
+  return {
+    'text-green-600': props.type === 'success',
+    'text-red-600': props.type === 'failure',
+    'text-yellow-600': props.type === 'warning',
+  };
+});
 </script>
+
 
 <style scoped>
 /* Add your styles here */

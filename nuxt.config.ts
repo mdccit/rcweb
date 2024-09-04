@@ -1,6 +1,7 @@
 import { defineNuxtConfig } from 'nuxt/config';
 import { resolve } from 'path';
 import dotenv from 'dotenv';
+import customRoutes from './src/config/routes'
 dotenv.config();
 
 export default defineNuxtConfig({
@@ -8,6 +9,13 @@ export default defineNuxtConfig({
   srcDir: 'src/',
   ssr: true,
   target: 'universal',
+  router: {
+    base: '/',  // Base URL for your router, assuming your app is served from the root
+    middleware: ['auth', 'nuxt-permissions'],
+  },
+  generate: {
+    fallback: true,  // Generates a 404.html for static hosting fallback
+  },
   css: [
     '@/assets/css/tailwind.css', // Ensure this is the first CSS file
     'element-plus/dist/index.css',
@@ -55,8 +63,9 @@ export default defineNuxtConfig({
   },
   plugins: [
     '~/plugins/runtimeConfig.js',
+    '~/plugins/router.plugin.ts',
     '~/plugins/services.js',
-    '~/plugins/pinia.js',
+    '~/plugins/pinia.js',        
     '~/plugins/initUser.js',
     '~/plugins/element-plus.ts',
     '~/plugins/flowbite.client.ts',
