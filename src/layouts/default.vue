@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar />
+    <NavBarPublic></NavBarPublic>
     <LoadingSpinner v-if="loading" />
     <main class="min-h-screen bg-gray-100" v-else>
       <NuxtPage />
@@ -11,8 +11,9 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import Navbar from '~/components/admin/user/NavBar.vue';
+
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
+import NavBarPublic from '~/components/NavBarPublic.vue';
 
 const loading = ref(false);
 const router = useRouter();
