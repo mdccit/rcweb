@@ -1,52 +1,22 @@
 <template>
     <div class="WordSection1 container text-black p-3">
         <div class="my-12"></div>
-        <p class="text-3xl"><b>Terms and Conditions</b></p>
-        <p class="MsoNormal"><b>Agreement between User and recruited.pro</b></p>
-        <p class="MsoNormal">&nbsp;</p>
-        <p class="MsoNormal">Welcome to recruited.pro. The recruited.pro website (the "Site") is comprised of various
-            web pages operated by Recruited. recruited.pro is offered to you conditioned on your acceptance without
-            modification of the terms, conditions, and notices contained herein (the "Terms"). Your use of recruited.pro
-            constitutes your agreement to all such Terms. Please read these terms carefully, and keep a copy of them for
-            your reference.</p>
-        <p class="MsoNormal">recruited.pro is a Social Networking Site.</p>
-        <p class="MsoNormal">Our goal is to connect college coaches directly to college recruits and save both parties
-            time by providing custom search results with many filter options.</p>
-        <p class="MsoNormal"><b>Privacy:</b> Your use of recruited.pro is subject to Recruited's Privacy Policy. Please
-            review our Privacy Policy, which also governs the Site and informs users of our data collection practices.
+        <p class="text-3xl"><b>{{ $t('terms.terms_and_condition') }}</b></p>
+        <p class="MsoNormal"><b>{{ $t('terms.agreement_between') }}</b></p>
+        <p class="MsoNormal"></p>
+        <p class="MsoNormal">{{ $t('terms.welcome_to_recruited') }}</p>
+        <p class="MsoNormal">{{ $t('terms.social_Networking_Site') }}</p>
+        <p class="MsoNormal">{{ $t('terms.our_goal_is') }}</p>
+        <p class="MsoNormal"><b>Privacy:</b> {{ $t('terms.use_of_recruited') }}
         </p>
-        <p class="MsoNormal"><b>Electronic Communications:</b> Visiting recruited.pro or sending emails to Recruited
-            constitutes electronic communications. You consent to receive electronic communications and you agree that
-            all agreements, notices, disclosures and other communications that we provide to you electronically, via
-            email and on the Site, satisfy any legal requirement that such communications be in writing.</p>
-        <p class="MsoNormal"><b>Your Account:</b> If you use this site, you are responsible for maintaining the
-            confidentiality of your account and password and for restricting access to your computer, and you agree to
-            accept responsibility for all activities that occur under your account or password. You may not assign or
-            otherwise transfer your account to any other person or entity. You acknowledge that Recruited is not
-            responsible for third party access to your account that results from theft or misappropriation of your
-            account. Recruited and its associates reserve the right to refuse or cancel service, terminate accounts, or
-            remove or edit content in our sole discretion.</p>
-        <p class="MsoNormal"><b>Children Under Thirteen:</b> Recruited does not knowingly collect, either online or
-            offline, personal information from persons under the age of thirteen. If you are under 18, you may use
-            recruited.pro only with permission of a parent or guardian.</p>
-        <p class="MsoNormal"><b>Links to Third Party Sites/Third Party Services:</b> recruited.pro may contain links to
-            other websites ("Linked Sites"). The Linked Sites are not under the control of Recruited and Recruited is
-            not responsible for the contents of any Linked Site, including without limitation any link contained in a
-            Linked Site, or any changes or updates to a Linked Site. Recruited is providing these links to you only as a
-            convenience, and the inclusion of any link does not imply endorsement by Recruited of the site or any
-            association with its operators.</p>
-        <p class="MsoNormal">Certain services made available via recruited.pro are delivered by third party sites and
-            organizations. By using any product, service or functionality originating from the recruited.pro domain, you
-            hereby acknowledge and consent that Recruited may share such information and data with any third party with
-            whom Recruited has a contractual relationship to provide the requested product, service or functionality on
-            behalf of recruited.pro users and customers.</p>
-        <p class="MsoNormal"><b>No Unlawful or Prohibited Use/Intellectual Property:</b> You are granted a
-            non-exclusive, non-transferable, revocable license to access and use recruited.pro strictly in accordance
-            with these terms of use. As a condition of your use of the Site, you warrant to Recruited that you will not
-            use the Site for any purpose that is unlawful or prohibited by these Terms. You may not use the Site in any
-            manner which could damage, disable, overburden, or impair the Site or interfere with any other party's use
-            and enjoyment of the Site. You may not obtain or attempt to obtain any materials or information through any
-            means not intentionally made available or provided for through the Site.</p>
+        <p class="MsoNormal"><b>{{ $t('terms.electronic_communications') }}</b>{{ $t('terms.visiting_recruited') }} </p>
+        <p class="MsoNormal"><b>{{ $t('terms.your_account') }}Your Account:</b>{{ $t('terms.if_use') }}</p>
+        <p class="MsoNormal"><b>{{ $t('terms.children_cnder') }}</b>{{ $t('terms.recruited_does_not') }}</p>
+        <p class="MsoNormal"><b>{{ $t('terms.to_third') }}</b>{{ $t('terms.may_contain_links') }}</p>
+        <p class="MsoNormal">{{ $t('terms.certain_services') }}</p>
+        <p class="MsoNormal"><b>{{ $t('terms.no_unlawful') }}No Unlawful or Prohibited Use/Intellectual Property:</b> 
+            {{ $t('terms.you_are_granted') }}
+        </p>
         <p class="MsoNormal">All content included as part of the Service, such as text, graphics, logos, images, as well
             as the compilation thereof, and any software used on the Site, is the property of Recruited or its suppliers
             and protected by copyright and other laws that protect intellectual property and proprietary rights. You
@@ -157,7 +127,7 @@
         <p class="MsoNormal"><b>Liability Disclaimer:</b> THE INFORMATION, SOFTWARE, PRODUCTS, AND SERVICES INCLUDED IN
             OR AVAILABLE THROUGH THE SITE MAY INCLUDE INACCURACIES OR TYPOGRAPHICAL ERRORS. CHANGES ARE PERIODICALLY
             ADDED TO THE INFORMATION HEREIN. RECRUITED AND/OR ITS SUPPLIERS MAY MAKE IMPROVEMENTS AND/OR CHANGES IN THE
-            SITE AT ANY<span style="font-family: &quot;Segoe UI&quot;, sans-serif; color: rgb(55, 65, 81);"></span>TIME.
+            SITE AT ANY<span style="font-family:Segoe sans-serif; color : rgb(55, 65, 81);"></span>TIME.
         </p>
         <p class="MsoNormal">RECRUITED AND/OR ITS SUPPLIERS MAKE NO REPRESENTATIONS ABOUT THE SUITABILITY, RELIABILITY,
             AVAILABILITY, TIMELINESS, AND ACCURACY OF THE INFORMATION, SOFTWARE, PRODUCTS, SERVICES AND RELATED GRAPHICS
