@@ -16,7 +16,8 @@
     "height": {
       "ft": "Height (Ft)",
       "in": "Height (In)"
-    },
+    }
+  },
     "terms":{
       "terms_and_condition": "Terms and Conditions",
       "agreement_between": "Agreement between User and recruited.pro",
@@ -68,5 +69,5 @@
           "recruited_reserves:": "Recruited reserves the right, in its sole discretion, to change the Terms under which recruited.pro is offered. The most current version of the Terms will supersede all previous versions. Recruited encourages you to periodically review the Terms to stay informed of our updates."
     },
     "budget": "Budget"
-  }
 }
+
