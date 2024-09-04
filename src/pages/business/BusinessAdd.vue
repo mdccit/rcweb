@@ -100,14 +100,6 @@ const searchBusinessUsers = async (search_key) => {
     }
 };
 
-definePageMeta({
-  middleware: [
-    'auth', 
-    'nuxt-permissions'
-  ],
-  roles: ['admin'],
-});
-
 </script>
 
 

@@ -30,13 +30,6 @@ const userStore = useUserStore();
 
 const user = userStore.user;
 
-definePageMeta({
-  middleware: [
-    'auth',
-    'nuxt-permissions'
-  ],
-  roles: ['admin'],
-})
 </script>
 
 <style scoped>

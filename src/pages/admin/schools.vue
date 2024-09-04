@@ -49,14 +49,6 @@ const closeModal = () => {
   showModal.value = false;
 };
 
-definePageMeta({
-  middleware: [
-    'auth', 
-    'nuxt-permissions'
-  ],
-  roles: ['admin'],
-})
-
 </script>
 
 <style scoped>
