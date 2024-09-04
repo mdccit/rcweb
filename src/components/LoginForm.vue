@@ -116,44 +116,58 @@ const splitErrors = computed(() => errors.value.flatMap((error) => error.split('
 // Function to handle authentication
 const handleSubmit = async () => {
   try {
-    error.value = '';
-    successMessage.value = '';
-    notification_type.value = '';
-    const response = await $authService.login(email.value, password.value)
+    error.value = '';  // Clear previous error messages
+    successMessage.value = '';  // Clear previous success messages
+    notification_type.value = '';  // Reset notification type
+
+    // Send login request to auth service
+    const response = await $authService.login(email.value, password.value);
+
     if (response.status === 200) {
-      successMessage.value = response.display_message
+      // Successful login
+      successMessage.value = response.display_message;
+
+      // Set the user in the Pinia store
       userStore.setUser({
         email: email.value,
-        role: response.data.role,
+        role: response.data.user_role,  // Corrected role property
         token: response.data.token
       });
+
+      // Set success notification
       notification_type.value = 'success';
       notificationMessage.value = response.display_message;
       showNotification.value = true;
 
+      // Set session cookie (conditionally for remember me)
       if (rememberMe.value) {
-        Cookies.set('session', response.data.token, { expires: 1 }); // Set cookie for 24 hours
+        Cookies.set('session', response.data.token, { expires: 1 });  // 24-hour session
       } else {
-        Cookies.set('session', response.data.token);
+        Cookies.set('session', response.data.token);  // No expiration for session cookie
       }
 
+      // Delay routing to show notification for 3 seconds
       setTimeout(() => {
-        if (response.data.user_permission_type === 'none' && (response.data.user_role == 'coach' && response.data.user_role == 'business')) {
+        // Conditionally redirect based on user role and permissions
+        if (response.data.user_permission_type === 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
           router.push('/user/approval-pending');  // Redirect to pending approval page
         } else {
           router.push('/admin/dashboard');  // Redirect to dashboard
         }
-      }, 3000); // Adjust the delay as needed (e.g., 2000ms for 2 seconds)
-
+      }, 3000);  // 3-second delay to show notification
     } else {
-      error.value = response.display_message;      
+      // Handle non-200 response (e.g., wrong credentials)
+      error.value = response.display_message;
       errors.value.push(response.display_message);
     }
   } catch (err) {
+    // Handle errors in the login process
     error.value = err.message;
     notification_type.value = 'failure';
     notificationMessage.value = err.message;
     showNotification.value = true;
+
+    // Handle error messages from the API response
     if (err.response?.data?.message) {
       if (Array.isArray(err.response.data.message)) {
         errors.value = err.response.data.message;
@@ -163,9 +177,8 @@ const handleSubmit = async () => {
     } else {
       errors.value = [err.response?.data?.message || err.message];
     }
-
   }
-}
+};
 
 // Function to handle Google sign up (assuming this is what you want to do)
 const handleGoogleSignUp = () => {

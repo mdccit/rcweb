@@ -256,70 +256,61 @@ const notificationType = ref('');
 
 
 const logout = async () => {
-  const userStore = useUserStore();
-  const router = useRouter();
-
   try {
-    console.log('logging out');
-
-    // Retrieve the token from localStorage
-    const token = localStorage.getItem('token');
-
+    console.log('Logging out...');
+    
+    const token = localStorage.getItem('token');  // Retrieve the token from local storage
+    
     if (!token) {
-      // If the token is not available, handle it gracefully
       console.warn('No token found. The user might already be logged out.');
-
-      // Clear user session data anyway, just to be safe
-      userStore.clearUser();
-      // Optionally, you could redirect to login or show a message
+      userStore.clearUser();  // Clear user data if no token is found
       notificationMessage.value = 'You have been logged out.';
       notification_type.value = 'success';
       showNotification.value = true;
+      
+      // Use a timeout to display the notification before redirecting to login
       setTimeout(() => {
-        router.push(`/login`);
-      }, 3000);
+        router.push('/login');  // Redirect to login
+      }, 2000);  // 2-second delay
 
-
-      return; // Exit the function early
+      return;
     }
 
-    // Make the logout request, including the token
+    // Call the logout API if the token exists
     const response = await $authService.logout({
       bearer_token: token
     });
 
     if (response.status === 200) {
-      // Clear the user data from the store and localStorage
-      userStore.clearUser();
-      localStorage.removeItem('user_role');
-      localStorage.removeItem('token');
-
-      // Show a success notification
+      userStore.clearUser();  // Clear user data from Pinia store
       notificationMessage.value = response.display_message;
       notification_type.value = 'success';
+      showNotification.value = true;
+      
       setTimeout(() => {
-        router.push(`/login`);
-      }, 3000);
+        router.push('/login');  // Redirect to login after 2 seconds
+      }, 2000);  // 2-second delay
     } else {
-      // Show a failure notification
       notificationMessage.value = response.display_message;
       notification_type.value = 'failure';
+      showNotification.value = true;
       setTimeout(() => {
-        router.push(`/login`);
-      }, 3000);
+        router.push('/login');
+      }, 2000);
     }
   } catch (err) {
-    // Handle any errors that occur during the logout process
+    // Handle logout errors
     error.value = err.response?.data?.message || err.message;
     notification_type.value = 'failure';
     notificationMessage.value = err.message;
-    setTimeout(() => {
-      router.push(`/login`);
-    }, 3000);
-  }
+    showNotification.value = true;
 
-  showNotification.value = true;
+    setTimeout(() => {
+      router.push('/login');  // Ensure redirection to login even on error
+    }, 2000);  // 2-second delay
+  }
 };
+
 
 
 
@@ -328,6 +319,7 @@ onMounted(() => {
 });
 
 const login = () => {
+  console.log('login push');
   router.push('/login');
 };
 

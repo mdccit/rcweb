@@ -6,6 +6,7 @@ export const useUserStore = defineStore('user', {
     token: null,
     user: null,
     user_role: null,
+    email:null,
   }),
   getters: {
     isLoggedIn: (state) => !!state.token,  // Check if token exists
@@ -24,10 +25,18 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem('user_role', user_role);
       }
     },
+    setEmail(email) {
+      this.email = email;
+      if (process.client) {
+        localStorage.setItem('email', email);
+      }
+    },
     setUser(user) {
+      console.log(user);
       this.user = user;
       this.setToken(user.token);
       this.setRole(user.user_role);
+      this.setEmail(user.email);
       if (process.client) {
         localStorage.setItem('user', JSON.stringify(user));
       }
