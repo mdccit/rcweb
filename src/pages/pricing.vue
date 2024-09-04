@@ -129,14 +129,6 @@
 import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore();
 
-definePageMeta({
-  middleware: [
-    'auth', 
-    'nuxt-permissions'
-  ],
-  roles: ['player'],
-})
-
 </script>
 
 <style scoped>

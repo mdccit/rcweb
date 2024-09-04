@@ -649,14 +649,4 @@ const openModal = () => {
     modalRef.value.openModal();
 };
 
-
-
-definePageMeta({
-  middleware: [
-    'auth', 
-    'nuxt-permissions'
-  ],
-  roles: ['player'],
-})
-
 </script>

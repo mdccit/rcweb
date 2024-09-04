@@ -7,6 +7,8 @@ export const useUserStore = defineStore('user', {
     user: null,
     user_role: null,
     email:null,
+    roles: [],
+    permissions: []
   }),
   getters: {
     isAuthenticated: (state) => !!state.user && !!state.token,
