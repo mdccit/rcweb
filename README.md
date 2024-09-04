@@ -97,33 +97,45 @@ docker logs recruited-app
 
 # Build and Run Guide
 
+
+## Build for Development
+
 ```bash
-# Build for Development
 pnpm run build:dev
+```
 
-# Run Development Build
+### Run Development Build
+```bash
 node dist/dev/server/index.mjs
+```
 
-==========================================
-
-# Build for QA
+### Build for QA
+```bash
 pnpm run build:qa
+```
 
-# Run QA Build
+### Run QA Build
+```bash
 node dist/qa/server/index.mjs
+```
 
-==========================================
 
-# Build for UAT
+## Build for UAT
+```bash
 pnpm run build:uat
+```
 
-# Run UAT Build
+## Run UAT Build
+```bash
 node dist/uat/server/index.mjs
+```
 
-==========================================
-
-# Build for Production
+## Build for Production
+```bash
 pnpm run build:prod
+```
 
-# Run Production Build
+## Run Production Build
+```bash
 node dist/production/server/index.mjs
+```
