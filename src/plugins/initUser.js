@@ -1,9 +1,9 @@
+// plugins/initUser.js
 import { useUserStore } from '@/stores/userStore';
 
-export default defineNuxtPlugin(() => {
-  const userStore = useUserStore();
-
+export default defineNuxtPlugin((nuxtApp) => {
   if (process.client) {
-    userStore.initializeUser(); // This will now handle both logged-in and non-logged-in cases
+    const userStore = useUserStore(nuxtApp.$pinia);
+    userStore.initializeUser();  // Initialize the user data from localStorage
   }
 });

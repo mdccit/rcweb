@@ -64,7 +64,7 @@ export default defineNuxtConfig({
     '~/plugins/runtimeConfig.js',
     '~/plugins/router.plugin.ts',
     '~/plugins/services.js',
-    '~/plugins/pinia.js',
+    '~/plugins/pinia.js',        
     '~/plugins/initUser.js',
     '~/plugins/element-plus.ts',
     '~/plugins/flowbite.client.ts',

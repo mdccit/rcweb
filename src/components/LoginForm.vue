@@ -154,7 +154,7 @@ const handleSubmit = async () => {
         } else {
           router.push('/admin/dashboard');  // Redirect to dashboard
         }
-      }, 3000);  // 3-second delay to show notification
+      }, 1000);  // 1-second delay to show notification
     } else {
       // Handle non-200 response (e.g., wrong credentials)
       error.value = response.display_message;

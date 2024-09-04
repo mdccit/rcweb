@@ -32,10 +32,12 @@ export const useUserStore = defineStore('user', {
       }
     },
     setUser(user) {
-      console.log(user);
+      this.user = user;
+      this.token = user.token;
+      this.user_role = user.role || 'default';
       this.user = user;
       this.setToken(user.token);
-      this.setRole(user.user_role);
+      this.setRole(user.role);
       this.setEmail(user.email);
       if (process.client) {
         localStorage.setItem('user', JSON.stringify(user));
