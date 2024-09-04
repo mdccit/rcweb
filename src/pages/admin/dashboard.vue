@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto mt-10">
-    <h1 class="text-2xl mb-4">Admin Dashboard</h1>
+    <h1 class="text-2xl text-black mb-4">Admin Dashboard</h1>
   
   </div>
   <!-- <div>

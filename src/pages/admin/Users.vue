@@ -636,7 +636,8 @@
 import { ref } from 'vue';
 import AdminUserTable from '~/components/tables/AdminUserTable.vue';
 import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.vue';
-
+import { useUserStore } from '~/stores/userStore';
+const userStore = useUserStore();
 
 const showModal = ref(false);
 
@@ -650,5 +651,12 @@ const openModal = () => {
 
 
 
+definePageMeta({
+  middleware: [
+    'auth', 
+    'nuxt-permissions'
+  ],
+  roles: ['player'],
+})
 
 </script>

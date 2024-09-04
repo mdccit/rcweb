@@ -34,6 +34,8 @@
 import { ref } from 'vue';
 import schoolTable from '~/components/tables/AdminSchoolTable.vue';
 import schoolCreateModal from '~/components/shared/schoolCreateModal.vue';
+import { useUserStore } from '~/stores/userStore';
+const userStore = useUserStore();
 
 const showModal = ref(false);
 
@@ -46,6 +48,14 @@ const openCreateSchoolModal = () => {
 const closeModal = () => {
   showModal.value = false;
 };
+
+definePageMeta({
+  middleware: [
+    'auth', 
+    'nuxt-permissions'
+  ],
+  roles: ['admin'],
+})
 
 </script>
 
