@@ -11,7 +11,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import Navbar from '~/components/NavBar.vue';
+import Navbar from '~/components/admin/user/NavBar.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import checkSession from '~/middleware/checkSession';
 
