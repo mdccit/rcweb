@@ -165,7 +165,7 @@ const handleSubmit = async () => {
         token: response.data.token
       });
       localStorage.setItem('token', response.data.token);
-      router.push(`/register-step-2/${response.data.user_id}`);
+      router.push(`/register2/${response.data.user_id}`);
     } else {
       errors.value.push(response.data.display_message);
     }

@@ -1,6 +1,7 @@
 {
   "hello": "Hello",
   "welcome": "Welcome",
+  "contacts":"Contacts",
   "register": {
     "title": "Let’s get started!",
     "role": "I am",
@@ -18,7 +19,7 @@
       "in": "Height (In)"
     }
   },
-    "terms":{
+  "terms":{
       "terms_and_condition": "Terms and Conditions",
       "agreement_between": "Agreement between User and recruited.pro",
       "welcome_to_recruited": "Welcome to recruited.pro. The recruited.pro website (the 'Site') is comprised of various web pages operated by Recruited. recruited.pro is offered to you conditioned on your acceptance without modification of the terms, conditions, and notices contained herein (the 'Terms'). Your use of recruited.pro constitutes your agreement to all such Terms. Please read these terms carefully, and keep a copy of them for your reference.",
@@ -67,7 +68,29 @@
           "unless_otherwise": "Unless otherwise specified herein, this agreement constitutes the entire agreement between communications and proposals, whether electronic, oral or written, between the user and Recruited with respect to the Site. A printed version of this agreement and of any notice given in electronic form shall be admissible in judicial or administrative proceedings based upon or relating to this agreement to the same extent and subject to the same conditions as other business documents and records originally generated and maintained in printed form. It is the express wish to the parties that this agreement and all related documents be written in English.",
           "Changes_to_terms:": "Changes to Terms:",
           "recruited_reserves:": "Recruited reserves the right, in its sole discretion, to change the Terms under which recruited.pro is offered. The most current version of the Terms will supersede all previous versions. Recruited encourages you to periodically review the Terms to stay informed of our updates."
+      },
+  "about":{
+      "title": "About Recruited",
+      "subheading": "A revolution in college tennis recruitment",
+      "recruited_was_founded": "Recruited was founded by Ivan Yatsuk, Tony Muniz, and Bruno Oliveira in 2023 with the intent goal of helping high school players all over the world get into the school they desire and deserve. For the founders of Recruited, tennis is more than just a sport. Read more below.",
+      "recruited_pro": "Follow @recruited.pro",
+      "our_team": "Our Team",
+      "early_from_Minsk": "Moving early from Minsk, Belarus, I started playing tennis at just 5 years old under my dad's coaching. Despite early success earning 2 ATP points, navigating the college recruiting process was a challenge until meeting Coach Ashley Fisher from USF. I am the Chief Executive Officer.",
+      "originally_from_barcelona": "Originally from Barcelona, Spain, my personal journey through collegiate tennis, including transferring schools, inspired me to co-found Recruited with Ivan at 23. I graduated with honors in finance from SMU and played for Georgia Southern, USF, and SMU respectively. I also held an ATP ranking for over 4 years.",
+      "born_in_Belo": "Born in Belo Horizonte, Brazil, I'm using college tennis in the US as a tool to achieve my dream of going into pro tennis. I am currently ATP ranked. At 22, I'll soon graduate from the University of South Florida after transferring from the University of South Carolina.", 
+      "our_mission": "Our Mission",   
+      "at_our_core": "At our core, we are dedicated to empowering aspiring student-athletes worldwide to unlock their full potential and secure a spot on their dream college tennis team.",                            
+      "we_are_unwavering": "We are unwavering in our belief that every talented individual deserves an equal opportunity to pursue their passion for tennis at the collegiate level. Our mission is to bridge the gap between high school athletes and college coaches, simplifying the intricate recruitment process. We understand the challenges and complexities involved, and our platform serves as a guiding light, ensuring a seamless and enriching experience for all.",                                             
+      "with_a_deep_rooted ": "With a deep-rooted commitment to excellence, we strive to foster an environment where dreams become reality. Our team of experts is dedicated to providing personalized guidance, invaluable insights, and a supportive network, enabling each student-athlete to showcase their skills, achievements, and aspirations effectively. We are driven by a relentless pursuit of success, fueled by the belief that hard work, determination, and unwavering dedication can transcend boundaries. Join us on this journey, and together, we will unlock the doors to a world of opportunities, where collegiate tennis and academic excellence intertwine, paving the way for a future filled with growth, accomplishments, and enduring memories.", 
+      "need_customer_support?": "Need customer support?",  
+      "see_Somthing_wrong": "See somthing wrong", 
+      "business_address": "Business Address", 
+      "recruited_Sports": "Recruited Sports Inc.", 
+      "see_Somthing_wrong?": "See somthing wrong"  
+      
     },
     "budget": "Budget"
-}
+
+}   
+
 
