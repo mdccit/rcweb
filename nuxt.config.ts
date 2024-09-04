@@ -1,12 +1,20 @@
 import { defineNuxtConfig } from 'nuxt/config';
 import { resolve } from 'path';
 import dotenv from 'dotenv';
+import customRoutes from './src/config/routes'
 dotenv.config();
 
 export default defineNuxtConfig({
   // devtools: { enabled: true },
   srcDir: 'src/',
   ssr: true,
+  target: 'universal',
+  router: {
+    base: '/',  // Base URL for your router, assuming your app is served from the root
+  },
+  generate: {
+    fallback: true,  // Generates a 404.html for static hosting fallback
+  },
   css: [
     '@/assets/css/tailwind.css', // Ensure this is the first CSS file
     'element-plus/dist/index.css',
@@ -32,7 +40,7 @@ export default defineNuxtConfig({
           'postcss-nested': {},
           'postcss-import': {},
           'tailwindcss': {},
-          'autoprefixer' : {},
+          'autoprefixer': {},
 
         },
       },
@@ -53,6 +61,7 @@ export default defineNuxtConfig({
   },
   plugins: [
     '~/plugins/runtimeConfig.js',
+    '~/plugins/router.plugin.ts',
     '~/plugins/services.js',
     '~/plugins/pinia.js',
     '~/plugins/initUser.js',
@@ -73,10 +82,35 @@ export default defineNuxtConfig({
     '@assets': resolve(__dirname, './src/assets')
   },
   nitro: {
-    prerender: {
-      crawlLinks: false,
-      routes: ['/'],
+    output: {
+      dir: '../dist',  // Set the output directory to 'dist/'
     },
+    prerender: {
+      crawlLinks: false,  // Automatically discover and crawl links
+      failOnError: true, // Stop on the first error, to make debugging easier
+      routes: ['/',           // Home
+        '/pricing',    // Pricing
+        '/about',      // About
+        '/register',   // Register        
+        '/login',      // Login
+        '/reset-password', // Reset password
+        '/forgot-password', // Ignore forgot password route
+      ],
+      onError: (route, error) => {
+        console.error(`Error prerendering route ${route}:`, error);
+      },      
+      ignore: [
+        '/admin',         // Ignore all admin routes
+        '/admin/**',      // Ignore all nested admin routes
+        '/user',          // Ignore all user routes
+        '/user/**',       // Ignore all nested user routes
+        '/dashboard',     // Ignore dashboard route (likely user-specific)        
+        '/google-auth',   // Ignore Google authentication route
+        '/pending-approval', // Ignore pending approval route
+        '/time',          // Ignore time page (if it's dynamic)
+        '/unauthorized',  // Ignore unauthorized access page
+      ]
+    }
   },
   colorMode: {
     classSuffix: '',
@@ -84,11 +118,9 @@ export default defineNuxtConfig({
     storageKey: 'color-mode',
   },
   compatibilityDate: '2024-07-31',
-vite: {
-    resolve: {
-      alias: {
-        '@popperjs/core': require.resolve('@popperjs/core'),
-      },
+  vite: {
+    optimizeDeps: {
+      include: ['@popperjs/core'],
     },
     server: {
       hmr: {

@@ -16,13 +16,16 @@
       <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-4xl">
         <div class="flex items-center space-x-4 my-5">
           <div class="flex self-center items-center">
-            <NuxtLink to="/login" class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full"><svg
-                class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            <NuxtLink to="/login" class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full">
+              <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                 stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M15 6l-6 6l6 6"></path>
-              </svg> <span class="sr-only">Go back</span></<NuxtLink to="">
-            </NuxtLink>>
+              </svg>
+              <span class="sr-only">Go back</span>
+            </NuxtLink>
           </div>
+
+
           <div class="self-center">
             <h1 class="text-2xl font-bold text-primary">Let's sign up!</h1>
           </div>
@@ -162,20 +165,17 @@ const handleSubmit = async () => {
     });
 
     if (response.status === 200) {
-      userStore.setUser({
-        token: response.data.token,
-        user_role : response.data.user_role
-      });
-      localStorage.setItem('token', response.data.token);
-      user_id.value = response.data.user_id;
-      loading.value = false;
-      router.push({
-        path: '/register2',
-        query: {
-          action: 'register',
-        }
-      });
+      const token = response.data.token;
+      const user_role = response.data.user_role;
+      if (token) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('user_role', user_role);
 
+        // Use named route navigation
+        router.push({ name: 'register-step-two-token', params: { token: token } });
+      } else {
+        errors.value.push('Token is missing in the response.');
+      }
     } else {
       loading.value = false;
       errors.value.push(response.data.display_message);
