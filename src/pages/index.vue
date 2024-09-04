@@ -239,14 +239,6 @@ import  EPDataTable from '~/components/EPDataTable.vue';
 import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore();
 
-definePageMeta({
-  middleware: [
-    'auth', 
-    'nuxt-permissions'
-  ],
-  roles: ['admin'],
-})
-
 </script>
 
 <style scoped>
