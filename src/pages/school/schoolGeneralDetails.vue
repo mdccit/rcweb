@@ -338,7 +338,16 @@ const fetchSchoolDetails = async (schoolId) => {
     }
 };
 
+definePageMeta({
+  middleware: [
+    'auth', 
+    'nuxt-permissions'
+  ],
+  roles: ['admin'],
+});
+
 </script>
+
 
 <style scoped>
 .container {

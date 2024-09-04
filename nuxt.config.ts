@@ -11,6 +11,7 @@ export default defineNuxtConfig({
   target: 'universal',
   router: {
     base: '/',  // Base URL for your router, assuming your app is served from the root
+    middleware: ['auth', 'nuxt-permissions'],
   },
   generate: {
     fallback: true,  // Generates a 404.html for static hosting fallback
@@ -54,6 +55,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
+      
       apiUrl: process.env.NUXT_PUBLIC_API_URL,
       accessKey: process.env.ACCESS_KEY,
       defaultLang: process.env.DEFAULT_LANG,
@@ -63,7 +65,7 @@ export default defineNuxtConfig({
     '~/plugins/runtimeConfig.js',
     '~/plugins/router.plugin.ts',
     '~/plugins/services.js',
-    '~/plugins/pinia.js',
+    '~/plugins/pinia.js',        
     '~/plugins/initUser.js',
     '~/plugins/element-plus.ts',
     '~/plugins/flowbite.client.ts',
@@ -82,8 +84,9 @@ export default defineNuxtConfig({
     '@assets': resolve(__dirname, './src/assets')
   },
   nitro: {
+    // preset: 'node-server',
     output: {
-      dir: '../dist',  // Set the output directory to 'dist/'
+      dir: process.env.NUXT_BUILD_PATH,  // Set the output directory to 'dist/'
     },
     prerender: {
       crawlLinks: false,  // Automatically discover and crawl links
