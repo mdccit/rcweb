@@ -3,7 +3,7 @@
     v-model="selected" 
     @change="updateValue" 
     placeholder="Code" 
-    class="block text-black w-full bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 px-5 py-3 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500" 
+    class="block text-black w-full bg-gray-50 border h-12  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 px-5 py-3 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500" 
     id="mobileCode" 
     required
   >
