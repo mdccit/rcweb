@@ -244,7 +244,7 @@
     </section>
   </div>
 
-<FooterPublic></FooterPublic>
+<!-- <FooterPublic></FooterPublic> -->
 </template>
 
 <script setup>
