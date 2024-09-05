@@ -57,7 +57,7 @@
             </main>
             <section class="container mt-8 pb-16" id="team">
                 <div class="container text-black">
-                    <h2 class="text-4xl font-bold mt-20 mb-8 text-center"> {{ $t('about.our_Team') }}</h2>
+                    <h2 class="text-4xl font-bold mt-20 mb-8 text-center"> {{ $t('about.our_team') }}</h2>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div class="border border-border rounded-lg px-8 py-12 text-center"><img src="@/assets/images/ivan.png"
                                 alt="Profile picture" class=" h-32 rounded-full w-16 md:w-32 h-16 md:h-32 mx-auto mb-6">
