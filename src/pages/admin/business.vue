@@ -1,4 +1,5 @@
 <template>
+<ClientOnly>
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <div class="flex w-full justify-between gap-8">
             <h2 class="font-bold text-lg self-center text-black"> Businesses </h2>
@@ -24,7 +25,7 @@
     </div>
 
   
-
+</ClientOnly>
 </template>
 
 <script setup>
