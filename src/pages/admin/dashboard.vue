@@ -20,8 +20,9 @@ import { useUserStore } from '~/stores/userStore';
 
 const userStore = useUserStore()
 
-const email = userStore.user?.email
-const token = userStore.user?.token
+definePageMeta({
+  layout: 'admin',
+});
 </script>
 
 <style scoped>
