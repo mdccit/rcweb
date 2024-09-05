@@ -119,6 +119,7 @@ export default defineNuxtConfig({
     classSuffix: '',
     fallback: 'light',
     storageKey: 'color-mode',
+    preference: 'light',
   },
   compatibilityDate: '2024-07-31',
   vite: {
