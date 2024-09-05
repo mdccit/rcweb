@@ -5,12 +5,14 @@
     <main class="min-h-screen bg-gray-100" v-else>
       <NuxtPage />
     </main>
+    <FooterPublic></FooterPublic>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import FooterPublic from '~/components/FooterPublic.vue';
 
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import NavBarPublic from '~/components/NavBarPublic.vue';

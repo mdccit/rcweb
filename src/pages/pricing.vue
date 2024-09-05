@@ -1,16 +1,17 @@
 <template>
-    <div id="maincontent text-black">
+    <div id="maincontent text-black" class="mx-auto">
         <h1 class="font-bold tracking-wider mb-2 mt-8 opacity-50 text-xs text-center uppercase  text-black">Pricing</h1>
         <h2 class="mb-8 text-5xl tracking-tight text-center font-bold md:text-6xl  text-black"> Success at any budget </h2>
-        <div class="container">
+        <div class="container mx-auto">
             <div class="p-20 text-center font-lg border border-border container max-w-3xl ">
                 <p class="mb-6 text-3xl font-bold text-black">Everyone can use the platform for free while we are in beta!</p>
                 <p class="mb-8 text-black"> We are working hard to bring you extra benefits like personalized Recruited merch,
                     discounts to consultation calls, analytics, boosts, and so much more later this year. For now,
-                    everybody can use the essential functions of Recruited at no cost. </p><button type="submit"
+                    everybody can use the essential functions of Recruited at no cost. </p>
+                    <button type="submit"
                         class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-400 active:bg-blue-500 text-white border-transparent focus:border-primary-300 focus:ring-primary-200 py-4 w-full mx-auto max-w-xl"
-                        href="https://qa1.recruited.qualitapps.com/register"><span class="text-lg">Sign up for free
-                            now</span></button>
+                        href="https://qa1.recruited.qualitapps.com/register"><span class="text-lg">
+                            <NuxtLink to="/register">Sign up for free now</NuxtLink></span></button>
             </div>
             <div class="mx-auto max-w-3xl">
                 <h2 class="mt-16 mb-10 text-4xl font-bold tracking-tight text-black"> Available add-ons </h2>
