@@ -250,6 +250,7 @@
 <script setup>
 import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore();
+definePageMeta({ colorMode: 'light', })
 
 </script>
 

@@ -19,7 +19,7 @@ import NavBarPublic from '~/components/NavBarPublic.vue';
 import checkSession from '~/middleware/checkSession';
 
 defineNuxtRouteMiddleware(checkSession);
-
+definePageMeta({ colorMode: 'light', })
 const loading = ref(false);
 const router = useRouter();
 

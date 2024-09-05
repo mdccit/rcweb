@@ -105,12 +105,12 @@
 </template>
 
 <script setup>
-//import { useUserStore } from '~/stores/userStore'
+import { useUserStore } from '~/stores/userStore'
 
-//const userStore = useUserStore()
-
-//const email = userStore.user?.email
-//const token = userStore.user?.token
+const userStore = useUserStore()
+definePageMeta({ colorMode: 'light', })
+const email = userStore.user?.email
+const token = userStore.user?.token
 </script>
 
 <style scoped>
