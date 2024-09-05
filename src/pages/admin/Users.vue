@@ -650,6 +650,7 @@ const openModal = () => {
 };
 
 definePageMeta({
+    ssr: true,
     layout: 'admin',
     middleware: ['permissions'],
     roles: ['admin'],

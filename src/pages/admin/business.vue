@@ -8,7 +8,7 @@ definePageMeta({
     ssr: 'true',
     layout: 'admin',
     middleware: ['permissions'],
-    // roles: ['admin'],
+    roles: ['admin'],
 });
 </script>
 

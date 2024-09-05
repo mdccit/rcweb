@@ -3,8 +3,8 @@
     <div class="flex mt-2 mb-12 gap-4">
       <h2 class="self-center text-2xl font-bold flex-1 text-gray-900">Login</h2>
       <div class="self-center">
-        <a href="https://qa1.recruited.qualitapps.com/forgot-password"
-          class="text-primary text-right block font-bold">Can't sign in?</a>
+        <NuxtLink to="/forgot-password"
+          class="text-black text-right block font-bold">Can't sign in?</NuxtLink>
       </div>
     </div>
 
