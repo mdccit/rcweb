@@ -1,5 +1,7 @@
 // stores/userStore.js
 import { defineStore } from 'pinia';
+import Cookies from 'js-cookie';
+
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -68,11 +70,11 @@ export const useUserStore = defineStore('user', {
        // Remove session cookie
        Cookies.remove('session', { path: '/' });
 
-      // const userPermissions = usePermissions();
-      const userRoles = useRoles();
+      // // const userPermissions = usePermissions();
+      // const userRoles = useRoles();
 
-      // userPermissions.value = []; // Clear permissions
-      userRoles.value = []; // Clear roles
+      // // userPermissions.value = []; // Clear permissions
+      // userRoles.value = []; // Clear roles
 
       if (process.client) {
         localStorage.removeItem('user');

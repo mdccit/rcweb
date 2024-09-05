@@ -1,3 +1,23 @@
+<script setup>
+import AdminBusinessTable from '~/components/tables/AdminBusinessTable.vue';
+import { useUserStore } from '~/stores/userStore';
+const userStore = useUserStore();
+
+
+definePageMeta({
+    ssr: 'true',
+    layout: 'admin',
+    middleware: ['permissions'],
+    // roles: ['admin'],
+});
+</script>
+
+<style scoped>
+.container {
+    max-width: 600px;
+}
+</style>
+
 <template>
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <div class="flex w-full justify-between gap-8">
@@ -27,22 +47,3 @@
 
 </template>
 
-<script setup>
-import AdminBusinessTable from '~/components/tables/AdminBusinessTable.vue';
-import { useUserStore } from '~/stores/userStore';
-const userStore = useUserStore();
-
-
-definePageMeta({
-    ssr: 'true',
-    layout: 'admin',
-    middleware: ['permissions'],
-    roles: ['admin'],
-});
-</script>
-
-<style scoped>
-.container {
-    max-width: 600px;
-}
-</style>

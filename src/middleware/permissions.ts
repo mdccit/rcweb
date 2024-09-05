@@ -1,5 +1,3 @@
-import { useUserStore } from '~/stores/userStore';
-
 export default defineNuxtRouteMiddleware((to, from) => {
   const userStore = useUserStore();
 
@@ -8,8 +6,13 @@ export default defineNuxtRouteMiddleware((to, from) => {
     userStore.loadUserFromStorage();
   }
 
+  // Make sure user exists before accessing roles
+  if (!userStore.user) {
+    return navigateTo('/login'); // Redirect to login if the user is null
+  }
+
   // Access the user's roles and permissions from the store
-  const userRoles = userStore.roles;
+  const userRoles = userStore.roles || [];
 
   // Check if user has the required roles for the route
   const requiredRoles = to.meta.roles || [];

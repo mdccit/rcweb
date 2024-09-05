@@ -159,8 +159,13 @@ import EPDataTable from '~/components/EPDataTable.vue';
 
 const userStore = useUserStore()
 
-const email = userStore.user?.email
-const token = userStore.user?.token
+definePageMeta({
+    ssr: true,
+    layout: 'admin',
+    middleware: ['permissions'],
+    roles: ['admin'],
+});
+
 </script>
 
 <style scoped>

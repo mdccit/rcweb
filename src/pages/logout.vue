@@ -28,12 +28,8 @@ const logoutUser = async () => {
     // Handle logout logic
     userStore.clearUser();
 
-    // If you're using cookies, clear the session cookie here (if necessary)
-    Cookies.remove('session', { path: '/' });
-
     notification_type.value = 'success';
     notificationMessage.value = 'User Successfully Logged Out';
-
     showNotification.value = true;
   } catch (err) {
     errors.value.push('Error logging out');
