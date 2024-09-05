@@ -4,9 +4,10 @@
       <h1 class="text-5xl text-black md:text-7xl max-w-[800px] mx-auto font-bold">{{ $t('home.title') }}
       </h1>
       <p class="my-10 text-2xl max-w-3xl mx-auto text-black">{{ $t('home.subheading') }} </p>
-      <a href="https://qa1.recruited.qualitapps.com/register" onclick="dataLayer.push({'event': 'star_signup'});"
-        class=" bg-blue-500 border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50  hover:bg-primary-400 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200 !px-20 !py-4">
-        <span class="text-xl ">{{ $t('home.sign_up_forfree') }}</span></a>
+      <NuxtLink to="/register" onclick="dataLayer.push({'event': 'star_signup'});"
+        class=" bg-blue-500 border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50  hover:bg-blue-700 active:bg-blue-700 text-white border-transparent focus:border-primary-300 focus:ring-primary-200 !px-20 !py-4">
+        <span class="text-xl ">{{ $t('home.sign_up_forfree') }}</span>
+      </NuxtLink>
       <p class="text-purple-800 font-bold mt-8"><svg class="w-6 h-6 inline-block" xmlns="http://www.w3.org/2000/svg"
           width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
           stroke-linecap="round" stroke-linejoin="round">
@@ -112,7 +113,7 @@
                 stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
               </svg></div>
-            <div class="flex-1 self-center"><strong>  {{ $t('home.saving_of_pages') }} </strong> 
+            <div class="flex-1 self-center"><strong> {{ $t('home.saving_of_pages') }} </strong>
               {{ $t('home.your_favorite_schools') }}
             </div>
           </div>
@@ -163,13 +164,17 @@
                 <path d="M12 15v3"></path>
               </svg></div>
             <div class="flex-1 self-center"><strong>{{ $t('home.coming_soons') }}</strong>
-              {{ $t('home.recruited_Showcase') }} 
+              {{ $t('home.recruited_Showcase') }}
             </div>
           </div>
         </div>
-        <div class="p-12"></div><a href="https://qa1.recruited.qualitapps.com/register"><button type="submit"
-            class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200 !px-20 !py-4 block mx-auto"><span
-              class="text-xl">Sign up for free</span></button></a>
+        <div class="p-12"></div>
+        <NuxtLink to="/register">
+          <button type="submit"
+            class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white text-gray-700 border-gray-300  focus:ring-primary-200 !px-20 !py-4 block mx-auto"><span
+              class="text-xl">Sign up for free</span>
+          </button>
+        </NuxtLink>
         <div class="p-24"></div>
       </div>
     </section>
@@ -227,12 +232,14 @@
       <div class="max-w-3xl bg-blue-500 rounded-xl p-12 md:p-20 text-white mx-auto text-center mt-5">
         <h2 class="text-4xl font-bold mb-8">{{ $t('home.open_beta_and_quickly') }}
         </h2>
-        <p class="text-lg font-medium mb-8">{{ $t('home.the_first_platform') }} 
+        <p class="text-lg font-medium mb-8">{{ $t('home.the_first_platform') }}
         </p>
-        <a href="https://qa1.recruited.qualitapps.com/register" onclick="dataLayer.push({'event': 'star_signup'});"
-          class="border bg-white  rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600  text-gray border-transparent focus:border-primary-300 focus:ring-primary-200 !px-20 !py-4"
+        <NuxtLink to="/register" onclick="dataLayer.push({'event': 'star_signup'});"
+          class="border bg-white text-black  rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-white-400 active:bg-primary-600  text-gray border-transparent focus:border-primary-300 focus:ring-primary-200 !px-20 !py-4"
           data-v-inspector="src/pages/index.vue:7:95" data-v-02281a80="">
-          <span class="text-xl text-black" data-v-inspector="src/pages/index.vue:9:270" data-v-02281a80="">{{ $t('home.sign_up_forfree') }}</span></a>
+          <span class="text-xl text-black" data-v-inspector="src/pages/index.vue:9:270" data-v-02281a80="">{{
+            $t('home.sign_up_forfree') }}</span>
+        </NuxtLink>
       </div>
     </section>
   </div>
