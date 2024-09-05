@@ -4,7 +4,7 @@
       <h2 class="self-center text-2xl font-bold flex-1 text-gray-900">Login</h2>
       <div class="self-center">
         <NuxtLink to="/forgot-password"
-          class="text-black text-right block font-bold">Can't sign in?</NuxtLink>
+          class=" text-blue-500 text-right block font-bold">Can't sign in?</NuxtLink>
       </div>
     </div>
 
@@ -104,6 +104,7 @@ const notificationMessage = ref('');
 const loading = ref(false);
 const notificationType = ref('');
 
+definePageMeta({colorMode: 'light',})
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
