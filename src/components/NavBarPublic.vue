@@ -54,18 +54,15 @@
                         <path d="M6 6l12 12"></path>
                     </svg></span></button></div>
         <div class="lg:hidden px-8" style="display: none;">
-            <div class="flex flex-col gap-4 text-xl"><a href="https://qa1.recruited.qualitapps.com/about"
-                    class="font-bold self-center w-full"> About </a><a
-                    href="https://qa1.recruited.qualitapps.com/pricing" class="font-bold self-center w-full"> Pricing
-                </a><a href="https://qa1.recruited.qualitapps.com/events" class="font-bold self-center w-full"> Events
-                </a><a href="https://qa1.recruited.qualitapps.com/app/resources" class="font-bold self-center w-full">
-                    Resources </a><a href="https://qa1.recruited.qualitapps.com/app/resources/bookings"
-                    class="font-bold self-center w-full"> Calls </a><a href="https://qa1.recruited.qualitapps.com/blog"
-                    class="font-bold self-center w-full"> Blog </a>
-                <div class="p-2"></div>
-                <NuxtLink to="/login"
-                    class="bg-opacity-10 text-center hover:opacity-80 active:opacity-60 text-black font-bold py-2.5 px-8 rounded-full">
-                    Login </NuxtLink>
+            <div class="flex flex-col gap-4 text-xl">
+                
+                <NuxtLink to="/pricing" class="font-bold self-center w-full"> Pricing </NuxtLink>
+                <NuxtLink to="/about" class="font-bold self-center full"> About </NuxtLink>
+                <NuxtLink to="/resources" class="font-bold self-center full"> Resources </NuxtLink>
+                <NuxtLink to="/calls" class="font-bold self-center full"> Calls </NuxtLink>
+                <NuxtLink to="/events" class="font-bold self-center full"> Events </NuxtLink>
+                <NuxtLink to="/blog" class="font-bold self-center full"> Blog </NuxtLink>
+            
             </div>
             <div class="pb-8"></div>
         </div>
