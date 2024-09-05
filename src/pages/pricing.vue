@@ -129,6 +129,12 @@
 import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore();
 
+definePageMeta({
+    ssr: 'true',
+    layout: 'admin',
+    roles: [],
+});
+
 </script>
 
 <style scoped>
