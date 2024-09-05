@@ -21,8 +21,12 @@ import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore()
 
 definePageMeta({
-  layout: 'admin',
+    ssr: true,
+    layout: 'admin',
+    middleware: ['permissions'],
+    roles: ['admin'],
 });
+
 </script>
 
 <style scoped>

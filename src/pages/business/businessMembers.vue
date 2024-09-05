@@ -104,6 +104,12 @@ const addMembers = () => {
     router.push({ path: '/business/businessAdd', query: { action: 'add', business_id: business_id.value } });
 };
 
+definePageMeta({
+    ssr: true,
+    layout: 'admin',
+    middleware: ['permissions'],
+    roles: ['admin'],
+});
 
 </script>
 

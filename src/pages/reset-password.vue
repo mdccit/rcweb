@@ -13,12 +13,12 @@
           </svg></a></div>
       <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg soverflow-hidden sm:max-w-lg ">
         <div class="flex items-center space-x-4 mb-8">
-          <div class="flex self-center items-center"><a href="https://recruited.pro/login"
+          <div class="flex self-center items-center"><NuxtLink to="/login"
               class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full"><svg class="w-4 h-4"
                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                 stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M15 6l-6 6l6 6"></path>
-              </svg> <span class="sr-only">Go back</span></a></div>
+              </svg> <span class="sr-only">Go back</span></NuxtLink></div>
           <div class="self-center">
             <h2 class="text-2xl font-bold">Set New Password</h2>
           </div>

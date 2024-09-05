@@ -87,7 +87,10 @@ export const useUserStore = defineStore('user', {
         const userData = localStorage.getItem('user');
         const token = localStorage.getItem('token');
         const user_role = localStorage.getItem('user_role');
-
+    
+        // Log user data from localStorage
+        console.log('Loaded user from localStorage:', userData);  // <-- Add this
+    
         // Handle non-logged-in users gracefully
         if (userData) {
           this.user = JSON.parse(userData);
@@ -97,9 +100,14 @@ export const useUserStore = defineStore('user', {
         }
         if (user_role) {
           this.user_role = user_role;
+    
+          // Set the roles array as well
+          this.roles = [user_role];  // Add the user_role to roles array
+
+          console.log(this.roles);
         }
-        // If no data is found, nothing happens and defaults stay intact
       }
     },
+    
   },
 });
