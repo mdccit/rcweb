@@ -172,7 +172,13 @@
 </template>
 
 <script setup>
-
+definePageMeta({
+  middleware: [
+    'auth', 
+    'nuxt-permissions'
+  ],
+  roles: ['admin'],
+});
 
 </script>
 

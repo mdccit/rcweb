@@ -103,7 +103,17 @@ const fetchBusinessMembers = async (businessId) => {
 const addMembers = () => {
     router.push({ path: '/business/businessAdd', query: { action: 'add', business_id: business_id.value } });
 };
+
+definePageMeta({
+  middleware: [
+    'auth', 
+    'nuxt-permissions'
+  ],
+  roles: ['admin'],
+});
+
 </script>
+
 
 <style scoped>
 .container {
