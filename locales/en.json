@@ -89,8 +89,40 @@
       "see_Somthing_wrong?": "See somthing wrong"  
       
     },
+    "home": {
+      "title": "Connecting tennis talent worldwide",
+      "subheading": "Looking to play college tennis in the U.S.? Recruited is here to find you the right academic, athletic and financial fit.",
+      "sign_up_forfree":"Sign up for free",
+      "we_just_opened":"We just opened signups to everyone!",
+      "trusted_by":" Trusted by staff from",
+      "recruited_offers":"Recruited_offers...",
+      "direct_player_coach":"Direct player-coach connections and messaging.",
+      "when_you":"When you visit a profile, click Connect to send a connection request. Once the other person accepts, you will be able to message them.",
+      "search_for_any":"Search for any school with a tennis program in the country.",
+      "use_the_search":"Use the search page to filter by cost of attendance, degrees offered, tennis ranking or location as well as other criteria. ",
+      "transcript_verification":"Transcript verification.",
+      "players_can_upload":"Players can upload a copy of their transcripts (grades) from almost any country and our AI system human staff will then translate and convert your grades to American GPA.",
+      "the_recruited_tennis_feed":"The Recruited Tennis Feed.",
+      "join_the_global":"Join the global discussion, even as a player. Coaches, parents and athletes can all make posts and participate in the college tennis culture.",
+      "recruited_is_free":" Recruited is FREE!",
+      "we_are_in_beta":" Everyone can use the platform for free while we are in beta! And the core features will always stay free for all players!",
+      "personalized_help":"Personalized help & Consultations.",
+      "consultation_call_with_a_team":"Get a consultation call with a team of college tennis recruiting experts and more personalized help if wanted.",
+      "detailed_page_editing":"Detailed page editing",
+      "get_very_detailed":"School and player profiles can get very detailed. Add your achievements, goals, and stats to get noticed by people from all over the world.",
+      "saving_of_pages":"Easy saving of pages by clicking the Heart icon.",
+      "your_favorite_schools":"In the Lists page, you can organize your favorite schools or users. In Lists, you can also see your connections.",
+      "coming_soons":"Coming soon: Showcases!",
+      "recruited_Showcase":"Recruited Showcase Events are set to change the college tennis landscape completely with cheaper ticket prices than market rate and more.",
+      "open_beta_and_quickly":"Recruited is in open beta and quickly growing! Sign up for free today!",
+      "the_first_platform":"Recruited is the first platform to offer a comprehensive solution for tennis players and coaches worldwide. We are here to help you get noticed and connect with the right people."
+    },
+    
     "budget": "Budget"
+}
+  
+ 
 
-}   
+  
 
 
