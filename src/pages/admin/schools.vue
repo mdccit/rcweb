@@ -49,6 +49,10 @@ const closeModal = () => {
   showModal.value = false;
 };
 
+definePageMeta({
+  layout: 'admin',
+});
+
 </script>
 
 <style scoped>

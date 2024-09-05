@@ -11,7 +11,7 @@
                 <NuxtLink to="/calls" class="font-bold self-center"> Calls </NuxtLink>
                 <NuxtLink to="/events" class="font-bold self-center"> Events </NuxtLink>
                 <NuxtLink to="/blog" class="font-bold self-center"> Blog </NuxtLink>
-               
+
                 <div class="inline-flex self-center items-center" style="position: relative;">
                     <div>
                         <button type="button" aria-haspopup="true" class="inline-flex self-center items-center">
@@ -34,9 +34,11 @@
                     </div>
                 </div>
             </div>
-            <div class="self-center"><a href="https://qa1.recruited.qualitapps.com/login"
+            <div class="self-center">
+                <NuxtLink to="/login"
                     class="inline-block bg-black bg-opacity-10 text-center hover:opacity-80 active:opacity-60 text-black font-bold py-2.5 px-8 rounded-full">
-                    Login </a></div>
+                    Login </NuxtLink>
+            </div>
         </div>
         <div class="flex flex-row gap-4 lg:hidden absolute top-9 left-7"><button
                 class="flex w-10 h-10 bg-black/5 hover:bg-black/10 active:bg-black/15 transition flex-row text-center rounded-full flex items-center justify-center"><span><svg
@@ -60,9 +62,10 @@
                     Resources </a><a href="https://qa1.recruited.qualitapps.com/app/resources/bookings"
                     class="font-bold self-center w-full"> Calls </a><a href="https://qa1.recruited.qualitapps.com/blog"
                     class="font-bold self-center w-full"> Blog </a>
-                <div class="p-2"></div><a href="https://qa1.recruited.qualitapps.com/login"
+                <div class="p-2"></div>
+                <NuxtLink to="/login"
                     class="bg-opacity-10 text-center hover:opacity-80 active:opacity-60 text-black font-bold py-2.5 px-8 rounded-full">
-                    Login </a>
+                    Login </NuxtLink>
             </div>
             <div class="pb-8"></div>
         </div>
