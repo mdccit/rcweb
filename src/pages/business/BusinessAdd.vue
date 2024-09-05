@@ -100,6 +100,14 @@ const searchBusinessUsers = async (search_key) => {
     }
 };
 
+definePageMeta({
+    ssr: true,
+    layout: 'admin',
+    middleware: ['permissions'],
+    roles: ['admin'],
+});
+
+
 </script>
 
 

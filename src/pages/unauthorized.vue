@@ -30,6 +30,10 @@ const userStore = useUserStore();
 
 const user = userStore.user;
 
+definePageMeta({
+    layout: 'admin',
+});
+
 </script>
 
 <style scoped>

@@ -93,6 +93,12 @@
 </template>
 
 <script setup>
+definePageMeta({
+    ssr: true,
+    layout: 'admin',
+    middleware: ['permissions'],
+    roles: ['admin'],
+});
 
 
 </script>

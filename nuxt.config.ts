@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   target: 'server',
   router: {
     base: '/',  // Base URL for your router, assuming your app is served from the root
-    middleware: ['auth', 'nuxt-permissions'],
+    middleware: ['permissions'],
   },
   generate: {
     fallback: true,  // Generates a 404.html for static hosting fallback

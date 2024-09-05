@@ -9,7 +9,7 @@
   >
     <option v-for="code in country_codes" :key="code.phone_code" :value="code.value">
       {{ '(' + code.phone_code + ') '  }}
-      <span class="truncate">{{ code.label }}</span>
+      {{ code.label }}
     </option>
   </select>
 </template>

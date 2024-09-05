@@ -50,7 +50,10 @@ const closeModal = () => {
 };
 
 definePageMeta({
-  layout: 'admin',
+    ssr: true,
+    layout: 'admin',
+    middleware: ['permissions'],
+    roles: ['admin'],
 });
 
 </script>

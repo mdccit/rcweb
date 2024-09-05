@@ -79,6 +79,14 @@ const openModal = () => {
     console.log('open')
 }
 
+
+definePageMeta({
+    ssr: true,
+    layout: 'admin',
+    middleware: ['permissions'],
+    roles: ['admin'],
+});
+
 </script>
 
 <style scoped>

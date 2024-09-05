@@ -49,8 +49,7 @@
                 <Notification v-if="showNotification" :message="notificationMessage" :duration="3000" />
 
 
-                <form data-splade-id="1z9AwMnuvoZEkEl5" @submit.prevent="sendResetPasswordRequest(email)">
-                    <fieldset class="space-y-4">
+          
                         <div class=""><label class="block"><span class="block mb-1 text-gray-700 font-sans"> Email <span
                                         aria-hidden="true" class="text-red-600"
                                         title="This field is required">*</span></span>
@@ -60,14 +59,13 @@
                                         required="" autofocus=""></div>
                             </label><!----></div>
                         <div class="flex items-center justify-end mt-4">
-                            <button type="submit"
+                            <button @click="sendResetPasswordRequest(email)"
                                 class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700">
-                                <div class="flex flex-row items-center justify-center"><span class=""> Email
-                                        reset link </span></div>
+                                <div class="flex flex-row items-center justify-center"><span v-if="!loading" class=""> Email
+                                        reset link </span>  <LoadingSpinner v-else /></div>
                             </button>
                         </div>
-                    </fieldset>
-                </form>
+               
             </div>
 
 
@@ -101,22 +99,32 @@
                 <div class="absolute w-full h-full flex flex-col p-4 space-y-4 items-end justify-end"></div>
             </div>
         </div><!---->
+
+
+        <LoadingSpinner v-if="loading" />
+         <!-- Notification Component -->
+    <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useNuxtApp, useRouter } from '#app';
-import Notification from '~/components/common/Notification.vue'; // Import the Notification component
+import Notification from '~/components/common/Notification.vue';
+import LoadingSpinner from '~/components/LoadingSpinner.vue';  
 
 const nuxtApp = useNuxtApp();
 const router = useRouter();
 const email = ref('');
 const showNotification = ref(false); // To control the visibility of the notification
 const notificationMessage = ref('');
+const loading = ref(false);
+const notification_type = ref('');
 
 const sendResetPasswordRequest = async () => {
+    loading.value = true;
     try {
+    
         const result = await nuxtApp.$authService.resetPasswordRequest(email.value);
         console.log('Reset password request sent:', result);
 
@@ -128,8 +136,12 @@ const sendResetPasswordRequest = async () => {
         // Extract display_message from the response
         if (result && result.data && result.data.display_message) {
             notificationMessage.value = result.data.display_message;
+            notification_type.value = 'success';
+            loading.value = false;
         } else {
             notificationMessage.value = 'Password reset request was recorded.';
+            notification_type.value = 'success';
+            loading.value = false;
         }
 
         showNotification.value = true;
@@ -140,9 +152,10 @@ const sendResetPasswordRequest = async () => {
         }, 2000);
     } catch (error) {
         console.error('Error sending reset password request:', error.message);
-
+        loading.value = false;
         // Set the error notification message and show it
         notificationMessage.value = 'There was an error sending the reset password request. Please try again.';
+        notification_type.value = 'warning';
         showNotification.value = true;
     }
 };

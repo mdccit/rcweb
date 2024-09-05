@@ -422,9 +422,10 @@ function clearForm() {
 }
 
 definePageMeta({
-  layout: 'admin',
+    layout: 'admin',
+    middleware: ['permissions'],
+    roles: ['admin'],
 });
-
 </script>
 
 <style scoped>
