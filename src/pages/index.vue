@@ -248,12 +248,16 @@
 
 <script setup>
 import { useUserStore } from '~/stores/userStore';
-import EPDataTable from '~/components/EPDataTable.vue';
+const userStore = useUserStore();
 
-const userStore = useUserStore()
+definePageMeta({
+  middleware: [
+    'auth', 
+    'nuxt-permissions'
+  ],
+  roles: ['admin'],
+})
 
-const email = userStore.user?.email
-const token = userStore.user?.token
 </script>
 
 <style scoped>

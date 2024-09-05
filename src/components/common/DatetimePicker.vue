@@ -5,7 +5,7 @@
       type="datetime-local"
       v-model="localDateTime"
       @input="updateUTC"
-      class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      class="bg-gray-50 text-black block w-full h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 px-5 py-3 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
     />
 
     <div class="mt-4">
@@ -18,6 +18,7 @@
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref, watch } from 'vue';
