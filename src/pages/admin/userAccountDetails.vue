@@ -421,6 +421,9 @@ function clearForm() {
     errors.value = [];
 }
 
+definePageMeta({
+  layout: 'admin',
+});
 
 </script>
 

@@ -338,7 +338,9 @@ const fetchSchoolDetails = async (schoolId) => {
     }
 };
 
-
+definePageMeta({
+  layout: 'admin',
+});
 </script>
 
 

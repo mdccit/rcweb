@@ -16,6 +16,10 @@ import EPDataTable from '~/components/EPDataTable.vue';
 
 const userStore = useUserStore()
 
+
+definePageMeta({
+  layout: 'admin',
+});
 </script>
 
 <style scoped>

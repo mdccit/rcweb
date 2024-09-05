@@ -649,4 +649,8 @@ const openModal = () => {
     modalRef.value.openModal();
 };
 
+definePageMeta({
+  layout: 'admin',
+});
+
 </script>

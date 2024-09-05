@@ -41,7 +41,7 @@
       </div>
     </div>
     <div>
-      <button @click="handleSubmit"
+      <button @click="userLogin"
       class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 text-white border-transparent focus:border-blue-300 focus:ring-blue-200 block w-full"
       :disabled="loading">
       <div class="flex flex-row items-center justify-center">
@@ -114,8 +114,9 @@ const splitErrors = computed(() => errors.value.flatMap((error) => error.split('
 
 
 // Function to handle authentication
-const handleSubmit = async () => {
+const userLogin = async () => {
   try {
+    console.log('submitting');
     error.value = '';  // Clear previous error messages
     successMessage.value = '';  // Clear previous success messages
     notification_type.value = '';  // Reset notification type

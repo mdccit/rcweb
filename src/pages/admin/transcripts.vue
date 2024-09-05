@@ -16,6 +16,10 @@ const userStore = useUserStore();
 //   roles: ['player'],
 // })
 
+
+definePageMeta({
+  layout: 'admin',
+});
 </script>
 
 <style scoped>
