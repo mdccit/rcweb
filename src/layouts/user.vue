@@ -4,12 +4,12 @@
     
     <div class="flex flex-grow">
       <!-- Sidebar for Filters -->
-      <aside class="w-full p-4 bg-white shadow-md">
+      <aside class="w-1/4 p-4 bg-white shadow-md"> <!-- Adjust the width to 1/4 or any fraction -->
         <FilterCard />
       </aside>
 
       <!-- Main Content Area -->
-      <main class="flex-grow bg-gray-100 p-4">
+      <main class="w-3/4 flex-grow bg-gray-100 p-4"> <!-- Set the main content to take the remaining space -->
         <LoadingSpinner v-if="loading" />
         <NuxtPage v-else />
       </main>
