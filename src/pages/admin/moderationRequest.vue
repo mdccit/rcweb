@@ -24,10 +24,10 @@
                                     href="https://qa1.recruited.qualitapps.com/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7"><a
                                         href="https://qa1.recruited.qualitapps.com/app/u/9caacfe4-214f-40eb-9289-038c8819bcc7"
                                         class="flex flex-row gap-4 flex-1"><img
-                                            src="https://ui-avatars.com/api/?name=e+e&amp;color=7F9CF5&amp;background=EBF4FF"
+                                            src="https://ui-avatars.com/api/?name=userName&amp;color=7F9CF5&amp;background=EBF4FF"
                                             alt="User profile picture" class="h-12 w-12 rounded-full">
-                                        <div class="self-center flex-1"><strong class="capitalize">ee et</strong>
-                                            <p class="opacity-75 line-clamp-1">ete@dsfs.com</p>
+                                        <div class="self-center flex-1"><strong class="capitalize">{{ userName }}</strong>
+                                            <p class="opacity-75 line-clamp-1">{{ userEmail }}</p>
                                         </div>
                                     </a></a>
                                 <p class="my-4"> Manual user moderation is turned on. You need to approve this user
@@ -36,18 +36,18 @@
                                 </p>
                                 <p class="mt-4"> To turn off auto user moderation, contact Chris / hosting admin. </p>
                             </div>
-                            <div class="my-4"></div><a
-                                href="https://qa1.recruited.qualitapps.com/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7"><button
+                            <div class="my-4"></div><button @click="viewDetails"
                                     type="submit"
                                     class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200 w-full block">
-                                    View user </button></a>
+                                    View user </button>
                             <div class="my-4"></div>
-                            <form data-splade-id="LziEJJXZISMXM7vH" method="POST"
-                                action="https://qa1.recruited.qualitapps.com/admin/moderation/211/approve-user-signup-request">
-                                <fieldset><button type="submit"
+                           <fieldset><button v-if="isApprove ==false" type="submit" @click="morderationApprove"
                                         class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200 w-full block">
                                         Approve </button></fieldset>
-                            </form>
+
+                        <fieldset><button v-if="isApprove ==true" type="submit"
+                                        class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200 w-full block">
+                                        The join request has been handled. </button></fieldset>
                         </div>
                         <div class="flex-1 py-8">
                             <h1 class="font-bold mb-4 text-lg">Moderation Request Details</h1>
@@ -66,7 +66,7 @@
                                                         fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                         <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
                                                         <path d="M9 12l2 2l4 -4"></path>
-                                                    </svg> {{closeBy != null ? "Reopend Request":"Close Request / Mark as Done"}}</span></button></div>
+                                                    </svg> {{closeBy != null ? "Re-open Request":"Close Request / Mark as Done"}}</span></button></div>
                                     </fieldset>
                                 
                                     <fieldset><input type="hidden" name="_token" autocomplete="off"
@@ -111,6 +111,7 @@
                                             class="h-8 w-8 mr-4 inline-block rounded-full">
                                         <div class="flex-1"> <b>{{  comment.first_name }}</b>
                                             <span class="opacity-50 hidden md:inline-block text-xs ml-2"> 
+                                                {{ moment().from(comment.created_at) }}
                                             </span>
                                         </div>
                                     </div>
@@ -121,9 +122,20 @@
 
 
                             
-                            <div class="p-20 text-center opacity-50">No comments yet</div>
+                            <div v-if="commentList.length === 0" class="p-20 text-center opacity-50">No comments yet</div>
+                            <div v-for="moderationLog in moderationLog" class="p-2  bg-white mt-3">
+                                <div class="flex flex-row gap-2">
+                                    <img src="https://ui-avatars.com/api/?name=A&color=7F9CF5&background=EBF4FF" alt="User profile picture"
+                                         class="h-8 w-8 mr-4 inline-block rounded-full">
+                                    <div class="flex-1"> <b>{{  moderationLog.first_name }}</b> {{ moderationLog.status }} this 
+                                        <span class="opacity-50 hidden md:inline-block text-xs ml-2"> 
+                                            {{ moment().from(moderationLog.created_at) }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                            <fieldset class="max-w-xl mx-auto mb-32"><input type="hidden" name="_token"
+                            <fieldset v-if="closeBy === null" class="max-w-xl mx-auto mb-32"><input type="hidden" name="_token"
                                     autocomplete="off" value="zfX9IpgKTQoQLj4OnGIfCBdBvRAAZt3CPKps6jHu">
                                 <div class="mb-4 mt-20"><img
                                         src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF"
@@ -148,6 +160,8 @@
                                         </button></div>
                                 </div>
                             </fieldset>
+                            <div v-if="closeBy != null" class="p-20 text-center opacity-50">This request is closed, so you can no longer leave comments.</div>
+
                     </aside>
                 </div>
             </div>
@@ -155,7 +169,8 @@
             </div>
             
         </div>
-
+   <!-- Admin Moderation delete Modal Component -->
+<AdminModerationDeleteModal :isVisible="showModal" @close="showModal = false" :moderationId="moderationStore.moderation_id" @deleted="isDeleted"  />
     </div>
 </template>
 
@@ -163,6 +178,10 @@
 import { useUserStore } from '~/stores/userStore';
 import { ref, watch, computed, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
+import moment from 'moment';
+import AdminModerationDeleteModal from '~/components/admin/moderation/adminModerationDeleteModal.vue';
+import { useModerationStore } from '~/stores/moderation';
+const moderationStore = useModerationStore();
 
 const route = useRoute()
 
@@ -174,18 +193,30 @@ const router = useRouter();
 const email = userStore.user?.email
 const token = userStore.user?.token
 const createdBy = ref("")
+const userName = ref("")
+const userEmail = ref("")
 const closeBy =ref(null)
 const comment =ref('')
 const commentList = ref([])
-const morderationId = ref(route.params.morderationId || '');
-
+const display_name = ref('');
+const userId =ref('');
+const isApprove =ref(false);
+const moderationLog= ref([])
+const showModal = ref(false)
+const morderationId = moderationStore.moderation_id
 const fetchData = async (morderationId) => {
     try {
-        const dataSets = await $adminService.morderation_get(morderationId);
+        const dataSets = await $adminService.morderation_get(moderationStore.moderation_id);
         createdBy.value =dataSets.created_by
         closeBy.value =dataSets.closed_by
+        userName.value =dataSets.user_name
+        userEmail.value =dataSets.user_email
+        userId.value =dataSets.moderatable_id
+        isApprove.value =dataSets.is_approved
+         
     } catch (error) {
-      console.error('Error fetching data:', error.message);
+       router.push({path:'/404'})
+    console.error('Error fetching data:', error.message);
     } finally {
     }
 };
@@ -193,8 +224,18 @@ const fetchData = async (morderationId) => {
 const fetchComments = async (morderationId) => {
     try {
         
-        const dataSets = await $adminService.morderation_comments(morderationId);
+        const dataSets = await $adminService.morderation_comments(moderationStore.moderation_id);
         commentList.value = dataSets.dataSets;
+    } catch (error) {
+       console.error('Error fetching data:', error.message);
+    } 
+};
+
+const fetchModerationLogs = async (morderationId) => {
+    try {
+        
+        const dataSets = await $adminService.morderation_logs(moderationStore.moderation_id);
+        moderationLog.value = dataSets;
     } catch (error) {
        console.error('Error fetching data:', error.message);
     } 
@@ -204,45 +245,74 @@ const fetchComments = async (morderationId) => {
 const closeOrReopen = async () => {
     try {
         if(closeBy.value ===null){
-           await $adminService.morderation_close(morderationId.value,{});
+           await $adminService.morderation_close(moderationStore.moderation_id,{});
 
         }else{
-             await $adminService.morderation_reopen(morderationId.value,{});
+             await $adminService.morderation_reopen(moderationStore.moderation_id,{});
         }
-        fetchData(morderationId.value);
+        fetchData(moderationStore.moderation_id);
+        fetchModerationLogs(moderationStore.moderation_id);
     } catch (error) {
        console.error('Error fetching data:', error.message);
     }
 };
 
 const deleted = async () => {
-    try {
-        const dataSets = await $adminService.morderation_delete(morderationId.value);
-    } catch (error) {
-       console.error('Error fetching data:', error.message);
-    }
+    showModal.value = true
+  
 };
+
+const isDeleted = async () =>{
+    showModal.value = false
+    router.push({
+      path: '/admin/moderation',
+
+    });
+}
 
 const comments = async () => {
     try {
         const dataSets = await $adminService.morderation_comment_add({
-            morderation_id: morderationId.value,
+            morderation_id:moderationStore.moderation_id,
             comment: comment.value,
         });
         comment.value =""
+        fetchComments(moderationStore.moderation_id);
     } catch (error) {
        console.error('Error fetching data:', error.message);
     }
 };
 
+const morderationApprove = async () => {
+    try {
+      
+        const data = await $adminService.morderation_approve(moderationStore.moderation_id,{
+            user_id:userId.value
+        });
+        
+       
+        fetchData(morderationId.value);
+    } catch (error) {
+       console.error('Error fetching data:', error.message);
+    }
+};
 
   onMounted(() => {
-    fetchData(morderationId.value);
-    fetchComments(morderationId.value);
+    fetchData(moderationStore.moderation_id);
+    fetchComments(moderationStore.moderation_id);
+    fetchModerationLogs(moderationStore.moderation_id);
 
   });
   
-  
+  const viewDetails = () => {
+  router.push({
+    path: '/admin/userAccountDetails',
+    query: {
+      action: 'view',
+      userId: userId.value
+    }
+  });
+};
 
 </script>
 

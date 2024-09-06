@@ -36,7 +36,7 @@
                   <div
                     class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600">
                   </div>
-                  <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Enable notifications</span>
+                  <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Priority</span>
                 </label>
               </div>
             </li>
@@ -47,7 +47,7 @@
                   <div
                     class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600">
                   </div>
-                  <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Enable 2FA authentication</span>
+                  <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Details</span>
                 </label>
               </div>
             </li>
@@ -58,7 +58,7 @@
                   <div
                     class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600">
                   </div>
-                  <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Subscribe to newsletter</span>
+                  <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Status</span>
                 </label>
               </div>
             </li>
@@ -67,9 +67,9 @@
       </div>
   
   
-      <el-table :data="items" style="width: 100%" v-loading="loading">
-        <el-table-column prop="priority" label="Priority" sortable></el-table-column>
-        <el-table-column prop="joined_at" label="Details" sortable>
+      <el-table :data="items" style="width: 100%" v-loading="loading" @row-click="handleRowClick">
+        <el-table-column  prop="priority" label="Priority" sortable></el-table-column>
+        <el-table-column  prop="joined_at" label="Details" sortable>
             <template v-slot="scope">
                 <span>User Creation - Needs Approval</span>
            </template>
@@ -92,9 +92,13 @@
   <script setup>
   import { ref, watch, computed, onMounted } from 'vue';
   import { useFetch } from '#app';
-  import { useRouter } from 'vue-router';
   import { useNuxtApp } from '#app';
-  
+  import { useRouter } from 'vue-router';
+  import { useUserStore } from '~/stores/userStore';
+  import { useModerationStore } from '~/stores/moderation';
+
+  const moderationStore = useModerationStore();
+
   const router = useRouter();
   const search = ref('');
   const items = ref([]);
@@ -106,7 +110,9 @@
   const loading = ref(false);
   const nuxtApp = useNuxtApp();
   const $adminService = nuxtApp.$adminService;
-  
+  const handleRowClick = (row) => {
+  viewDetails(row);
+};
   // Function to fetch data from the server
   const fetchData = async () => {
     loading.value = true;
@@ -117,13 +123,9 @@
   
       // Fetch data from the server with pagination and search parameters
       const dataSets = await $adminService.morderation_all(current_page, per_page_items);
-      console.log(dataSets)
       // Update the table data
       items.value = dataSets.data; // Data for the current page
-      console.log(items.value)
-    //   totalItems.value = dataSets.total; // Total number of items across all pages
-    //   options.value.page = dataSets.current_page; // Current page
-    //   options.value.itemsPerPage = dataSets.per_page; // Items per page
+    
     } catch (error) {
       console.error('Error fetching data:', error.message);
     } finally {
@@ -141,12 +143,7 @@
     fetchData();
   });
   
-  // Handle search submission
-  const applySearch = () => {
-    options.value.page = 1; // Reset to first page on new search
-    fetchData();
-  };
-  
+
   // Handle page change
   const handlePageChange = (newPage) => {
     options.value.page = newPage;
@@ -176,35 +173,13 @@
   
   // Function to navigate to view details
   const viewDetails = (row) => {
+    moderationStore.setModeration(row);
+    
     router.push({
-      path: '/business/businessGeneral',
-      query: {
-        action: 'view',
-        userId: row.id
-      }
+      path: '/admin/moderationRequest',
     });
   };
-  
-  // Function to navigate to edit record
-  const editRecord = (row) => {
-    router.push({
-      path: '/business/businessGeneral',
-      query: {
-        action: 'edit',
-        userId: row.id
-      }
-    });
-  };
-  
-  const manageMembers = (row) => {
-    router.push({
-      path: '/business/businessMembers',
-      query: {
-        action: 'manage',
-        business_id: row.id
-      }
-    });
-  };
+ 
   
   </script>
   
