@@ -167,7 +167,7 @@
                 </div>
 
             </div>
-
+          </div>
         </div>
    <!-- Admin Moderation delete Modal Component -->
 </div>
