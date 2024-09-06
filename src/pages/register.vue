@@ -4,7 +4,7 @@
 
 <script setup>
 import RegisterForm from '~/components/RegisterForm.vue';
-definePageMeta({ colorMode: 'light', })
+definePageMeta({ colorMode: 'light', layout: 'outer'});
 </script>
 
 <style scoped>

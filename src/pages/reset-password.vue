@@ -102,7 +102,7 @@ import Notification from '~/components/common/Notification.vue'; // Import the N
 
 const nuxtApp = useNuxtApp();
 const router = useRouter();
-definePageMeta({ colorMode: 'light', })
+definePageMeta({ colorMode: 'light', layout: 'outer'},)
 
 // State variables
 const recovery_code = ref('');

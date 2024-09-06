@@ -113,6 +113,7 @@ import { useNuxtApp, useRouter } from '#app';
 import Notification from '~/components/common/Notification.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';  
 
+
 const nuxtApp = useNuxtApp();
 const router = useRouter();
 const email = ref('');
@@ -120,7 +121,7 @@ const showNotification = ref(false); // To control the visibility of the notific
 const notificationMessage = ref('');
 const loading = ref(false);
 const notification_type = ref('');
-definePageMeta({ colorMode: 'light', })
+definePageMeta({ colorMode: 'light', layout: 'outer'},)
 
 const sendResetPasswordRequest = async () => {
     loading.value = true;
