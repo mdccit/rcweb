@@ -263,6 +263,122 @@ const createAdminService = (apiService) => {
       throw new Error(error.message || 'Failed to register');
     }
   };
+
+  const morderation_all =async (page = 1, per_page_items = 10) => {
+    const url = `/admin/morderation-get-all?page=${page}&per_page_items=${per_page_items}`;
+  
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data && response.data.dataSets) {
+        return response.data.dataSets;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+  const morderation_get =async (morderation_id) => {
+    const url = `/admin/morderation-get/${morderation_id}`;
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data ) {
+        return response.data;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const morderation_comments =async (morderation_id) => {
+    const url = `/admin/morderation-comment-get-all/${morderation_id}`;
+  
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data ) {
+        return response.data;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const morderation_close =async (morderation_id,request_body) => {
+    const url = `/admin/morderation-close/${morderation_id}`;
+    const body = request_body;
+    try {
+      const response = await apiService.putRequest(url,body);
+      return response
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const morderation_reopen =async (morderation_id ,request_body) => {
+    const url = `/admin/morderation-reopen/${morderation_id}`;
+    const body = request_body;
+    try {
+      const response = await apiService.putRequest(url,body);
+      return response
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const morderation_delete =async (morderation_id) => {
+    const url = `/admin/morderation-delete/${morderation_id}`;
+  
+    try {
+      const response = await apiService.deleteRequest(url);
+      return response;
+      
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const morderation_comment_add =async (request_body) => {
+    const url = '/admin/morderation-comment-create';
+    const body = request_body;
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const morderation_approve =async (morderation_id ,request_body) => {
+    const url = `/admin/morderation-approve/${morderation_id}`;
+    const body = request_body;
+    try {
+      const response = await apiService.putRequest(url,body);
+      return response
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const morderation_logs =async (morderation_id) => {
+    const url = `/admin/morderation-log/${morderation_id}`;
+  
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data ) {
+        return response.data;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
   return {
     new_user_register,
     list_users,
@@ -283,7 +399,16 @@ const createAdminService = (apiService) => {
     user_session_delete,
     user_delete,
     school_delete,
-    business_delete
+    business_delete,
+    morderation_all,
+    morderation_get,
+    morderation_comments,
+    morderation_close,
+    morderation_reopen,
+    morderation_delete,
+    morderation_comment_add,
+    morderation_approve,
+    morderation_logs
   };
 };
 
