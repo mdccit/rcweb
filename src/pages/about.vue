@@ -93,7 +93,7 @@
                     <p class="mt-8"><strong>{{ $t('about.need_customer_support') }} </strong><br><a
                             href="mailto:hello@recruited.pro?subject=Help request&amp;body=Hi, I am having trouble with this ... I am using this device (phone/tablet/desktop/laptop) ... I can't do this ..."
                             class="text-blue-500 font-bold">hello@recruited.pro</a></p>
-                    <p class="mt-8"><strong>{{ $t('about.see_Somthing_wrong') }}</strong><br><a
+                    <p class="mt-8"><strong>{{ $t('about.see_something_wrong') }}</strong><br><a
                             href="mailto:legal@recruited.pro?subject=Legal request&amp;body=Hi, I am having trouble with this ... I am using this device (phone/tablet/desktop/laptop) ... I can't do this ..."
                             class="text-blue-500  font-bold">legal@recruited.pro</a></p>
                     <p class="mt-8"><strong>{{ $t('about.business_address') }}Business Address</strong><br> Recruited Sports Inc.<br> 455 Palm Tree
