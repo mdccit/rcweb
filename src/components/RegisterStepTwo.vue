@@ -311,9 +311,11 @@
         <div class="flex items-center">
           <input id="termsAccepted" type="checkbox" v-model="termsAccepted"
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
-          <label for="termsAccepted" class="ms-2 text-sm font-medium text-gray-900 light:text-gray-300">
-            I agree with the <a href="#" class="text-blue-600 light:text-blue-500 hover:underline">terms and
-              conditions</a>.
+            <label for="termsAccepted" class="ms-2 text-sm font-medium text-gray-900 light:text-gray-300">
+            I agree to the 
+            <NuxtLink to="/terms" class="text-blue-600 light:text-blue-500 hover:underline">Terms of Service</NuxtLink>
+            and 
+            <NuxtLink to="/Privacy" class="text-blue-600 light:text-blue-500 hover:underline">Privacy Policy </NuxtLink>.
           </label>
         </div>
       </div>
