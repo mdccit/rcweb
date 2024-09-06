@@ -20,6 +20,7 @@ defineNuxtRouteMiddleware(checkSession);
 
 const loading = ref(false);
 const router = useRouter();
+definePageMeta({ colorMode: 'light', })
 
 router.beforeEach((to, from, next) => {
   loading.value = true;

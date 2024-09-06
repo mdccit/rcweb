@@ -23,7 +23,7 @@
     </div>
 
     <!-- Data Table -->
-    <el-table :data="filteredItems" style="width: 100%" v-loading="loading">
+    <el-table :data="filteredItems" style="width: 100%" v-loading="loading"  @row-click="handleRowClick">
       <!-- Display Name Column -->
       <el-table-column prop="display_name" label="Display Name" sortable></el-table-column>
 
@@ -173,6 +173,9 @@ const editRecord = (row) => {
   });
 };
 
+const handleRowClick = (row) => {
+  viewDetails(row);
+};
 
 const handlePageChange = (newPage) => {
   options.value.page = newPage

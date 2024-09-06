@@ -14,5 +14,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.provide('adminService', adminService);
     nuxtApp.provide('feedService', feedService);
 
-    console.log('API Service provided:', { apiService, authService, adminService , feedService});
+    console.debug(' Application Running.......')
+
+    // console.log('API Service, Auth Service, and Admin Service provided:', { apiService, authService, adminService });
 });
