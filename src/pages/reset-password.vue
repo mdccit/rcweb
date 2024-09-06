@@ -81,7 +81,7 @@
             <!-- Submit Button -->
             <div class="flex items-center justify-end mt-4">
               <button type="submit"
-                class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-primary border-transparent focus:border-primary-300 focus:ring-primary-200">
+                class="border rounded-full shadow-sm font-normal text-white py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-primary-600 text-primary border-transparent focus:border-primary-300 focus:ring-primary-200">
                 Reset Password
               </button>
             </div>
@@ -102,7 +102,7 @@ import Notification from '~/components/common/Notification.vue'; // Import the N
 
 const nuxtApp = useNuxtApp();
 const router = useRouter();
-
+definePageMeta({ colorMode: 'light', layout: 'outer'},)
 
 // State variables
 const recovery_code = ref('');

@@ -60,9 +60,9 @@
                             </label><!----></div>
                         <div class="flex items-center justify-end mt-4">
                             <button @click="sendResetPasswordRequest(email)"
-                                class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700">
-                                <div class="flex flex-row items-center justify-center"><span v-if="!loading" class=""> Email
-                                        reset link </span>  <LoadingSpinner v-else /></div>
+                                class="border rounded-full shadow-sm font-normal py-2.5 text-white px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700">
+                                <div class="flex flex-row items-center justify-center"><span v-if="!loading" class=""> 
+                                    Email reset link </span>  <LoadingSpinner v-else /></div>
                             </button>
                         </div>
                
@@ -113,6 +113,7 @@ import { useNuxtApp, useRouter } from '#app';
 import Notification from '~/components/common/Notification.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';  
 
+
 const nuxtApp = useNuxtApp();
 const router = useRouter();
 const email = ref('');
@@ -120,6 +121,7 @@ const showNotification = ref(false); // To control the visibility of the notific
 const notificationMessage = ref('');
 const loading = ref(false);
 const notification_type = ref('');
+definePageMeta({ colorMode: 'light', layout: 'outer'},)
 
 const sendResetPasswordRequest = async () => {
     loading.value = true;
