@@ -132,7 +132,7 @@ const userStore = useUserStore();
 
 definePageMeta({
     ssr: 'true',
-    layout: 'admin',
+    layout: 'default',
     roles: [],
 });
 
