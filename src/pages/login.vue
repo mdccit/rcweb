@@ -22,6 +22,8 @@
 
 <script setup>
 import LoginForm from '~/components/LoginForm.vue'
+definePageMeta({ colorMode: 'light', layout: 'outer'},)
+
 </script>
 
 <style scoped>

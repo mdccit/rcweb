@@ -1,5 +1,5 @@
 <template>
-    <div class="WordSection1 container text-black p-3">
+    <div class="WordSection1 container text-black p-3 mx-auto">
         <div class="my-12"></div>
         <p class="text-3xl"><b>{{ $t('terms.terms_and_condition') }}</b></p>
         <p class="MsoNormal"><b>{{ $t('terms.agreement_between') }}</b></p>
@@ -203,7 +203,7 @@
 import { useUserStore } from '~/stores/userStore'
 
 const userStore = useUserStore()
-
+definePageMeta({ colorMode: 'light', layout: 'outer'},)
 const email = userStore.user?.email
 const token = userStore.user?.token
 </script>

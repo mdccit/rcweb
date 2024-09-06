@@ -130,7 +130,7 @@ import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
 
-
+definePageMeta({ colorMode: 'light', })
 const user_id = ref('');
 const firstname = ref('');
 const lastname = ref('');

@@ -244,12 +244,13 @@
     </section>
   </div>
 
-<FooterPublic></FooterPublic>
+<!-- <FooterPublic></FooterPublic> -->
 </template>
 
 <script setup>
 import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore();
+definePageMeta({ colorMode: 'light', })
 
 </script>
 
