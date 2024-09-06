@@ -169,7 +169,8 @@
 
         </div>
    <!-- Admin Moderation delete Modal Component -->
-<AdminModerationDeleteModal :isVisible="showModal" @close="showModal = false" :moderationId="moderationStore.moderation_id" @deleted="isDeleted"  />
+</div>
+   <AdminModerationDeleteModal :isVisible="showModal" @close="showModal = false" :moderationId="moderationStore.moderation_id" @deleted="isDeleted"  />
     </div>
 </template>
 
