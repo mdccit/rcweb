@@ -12,7 +12,7 @@
         <div class="max-w-[300px] mt-4 mx-auto text-gray-500">
             <div class="opacity-75 mt-8 flex flex-wrap justify-center gap-x-8 gap-y-2">
                 <NuxtLink to="/about">About</NuxtLink>
-                <NuxtLink to="/contact">Contact</NuxtLink>
+                <NuxtLink to="/about#contacts">Contact</NuxtLink>
                 <NuxtLink to="/blog">Blog</NuxtLink>
                 <NuxtLink to="/events">Events</NuxtLink>
                 <NuxtLink to="/pricing">Pricing</NuxtLink>
