@@ -5,7 +5,7 @@
 <script setup>
 import { useRoute } from 'vue-router';
 import RegisterStepTwo from '~/components/RegisterStepTwo.vue';
-
+definePageMeta({ colorMode: 'light', layout: 'outer'});
 // Capture the dynamic token from the route
 const route = useRoute();
 const token = route.params.token;  // Access the token parameter from the route

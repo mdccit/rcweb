@@ -27,14 +27,7 @@
 <script setup>
 import { useUserStore } from '~/stores/userStore'
 const userStore = useUserStore()
-
-definePageMeta({
-  middleware: [
-    'auth', 
-    'nuxt-permissions'
-  ],
-  roles: ['default'],
-});
+definePageMeta({ colorMode: 'light', })
 
 </script>
 <style scoped>

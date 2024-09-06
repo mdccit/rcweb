@@ -164,10 +164,9 @@
 
                     </aside>
                 </div>
-            </div>
 
             </div>
-            
+
         </div>
    <!-- Admin Moderation delete Modal Component -->
 <AdminModerationDeleteModal :isVisible="showModal" @close="showModal = false" :moderationId="moderationStore.moderation_id" @deleted="isDeleted"  />
@@ -313,6 +312,13 @@ const morderationApprove = async () => {
     }
   });
 };
+
+definePageMeta({
+    ssr: true,
+    layout: 'admin',
+    middleware: ['permissions'],
+    roles: ['admin'],
+});
 
 </script>
 

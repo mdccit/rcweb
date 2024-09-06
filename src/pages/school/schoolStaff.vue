@@ -217,14 +217,6 @@ const fetchSchoolStaff = async (schoolId) => {
   }
 };
 
-definePageMeta({
-  middleware: [
-    'auth', 
-    'nuxt-permissions'
-  ],
-  roles: ['admin'],
-});
-
 </script>
 
 <style scoped>

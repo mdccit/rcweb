@@ -421,7 +421,11 @@ function clearForm() {
     errors.value = [];
 }
 
-
+definePageMeta({
+    layout: 'admin',
+    middleware: ['permissions'],
+    roles: ['admin'],
+});
 </script>
 
 <style scoped>

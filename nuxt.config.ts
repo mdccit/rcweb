@@ -8,10 +8,10 @@ export default defineNuxtConfig({
   // devtools: { enabled: true },
   srcDir: 'src/',
   ssr: true,
-  target: 'universal',
+  target: 'server',
   router: {
     base: '/',  // Base URL for your router, assuming your app is served from the root
-    middleware: ['auth'],
+    middleware: ['permissions'],
   },
   generate: {
     fallback: true,  // Generates a 404.html for static hosting fallback
@@ -119,6 +119,7 @@ export default defineNuxtConfig({
     classSuffix: '',
     fallback: 'light',
     storageKey: 'color-mode',
+    preference: 'light',
   },
   compatibilityDate: '2024-07-31',
   vite: {

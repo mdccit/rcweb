@@ -3,8 +3,7 @@
     <div class="flex mt-2 mb-12 gap-4">
       <h2 class="self-center text-2xl font-bold flex-1 text-gray-900">Login</h2>
       <div class="self-center">
-        <a href="https://qa1.recruited.qualitapps.com/forgot-password"
-          class="text-primary text-right block font-bold">Can't sign in?</a>
+        <NuxtLink to="/forgot-password" class=" text-blue-500 text-right block font-bold">Can't sign in?</NuxtLink>
       </div>
     </div>
 
@@ -41,14 +40,14 @@
       </div>
     </div>
     <div>
-      <button @click="handleSubmit"
-      class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 text-white border-transparent focus:border-blue-300 focus:ring-blue-200 block w-full"
-      :disabled="loading">
-      <div class="flex flex-row items-center justify-center">
-        <span v-if="!loading">Login</span>
-        <LoadingSpinner v-else />
-      </div>
-    </button>
+      <button @click="userLogin"
+        class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 text-white border-transparent focus:border-blue-300 focus:ring-blue-200 block w-full"
+        :disabled="loading">
+        <div class="flex flex-row items-center justify-center">
+          <span v-if="!loading">Login</span>
+          <LoadingSpinner v-else />
+        </div>
+      </button>
     </div>
     <div class="w-full mt-5">
       <button type="button" @click="handleGoogleSignUp"
@@ -85,7 +84,7 @@ import { useNuxtApp } from '#app';
 import Cookies from 'js-cookie';
 
 import Notification from '~/components/common/Notification.vue';
-import LoadingSpinner from '~/components/LoadingSpinner.vue';  
+import LoadingSpinner from '~/components/LoadingSpinner.vue';
 
 
 const email = ref('');
@@ -104,6 +103,7 @@ const notificationMessage = ref('');
 const loading = ref(false);
 const notificationType = ref('');
 
+definePageMeta({ colorMode: 'light', })
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -114,8 +114,9 @@ const splitErrors = computed(() => errors.value.flatMap((error) => error.split('
 
 
 // Function to handle authentication
-const handleSubmit = async () => {
+const userLogin = async () => {
   try {
+    console.log('submitting');
     error.value = '';  // Clear previous error messages
     successMessage.value = '';  // Clear previous success messages
     notification_type.value = '';  // Reset notification type
@@ -131,7 +132,8 @@ const handleSubmit = async () => {
       userStore.setUser({
         email: email.value,
         role: response.data.user_role,  // Corrected role property
-        token: response.data.token
+        token: response.data.token,
+        user_permission_type: response.data.user_permission_type
       });
 
       // Set success notification
@@ -182,7 +184,7 @@ const handleSubmit = async () => {
 
 // Function to handle Google sign up (assuming this is what you want to do)
 const handleGoogleSignUp = () => {
-    router.push('/google-auth');
+  router.push('/google-auth');
 }
 
 
@@ -219,8 +221,22 @@ const handleGoogleLoginCallback = async () => {
   }
 };
 
-// Ensure the Google login is triggered when the component is mounted
-onMounted(handleGoogleLoginCallback);
+onMounted(() => {
+  const sessionToken = Cookies.get('session');  // Check if session token exists
+  if (sessionToken) {
+    rememberMe.value = true;
+    const user = userStore.getUser();  // Get user from userStore
+
+    setTimeout(() => {
+      // Redirect user based on role or permission
+      if (user && user.user_permission_type === 'none' && user.user_role === 'coach') {
+        router.push('/user/approval-pending');
+      } else {
+        router.push('/admin/dashboard');
+      }
+    }, 1000);
+  }
+});
 
 </script>
 

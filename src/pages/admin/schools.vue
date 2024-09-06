@@ -50,12 +50,11 @@ const closeModal = () => {
 };
 
 definePageMeta({
-  middleware: [
-    'auth', 
-    'nuxt-permissions'
-  ],
-  roles: ['admin'],
-})
+    ssr: true,
+    layout: 'admin',
+    middleware: ['permissions'],
+    roles: ['admin'],
+});
 
 </script>
 

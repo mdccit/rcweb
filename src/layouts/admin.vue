@@ -1,27 +1,26 @@
 <template>
   <div>
-    <NavBarPublic></NavBarPublic>
+    <NavBar />
     <LoadingSpinner v-if="loading" />
     <main class="min-h-screen bg-gray-100" v-else>
       <NuxtPage />
     </main>
-    <FooterPublic></FooterPublic>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import FooterPublic from '~/components/FooterPublic.vue';
 
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
-import NavBarPublic from '~/components/NavBarPublic.vue';
+import NavBar from '~/components/admin/NavBar.vue';
 import checkSession from '~/middleware/checkSession';
 
 defineNuxtRouteMiddleware(checkSession);
-definePageMeta({ colorMode: 'light', })
+
 const loading = ref(false);
 const router = useRouter();
+definePageMeta({ colorMode: 'light', })
 
 router.beforeEach((to, from, next) => {
   loading.value = true;
