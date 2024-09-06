@@ -9,6 +9,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       path: '/register-step-two/:token',
       component: () => import('~/pages/register-step-two/[token].vue')  // Correct path to the dynamic component
     });
-  });
 
+
+  });
 });

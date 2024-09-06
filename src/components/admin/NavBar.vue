@@ -84,14 +84,11 @@
                 </div>
               </div>
             </NuxtLink>
-            <NuxtLink to="/pricing"
-              class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              <div class="flex items-center"> Pricing </div>
-            </NuxtLink>
-            <NuxtLink to="/admin/transcripts"
+   
+            <!-- <NuxtLink to="/admin/transcripts"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Transcripts </div>
-            </NuxtLink>
+            </NuxtLink> -->
             <NuxtLink @click="login" v-if="!isLoggedIn"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Login </div>
@@ -189,10 +186,10 @@
                 class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full">60</span>
             </span>
           </NuxtLink>
-          <NuxtLink to="/admin/transcripts"
+          <!-- <NuxtLink to="/admin/transcripts"
             class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
             <span class="flex items-center">Transcripts</span>
-          </NuxtLink>
+          </NuxtLink> -->
         </div>
         <div class="pt-4 pb-1 border-t border-gray-200">
           <div class="flex items-center px-4">
@@ -256,12 +253,10 @@ const notificationType = ref('');
 
 const logout = async () => {
   try {
-    console.log('Logging out...');
-    
+
     const token = localStorage.getItem('token');  // Retrieve the token from local storage
     
     if (!token) {
-      console.warn('No token found. The user might already be logged out.');
       userStore.clearUser();  // Clear user data if no token is found
       notificationMessage.value = 'You have been logged out.';
       notification_type.value = 'success';
