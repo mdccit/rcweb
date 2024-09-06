@@ -2,7 +2,7 @@
   <div>
     <hr class="mt-3 mb-3 text-pigeonBlue">
     <div v-for="comment in comments" :key="comment.id" class="flex space-x-4 mt-3">
-      <img src="../../assets/user/images/Rectangle 117.png" alt="User Image" class="rounded-lg w-12 h-12 mr-4">
+      <img src="@/assets/user/images/Rectangle 117.png" alt="User Image" class="rounded-lg w-12 h-12 mr-4">
 
       <div class="flex-grow">
         <!-- Display the user's display name -->
