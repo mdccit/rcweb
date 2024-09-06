@@ -165,12 +165,11 @@
 
                     </aside>
                 </div>
-
+            </div>
             </div>
           </div>
         </div>
    <!-- Admin Moderation delete Modal Component -->
-</div>
    <AdminModerationDeleteModal :isVisible="showModal" @close="showModal = false" :moderationId="moderationStore.moderation_id" @deleted="isDeleted"  />
     </div>
 </template>
