@@ -14,7 +14,7 @@
 
                 <div class="inline-flex self-center items-center" style="position: relative;">
                     <div>
-                        <button type="button" aria-haspopup="true" class="inline-flex self-center items-center">
+                        <!-- <button type="button" aria-haspopup="true" class="inline-flex self-center items-center">
                             <button class="font-bold flex items-center -mt-[20px]"> More
                                 <svg class="fill-current h-4 w-4 ml-1" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 20 20">
@@ -23,7 +23,7 @@
                                         clip-rule="evenodd"></path>
                                 </svg>
                             </button>
-                        </button>
+                        </button> -->
                     </div>
                     <div>
                         <div data-splade-dropdown-id="OsLsg8zS0ckX7J68" class="absolute z-40"

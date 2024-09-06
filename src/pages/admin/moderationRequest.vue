@@ -20,16 +20,17 @@
                                         <path d="M16 19h6"></path>
                                         <path d="M19 16v6"></path>
                                         <path d="M6 21v-2a4 4 0 0 1 4 -4h4"></path>
-                                    </svg> User signed up, needs to be approved to show up in searches </h1><a
-                                    href="https://qa1.recruited.qualitapps.com/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7"><a
-                                        href="https://qa1.recruited.qualitapps.com/app/u/9caacfe4-214f-40eb-9289-038c8819bcc7"
-                                        class="flex flex-row gap-4 flex-1"><img
-                                            src="https://ui-avatars.com/api/?name=userName&amp;color=7F9CF5&amp;background=EBF4FF"
+                                    </svg> User signed up, needs to be approved to show up in searches </h1>
+                                    <NuxtLink to="/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7">
+                                        <NuxtLink to="/app/u/9caacfe4-214f-40eb-9289-038c8819bcc7"
+                                        class="flex flex-row gap-4 flex-1">
+                                        <img src="https://ui-avatars.com/api/?name=userName&amp;color=7F9CF5&amp;background=EBF4FF"
                                             alt="User profile picture" class="h-12 w-12 rounded-full">
                                         <div class="self-center flex-1"><strong class="capitalize">{{ userName }}</strong>
                                             <p class="opacity-75 line-clamp-1">{{ userEmail }}</p>
                                         </div>
-                                    </a></a>
+                                        </NuxtLink>
+                                </NuxtLink>
                                 <p class="my-4"> Manual user moderation is turned on. You need to approve this user
                                     <strong>for them to show up in searches</strong>. Closing the request ignores the
                                     user.
@@ -169,7 +170,8 @@
 
         </div>
    <!-- Admin Moderation delete Modal Component -->
-<AdminModerationDeleteModal :isVisible="showModal" @close="showModal = false" :moderationId="moderationStore.moderation_id" @deleted="isDeleted"  />
+</div>
+   <AdminModerationDeleteModal :isVisible="showModal" @close="showModal = false" :moderationId="moderationStore.moderation_id" @deleted="isDeleted"  />
     </div>
 </template>
 
