@@ -89,7 +89,7 @@ export const useUserStore = defineStore('user', {
         const user_role = localStorage.getItem('user_role');
     
         // Log user data from localStorage
-        console.log('Loaded user from localStorage:', userData);  // <-- Add this
+        // console.log('Loaded user from localStorage:', userData);
     
         // Handle non-logged-in users gracefully
         if (userData) {
@@ -103,8 +103,7 @@ export const useUserStore = defineStore('user', {
     
           // Set the roles array as well
           this.roles = [user_role];  // Add the user_role to roles array
-
-          console.log(this.roles);
+     
         }
       }
     },

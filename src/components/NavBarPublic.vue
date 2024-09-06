@@ -8,9 +8,9 @@
                 <NuxtLink to="/pricing" class="font-bold self-center"> Pricing </NuxtLink>
                 <NuxtLink to="/about" class="font-bold self-center"> About </NuxtLink>
                 <NuxtLink to="/resources" class="font-bold self-center"> Resources </NuxtLink>
-                <NuxtLink to="/calls" class="font-bold self-center"> Calls </NuxtLink>
+                <!-- <NuxtLink to="/calls" class="font-bold self-center"> Calls </NuxtLink>
                 <NuxtLink to="/events" class="font-bold self-center"> Events </NuxtLink>
-                <NuxtLink to="/blog" class="font-bold self-center"> Blog </NuxtLink>
+                <NuxtLink to="/blog" class="font-bold self-center"> Blog </NuxtLink> -->
 
                 <div class="inline-flex self-center items-center" style="position: relative;">
                     <div>
