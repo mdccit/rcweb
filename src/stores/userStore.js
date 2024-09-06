@@ -9,6 +9,7 @@ export const useUserStore = defineStore('user', {
     user: null,
     user_role: null,
     email: null,
+    user_permission_type: null,
     roles: [],
     permissions: []
   }),
@@ -36,11 +37,17 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem('email', email);
       }
     },
+    setPermissionType(type) {
+      this.type = type;
+      if (process.client) {
+        localStorage.setItem('user_permission_type', type);
+      }
+    },
     setUser(user) {
       this.user = user;
       this.token = user.token;
       this.user_role = user.role || 'default';
-      this.user = user;
+      this.user_permission_type = user.user_permission_type || 'none';
       this.roles = user.roles ? [...user.roles, user.role] : [user.role];
       this.permissions = user.permissions || []; // Set user permissions
 
@@ -80,8 +87,20 @@ export const useUserStore = defineStore('user', {
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         localStorage.removeItem('user_role');
+        localStorage.removeItem('user_permission_type');
       }
     },
+
+    getUser() {
+      if (this.user) {
+        return {
+          user_role: this.user_role,
+          user_permission_type: this.user_permission_type || 'none' // Assuming user_permission_type is part of the user object
+        };
+      }
+      return null;
+    },
+  
     initializeUser() {
       if (process.client) {
         const userData = localStorage.getItem('user');

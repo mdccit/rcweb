@@ -7,9 +7,9 @@ export default defineNuxtPlugin((nuxtApp) => {
     // Explicitly create and initialize adminService after apiService
     const adminService = createAdminService(apiService);
 
-    // nuxtApp.provide('apiService', apiService);
-    // nuxtApp.provide('authService', authService);
-    // nuxtApp.provide('adminService', adminService);
+    nuxtApp.provide('apiService', apiService);
+    nuxtApp.provide('authService', authService);
+    nuxtApp.provide('adminService', adminService);
 
     console.debug(' Application Running.......')
 
