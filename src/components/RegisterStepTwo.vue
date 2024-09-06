@@ -268,7 +268,7 @@
           <label for="player_graduation_month_year"
             class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Player Graduation Month/Year</label>
           <input type="month" v-model="player_graduation_month_year"
-            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-primary light:focus:ring-blue-500 light:focus:border-blue-500"
+            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 text-black focus:border-blue-500 block w-full ps-10 p-2.5"
             placeholder="Player Graduation Month/Year" />
         </div>
 
@@ -312,8 +312,10 @@
           <input id="termsAccepted" type="checkbox" v-model="termsAccepted"
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
           <label for="termsAccepted" class="ms-2 text-sm font-medium text-gray-900 light:text-gray-300">
-            I agree with the <a href="#" class="text-blue-600 light:text-blue-500 hover:underline">terms and
-              conditions</a>.
+            I agree to the 
+            <NuxtLink to="/terms" class="text-blue-600 light:text-blue-500 hover:underline">Terms of Service</NuxtLink>
+            and 
+            <NuxtLink to="/privacy" class="text-blue-600 light:text-blue-500 hover:underline">Privacy Policy </NuxtLink>.
           </label>
         </div>
       </div>
