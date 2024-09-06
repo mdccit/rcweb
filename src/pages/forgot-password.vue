@@ -110,8 +110,8 @@
 <script setup>
 import { ref } from 'vue';
 import { useNuxtApp, useRouter } from '#app';
-import Notification from '~/components/common/Notification.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';  
+import Notification from '~/components/common/Notification.vue';
 
 const nuxtApp = useNuxtApp();
 const router = useRouter();

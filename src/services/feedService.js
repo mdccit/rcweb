@@ -29,7 +29,7 @@ const createFeedService = (apiService) => {
   };
 
 
-  const update_post = async (post_id,request_body) => {
+  const update_post = async (post_id, request_body) => {
     const url = `/feed/post/${post_id}`;
     const body = request_body;
 
@@ -53,9 +53,34 @@ const createFeedService = (apiService) => {
     }
   };
 
+  const get_all_post_comment = async (post_id) => {
+    const url = `/feed/postcomments/${post_id}`;
+    const body = request_body;
 
-  const create_comment = async (request_body) => {
-    const url = '/feed/post';
+    try {
+      const response = await apiService.getRequest(url, body);
+      return response.message;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const get_comment = async (comment_id, request_body) => {
+    const url = `/feed/comments/${comment_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.getRequest(url, body);
+      return response.message;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+
+
+  const create_comment = async (post_id, request_body) => {
+    const url = `/feed/posts/${post_id}/comment`;
     const body = request_body;
 
     try {
@@ -66,8 +91,8 @@ const createFeedService = (apiService) => {
     }
   };
 
-  const update_comment = async (post_id,request_body) => {
-    const url = `/feed/post/${post_id}`;
+  const update_comment = async (comment_id, request_body) => {
+    const url = `/feed/comments/${comment_id}`;
     const body = request_body;
 
     try {
@@ -78,9 +103,9 @@ const createFeedService = (apiService) => {
     }
   };
 
-  const delete_comment = async (post_id) => {
-    const url = `/feed/post/${post_id}`;
-    const body = request_body;
+  const delete_comment = async (comment_id) => {
+    const url = `/feed/comments/${comment_id}`;
+    const body = '';
 
     try {
       const response = await apiService.deleteRequest(url, body);
@@ -90,7 +115,7 @@ const createFeedService = (apiService) => {
     }
   };
 
-  const like_post = async (post_id,request_body) => {
+  const like_post = async (post_id, request_body) => {
     const url = `/feed/posts/${post_id}/like`;
     const body = request_body;
 
@@ -102,7 +127,7 @@ const createFeedService = (apiService) => {
     }
   };
 
-  const unlike_post = async (post_id,request_body) => {
+  const unlike_post = async (post_id, request_body) => {
     const url = `/feed/post/${post_id}/like`;
     const body = request_body;
 
@@ -114,7 +139,7 @@ const createFeedService = (apiService) => {
     }
   };
 
-  const get_single_post = async (post_id,request_body) => {
+  const get_single_post = async (post_id, request_body) => {
     const url = `/feed/posts/${post_id}`;
     const body = request_body;
 
@@ -126,7 +151,6 @@ const createFeedService = (apiService) => {
     }
   };
 
-
   return {
     create_post,
     list_posts,
@@ -137,7 +161,14 @@ const createFeedService = (apiService) => {
     delete_comment,
     like_post,
     unlike_post,
+    get_comment,
+    get_all_post_comment,
+    get_single_post
+
   };
-};
+
+
+}
+
 
 export default createFeedService;
