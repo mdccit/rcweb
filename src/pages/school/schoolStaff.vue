@@ -20,19 +20,20 @@
         </div>
     </div>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="flex gap-x-4"><a
-                href="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b"><button
+        <div class="flex gap-x-4">
+            <NuxtLink to="/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b"><button
                     class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50"> General
-                    Details </button></a><a
-                href="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/teams"><button
+                    Details </button></NuxtLink>
+            <NuxtLink to="/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/teams"><button
                     class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200"> Staff
-                    &amp; Teams </button></a><a
-                href="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/sync"><button
+                    &amp; Teams </button></NuxtLink>
+            <NuxtLink to="/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/sync"><button
                     class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
-                    Synchronization </button></a><a
-                href="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/danger-zone"><button
+                    Synchronization </button></NuxtLink>
+            <NuxtLink to="/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/danger-zone"><button
                     class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50"> Danger
-                    Zone </button></a></div>
+                    Zone </button></NuxtLink>
+        </div>
         <div class="my-8"></div>
         <div class="">
             <div class="my-8"></div>
@@ -51,27 +52,27 @@
                 </div>
                 <div class="grid gap-4">
 
-                            <!-- Staff Members List -->
-                            <div v-for="member in staff" :key="member.id" class="flex flex-col lg:flex-row gap-6 py-2">
-                                <a :href="`/app/u/${member.id}`" class="flex flex-row gap-4 flex-1">
-                                <img :src="`https://ui-avatars.com/api/?name=${member.first_name}&color=7F9CF5&background=EBF4FF`"
-                                    alt="User profile picture" class="h-12 w-12 rounded-full" />
+                    <!-- Staff Members List -->
+                    <div v-for="member in staff" :key="member.id" class="flex flex-col lg:flex-row gap-6 py-2">
+                        <NuxtLink to="/app/u/${member.id}`" class="flex flex-row gap-4 flex-1">
+                            <img :src="`https://ui-avatars.com/api/?name=${member.first_name}&color=7F9CF5&background=EBF4FF`"
+                                alt="User profile picture" class="h-12 w-12 rounded-full" />
 
-                                <div class="self-center flex-1 text-black">
-                                    <strong class="capitalize">{{ member.first_name + ' ' + member.last_name }}</strong>
-                                    <p class="opacity-75 line-clamp-1 text-gray">Role title: {{ member.user_role }}</p>
-                                </div>
-                                </a>
+                            <div class="self-center flex-1 text-black">
+                                <strong class="capitalize">{{ member.first_name + ' ' + member.last_name }}</strong>
+                                <p class="opacity-75 line-clamp-1 text-gray">Role title: {{ member.user_role }}</p>
+                            </div>
+                        </NuxtLink>
 
-                                <div class="self-center flex flex-wrap gap-2">
-                                <a :href="`/admin/schools/${school_id}/users/${member.id}/edit`">
-                                    <button type="submit"
-                                            class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
+                        <div class="self-center flex flex-wrap gap-2">
+                            <NuxtLink to="/`/admin/schools/${school_id}/users/${member.id}/edit`">
+                                <button type="submit"
+                                    class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
                                     Manage
-                                    </button>
-                                </a>
-                                </div>
-                            </div>            
+                                </button>
+                            </NuxtLink>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="my-8"></div>
@@ -192,29 +193,29 @@ const school_id = ref('');  // School ID
 const staff = ref([]);  // Array to hold staff data
 
 onMounted(() => {
-  // Set initial values for action and school_id from route query parameters
-  action.value = route.query.action || 'manage';
-  school_id.value = route.query.school_id || '';
+    // Set initial values for action and school_id from route query parameters
+    action.value = route.query.action || 'manage';
+    school_id.value = route.query.school_id || '';
 
-  // Fetch school staff data if action is 'manage'
-  if (action.value === 'manage') {
-    fetchSchoolStaff(school_id.value);
-  }
+    // Fetch school staff data if action is 'manage'
+    if (action.value === 'manage') {
+        fetchSchoolStaff(school_id.value);
+    }
 });
 
 // Fetch School Staff
 const fetchSchoolStaff = async (schoolId) => {
-  console.log('loading');
-  errors.value = [];  // Clear any existing errors
-  try {
-    // Fetch staff data from the API using $adminService
-    const staffData = await $adminService.list_school_staff(schoolId);
-    console.log(staffData);
-    staff.value = staffData || [];  // Set the fetched data to the staff ref
-  } catch (error) {
-    console.error('Failed to load school staff details:', error.message);
-    errors.value.push('Failed to load school staff details.');
-  }
+    console.log('loading');
+    errors.value = [];  // Clear any existing errors
+    try {
+        // Fetch staff data from the API using $adminService
+        const staffData = await $adminService.list_school_staff(schoolId);
+        console.log(staffData);
+        staff.value = staffData || [];  // Set the fetched data to the staff ref
+    } catch (error) {
+        console.error('Failed to load school staff details:', error.message);
+        errors.value.push('Failed to load school staff details.');
+    }
 };
 
 </script>

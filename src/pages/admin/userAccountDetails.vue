@@ -42,7 +42,7 @@
                     </div>
 
                     <!-- Remove Photo -->
-                    <a href="https://qa1.recruited.qualitapps.com/user/profile-photo"
+                    <NuxtLink to="/user/profile-photo"
                         class="font-semibold border border-border rounded py-4 px-4 inline-block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center">
                         <svg class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -54,7 +54,7 @@
                             <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
                         </svg>
                         Remove Photo
-                    </a>
+                    </NuxtLink>
                 </div>
             </div>
 
@@ -126,10 +126,10 @@
                 <!-- Resend Verification Email Link -->
                 <div class="mt-4 flex text-black justify-end gap-2">
                     Or
-                    <a href="https://qa1.recruited.qualitapps.com/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7/send-verification-email"
+                    <NuxtLink to="/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7/send-verification-email"
                         class="bg-gray-200 opacity-60 hover:opacity-100 p-2 rounded"  :disabled="action === 'view'">
                         send again
-                    </a>
+                    </NuxtLink>
                 </div>
             </div>
 
