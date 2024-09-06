@@ -129,13 +129,7 @@
 <script setup>
 import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore();
-definePageMeta({ colorMode: 'light', })
-
-definePageMeta({
-    ssr: 'true',
-    layout: 'admin',
-    roles: [],
-});
+definePageMeta({ ssr: 'true', colorMode: 'light', layout: 'default'});
 
 </script>
 
