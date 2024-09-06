@@ -1,9 +1,9 @@
 <template>
     <nav class="bg-white text-black">
-        <div class="container py-10 md:p-8 flex flex-row gap-4"><a href="https://qa1.recruited.qualitapps.com"
-                class="self-center flex-1 lg:flex-none ml-20 lg:ml-0 lg:mr-4">
+        <div class="container py-10 md:p-8 flex flex-row gap-4">
+            <NuxtLink to="/" class="self-center flex-1 lg:flex-none ml-20 lg:ml-0 lg:mr-4">
                 <img src="@/assets/images/logo.svg" alt="Logo" class="h-8">
-            </a>
+            </NuxtLink>
             <div class="hidden lg:flex flex-row flex-1 self-center gap-8">
                 <NuxtLink to="/pricing" class="font-bold self-center"> Pricing </NuxtLink>
                 <NuxtLink to="/about" class="font-bold self-center"> About </NuxtLink>

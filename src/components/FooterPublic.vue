@@ -13,10 +13,10 @@
             <div class="opacity-75 mt-8 flex flex-wrap justify-center gap-x-8 gap-y-2">
                 <NuxtLink to="/about">About</NuxtLink>
                 <NuxtLink to="/about#contacts">Contact</NuxtLink>
-                <NuxtLink to="/blog">Blog</NuxtLink>
-                <NuxtLink to="/events">Events</NuxtLink>
+                <!-- <NuxtLink to="/blog">Blog</NuxtLink>
+                <NuxtLink to="/events">Events</NuxtLink> -->
                 <NuxtLink to="/pricing">Pricing</NuxtLink>
-                <NuxtLink to="/privacy">Privacy</NuxtLink>
+                <NuxtLink to="/Privacy">Privacy</NuxtLink>
                 <NuxtLink to="/terms">Terms</NuxtLink>
 
             </div>
