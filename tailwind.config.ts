@@ -52,6 +52,9 @@ module.exports = {
         lightPink: '#FFA9A9',
         lighterGray: '#DFE4EE',
         teelGray:'#e2e5e7',
+        darkAzureBlue: '#004a8f', // Primary blue button hover color
+        palePink: '#ffeeee',
+        powderBlue: '#e5f3ff'
       },
       testred: {
         lightest: '#efdfa4',

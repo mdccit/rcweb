@@ -1,13 +1,15 @@
 <template>
     <div>
         <!-- Top Navigation Bar -->
-        <Navbar /> 
+        <SocialHubNavbar /> 
 
         <main class="bg-graySnowDrift">
             <div class="container mx-auto">
                 <div class="grid grid-cols-6 gap-4">
                     <!-- Left pane -->
-                    <Filter />
+                    <div>
+                      <Filter />
+                    </div>
 
                     <!-- Middle pane -->
                     <div class="col-span-4">
@@ -16,7 +18,9 @@
                     </div>
 
                     <!-- Right pane -->
-                    <FilterCard />
+                    <div>
+                      <!-- <Filter /> -->
+                    </div>
                 </div>
             </div>
         </main>
@@ -29,7 +33,7 @@
   <script setup>
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
-  import Navbar from '~/components/user/navbar.vue';
+  import SocialHubNavbar from '~/components/user/navbar.vue';
   import Filter from '~/components/user/feed/filter.vue';
   import FooterBar from '~/components/user/user-footer.vue';
   import LoadingSpinner from '~/components/LoadingSpinner.vue';
