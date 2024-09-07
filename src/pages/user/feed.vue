@@ -1,15 +1,13 @@
 <template>
   <div class="mt-16">
 
-    <section class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
-      <div class="col-span-5 sm:col-span-4 md:col-span-5 lg:col-span-2 xl:col-span-4">
+    <section>
         <!--start card 01 -->
-        <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6">
-          <div class="flex items-center">
+        <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-6">
+          <div class="flex">
             <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-12 h-12 mr-4">
-            <input type="text" placeholder="Write your thoughts..." v-model="newPost.description"
-              class="flex-grow text-ceil bg-ceil rounded-xl border-none py-2 px-4 "
-              style="background-color:#F4F6F9; color:#8CA4CE;">
+            <textarea  type="text" placeholder="Write your thoughts..." v-model="newPost.description"
+              class="flex-grow text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 "> </textarea>
           </div>
           <div class="flex justify-between items-center mt-4">
             <div class="flex space-x-2">
@@ -38,16 +36,13 @@
           </div>
         </div>
         <!--end card 01 -->
-      </div>
     </section>
 
 
-    <section class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
-      <div class="col-span-5 sm:col-span-4 md:col-span-5 lg:col-span-2 xl:col-span-4">
-
+    <section>
         <!-- Iterate over posts and display them -->
         <div v-for="post in posts" :key="post.id"
-          class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
+          class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-6 mt-3">
           <div class="flex items-start space-x-4">
             <div class="flex-1">
               <div class="mb-4">
@@ -107,15 +102,11 @@
         
 
         </div>
-
-      </div>
     </section>
 
 
-    <section class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
-      <div class="col-span-5 sm:col-span-4 md:col-span-5 lg:col-span-2 xl:col-span-4">
+    <section>
         <!-- Content or Placeholder -->
-      </div>
     </section>
 
     <LoadingSpinner v-if="loading" />
@@ -128,7 +119,7 @@
 
 <script setup>
 definePageMeta({
-  layout: 'user',
+  layout: 'socialhub-three-column',
 });
 
 import { ref, onMounted } from 'vue';
