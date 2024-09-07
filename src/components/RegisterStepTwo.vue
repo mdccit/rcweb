@@ -89,14 +89,19 @@
           <label for="phone_code_country"
             class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
             <div class="col-span-9">Mobile No *</div>
-            <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right"><svg
+            <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right tooltip"><svg
                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-4 ml-[20px]">
                 <path stroke-linecap="round" stroke-linejoin="round"
                   d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-              </svg></div>
-
+              </svg>
+              <div class="tooltipDiv">
+                <span class="tooltiptext">If you are a player or a parent, your phone number will be visible to
+                  coaches.</span>
+              </div>
+            </div>
           </label>
+
           <div class="grid grid-cols-5 gap-3 items-center -mt-[9px]">
             <CountryCodeDropdown :country_codes="country_codes" v-model="phone_code_country" name="phone_code"
               data-validation-key="phone_code" :disabled="action === 'view'" class="col-span-2 h-12" />
@@ -104,16 +109,9 @@
               class=" mt-[4px] h-12 col-span-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
               placeholder="Number" required />
           </div>
-
-          <!-- tooltip -->
-          <div id="tooltip-default" role="tooltip"
-            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-            Tooltip content
-            <div class="tooltip-arrow" data-popper-arrow></div>
-          </div>
         </div>
-        <!-- tooltip end -->
-         
+    
+
         <div class="space-y-4" v-if="roleFields.includes('gender')">
           <label for="gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">Gender *</label>
           <GenderDropDown :genders="genders" v-model="gender" id="gender" label="Gender *" />
@@ -173,7 +171,25 @@
               placeholder="UTR" required />
           </div>
           <div class="col-span-5" v-if="roleFields.includes('gpa')">
-            <label for="gpa" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">GPA *</label>
+            <label for="gpa" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-7">
+              <div class="col-span-6">GPA *</div>
+              <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right tooltip"><svg
+                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="size-4 ml-[8px]">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                </svg>
+                <!-- tooltip -->
+                <div class="tooltipDiv">
+                  <span class="tooltiptext">Your Grade Point Average (GPA) is a numerical representation of your
+                    academic performance, commonly used by American schools. It is calculated on a scale, usually from 0
+                    to 4.0, with higher numbers indicating better performance. If you're unsure how to calculate your
+                    GPA, please provide your academic transcripts, and our team can assist you</span>
+                </div>
+                <!-- tooltip end-->
+              </div>
+            </label>
+
             <input type="text" id="gpa" v-model="gpa"
               class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
               placeholder="GPA" required />
@@ -189,7 +205,24 @@
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('budget')">
-          <label for="budget" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Budget *</label>
+          <!-- <label for="budget" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Budget *</label> -->
+          <label for="budget" class="block mb-3 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
+            <div class="col-span-9">Budget *</div>
+            <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right tooltip"><svg
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-4 ml-[20px]">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+              </svg>
+              <!-- tooltip -->
+              <div class="tooltipDiv">
+                <span class="tooltiptext">Your budget refers to the amount of money you are willing to spend per year on
+                  school expenses, including tuition, housing, and other costs. Please provide an estimate to help us
+                  find suitable college options within your financial range.</span>
+              </div>
+              <!-- tooltip end-->
+            </div>
+          </label>
           <BudgetDropdown :player_budgets="budgets" v-model="selectedBudget" id="budgets" label="Budgets *" />
         </div>
 
@@ -228,8 +261,21 @@
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('player_phone_code_country')">
-          <label for="player_phone_code_country" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">
-            Mobile No *</label>
+            <label for="phone_code_country"
+            class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
+            <div class="col-span-9">Mobile No *</div>
+            <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right tooltip"><svg
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-4 ml-[20px]">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+              </svg>
+              <div class="tooltipDiv">
+                <span class="tooltiptext">If you are a player or a parent, your phone number will be visible to
+                  coaches.</span>
+              </div>
+            </div>
+          </label>
           <div class="grid grid-cols-5 gap-3 items-center">
             <CountryCodeDropdown :country_codes="country_codes" v-model="player_phone_code_country"
               name="player_phone_code" data-validation-key="player_phone_code" :disabled="action === 'view'"
@@ -265,8 +311,23 @@
         </div>
 
         <div v-if="roleFields.includes('player_budget')">
-          <label for="player_budget" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">
-            Budget *</label>
+            <label for="player_budget" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
+            <div class="col-span-9">Budget *</div>
+            <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right tooltip"><svg
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-4 ml-[20px]">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+              </svg>
+              <!-- tooltip -->
+              <div class="tooltipDiv">
+                <span class="tooltiptext">Your budget refers to the amount of money you are willing to spend per year on
+                  school expenses, including tuition, housing, and other costs. Please provide an estimate to help us
+                  find suitable college options within your financial range.</span>
+              </div>
+              <!-- tooltip end-->
+            </div>
+          </label>
           <BudgetDropdown :player_budgets="budgets" v-model="player_budget" id="player_budget" label="Player Budget" />
         </div>
 
@@ -380,7 +441,7 @@ import BudgetDropdown from '~/components/common/select/BudgetDropdown.vue';
 import HandednessDropdown from '~/components/common/select/HandednessDropdown.vue';
 import Notification from '~/components/common/Notification.vue';
 import { useNuxtApp } from '#app';
-definePageMeta({ colorMode: 'light', layout: 'outer'},)
+definePageMeta({ colorMode: 'light', layout: 'outer' },)
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
@@ -843,5 +904,36 @@ label input {
 
 .error-item {
   margin-bottom: 5px;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltipDiv {
+  right: 200px;
+  position: absolute;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
 </style>
