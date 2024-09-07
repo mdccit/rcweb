@@ -54,7 +54,7 @@
                     name</label>
                   <input type="text" id="firstname" v-model="firstname" autocomplete="given-name"
                     class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
-                    placeholder="John" required />
+                    placeholder="" required />
                 </div>
               </div>
               <div class="space-y-4">
@@ -63,7 +63,7 @@
                     name</label>
                   <input type="text" id="lastname" v-model="lastname" autocomplete="family-name"
                     class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
-                    placeholder="Carter" required />
+                    placeholder="" required />
                 </div>
               </div>
             </div>
@@ -74,7 +74,7 @@
                   address</label>
                 <input type="email" id="email" v-model="email" autocomplete="email"
                   class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
-                  placeholder="john.doe@company.com" required />
+                  placeholder="" required />
               </div>
             </div>
 
@@ -85,7 +85,7 @@
                     class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Password</label>
                   <input type="password" id="password" v-model="password" autocomplete="new-password"
                     class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
-                    placeholder="•••••••••" required />
+                    placeholder="" required />
                 </div>
               </div>
               <div>
@@ -94,7 +94,7 @@
                     class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Confirm password</label>
                   <input type="password" id="confirmPassword" v-model="confirmPassword" autocomplete="new-password"
                     class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
-                    placeholder="•••••••••" required />
+                    placeholder="" required />
                 </div>
               </div>
             </div>
