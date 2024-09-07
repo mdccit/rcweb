@@ -1,0 +1,18 @@
+/* tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    @font-face {
+      font-family: 'Figtree';
+      font-style: normal;
+      src: url(@/assets/fonts/Figtree-VariableFont_wght.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Figtree-italic';
+        font-style: italic;
+        src: url(@/assets/fonts/Figtree-Italic-VariableFont_wght.woff) format('woff2');
+    }
+}

@@ -17,7 +17,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Inter var"', ...defaultTheme.fontFamily.sans],
+        sans: ['Figtree', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         primary: '#3D7FFF',
@@ -27,21 +27,21 @@ module.exports = {
         black: '#000000',
         white: '#FFFFFF',
         azureblue: '#0284c7',
-        steelBlue: '#0085FF', // primary color
+        steelBlue: '#0085FF', // Primary color
         lightSteelBlue: '#779BD8',
-        steelBlueLight79: '#F1F6FF', // primary color
+        steelBlueLight79: '#F1F6FF',
         veryPaleBlue: '#EFEFFD',
         snowBlue: '#FBFBFB',
         periwinkleBlue: '#6288C9',
-        darkSlateBlue: '#465A7D',
-        poloBlue: '#9EC7D4',
-        culturedBlue: '#F6F6F6',
+        darkSlateBlue: '#465A7D', // Text color
+        poloBlue: '#9EC7D4', // Border color
+        culturedBlue: '#F6F6F6', // Form control background
         lightPale : '#C3E3FF',
         timberwolf: '#D9D9D9',
-        graySnowDrift: '#F4F6F9',
+        graySnowDrift: '#F4F6F9', // Page background gray color
         lightGray: '#eeeeee',
         pigeonBlue: '#BBCDEE',
-        ceil: '#8CA4CE', // secondary color
+        ceil: '#8CA4CE', // Placeholder color
         limegreen: '#4AC220',
         lightred: '#F9697A',
         amber: '#FFA800',
@@ -52,6 +52,9 @@ module.exports = {
         lightPink: '#FFA9A9',
         lighterGray: '#DFE4EE',
         teelGray:'#e2e5e7',
+        darkAzureBlue: '#004a8f', // Primary blue button hover color
+        palePink: '#ffeeee',
+        powderBlue: '#e5f3ff'
       },
       testred: {
         lightest: '#efdfa4',
@@ -74,6 +77,9 @@ module.exports = {
         800: '#016538',
         900: '#0A5331',
         950: '#052e16'
+      },      
+      opacity: {
+        '23': '0.23'
       }
     },
   },

@@ -1,20 +1,20 @@
 <template>
   <div>
-    <hr class="mt-3 mb-3 text-pigeonBlue">
-    <div v-for="comment in comments" :key="comment.id" class="flex space-x-4 mt-3">
-      <img src="@/assets/user/images/Rectangle 117.png" alt="User Image" class="rounded-lg w-12 h-12 mr-4">
+    <hr class="my-3 text-pigeonBlue">
+    <div v-for="comment in comments" :key="comment.id" class="flex space-x-3 my-5">
+      <img src="@/assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-10 h-10">
 
       <div class="flex-grow">
         <!-- Display the user's display name -->
-        <div class="text-lg font-semibold text-black">{{ comment.user.display_name }}</div>
+        <div class="text-black">{{ comment.user.display_name }}</div>
         <div class="flex items-center space-x-2">
           <!-- Use getTimeAgo function to show human-readable time -->
-          <div class="text-darkSlateBlue text-sm">{{ getTimeAgo(comment.created_at) }}</div>
+          <div class="text-darkSlateBlue text-xs">{{ getTimeAgo(comment.created_at) }}</div>
         </div>
 
         <!-- Display Comment -->
         <div v-if="!editingCommentId || editingCommentId !== comment.id">
-          <p class="text-darkSlateBlue text-base mt-2">{{ comment.content }}</p>
+          <p class="text-darkSlateBlue text-sm mt-2">{{ comment.content }}</p>
           <div class="flex space-x-2 mt-2">
             <!-- Edit and Delete Buttons -->
             <button class="text-sm text-blue-500" @click="startEditComment(comment.id)">Edit</button>
