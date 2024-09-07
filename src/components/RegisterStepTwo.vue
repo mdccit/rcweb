@@ -86,12 +86,16 @@
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('phone_code_country')">
-          <label for="phone_code_country" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Mobile
-            No * <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="size-4">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-            </svg>
+          <label for="phone_code_country"
+            class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
+            <div class="col-span-9">Mobile No *</div>
+            <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right"><svg
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-4 ml-[20px]">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+              </svg></div>
+
           </label>
           <div class="grid grid-cols-5 gap-3 items-center -mt-[9px]">
             <CountryCodeDropdown :country_codes="country_codes" v-model="phone_code_country" name="phone_code"
@@ -100,8 +104,16 @@
               class=" mt-[4px] h-12 col-span-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
               placeholder="Number" required />
           </div>
-        </div>
 
+          <!-- tooltip -->
+          <div id="tooltip-default" role="tooltip"
+            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+            Tooltip content
+            <div class="tooltip-arrow" data-popper-arrow></div>
+          </div>
+        </div>
+        <!-- tooltip end -->
+         
         <div class="space-y-4" v-if="roleFields.includes('gender')">
           <label for="gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">Gender *</label>
           <GenderDropDown :genders="genders" v-model="gender" id="gender" label="Gender *" />
@@ -368,7 +380,7 @@ import BudgetDropdown from '~/components/common/select/BudgetDropdown.vue';
 import HandednessDropdown from '~/components/common/select/HandednessDropdown.vue';
 import Notification from '~/components/common/Notification.vue';
 import { useNuxtApp } from '#app';
-
+definePageMeta({ colorMode: 'light', layout: 'outer'},)
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
