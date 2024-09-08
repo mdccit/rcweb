@@ -56,7 +56,7 @@
                 class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
                 placeholder="" required />
             </div>
-            <span v-if="errors.first_name" class="text-red-500 error-border text-sm error">{{ errors.first_name.join(', ') }}</span>
+            <span v-if="errors.first_name" class="text-red text-sm ">{{ errors.first_name.join(', ') }}</span>
           </div>
           <div class="space-y-4">
             <div>
@@ -66,7 +66,7 @@
                 class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
                 placeholder="" required />
             </div>
-            <span v-if="errors.last_name" class="text-red-500 error-border text-sm error">{{ errors.last_name.join(', ') }}</span>
+            <span v-if="errors.last_name" class="text-red text-sm ">{{ errors.last_name.join(', ') }}</span>
           </div>
         </div>
 
@@ -78,7 +78,7 @@
               class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
               placeholder="" required />
           </div>
-          <span v-if="errors.email" class="text-red-500 error-border text-sm error">{{ errors.email.join(', ') }}</span>
+          <span v-if="errors.email" class="text-red text-sm ">{{ errors.email.join(', ') }}</span>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2 pt-3">
@@ -90,17 +90,17 @@
                 class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
                 placeholder="" required />
             </div>
-            <span v-if="errors.email" class="text-red-500 error-border text-sm error">{{ errors.email.join(', ') }}</span>
+            <span v-if="errors.email" class="text-red text-sm ">{{ errors.email.join(', ') }}</span>
           </div>
           <div>
             <div>
-              <label for="confirmPassword" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Confirm
+              <label for="password_confirmation" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Confirm
                 password</label>
-              <input type="password" id="confirmPassword" v-model="confirmPassword" autocomplete="new-password"
+              <input type="password" id="password_confirmation" v-model="password_confirmation" autocomplete="new-password"
                 class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
                 placeholder="" required />
             </div>
-            <span v-if="errors.password_confirmation" class="text-red-500 error-border text-sm error">{{ errors.password_confirmation.join(', ') }}</span>
+            <span v-if="errors.password_confirmation" class="text-red text-sm ">{{ errors.password_confirmation.join(', ') }}</span>
           </div>
         </div>
 
@@ -149,7 +149,6 @@ const password_confirmation = ref('');
 const error = ref('');
 const successMessage = ref('');
 const errors = ref([]);
-const isSubmitting = ref(false);
 
 const showNotification = ref(false);
 const notificationMessage = ref('');
@@ -166,11 +165,10 @@ const $authService = nuxtApp.$authService;
 
 const handleSubmit = async () => {
 
-  isSubmitting.value = true;
+  loading.value = true;
   errors.value = [];
-  if (password.value !== password_confirmation.value) {
-    errors.value.push('Passwords do not match');
-    isSubmitting.value = false;
+  if (password.value !== password_confirmation.value) {  
+    loading.value = false;
     notification_type.value = 'failure';
     notificationMessage.value = 'Passwords do not match';
     showNotification.value = true;
@@ -198,7 +196,7 @@ const handleSubmit = async () => {
         errors.value.push('Token is missing in the response.');
       }
     } if (response.status === 422) {
-      isSubmitting.value = false;
+      loading.value = false;
       // Handle validation errors (status 422)
       const responseData = await response.json();  // Parse the response data
 
@@ -222,7 +220,7 @@ const handleSubmit = async () => {
       console.error('An unexpected error occurred:', err);
     }
   } finally {
-    isSubmitting.value = false;
+    loading.value = false;
   }
 };
 </script>

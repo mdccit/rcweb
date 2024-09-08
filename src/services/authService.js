@@ -40,13 +40,13 @@ const createAuthService = (apiService) => {
       if (error.response) {
         throw error.response; // Pass the full response to be handled in the frontend
       } else {
-      throw new Error(error.message || 'Failed to register');
+        throw new Error(error.message || 'Failed to register');
       }
     }
   };
 
 
-  const registerStepTwo = async (endpoint_url,userDetails) => {
+  const registerStepTwo = async (endpoint_url, userDetails) => {
     const url = endpoint_url;
     const body = userDetails;
 
@@ -54,7 +54,11 @@ const createAuthService = (apiService) => {
       const response = await apiService.putRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to register 2');
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to login');
+      }
     }
   };
 
@@ -63,7 +67,7 @@ const createAuthService = (apiService) => {
 
     try {
       const response = await apiService.getRequest(url);
-      return response.data.authUrl; 
+      return response.data.authUrl;
     } catch (error) {
       throw new Error(error.message || 'Failed to fetch Google auth URL');
     }
@@ -77,7 +81,11 @@ const createAuthService = (apiService) => {
       const response = await apiService.postRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to login with Google');
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to register');
+      }
     }
   };
 
@@ -89,27 +97,35 @@ const createAuthService = (apiService) => {
       const response = await apiService.postRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to register with Google');
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to register');
+      }
     }
   };
 
   const resetPasswordRequest = async (email) => {
     const url = '/auth/forgot-password-request';
     const body = { email };
-  
+
     try {
       const response = await apiService.postRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to send reset password request');
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to register');
+      }
     }
   };
-  
+
 
   const resetPassword = async (password_reset_id, recovery_code, password, password_confirmation) => {
     // Check if password_reset_id is provided
     if (!password_reset_id) {
-        throw new Error('Password reset ID is required.');
+      throw new Error('Password reset ID is required.');
     }
 
     // Construct the URL with the password_reset_id
@@ -121,14 +137,17 @@ const createAuthService = (apiService) => {
       password,
       password_confirmation,
     };
-  
+
     try {
       // Make the API request
       const response = await apiService.putRequest(url, body);
       return response;
     } catch (error) {
-      // Handle any errors that occur during the request
-      throw new Error(error.message || 'Failed to reset password');
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+      throw new Error(error.message || 'Failed to register');
+      }
     }
   };
 

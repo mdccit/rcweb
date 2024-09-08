@@ -13,13 +13,12 @@
                             fill="white"></path>
                     </svg>
                 </NuxtLink>
-                </div>
+            </div>
             <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg soverflow-hidden sm:max-w-lg ">
                 <div class="flex items-center space-x-4 mb-8">
                     <div class="flex self-center items-center">
-                        <NuxtLink  to="/login"
-                            class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full"><svg
-                                class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        <NuxtLink to="/login" class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full">
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                 stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M15 6l-6 6l6 6"></path>
@@ -49,23 +48,27 @@
                 <Notification v-if="showNotification" :message="notificationMessage" :duration="3000" />
 
 
-          
-                        <div class=""><label class="block"><span class="block mb-1 text-gray-700 font-sans"> Email <span
-                                        aria-hidden="true" class="text-red-600"
-                                        title="This field is required">*</span></span>
-                                <div class="flex rounded-lg border border-gray-300 shadow-sm"><input
-                                        class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring text-black focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                        name="email" type="email" v-model="email" data-validation-key="email" id="email"
-                                        required="" autofocus=""></div>
-                            </label><!----></div>
-                        <div class="flex items-center justify-end mt-4">
-                            <button @click="sendResetPasswordRequest(email)"
-                                class="border rounded-full shadow-sm font-normal py-2.5 text-white px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700">
-                                <div class="flex flex-row items-center justify-center"><span v-if="!loading" class=""> 
-                                    Email reset link </span>  <LoadingSpinner v-else /></div>
-                            </button>
+
+                <div class=""><label class="block"><span class="block mb-1 text-gray-700 font-sans"> Email <span
+                                aria-hidden="true" class="text-red-600" title="This field is required">*</span></span>
+                        <div class="flex rounded-lg border border-gray-300 shadow-sm"><input
+                                class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring text-black focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                name="email" type="email" v-model="email" data-validation-key="email" id="email"
+                                required="" autofocus="">
                         </div>
-               
+                        <span v-if="errors.email" class="text-red text-sm ">{{ errors.email.join(', ')
+                            }}</span>
+                    </label><!----></div>
+                <div class="flex items-center justify-end mt-4">
+                    <button @click="sendResetPasswordRequest(email)"
+                        class="border rounded-full shadow-sm font-normal py-2.5 text-white px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700">
+                        <div class="flex flex-row items-center justify-center"><span v-if="!loading" class="">
+                                Email reset link </span>
+                            <LoadingSpinner v-else />
+                        </div>
+                    </button>
+                </div>
+
             </div>
 
 
@@ -100,17 +103,16 @@
             </div>
         </div><!---->
 
-
-        <LoadingSpinner v-if="loading" />
-         <!-- Notification Component -->
-    <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
+        <!-- Notification Component -->
+        <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type"
+            :duration="3000" />
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useNuxtApp, useRouter } from '#app';
-import LoadingSpinner from '~/components/LoadingSpinner.vue';  
+import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import Notification from '~/components/common/Notification.vue';
 
 
@@ -121,17 +123,19 @@ const showNotification = ref(false); // To control the visibility of the notific
 const notificationMessage = ref('');
 const loading = ref(false);
 const notification_type = ref('');
-definePageMeta({ colorMode: 'light', layout: 'outer'},)
+const errors = ref({});
+import { handleError } from '@/utils/handleError';
+
+definePageMeta({ colorMode: 'light', layout: 'outer' },)
 
 const sendResetPasswordRequest = async () => {
     loading.value = true;
     try {
-    
-        const result = await nuxtApp.$authService.resetPasswordRequest(email.value);
-        console.log('Reset password request sent:', result);
 
-         // Store the password_reset_id in local storage
-         if (result && result.data && result.data.password_reset_id) {
+        const result = await nuxtApp.$authService.resetPasswordRequest(email.value);
+
+        // Store the password_reset_id in local storage
+        if (result && result.data && result.data.password_reset_id) {
             localStorage.setItem('password_reset_id', result.data.password_reset_id);
         }
 
@@ -143,6 +147,7 @@ const sendResetPasswordRequest = async () => {
         } else {
             notificationMessage.value = 'Password reset request was recorded.';
             notification_type.value = 'success';
+   
             loading.value = false;
         }
 
@@ -153,12 +158,7 @@ const sendResetPasswordRequest = async () => {
             router.push('/reset-password'); // Change '/new-password' to your actual route
         }, 2000);
     } catch (error) {
-        console.error('Error sending reset password request:', error.message);
-        loading.value = false;
-        // Set the error notification message and show it
-        notificationMessage.value = 'There was an error sending the reset password request. Please try again.';
-        notification_type.value = 'warning';
-        showNotification.value = true;
+        handleError(error, errors, notificationMessage, notification_type, showNotification, loading); 
     }
 };
 </script>

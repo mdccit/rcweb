@@ -16,7 +16,7 @@
             class="block px-5 py-3 text-black w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
             name="email" type="email" data-validation-key="email" id="email" required="true" autofocus>
         </div>
-        <span v-if="errors.email" class="text-red-500 error-border text-sm">{{ errors.email.join(', ') }}</span>
+        <span v-if="errors.email" class="text-red text-sm ">{{ errors.email.join(', ') }}</span>
         <!-- Email Validation Error -->
 
       </label>
@@ -31,7 +31,7 @@
             name="password" type="password" data-validation-key="password" id="password" required
             autocomplete="current-password">
         </div>
-        <span v-if="errors.password" class="text-red-500 error-border text-sm error">{{ errors.password.join(', ')
+        <span v-if="errors.password" class="text-red text-sm ">{{ errors.password.join(', ')
           }}</span>
         <!-- Password Validation Error -->
 
@@ -92,7 +92,7 @@ import Cookies from 'js-cookie';
 
 import Notification from '~/components/common/Notification.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
-
+import { handleError } from '@/utils/handleError';
 
 const email = ref('');
 const rememberMe = ref(false);
@@ -117,36 +117,8 @@ definePageMeta({ colorMode: 'light', })
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 
-// Computed property to split error messages by comma
-const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
-
-
-
-// Dynamic Backend Validation Error Handling
-const handleBackendErrors = (errorMessages) => {
-  errors.value = {};  // Clear previous errors
-
-  // Iterate through backend errors and assign them to corresponding fields
-  for (const [field, messages] of Object.entries(errorMessages)) {
-    errors.value[field] = messages.join(', ');  // Assign error message dynamically
-  }
-};
-
-
-const emailError = ref('');
-
 // Function to handle user login
 const userLogin = async () => {
-
-  // Reference to the input element
-  const emailInput = document.getElementById('email');
-
-  // Check if the input is valid using native validation
-  if (!emailInput.checkValidity()) {
-    emailError.value = emailInput.validationMessage; // Display the native validation message
-  } else {
-    emailError.value = ''; // Clear the error message if the input is valid  
-  }
 
   try {
     errors.value = {};  // Reset errors before submitting
@@ -188,17 +160,8 @@ const userLogin = async () => {
         }
       }, 1000);
     }
-  } catch (err) {
-    // Check if the error response contains validation messages (status 422)
-    if (err.message) {
-
-      // Assign validation messages to the respective fields
-      for (const [field, messages] of Object.entries(err.message)) {
-        errors.value[field] = messages; // Map error messages to the form fields
-      }
-    } else {
-      console.error('An unexpected error occurred:', err);
-    }
+  } catch (error) {
+    handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
   } finally {
     loading.value = false;  // Reset loading state
   }

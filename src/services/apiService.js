@@ -66,7 +66,7 @@ const createApiService = (config) => {
       });
       return await handleResponse(response);
     } catch (error) {
-      throw new Error(error.message || 'Error making PUT request');
+      throw error;
     }
   };
 
@@ -91,7 +91,7 @@ const createApiService = (config) => {
       });
       return await handleResponse(response);
     } catch (error) {
-      throw new Error(error.message || 'Error making PATCH request');
+      throw error;
     }
   };
 
