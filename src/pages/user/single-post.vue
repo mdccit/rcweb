@@ -56,7 +56,7 @@
                                                 Edit post
                                             </a>
                                         </li>
-                                        <li class="text-red">
+                                        <li class="text-red-500">
                                             <a href="#" class="block px-4 py-2 hover:bg-lightGray flex">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                     stroke-width="1.5" stroke="currentColor" class="size-4 mr-2">

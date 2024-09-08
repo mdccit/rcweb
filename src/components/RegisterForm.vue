@@ -13,7 +13,7 @@
               fill="white"></path>
           </svg></NuxtLink>
       </div>
-      <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-4xl">
+      <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl">
         <div class="flex items-center space-x-4 my-5">
           <div class="flex self-center items-center">
             <NuxtLink to="/login" class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full">
@@ -31,15 +31,13 @@
           </div>
         </div>
         <div class="w-full">
-          <button type="button" class="py-2.5 w-full px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white
-             rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10
-              focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 light:bg-gray-800 light:text-gray-400
-               light:border-gray-600 light:hover:text-white light:hover:bg-gray-700">
-            <span><img class="absolute -mt-13" src="@/assets/images/google_icon.png"></span>Sign up with Google
+          <button type="button" class="flex justify-center items-center py-2.5 w-full px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-steelBlue focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 transition">
+            <span class="me-6"><img src="@/assets/images/google_icon.png"></span>Sign up with Google
           </button>
         </div>
-        <div class="w-full pt-4">
-          <hr>
+        <div class="w-full h-16 relative">
+          <span class="uppercase absolute left-1/2 -translate-x-1/2 bg-white text-center w-20 h-full z-10 flex justify-center items-center">Or</span>
+          <hr class="absolute top-1/2 z-0 w-full">
         </div>
         <!-- Form -->
         <div v-if="errors && errors.length" class="mb-4 text-red-600">
@@ -56,7 +54,7 @@
                 class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
                 placeholder="" required />
             </div>
-            <span v-if="errors.first_name" class="text-red text-sm ">{{ errors.first_name.join(', ') }}</span>
+            <span v-if="errors.first_name" class="text-red-500 text-sm ">{{ errors.first_name.join(', ') }}</span>
           </div>
           <div class="space-y-4">
             <div>
@@ -66,7 +64,7 @@
                 class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
                 placeholder="" required />
             </div>
-            <span v-if="errors.last_name" class="text-red text-sm ">{{ errors.last_name.join(', ') }}</span>
+            <span v-if="errors.last_name" class="text-red-500 text-sm ">{{ errors.last_name.join(', ') }}</span>
           </div>
         </div>
 
@@ -78,7 +76,7 @@
               class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
               placeholder="" required />
           </div>
-          <span v-if="errors.email" class="text-red text-sm ">{{ errors.email.join(', ') }}</span>
+          <span v-if="errors.email" class="text-red-500 text-sm ">{{ errors.email.join(', ') }}</span>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2 pt-3">
@@ -90,7 +88,7 @@
                 class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
                 placeholder="" required />
             </div>
-            <span v-if="errors.email" class="text-red text-sm ">{{ errors.email.join(', ') }}</span>
+            <span v-if="errors.email" class="text-red-500 text-sm ">{{ errors.email.join(', ') }}</span>
           </div>
           <div>
             <div>
@@ -100,7 +98,7 @@
                 class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
                 placeholder="" required />
             </div>
-            <span v-if="errors.password_confirmation" class="text-red text-sm ">{{ errors.password_confirmation.join(', ') }}</span>
+            <span v-if="errors.password_confirmation" class="text-red-500 text-sm ">{{ errors.password_confirmation.join(', ') }}</span>
           </div>
         </div>
 
