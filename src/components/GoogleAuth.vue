@@ -1,19 +1,6 @@
 <template>
   <div class="container mx-auto mt-10">
-    <h1 class="text-2xl font-bold mb-4 text-center">Login or Register with Google</h1>
-    <div class="flex justify-center space-x-4">
-      <button
-        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        @click="initiateGoogleAuth('login')">
-        Continue with Google (Login)
-      </button>
-      <button
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        @click="initiateGoogleAuth('register')">
-        Continue with Google (Register)
-      </button>
-    </div>
-    
+    <LoadingSpinner v-if="loading" />
     <!-- Notification Component for showing messages -->
     <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType" :duration="3000" />
     
@@ -26,6 +13,7 @@ import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue'; // Import Notification component
+import LoadingSpinner from '~/components/LoadingSpinner.vue';
 
 const error = ref('');
 const successMessage = ref('');
@@ -42,27 +30,28 @@ const notificationType = ref('');
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 
-// Function to handle Google authentication
-const initiateGoogleAuth = async (type) => {
-  try {
-    authType.value = type;
-    localStorage.setItem('authType', type);
-    const authUrl = await $authService.getGoogleAuthUrl();
-    console.log(authUrl);
-    window.location.href = authUrl; // Redirect the user to the Google authentication URL
-  } catch (err) {
-    notificationType.value = 'failure';
-    notificationMessage.value = err.message;
-    showNotification.value = true;
-  }
-};
+
 
 // Function to handle the callback and get the code parameter
 const handleGoogleAuthCallback = async () => {
   const params = new URLSearchParams(window.location.search);
   const code = params.get('code');
   const type = localStorage.getItem('authType');
-  if (code && type) {
+
+  if (!type) {
+    // If authType is not set in localStorage
+    notificationType.value = 'failure';
+    notificationMessage.value = 'Authentication type not found. Redirecting to login.';
+    showNotification.value = true;
+
+    // Wait for the notification to be displayed and then redirect to the login page
+    setTimeout(() => {
+      router.push('/login');
+    }, 2000); // Adjust delay as necessary to ensure the user sees the notification
+    return;
+  }
+
+  if (code) {
     try {
       let response;
       if (type === 'login') {
@@ -81,8 +70,8 @@ const handleGoogleAuthCallback = async () => {
       }
       userStore.setUser({ token });
       setTimeout(() => {
-        router.push('/dashboard'); // Redirect to dashboard after successful login/registration
-      }, 2000); // Adjust delay if needed to ensure notification is seen
+        router.push('/dashboard'); // Redirect after successful login/registration
+      }, 2000);
     } catch (err) {
       notificationType.value = 'failure';
       notificationMessage.value = err.message;
@@ -90,6 +79,7 @@ const handleGoogleAuthCallback = async () => {
     }
   }
 };
+
 
 // Ensure the callback is handled when the component is mounted
 onMounted(handleGoogleAuthCallback);
