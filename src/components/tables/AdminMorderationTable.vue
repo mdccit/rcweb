@@ -77,7 +77,10 @@
         <el-table-column  prop="joined_at" label="Status" sortable>
             <template v-slot="scope">
                 <button  dusk="splade-confirm-confirm" type="button"
-                   class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto sm:text-sm bg-blue-500 hover:bg-blue-700 focus:ring-primary-500">
+                   class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto sm:text-sm"
+                   :class="scope.row.is_closed ? 'bg-gray-300 hover:bg-gray-500' : 'bg-red-500 hover:bg-red'"
+                    >
+                  
                    {{ scope.row.is_closed ? "Closed":"Open" }}
                 </button>
            </template>
