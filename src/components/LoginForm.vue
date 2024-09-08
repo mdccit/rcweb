@@ -161,6 +161,8 @@ const userLogin = async () => {
           router.push('/admin/dashboard');  // Redirect to dashboard
         } else if((response.data.user_role === 'player') || (response.data.user_role === 'parent')) {
           router.push('/app');  // Redirect to Feed
+        } else if ((response.data.user_role === 'default')){
+          router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
         }
       }, 1000);
     }
@@ -189,14 +191,20 @@ onMounted(() => {
   const sessionToken = Cookies.get('session');  // Check if session token exists
   if (sessionToken) {
     // rememberMe.value = true;
-    // const user = userStore.getUser();  // Get user from userStore
+    const user = userStore.getUser();  // Get user from userStore
+
+     const userRole = localStorage.getItem('user_role');
+     const userToken = localStorage.getItem('token');
+
+     if(userRole == 'default'){
+      userStore.setTempUser(userRole,userToken);
+      router.push({ name: 'register-step-two-token', params: { token: userToken } });
+     }
 
     // setTimeout(() => {
     //   // Redirect user based on role or permission
     //   if (user && user.user_permission_type === 'none' && user.user_role === 'coach') {
     //     router.push('/user/approval-pending');
-    //   } else {
-    //     router.push('/admin/dashboard');
     //   }
     // }, 1000);
   }

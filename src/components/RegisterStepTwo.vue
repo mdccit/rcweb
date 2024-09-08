@@ -723,39 +723,48 @@ const handleSubmitStep2 = async () => {
       notification_type.value = 'failure';
       notificationMessage.value = 'Please Select Role!';
       showNotification.value = true;
-    }
-
-    const response = await $authService.registerStepTwo(endpoint, data);
-
-    if (response.status === 200) {
-      notification_type.value = 'success';
-      notificationMessage.value = response.display_message || 'Registration successful!';
-      showNotification.value = true;
-      router.push('/dashboard');
-    }
-    else if (response.status === 401) {
-      console.log('401 detected, redirecting to login...');
-      await router.push('/login');
-      // try {
-      //   // const logout_response = $authService.logout({ bearer_token: token });
-
-      //   // If the logout was successful, clear user data and redirect
-      //   if (logout_response.status === 200) {
-      //     userStore.clearUser(); // Clear user from store
-      //     await router.push('/login'); // Redirect to login page
-      //   } else {
-      //     console.error('Logout failed.');
-      //   }
-      // } catch (error) {
-      //   console.error('Error during logout:', error);
-      // }
     } else {
-      error.value = response.data.message;
-      errors.value.push(response.message);
-      notification_type.value = 'failure';
-      notificationMessage.value = response.display_message || 'Registration failed. Please try again.';
-      showNotification.value = true;
+
+      const response = await $authService.registerStepTwo(endpoint, data);
+
+      if (response.status === 200) {
+        notification_type.value = 'success';
+        notificationMessage.value = response.display_message || 'Registration successful!';
+        showNotification.value = true;
+        if(role.value == 'coach' || role.value == 'business'){
+          router.push('/pending-approval');
+        }else if (role.value == 'player' || role.value == 'parent'){
+          router.push('/app');
+        }else if (role.value == 'admin'){
+          router.push('/dashboard');
+        }
+      
+      }
+      else if (response.status === 401) {
+        console.log('401 detected, redirecting to login...');
+        await router.push('/login');
+        // try {
+        //   // const logout_response = $authService.logout({ bearer_token: token });
+
+        //   // If the logout was successful, clear user data and redirect
+        //   if (logout_response.status === 200) {
+        //     userStore.clearUser(); // Clear user from store
+        //     await router.push('/login'); // Redirect to login page
+        //   } else {
+        //     console.error('Logout failed.');
+        //   }
+        // } catch (error) {
+        //   console.error('Error during logout:', error);
+        // }
+      } else {
+        error.value = response.data.message;
+        errors.value.push(response.message);
+        notification_type.value = 'failure';
+        notificationMessage.value = response.display_message || 'Registration failed. Please try again.';
+        showNotification.value = true;
+      }
     }
+
   } catch (error) {
     handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
   } finally {
