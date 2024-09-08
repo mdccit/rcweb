@@ -34,10 +34,15 @@
                     </div>
                 </div>
             </div>
-            <div class="self-center">
+            <div class="self-center" v-if="!isLoggedIn">
                 <NuxtLink to="/login"
                     class="inline-block bg-black bg-opacity-10 text-center hover:opacity-80 active:opacity-60 text-black font-bold py-2.5 px-8 rounded-full">
                     Login </NuxtLink>
+            </div>
+            <div class="self-center" v-else>
+                <NuxtLink @click="logout" 
+                    class="inline-block bg-black bg-opacity-10 text-center hover:opacity-80 active:opacity-60 text-black font-bold py-2.5 px-8 rounded-full">
+                    Logout </NuxtLink>
             </div>
         </div>
         <div class="flex flex-row gap-4 lg:hidden absolute top-9 left-7"><button
@@ -67,15 +72,87 @@
             <div class="pb-8"></div>
         </div>
     </nav>
+     <!-- Notification Component -->
+  <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
 </template>
 
 <script setup>
-import { useUserStore } from '~/stores/userStore'
+import { ref, computed, onMounted } from 'vue';
+import { useUserStore } from '@/stores/userStore';
+import { useRouter } from 'vue-router';
+import Notification from '~/components/common/Notification.vue';
 
-const userStore = useUserStore()
-definePageMeta({ colorMode: 'light', })
-const email = userStore.user?.email
-const token = userStore.user?.token
+definePageMeta({ colorMode: 'light', });
+const nuxtApp = useNuxtApp();
+const $authService = nuxtApp.$authService;
+const router = useRouter();
+
+const userStore = useUserStore();
+const showNotification = ref(false);
+const notificationMessage = ref('');
+const error = ref('');
+const notification_type = ref('');
+
+onMounted(() => {
+  userStore.initializeUser();
+});
+
+const isLoggedIn = computed(() => userStore.isLoggedIn);
+
+const logout = async () => {
+  try {
+
+    const token = localStorage.getItem('token');  // Retrieve the token from local storage
+    
+    if (!token) {
+      userStore.clearUser();  // Clear user data if no token is found
+      notificationMessage.value = 'You have been logged out.';
+      notification_type.value = 'success';
+      showNotification.value = true;
+      
+      // Use a timeout to display the notification before redirecting to login
+      setTimeout(() => {
+        router.push('/login');  // Redirect to login
+      }, 2000);  // 2-second delay
+
+      return;
+    }
+
+    // Call the logout API if the token exists
+    const response = await $authService.logout({
+      bearer_token: token
+    });
+
+    if (response.status === 200) {
+      userStore.clearUser();  // Clear user data from Pinia store
+      notificationMessage.value = response.display_message;
+      notification_type.value = 'success';
+      showNotification.value = true;
+      
+      setTimeout(() => {
+        router.push('/login');  // Redirect to login after 2 seconds
+      }, 2000);  // 2-second delay
+    } else {
+      notificationMessage.value = response.display_message;
+      notification_type.value = 'failure';
+      showNotification.value = true;
+      setTimeout(() => {
+        router.push('/login');
+      }, 2000);
+    }
+  } catch (err) {
+    // Handle logout errors
+    error.value = err.response?.data?.message || err.message;
+    notification_type.value = 'failure';
+    notificationMessage.value = err.message;
+    showNotification.value = true;
+
+    setTimeout(() => {
+      router.push('/login');  // Ensure redirection to login even on error
+    }, 2000);  // 2-second delay
+  }
+};
+
 </script>
 
 <style scoped></style>

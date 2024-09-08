@@ -13,6 +13,7 @@ module.exports = {
         "./nuxt.config.{js,ts}",
         './app.vue',
         './assets/**/*.{css,scss}',
+        "./node_modules/flowbite/**/*.{js,ts}"
   ],
   theme: {
     extend: {
@@ -83,6 +84,14 @@ module.exports = {
       },      
       opacity: {
         '23': '0.23'
+      },
+      container: {
+        center: true,
+      },      
+      strokeWidth: {
+        '1.25': '1.25px',
+        '1.5': '1.5px',
+        '1.75': '1.75px',
       }
     },
   },
@@ -90,9 +99,33 @@ module.exports = {
     extend: {},
   },
   plugins: [
+    require('flowbite/plugin'),
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
+    function ({ addComponents }) {
+      addComponents({
+        '.container-compressed': {
+          marginRight: 'auto',
+          marginLeft: 'auto',
+          '@screen sm': {
+            maxWidth: '100%',
+          },
+          '@screen md': {
+            maxWidth: '100%',
+          },
+          '@screen lg': {
+            maxWidth: '100%',
+          },
+          '@screen xl': {
+            maxWidth: '1440px',
+          },          
+          '@screen 2xl': {
+            maxWidth: '1440px',
+          },
+        }
+      })
+    }
   ],
 };
 

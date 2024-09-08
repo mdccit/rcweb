@@ -4,8 +4,8 @@
         <SocialHubNavbar /> 
 
         <main class="bg-graySnowDrift">
-            <div class="container mx-auto">
-                <div class="grid grid-cols-6 gap-4">
+            <div class="container-compressed">
+                <div class="grid grid-cols-6 gap-4 mt-16">
                     <!-- Left pane -->
                     <div>
                       <Filter />

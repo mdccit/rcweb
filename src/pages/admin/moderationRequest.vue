@@ -201,7 +201,14 @@ import moment from 'moment';
 import AdminModerationDeleteModal from '~/components/admin/moderation/adminModerationDeleteModal.vue';
 import { useModerationStore } from '~/stores/moderation';
 const moderationStore = useModerationStore();
-definePageMeta({ colorMode: 'light'},)
+
+definePageMeta({
+    ssr: 'true',
+    layout: 'admin',
+    middleware: ['permissions'],
+    roles: ['admin'],
+    colorMode: 'light'
+});
 const route = useRoute()
 
 const nuxtApp = useNuxtApp();
