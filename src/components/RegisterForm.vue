@@ -53,7 +53,7 @@
               <label for="first_name" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">First
                 name</label>
               <input type="text" id="first_name" v-model="first_name" autocomplete="given-name"
-                class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+                class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
                 placeholder="" required />
             </div>
             <span v-if="errors.first_name" class="text-red text-sm ">{{ errors.first_name.join(', ') }}</span>
@@ -63,7 +63,7 @@
               <label for="last_name" class="font-normal block mb-2 text-sm text-gray-900 light:text-gray">Last
                 name</label>
               <input type="text" id="last_name" v-model="last_name" autocomplete="family-name"
-                class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+                class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
                 placeholder="" required />
             </div>
             <span v-if="errors.last_name" class="text-red text-sm ">{{ errors.last_name.join(', ') }}</span>
@@ -75,7 +75,7 @@
             <label for="email" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Email
               address</label>
             <input type="email" id="email" v-model="email" autocomplete="email"
-              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
               placeholder="" required />
           </div>
           <span v-if="errors.email" class="text-red text-sm ">{{ errors.email.join(', ') }}</span>
@@ -87,7 +87,7 @@
               <label for="password"
                 class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Password</label>
               <input type="password" id="password" v-model="password" autocomplete="new-password"
-                class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+                class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
                 placeholder="" required />
             </div>
             <span v-if="errors.email" class="text-red text-sm ">{{ errors.email.join(', ') }}</span>
@@ -97,7 +97,7 @@
               <label for="password_confirmation" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Confirm
                 password</label>
               <input type="password" id="password_confirmation" v-model="password_confirmation" autocomplete="new-password"
-                class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+                class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
                 placeholder="" required />
             </div>
             <span v-if="errors.password_confirmation" class="text-red text-sm ">{{ errors.password_confirmation.join(', ') }}</span>
@@ -118,7 +118,7 @@
         </div>
 
         <div class="flex items-center justify-end mt-5">
-          <button @click="handleSubmit" class="text-white bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-4 
+          <button @click="handleSubmit" class="text-white bg-steelBlue hover:bg-blue-800 focus:outline-none focus:ring-4 
               focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 
               dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Sign up now for free

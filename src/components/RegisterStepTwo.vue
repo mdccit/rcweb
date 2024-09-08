@@ -112,7 +112,7 @@
               data-validation-key="phone_code" class="col-span-2 h-12" />
          
             <input type="text" id="phone_number" v-model="phone_number"
-              class=" mt-[4px] h-12 col-span-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
+              class=" mt-[4px] h-12 col-span-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-steelBlue light:focus:border-steelBlue"
               placeholder="Number" required />  
           </div>
           <ul>
@@ -374,7 +374,7 @@
           <!-- Height in Centimeters -->
           <div v-if="player_height_in_cm" class="-mt-[8px]">
             <input type="number" id="player_height_cm" v-model="player_height_cm"
-              class="bg-gray-50 border h-12 -mt-[8px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              class="bg-gray-50 border h-12 -mt-[8px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
               placeholder="Height in cm" />
               <span v-if="errors.player_height_cm" class="text-red text-sm ">{{ errors.player_height_cm.join(', ')
               }}</span>
@@ -383,10 +383,10 @@
           <!-- Height in Feet/Inches -->
           <div v-else class="grid grid-cols-10 gap-3 items-center -mt-[8px]">
             <input type="number" id="player_height_ft" v-model="player_height_ft"
-              class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
               placeholder="Ft" required />
             <input type="number" id="player_height_in" v-model="player_height_in"
-              class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
               placeholder="In" required />
           </div>
           <ul>

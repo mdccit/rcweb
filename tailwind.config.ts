@@ -123,6 +123,25 @@ module.exports = {
           '@screen 2xl': {
             maxWidth: '1440px',
           },
+        },
+        '.container-compact': {
+          marginRight: 'auto',
+          marginLeft: 'auto',
+          '@screen sm': {
+            maxWidth: '100%',
+          },
+          '@screen md': {
+            maxWidth: '100%',
+          },
+          '@screen lg': {
+            maxWidth: '100%',
+          },
+          '@screen xl': {
+            maxWidth: '1496px',
+          },          
+          '@screen 2xl': {
+            maxWidth: '1496px',
+          },
         }
       })
     }
