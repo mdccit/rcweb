@@ -155,8 +155,12 @@ const userLogin = async () => {
         // Conditionally redirect based on user role and permissions
         if (response.data.user_permission_type === 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
           router.push('/user/approval-pending');  // Redirect to pending approval page
-        } else {
+        } else if (response.data.user_permission_type != 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
+          router.push('/app');  
+        } else if(response.data.user_role === 'admin') {
           router.push('/admin/dashboard');  // Redirect to dashboard
+        } else if((response.data.user_role === 'player') || (response.data.user_role === 'parent')) {
+          router.push('/app');  // Redirect to Feed
         }
       }, 1000);
     }

@@ -75,20 +75,20 @@
             *</label>
           <NationalityDropdown :nationalities="nationalities" v-model="nationality" id="nationality"
             label="Nationality" />
-            <span v-if="errors.nationality" class="text-red text-sm ">{{ errors.nationality.join(', ')
+          <span v-if="errors.nationality" class="text-red text-sm ">{{ errors.nationality.join(', ')
             }}</span>
-  
+
         </div>
-   
+
         <div class="space-y-4" v-if="roleFields.includes('country')">
           <label for="country"
             class="font-normal text-black block text-sm text-gray-900 dark:text-gray mb-[20px]">Country
             *</label>
           <CountryDropdown :countries="countries" v-model="country" id="country" class="mt-0" label="Country *" />
           <span v-if="errors.country" class="text-red text-sm ">{{ errors.country.join(', ')
-          }}</span>
+            }}</span>
         </div>
-        
+
 
         <div class="space-y-4" v-if="roleFields.includes('phone_code_country')">
           <label for="phone_code_country"
@@ -110,16 +110,16 @@
           <div class="grid grid-cols-5 gap-3 items-center -mt-[9px]">
             <CountryCodeDropdown :country_codes="country_codes" v-model="phone_code_country" name="phone_code"
               data-validation-key="phone_code" class="col-span-2 h-12" />
-         
+
             <input type="text" id="phone_number" v-model="phone_number"
               class=" mt-[4px] h-12 col-span-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
-              placeholder="Number" required />  
+              placeholder="Number" required />
           </div>
           <ul>
-            <li>     <span v-if="errors.phone_code_country" class="text-red text-sm ">{{ errors.phone_code_country.join(', ')
-            }}</span> </li>
-            <li>  <span v-if="errors.phone_number" class="text-red text-sm ">{{ errors.phone_number.join(', ')
-            }}</span></li>
+            <li> <span v-if="errors.phone_code_country" class="text-red text-sm ">{{ errors.phone_code_country.join(',')
+                }}</span> </li>
+            <li> <span v-if="errors.phone_number" class="text-red text-sm ">{{ errors.phone_number.join(', ')
+                }}</span></li>
           </ul>
 
         </div>
@@ -129,18 +129,18 @@
           <label for="gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">Gender *</label>
           <GenderDropDown :genders="genders" v-model="gender" id="gender" label="Gender *" />
           <span v-if="errors.gender" class="text-red text-sm ">{{ errors.gender.join(', ')
-          }}</span>
+            }}</span>
         </div>
-      
+
 
         <div class="space-y-4" v-if="roleFields.includes('handedness')">
           <label for="handedness" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Handedness
             *</label>
           <HandednessDropdown :handedness="handednesses" v-model="handedness" id="handedness" label="Handedness *" />
           <span v-if="errors.handedness" class="text-red text-sm ">{{ errors.handedness.join(', ')
-          }}</span>
+            }}</span>
         </div>
-       
+
         <!-- Height Selection with Feet/Inches and Centimeters Toggle -->
         <div v-if="roleFields.includes('height')" class="space-y-4 ">
 
@@ -169,7 +169,7 @@
             <input type="number" id="height_cm" v-model="height_cm"
               class="bg-gray-50 border h-12 -mt-[8px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Height in cm" />
-              <span v-if="errors.height_cm" class="text-red text-sm ">{{ errors.height_cm.join(', ')
+            <span v-if="errors.height_cm" class="text-red text-sm ">{{ errors.height_cm.join(', ')
               }}</span>
           </div>
           <!-- Height in Feet/Inches -->
@@ -177,12 +177,12 @@
             <input type="number" id="height_ft" v-model="height_ft"
               class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Ft" />
-              <span v-if="errors.height_ft" class="text-red text-sm ">{{ errors.height_ft.join(', ')
+            <span v-if="errors.height_ft" class="text-red text-sm ">{{ errors.height_ft.join(', ')
               }}</span>
             <input type="number" id="height_in" v-model="height_in"
               class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="In" />
-              <span v-if="errors.height_in" class="text-red text-sm ">{{ errors.height_in.join(', ')
+            <span v-if="errors.height_in" class="text-red text-sm ">{{ errors.height_in.join(', ')
               }}</span>
           </div>
         </div>
@@ -193,7 +193,7 @@
             <input type="text" id="utr" v-model="utr"
               class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
               placeholder="UTR" required />
-              <span v-if="errors.utr" class="text-red text-sm ">{{ errors.utr.join(', ')
+            <span v-if="errors.utr" class="text-red text-sm ">{{ errors.utr.join(', ')
               }}</span>
           </div>
           <div class="col-span-5" v-if="roleFields.includes('gpa')">
@@ -219,7 +219,7 @@
             <input type="text" id="gpa" v-model="gpa"
               class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
               placeholder="GPA" required />
-              <span v-if="errors.gpa" class="text-red text-sm ">{{ errors.gpa.join(', ')
+            <span v-if="errors.gpa" class="text-red text-sm ">{{ errors.gpa.join(', ')
               }}</span>
           </div>
         </div>
@@ -230,7 +230,7 @@
           <input type="month" v-model="graduation"
             class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-primary light:focus:ring-blue-500 light:focus:border-blue-500"
             placeholder="Select Month/Year" />
-            <span v-if="errors.graduation_month_year" class="text-red text-sm ">{{ errors.graduation_month_year.join(', ')
+          <span v-if="errors.graduation_month_year" class="text-red text-sm ">{{ errors.graduation_month_year.join(', ')
             }}</span>
         </div>
 
@@ -255,7 +255,7 @@
           </label>
           <BudgetDropdown :player_budgets="budgets" v-model="selectedBudget" id="budgets" label="Budgets *" />
           <span v-if="errors.player_budget" class="text-red text-sm ">{{ errors.player_budget.join(', ')
-          }}</span>
+            }}</span>
         </div>
 
 
@@ -268,7 +268,7 @@
           <input type="text" id="player_first_name" v-model="player_first_name"
             class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="First Name" required />
-            <span v-if="errors.player_first_name" class="text-red text-sm ">{{ errors.player_first_name.join(', ')
+          <span v-if="errors.player_first_name" class="text-red text-sm ">{{ errors.player_first_name.join(', ')
             }}</span>
         </div>
 
@@ -279,7 +279,7 @@
           <input type="text" id="player_last_name" v-model="player_last_name"
             class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="Last Name" required />
-            <span v-if="errors.player_last_name" class="text-red text-sm ">{{ errors.player_last_name.join(', ')
+          <span v-if="errors.player_last_name" class="text-red text-sm ">{{ errors.player_last_name.join(', ')
             }}</span>
         </div>
 
@@ -288,7 +288,7 @@
           <input type="email" id="email" v-model="email"
             class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="Email" required />
-            <span v-if="errors.email" class="text-red text-sm ">{{ errors.email.join(', ')
+          <span v-if="errors.email" class="text-red text-sm ">{{ errors.email.join(', ')
             }}</span>
         </div>
 
@@ -297,7 +297,7 @@
             Country *</label>
           <CountryDropdown :countries="countries" v-model="player_country" id="player_country" label="Player Country" />
           <span v-if="errors.player_country" class="text-red text-sm ">{{ errors.player_country.join(', ')
-          }}</span>
+            }}</span>
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('player_phone_code_country')">
@@ -324,10 +324,12 @@
               placeholder="Player Number" required />
           </div>
           <ul>
-            <li><span v-if="errors.player_phone_code_country" class="text-red text-sm ">{{ errors.player_phone_code_country.join(', ')
-            }}</span></li>
-            <li><span v-if="errors.player_phone_number" class="text-red text-sm ">{{ errors.player_phone_number.join(', ')
-            }}</span></li>
+            <li><span v-if="errors.player_phone_code_country" class="text-red text-sm ">{{
+            errors.player_phone_code_country.join(', ')
+          }}</span></li>
+            <li><span v-if="errors.player_phone_number" class="text-red text-sm ">{{
+            errors.player_phone_number.join(',')
+          }}</span></li>
           </ul>
         </div>
 
@@ -336,7 +338,7 @@
             Gender *</label>
           <GenderDropDown :genders="genders" v-model="player_gender" id="player_gender" label="Player Gender" />
           <span v-if="errors.player_gender" class="text-red text-sm ">{{ errors.player_gender.join(', ')
-          }}</span>
+            }}</span>
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('player_handedness')">
@@ -344,7 +346,7 @@
             Handedness *</label>
           <HandednessDropdown :handedness="handednesses" v-model="player_handedness" id="player_handedness"
             label="Player Handedness" />
-            <span v-if="errors.player_handedness" class="text-red text-sm ">{{ errors.player_handedness.join(', ')
+          <span v-if="errors.player_handedness" class="text-red text-sm ">{{ errors.player_handedness.join(', ')
             }}</span>
         </div>
 
@@ -376,7 +378,7 @@
             <input type="number" id="player_height_cm" v-model="player_height_cm"
               class="bg-gray-50 border h-12 -mt-[8px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Height in cm" />
-              <span v-if="errors.player_height_cm" class="text-red text-sm ">{{ errors.player_height_cm.join(', ')
+            <span v-if="errors.player_height_cm" class="text-red text-sm ">{{ errors.player_height_cm.join(', ')
               }}</span>
           </div>
 
@@ -391,9 +393,9 @@
           </div>
           <ul>
             <li> <span v-if="errors.player_height_ft" class="text-red text-sm ">{{ errors.player_height_ft.join(', ')
-            }}</span></li>
+                }}</span></li>
             <li> <span v-if="errors.player_height_in" class="text-red text-sm ">{{ errors.player_height_in.join(', ')
-            }}</span></li>
+                }}</span></li>
           </ul>
         </div>
 
@@ -419,7 +421,7 @@
           </label>
           <BudgetDropdown :player_budgets="budgets" v-model="player_budget" id="player_budget" label="Player Budget" />
           <span v-if="errors.player_budget" class="text-red text-sm ">{{ errors.player_budget.join(', ')
-          }}</span>
+            }}</span>
         </div>
 
         <div v-if="roleFields.includes('player_utr')">
@@ -427,7 +429,7 @@
           <input type="text" id="player_utr" v-model="player_utr"
             class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
             placeholder="Player UTR" required />
-            <span v-if="errors.player_utr" class="text-red text-sm ">{{ errors.player_utr.join(', ')
+          <span v-if="errors.player_utr" class="text-red text-sm ">{{ errors.player_utr.join(', ')
             }}</span>
         </div>
 
@@ -436,7 +438,7 @@
           <input type="text" id="player_gpa" v-model="player_gpa"
             class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
             placeholder="Player GPA" required />
-            <span v-if="errors.player_gpa" class="text-red text-sm ">{{ errors.player_gpa.join(', ')
+          <span v-if="errors.player_gpa" class="text-red text-sm ">{{ errors.player_gpa.join(', ')
             }}</span>
         </div>
 
@@ -446,8 +448,9 @@
           <input type="month" v-model="player_graduation_month_year"
             class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 text-black focus:border-blue-500 block w-full ps-10 p-2.5"
             placeholder="Player Graduation Month/Year" />
-            <span v-if="errors.player_graduation_month_year" class="text-red text-sm ">{{ errors.player_graduation_month_year.join(', ')
-            }}</span>
+          <span v-if="errors.player_graduation_month_year" class="text-red text-sm ">{{
+            errors.player_graduation_month_year.join(', ')
+          }}</span>
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('player_nationality')">
@@ -455,7 +458,7 @@
             Nationality *</label>
           <NationalityDropdown :nationalities="nationalities" v-model="player_nationality" id="player_nationality"
             label="Player Nationality" />
-            <span v-if="errors.player_nationality" class="text-red text-sm ">{{ errors.player_nationality.join(', ')
+          <span v-if="errors.player_nationality" class="text-red text-sm ">{{ errors.player_nationality.join(', ')
             }}</span>
         </div>
 
@@ -570,7 +573,6 @@ const country_codes = ref([]);
 const genders = ref([]);
 const handednesses = ref([]);
 const router = useRouter();
-const userId = route.params.userId;
 const monthInput = ref(null);
 
 
@@ -656,10 +658,6 @@ onMounted(() => {
   loadBudgets();
   loadHandness();
 });
-const toggleHeightMode = () => {
-  // Toggle the height mode between 'feet' and 'cm'
-  height_in_cm.value = !height_in_cm.value;
-};
 
 const handleSubmitStep2 = async () => {
 
@@ -714,11 +712,17 @@ const handleSubmitStep2 = async () => {
         player_gpa: player_gpa.value,
         player_graduation_month_year: player_graduation_month_year.value,
         player_nationality: player_nationality.value
-      });    
+      });
     } else if (role.value === 'coach') {
       endpoint = `/auth/${role.value}-register`;
     } else if (role.value === 'business') {
       endpoint = `/auth/${role.value}-manager-register`;
+    }
+
+    if ((endpoint == undefined) || (endpoint == 'undefined')) {
+      notification_type.value = 'failure';
+      notificationMessage.value = 'Please Select Role!';
+      showNotification.value = true;
     }
 
     const response = await $authService.registerStepTwo(endpoint, data);
@@ -728,17 +732,33 @@ const handleSubmitStep2 = async () => {
       notificationMessage.value = response.display_message || 'Registration successful!';
       showNotification.value = true;
       router.push('/dashboard');
+    }
+    else if (response.status === 401) {
+      console.log('401 detected, redirecting to login...');
+      await router.push('/login');
+      // try {
+      //   // const logout_response = $authService.logout({ bearer_token: token });
+
+      //   // If the logout was successful, clear user data and redirect
+      //   if (logout_response.status === 200) {
+      //     userStore.clearUser(); // Clear user from store
+      //     await router.push('/login'); // Redirect to login page
+      //   } else {
+      //     console.error('Logout failed.');
+      //   }
+      // } catch (error) {
+      //   console.error('Error during logout:', error);
+      // }
     } else {
       error.value = response.data.message;
       errors.value.push(response.message);
       notification_type.value = 'failure';
       notificationMessage.value = response.display_message || 'Registration failed. Please try again.';
       showNotification.value = true;
-      console.log('Registration failed:', response.data.message);
     }
   } catch (error) {
-    handleError(error, errors, notificationMessage, notification_type, showNotification, loading); 
-  }finally {
+    handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
+  } finally {
     loading.value = false;  // Reset loading state
   }
 };
@@ -865,10 +885,6 @@ const validateForm = () => {
 
   // Check if there are any errors
   const hasErrors = Object.values(errors.value).some(errorArray => errorArray.length > 0);
-
-  // Log errors and hasErrors for debugging
-  console.log('Validation Errors:', errors.value);
-  console.log('Has validation errors:', hasErrors);
 
   return { errors, hasErrors };
 };
