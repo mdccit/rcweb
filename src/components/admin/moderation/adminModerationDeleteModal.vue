@@ -5,8 +5,8 @@
         <div id="headlessui-dialog-panel-17" data-headlessui-state="open" unmount="true"
            class="relative bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-sm transform transition-all sm:my-8 sm:max-w-lg sm:w-full sm:p-6">
            <div class="sm:flex sm:items-start">
-               <div class="text-center sm:mt-0 sm:text-left">
-                   <h3 class="text-lg leading-6 font-medium text-gray-900">Are you sure you want to continue?</h3>
+               <div class="text-center sm:mt-0 sm:text-left w-full">
+                   <h3 class="text-lg leading-6 font-medium text-center text-gray-900">Are you sure you want to continue?</h3>
                </div>
            </div>
            <div class="mt-4 text-center"><button dusk="splade-confirm-confirm" type="button" @click="submit"
