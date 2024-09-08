@@ -50,9 +50,9 @@
       </button>
     </div>
     <div class="w-full mt-5">
-      <button type="button" @click="handleGoogleSignUp"
+      <button type="button" @click="initiateGoogleAuth('login')"
         class="py-2.5 w-full px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700">
-        <span><img class="absolute -mt-13" src="@/assets/images/google_icon.png"></span>Sign up with Google
+        <span><img class="absolute -mt-13" src="@/assets/images/google_icon.png"></span>Sign In with Google
       </button>
     </div>
     <div class="text-center mt-8 pt-4 text-sm">
@@ -182,42 +182,17 @@ const userLogin = async () => {
   }
 };
 
-// Function to handle Google sign up (assuming this is what you want to do)
-const handleGoogleSignUp = () => {
-  router.push('/google-auth');
-}
-
-
-// Function to handle Google login callback
-const handleGoogleLoginCallback = async () => {
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get('code'); // Extract the auth code from the URL
-
-  if (code) {
-    try {
-      // Call the googleLogin function with the auth code
-      const response = await $authService.googleLogin(code);
-
-      // Show success notification
-      notificationType.value = 'success';
-      notificationMessage.value = response.display_message;
-      showNotification.value = true;
-
-      // Save token to local storage and user store
-      const token = response.data.token;
-      localStorage.setItem('token', token);
-      userStore.setUser({ token });
-
-      // Redirect to dashboard after a short delay
-      setTimeout(() => {
-        router.push('/dashboard'); // Redirect to the dashboard
-      }, 2000); // Adjust delay to ensure the notification is seen
-    } catch (err) {
-      // Show failure notification
-      notificationType.value = 'failure';
-      notificationMessage.value = err.message;
-      showNotification.value = true;
-    }
+// Function to handle Google authentication
+const initiateGoogleAuth = async (type) => {
+  try {
+    authType.value = type;
+    localStorage.setItem('authType', type);
+    const authUrl = await $authService.getGoogleAuthUrl();
+    window.location.href = authUrl; // Redirect to Google authentication URL
+  } catch (err) {
+    notificationType.value = 'failure';
+    notificationMessage.value = err.message;
+    showNotification.value = true;
   }
 };
 
