@@ -27,7 +27,7 @@
           <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="player" type="radio"
             value="player" v-model="role" name="role">
           <div
-            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'player' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
+            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'player' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
             <div class="tile-icon"></div>
             <label for="player" class="text-sm text-black mb-2">Player</label>
           </div>
@@ -38,7 +38,7 @@
           <input class="radio-input  absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="coach" type="radio"
             value="coach" v-model="role" name="role">
           <div
-            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'coach' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
+            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'coach' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
             <img class="mt-1" src="@/assets/images/coach_icon.png">
             <label for="coach" class="text-sm text-black mb-2">Coach</label>
           </div>
@@ -49,7 +49,7 @@
           <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="parent" type="radio"
             value="parent" v-model="role" name="role">
           <div
-            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'parent' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
+            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'parent' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
             <img class="mt-1" src="@/assets/images/parent.png">
             <label for="parent" class="text-sm text-black  mb-2">Parent</label>
           </div>
@@ -60,7 +60,7 @@
           <input class="radio-input text-black absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="business"
             type="radio" value="business" v-model="role" name="role">
           <div
-            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'business' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
+            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'business' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
             <img class="mt-1" src="@/assets/images/bussiness.png">
             <label for="business" class="text-sm text-black  mb-2">Business</label>
           </div>
@@ -106,7 +106,7 @@
             <CountryCodeDropdown :country_codes="country_codes" v-model="phone_code_country" name="phone_code"
               data-validation-key="phone_code" :disabled="action === 'view'" class="col-span-2 h-12" />
             <input type="text" id="phone_number" v-model="phone_number"
-              class=" mt-[4px] h-12 col-span-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
+              class=" mt-[4px] h-12 col-span-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-steelBlue light:focus:border-steelBlue"
               placeholder="Number" required />
           </div>
         </div>
@@ -149,16 +149,16 @@
           <!-- Height in Centimeters -->
           <div v-if="height_in_cm" class="-mt-[8px]">
             <input type="number" id="height_cm" v-model="height_cm"
-              class="bg-gray-50 border h-12 -mt-[8px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              class="bg-gray-50 border h-12 -mt-[8px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
               placeholder="Height in cm" />
           </div>
           <!-- Height in Feet/Inches -->
           <div v-else class="grid grid-cols-10 gap-3 items-center -mt-[8px]">
             <input type="number" id="height_ft" v-model="height_ft"
-              class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
               placeholder="Ft" />
             <input type="number" id="height_in" v-model="height_in"
-              class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
               placeholder="In" />
           </div>
         </div>
@@ -167,7 +167,7 @@
           <div class="col-span-5" v-if="roleFields.includes('utr')">
             <label for="utr" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">UTR *</label>
             <input type="text" id="utr" v-model="utr"
-              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
               placeholder="UTR" required />
           </div>
           <div class="col-span-5" v-if="roleFields.includes('gpa')">
@@ -191,7 +191,7 @@
             </label>
 
             <input type="text" id="gpa" v-model="gpa"
-              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
               placeholder="GPA" required />
           </div>
         </div>
@@ -200,7 +200,7 @@
           <label for="graduation" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Graduation
             Month/Year *</label>
           <input type="month" v-model="graduation"
-            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-primary light:focus:ring-blue-500 light:focus:border-blue-500"
+            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full ps-10 p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-primary light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="Select Month/Year" />
         </div>
 
@@ -234,7 +234,7 @@
           <label for="player_first_name" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">
             First Name *</label>
           <input type="text" id="player_first_name" v-model="player_first_name"
-            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
             placeholder="First Name" required />
         </div>
 
@@ -243,14 +243,14 @@
           <label for="player_last_name" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Last
             Name *</label>
           <input type="text" id="player_last_name" v-model="player_last_name"
-            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
             placeholder="Last Name" required />
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('email')">
           <label for="email" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Email *</label>
           <input type="email" id="email" v-model="email"
-            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
             placeholder="Email" required />
         </div>
 
@@ -281,7 +281,7 @@
               name="player_phone_code" data-validation-key="player_phone_code" :disabled="action === 'view'"
               class="col-span-2" />
             <input type="text" id="player_phone_number" v-model="player_phone_number"
-              class="col-span-3 bg-gray-50 border mt-[4px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
+              class="col-span-3 bg-gray-50 border mt-[4px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-steelBlue light:focus:border-steelBlue"
               placeholder="Player Number" required />
           </div>
         </div>
@@ -303,10 +303,10 @@
           <label class="col-span-10 font-normal block  text-sm text-gray-900 dark:text-gray">
             Height *</label>
           <input type="text" id="player_height_ft" v-model="player_height_ft"
-            class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+            class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="Ft" required />
           <input type="text" id="player_height_in" v-model="player_height_in"
-            class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+            class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="In" required />
         </div>
 
@@ -334,14 +334,14 @@
         <div v-if="roleFields.includes('player_utr')">
           <label for="player_utr" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray"> UTR *</label>
           <input type="text" id="player_utr" v-model="player_utr"
-            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="Player UTR" required />
         </div>
 
         <div v-if="roleFields.includes('player_gpa')">
           <label for="player_gpa" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray"> GPA *</label>
           <input type="text" id="player_gpa" v-model="player_gpa"
-            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="Player GPA" required />
         </div>
 
@@ -349,7 +349,7 @@
           <label for="player_graduation_month_year" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">
             Graduation Month/Year *</label>
           <input type="month" v-model="player_graduation_month_year"
-            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 text-black focus:border-blue-500 block w-full ps-10 p-2.5"
+            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue text-black focus:border-steelBlue block w-full ps-10 p-2.5"
             placeholder="Player Graduation Month/Year" />
         </div>
 
@@ -366,7 +366,7 @@
       <div class="space-y-4 mt-5">
         <div class="flex items-center">
           <input id="notEnrolled" type="checkbox" v-model="notEnrolled"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-steelBlue dark:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
           <label for="notEnrolled" class="ms-2 text-sm font-normal text-gray-900 light:text-gray-600">
             I certify I am currently not enrolled in a U.S. school or have already informed the school of my choice
             to transfer, registering in the Transfer Portal.
@@ -391,12 +391,12 @@
       <div class="space-y-4 mt-5">
         <div class="flex items-center">
           <input id="termsAccepted" type="checkbox" v-model="termsAccepted"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-steelBlue light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
           <label for="termsAccepted" class="ms-2 text-sm font-medium text-gray-900 light:text-gray-300">
             I agree to the
-            <NuxtLink to="/terms" class="text-blue-600 light:text-blue-500 hover:underline">Terms of Service</NuxtLink>
+            <NuxtLink to="/terms" class="text-blue-600 light:text-steelBlue hover:underline">Terms of Service</NuxtLink>
             and
-            <NuxtLink to="/privacy" class="text-blue-600 light:text-blue-500 hover:underline">Privacy Policy </NuxtLink>
+            <NuxtLink to="/privacy" class="text-blue-600 light:text-steelBlue hover:underline">Privacy Policy </NuxtLink>
             .
           </label>
         </div>
@@ -404,7 +404,7 @@
 
       <div class="flex items-center justify-end mt-6">
         <button @click="handleSubmitStep2"
-          class="text-white bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 light:bg-blue-600 light:hover:bg-blue-700 light:focus:ring-blue-800">
+          class="text-white bg-steelBlue hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 light:bg-blue-600 light:hover:bg-blue-700 light:focus:ring-blue-800">
           Sign up now for free
         </button>
       </div>

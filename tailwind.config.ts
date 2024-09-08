@@ -23,7 +23,6 @@ module.exports = {
         primary: '#3D7FFF',
         primaryblue: '#3D7FFF',
         secondary:'#DFE4EE',
-        blue: '#3D7FFF',
         black: '#000000',
         white: '#FFFFFF',
         azureblue: '#0284c7',
@@ -54,7 +53,11 @@ module.exports = {
         teelGray:'#e2e5e7',
         darkAzureBlue: '#004a8f', // Primary blue button hover color
         palePink: '#ffeeee',
-        powderBlue: '#e5f3ff'
+        powderBlue: '#e5f3ff',
+        brightSkyBlue: '#2999ff', // Primary blue button hover color
+        royalBlue: '#0068c7', // Primary blue button active color
+        lightAzure: '#52acff', // Primary blue button focus border color
+        lightPastalBlue: '#7ac0ff80' // Primary blue button focus color
       },
       testred: {
         lightest: '#efdfa4',

@@ -3,7 +3,7 @@
     <div class="flex mt-2 mb-12 gap-4">
       <h2 class="self-center text-2xl font-bold flex-1 text-gray-900">Login</h2>
       <div class="self-center">
-        <NuxtLink to="/forgot-password" class=" text-blue-500 text-right block font-bold">Can't sign in?</NuxtLink>
+        <NuxtLink to="/forgot-password" class=" text-steelBlue text-right block font-bold">Can't sign in?</NuxtLink>
       </div>
     </div>
 
@@ -41,7 +41,7 @@
     </div>
     <div>
       <button @click="userLogin"
-        class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 text-white border-transparent focus:border-blue-300 focus:ring-blue-200 block w-full"
+        class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-blue-700 text-white border-transparent focus:border-blue-300 focus:ring-blue-200 block w-full"
         :disabled="loading">
         <div class="flex flex-row items-center justify-center">
           <span v-if="!loading">Login</span>

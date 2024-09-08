@@ -263,7 +263,7 @@
                                             <div class="bg-blue-200 p-1 rounded">
                                                 <img src="../../assets/images/player-blue.png" alt="" class=" w-4 h-4">
                                             </div>
-                                            <div class="text-sm ml-2 text-blue">Tennis Player</div>
+                                            <div class="text-sm ml-2 text-blue-500">Tennis Player</div>
                                         </div>
                                         <div class="flex items-center space-x-2">
                                             <div class=" rounded">
