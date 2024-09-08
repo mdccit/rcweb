@@ -223,6 +223,23 @@ const handleSubmit = async () => {
     loading.value = false;
   }
 };
+
+// Function to check localStorage and redirect
+const checkUserStatus = () => {
+  const token = localStorage.getItem('token'); // Retrieve token from localStorage
+  const userRole = localStorage.getItem('user_role'); // Retrieve user role
+
+  if (token && userRole === 'default') {
+    // If token exists and user_role is 'default', redirect to register step two
+    router.push({ name: 'register-step-two-token', params: { token: token } });
+  }
+};
+
+
+// Use onMounted lifecycle hook to perform the check when the component is mounted
+onMounted(() => {
+  checkUserStatus();
+});
 </script>
 
 <style scoped>

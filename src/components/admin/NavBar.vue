@@ -248,8 +248,6 @@ const notificationMessage = ref('');
 const error = ref('');
 const notification_type = ref('');
 const loading = ref(false);
-const notificationType = ref('');
-
 
 const logout = async () => {
   try {
