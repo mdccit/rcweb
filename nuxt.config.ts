@@ -17,10 +17,10 @@ export default defineNuxtConfig({
     fallback: true,  // Generates a 404.html for static hosting fallback
   },
   css: [
-    '@/assets/css/tailwind.css', // Ensure this is the first CSS file
+    '@/assets/css/main.css', // Ensure this is the first CSS file
     'element-plus/dist/index.css',
-    'flowbite/dist/flowbite.css',
-    '~/assets/main.css'
+    // 'flowbite/dist/flowbite.css',
+    '@/assets/css/custom.css'
   ],
   modules: [
     '@vueuse/nuxt',

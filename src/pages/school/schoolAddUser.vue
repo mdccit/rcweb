@@ -9,8 +9,7 @@
                     </svg></NuxtLink>
                 <h2 class="font-bold text-black text-lg self-center"> Editing: SchoolAdm1 </h2>
             </div>
-            <div class=""><a
-                    href="https://qa1.recruited.qualitapps.com/app/school/9c2845cc-7676-45e1-b498-13f930b22e9b"><button
+            <div class=""><NuxtLink to="/school/9c2845cc-7676-45e1-b498-13f930b22e9b"><button
                         type="submit"
                         class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
                         View <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -18,7 +17,7 @@
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M17 7l-10 10"></path>
                             <path d="M8 7l9 0l0 9"></path>
-                        </svg></button></a></div>
+                        </svg></button></NuxtLink></div>
         </div>
     </div>
 
@@ -44,15 +43,14 @@
                         </div>
                     </fieldset>
                 </form>
-                <div class="flex flex-row gap-6 py-6"><a
-                        href="https://qa1.recruited.qualitapps.com/app/u/9bc8ab38-f3f9-4068-a9cd-5cdf2860cec9"
+                <div class="flex flex-row gap-6 py-6"><NuxtLink to="/u/9bc8ab38-f3f9-4068-a9cd-5cdf2860cec9"
                         class="flex flex-row gap-4 flex-1"><img
                             src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF"
                             alt="User profile picture" class="h-12 w-12 rounded-full">
                         <div class="self-center flex-1"><strong class="capitalize">Admin</strong>
                             <p class="opacity-75 line-clamp-1"></p>
                         </div>
-                    </a>
+                    </NuxtLink>
                     <div class="self-center">
                         <form data-splade-id="4pN6bRW8jgnGtFjz" method="POST"
                             action="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/users/store">

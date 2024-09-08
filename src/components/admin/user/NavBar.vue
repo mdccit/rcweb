@@ -38,11 +38,13 @@
                   <!---->
                 </div>
               </div>
-            </div><a href="https://qa1.recruited.qualitapps.com/admin/schools"
+            </div>
+            <NuxtLink to="/admin/schools"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              Schools </a><a href="https://qa1.recruited.qualitapps.com/admin/businesses"
+              Schools </NuxtLink>
+            <NuxtLink to="/admin/businesses"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              Businesses </a>
+              Businesses </NuxtLink>
             <div
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
               style="position: relative;">
@@ -64,16 +66,18 @@
                   <!---->
                 </div>
               </div>
-            </div><a href="https://qa1.recruited.qualitapps.com/admin/moderation?filter%5Bis_closed%5D=0"
+            </div>
+            <NuxtLink to="/admin/moderation"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Moderation <div
                   class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full">60
                 </div>
               </div>
-            </a><a href="https://qa1.recruited.qualitapps.com/admin/transcripts"
+            </NuxtLink>
+            <NuxtLink to="/admin/transcripts"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Transcripts </div>
-            </a>
+            </NuxtLink>
           </div>
           <div class="hidden sm:flex sm:items-center sm:ml-6">
             <div class="ml-3 relative">
@@ -104,38 +108,63 @@
         </div>
       </div>
       <div class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1"><a href="https://qa1.recruited.qualitapps.com/admin"
+        <div class="pt-2 pb-3 space-y-1">
+          <NuxtLink to="/admin"
             class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-            Dashboard </a>
-          <div class="pl-8"><a href="https://qa1.recruited.qualitapps.com/admin/users"
+            Dashboard </NuxtLink>
+          <div class="pl-8">
+            <NuxtLink to="/admin/users"
               class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-              All Users </a><a href="https://qa1.recruited.qualitapps.com/admin/users?filter%5Brole%5D=player"
+              All Users
+            </NuxtLink>
+            <NuxtLink to="/admin/users?filter%5Brole%5D=player"
               class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-              Players </a><a href="https://qa1.recruited.qualitapps.com/admin/users?filter%5Brole%5D=coach"
+              Players
+            </NuxtLink>
+            <NuxtLink to="/admin/users?filter%5Brole%5D=coach"
               class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-              Coaches </a><a href="https://qa1.recruited.qualitapps.com/admin/users?filter%5Brole%5D=admin"
+              Coaches
+            </NuxtLink>
+            <NuxtLink to="/admin/users?filter%5Brole%5D=admin"
               class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-              Admins </a><a href="https://qa1.recruited.qualitapps.com/admin/schools"
+              Admins
+            </NuxtLink>
+            <NuxtLink to="/admin/schools"
               class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-              Schools </a></div><a href="https://qa1.recruited.qualitapps.com/admin"
+              Schools
+            </NuxtLink>
+          </div>
+          <NuxtLink to="/admin"
             class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-            Marketing </a>
-          <div class="pl-8"><a href="https://qa1.recruited.qualitapps.com/admin/newsletter"
+            Marketing </NuxtLink>
+          <div class="pl-8">
+            <NuxtLink to="/admin/newsletter"
               class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-              Newsletter </a><a href="https://qa1.recruited.qualitapps.com/admin/blog"
+              Newsletter
+            </NuxtLink>
+            <NuxtLink to="/admin/blog"
               class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-              Blog </a><a href="https://qa1.recruited.qualitapps.com/admin/events"
+              Blog
+            </NuxtLink>
+            <NuxtLink to="/admin/events"
               class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-              Events </a><a href="https://qa1.recruited.qualitapps.com/admin/resources"
+              Events
+            </NuxtLink>
+
+            <NuxtLink to="/admin/resources"
               class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-              Resources </a></div><a
-            href="https://qa1.recruited.qualitapps.com/admin/moderation?filter%5Bis_closed%5D=0"
-            class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"><span
-              class="flex items-center"> Moderation <span
-                class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full">60</span></span></a><a
-            href="https://qa1.recruited.qualitapps.com/admin/transcripts"
-            class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"><span
-              class="flex items-center"> Transcripts </span></a>
+              Resources
+            </NuxtLink>
+          </div>
+          <NuxtLink to="//admin/moderation?filter%5Bis_closed%5D=0"
+            class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+            <span class="flex items-center"> Moderation <span
+                class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full">60</span></span>
+          </NuxtLink>
+          <NuxtLink to="/admin/transcripts"
+            class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+            <span class="flex items-center"> Transcripts </span>
+          </NuxtLink>
         </div>
         <div class="pt-4 pb-1 border-t border-gray-200">
           <div class="flex items-center px-4">
@@ -146,11 +175,11 @@
               <div class="font-medium text-sm text-gray-500"> admin@user.com </div>
             </div>
           </div>
-          <div class="mt-3 space-y-1"><a href="https://qa1.recruited.qualitapps.com/app"
+          <div class="mt-3 space-y-1"><NuxtLink to="//app"
               class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-              Go to Members Area </a><a href="https://qa1.recruited.qualitapps.com/user/profile"
+              Go to Members Area </NuxtLink><NuxtLink to="//user/profile"
               class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-              Profile </a>
+              Profile </NuxtLink>
             <form data-splade-id="mRNnwLKi9BPg5dGs" method="POST" action="https://qa1.recruited.qualitapps.com/logout">
               <fieldset><button type="submit"
                   class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
