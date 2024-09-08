@@ -1,6 +1,6 @@
 <template>
     <!-- Start Filter Section  -->
-    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-16">
+    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-semibold text-black">Filters</h2>
             <button class="flex text-ceil text-sm">
