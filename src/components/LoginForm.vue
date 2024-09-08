@@ -14,8 +14,11 @@
         <div class="flex rounded-lg border border-gray-300 shadow-sm">
           <input v-model="email"
             class="block px-5 py-3 text-black w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-            name="email" type="email" data-validation-key="email" id="email" required autofocus>
+            name="email" type="email" data-validation-key="email" id="email" required="true" autofocus>
         </div>
+        <span v-if="errors.email" class="text-red text-sm ">{{ errors.email.join(', ') }}</span>
+        <!-- Email Validation Error -->
+
       </label>
     </div>
     <div class="w-full">
@@ -28,6 +31,10 @@
             name="password" type="password" data-validation-key="password" id="password" required
             autocomplete="current-password">
         </div>
+        <span v-if="errors.password" class="text-red text-sm ">{{ errors.password.join(', ')
+          }}</span>
+        <!-- Password Validation Error -->
+
       </label>
     </div>
     <div class="flex items-center mb-4 mt-5">
@@ -85,7 +92,7 @@ import Cookies from 'js-cookie';
 
 import Notification from '~/components/common/Notification.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
-
+import { handleError } from '@/utils/handleError';
 
 const email = ref('');
 const rememberMe = ref(false);
@@ -96,12 +103,13 @@ const successMessage = ref('');
 const router = useRouter();
 const userStore = useUserStore();
 
-const errors = ref([]);;
+const errors = ref({});
 const authType = ref('');
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const loading = ref(false);
 const notificationType = ref('');
+
 
 definePageMeta({ colorMode: 'light', })
 
@@ -109,23 +117,17 @@ definePageMeta({ colorMode: 'light', })
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 
-// Computed property to split error messages by comma
-const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
-
-
-// Function to handle authentication
+// Function to handle user login
 const userLogin = async () => {
-  try {
-    console.log('submitting');
-    error.value = '';  // Clear previous error messages
-    successMessage.value = '';  // Clear previous success messages
-    notification_type.value = '';  // Reset notification type
 
-    // Send login request to auth service
+  try {
+    errors.value = {};  // Reset errors before submitting
+    loading.value = true;  // Set loading state
+
+    // Make login request to backend
     const response = await $authService.login(email.value, password.value);
 
     if (response.status === 200) {
-      // Successful login
       successMessage.value = response.display_message;
 
       // Set the user in the Pinia store
@@ -156,29 +158,12 @@ const userLogin = async () => {
         } else {
           router.push('/admin/dashboard');  // Redirect to dashboard
         }
-      }, 1000);  // 1-second delay to show notification
-    } else {
-      // Handle non-200 response (e.g., wrong credentials)
-      error.value = response.display_message;
-      errors.value.push(response.display_message);
+      }, 1000);
     }
-  } catch (err) {
-    // Handle errors in the login process
-    error.value = err.message;
-    notification_type.value = 'failure';
-    notificationMessage.value = err.message;
-    showNotification.value = true;
-
-    // Handle error messages from the API response
-    if (err.response?.data?.message) {
-      if (Array.isArray(err.response.data.message)) {
-        errors.value = err.response.data.message;
-      } else {
-        errors.value = [err.response.data.message];
-      }
-    } else {
-      errors.value = [err.response?.data?.message || err.message];
-    }
+  } catch (error) {
+    handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
+  } finally {
+    loading.value = false;  // Reset loading state
   }
 };
 
@@ -199,17 +184,17 @@ const initiateGoogleAuth = async (type) => {
 onMounted(() => {
   const sessionToken = Cookies.get('session');  // Check if session token exists
   if (sessionToken) {
-    rememberMe.value = true;
-    const user = userStore.getUser();  // Get user from userStore
+    // rememberMe.value = true;
+    // const user = userStore.getUser();  // Get user from userStore
 
-    setTimeout(() => {
-      // Redirect user based on role or permission
-      if (user && user.user_permission_type === 'none' && user.user_role === 'coach') {
-        router.push('/user/approval-pending');
-      } else {
-        router.push('/admin/dashboard');
-      }
-    }, 1000);
+    // setTimeout(() => {
+    //   // Redirect user based on role or permission
+    //   if (user && user.user_permission_type === 'none' && user.user_role === 'coach') {
+    //     router.push('/user/approval-pending');
+    //   } else {
+    //     router.push('/admin/dashboard');
+    //   }
+    // }, 1000);
   }
 });
 
@@ -244,5 +229,9 @@ form {
 
 .error-item {
   margin-bottom: 5px;
+}
+
+.error-border {
+  border-color: red;
 }
 </style>

@@ -48,6 +48,8 @@
                     class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                     name="recovery_code" type="text" v-model="recovery_code" id="recovery_code" required autofocus>
                 </div>
+                <span v-if="errors.recovery_code" class="text-red text-sm ">{{ errors.recovery_code.join(', ')
+                }}</span>
               </label>
             </div>
 
@@ -61,6 +63,8 @@
                     class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                     name="password" type="password" v-model="password" id="password" required>
                 </div>
+                <span v-if="errors.password" class="text-red text-sm ">{{ errors.password.join(', ')
+                }}</span>
               </label>
             </div>
 
@@ -75,6 +79,8 @@
                     name="password_confirmation" type="password" v-model="password_confirmation"
                     id="password_confirmation" required>
                 </div>
+                <span v-if="errors.password_confirmation" class="text-red text-sm ">{{ errors.password_confirmation.join(', ')
+                }}</span>
               </label>
             </div>
 
@@ -102,7 +108,7 @@ import Notification from '~/components/common/Notification.vue'; // Import the N
 
 const nuxtApp = useNuxtApp();
 const router = useRouter();
-definePageMeta({ colorMode: 'light', layout: 'outer'},)
+definePageMeta({ colorMode: 'light', layout: 'outer' },)
 
 // State variables
 const recovery_code = ref('');
@@ -111,6 +117,7 @@ const password_confirmation = ref('');
 const password_reset_id = ref(''); // Store the password_reset_id from the previous request
 const showNotification = ref(false);
 const notificationMessage = ref('');
+const errors = ref({});
 
 // Function to handle password reset form submission
 const resetPassword = async () => {
@@ -139,9 +146,14 @@ const resetPassword = async () => {
       router.push('/login'); // Redirect to login page after password reset
     }, 2000);
   } catch (error) {
-    console.error('Error resetting password:', error.message);
-    notificationMessage.value = 'There was an error resetting the password. Please try again.';
-    showNotification.value = true;
+    if (error.message) {
+      // Assign validation messages to the respective fields
+      for (const [field, messages] of Object.entries(error.message)) {
+        errors.value[field] = messages; // Map error messages to the form fields
+      }
+    } else {
+      console.error('An unexpected error occurred:', err);
+    }
   }
 };
 </script>
