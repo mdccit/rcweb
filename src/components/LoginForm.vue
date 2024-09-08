@@ -14,8 +14,11 @@
         <div class="flex rounded-lg border border-gray-300 shadow-sm">
           <input v-model="email"
             class="block px-5 py-3 text-black w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-            name="email" type="email" data-validation-key="email" id="email" required autofocus>
+            name="email" type="email" data-validation-key="email" id="email" required="true" autofocus>
         </div>
+        <span v-if="errors.email" class="text-red-500 error-border text-sm">{{ errors.email.join(', ') }}</span>
+        <!-- Email Validation Error -->
+
       </label>
     </div>
     <div class="w-full">
@@ -28,6 +31,10 @@
             name="password" type="password" data-validation-key="password" id="password" required
             autocomplete="current-password">
         </div>
+        <span v-if="errors.password" class="text-red-500 error-border text-sm error">{{ errors.password.join(', ')
+          }}</span>
+        <!-- Password Validation Error -->
+
       </label>
     </div>
     <div class="flex items-center mb-4 mt-5">
@@ -96,12 +103,13 @@ const successMessage = ref('');
 const router = useRouter();
 const userStore = useUserStore();
 
-const errors = ref([]);;
+const errors = ref({});
 const authType = ref('');
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const loading = ref(false);
 const notificationType = ref('');
+
 
 definePageMeta({ colorMode: 'light', })
 
@@ -113,19 +121,41 @@ const $authService = nuxtApp.$authService;
 const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
 
 
-// Function to handle authentication
-const userLogin = async () => {
-  try {
-    console.log('submitting');
-    error.value = '';  // Clear previous error messages
-    successMessage.value = '';  // Clear previous success messages
-    notification_type.value = '';  // Reset notification type
 
-    // Send login request to auth service
+// Dynamic Backend Validation Error Handling
+const handleBackendErrors = (errorMessages) => {
+  errors.value = {};  // Clear previous errors
+
+  // Iterate through backend errors and assign them to corresponding fields
+  for (const [field, messages] of Object.entries(errorMessages)) {
+    errors.value[field] = messages.join(', ');  // Assign error message dynamically
+  }
+};
+
+
+const emailError = ref('');
+
+// Function to handle user login
+const userLogin = async () => {
+
+  // Reference to the input element
+  const emailInput = document.getElementById('email');
+
+  // Check if the input is valid using native validation
+  if (!emailInput.checkValidity()) {
+    emailError.value = emailInput.validationMessage; // Display the native validation message
+  } else {
+    emailError.value = ''; // Clear the error message if the input is valid  
+  }
+
+  try {
+    errors.value = {};  // Reset errors before submitting
+    loading.value = true;  // Set loading state
+
+    // Make login request to backend
     const response = await $authService.login(email.value, password.value);
 
     if (response.status === 200) {
-      // Successful login
       successMessage.value = response.display_message;
 
       // Set the user in the Pinia store
@@ -156,29 +186,21 @@ const userLogin = async () => {
         } else {
           router.push('/admin/dashboard');  // Redirect to dashboard
         }
-      }, 1000);  // 1-second delay to show notification
-    } else {
-      // Handle non-200 response (e.g., wrong credentials)
-      error.value = response.display_message;
-      errors.value.push(response.display_message);
+      }, 1000);
     }
   } catch (err) {
-    // Handle errors in the login process
-    error.value = err.message;
-    notification_type.value = 'failure';
-    notificationMessage.value = err.message;
-    showNotification.value = true;
+    // Check if the error response contains validation messages (status 422)
+    if (err.message) {
 
-    // Handle error messages from the API response
-    if (err.response?.data?.message) {
-      if (Array.isArray(err.response.data.message)) {
-        errors.value = err.response.data.message;
-      } else {
-        errors.value = [err.response.data.message];
+      // Assign validation messages to the respective fields
+      for (const [field, messages] of Object.entries(err.message)) {
+        errors.value[field] = messages; // Map error messages to the form fields
       }
     } else {
-      errors.value = [err.response?.data?.message || err.message];
+      console.error('An unexpected error occurred:', err);
     }
+  } finally {
+    loading.value = false;  // Reset loading state
   }
 };
 
@@ -188,53 +210,20 @@ const handleGoogleSignUp = () => {
 }
 
 
-// Function to handle Google login callback
-const handleGoogleLoginCallback = async () => {
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get('code'); // Extract the auth code from the URL
-
-  if (code) {
-    try {
-      // Call the googleLogin function with the auth code
-      const response = await $authService.googleLogin(code);
-
-      // Show success notification
-      notificationType.value = 'success';
-      notificationMessage.value = response.display_message;
-      showNotification.value = true;
-
-      // Save token to local storage and user store
-      const token = response.data.token;
-      localStorage.setItem('token', token);
-      userStore.setUser({ token });
-
-      // Redirect to dashboard after a short delay
-      setTimeout(() => {
-        router.push('/dashboard'); // Redirect to the dashboard
-      }, 2000); // Adjust delay to ensure the notification is seen
-    } catch (err) {
-      // Show failure notification
-      notificationType.value = 'failure';
-      notificationMessage.value = err.message;
-      showNotification.value = true;
-    }
-  }
-};
-
 onMounted(() => {
   const sessionToken = Cookies.get('session');  // Check if session token exists
   if (sessionToken) {
-    rememberMe.value = true;
-    const user = userStore.getUser();  // Get user from userStore
+    // rememberMe.value = true;
+    // const user = userStore.getUser();  // Get user from userStore
 
-    setTimeout(() => {
-      // Redirect user based on role or permission
-      if (user && user.user_permission_type === 'none' && user.user_role === 'coach') {
-        router.push('/user/approval-pending');
-      } else {
-        router.push('/admin/dashboard');
-      }
-    }, 1000);
+    // setTimeout(() => {
+    //   // Redirect user based on role or permission
+    //   if (user && user.user_permission_type === 'none' && user.user_role === 'coach') {
+    //     router.push('/user/approval-pending');
+    //   } else {
+    //     router.push('/admin/dashboard');
+    //   }
+    // }, 1000);
   }
 });
 
@@ -269,5 +258,9 @@ form {
 
 .error-item {
   margin-bottom: 5px;
+}
+
+.error-border {
+  border-color: red;
 }
 </style>

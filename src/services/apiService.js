@@ -5,13 +5,18 @@ const createApiService = (config) => {
 
   const { apiUrl, accessKey, defaultLang } = config;
 
+  // Handle the response and check for HTTP status codes
   const handleResponse = async (response) => {
-    const data = await response.json();
+    const responseData = await response.json(); // Parse JSON response
+
     if (!response.ok) {
-      const error = data.message || 'Something went wrong';
-      throw new Error(error);
+      // If the response status is not in the 2xx range, throw an error
+      const error = new Error('HTTP error');
+      error.status = response.status;
+      error.response = responseData;  // Include server response in error
+      throw error;
     }
-    return data;
+    return responseData; // Return the parsed data for successful requests
   };
 
   const getAuthHeaders = () => {
@@ -40,14 +45,17 @@ const createApiService = (config) => {
     try {
       const response = await fetch(`${apiUrl}${url}`, {
         method: 'POST',
-        headers:getAuthHeaders(),
+        headers: getAuthHeaders(),
         body: JSON.stringify(body),
       });
+  
+      // Handle the response (check for errors)
       return await handleResponse(response);
     } catch (error) {
-      throw new Error(error.message || 'Error making POST request');
+      throw error;
     }
   };
+  
 
   const putRequest = async (url, body) => {
     try {
@@ -66,7 +74,7 @@ const createApiService = (config) => {
     try {
       const response = await fetch(`${apiUrl}${url}`, {
         method: 'DELETE',
-        headers:getAuthHeaders(),
+        headers: getAuthHeaders(),
       });
       return await handleResponse(response);
     } catch (error) {

@@ -41,86 +41,93 @@
         <div class="w-full pt-4">
           <hr>
         </div>
-        <!-- Form -->       
-            <div v-if="errors && errors.length" class="mb-4 text-red-600">
-              <ul>
-                <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
-              </ul>
+        <!-- Form -->
+        <div v-if="errors && errors.length" class="mb-4 text-red-600">
+          <ul>
+            <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+          </ul>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2">
+          <div class="space-y-4">
+            <div>
+              <label for="first_name" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">First
+                name</label>
+              <input type="text" id="first_name" v-model="first_name" autocomplete="given-name"
+                class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+                placeholder="" required />
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2">
-              <div class="space-y-4">
-                <div>
-                  <label for="firstname" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">First
-                    name</label>
-                  <input type="text" id="firstname" v-model="firstname" autocomplete="given-name"
-                    class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
-                    placeholder="" required />
-                </div>
-              </div>
-              <div class="space-y-4">
-                <div>
-                  <label for="lastname" class="font-normal block mb-2 text-sm text-gray-900 light:text-gray">Last
-                    name</label>
-                  <input type="text" id="lastname" v-model="lastname" autocomplete="family-name"
-                    class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
-                    placeholder="" required />
-                </div>
-              </div>
+            <span v-if="errors.first_name" class="text-red-500 error-border text-sm error">{{ errors.first_name.join(', ') }}</span>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <label for="last_name" class="font-normal block mb-2 text-sm text-gray-900 light:text-gray">Last
+                name</label>
+              <input type="text" id="last_name" v-model="last_name" autocomplete="family-name"
+                class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+                placeholder="" required />
             </div>
+            <span v-if="errors.last_name" class="text-red-500 error-border text-sm error">{{ errors.last_name.join(', ') }}</span>
+          </div>
+        </div>
 
-            <div class="space-y-4">
-              <div class="pt-2">
-                <label for="email" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Email
-                  address</label>
-                <input type="email" id="email" v-model="email" autocomplete="email"
-                  class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
-                  placeholder="" required />
-              </div>
-            </div>
+        <div class="space-y-4">
+          <div class="pt-2">
+            <label for="email" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Email
+              address</label>
+            <input type="email" id="email" v-model="email" autocomplete="email"
+              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+              placeholder="" required />
+          </div>
+          <span v-if="errors.email" class="text-red-500 error-border text-sm error">{{ errors.email.join(', ') }}</span>
+        </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2 pt-3">
-              <div class="space-y-4">
-                <div>
-                  <label for="password"
-                    class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Password</label>
-                  <input type="password" id="password" v-model="password" autocomplete="new-password"
-                    class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
-                    placeholder="" required />
-                </div>
-              </div>
-              <div>
-                <div>
-                  <label for="confirmPassword"
-                    class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Confirm password</label>
-                  <input type="password" id="confirmPassword" v-model="confirmPassword" autocomplete="new-password"
-                    class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
-                    placeholder="" required />
-                </div>
-              </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2 pt-3">
+          <div class="space-y-4">
+            <div>
+              <label for="password"
+                class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Password</label>
+              <input type="password" id="password" v-model="password" autocomplete="new-password"
+                class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+                placeholder="" required />
             </div>
-
-            <div class="space-y-4 mt-5">
-              <p class="text-sm text-black text-warning-600">
-                <svg class="mb-2 text-orange-400 w-4 h-4 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24"
-                  height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
-                  <path d="M12 9h.01"></path>
-                  <path d="M11 12h1v4h1"></path>
-                </svg>
-                Once you sign up, you will be able to fill out your profile in more depth.
-              </p>
+            <span v-if="errors.email" class="text-red-500 error-border text-sm error">{{ errors.email.join(', ') }}</span>
+          </div>
+          <div>
+            <div>
+              <label for="confirmPassword" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Confirm
+                password</label>
+              <input type="password" id="confirmPassword" v-model="confirmPassword" autocomplete="new-password"
+                class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+                placeholder="" required />
             </div>
+            <span v-if="errors.password_confirmation" class="text-red-500 error-border text-sm error">{{ errors.password_confirmation.join(', ') }}</span>
+          </div>
+        </div>
 
-            <div class="flex items-center justify-end mt-5">
-              <button @click="handleSubmit" class="text-white bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-4 
+        <div class="space-y-4 mt-5">
+          <p class="text-sm text-black text-warning-600">
+            <svg class="mb-2 text-orange-400 w-4 h-4 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24"
+              height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
+              <path d="M12 9h.01"></path>
+              <path d="M11 12h1v4h1"></path>
+            </svg>
+            Once you sign up, you will be able to fill out your profile in more depth.
+          </p>
+        </div>
+
+        <div class="flex items-center justify-end mt-5">
+          <button @click="handleSubmit" class="text-white bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-4 
               focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 
               dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Sign up now for free
-              </button>
-            </div>
+            Sign up now for free
+          </button>
+        </div>
       </div>
     </div>
+      <!-- Notification Component -->
+      <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
   </div>
 </template>
 
@@ -129,18 +136,26 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
+import Notification from '~/components/common/Notification.vue';
+import LoadingSpinner from '~/components/LoadingSpinner.vue';
 
 definePageMeta({ colorMode: 'light', })
 const user_id = ref('');
-const firstname = ref('');
-const lastname = ref('');
+const first_name = ref('');
+const last_name = ref('');
 const email = ref('');
 const password = ref('');
-const confirmPassword = ref('');
+const password_confirmation = ref('');
 const error = ref('');
 const successMessage = ref('');
 const errors = ref([]);
-const isSubmitting = ref(false); 
+const isSubmitting = ref(false);
+
+const showNotification = ref(false);
+const notificationMessage = ref('');
+const loading = ref(false);
+const notification_type = ref('');
+
 
 const userStore = useUserStore();
 const router = useRouter();
@@ -153,19 +168,21 @@ const handleSubmit = async () => {
 
   isSubmitting.value = true;
   errors.value = [];
-  if (password.value !== confirmPassword.value) {
+  if (password.value !== password_confirmation.value) {
     errors.value.push('Passwords do not match');
-    console.log(error.value);
     isSubmitting.value = false;
+    notification_type.value = 'failure';
+    notificationMessage.value = 'Passwords do not match';
+    showNotification.value = true;
     return;
   }
   try {
     const response = await $authService.register({
-      first_name: firstname.value,
-      last_name: lastname.value,
+      first_name: first_name.value,
+      last_name: last_name.value,
       email: email.value,
       password: password.value,
-      password_confirmation: confirmPassword.value,
+      password_confirmation: password_confirmation.value,
     });
 
     if (response.status === 200) {
@@ -180,21 +197,31 @@ const handleSubmit = async () => {
       } else {
         errors.value.push('Token is missing in the response.');
       }
-    } else {
+    } if (response.status === 422) {
       isSubmitting.value = false;
-      errors.value.push(response.data.display_message);
-    }
-  } catch (err) {
-    if (err.response?.data?.message) {
-      if (Array.isArray(err.response.data.message)) {
-        errors.value = err.response.data.message;
-      } else {
-        errors.value = [err.response.data.message];
+      // Handle validation errors (status 422)
+      const responseData = await response.json();  // Parse the response data
+
+      // Assign validation messages to the respective fields
+      for (const [field, messages] of Object.entries(responseData.message)) {
+        errors.value[field] = messages;  // Map error messages to the form fields
       }
     } else {
-      errors.value = [err.response?.data?.message || err.message];
+      // Handle other error statuses (e.g., 500 Internal Server Error)
+      console.error(`Error: ${response.status} - ${response.statusText}`);
     }
-  }finally{
+  } catch (err) {
+    if (err.message) {
+      //console.log(err.message);  // Log full error details
+
+      // Assign validation messages to the respective fields
+      for (const [field, messages] of Object.entries(err.message)) {
+        errors.value[field] = messages; // Map error messages to the form fields
+      }
+    } else {
+      console.error('An unexpected error occurred:', err);
+    }
+  } finally {
     isSubmitting.value = false;
   }
 };

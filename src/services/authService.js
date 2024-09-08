@@ -7,7 +7,11 @@ const createAuthService = (apiService) => {
       const response = await apiService.postRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to login');
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to login');
+      }
     }
   };
 
@@ -33,7 +37,11 @@ const createAuthService = (apiService) => {
       const response = await apiService.postRequest(url, body);
       return response;
     } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
       throw new Error(error.message || 'Failed to register');
+      }
     }
   };
 
