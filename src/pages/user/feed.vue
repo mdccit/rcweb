@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-16">
+  <div>
 
     <section>
         <!--start card 01 -->
