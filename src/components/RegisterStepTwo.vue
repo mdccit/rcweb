@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen w-full bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4"
     style="background-image: url(https://qa1.recruited.qualitapps.com/static/bg-generic.svg);">
-    <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-4xl">
+    <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl">
       <div class="flex items-center space-x-4">
         <div class="flex self-center items-center">
           <!-- <NuxtLink to="/register" class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full">
@@ -27,7 +27,7 @@
           <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="player" type="radio"
             value="player" v-model="role" name="role">
           <div
-            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'player' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
+            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'player' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
             <div class="tile-icon"></div>
             <label for="player" class="text-sm text-black mb-2">Player</label>
           </div>
@@ -38,7 +38,7 @@
           <input class="radio-input  absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="coach" type="radio"
             value="coach" v-model="role" name="role">
           <div
-            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'coach' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
+            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'coach' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
             <img class="mt-1" src="@/assets/images/coach_icon.png">
             <label for="coach" class="text-sm text-black mb-2">Coach</label>
           </div>
@@ -49,7 +49,7 @@
           <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="parent" type="radio"
             value="parent" v-model="role" name="role">
           <div
-            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'parent' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
+            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'parent' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
             <img class="mt-1" src="@/assets/images/parent.png">
             <label for="parent" class="text-sm text-black  mb-2">Parent</label>
           </div>
@@ -60,7 +60,7 @@
           <input class="radio-input text-black absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="business"
             type="radio" value="business" v-model="role" name="role">
           <div
-            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'business' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
+            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'business' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
             <img class="mt-1" src="@/assets/images/bussiness.png">
             <label for="business" class="text-sm text-black  mb-2">Business</label>
           </div>
@@ -75,7 +75,7 @@
             *</label>
           <NationalityDropdown :nationalities="nationalities" v-model="nationality" id="nationality"
             label="Nationality" />
-          <span v-if="errors.nationality" class="text-red text-sm ">{{ errors.nationality.join(', ')
+          <span v-if="errors.nationality" class="text-red-500 text-sm ">{{ errors.nationality.join(', ')
             }}</span>
 
         </div>
@@ -85,7 +85,7 @@
             class="font-normal text-black block text-sm text-gray-900 dark:text-gray mb-[20px]">Country
             *</label>
           <CountryDropdown :countries="countries" v-model="country" id="country" class="mt-0" label="Country *" />
-          <span v-if="errors.country" class="text-red text-sm ">{{ errors.country.join(', ')
+          <span v-if="errors.country" class="text-red-500 text-sm ">{{ errors.country.join(', ')
             }}</span>
         </div>
 
@@ -112,13 +112,13 @@
               data-validation-key="phone_code" class="col-span-2 h-12" />
 
             <input type="text" id="phone_number" v-model="phone_number"
-              class=" mt-[4px] h-12 col-span-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
+              class=" mt-[4px] h-12 col-span-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-steelBlue light:focus:border-steelBlue"
               placeholder="Number" required />
           </div>
           <ul>
-            <li> <span v-if="errors.phone_code_country" class="text-red text-sm ">{{ errors.phone_code_country.join(',')
+            <li> <span v-if="errors.phone_code_country" class="text-red-500 text-sm ">{{ errors.phone_code_country.join(',')
                 }}</span> </li>
-            <li> <span v-if="errors.phone_number" class="text-red text-sm ">{{ errors.phone_number.join(', ')
+            <li> <span v-if="errors.phone_number" class="text-red-500 text-sm ">{{ errors.phone_number.join(', ')
                 }}</span></li>
           </ul>
 
@@ -128,7 +128,7 @@
         <div class="space-y-4" v-if="roleFields.includes('gender')">
           <label for="gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">Gender *</label>
           <GenderDropDown :genders="genders" v-model="gender" id="gender" label="Gender *" />
-          <span v-if="errors.gender" class="text-red text-sm ">{{ errors.gender.join(', ')
+          <span v-if="errors.gender" class="text-red-500 text-sm ">{{ errors.gender.join(', ')
             }}</span>
         </div>
 
@@ -137,7 +137,7 @@
           <label for="handedness" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Handedness
             *</label>
           <HandednessDropdown :handedness="handednesses" v-model="handedness" id="handedness" label="Handedness *" />
-          <span v-if="errors.handedness" class="text-red text-sm ">{{ errors.handedness.join(', ')
+          <span v-if="errors.handedness" class="text-red-500 text-sm ">{{ errors.handedness.join(', ')
             }}</span>
         </div>
 
@@ -167,22 +167,22 @@
           <!-- Height in Centimeters -->
           <div v-if="height_in_cm" class="-mt-[8px]">
             <input type="number" id="height_cm" v-model="height_cm"
-              class="bg-gray-50 border h-12 -mt-[8px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              class="bg-gray-50 border h-12 -mt-[8px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
               placeholder="Height in cm" />
-            <span v-if="errors.height_cm" class="text-red text-sm ">{{ errors.height_cm.join(', ')
+            <span v-if="errors.height_cm" class="text-red-500 text-sm ">{{ errors.height_cm.join(', ')
               }}</span>
           </div>
           <!-- Height in Feet/Inches -->
           <div v-else class="grid grid-cols-10 gap-3 items-center -mt-[8px]">
             <input type="number" id="height_ft" v-model="height_ft"
-              class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
               placeholder="Ft" />
-            <span v-if="errors.height_ft" class="text-red text-sm ">{{ errors.height_ft.join(', ')
+            <span v-if="errors.height_ft" class="text-red-500 text-sm ">{{ errors.height_ft.join(', ')
               }}</span>
             <input type="number" id="height_in" v-model="height_in"
-              class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
               placeholder="In" />
-            <span v-if="errors.height_in" class="text-red text-sm ">{{ errors.height_in.join(', ')
+            <span v-if="errors.height_in" class="text-red-500 text-sm ">{{ errors.height_in.join(', ')
               }}</span>
           </div>
         </div>
@@ -191,9 +191,9 @@
           <div class="col-span-5" v-if="roleFields.includes('utr')">
             <label for="utr" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">UTR *</label>
             <input type="text" id="utr" v-model="utr"
-              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
               placeholder="UTR" required />
-            <span v-if="errors.utr" class="text-red text-sm ">{{ errors.utr.join(', ')
+            <span v-if="errors.utr" class="text-red-500 text-sm ">{{ errors.utr.join(', ')
               }}</span>
           </div>
           <div class="col-span-5" v-if="roleFields.includes('gpa')">
@@ -217,9 +217,9 @@
             </label>
 
             <input type="text" id="gpa" v-model="gpa"
-              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
               placeholder="GPA" required />
-            <span v-if="errors.gpa" class="text-red text-sm ">{{ errors.gpa.join(', ')
+            <span v-if="errors.gpa" class="text-red-500 text-sm ">{{ errors.gpa.join(', ')
               }}</span>
           </div>
         </div>
@@ -228,9 +228,9 @@
           <label for="graduation" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Graduation
             Month/Year *</label>
           <input type="month" v-model="graduation"
-            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-primary light:focus:ring-blue-500 light:focus:border-blue-500"
+            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full ps-10 p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-primary light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="Select Month/Year" />
-          <span v-if="errors.graduation_month_year" class="text-red text-sm ">{{ errors.graduation_month_year.join(', ')
+          <span v-if="errors.graduation_month_year" class="text-red-500 text-sm ">{{ errors.graduation_month_year.join(', ')
             }}</span>
         </div>
 
@@ -254,7 +254,7 @@
             </div>
           </label>
           <BudgetDropdown :player_budgets="budgets" v-model="selectedBudget" id="budgets" label="Budgets *" />
-          <span v-if="errors.player_budget" class="text-red text-sm ">{{ errors.player_budget.join(', ')
+          <span v-if="errors.player_budget" class="text-red-500 text-sm ">{{ errors.player_budget.join(', ')
             }}</span>
         </div>
 
@@ -266,9 +266,9 @@
           <label for="player_first_name" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">
             First Name *</label>
           <input type="text" id="player_first_name" v-model="player_first_name"
-            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
             placeholder="First Name" required />
-          <span v-if="errors.player_first_name" class="text-red text-sm ">{{ errors.player_first_name.join(', ')
+          <span v-if="errors.player_first_name" class="text-red-500 text-sm ">{{ errors.player_first_name.join(', ')
             }}</span>
         </div>
 
@@ -277,18 +277,18 @@
           <label for="player_last_name" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Last
             Name *</label>
           <input type="text" id="player_last_name" v-model="player_last_name"
-            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
             placeholder="Last Name" required />
-          <span v-if="errors.player_last_name" class="text-red text-sm ">{{ errors.player_last_name.join(', ')
+          <span v-if="errors.player_last_name" class="text-red-500 text-sm ">{{ errors.player_last_name.join(', ')
             }}</span>
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('email')">
           <label for="email" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Email *</label>
           <input type="email" id="email" v-model="email"
-            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
             placeholder="Email" required />
-          <span v-if="errors.email" class="text-red text-sm ">{{ errors.email.join(', ')
+          <span v-if="errors.email" class="text-red-500 text-sm ">{{ errors.email.join(', ')
             }}</span>
         </div>
 
@@ -296,7 +296,7 @@
           <label for="player_country" class="font-normal text-black block mb-2 text-sm text-gray-900 dark:text-gray">
             Country *</label>
           <CountryDropdown :countries="countries" v-model="player_country" id="player_country" label="Player Country" />
-          <span v-if="errors.player_country" class="text-red text-sm ">{{ errors.player_country.join(', ')
+          <span v-if="errors.player_country" class="text-red-500 text-sm ">{{ errors.player_country.join(', ')
             }}</span>
         </div>
 
@@ -320,14 +320,14 @@
             <CountryCodeDropdown :country_codes="country_codes" v-model="player_phone_code_country"
               name="player_phone_code" data-validation-key="player_phone_code" class="col-span-2" />
             <input type="text" id="player_phone_number" v-model="player_phone_number"
-              class="col-span-3 bg-gray-50 border mt-[4px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
+              class="col-span-3 bg-gray-50 border mt-[4px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-steelBlue light:focus:border-steelBlue"
               placeholder="Player Number" required />
           </div>
           <ul>
-            <li><span v-if="errors.player_phone_code_country" class="text-red text-sm ">{{
+            <li><span v-if="errors.player_phone_code_country" class="text-red-500 text-sm ">{{
             errors.player_phone_code_country.join(', ')
           }}</span></li>
-            <li><span v-if="errors.player_phone_number" class="text-red text-sm ">{{
+            <li><span v-if="errors.player_phone_number" class="text-red-500 text-sm ">{{
             errors.player_phone_number.join(',')
           }}</span></li>
           </ul>
@@ -337,7 +337,7 @@
           <label for="player_gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">
             Gender *</label>
           <GenderDropDown :genders="genders" v-model="player_gender" id="player_gender" label="Player Gender" />
-          <span v-if="errors.player_gender" class="text-red text-sm ">{{ errors.player_gender.join(', ')
+          <span v-if="errors.player_gender" class="text-red-500 text-sm ">{{ errors.player_gender.join(', ')
             }}</span>
         </div>
 
@@ -346,7 +346,7 @@
             Handedness *</label>
           <HandednessDropdown :handedness="handednesses" v-model="player_handedness" id="player_handedness"
             label="Player Handedness" />
-          <span v-if="errors.player_handedness" class="text-red text-sm ">{{ errors.player_handedness.join(', ')
+          <span v-if="errors.player_handedness" class="text-red-500 text-sm ">{{ errors.player_handedness.join(', ')
             }}</span>
         </div>
 
@@ -376,25 +376,25 @@
           <!-- Height in Centimeters -->
           <div v-if="player_height_in_cm" class="-mt-[8px]">
             <input type="number" id="player_height_cm" v-model="player_height_cm"
-              class="bg-gray-50 border h-12 -mt-[8px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              class="bg-gray-50 border h-12 -mt-[8px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
               placeholder="Height in cm" />
-            <span v-if="errors.player_height_cm" class="text-red text-sm ">{{ errors.player_height_cm.join(', ')
+            <span v-if="errors.player_height_cm" class="text-red-500 text-sm ">{{ errors.player_height_cm.join(', ')
               }}</span>
           </div>
 
           <!-- Height in Feet/Inches -->
           <div v-else class="grid grid-cols-10 gap-3 items-center -mt-[8px]">
             <input type="number" id="player_height_ft" v-model="player_height_ft"
-              class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
               placeholder="Ft" required />
             <input type="number" id="player_height_in" v-model="player_height_in"
-              class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
               placeholder="In" required />
           </div>
           <ul>
-            <li> <span v-if="errors.player_height_ft" class="text-red text-sm ">{{ errors.player_height_ft.join(', ')
+            <li> <span v-if="errors.player_height_ft" class="text-red-500 text-sm ">{{ errors.player_height_ft.join(', ')
                 }}</span></li>
-            <li> <span v-if="errors.player_height_in" class="text-red text-sm ">{{ errors.player_height_in.join(', ')
+            <li> <span v-if="errors.player_height_in" class="text-red-500 text-sm ">{{ errors.player_height_in.join(', ')
                 }}</span></li>
           </ul>
         </div>
@@ -420,25 +420,25 @@
             </div>
           </label>
           <BudgetDropdown :player_budgets="budgets" v-model="player_budget" id="player_budget" label="Player Budget" />
-          <span v-if="errors.player_budget" class="text-red text-sm ">{{ errors.player_budget.join(', ')
+          <span v-if="errors.player_budget" class="text-red-500 text-sm ">{{ errors.player_budget.join(', ')
             }}</span>
         </div>
 
         <div v-if="roleFields.includes('player_utr')">
           <label for="player_utr" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray"> UTR *</label>
           <input type="text" id="player_utr" v-model="player_utr"
-            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="Player UTR" required />
-          <span v-if="errors.player_utr" class="text-red text-sm ">{{ errors.player_utr.join(', ')
+          <span v-if="errors.player_utr" class="text-red-500 text-sm ">{{ errors.player_utr.join(', ')
             }}</span>
         </div>
 
         <div v-if="roleFields.includes('player_gpa')">
           <label for="player_gpa" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray"> GPA *</label>
           <input type="text" id="player_gpa" v-model="player_gpa"
-            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="Player GPA" required />
-          <span v-if="errors.player_gpa" class="text-red text-sm ">{{ errors.player_gpa.join(', ')
+          <span v-if="errors.player_gpa" class="text-red-500 text-sm ">{{ errors.player_gpa.join(', ')
             }}</span>
         </div>
 
@@ -446,9 +446,9 @@
           <label for="player_graduation_month_year" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">
             Graduation Month/Year *</label>
           <input type="month" v-model="player_graduation_month_year"
-            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 text-black focus:border-blue-500 block w-full ps-10 p-2.5"
+            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue text-black focus:border-steelBlue block w-full ps-10 p-2.5"
             placeholder="Player Graduation Month/Year" />
-          <span v-if="errors.player_graduation_month_year" class="text-red text-sm ">{{
+          <span v-if="errors.player_graduation_month_year" class="text-red-500 text-sm ">{{
             errors.player_graduation_month_year.join(', ')
           }}</span>
         </div>
@@ -458,7 +458,7 @@
             Nationality *</label>
           <NationalityDropdown :nationalities="nationalities" v-model="player_nationality" id="player_nationality"
             label="Player Nationality" />
-          <span v-if="errors.player_nationality" class="text-red text-sm ">{{ errors.player_nationality.join(', ')
+          <span v-if="errors.player_nationality" class="text-red-500 text-sm ">{{ errors.player_nationality.join(', ')
             }}</span>
         </div>
 
@@ -468,7 +468,7 @@
       <div class="space-y-4 mt-5" v-if="(role.value == 'parent' || role.value == 'player')">
         <div class="flex items-center">
           <input id="notEnrolled" type="checkbox" v-model="notEnrolled" required="true"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-steelBlue dark:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
           <label for="notEnrolled" class="ms-2 text-sm font-normal text-gray-900 light:text-gray-600">
             I certify I am currently not enrolled in a U.S. school or have already informed the school of my choice
             to transfer, registering in the Transfer Portal.
@@ -493,12 +493,12 @@
       <div class="space-y-4 mt-5" v-if="(role.value == 'parent' || role.value == 'player')">
         <div class="flex items-center">
           <input id="termsAccepted" type="checkbox" v-model="termsAccepted" required
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-steelBlue light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
           <label for="termsAccepted" class="ms-2 text-sm font-medium text-gray-900 light:text-gray-300">
             I agree to the
-            <NuxtLink to="/terms" class="text-blue-600 light:text-blue-500 hover:underline">Terms of Service</NuxtLink>
+            <NuxtLink to="/terms" class="text-blue-600 light:text-steelBlue hover:underline">Terms of Service</NuxtLink>
             and
-            <NuxtLink to="/privacy" class="text-blue-600 light:text-blue-500 hover:underline">Privacy Policy </NuxtLink>
+            <NuxtLink to="/privacy" class="text-blue-600 light:text-steelBlue hover:underline">Privacy Policy </NuxtLink>
             .
           </label>
         </div>
@@ -506,7 +506,7 @@
 
       <div class="flex items-center justify-end mt-6">
         <button @click="handleSubmitStep2"
-          class="text-white bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 light:bg-blue-600 light:hover:bg-blue-700 light:focus:ring-blue-800">
+          class="text-white bg-steelBlue hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 light:bg-blue-600 light:hover:bg-blue-700 light:focus:ring-blue-800">
           Sign up now for free
         </button>
       </div>

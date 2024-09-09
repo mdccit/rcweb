@@ -1,9 +1,9 @@
 <template>
-    <div class="WordSection1 container text-black p-3 mx-auto">
+    <div>
         <div class="my-12"></div>
         <p class="text-3xl"><b>{{ $t('terms.terms_and_condition') }}</b></p>
         <p class="MsoNormal"><b>{{ $t('terms.agreement_between') }}</b></p>
-        <p class="MsoNormal"></p>
+        <p class="MsoNormal">&nbsp;</p>
         <p class="MsoNormal">{{ $t('terms.welcome_to_recruited') }}</p>
         <p class="MsoNormal">{{ $t('terms.social_Networking_Site') }}</p>
         <p class="MsoNormal">{{ $t('terms.our_goal_is') }}</p>
@@ -203,17 +203,7 @@
 import { useUserStore } from '~/stores/userStore'
 
 const userStore = useUserStore()
-definePageMeta({ colorMode: 'light', layout: 'outer'},)
+definePageMeta({ colorMode: 'light', layout: 'public-full-page'},)
 const email = userStore.user?.email
 const token = userStore.user?.token
 </script>
-
-<style scoped>
-h1 {
-    color: #333;
-}
-
-p {
-    font-size: 16px;
-}
-</style>

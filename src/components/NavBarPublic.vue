@@ -9,6 +9,16 @@
         <NuxtLink to="/about" class="font-bold self-center"> About </NuxtLink>
         <NuxtLink @click="resourceRedirect" class="font-bold self-center"> Resources </NuxtLink>
         <!-- <NuxtLink to="/calls" class="font-bold self-center"> Calls </NuxtLink>
+    <nav class="bg-white text-black">
+        <div class="container-compact py-10 md:p-8 flex flex-row gap-4">
+            <NuxtLink to="/" class="self-center flex-1 lg:flex-none ml-20 lg:ml-0 lg:mr-4">
+                <img src="@/assets/images/logo.svg" alt="Logo" class="h-8">
+            </NuxtLink>
+            <div class="hidden lg:flex flex-row flex-1 self-center gap-8">
+                <NuxtLink to="/pricing" class="font-bold self-center"> Pricing </NuxtLink>
+                <NuxtLink to="/about" class="font-bold self-center"> About </NuxtLink>
+                <NuxtLink to="/resources" class="font-bold self-center"> Resources </NuxtLink>
+                <NuxtLink to="/calls" class="font-bold self-center"> Calls </NuxtLink>
                 <NuxtLink to="/events" class="font-bold self-center"> Events </NuxtLink>
                 <NuxtLink to="/blog" class="font-bold self-center"> Blog </NuxtLink> -->
 
