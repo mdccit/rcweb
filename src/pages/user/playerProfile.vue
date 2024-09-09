@@ -462,6 +462,25 @@
     </main>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch, onMounted } from 'vue';
+import { useNuxtApp } from '#app';
+const nuxtApp = useNuxtApp();
 
+onMounted(() => {
+    fetchUserDatils();
+});
+
+const fetchUserDatils = async () =>{
+    console.log("Geloo")
+ 
+    try {
+        
+      //  const dataSets = await $publicService.get_player('mewan-ayomal');
+        console.log(nuxtApp)
+    } catch (error) {
+        console.log(error)
+       console.error('Error fetching data:', error.message);
+    } 
+}
 </script>
