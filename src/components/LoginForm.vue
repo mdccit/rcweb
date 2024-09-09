@@ -8,6 +8,7 @@
         </div>
       </div>
 
+      <form @submit.prevent="handleSubmit">
       <div class="w-full">
         <label class="block">
           <span class="block mb-1 text-gray-700 font-sans">Email <span aria-hidden="true" class="text-red-600"
@@ -15,7 +16,7 @@
           <div class="flex rounded-lg border border-gray-300 shadow-sm">
             <input v-model="email"
               class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-              name="email" type="email" data-validation-key="email" id="email" required="true" autofocus>
+              name="email" type="email" data-validation-key="email" id="email" required autofocus>
           </div>
           <p v-if="errors.email" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.email.join(', ') }}</p>
           <!-- Email Validation Error -->
@@ -29,7 +30,7 @@
           <div class="flex rounded-lg border border-gray-300 shadow-sm">
             <input v-model="password"
               class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-              name="password" type="password" data-validation-key="password" id="password" required
+              name="password" type="password" data-validation-key="password" id="password" required autofocus
               autocomplete="current-password">
           </div>
           <p v-if="errors.password" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.password.join(', ') }}</p>
@@ -47,7 +48,7 @@
         </div>
       </div>
       <div>
-        <button @click="userLogin"
+        <button type="submit"
           class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-darkAzureBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue block w-full transition"
           :disabled="loading">
           <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,6 +58,8 @@
           Login
         </button>
       </div>
+    </form>
+
       <div class="w-full mt-5">
         <button type="button" @click="initiateGoogleAuth('login')"
           class="py-2.5 w-full px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-steelBlue focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 transition">
@@ -91,6 +94,7 @@ import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
 import Cookies from 'js-cookie';
+import CryptoJS from 'crypto-js';
 
 import Notification from '~/components/common/Notification.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
@@ -112,16 +116,18 @@ const notificationMessage = ref('');
 const loading = ref(false);
 const notificationType = ref('');
 
-
 definePageMeta({ colorMode: 'light', })
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 
-// Function to handle user login
-const userLogin = async () => {
+const handleSubmit = () => {
+  userLogin(false);  // Manually submitting, so autoLogin is false
+};
 
+// Function to handle user login
+const userLogin = async (autoLogin = false) => {
   try {
     errors.value = {};  // Reset errors before submitting
     loading.value = true;  // Set loading state
@@ -132,12 +138,25 @@ const userLogin = async () => {
     if (response.status === 200) {
       successMessage.value = response.display_message;
 
+
+      console.log('auto login', autoLogin);
+      console.log('auto me', rememberMe.value);
+      // Save credentials if rememberMe is checked and it's not autoLogin
+      if (!autoLogin && rememberMe.value) {
+        const credentials = {
+          username: email.value,  // Corrected from 'username' to 'email'
+          password: password.value,
+        };
+        console.log('Saving credentials:', credentials);  // This log should be printed now
+        saveEncryptedCredentials(credentials);  // Save the credentials
+      }
+
       // Set the user in the Pinia store
       userStore.setUser({
         email: email.value,
-        role: response.data.user_role,  // Corrected role property
+        role: response.data.user_role,
         token: response.data.token,
-        user_permission_type: response.data.user_permission_type
+        user_permission_type: response.data.user_permission_type,
       });
 
       // Set success notification
@@ -152,9 +171,8 @@ const userLogin = async () => {
         Cookies.set('session', response.data.token);  // No expiration for session cookie
       }
 
-      // Delay routing to show notification for 3 seconds
+      // Delay routing to show notification for 1 second
       setTimeout(() => {
-        // Conditionally redirect based on user role and permissions
         if (response.data.user_permission_type === 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
           router.push('/user/approval-pending');  // Redirect to pending approval page
         } else if (response.data.user_permission_type != 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
@@ -190,27 +208,55 @@ const initiateGoogleAuth = async (type) => {
 };
 
 onMounted(() => {
+  const savedCredentials = localStorage.getItem('encryptedCredentials');
   const sessionToken = Cookies.get('session');  // Check if session token exists
-  if (sessionToken) {
-    // rememberMe.value = true;
-    const user = userStore.getUser();  // Get user from userStore
 
-     const userRole = localStorage.getItem('user_role');
-     const userToken = localStorage.getItem('token');
+  if (savedCredentials) {
+    const decryptedData = decryptCredentials(savedCredentials);
+    if (decryptedData) {
+      email.value = decryptedData.username;  
+      password.value = decryptedData.password;
+      rememberMe.value = true;
 
-     if(userRole == 'default'){
-      userStore.setTempUser(userRole,userToken);
+      // Auto-login with the saved credentials
+      // userLogin(true);  // Change 'handleLogin(true)' to 'userLogin(true)'
+    }
+  } else if (sessionToken) {
+    const userRole = localStorage.getItem('user_role');
+    const userToken = localStorage.getItem('token');
+
+    if (userRole === 'default') {
+      userStore.setTempUser(userRole, userToken);
       router.push({ name: 'register-step-two-token', params: { token: userToken } });
-     }
-
-    // setTimeout(() => {
-    //   // Redirect user based on role or permission
-    //   if (user && user.user_permission_type === 'none' && user.user_role === 'coach') {
-    //     router.push('/user/approval-pending');
-    //   }
-    // }, 1000);
+    }
   }
 });
+
+
+// Function to encrypt and save credentials to localStorage
+const saveEncryptedCredentials = (credentials) => {
+    const encryptedData = CryptoJS.AES.encrypt(
+      JSON.stringify(credentials),
+      'recruited-pro-v2'  // Replace this with a secure key
+    ).toString();
+    localStorage.setItem('encryptedCredentials', encryptedData);
+};
+
+
+// Function to decrypt credentials
+const decryptCredentials = (encryptedData) => {
+  try {
+    const bytes = CryptoJS.AES.decrypt(encryptedData, 'recruited-pro-v2');  // Use the same key here
+    const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    return decryptedData;
+  } catch (error) {
+    console.error('Failed to decrypt credentials', error);
+    return null;
+  }
+};
+
+
+
 
 </script>
 

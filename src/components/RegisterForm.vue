@@ -46,6 +46,9 @@
             <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
           </ul>
         </div>
+
+
+        <form @submit.prevent="handleSubmit">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2">
           <div class="space-y-4">
             <div>
@@ -117,12 +120,13 @@
         </div>
 
         <div class="flex items-center justify-end mt-5">
-          <button @click="handleSubmit" class="text-white bg-steelBlue hover:bg-blue-800 focus:outline-none focus:ring-4 
+          <button type="submit" class="text-white bg-steelBlue hover:bg-blue-800 focus:outline-none focus:ring-4 
               focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 
               dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Sign up now for free
           </button>
         </div>
+      </form>
       </div>
     </div>
       <!-- Notification Component -->
