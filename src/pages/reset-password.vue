@@ -48,7 +48,7 @@
                     class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                     name="recovery_code" type="text" v-model="recovery_code" id="recovery_code" required autofocus>
                 </div>
-                <span v-if="errors.recovery_code" class="text-red text-sm ">{{ errors.recovery_code.join(', ')
+                <span v-if="errors.recovery_code" class="text-red-500 text-sm ">{{ errors.recovery_code.join(', ')
                 }}</span>
               </label>
             </div>
@@ -63,7 +63,7 @@
                     class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                     name="password" type="password" v-model="password" id="password" required>
                 </div>
-                <span v-if="errors.password" class="text-red text-sm ">{{ errors.password.join(', ')
+                <span v-if="errors.password" class="text-red-500 text-sm ">{{ errors.password.join(', ')
                 }}</span>
               </label>
             </div>
@@ -79,7 +79,7 @@
                     name="password_confirmation" type="password" v-model="password_confirmation"
                     id="password_confirmation" required>
                 </div>
-                <span v-if="errors.password_confirmation" class="text-red text-sm ">{{ errors.password_confirmation.join(', ')
+                <span v-if="errors.password_confirmation" class="text-red-500 text-sm ">{{ errors.password_confirmation.join(', ')
                 }}</span>
               </label>
             </div>

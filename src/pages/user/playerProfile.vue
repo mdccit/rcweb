@@ -142,7 +142,7 @@
                                 </button>
                                 <button
                                     class="flex items-center space-x-1 text-lightred px-3 py-1 rounded-md text-sm bg-culturedBlue">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green"
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green-500"
                                         class="size-4">
                                         <path
                                             d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
@@ -151,7 +151,7 @@
                                             clip-rule="evenodd" />
                                     </svg>
 
-                                    <span class="text-green pl-1.5">Event</span>
+                                    <span class="text-green-500 pl-1.5">Event</span>
                                 </button>
                             </div>
                             <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Post</button>
@@ -176,7 +176,7 @@
                                                 <img src="../../assets/user/images/man-medal.png" alt=""
                                                     class=" w-4 h-4">
                                             </div>
-                                            <div class="text-sm ml-2 text-green">Tennis Coach</div>
+                                            <div class="text-sm ml-2 text-green-500">Tennis Coach</div>
                                         </div>
                                         <div class="flex items-center space-x-2">
                                             <div class=" rounded">
@@ -263,7 +263,7 @@
                                             <div class="bg-blue-200 p-1 rounded">
                                                 <img src="../../assets/images/player-blue.png" alt="" class=" w-4 h-4">
                                             </div>
-                                            <div class="text-sm ml-2 text-blue">Tennis Player</div>
+                                            <div class="text-sm ml-2 text-blue-500">Tennis Player</div>
                                         </div>
                                         <div class="flex items-center space-x-2">
                                             <div class=" rounded">

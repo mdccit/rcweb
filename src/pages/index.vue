@@ -5,7 +5,7 @@
       </h1>
       <p class="my-10 text-2xl max-w-3xl mx-auto text-black">{{ $t('home.subheading') }} </p>
       <NuxtLink to="/register" onclick="dataLayer.push({'event': 'star_signup'});"
-        class=" bg-blue-500 border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50  hover:bg-blue-700 active:bg-blue-700 text-white border-transparent focus:border-primary-300 focus:ring-primary-200 !px-20 !py-4">
+        class=" bg-steelBlue border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50  hover:bg-brightSkyBlue active:bg-royalBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue !px-20 !py-4">
         <span class="text-xl ">{{ $t('home.sign_up_forfree') }}</span>
       </NuxtLink>
       <p class="text-purple-800 font-bold mt-8"><svg class="w-6 h-6 inline-block" xmlns="http://www.w3.org/2000/svg"
@@ -171,11 +171,10 @@
         <div class="p-12"></div>
         <NuxtLink to="/register">
           <button type="submit"
-            class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white text-gray-700 border-gray-300  focus:ring-primary-200 !px-20 !py-4 block mx-auto"><span
+            class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white text-gray-700 border-gray-300  focus:ring-lightPastalBlue !px-20 !py-4 block mx-auto"><span
               class="text-xl">Sign up for free</span>
           </button>
         </NuxtLink>
-        <div class="p-24"></div>
       </div>
     </section>
     <section class="container  text-black m-auto m-auto">
@@ -183,7 +182,7 @@
         alt="picture of this website" class="w-full -mt-10 max-w-4xl mx-auto h-auto -mt-80">
       <div class="my-20 max-w-5xl mx-auto flex flex-col lg:flex-row gap-8">
         <div class="flex-1">
-          <h2 class="text-4xl font-bold text-blue-500 mb-8"> Recruited is already better than an agent </h2>
+          <h2 class="text-4xl font-bold text-steelBlue mb-8"> Recruited is already better than an agent </h2>
           <p class="text-lg font-medium mb-8"> Recruited is the first platform to offer a comprehensive solution for
             tennis players and coaches worldwide. We are here to help you get noticed and connect with the right people.
           </p>
@@ -229,13 +228,13 @@
           </div>
         </div>
       </div> -->
-      <div class="max-w-3xl bg-blue-500 rounded-xl p-12 md:p-20 text-white mx-auto text-center mt-5">
+      <div class="max-w-3xl bg-steelBlue rounded-xl p-12 md:p-20 text-white mx-auto text-center mt-20">
         <h2 class="text-4xl font-bold mb-8">{{ $t('home.open_beta_and_quickly') }}
         </h2>
         <p class="text-lg font-medium mb-8">{{ $t('home.the_first_platform') }}
         </p>
         <NuxtLink to="/register" onclick="dataLayer.push({'event': 'star_signup'});"
-          class="border bg-white text-black  rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-white-400 active:bg-primary-600  text-gray border-transparent focus:border-primary-300 focus:ring-primary-200 !px-20 !py-4"
+          class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-lightAzure focus:ring-lightPastalBlue !px-20 !py-4"
           data-v-inspector="src/pages/index.vue:7:95" data-v-02281a80="">
           <span class="text-xl text-black" data-v-inspector="src/pages/index.vue:9:270" data-v-02281a80="">{{
             $t('home.sign_up_forfree') }}</span>
@@ -250,16 +249,9 @@
 <script setup>
 import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore();
-definePageMeta({ colorMode: 'light', })
+definePageMeta({ 
+  layout: 'public-default',
+  colorMode: 'light', 
+})
 
 </script>
-
-<style scoped>
-h1 {
-  color: #333;
-}
-
-p {
-  font-size: 16px;
-}
-</style>

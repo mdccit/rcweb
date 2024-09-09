@@ -24,7 +24,6 @@ module.exports = {
         primary: '#3D7FFF',
         primaryblue: '#3D7FFF',
         secondary:'#DFE4EE',
-        blue: '#3D7FFF',
         black: '#000000',
         white: '#FFFFFF',
         azureblue: '#0284c7',
@@ -46,16 +45,18 @@ module.exports = {
         limegreen: '#4AC220',
         lightred: '#F9697A',
         amber: '#FFA800',
-        green: '#1BCB17',
         mintGreen: '#A4FFA2',
-        red: '#E60000',
         orangeRed: '#FF0000',
         lightPink: '#FFA9A9',
         lighterGray: '#DFE4EE',
         teelGray:'#e2e5e7',
-        darkAzureBlue: '#004a8f', // Primary blue button hover color
+        darkAzureBlue: '#004a8f', // Primary blue button hover color // primary-500
         palePink: '#ffeeee',
-        powderBlue: '#e5f3ff'
+        powderBlue: '#e5f3ff',
+        brightSkyBlue: '#2999ff', // Primary blue button hover color // primary-400
+        royalBlue: '#0068c7', // Primary blue button active color // primary-600
+        lightAzure: '#52acff', // Primary blue button focus border color // primary-300
+        lightPastalBlue: '#7ac0ff80' // Primary blue button focus color // primary-200
       },
       testred: {
         lightest: '#efdfa4',
@@ -119,6 +120,25 @@ module.exports = {
           },          
           '@screen 2xl': {
             maxWidth: '1440px',
+          },
+        },
+        '.container-compact': {
+          marginRight: 'auto',
+          marginLeft: 'auto',
+          '@screen sm': {
+            maxWidth: '100%',
+          },
+          '@screen md': {
+            maxWidth: '100%',
+          },
+          '@screen lg': {
+            maxWidth: '100%',
+          },
+          '@screen xl': {
+            maxWidth: '1496px',
+          },          
+          '@screen 2xl': {
+            maxWidth: '1496px',
           },
         }
       })
