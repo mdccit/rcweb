@@ -1,6 +1,6 @@
 <template>
     <div id="maincontent" class="">
-        <!--<div class="relative z-10 container mt-8 mx-auto my-auto">
+        <div class="relative z-10 container mt-8 mx-auto my-auto">
             <main class="flex flex-col lg:flex-row gap-12">
                 <div class="flex-1 text-black">
                     <div class="font-bold tracking-wider mb-2 opacity-50 text-lg uppercase">{{ $t('about.title') }}</div>
@@ -100,25 +100,25 @@
                         Drive<br> Bradenton,<br> Florida<br> US, 34210<br></p>
                 </div>
             </section>
-        </div>-->
+        </div>
     </div>
 </template>
 
 <script setup>
-// import { useUserStore } from '~/stores/userStore'
+import { useUserStore } from '~/stores/userStore'
 
-// const userStore = useUserStore()
-// definePageMeta({ colorMode: 'light', })
-// const email = userStore.user?.email
-// const token = userStore.user?.token
+const userStore = useUserStore()
+definePageMeta({ colorMode: 'light', })
+const email = userStore.user?.email
+const token = userStore.user?.token
 </script>
 
 <style scoped>
-/*h1 {
+h1 {
     color: #333;
 }
 
 p {
     font-size: 16px;
-}*/
+}
 </style>
