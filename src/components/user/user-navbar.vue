@@ -3,7 +3,7 @@
         <nav class="bg-clearwhite drop-shadow-md border-b border-b-poloBlue">
             <div class="grid grid-cols-12 px-4 h-14">
                 <div class="col-span-2 ">
-                    <img class="w-32" src="../assets/css/images/logo-recruited.png" alt="logo-recruited">
+                    <img class="w-32" src="@/assets/css/images/logo-recruited.png" alt="logo-recruited">
                 </div>
                 <div class="col-span-3">
                     <div
