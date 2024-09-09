@@ -465,7 +465,7 @@
       </div>
 
 
-      <div class="space-y-4 mt-5" v-if="(role.value == 'parent' || role.value == 'player')">
+      <div class="space-y-4 mt-5" v-if="(role == 'parent' || role =='player')">
         <div class="flex items-center">
           <input id="notEnrolled" type="checkbox" v-model="notEnrolled" required="true"
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-steelBlue dark:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
@@ -476,7 +476,7 @@
         </div>
       </div>
 
-      <div class="space-y-4 mt-5" v-if="(role.value == 'parent' || role.value == 'player')">
+      <div class="space-y-4 mt-5"  v-if="(role == 'parent' || role =='player')">
         <p class="text-sm text-black text-warning-600">
           <svg class="mb-2 text-orange-400 w-4 h-4 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24"
             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -490,7 +490,7 @@
         </p>
       </div>
 
-      <div class="space-y-4 mt-5" v-if="(role.value == 'parent' || role.value == 'player')">
+      <div class="space-y-4 mt-5"  v-if="(role == 'parent' || role =='player')">
         <div class="flex items-center">
           <input id="termsAccepted" type="checkbox" v-model="termsAccepted" required
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-steelBlue light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">

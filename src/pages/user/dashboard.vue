@@ -5,7 +5,7 @@
         <!--start card 01 -->
         <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6">
           <div class="flex items-center">
-            <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-12 h-12 mr-4">
+            <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-12 h-12 mr-4">
             <input type="text" placeholder="Write your thoughts..."
               class="flex-grow text-ceil bg-ceil rounded-xl border-none py-2 px-4 "
               style="background-color:#F4F6F9; color:#8CA4CE;">
@@ -58,7 +58,7 @@
               <div class="flex items-center justify-between">
 
                 <div class="flex items-center space-x-4">
-                  <img src="../../assets/user/images/whitter collage.png" alt="" class="rounded-lg w-12 h-12 mr-4">
+                  <img src="@/assets/user/images/whitter collage.png" alt="" class="rounded-lg w-12 h-12 mr-4">
                   <div>
                     <div class="text-lg font-semibold text-black">Whittier College</div>
                     <div class="flex items-center space-x-2">
@@ -175,7 +175,7 @@
           <!-- comment section -->
           <div id="accordion-collapse-comment-1-body" aria-labelledby="accordion-collapse-comment-1"
             class="z-10 hidden bg-white mt-4 flex items-start space-x-4">
-            <img src="../../assets/user/images/Rectangle 117.png" alt="User Image" class="w-12 h-12 rounded-lg">
+            <img src="@/assets/user/images/Rectangle_117.png" alt="User Image" class="w-12 h-12 rounded-lg">
             <div class="relative  w-full ">
               <input type="text" placeholder="Write your comment..."
                 class=" text-ceil bg-ceil w-full rounded-xl py-2 px-4 border-none"
@@ -208,12 +208,12 @@
               <div class="flex items-center justify-between">
 
                 <div class="flex items-center space-x-4">
-                  <img src="../../assets/user/images/Rectangle 126.png" alt="" class="rounded-lg w-12 h-12 mr-4">
+                  <img src="@/assets/user/images/Rectangle 126.png" alt="" class="rounded-lg w-12 h-12 mr-4">
                   <div>
                     <div class="text-lg font-semibold text-black">Dianne Russell</div>
                     <div class="flex items-center space-x-2">
                       <div class="bg-mintGreen p-1 rounded">
-                        <img src="../../assets/user/images/man-medal.png" alt="" class=" w-4 h-4">
+                        <img src="@/assets/user/images/man-medal.png" alt="" class=" w-4 h-4">
                       </div>
                       <div class="text-sm ml-2 text-black">4 hour ago</div>
                     </div>
@@ -244,7 +244,7 @@
                 document or a typeface without relying on meaningful content.
               </p>
               <div class="relative w-82 h-82 pt-4">
-                <img src="../../assets/user/images/Rectangle 128.png" alt=""
+                <img src="@/assets/user/images/Rectangle 128.png" alt=""
                   class="rounded-lg mr-4 w-full h-full object-cover">
                 <div class="absolute inset-0 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -303,7 +303,7 @@
               </div>
               <hr class="mt-3 mb-3 text-pigeonBlue">
               <div class="flex space-x-4 mt-3">
-                <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-12 h-12 mr-4">
+                <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-12 h-12 mr-4">
                 <div>
                   <div class="text-lg font-semibold text-black">Jane Cooper</div>
                   <div class="flex items-center space-x-2">
@@ -329,7 +329,7 @@
                 </div>
               </div>
               <div class="flex space-x-4 mt-4 ml-20">
-                <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-12 h-12 mr-4">
+                <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-12 h-12 mr-4">
                 <div>
                   <div class="text-lg font-semibold text-black">Jane Cooper</div>
                   <div class="flex items-center space-x-2">
@@ -362,7 +362,7 @@
           <!-- comment section -->
           <div id="accordion-collapse-comment-2-body" aria-labelledby="accordion-collapse-comment-2"
             class="z-10 hidden bg-white mt-4 flex items-start space-x-4">
-            <img src="../../assets/user/images/Rectangle 117.png" alt="User Image" class="w-12 h-12 rounded-lg">
+            <img src="@/assets/user/images/Rectangle_117.png" alt="User Image" class="w-12 h-12 rounded-lg">
             <div class="relative  w-full ">
               <input type="text" placeholder="Write your comment..."
                 class=" text-ceil bg-ceil w-full rounded-xl py-2 px-4 border-none"
@@ -395,13 +395,13 @@
               <div class="mb-4">
                 <div class="flex items-center justify-between">
                   <div class="flex items-center space-x-4">
-                    <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-12 h-12 mr-4">
+                    <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-12 h-12 mr-4">
                     <div>
                       <div class="text-lg font-semibold text-black">East Texas Baptist University
                       </div>
                       <div class="flex items-center space-x-2">
                         <div class="bg-lightPale p-1 rounded">
-                          <img src="../../assets/images/player-blue.png" alt="" class="rounded-lg w-4 h-4">
+                          <img src="@/assets/images/player-blue.png" alt="" class="rounded-lg w-4 h-4">
 
                         </div>
                         <div class="text-gray-500 text-sm">2024 04 29</div>
@@ -432,7 +432,7 @@
               </div>
               <div class="rounded-2xl overflow-hidden border border-lightSteelBlue p-4">
                 <div class="flex items-center space-x-4">
-                  <img src="../../assets/user/images/whitter collage.png" alt="" class="rounded-lg w-12 h-12 mr-4">
+                  <img src="@/assets/user/images/whitter collage.png" alt="" class="rounded-lg w-12 h-12 mr-4">
                   <div>
                     <div class="text-md font-semibold text-black">East Texas Baptist University</div>
                     <div class="flex items-center space-x-2">
@@ -513,7 +513,7 @@
           <!-- comment section -->
           <div id="accordion-collapse-comment-3-body" aria-labelledby="accordion-collapse-comment-3"
             class="z-10 hidden bg-white mt-4 flex items-start space-x-4">
-            <img src="../../assets/user/images/Rectangle 117.png" alt="User Image" class="w-12 h-12 rounded-lg">
+            <img src="@/assets/user/images/Rectangle_117.png" alt="User Image" class="w-12 h-12 rounded-lg">
             <div class="relative  w-full ">
               <input type="text" placeholder="Write your comment..."
                 class=" text-ceil bg-ceil w-full rounded-xl py-2 px-4 border-none"
@@ -547,7 +547,7 @@
       <!-- start pending request section -->
       <!-- <h2 class="text-lg font-semibold mb-4">Pending requests</h2>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
-                            <img src="../../assets/user/images/Rectangle 117.png" alt=""
+                            <img src="@/assets/user/images/Rectangle_117.png" alt=""
                                 class="w-16 h-16 rounded-lg mr-4">
                             <div class="flex-1">
                                 <h3 class="text-sm font-medium mb-1.5">Ralph Edwards</h3>
@@ -560,7 +560,7 @@
                             </div>
                         </div>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
-                            <img src="../../assets/user/images/Rectangle 117.png" alt=""
+                            <img src="@/assets/user/images/Rectangle_117.png" alt=""
                                 class="w-16 h-16 rounded-lg mr-4">
                             <div class="flex-1">
                                 <h3 class="text-sm font-medium mb-1.5">Ralph Edwards</h3>
@@ -573,7 +573,7 @@
                             </div>
                         </div>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
-                            <img src="../../assets/user/images/Rectangle 117.png" alt=""
+                            <img src="@/assets/user/images/Rectangle_117.png" alt=""
                                 class="w-16 h-16 rounded-lg mr-4">
                             <div class="flex-1">
                                 <h3 class="text-sm font-medium mb-1.5">Ralph Edwards</h3>
@@ -589,7 +589,7 @@
       <!-- start latest contacts section -->
       <!-- <h2 class="text-lg font-semibold mt-4 mb-4">Latest contacts</h2>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
-                            <img src="../../assets/user/images/Rectangle 117.png" alt=""
+                            <img src="@/assets/user/images/Rectangle_117.png" alt=""
                                 class="w-16 h-16 rounded-lg mr-4">
                             <div class="flex-1">
                                 <h3 class="text-sm font-medium mb-1.5">Ralph Edwards</h3>
@@ -600,7 +600,7 @@
                             </div>
                         </div>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
-                            <img src="../../assets/user/images/Rectangle 117.png" alt=""
+                            <img src="@/assets/user/images/Rectangle_117.png" alt=""
                                 class="w-16 h-16 rounded-lg mr-4">
                             <div class="flex-1">
                                 <h3 class="text-sm font-medium mb-1.5">Ralph Edwards</h3>
@@ -626,7 +626,7 @@
       <!-- <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
                         <h2 class="text-lg font-semibold mb-4">Chat</h2>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
-                            <img src="../../assets/user/images/Rectangle 117.png" alt=""
+                            <img src="@/assets/user/images/Rectangle_117.png" alt=""
                                 class="w-16 h-16 rounded-lg mr-4">
                             <div class="flex-1">
                                 <div class="flex justify-between items-center">
@@ -639,7 +639,7 @@
                             </div>
                         </div>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
-                            <img src="../../assets/user/images/Rectangle 126.png" alt=""
+                            <img src="@/assets/user/images/Rectangle 126.png" alt=""
                                 class="w-16 h-16 rounded-lg mr-4">
                             <div class="flex-1">
                                 <div class="flex justify-between items-center">
@@ -653,7 +653,7 @@
                             </div>
                         </div>
                         <div class="flex items-center mb-4 p-2 rounded-lg p-0 border border-veryPaleBlue bg-snowBlue">
-                            <img src="../../assets/user/images/Rectangle 126.png" alt=""
+                            <img src="@/assets/user/images/Rectangle 126.png" alt=""
                                 class="w-16 h-16 rounded-lg mr-4">
                             <div class="flex-1">
                                 <div class="flex justify-between items-center">
