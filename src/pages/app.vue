@@ -5,7 +5,7 @@
         <!--start card 01 -->
         <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-3">
           <div class="flex">
-            <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-14 h-14 mr-4">
+            <img src="/@assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-14 h-14 mr-4">
             <div class="basis-full flex flex-col">
               <textarea  type="text" placeholder="Write your thoughts..." v-model="newPost.description"
               class="text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 "> </textarea>
