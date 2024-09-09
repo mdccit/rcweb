@@ -735,7 +735,7 @@ const handleSubmitStep2 = async () => {
         notificationMessage.value = response.display_message || 'Registration successful!';
         showNotification.value = true;
         if(role.value == 'coach' || role.value == 'business'){
-          router.push('/pending-approval');
+          router.push('/user/approval-pending');
         }else if (role.value == 'player' || role.value == 'parent'){
           router.push('/app');
         }else if (role.value == 'admin'){

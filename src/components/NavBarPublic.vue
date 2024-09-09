@@ -48,10 +48,10 @@
           class="inline-block bg-black bg-opacity-10 text-center hover:opacity-80 active:opacity-60 text-black font-bold py-2.5 px-8 rounded-full">
           Login </NuxtLink>
       </div>
-      <div class="self-center" v-else-if=isLoggedIn>
-        <NuxtLink @click="logout"
+      <div class="self-center" v-else-if="isLoggedIn && (userRole != 'default')">
+        <NuxtLink @click="goToMemberArea"
           class="inline-block bg-black bg-opacity-10 text-center hover:opacity-80 active:opacity-60 text-black font-bold py-2.5 px-8 rounded-full">
-          Logout </NuxtLink>
+          Go to Member Area </NuxtLink>
       </div>
     </div>
     <div class="flex flex-row gap-4 lg:hidden absolute top-9 left-7"><button
@@ -172,6 +172,12 @@ const resourceRedirect = async () => {
     router.push('/resources'); 
   }
 }
+
+const goToMemberArea = async () => {
+  router.push('/app'); 
+}
+
+
 
 </script>
 
