@@ -467,7 +467,7 @@
 
       <div class="space-y-4 mt-5">
         <div class="flex items-center">
-          <input id="notEnrolled" type="checkbox" v-model="notEnrolled"
+          <input id="notEnrolled" type="checkbox" v-model="notEnrolled" required="true"
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
           <label for="notEnrolled" class="ms-2 text-sm font-normal text-gray-900 light:text-gray-600">
             I certify I am currently not enrolled in a U.S. school or have already informed the school of my choice
@@ -492,7 +492,7 @@
 
       <div class="space-y-4 mt-5">
         <div class="flex items-center">
-          <input id="termsAccepted" type="checkbox" v-model="termsAccepted"
+          <input id="termsAccepted" type="checkbox" v-model="termsAccepted" required
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
           <label for="termsAccepted" class="ms-2 text-sm font-medium text-gray-900 light:text-gray-300">
             I agree to the
@@ -532,7 +532,6 @@ import GenderDropDown from '~/components/common/select/GenderDropDown.vue';
 import BudgetDropdown from '~/components/common/select/BudgetDropdown.vue';
 import HandednessDropdown from '~/components/common/select/HandednessDropdown.vue';
 import Notification from '~/components/common/Notification.vue';
-import ErrorMessage from '~/components/common/validation/InputValidations.vue';
 import { handleError } from '@/utils/handleError';
 import { useNuxtApp } from '#app';
 definePageMeta({ colorMode: 'light', layout: 'outer' },)
@@ -579,6 +578,7 @@ const monthInput = ref(null);
 const loading = ref(false);
 const showNotification = ref(false);
 const notificationMessage = ref('');
+const notificationKey = ref(0);
 
 // Player-specific fields
 const player_first_name = ref('');
@@ -718,12 +718,13 @@ const handleSubmitStep2 = async () => {
     } else if (role.value === 'business') {
       endpoint = `/auth/${role.value}-manager-register`;
     }
-
-    if ((endpoint == undefined) || (endpoint == 'undefined')) {
-      notification_type.value = 'failure';
-      notificationMessage.value = 'Please Select Role!';
-      showNotification.value = true;
-    } else {
+    if (endpoint === undefined || endpoint === 'undefined') {
+    triggerNotification('Please Select Role!', 'failure');
+  } else if (notEnrolled.value !== true) {
+    triggerNotification('Please Accept Enrollment!', 'failure');
+  } else if (termsAccepted.value !== true) {
+    triggerNotification('Please Accept Terms!', 'failure');
+  } else {
 
       const response = await $authService.registerStepTwo(endpoint, data);
 
@@ -773,6 +774,18 @@ const handleSubmitStep2 = async () => {
 };
 
 
+const triggerNotification = (message, type) => {
+  notificationMessage.value = message;
+  notification_type.value = type;
+  showNotification.value = true;
+
+  notificationKey.value += 1; // Force re-render
+
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    showNotification.value = false;
+  }, 3000);
+};
 const loadCountries = async () => {
   try {
     countries.value = await loadCountryList();

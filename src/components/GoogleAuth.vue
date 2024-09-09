@@ -2,7 +2,7 @@
   <div class="container mx-auto mt-10">
     <LoadingSpinner v-if="loading" />
     <!-- Notification Component for showing messages -->
-    <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType" :duration="3000" />
+    <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
     
   </div>
 </template>
@@ -24,7 +24,9 @@ const authType = ref('');
 // Notification related states
 const showNotification = ref(false);
 const notificationMessage = ref('');
-const notificationType = ref('');
+const loading = ref(false);
+const notification_type = ref('');
+const notificationKey = ref(0);
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -40,10 +42,7 @@ const handleGoogleAuthCallback = async () => {
 
   if (!type) {
     // If authType is not set in localStorage
-    notificationType.value = 'failure';
-    notificationMessage.value = 'Authentication type not found. Redirecting to login.';
-    showNotification.value = true;
-
+    triggerNotification('Authentication type not found. Redirecting to login.', 'failure');
     // Wait for the notification to be displayed and then redirect to the login page
     setTimeout(() => {
       router.push('/login');
@@ -59,10 +58,8 @@ const handleGoogleAuthCallback = async () => {
       } else {
         response = await $authService.googleRegister(code);
       }
-      
-      notificationType.value = 'success';
-      notificationMessage.value = response.display_message;
-      showNotification.value = true;
+
+      triggerNotification(response.display_message, 'success');
 
       const token = response.data.token;
       if (process.client) {
@@ -73,13 +70,24 @@ const handleGoogleAuthCallback = async () => {
         router.push('/dashboard'); // Redirect after successful login/registration
       }, 2000);
     } catch (err) {
-      notificationType.value = 'failure';
-      notificationMessage.value = err.message;
-      showNotification.value = true;
+      triggerNotification(err.message, 'failure');
     }
   }
 };
 
+
+const triggerNotification = (message, type) => {
+  notificationMessage.value = message;
+  notification_type.value = type;
+  showNotification.value = true;
+
+  notificationKey.value += 1; // Force re-render
+
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    showNotification.value = false;
+  }, 3000);
+};
 
 // Ensure the callback is handled when the component is mounted
 onMounted(handleGoogleAuthCallback);
