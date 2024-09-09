@@ -187,8 +187,8 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-10 gap-3 items-center">
-          <div class="col-span-5" v-if="roleFields.includes('utr')">
+        <div class="grid grid-cols-10 gap-3 items-center" v-if="roleFields.includes('utr')">
+          <div class="col-span-5" >
             <label for="utr" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">UTR *</label>
             <input type="text" id="utr" v-model="utr"
               class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
@@ -381,7 +381,7 @@
           </div>
 
           <!-- Height in Feet/Inches -->
-          <div v-else class="grid grid-cols-10 gap-3 items-center -mt-[8px]">
+          <div v-else class="grid grid-cols-10 gap-3 items-center minus-margin-8">
             <input type="number" id="player_height_ft" v-model="player_height_ft"
               class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
               placeholder="Ft" required />
@@ -1038,6 +1038,9 @@ label input {
   /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 1;
+}
+.minus-margin-8{
+  margin-top: 8px !important;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
