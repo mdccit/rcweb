@@ -51,7 +51,7 @@
               <div>
                 <div class="flex items-center justify-between">
                   <div class="flex items-center space-x-3">
-                    <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-12 h-12">
+                    <img src="@/assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-12 h-12">
                     <div>
                       <div class="text-md font-bold text-black">{{ post.user.display_name }}</div>
                       <div class="flex space-x-2 items-center">
