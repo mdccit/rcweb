@@ -43,7 +43,7 @@
           </div>
         </div>
       </div>
-      <div class="self-center" v-if="!isLoggedIn && (userRole != 'default')">
+      <div class="self-center" v-if="!isLoggedIn && !isAuthenticated">
         <NuxtLink to="/login"
           class="inline-block bg-black bg-opacity-10 text-center hover:opacity-80 active:opacity-60 text-black font-bold py-2.5 px-8 rounded-full">
           Login </NuxtLink>
