@@ -31,7 +31,8 @@
           </div>
         </div>
         <div class="w-full">
-          <button type="button" class="flex justify-center items-center py-2.5 w-full px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-steelBlue focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 transition">
+        
+          <button type="button" @click="initiateGoogleAuth('register')"  class="flex justify-center items-center py-2.5 w-full px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-steelBlue focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 transition">
             <span class="me-6"><img src="@/assets/images/google_icon.png"></span>Sign up with Google
           </button>
         </div>
@@ -147,11 +148,13 @@ const password_confirmation = ref('');
 const error = ref('');
 const successMessage = ref('');
 const errors = ref([]);
+const authType = ref('');
 
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const loading = ref(false);
 const notification_type = ref('');
+const notificationKey = ref(0);
 
 
 const userStore = useUserStore();
@@ -167,9 +170,7 @@ const handleSubmit = async () => {
   errors.value = [];
   if (password.value !== password_confirmation.value) {  
     loading.value = false;
-    notification_type.value = 'failure';
-    notificationMessage.value = 'Passwords do not match';
-    showNotification.value = true;
+    triggerNotification('Passwords do not match', 'failure');
     return;
   }
   try {
@@ -233,6 +234,31 @@ const checkUserStatus = () => {
   }
 };
 
+// Function to handle Google authentication
+const initiateGoogleAuth = async (type) => {
+  try {
+    authType.value = type;
+    localStorage.setItem('authType', type);
+    const authUrl = await $authService.getGoogleAuthUrl();
+    window.location.href = authUrl; // Redirect to Google authentication URL
+  } catch (err) {
+    triggerNotification( err.message, 'failure');
+  }
+};
+
+
+const triggerNotification = (message, type) => {
+  notificationMessage.value = message;
+  notification_type.value = type;
+  showNotification.value = true;
+
+  notificationKey.value += 1; // Force re-render
+
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    showNotification.value = false;
+  }, 3000);
+};
 
 // Use onMounted lifecycle hook to perform the check when the component is mounted
 onMounted(() => {

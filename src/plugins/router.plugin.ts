@@ -1,3 +1,6 @@
+import { defineNuxtPlugin } from '#app';
+
+
 
 export default defineNuxtPlugin((nuxtApp) => {
   const router = nuxtApp.$router; // Use the existing router
@@ -10,6 +13,12 @@ export default defineNuxtPlugin((nuxtApp) => {
       component: () => import('~/pages/register-step-two/[token].vue')  // Correct path to the dynamic component
     });
 
+    router.addRoute({
+      name: 'app',
+      path: '/app',
+      component: () => import('~/pages/app.vue') // Ensure this is the correct path
+    });
 
   });
+
 });
