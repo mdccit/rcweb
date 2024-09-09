@@ -117,7 +117,7 @@
                 <!-- start logo section -->
                 <div class="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1">
                     <a href="https://flowbite.com/" class="flex items-center">
-                        <img class="w-96 md:w-32" src="../../assets/user/images/logo-recruited.png" alt="">
+                        <img class="w-96 md:w-32" src="@/assets/user/images/logo-recruited.png" alt="">
                     </a>
                 </div>
                 <!-- end logo section -->
