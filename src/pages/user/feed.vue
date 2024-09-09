@@ -201,7 +201,14 @@ onMounted(async () => {
 const writePost = async () => {
   try {
     const response = await $feedService.create_post(newPost.value);
+    newPost.value = {
+                      description: '',
+                      type: 'post', // default type
+                      publisher_type: 'user', // default publisher type
+                      title: '',
+                    }
     loadPosts();
+   
     // Optionally, reload posts or redirect the user
   } catch (error) {
     console.error('Failed to create post:', error.message);
