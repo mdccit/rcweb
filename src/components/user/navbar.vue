@@ -213,7 +213,7 @@
                         <div class="flex space-x-2 items-center">
                             <div class="hidden sm:hidden md:hidden lg:block">
                                 <img class="w-10 h-10 rounded-lg border border-white shadow-lg"
-                                    src="@/assets/user/images/Rectangle 117.png" alt="">
+                                    src="@/assets/user/images/Rectangle_117.png" alt="">
                             </div>
                             <div class="hidden sm:hidden md:hidden lg:block">
                                 <h6 class="text-sm text-black max-w-24 truncate">Jacob Johnes</h6>
