@@ -48,7 +48,7 @@
                 <Notification v-if="showNotification" :message="notificationMessage" :duration="3000" />
 
 
-
+                <form @submit.prevent="sendResetPasswordRequest">
                 <div class=""><label class="block"><span class="block mb-1 text-gray-700 font-sans"> Email <span
                                 aria-hidden="true" class="text-red-600" title="This field is required">*</span></span>
                         <div class="flex rounded-lg border border-gray-300 shadow-sm"><input
@@ -60,7 +60,7 @@
                     </label><!----></div>
                 <div class="flex items-center justify-end mt-4">
 
-                    <button @click="sendResetPasswordRequest(email)"
+                    <button type="submit"
                         class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-brightSkyBlue active:bg-royalBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue min-w-44"
                     :disabled="loading">
                     <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -70,6 +70,7 @@
                     <span v-if="!loading">Email reset link</span>
                     </button>
                 </div>
+            </form>
 
             </div>
 

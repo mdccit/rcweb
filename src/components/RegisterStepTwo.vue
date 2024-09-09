@@ -2,6 +2,7 @@
   <div class="min-h-screen w-full bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4"
     style="background-image: url(https://qa1.recruited.qualitapps.com/static/bg-generic.svg);">
     <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl">
+      <form @submit.prevent="handleSubmitStep2">
       <div class="flex items-center space-x-4">
         <div class="flex self-center items-center">
           <!-- <NuxtLink to="/register" class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full">
@@ -73,7 +74,7 @@
         <div v-if="roleFields.includes('nationality')">
           <label for="nationality" class="block  text-sm font-normal text-gray-900 dark:text-gray mb-[20px]">Nationality
             *</label>
-          <NationalityDropdown :nationalities="nationalities" v-model="nationality" id="nationality"
+          <NationalityDropdown :nationalities="nationalities" v-model="nationality" id="nationality" :required="roleFields.includes('nationality')"
             label="Nationality" />
           <span v-if="errors.nationality" class="text-red-500 text-sm ">{{ errors.nationality.join(', ')
             }}</span>
@@ -227,7 +228,7 @@
         <div v-if="roleFields.includes('graduation')">
           <label for="graduation" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Graduation
             Month/Year *</label>
-          <input type="month" v-model="graduation"
+          <input type="month" v-model="graduation" :required="roleFields.includes('graduation')"
             class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full ps-10 p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-primary light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="Select Month/Year" />
           <span v-if="errors.graduation_month_year" class="text-red-500 text-sm ">{{ errors.graduation_month_year.join(', ')
@@ -505,12 +506,12 @@
       </div>
 
       <div class="flex items-center justify-end mt-6">
-        <button @click="handleSubmitStep2"
+        <button type="submit"
           class="text-white bg-steelBlue hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 light:bg-blue-600 light:hover:bg-blue-700 light:focus:ring-blue-800">
           Sign up now for free
         </button>
       </div>
-
+    </form>
     </div>
 
 
@@ -835,61 +836,23 @@ const loadCountryCodes = async () => {
   }
 };
 
-
 const roleFields = computed(() => {
   switch (role.value) {
     case 'player':
-      return [
-        'country',
-        'phone_code_country',
-        'phone_number',
-        'gender',
-        'handedness',
-        'height_ft',
-        'height_in',
-        'utr',
-        'gpa',
-        'graduation',
-        'nationality',
-        'budget',
-        'height'
-      ];
-
+      return ['country', 'phone_code_country', 'phone_number', 'gender', 'handedness', 'height_ft', 'height_in', 'utr', 'gpa', 'graduation', 'nationality', 'budget'];
+      
     case 'parent':
-      return [
-        'country',
-        'phone_code_country',
-        'phone_number',
-        'player_first_name',
-        'player_last_name',
-        'email',
-        'player_country',
-        'player_phone_code_country',
-        'player_phone_number',
-        'player_gender',
-        'player_height',
-        'player_handedness',
-        'player_height_ft',
-        'player_height_in',
-        'player_budget',
-        'player_utr',
-        'player_gpa',
-        'player_graduation_month_year',
-        'player_nationality'
-      ];
-
+      return ['country', 'phone_code_country', 'phone_number', 'player_first_name', 'player_last_name', 'email', 'player_country', 'player_phone_code_country', 'player_phone_number', 'player_gender', 'player_handedness', 'player_height_ft', 'player_height_in', 'player_budget', 'player_utr', 'player_gpa', 'player_graduation_month_year', 'player_nationality'];
+      
     case 'coach':
     case 'business':
-      return [
-        'country',
-        'phone_code_country',
-        'phone_number'
-      ];
-
+      return ['country', 'phone_code_country', 'phone_number'];
+      
     default:
       return [];
   }
 });
+
 
 
 const validateForm = () => {
