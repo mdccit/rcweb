@@ -8,6 +8,7 @@
         </div>
       </div>
 
+      <form @submit.prevent="userLogin">
       <div class="w-full">
         <label class="block">
           <span class="block mb-1 text-gray-700 font-sans">Email <span aria-hidden="true" class="text-red-600"
@@ -15,7 +16,7 @@
           <div class="flex rounded-lg border border-gray-300 shadow-sm">
             <input v-model="email"
               class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-              name="email" type="email" data-validation-key="email" id="email" required="true" autofocus>
+              name="email" type="email" data-validation-key="email" id="email" required autofocus>
           </div>
           <p v-if="errors.email" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.email.join(', ') }}</p>
           <!-- Email Validation Error -->
@@ -29,7 +30,7 @@
           <div class="flex rounded-lg border border-gray-300 shadow-sm">
             <input v-model="password"
               class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-              name="password" type="password" data-validation-key="password" id="password" required
+              name="password" type="password" data-validation-key="password" id="password" required autofocus
               autocomplete="current-password">
           </div>
           <p v-if="errors.password" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.password.join(', ') }}</p>
@@ -47,7 +48,7 @@
         </div>
       </div>
       <div>
-        <button @click="userLogin"
+        <button type="submit"
           class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-darkAzureBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue block w-full transition"
           :disabled="loading">
           <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,6 +58,8 @@
           Login
         </button>
       </div>
+    </form>
+
       <div class="w-full mt-5">
         <button type="button" @click="initiateGoogleAuth('login')"
           class="py-2.5 w-full px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-steelBlue focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 transition">
