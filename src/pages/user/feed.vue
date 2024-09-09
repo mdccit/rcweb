@@ -130,7 +130,10 @@
               <div class="grow">
                 <textarea v-model="newComment" type="text" placeholder="Write your comment..." class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4"></textarea>
                 <div class="flex justify-end mt-2">
-                  <button @click="addComment(post.id)" class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-4 py-2 rounded-lg text-sm">Post Comment</button>
+                  <button @click="addComment(post.id)" :disabled="commentAdd" class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-4 py-2 rounded-lg text-sm">
+                    <span v-if="!commentAdd"> Post Comment</span>
+                    <LoadingSpinner v-else />
+                   </button>
                 </div>
               </div>
             </div>
@@ -182,7 +185,7 @@ const showNotification = ref(false); // To control the visibility of the notific
 const notificationMessage = ref('');
 const loading = ref(false);
 const notification_type = ref('');
-
+const commentAdd = ref(false)
 
 // Access feedService from the context
 const nuxtApp = useNuxtApp();
@@ -235,6 +238,7 @@ const loadPosts = async () => {
 };
 
 const addComment = async (postId) => {
+  commentAdd.value =true;
   if (newComment.value.trim() === '') {
     return;
   }
@@ -246,6 +250,7 @@ const addComment = async (postId) => {
   } catch (error) {
     console.error('Failed to add comment:', error.message);
   }
+  commentAdd.value =false;
 };
 
 
