@@ -160,7 +160,7 @@ const userLogin = async () => {
         } else if (response.data.user_permission_type != 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
           router.push('/app');  
         } else if(response.data.user_role === 'admin') {
-          router.push('/admin/dashboard');  // Redirect to dashboard
+          router.push('/app');  // Redirect to dashboard
         } else if((response.data.user_role === 'player') || (response.data.user_role === 'parent')) {
           router.push('/app');  // Redirect to Feed
         } else if ((response.data.user_role === 'default')){
