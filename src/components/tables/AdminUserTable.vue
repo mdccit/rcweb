@@ -46,47 +46,6 @@
           <span>{{ scope.row.last_seen_at ? formatDate(scope.row.last_seen_at) : 'Never' }}</span>
         </template>
       </el-table-column>
-
-      <el-table-column label="Actions">
-        <template v-slot="scope">
-          <!-- Select Record Button -->
-          <!-- <button @click="viewDetails(scope.row)"
-            class="text-white bg-blue-100 hover:bg-blue-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            <svg class="w-5 h-5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-              viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
-              <path stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-            </svg>
-          </button> -->
-
-          <!-- Dropdown Menu -->
-          <el-dropdown>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item @click.native="viewDetails(scope.row)">View Details</el-dropdown-item>
-                <el-dropdown-item @click.native="editRecord(scope.row)">Edit Record</el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-
-            <!-- Dropdown Button with Left Margin and Dropdown Icon -->
-            <el-button size="small" class="inline-flex items-center text-sm ml-2">
-              <svg class="w-5 h-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M11 4h2m2 0h.01m1.415 2.585a2 2 0 0 1 0 2.828l-9 9a2 2 0 0 1-1.414.586H4v-3a2 2 0 0 1 .586-1.414l9-9a2 2 0 0 1 2.828 0z" />
-              </svg>
-              <el-icon>
-                <i class="el-icon-arrow-down"></i>
-              </el-icon>
-            </el-button>
-          </el-dropdown>
-
-
-
-        </template>
-      </el-table-column>
-
-
       <!-- END TABLE  -->
     </el-table>
 
@@ -174,7 +133,7 @@ const editRecord = (row) => {
 };
 
 const handleRowClick = (row) => {
-  viewDetails(row);
+  editRecord(row);
 };
 
 const handlePageChange = (newPage) => {

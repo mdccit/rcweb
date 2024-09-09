@@ -67,7 +67,7 @@ const handleGoogleAuthCallback = async () => {
       }
       userStore.setUser({ token });
       setTimeout(() => {
-        router.push('/dashboard'); // Redirect after successful login/registration
+        router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
       }, 2000);
     } catch (err) {
       triggerNotification(err.message, 'failure');
