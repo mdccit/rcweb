@@ -8,7 +8,7 @@
         </div>
       </div>
 
-      <form @submit.prevent="userLogin">
+      <form @submit.prevent="handleSubmit">
       <div class="w-full">
         <label class="block">
           <span class="block mb-1 text-gray-700 font-sans">Email <span aria-hidden="true" class="text-red-600"
@@ -94,6 +94,7 @@ import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
 import Cookies from 'js-cookie';
+import CryptoJS from 'crypto-js';
 
 import Notification from '~/components/common/Notification.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
@@ -115,16 +116,18 @@ const notificationMessage = ref('');
 const loading = ref(false);
 const notificationType = ref('');
 
-
 definePageMeta({ colorMode: 'light', })
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 
-// Function to handle user login
-const userLogin = async () => {
+const handleSubmit = () => {
+  userLogin(false);  // Manually submitting, so autoLogin is false
+};
 
+// Function to handle user login
+const userLogin = async (autoLogin = false) => {
   try {
     errors.value = {};  // Reset errors before submitting
     loading.value = true;  // Set loading state
@@ -135,12 +138,25 @@ const userLogin = async () => {
     if (response.status === 200) {
       successMessage.value = response.display_message;
 
+
+      console.log('auto login', autoLogin);
+      console.log('auto me', rememberMe.value);
+      // Save credentials if rememberMe is checked and it's not autoLogin
+      if (!autoLogin && rememberMe.value) {
+        const credentials = {
+          username: email.value,  // Corrected from 'username' to 'email'
+          password: password.value,
+        };
+        console.log('Saving credentials:', credentials);  // This log should be printed now
+        saveEncryptedCredentials(credentials);  // Save the credentials
+      }
+
       // Set the user in the Pinia store
       userStore.setUser({
         email: email.value,
-        role: response.data.user_role,  // Corrected role property
+        role: response.data.user_role,
         token: response.data.token,
-        user_permission_type: response.data.user_permission_type
+        user_permission_type: response.data.user_permission_type,
       });
 
       // Set success notification
@@ -155,18 +171,17 @@ const userLogin = async () => {
         Cookies.set('session', response.data.token);  // No expiration for session cookie
       }
 
-      // Delay routing to show notification for 3 seconds
+      // Delay routing to show notification for 1 second
       setTimeout(() => {
-        // Conditionally redirect based on user role and permissions
         if (response.data.user_permission_type === 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
-          router.push('/user/approval-pending');  // Redirect to pending approval page
-        } else if (response.data.user_permission_type != 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
-          router.push('/app');  
-        } else if(response.data.user_role === 'admin') {
-          router.push('/admin/dashboard');  // Redirect to dashboard
-        } else if((response.data.user_role === 'player') || (response.data.user_role === 'parent')) {
-          router.push('/app');  // Redirect to Feed
-        } else if ((response.data.user_role === 'default')){
+          router.push('/user/approval-pending');
+        } else if (response.data.user_permission_type !== 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
+          router.push('/app');
+        } else if (response.data.user_role === 'admin') {
+          router.push('/admin/dashboard');
+        } else if (response.data.user_role === 'player' || response.data.user_role === 'parent') {
+          router.push('/app');
+        } else if (response.data.user_role === 'default') {
           router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
         }
       }, 1000);
@@ -193,27 +208,55 @@ const initiateGoogleAuth = async (type) => {
 };
 
 onMounted(() => {
+  const savedCredentials = localStorage.getItem('encryptedCredentials');
   const sessionToken = Cookies.get('session');  // Check if session token exists
-  if (sessionToken) {
-    // rememberMe.value = true;
-    const user = userStore.getUser();  // Get user from userStore
 
-     const userRole = localStorage.getItem('user_role');
-     const userToken = localStorage.getItem('token');
+  if (savedCredentials) {
+    const decryptedData = decryptCredentials(savedCredentials);
+    if (decryptedData) {
+      email.value = decryptedData.username;  
+      password.value = decryptedData.password;
+      rememberMe.value = true;
 
-     if(userRole == 'default'){
-      userStore.setTempUser(userRole,userToken);
+      // Auto-login with the saved credentials
+      // userLogin(true);  // Change 'handleLogin(true)' to 'userLogin(true)'
+    }
+  } else if (sessionToken) {
+    const userRole = localStorage.getItem('user_role');
+    const userToken = localStorage.getItem('token');
+
+    if (userRole === 'default') {
+      userStore.setTempUser(userRole, userToken);
       router.push({ name: 'register-step-two-token', params: { token: userToken } });
-     }
-
-    // setTimeout(() => {
-    //   // Redirect user based on role or permission
-    //   if (user && user.user_permission_type === 'none' && user.user_role === 'coach') {
-    //     router.push('/user/approval-pending');
-    //   }
-    // }, 1000);
+    }
   }
 });
+
+
+// Function to encrypt and save credentials to localStorage
+const saveEncryptedCredentials = (credentials) => {
+    const encryptedData = CryptoJS.AES.encrypt(
+      JSON.stringify(credentials),
+      'recruited-pro-v2'  // Replace this with a secure key
+    ).toString();
+    localStorage.setItem('encryptedCredentials', encryptedData);
+};
+
+
+// Function to decrypt credentials
+const decryptCredentials = (encryptedData) => {
+  try {
+    const bytes = CryptoJS.AES.decrypt(encryptedData, 'recruited-pro-v2');  // Use the same key here
+    const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    return decryptedData;
+  } catch (error) {
+    console.error('Failed to decrypt credentials', error);
+    return null;
+  }
+};
+
+
+
 
 </script>
 
