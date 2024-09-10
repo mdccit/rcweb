@@ -55,10 +55,10 @@
             <div class="flex-1">
               <div>
                 <div class="flex items-center justify-between">
-                  <div v-if="post.school" class="flex items-center space-x-3">
+                  <div v-if="post.school_id != null" class="flex items-center space-x-3">
                     <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-12 h-12">
                     <div>
-                      <div class="text-md font-bold text-black">{{ post.school }}</div>
+                      <div class="text-md font-bold text-black">{{ post.school.name }}</div>
                       <div class="flex space-x-2 items-center">
                         <!-- Display only for the coach - start -->
                         <!-- <div class="bg-mintGreen p-1 rounded-md flex items-center justify-center">
@@ -87,7 +87,7 @@
                   <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
                   <div>
                     <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
-                    <div class="text-darkSlateBlue text-xs">{{ post.school }}</div>
+                    <div class="text-darkSlateBlue text-xs">{{ post.school_id != null ? post.school.name : '' }}</div>
                   </div>
                   
                 </div>
@@ -148,12 +148,17 @@
                 <h3 v-if="post.type === 'blog' || post.type === 'event'" class="mt-4 text-darkSlateBlue text-base">
                   {{ post.title }}
                 </h3>
+                <div class="basis-full flex flex-col">
+
                 <p @click="viewPost(post.id)" v-if="!editingPostId || editingPostId !== post.id"class="mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
                 <textarea v-else  type="text" placeholder="Write your thoughts..." v-model="editPost"
-                   class="text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 ">
+                   class="mt-4 text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 ">
                     
                    </textarea>
-                   <button v-if="editingPostId == post.id"class="text-sm text-blue-500" @click="startEditPost(post.id)">Edit</button>
+                  </div>
+                  <button v-if="editingPostId == post.id" @click="startEditPost(post.id)" class="mt-2 bg-steelBlue hover:bg-darkAzureBlue transition text-white px-8 py-2 rounded-lg text-sm">
+                     Edit     
+                  </button>
 
               </div>
             </div>
@@ -312,6 +317,15 @@ const writePost =  async() => {
     loadPosts();
    
  } catch (error) {
+  showNotification.value =true;
+  notificationMessage.value = error.message
+  newPost.value = {
+    description: '',
+    type: 'post', 
+    publisher_type: 'user', 
+    title: '',
+  }
+  postAdd.value =false
      console.error('Failed to create post:', error.message);
  }
 };
