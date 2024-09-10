@@ -1,8 +1,8 @@
 <template>
-    <el-card>
-      <!-- <el-input v-model="search" placeholder="Search" class="input-with-select" clearable></el-input> -->
-      <div class="p-1 text-right">
-        <!-- <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+  <el-card>
+    <!-- <el-input v-model="search" placeholder="Search" class="input-with-select" clearable></el-input> -->
+    <div class="p-1 text-right">
+      <!-- <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
           class="text-white mr-2 bg-blue-100 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           type="button">
           <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -12,8 +12,9 @@
           </svg>
   
         </button> -->
-        <button class="text-white bg-gray-200 hover:bg-gray-300 focus:bg-gray-300 border rounded h-[40px] w-[50px] mr-1 ">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20" fill="currentColor">
+      <button class="text-white bg-gray-200 hover:bg-gray-300 focus:bg-gray-300 border rounded h-[40px] w-[50px] mr-1 ">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
+          fill="currentColor">
           <path fill-rule="evenodd"
             d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
             clip-rule="evenodd"></path>
@@ -29,8 +30,8 @@
             clip-rule="evenodd"></path>
         </svg>
       </button>
-  
-        <!-- <button id="dropdownToggleButton" data-dropdown-toggle="dropdownToggle"
+
+      <!-- <button id="dropdownToggleButton" data-dropdown-toggle="dropdownToggle"
           class="text-white bg-blue-100 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           type="button">
           <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -41,181 +42,181 @@
           </svg>
   
         </button> -->
-  
-        <!-- Dropdown menu -->
-        <div id="dropdownToggle"
-          class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-72 dark:bg-gray-700 dark:divide-gray-600">
-          <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownToggleButton">
-            <li>
-              <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                <label class="inline-flex items-center w-full cursor-pointer">
-                  <input type="checkbox" value="" class="sr-only peer">
-                  <div
-                    class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600">
-                  </div>
-                  <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Priority</span>
-                </label>
-              </div>
-            </li>
-            <li>
-              <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                <label class="inline-flex items-center w-full cursor-pointer">
-                  <input type="checkbox" value="" class="sr-only peer">
-                  <div
-                    class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600">
-                  </div>
-                  <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Details</span>
-                </label>
-              </div>
-            </li>
-            <li>
-              <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                <label class="inline-flex items-center w-full cursor-pointer">
-                  <input type="checkbox" value="" class="sr-only peer">
-                  <div
-                    class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600">
-                  </div>
-                  <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Status</span>
-                </label>
-              </div>
-            </li>
-          </ul>
-        </div>
+
+      <!-- Dropdown menu -->
+      <div id="dropdownToggle" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-72">
+        <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownToggleButton">
+          <li>
+            <div class="flex p-2 rounded hover:bg-blue-300">
+              <label class="inline-flex items-center w-full cursor-pointer">
+                <input type="checkbox" value="" class="sr-only peer">
+                <div
+                  class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 p rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600">
+                </div>
+                <span class="ms-3 text-sm font-medium text-gray-900">Priority</span>
+              </label>
+            </div>
+          </li>
+          <li>
+            <div class="flex p-2 rounded hover:bg-gray-100 hover:bg-blue-300">
+              <label class="inline-flex items-center w-full cursor-pointer">
+                <input type="checkbox" value="" class="sr-only peer">
+                <div
+                  class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 p rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600">
+                </div>
+                <span class="ms-3 text-sm font-medium text-gray-900">Details</span>
+              </label>
+            </div>
+          </li>
+          <li>
+            <div class="flex p-2 rounded hover:bg-gray-100 hover:bg-blue-300">
+              <label class="inline-flex items-center w-full cursor-pointer">
+                <input type="checkbox" value="" class="sr-only peer">
+                <div
+                  class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 p rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600">
+                </div>
+                <span class="ms-3 text-sm font-medium text-gray-900">Status</span>
+              </label>
+            </div>
+          </li>
+        </ul>
       </div>
-  
-  
-      <el-table :data="items" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick">
-        <el-table-column  prop="priority" label="PRIORITY" sortable></el-table-column>
-        <el-table-column  prop="joined_at" label="DETAILS" sortable>
-            <template v-slot="scope">
-                <span>User Creation - Needs Approval</span>
-           </template>
-        </el-table-column>
-        <el-table-column  prop="joined_at" label="STATUS" sortable>
-            <template v-slot="scope">
-                <button  dusk="splade-confirm-confirm" type="button"
-                   class=" w-[100px] inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2  sm:text-sm"
-                   :class="scope.row.is_closed ? 'bg-gray-300 hover:bg-gray-500' : 'bg-red-500 hover:bg-red-700'"
-                    >
-                  
-                   {{ scope.row.is_closed ? "Closed":"Open" }}
-                </button>
-           </template>
-        </el-table-column>
-      </el-table>
-  
-      <el-pagination v-model:current-page="options.page" :page-size="options.itemsPerPage" :total="totalItems"
-        layout="prev, pager, next" @current-change="handlePageChange"></el-pagination>
-    </el-card>
-  </template>
-  
-  <script setup>
-  import { ref, watch, computed, onMounted } from 'vue';
-  import { useFetch } from '#app';
-  import { useNuxtApp } from '#app';
-  import { useRouter } from 'vue-router';
-  import { useUserStore } from '~/stores/userStore';
-  import { useModerationStore } from '~/stores/moderation';
+    </div>
 
-  const moderationStore = useModerationStore();
 
-  const router = useRouter();
-  const search = ref('');
-  const items = ref([]);
-  const totalItems = ref(0);
-  const options = ref({
-    page: 1,
-    itemsPerPage: 10,
-  });
-  const loading = ref(false);
-  const nuxtApp = useNuxtApp();
-  const $adminService = nuxtApp.$adminService;
-  const handleRowClick = (row) => {
+    <el-table :data="items" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick">
+      <el-table-column prop="priority" label="PRIORITY" sortable></el-table-column>
+      <el-table-column prop="joined_at" label="DETAILS" sortable>
+        <template v-slot="scope">
+          <span>User Creation - Needs Approval</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="joined_at" label="STATUS" sortable>
+        <template v-slot="scope">
+          <button dusk="splade-confirm-confirm" type="button"
+            class=" w-[100px] inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2  sm:text-sm"
+            :class="scope.row.is_closed ? 'bg-gray-300 hover:bg-gray-500' : 'bg-red-500 hover:bg-red-700'">
+
+            {{ scope.row.is_closed ? "Closed" : "Open" }}
+          </button>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <el-pagination v-model:current-page="options.page" :page-size="options.itemsPerPage" :total="totalItems"
+      layout="prev, pager, next" @current-change="handlePageChange"></el-pagination>
+  </el-card>
+</template>
+
+<script setup>
+import { ref, watch, computed, onMounted } from 'vue';
+import { useFetch } from '#app';
+import { useNuxtApp } from '#app';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '~/stores/userStore';
+import { useModerationStore } from '~/stores/moderation';
+
+const moderationStore = useModerationStore();
+definePageMeta({
+  colorMode: 'light',
+})
+const router = useRouter();
+const search = ref('');
+const items = ref([]);
+const totalItems = ref(0);
+const options = ref({
+  page: 1,
+  itemsPerPage: 10,
+});
+const loading = ref(false);
+const nuxtApp = useNuxtApp();
+const $adminService = nuxtApp.$adminService;
+const handleRowClick = (row) => {
   viewDetails(row);
 };
-  // Function to fetch data from the server
-  const fetchData = async () => {
-    loading.value = true;
-    try {
-      const per_page_items = options.value.itemsPerPage;
-      const current_page = options.value.page;
-      const search_term = search.value; // Get the search term
-  
-      // Fetch data from the server with pagination and search parameters
-      const dataSets = await $adminService.morderation_all(current_page, per_page_items);
-      // Update the table data
-      items.value = dataSets.data; // Data for the current page
-    
-    } catch (error) {
-      console.error('Error fetching data:', error.message);
-    } finally {
-      loading.value = false;
-    }
-  };
-  
-  // Watch pagination options and search term to refetch data
-  watch([options, search], () => {
-    fetchData();
-  }, { immediate: true });
-  
-  // On mount, fetch the initial data
-  onMounted(() => {
-    fetchData();
-  });
-  
+// Function to fetch data from the server
+const fetchData = async () => {
+  loading.value = true;
+  try {
+    const per_page_items = options.value.itemsPerPage;
+    const current_page = options.value.page;
+    const search_term = search.value; // Get the search term
 
-  // Handle page change
-  const handlePageChange = (newPage) => {
-    options.value.page = newPage;
-    fetchData();
-  };
-  
-  // Format date function
-  const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
-  
-  const filteredItems = computed(() => {
-    if (!search.value) return items.value;
-  
-    return items.value.filter(item =>
-      item.name.toLowerCase().includes(search.value.toLowerCase()) ||
-      (item.bio && item.bio.toLowerCase().includes(search.value.toLowerCase()))
-    );
-  
-    // Paginate items
-    const start = (options.value.page - 1) * options.value.itemsPerPage
-    const end = start + options.value.itemsPerPage
-    return filtered.slice(start, end)
+    // Fetch data from the server with pagination and search parameters
+    const dataSets = await $adminService.morderation_all(current_page, per_page_items);
+    // Update the table data
+    items.value = dataSets.data; // Data for the current page
+
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+  } finally {
+    loading.value = false;
+  }
+};
+
+// Watch pagination options and search term to refetch data
+watch([options, search], () => {
+  fetchData();
+}, { immediate: true });
+
+// On mount, fetch the initial data
+onMounted(() => {
+  fetchData();
+});
+
+
+// Handle page change
+const handlePageChange = (newPage) => {
+  options.value.page = newPage;
+  fetchData();
+};
+
+// Format date function
+const formatDate = (dateString) => {
+  const options = { year: 'numeric', month: 'short', day: 'numeric' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+};
+
+const filteredItems = computed(() => {
+  if (!search.value) return items.value;
+
+  return items.value.filter(item =>
+    item.name.toLowerCase().includes(search.value.toLowerCase()) ||
+    (item.bio && item.bio.toLowerCase().includes(search.value.toLowerCase()))
+  );
+
+  // Paginate items
+  const start = (options.value.page - 1) * options.value.itemsPerPage
+  const end = start + options.value.itemsPerPage
+  return filtered.slice(start, end)
+});
+
+
+// Function to navigate to view details
+const viewDetails = (row) => {
+  moderationStore.setModeration(row);
+
+  router.push({
+    path: '/admin/moderationRequest',
   });
-  
-  
-  // Function to navigate to view details
-  const viewDetails = (row) => {
-    moderationStore.setModeration(row);
-    
-    router.push({
-      path: '/admin/moderationRequest',
-    });
-  };
- 
-  
-  </script>
-  
-  <script>
-  export default {
-    name: 'EPDataTable'
-  }
-  </script>
-  
-  <style scoped>
-  .el-card {
-    padding: 20px;
-  }
-  
-  .input-with-select {
-    width: 300px;
-    margin-bottom: 20px;
-  }
-  </style>
+};
+
+
+</script>
+
+<script>
+export default {
+  name: 'EPDataTable'
+}
+</script>
+
+<style scoped>
+.el-card {
+  padding: 20px;
+}
+
+.input-with-select {
+  width: 300px;
+  margin-bottom: 20px;
+}
+</style>
