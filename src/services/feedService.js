@@ -30,7 +30,7 @@ const createFeedService = (apiService) => {
 
 
   const update_post = async (post_id, request_body) => {
-    const url = `/feed/post/${post_id}`;
+    const url = `/feed/posts/${post_id}`;
     const body = request_body;
 
     try {
@@ -42,11 +42,10 @@ const createFeedService = (apiService) => {
   };
 
   const delete_post = async (post_id) => {
-    const url = `/feed/post/${post_id}`;
-    const body = request_body;
-
+    const url = `/feed/posts/${post_id}`;
+    
     try {
-      const response = await apiService.deleteRequest(url, body);
+      const response = await apiService.deleteRequest(url);
       return response;
     } catch (error) {
       throw new Error(error.message || 'Failed to update post');

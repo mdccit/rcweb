@@ -55,7 +55,7 @@
             <div class="flex-1">
               <div>
                 <div class="flex items-center justify-between">
-                  <div class="flex items-center space-x-3">
+                  <div v-if="post.school" class="flex items-center space-x-3">
                     <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-12 h-12">
                     <div>
                       <div class="text-md font-bold text-black">{{ post.school }}</div>
@@ -81,7 +81,7 @@
                 </div>
 
                 <!-- Display only for the school - start -->
-                <hr class="mt-5 mb-3 text-pigeonBlue">
+                <hr  v-if="post.school" class="mt-5 mb-3 text-pigeonBlue">
                  <div class="flex items-center justify-between">
                 <div class="flex space-x-3 items-center">
                   <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
@@ -99,6 +99,8 @@
                   data-dropdown-trigger="hover"
                   class="text-white bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
                   type="button"
+                  @click="modelShow(post.id)"
+
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -116,26 +118,26 @@
                   </svg>
                 </button>
                 <!-- Action Dropdown menu -->
-                <div   :id="'post-dropdown-' + post.id" class="z-10 hidden bg-white rounded-lg shadow w-30">
-                  <ul class="py-2 text-sm"    :aria-labelledby="'post-button-' + post.id">
+                <div  v-if="model_id ==post.id" id="post-dropdown" class="z-10  bg-white rounded-lg shadow w-30">
+                  <ul class="py-2 text-sm"    >
                     <li class="text-black">
-                      <a href="#" class="block px-4 py-2 hover:bg-lightGray flex">
+                      <button type="buttton" @click="postEditingShow(post.id, post.description)" class="block px-4 py-2 hover:bg-lightGray flex">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                           stroke-width="1.5" stroke="currentColor" class="size-4 mr-2">
                           <path stroke-linecap="round" stroke-linejoin="round"
                             d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                         </svg>
                         Edit post
-                      </a>
+                      </button>
                     </li>
                     <li class="text-red">
-                      <a href="#" class="block px-4 py-2 hover:bg-lightGray flex">
+                      <button type="buttton" @click="postDelete(post.id)" class="block px-4 py-2 hover:bg-lightGray flex">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                           stroke-width="1.5" stroke="currentColor" class="size-4 mr-2">
                           <path stroke-linecap="round" stroke-linejoin="round"
                             d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                         </svg>
-                      Delete</a>
+                      Delete</button>
                     </li>
                   </ul>
                 </div> 
@@ -146,7 +148,13 @@
                 <h3 v-if="post.type === 'blog' || post.type === 'event'" class="mt-4 text-darkSlateBlue text-base">
                   {{ post.title }}
                 </h3>
-                <p class="mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
+                <p @click="viewPost(post.id)" v-if="!editingPostId || editingPostId !== post.id"class="mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
+                <textarea v-else  type="text" placeholder="Write your thoughts..." v-model="editPost"
+                   class="text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 ">
+                    
+                   </textarea>
+                   <button v-if="editingPostId == post.id"class="text-sm text-blue-500" @click="startEditPost(post.id)">Edit</button>
+
               </div>
             </div>
           </div>
@@ -184,7 +192,7 @@
             <CommentSection  :comments="post.comments" :postId="post.id"  @refreshComments="refreshComments"/>
             <div class="mt-4">
               <div class="flex space-x-3">
-                 <img src="@/assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-10 h-10">
+                 <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
                  <div class="grow">
                     <textarea v-model="newComment" type="text" placeholder="Write your comment..." class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4"></textarea>
                     <div class="flex justify-end mt-2">
@@ -230,6 +238,9 @@ import { useNuxtApp } from '#app';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import Notification from '~/components/common/Notification.vue';
 import CommentSection from '~/components/user/feed/CommentSection.vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 // State variables
 const posts = ref([]);
@@ -243,6 +254,8 @@ const newPost = ref({
   title: '',
 });
 
+const editPost =ref('')
+
 const showNotification = ref(false); // To control the visibility of the notification
 const notificationMessage = ref('');
 const loading = ref(false);
@@ -254,7 +267,12 @@ const nuxtApp = useNuxtApp();
 const $feedService = nuxtApp.$feedService;
 const likeButton =ref(false)
 const postAdd = ref(false)
+const model_id = ref('');
+const editingPostId = ref(null)
+
 onMounted(async () => {
+  window.addEventListener('scroll', handleScroll);
+
   try {
     const response = await $feedService.list_posts({});
     posts.value = response || [];
@@ -267,7 +285,9 @@ onMounted(async () => {
     console.error('Failed to load posts:', error.message);
   }
 });
-
+const handleScroll = () =>{
+   model_id.value = ""
+}
 // Function to create a new post
 const writePost =  async() => {
   try {
@@ -358,20 +378,60 @@ const formatDate = (dateString) => {
   return date.toLocaleDateString();
 };
 
-
+const modelShow = (post_id) =>{
+   model_id.value = post_id
+}
 
 const toggleCommentSection= (postId) => {
   isHidddenComment.value[postId] = !isHidddenComment.value[postId]
-  console.log(isHidddenComment.value)
-      // $set(visibleCommentSections.value, postId, !visibleCommentSections[postId]);
-      // console.log(visibleCommentSections.value)
+    
 }
 
 const isHiddden = (id) =>{
   return isHidddenComment.value[id] == false
 }
 
+const postDelete = async(post_id) =>{
+  try {
+    model_id.value = ""
+    const response =  await nuxtApp.$feedService.delete_post(post_id);
+    loadPosts(); 
+  } catch (error) {
+    console.error('Failed to fetch comments:', error.message);
+  }
+}
 
+const postEditingShow = (post_id,description) =>{
+  model_id.value = ""
+   editingPostId.value = post_id
+
+   editPost.value = description.replace(/<br>/g, '\n');
+  
+}
+
+const startEditPost = async(post_id) =>{
+  editingPostId.value = null
+  try {
+    model_id.value = ""
+    let htmlText = editPost.value.replace(/\n/g, '<br>');
+    let newValue ={
+      description: htmlText,
+      type: 'post', 
+      publisher_type: 'user', 
+      title: 'Post',
+    }
+    const response =  await nuxtApp.$feedService.update_post(post_id,newValue);
+    loadPosts(); 
+  } catch (error) {
+    console.error('Failed to fetch comments:', error.message);
+  }
+}
+
+const viewPost = (post_id) =>{
+  router.push({
+      path: '/user/post/'+post_id,
+    });
+}
 </script>
 
 <style scoped>
