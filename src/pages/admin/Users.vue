@@ -58,9 +58,9 @@ const openModal = () => {
 };
 
 definePageMeta({
-    ssr: true,
+    ssr: false,
     layout: 'admin',
-    middleware: ['permissions'],
+    // middleware: ['permissions'],
     roles: ['admin'],
 });
 

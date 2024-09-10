@@ -62,6 +62,17 @@ const createAuthService = (apiService) => {
     }
   };
 
+  const resendVerificationEmail = async (user_id) => {
+    const url = `/auth/email/resend/${user_id}`;
+
+    try {
+      const response = await apiService.getRequest(url);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to fetch Google auth URL');
+    }
+  };
+
   const getGoogleAuthUrl = async () => {
     const url = '/auth/google-auth-url';
 
@@ -162,6 +173,7 @@ const createAuthService = (apiService) => {
     googleRegister,
     resetPasswordRequest,
     resetPassword,
+    resendVerificationEmail,
   };
 };
 

@@ -177,9 +177,7 @@ const userLogin = async (autoLogin = false) => {
           router.push('/user/approval-pending');  // Redirect to pending approval page
         } else if (response.data.user_permission_type != 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
           router.push('/app');  
-        } else if(response.data.user_role === 'admin') {
-          router.push('/app');  // Redirect to dashboard
-        } else if((response.data.user_role === 'player') || (response.data.user_role === 'parent')) {
+        } else if((response.data.user_role === 'player') || (response.data.user_role === 'parent') || (response.data.user_role === 'admin')) {
           router.push('/app');  // Redirect to Feed
         } else if ((response.data.user_role === 'default')){
           router.push({ name: 'register-step-two-token', params: { token: response.data.token } });

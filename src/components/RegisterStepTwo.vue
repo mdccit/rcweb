@@ -4,17 +4,17 @@
     <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl">
       <form @submit.prevent="handleSubmitStep2">
       <div class="flex items-center space-x-4">
-        <div class="flex self-center items-center">
-          <!-- <NuxtLink to="/register" class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full">
+        <!-- <div class="flex self-center items-center">
+          <NuxtLink to="/register" class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full">
             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path d="M15 6l-6 6l6 6"></path>
             </svg>
             <span class="sr-only">Go back</span>
-          </NuxtLink> -->
-        </div>
+          </NuxtLink>
+        </div> -->
         <div class="self-center">
-          <h1 class="text-2xl font-bold text-primary">{{ $t('register.title') }}</h1>
+          <h1 class="text-2xl font-bold text-black">{{ $t('register.title') }}</h1>
         </div>
       </div>
       <div class="w-full"></div>
@@ -73,7 +73,8 @@
 
         <div v-if="roleFields.includes('nationality')">
           <label for="nationality" class="block  text-sm font-normal text-gray-900 dark:text-gray mb-[20px]">Nationality
-            *</label>
+          <span class="text-red-600">*</span> 
+        </label>
           <NationalityDropdown :nationalities="nationalities" v-model="nationality" id="nationality" :required="roleFields.includes('nationality')"
             label="Nationality" />
           <span v-if="errors.nationality" class="text-red-500 text-sm ">{{ errors.nationality.join(', ')
@@ -84,7 +85,8 @@
         <div class="space-y-4" v-if="roleFields.includes('country')">
           <label for="country"
             class="font-normal text-black block text-sm text-gray-900 dark:text-gray mb-[20px]">Country
-            *</label>
+            <span class="text-red-600">*</span> 
+          </label>
           <CountryDropdown :countries="countries" v-model="country" id="country" class="mt-0" label="Country *" />
           <span v-if="errors.country" class="text-red-500 text-sm ">{{ errors.country.join(', ')
             }}</span>
@@ -94,7 +96,9 @@
         <div class="space-y-4" v-if="roleFields.includes('phone_code_country')">
           <label for="phone_code_country"
             class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
-            <div class="col-span-9">Mobile No *</div>
+            <div class="col-span-9">Mobile No 
+              <span class="text-red-600">*</span> 
+            </div>
             <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right tooltip"><svg
                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-4 ml-[20px]">
@@ -127,7 +131,7 @@
 
 
         <div class="space-y-4" v-if="roleFields.includes('gender')">
-          <label for="gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">Gender *</label>
+          <label for="gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">Gender <span class="text-red-600">*</span> </label>
           <GenderDropDown :genders="genders" v-model="gender" id="gender" label="Gender *" />
           <span v-if="errors.gender" class="text-red-500 text-sm ">{{ errors.gender.join(', ')
             }}</span>
@@ -136,7 +140,7 @@
 
         <div class="space-y-4" v-if="roleFields.includes('handedness')">
           <label for="handedness" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Handedness
-            *</label>
+            <span class="text-red-600">*</span> </label>
           <HandednessDropdown :handedness="handednesses" v-model="handedness" id="handedness" label="Handedness *" />
           <span v-if="errors.handedness" class="text-red-500 text-sm ">{{ errors.handedness.join(', ')
             }}</span>
@@ -149,7 +153,7 @@
             <!-- Toggle between Feet/Inches and Centimeters -->
             <div class="flex-1">
               <label for="height" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray mr-[20px]">Height
-                *</label>
+                <span class="text-red-600">*</span> </label>
             </div>
 
             <div class="flex-1">
@@ -190,7 +194,7 @@
 
         <div class="grid grid-cols-10 gap-3 items-center" v-if="roleFields.includes('utr')">
           <div class="col-span-5" >
-            <label for="utr" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">UTR *</label>
+            <label for="utr" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">UTR <span class="text-red-600">*</span> </label>
             <input type="text" id="utr" v-model="utr"
               class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
               placeholder="UTR" required />
@@ -199,7 +203,7 @@
           </div>
           <div class="col-span-5" v-if="roleFields.includes('gpa')">
             <label for="gpa" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-7">
-              <div class="col-span-6">GPA *</div>
+              <div class="col-span-6">GPA  <span class="text-red-600">*</span> </div>
               <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right tooltip"><svg
                   xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="size-4 ml-[8px]">
@@ -227,7 +231,7 @@
 
         <div v-if="roleFields.includes('graduation')">
           <label for="graduation" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Graduation
-            Month/Year *</label>
+            Month/Year  <span class="text-red-600">*</span> </label>
           <input type="month" v-model="graduation" :required="roleFields.includes('graduation')"
             class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full ps-10 p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-primary light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="Select Month/Year" />
@@ -238,7 +242,7 @@
         <div class="space-y-4" v-if="roleFields.includes('budget')">
           <!-- <label for="budget" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Budget *</label> -->
           <label for="budget" class="block mb-3 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
-            <div class="col-span-9">Budget *</div>
+            <div class="col-span-9">Budget  <span class="text-red-600">*</span> </div>
             <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right tooltip"><svg
                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-4 ml-[20px]">
@@ -276,7 +280,7 @@
         <div class="space-y-4 mt-2" v-if="roleFields.includes('player_last_name')">
           <h2 class="text-white">*</h2>
           <label for="player_last_name" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Last
-            Name *</label>
+            Name  <span class="text-red-600">*</span> </label>
           <input type="text" id="player_last_name" v-model="player_last_name"
             class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
             placeholder="Last Name" required />
@@ -285,7 +289,7 @@
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('email')">
-          <label for="email" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Email *</label>
+          <label for="email" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Email  <span class="text-red-600">*</span> </label>
           <input type="email" id="email" v-model="email"
             class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
             placeholder="Email" required />
@@ -295,7 +299,7 @@
 
         <div class="space-y-4" v-if="roleFields.includes('player_country')">
           <label for="player_country" class="font-normal text-black block mb-2 text-sm text-gray-900 dark:text-gray">
-            Country *</label>
+            Country  <span class="text-red-600">*</span> </label>
           <CountryDropdown :countries="countries" v-model="player_country" id="player_country" label="Player Country" :required="roleFields.includes('player_country')" />
           <span v-if="errors.player_country" class="text-red-500 text-sm ">{{ errors.player_country.join(', ')
             }}</span>
@@ -304,7 +308,7 @@
         <div class="space-y-4" v-if="roleFields.includes('player_phone_code_country')">
           <label for="phone_code_country"
             class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
-            <div class="col-span-9">Mobile No *</div>
+            <div class="col-span-9">Mobile No  <span class="text-red-600">*</span> </div>
             <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right tooltip"><svg
                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-4 ml-[20px]">
@@ -336,7 +340,7 @@
 
         <div class="space-y-4" v-if="roleFields.includes('player_gender')">
           <label for="player_gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">
-            Gender *</label>
+            Gender  <span class="text-red-600">*</span> </label>
           <GenderDropDown :genders="genders" v-model="player_gender" id="player_gender" label="Player Gender" :required="roleFields.includes('player_gender')" />
           <span v-if="errors.player_gender" class="text-red-500 text-sm ">{{ errors.player_gender.join(', ')
             }}</span>
@@ -344,7 +348,7 @@
 
         <div class="space-y-4" v-if="roleFields.includes('player_handedness')">
           <label for="player_handedness" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">
-            Handedness *</label>
+            Handedness  <span class="text-red-600">*</span> </label>
           <HandednessDropdown :handedness="handednesses" v-model="player_handedness" id="player_handedness" :required="roleFields.includes('player_handedness')"
             label="Player Handedness" />
           <span v-if="errors.player_handedness" class="text-red-500 text-sm ">{{ errors.player_handedness.join(', ')
@@ -356,7 +360,7 @@
             <!-- Toggle between Feet/Inches and Centimeters -->
             <div class="flex-1">
               <label for="height" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray mr-[20px]">
-                Height *
+                Height  <span class="text-red-600">*</span> 
               </label>
             </div>
 
@@ -426,7 +430,7 @@
         </div>
 
         <div v-if="roleFields.includes('player_utr')">
-          <label for="player_utr" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray"> UTR *</label>
+          <label for="player_utr" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray"> UTR  <span class="text-red-600">*</span> </label>
           <input type="text" id="player_utr" v-model="player_utr"
             class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="Player UTR" required />
@@ -435,7 +439,7 @@
         </div>
 
         <div v-if="roleFields.includes('player_gpa')">
-          <label for="player_gpa" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray"> GPA *</label>
+          <label for="player_gpa" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray"> GPA  <span class="text-red-600">*</span> </label>
           <input type="text" id="player_gpa" v-model="player_gpa"
             class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="Player GPA" required />
@@ -445,7 +449,7 @@
 
         <div v-if="roleFields.includes('player_graduation_month_year')">
           <label for="player_graduation_month_year" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">
-            Graduation Month/Year *</label>
+            Graduation Month/Year  <span class="text-red-600">*</span> </label>
           <input type="month" v-model="player_graduation_month_year"
             class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue text-black focus:border-steelBlue block w-full ps-10 p-2.5"
             placeholder="Player Graduation Month/Year" :required="roleFields.includes('player_graduation_month_year')" />
@@ -456,7 +460,7 @@
 
         <div class="space-y-4" v-if="roleFields.includes('player_nationality')">
           <label for="player_nationality" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">
-            Nationality *</label>
+            Nationality  <span class="text-red-600">*</span> </label>
           <NationalityDropdown :nationalities="nationalities" v-model="player_nationality" id="player_nationality" :required="roleFields.includes('player_nationality')"
             label="Player Nationality" />
           <span v-if="errors.player_nationality" class="text-red-500 text-sm ">{{ errors.player_nationality.join(', ')
@@ -497,9 +501,9 @@
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-steelBlue light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
           <label for="termsAccepted" class="ms-2 text-sm font-medium text-gray-900 light:text-gray-300">
             I agree to the
-            <NuxtLink to="/terms" class="text-blue-600 light:text-steelBlue hover:underline">Terms of Service</NuxtLink>
+            <NuxtLink to="/terms" target="_blank" class="text-blue-600 light:text-steelBlue hover:underline">Terms of Service</NuxtLink>
             and
-            <NuxtLink to="/privacy" class="text-blue-600 light:text-steelBlue hover:underline">Privacy Policy </NuxtLink>
+            <NuxtLink to="/privacy" target="_blank" class="text-blue-600 light:text-steelBlue hover:underline">Privacy Policy </NuxtLink>
             .
           </label>
         </div>
@@ -507,7 +511,7 @@
 
       <div class="flex items-center justify-end mt-6">
         <button type="submit"
-          class="text-white bg-steelBlue hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 light:bg-blue-600 light:hover:bg-blue-700 light:focus:ring-blue-800">
+          class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-darkAzureBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue ml-4 !px-8 !py-2.5 transition">
           Sign up now for free 
         </button>
       </div>

@@ -1,14 +1,15 @@
 <template>
     <div id="maincontent" class="">
-        <!-- <div class="relative z-10 container mt-8 mx-auto my-auto">
+        <div class="relative z-10 container mt-8 mx-auto my-auto">
             <main class="flex flex-col lg:flex-row gap-12">
                 <div class="flex-1 text-black">
-                    <div class="font-bold tracking-wider mb-2 opacity-50 text-lg uppercase">{{ $t('about.title') }}</div>
-                    <h1 class="text-5xl text-black md:text-6xl font-bold">{{ $t('about.subheading') }} 
+                    <div class="font-bold tracking-wider mb-2 opacity-50 text-lg uppercase">{{ $t('about.title') }}
+                    </div>
+                    <h1 class="text-5xl text-black md:text-6xl font-bold">{{ $t('about.subheading') }}
                     </h1>
-                    <p class="my-10 text-md">{{ $t('about.recruited_was_founded') }}  </p>
+                    <p class="my-10 text-md">{{ $t('about.recruited_was_founded') }} </p>
                     <div>
-                        <p class="text-xl"><strong>{{ $t('about.recruited_pro') }} </strong></p>
+                        <p class="text-xl"><strong>{{ $t('about.follow') }} @recruited.pro</strong></p>
                         <div class="mt-8 -mx-4"><a href="https://www.linkedin.com/company/102105929" class="p-3"><svg
                                     class="w-8 h-8 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -43,37 +44,42 @@
                                     <path
                                         d="M21 7.917v4.034a9.948 9.948 0 0 1 -5 -1.951v4.5a6.5 6.5 0 1 1 -8 -6.326v4.326a2.5 2.5 0 1 0 4 2v-11.5h4.083a6.005 6.005 0 0 0 4.917 4.917z">
                                     </path>
-                                </svg><span class="sr-only">Tiktok</span></a><a
-                                href="https://www.facebook.com/profile.php?id=61556921734903" class="p-3"><svg
+                                </svg><span class="sr-only">Tiktok</span></a>
+                            <a href="https://www.facebook.com/profile.php?id=61556921734903" class="p-3"><svg
                                     class="w-8 h-8 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3">
                                     </path>
-                                </svg><span class="sr-only">Facebook</span></a></div>
+                                </svg><span class="sr-only">Facebook</span></a>
+                        </div>
                     </div>
                 </div>
-                <div class="flex-1"><img src="@/assets/images/banner4.png" alt="Tennis court" class="w-full h-auto"></div>
+                <div class="flex-1"><img src="@/assets/images/banner4.png" alt="Tennis court" class="w-full h-auto">
+                </div>
             </main>
             <section class="container mt-8 pb-16" id="team">
                 <div class="container text-black">
                     <h2 class="text-4xl font-bold mt-20 mb-8 text-center"> {{ $t('about.our_team') }}</h2>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="border border-border rounded-lg px-8 py-12 text-center"><img src="@/assets/images/ivan.png"
-                                alt="Profile picture" class=" h-32 rounded-full w-16 md:w-32 h-16 md:h-32 mx-auto mb-6">
+                        <div class="border border-border rounded-lg px-8 py-12 text-center"><img
+                                src="@/assets/images/ivan.png" alt="Profile picture"
+                                class=" h-32 rounded-full w-16 md:w-32 h-16 md:h-32 mx-auto mb-6">
                             <h3 class="text-xl font-bold mb-1">Ivan Yatsuk</h3>
-                            <p class="text-gray-600 mb-8">Co-Founder  CEO</p>
+                            <p class="text-gray-600 mb-8">Co-Founder CEO</p>
                             <p>{{ $t('about.early_from_Minsk') }}
                             </p>
                         </div>
-                        <div class="border border-border rounded-lg px-8 py-12 text-center"><img src="@/assets/images/tony.png"
-                                alt="Profile picture" class=" h-32 rounded-full w-16 md:w-32 h-16 md:h-32 mx-auto mb-6">
+                        <div class="border border-border rounded-lg px-8 py-12 text-center"><img
+                                src="@/assets/images/tony.png" alt="Profile picture"
+                                class=" h-32 rounded-full w-16 md:w-32 h-16 md:h-32 mx-auto mb-6">
                             <h3 class="text-xl font-bold mb-1">Antonio Muniz-Hidalgo</h3>
                             <p class="text-gray-600 mb-8">Co-Founder &amp; CFO</p>
                             <p> {{ $t('about.originally_from_barcelona') }}</p>
                         </div>
-                        <div class="border border-border rounded-lg px-8 py-12 text-center"><img src="@/assets/images/bruno.png"
-                                alt="Profile picture" class="h-32 rounded-full w-16 md:w-32 h-16 md:h-32 mx-auto mb-6">
+                        <div class="border border-border rounded-lg px-8 py-12 text-center"><img
+                                src="@/assets/images/bruno.png" alt="Profile picture"
+                                class="h-32 rounded-full w-16 md:w-32 h-16 md:h-32 mx-auto mb-6">
                             <h3 class="text-xl font-bold mb-1">Bruno Oliveira</h3>
                             <p class="text-gray-600 mb-8">CCO</p>
                             <p>{{ $t('about.born_in_Belo') }}</p>
@@ -91,34 +97,22 @@
                 <div id="contacts">
                     <h2 class="text-4xl font-bold mb-8">{{ $t('contacts') }}</h2>
                     <p class="mt-8"><strong>{{ $t('about.need_customer_support') }} </strong><br><a
-                            href="mailto:hello@recruited.pro?subject=Help request&amp;body=Hi, I am having trouble with this ... I am using this device (phone/tablet/desktop/laptop) ... I can't do this ..."
+                            href="mailto:hello@recruited.pro?subject=Help request body=Hi, I am having trouble with this ... I am using this device (phone/tablet/desktop/laptop) ... I can't do this ..."
                             class="text-blue-500 font-bold">hello@recruited.pro</a></p>
                     <p class="mt-8"><strong>{{ $t('about.see_something_wrong') }}</strong><br><a
-                            href="mailto:legal@recruited.pro?subject=Legal request&amp;body=Hi, I am having trouble with this ... I am using this device (phone/tablet/desktop/laptop) ... I can't do this ..."
+                            href="mailto:legal@recruited.pro?subject=Legal request body=Hi, I am having trouble with this ... I am using this device (phone/tablet/desktop/laptop) ... I can't do this ..."
                             class="text-blue-500  font-bold">legal@recruited.pro</a></p>
-                    <p class="mt-8"><strong>{{ $t('about.business_address') }}Business Address</strong><br> Recruited Sports Inc.<br> 455 Palm Tree
+                    <p class="mt-8"><strong>{{ $t('about.business_address') }}Business Address</strong><br> Recruited
+                        Sports Inc.<br> 455 Palm Tree
                         Drive<br> Bradenton,<br> Florida<br> US, 34210<br></p>
                 </div>
             </section>
-        </div> -->
+        </div>
     </div>
 </template>
 
 <script setup>
-import { useUserStore } from '~/stores/userStore'
-
-const userStore = useUserStore()
-
-const email = userStore.user?.email
-const token = userStore.user?.token
 </script>
 
 <style scoped>
-h1 {
-    color: #333;
-}
-
-p {
-    font-size: 16px;
-}
 </style>
