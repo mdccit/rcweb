@@ -129,6 +129,8 @@ const createAdminService = (apiService) => {
     }
   };
 
+
+
   const list_business = async (page = 1, per_page_items = 10) => {
     const url = `/admin/businesses?page=${page}&per_page_items=${per_page_items}`;
   
@@ -175,6 +177,33 @@ const createAdminService = (apiService) => {
     }
   };
   
+
+  const add_business_user = async (request_body) => {
+    const url = '/admin/businesses/add-user';
+    const body = request_body;
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+
+  const add_school_user = async (request_body) => {
+    const url = '/admin/schools/add-user';
+    const body = request_body;
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+
 
   const get_player_details = async (user_id) => {
     const url = `/admin/player-get/${user_id}`;
@@ -379,6 +408,23 @@ const createAdminService = (apiService) => {
     }
   };
 
+  
+  const search_school_users = async (school_id, page, per_page_items, search_key = '') => {
+
+    const url = `/admin/school/search-users/${school_id}?page=${page}&per_page_items=${per_page_items}&search_key=${search_key}`;
+  
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data) {
+        return response.data;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
+
   return {
     new_user_register,
     list_users,
@@ -388,14 +434,16 @@ const createAdminService = (apiService) => {
     school_register,
     school_update,
     list_school_staff,
+    search_school_users,
+    add_school_user,
     get_school_details,
     list_business,
     get_business_members,
     search_business_users,
+    add_business_user,
     school_update,
     get_player_details,
     player_update,
-    search_business_users,
     user_session_delete,
     user_delete,
     school_delete,

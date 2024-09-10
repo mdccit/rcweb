@@ -29,9 +29,12 @@
         <div class="flex gap-x-4"><NuxtLink to="/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b"><button
                     class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200"> General
                     Details </button></NuxtLink>
-            <NuxtLink to="/school/schoolStaff"><button
-                    class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50"> Staff
-                    &amp; Teams </button></NuxtLink><NuxtLink to="/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/sync"><button
+                    <NuxtLink :to="{ path: '/school/schoolStaff', query: { school_id: schoolId } }">
+                        <button class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
+                          Staff &amp; Teams
+                        </button>
+                      </NuxtLink>
+                    <NuxtLink to="/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/sync"><button
                     class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
                     Synchronization </button></NuxtLink><NuxtLink to="/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/danger-zone"><button
                     class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50"> Danger
@@ -176,11 +179,11 @@
                                 <div class="mr-1"><select name="division" data-validation-key="division"
                                         v-model="division"
                                         class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
-                                        <option value="division_i"> Division I </option>
-                                        <option value="division_ii"> Division II </option>
-                                        <option value="division_iii"> Division III </option>
-                                        <option value="naia"> NAIA </option>
-                                        <option value="njcaa"> NJCAA </option>
+                                        <option value="1"> Division I </option>
+                                        <option value="2"> Division II </option>
+                                        <option value="3"> Division III </option>
+                                        <option value="4"> NAIA </option>
+                                        <option value="5"> NJCAA </option>
                                     </select></div>
                             </div>
                         </label>
@@ -234,6 +237,7 @@ const route = useRoute(); // Use useRoute to access query parameters
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
 
+const schoolId = route.query.userId; 
 const errors = ref([]);
 const userStore = useUserStore();
 const router = useRouter();
@@ -331,7 +335,7 @@ const fetchSchoolDetails = async (schoolId) => {
 definePageMeta({
     ssr: true,
     layout: 'admin',
-    middleware: ['permissions'],
+    // middleware: ['permissions'],
     roles: ['admin'],
 });
 

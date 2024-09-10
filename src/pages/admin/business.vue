@@ -4,10 +4,22 @@ import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore();
 
 
+const showModal = ref(false);
+
+// Method to open the modal
+const openCreateSchoolModal = () => {
+  showModal.value = true;
+};
+
+// Method to close the modal
+const closeModal = () => {
+  showModal.value = false;
+};
+
 definePageMeta({
     ssr: 'true',
     layout: 'admin',
-    middleware: ['permissions'],
+    // middleware: ['permissions'],
     roles: ['admin'],
 });
 </script>
