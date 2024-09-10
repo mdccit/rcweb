@@ -237,14 +237,13 @@ const route = useRoute(); // Use useRoute to access query parameters
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
 
-const schoolId = route.query.userId; 
+const schoolId = route.query.school_id; 
 const errors = ref([]);
 const userStore = useUserStore();
 const router = useRouter();
 const showNotification = ref(false);
 const notificationMessage = ref('');
 
-const school_id = ref('');
 const name = ref('');
 const bio = ref('');
 const conference = ref('');
@@ -258,16 +257,16 @@ const is_approved = ref(false);
 const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
 
 const action = ref(route.params.action || 'view'); // default to 'view' if action not provided
-const userId = ref(route.params.userId || '');
+const school_id = ref(route.params.school_id || '');
 
 onMounted(() => {
 
     // Update the refs directly
     action.value = route.query.action || 'view';
-    userId.value = route.query.userId || '';
+    school_id.value = route.query.school_id || '';
 
     if (action.value === 'view' || action.value === 'edit') {
-        fetchSchoolDetails(userId.value);
+        fetchSchoolDetails(school_id.value);
     }
 });
 

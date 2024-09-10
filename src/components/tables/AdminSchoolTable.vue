@@ -149,7 +149,7 @@ const viewDetails = (row) => {
     path: '/school/schoolGeneralDetails',
     query: {
       action: 'view',
-      userId: row.id
+      school_id: row.id
     }
   });
 };
@@ -160,7 +160,7 @@ const editRecord = (row) => {
     path: '/school/schoolGeneralDetails',
     query: {
       action: 'edit',
-      userId: row.id
+      school_id: row.id
     }
   });
 };

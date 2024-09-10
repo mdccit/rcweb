@@ -146,6 +146,36 @@ const createAdminService = (apiService) => {
     }
   };
 
+
+  const get_business_details = async (business_id) => {
+    const url = `/admin/businesses/${business_id}`;
+  
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data) {
+        return response.data;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to get details');
+    }
+  };
+
+
+
+  const business_register = async (request_body) => {
+    const url = '/admin/business-register';
+    const body = request_body;
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register business');
+    }
+  };
+
   const get_business_members = async (business_id) => {
     const url = `/admin/businesses/users/${business_id}`;
   
@@ -438,9 +468,11 @@ const createAdminService = (apiService) => {
     add_school_user,
     get_school_details,
     list_business,
+    business_register,
     get_business_members,
     search_business_users,
     add_business_user,
+    get_business_details,
     school_update,
     get_player_details,
     player_update,

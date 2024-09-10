@@ -200,7 +200,7 @@ const viewDetails = (row) => {
     path: '/business/businessGeneral',
     query: {
       action: 'view',
-      userId: row.id
+     business_id: row.id
     }
   });
 };
@@ -211,7 +211,7 @@ const editRecord = (row) => {
     path: '/business/businessGeneral',
     query: {
       action: 'edit',
-      userId: row.id
+      business_id: row.id
     }
   });
 };
