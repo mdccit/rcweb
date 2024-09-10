@@ -7,7 +7,7 @@
                         stroke-linejoin="round">
                         <path d="M15 6l-6 6l6 6"></path>
                     </svg></NuxtLink>
-                <h2 class="font-bold text-black text-lg self-center"> Editing: SchoolAdm1 </h2>
+                <h2 class="font-bold text-black text-lg self-center"> Editing: </h2>
             </div>
             <div class=""><NuxtLink to="/school/9c2845cc-7676-45e1-b498-13f930b22e9b"><button
                         type="submit"
@@ -26,7 +26,7 @@
             <div class="container">
                 <h1 class="font-bold text-2xl mb-3">Search for a user to add</h1>
                 <form data-splade-id="ZRpg9Q6QWm6Ux82X" method="GET"
-                    action="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/users/create">
+                    action="">
                     <fieldset>
                         <div class="flex items-center">
                             <div class="w-full"><label class="block">
@@ -72,13 +72,12 @@
                         </div>
                     </a>
                     <div class="self-center">
-                        <form data-splade-id="CZHYQePgqSpDXSAp" method="POST"
-                            action="https://qa1.recruited.qualitapps.com/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/users/store">
-                            <fieldset>
-                                <div class=""><button type="submit"
+                        <form  >
+                                <div class="">
+                                    <button type="submit"
                                         class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
-                                        Add to school </button></div>
-                            </fieldset>
+                                        Add to school </button>
+                                    </div>             
                         </form>
                     </div>
                 </div>
@@ -91,10 +90,38 @@
 </template>
 
 <script setup>
+
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useNuxtApp } from '#app';
+
+const route = useRoute();
+const router = useRouter();
+const nuxtApp = useNuxtApp();
+const $adminService = nuxtApp.$adminService;
+
+const school_id = ref('');
+const businessName = ref('');
+const members = ref([]);
+
+onMounted(() => {
+    school_id.value = route.query.school_id || '';
+    fetchBusinessMembers(business_id.value);
+});
+
+const fetchBusinessMembers = async (schoolId) => {
+    try {
+        const data = await $adminService.search_school_users(schoolId);
+        members.value = data || [];
+    } catch (error) {
+        console.error('Failed to load business members:', error.message);
+    }
+};
+
 definePageMeta({
     ssr: true,
     layout: 'admin',
-    middleware: ['permissions'],
+    // middleware: ['permissions'],
     roles: ['admin'],
 });
 

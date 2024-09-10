@@ -107,7 +107,7 @@ const addMembers = () => {
 definePageMeta({
     ssr: true,
     layout: 'admin',
-    middleware: ['permissions'],
+    // middleware: ['permissions'],
     roles: ['admin'],
 });
 

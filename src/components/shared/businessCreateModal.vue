@@ -8,7 +8,7 @@
             <div class="relative bg-white rounded-lg shadow light:bg-gray-700">
                 <!-- Modal Header -->
                 <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray">Create School</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray">Create Business</h3>
                     <button @click="$emit('close')"
                         class="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center light:hover:bg-gray-600 light:hover:text-white">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -33,12 +33,12 @@
 
                     <!-- Form Fields -->
                     <div>
-                        <label for="name" class="block text-sm font-normal text-gray-900 light:text-gray">School
+                        <label for="name" class="block text-sm font-normal text-gray-900 light:text-gray">Business
                             Name</label>
 
-                        <input type="text" id="first_name" v-model="name"
+                        <input type="text" id="name" v-model="name"
                             class=" bg-transparent w-full text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500 "
-                            placeholder="Enter Name" />
+                            placeholder="Enter Business Name" />
                     </div>
 
                 
@@ -92,7 +92,7 @@ const props = defineProps({
 const submitRegistration = async () => {
     errors.value = [];
     try {
-        const response = await $adminService.school_register({
+        const response = await $adminService.business_register({
             name: name.value,
             bio: bio.value
         });

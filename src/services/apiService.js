@@ -1,8 +1,6 @@
 
-
-import { useUserStore } from '@/stores/userStore';
-import { useRouter } from 'vue-router';
 const createApiService = (config) => {
+
   if (!config) {
     throw new Error('Configuration is not provided');
   }
@@ -23,29 +21,8 @@ const createApiService = (config) => {
     return responseData; // Return the parsed data for successful requests
   };
 
-  // Handle 401 Unauthorized error and log out
-  const handleUnauthorizedError = async () => {
-    const userStore = useUserStore(); // Access user store
-    const router = useRouter(); // Access router
-    const token = userStore.token; // Get token from store instead of localStorage
 
-    // Call the logout API and wait for the result
-    try {
-      const response = await logout({ bearer_token: token });
-
-      // If the logout was successful, clear user data and redirect
-      if (response.status === 200) {
-        userStore.clearUser(); // Clear user from store
-        router.push('/login'); // Redirect to login page
-      } else {
-        console.error('Logout failed.');
-      }
-    } catch (error) {
-      console.error('Error during logout:', error);
-    }
-  };
-
-  const getAuthHeaders = () => {
+ const getAuthHeaders = () => {
     const token = localStorage.getItem('token');
     return {
       'Content-Type': 'application/json',
@@ -62,14 +39,6 @@ const createApiService = (config) => {
         headers: getAuthHeaders(),
       });
 
-      // Check for 401 Unauthorized error
-      if (response.status === 401) {
-        // Call the specific function when 401 error occurs
-        handleUnauthorizedError(); // Call your function here
-
-        // Optionally, throw a new error or return a specific result
-        throw new Error('Unauthorized - 401');
-      }
       return await handleResponse(response);
     } catch (error) {
       throw new Error(error.message || 'Error making GET request');
@@ -93,12 +62,14 @@ const createApiService = (config) => {
 
 
   const putRequest = async (url, body) => {
+
     try {
       const response = await fetch(`${apiUrl}${url}`, {
         method: 'PUT',
         headers: getAuthHeaders(),
         body: JSON.stringify(body),
       });
+
       return await handleResponse(response);
     } catch (error) {
       throw error;

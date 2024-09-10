@@ -31,7 +31,8 @@
           </div>
         </div>
         <div class="w-full">
-          <button type="button" class="flex justify-center items-center py-2.5 w-full px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-steelBlue focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 transition">
+        
+          <button type="button" @click="initiateGoogleAuth()"  class="flex justify-center items-center py-2.5 w-full px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-steelBlue focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 transition">
             <span class="me-6"><img src="@/assets/images/google_icon.png"></span>Sign up with Google
           </button>
         </div>
@@ -45,7 +46,11 @@
             <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
           </ul>
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4 mb-2">
+
+
+        <form @submit.prevent="handleSubmit">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2">
+          
 
           <div>
               <label class="block mb-1 text-gray-700 font-sans">First name <span aria-hidden="true" class="text-red-600"
@@ -118,12 +123,14 @@
         </div>
 
         <div class="flex items-center justify-end mt-5">
-
-          <button @click="handleSubmit" class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-darkAzureBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue ml-4 !px-8 !py-2.5">
-            <div class="flex flex-row items-center justify-center"><span class="">Sign up now for free</span></div>
+          <button type="submit" class="text-white bg-steelBlue hover:bg-blue-800 focus:outline-none focus:ring-4 
+              focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 
+              dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Sign up now for free
           </button>
 
         </div>
+      </form>
       </div>
     </div>
       <!-- Notification Component -->
@@ -149,11 +156,13 @@ const password_confirmation = ref('');
 const error = ref('');
 const successMessage = ref('');
 const errors = ref([]);
+const authType = ref('');
 
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const loading = ref(false);
 const notification_type = ref('');
+const notificationKey = ref(0);
 
 
 const userStore = useUserStore();
@@ -169,9 +178,7 @@ const handleSubmit = async () => {
   errors.value = [];
   if (password.value !== password_confirmation.value) {  
     loading.value = false;
-    notification_type.value = 'failure';
-    notificationMessage.value = 'Passwords do not match';
-    showNotification.value = true;
+    triggerNotification('Passwords do not match', 'failure');
     return;
   }
   try {
@@ -235,6 +242,31 @@ const checkUserStatus = () => {
   }
 };
 
+// Function to handle Google authentication
+const initiateGoogleAuth = async () => {
+  try {
+    localStorage.removeItem('authType');
+    localStorage.setItem('authType', 'register');
+    const authUrl = await $authService.getGoogleAuthUrl();
+    window.location.href = authUrl; // Redirect to Google authentication URL
+  } catch (err) {
+    triggerNotification( err.message, 'failure');
+  }
+};
+
+
+const triggerNotification = (message, type) => {
+  notificationMessage.value = message;
+  notification_type.value = type;
+  showNotification.value = true;
+
+  notificationKey.value += 1; // Force re-render
+
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    showNotification.value = false;
+  }, 3000);
+};
 
 // Use onMounted lifecycle hook to perform the check when the component is mounted
 onMounted(() => {
