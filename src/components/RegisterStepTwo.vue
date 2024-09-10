@@ -2,6 +2,7 @@
   <div class="min-h-screen w-full bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4"
     style="background-image: url(https://qa1.recruited.qualitapps.com/static/bg-generic.svg);">
     <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl">
+      <form @submit.prevent="handleSubmitStep2">
       <div class="flex items-center space-x-4">
         <!-- <div class="flex self-center items-center">
           <NuxtLink to="/register" class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full">
@@ -73,7 +74,7 @@
         <div v-if="roleFields.includes('nationality')">
           <label for="nationality" class="block  text-sm font-normal text-gray-900 dark:text-gray mb-[20px]">Nationality
             *</label>
-          <NationalityDropdown :nationalities="nationalities" v-model="nationality" id="nationality"
+          <NationalityDropdown :nationalities="nationalities" v-model="nationality" id="nationality" :required="roleFields.includes('nationality')"
             label="Nationality" />
           <span v-if="errors.nationality" class="text-red-500 text-sm ">{{ errors.nationality.join(', ')
             }}</span>
@@ -168,7 +169,7 @@
           <div v-if="height_in_cm" class="-mt-[8px]">
             <input type="number" id="height_cm" v-model="height_cm"
               class="bg-gray-50 border h-12 -mt-[8px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
-              placeholder="Height in cm" />
+              placeholder="Height in cm" :required="roleFields.includes('height_cm')" />
             <span v-if="errors.height_cm" class="text-red-500 text-sm ">{{ errors.height_cm.join(', ')
               }}</span>
           </div>
@@ -176,12 +177,12 @@
           <div v-else class="grid grid-cols-10 gap-3 items-center -mt-[8px]">
             <input type="number" id="height_ft" v-model="height_ft"
               class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
-              placeholder="Ft" />
+              placeholder="Ft" :required="roleFields.includes('height_ft')" />
             <span v-if="errors.height_ft" class="text-red-500 text-sm ">{{ errors.height_ft.join(', ')
               }}</span>
             <input type="number" id="height_in" v-model="height_in"
               class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
-              placeholder="In" />
+              placeholder="In" :required="roleFields.includes('height_in')" />
             <span v-if="errors.height_in" class="text-red-500 text-sm ">{{ errors.height_in.join(', ')
               }}</span>
           </div>
@@ -227,7 +228,7 @@
         <div v-if="roleFields.includes('graduation')">
           <label for="graduation" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Graduation
             Month/Year *</label>
-          <input type="month" v-model="graduation"
+          <input type="month" v-model="graduation" :required="roleFields.includes('graduation')"
             class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full ps-10 p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-primary light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="Select Month/Year" />
           <span v-if="errors.graduation_month_year" class="text-red-500 text-sm ">{{ errors.graduation_month_year.join(', ')
@@ -295,7 +296,7 @@
         <div class="space-y-4" v-if="roleFields.includes('player_country')">
           <label for="player_country" class="font-normal text-black block mb-2 text-sm text-gray-900 dark:text-gray">
             Country *</label>
-          <CountryDropdown :countries="countries" v-model="player_country" id="player_country" label="Player Country" />
+          <CountryDropdown :countries="countries" v-model="player_country" id="player_country" label="Player Country" :required="roleFields.includes('player_country')" />
           <span v-if="errors.player_country" class="text-red-500 text-sm ">{{ errors.player_country.join(', ')
             }}</span>
         </div>
@@ -318,10 +319,10 @@
           </label>
           <div class="grid grid-cols-5 gap-3 items-center">
             <CountryCodeDropdown :country_codes="country_codes" v-model="player_phone_code_country"
-              name="player_phone_code" data-validation-key="player_phone_code" class="col-span-2" />
+              name="player_phone_code" data-validation-key="player_phone_code" class="col-span-2" :required="roleFields.includes('player_phone_code_country')" />
             <input type="text" id="player_phone_number" v-model="player_phone_number"
               class="col-span-3 bg-gray-50 border mt-[4px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-steelBlue light:focus:border-steelBlue"
-              placeholder="Player Number" required />
+              placeholder="Player Number" :required="roleFields.includes('player_phone_number')"/>
           </div>
           <ul>
             <li><span v-if="errors.player_phone_code_country" class="text-red-500 text-sm ">{{
@@ -336,7 +337,7 @@
         <div class="space-y-4" v-if="roleFields.includes('player_gender')">
           <label for="player_gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">
             Gender *</label>
-          <GenderDropDown :genders="genders" v-model="player_gender" id="player_gender" label="Player Gender" />
+          <GenderDropDown :genders="genders" v-model="player_gender" id="player_gender" label="Player Gender" :required="roleFields.includes('player_gender')" />
           <span v-if="errors.player_gender" class="text-red-500 text-sm ">{{ errors.player_gender.join(', ')
             }}</span>
         </div>
@@ -344,7 +345,7 @@
         <div class="space-y-4" v-if="roleFields.includes('player_handedness')">
           <label for="player_handedness" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">
             Handedness *</label>
-          <HandednessDropdown :handedness="handednesses" v-model="player_handedness" id="player_handedness"
+          <HandednessDropdown :handedness="handednesses" v-model="player_handedness" id="player_handedness" :required="roleFields.includes('player_handedness')"
             label="Player Handedness" />
           <span v-if="errors.player_handedness" class="text-red-500 text-sm ">{{ errors.player_handedness.join(', ')
             }}</span>
@@ -447,7 +448,7 @@
             Graduation Month/Year *</label>
           <input type="month" v-model="player_graduation_month_year"
             class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue text-black focus:border-steelBlue block w-full ps-10 p-2.5"
-            placeholder="Player Graduation Month/Year" />
+            placeholder="Player Graduation Month/Year" :required="roleFields.includes('player_graduation_month_year')" />
           <span v-if="errors.player_graduation_month_year" class="text-red-500 text-sm ">{{
             errors.player_graduation_month_year.join(', ')
           }}</span>
@@ -456,7 +457,7 @@
         <div class="space-y-4" v-if="roleFields.includes('player_nationality')">
           <label for="player_nationality" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">
             Nationality *</label>
-          <NationalityDropdown :nationalities="nationalities" v-model="player_nationality" id="player_nationality"
+          <NationalityDropdown :nationalities="nationalities" v-model="player_nationality" id="player_nationality" :required="roleFields.includes('player_nationality')"
             label="Player Nationality" />
           <span v-if="errors.player_nationality" class="text-red-500 text-sm ">{{ errors.player_nationality.join(', ')
             }}</span>
@@ -505,12 +506,12 @@
       </div>
 
       <div class="flex items-center justify-end mt-6">
-        <button @click="handleSubmitStep2"
+        <button type="submit"
           class="text-white bg-steelBlue hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 light:bg-blue-600 light:hover:bg-blue-700 light:focus:ring-blue-800">
-          Sign up now for free
+          Sign up now for free 
         </button>
       </div>
-
+    </form>
     </div>
 
 
@@ -734,7 +735,7 @@ const handleSubmitStep2 = async () => {
         notificationMessage.value = response.display_message || 'Registration successful!';
         showNotification.value = true;
         if(role.value == 'coach' || role.value == 'business'){
-          router.push('/pending-approval');
+          router.push('/user/approval-pending');
         }else if (role.value == 'player' || role.value == 'parent'){
           router.push('/app');
         }else if (role.value == 'admin'){
@@ -835,182 +836,23 @@ const loadCountryCodes = async () => {
   }
 };
 
-
 const roleFields = computed(() => {
   switch (role.value) {
     case 'player':
-      return [
-        'country',
-        'phone_code_country',
-        'phone_number',
-        'gender',
-        'handedness',
-        'height_ft',
-        'height_in',
-        'utr',
-        'gpa',
-        'graduation',
-        'nationality',
-        'budget',
-        'height'
-      ];
-
+      return ['country', 'phone_code_country', 'phone_number', 'gender', 'handedness', 'height_ft', 'height_in', 'height_cm', 'utr', 'gpa', 'graduation', 'nationality', 'budget', 'height'];
+      
     case 'parent':
-      return [
-        'country',
-        'phone_code_country',
-        'phone_number',
-        'player_first_name',
-        'player_last_name',
-        'email',
-        'player_country',
-        'player_phone_code_country',
-        'player_phone_number',
-        'player_gender',
-        'player_height',
-        'player_handedness',
-        'player_height_ft',
-        'player_height_in',
-        'player_budget',
-        'player_utr',
-        'player_gpa',
-        'player_graduation_month_year',
-        'player_nationality'
-      ];
-
+      return ['country', 'phone_code_country', 'phone_number', 'player_first_name', 'player_last_name', 'email', 'player_country', 'player_phone_code_country', 'player_phone_number', 'player_gender', 'player_handedness', 'player_height_ft', 'player_height_in', 'player_budget', 'player_utr', 'player_gpa', 'player_graduation_month_year', 'player_nationality', 'player_height'];
+      
     case 'coach':
     case 'business':
-      return [
-        'country',
-        'phone_code_country',
-        'phone_number'
-      ];
-
+      return ['country', 'phone_code_country', 'phone_number'];
+      
     default:
       return [];
   }
 });
 
-
-const validateForm = () => {
-  // Clear previous errors
-  Object.keys(errors.value).forEach(field => {
-    errors.value[field] = [];
-  });
-
-  // Example validation logic
-  if (!country.value) {
-    errors.value.country.push('Country is required.');
-  }
-  if (!phone_number.value) {
-    errors.value.phone_number.push('Phone number is required.');
-  }
-
-  // Check if there are any errors
-  const hasErrors = Object.values(errors.value).some(errorArray => errorArray.length > 0);
-
-  return { errors, hasErrors };
-};
-
-// const validateForm = () => {
-//   // Clear previous errors
-//   Object.keys(errors.value).forEach(field => {
-//     errors.value[field] = [];
-//   });
-
-//   // Basic Validation: Common for all roles
-//   if (!role.value) {
-//     errors.value.role.push('Role selection is required.');
-//   }
-//   if (!country.value) {
-//     errors.value.country.push('Country selection is required.');
-//   }
-//   if (!phone_code_country.value) {
-//     errors.value.phone_code_country.push('Mobile code is required.');
-//   }
-//   if (!phone_number.value) {
-//     errors.value.phone_number.push('Mobile number is required.');
-//   }
-
-//   // Player-specific validation
-//   if (role.value === 'player') {
-//     if (!nationality.value) {
-//       errors.value.nationality.push('Nationality selection is required.');
-//     }
-//     if (!height_ft.value && !height_in_cm.value) {
-//       errors.value.height.push('Height selection is required.');
-//     }
-//     if (!handedness.value) {
-//       errors.value.handedness.push('Handedness selection is required.');
-//     }
-//     if (!selectedBudget.value) {
-//       errors.value.budget.push('Player budget is required.');
-//     }
-//     if (!utr.value) {
-//       errors.value.utr.push('UTR is required.');
-//     }
-//     if (!gpa.value) {
-//       errors.value.gpa.push('GPA is required.');
-//     }
-//     if (!graduation.value) {
-//       errors.value.graduation.push('Graduation month/year is required.');
-//     }
-//     if (!gender.value) {
-//       errors.value.gender.push('Gender selection is required.');
-//     }
-//   }
-
-//   // Parent-specific validation
-//   if (role.value === 'parent') {
-//     if (!player_first_name.value) {
-//       errors.value.player_first_name.push('Player first name is required.');
-//     }
-//     if (!player_last_name.value) {
-//       errors.value.player_last_name.push('Player last name is required.');
-//     }
-//     if (!email.value) {
-//       errors.value.email.push('Email is required.');
-//     }
-//     if (!player_country.value) {
-//       errors.value.player_country.push('Player country selection is required.');
-//     }
-//     if (!player_phone_code_country.value) {
-//       errors.value.player_phone_code_country.push('Player mobile code is required.');
-//     }
-//     if (!player_phone_number.value) {
-//       errors.value.player_phone_number.push('Player mobile number is required.');
-//     }
-//     if (!player_gender.value) {
-//       errors.value.player_gender.push('Player gender selection is required.');
-//     }
-//     if (!player_handedness.value) {
-//       errors.value.player_handedness.push('Player handedness selection is required.');
-//     }
-//     if (!player_height_ft.value && !player_height_in_cm.value) {
-//       errors.value.player_height.push('Player height selection is required.');
-//     }
-//     if (!player_budget.value) {
-//       errors.value.player_budget.push('Player budget is required.');
-//     }
-//     if (!player_utr.value) {
-//       errors.value.player_utr.push('Player UTR is required.');
-//     }
-//     if (!player_gpa.value) {
-//       errors.value.player_gpa.push('Player GPA is required.');
-//     }
-//     if (!player_graduation_month_year.value) {
-//       errors.value.player_graduation_month_year.push('Player graduation month/year is required.');
-//     }
-//     if (!player_nationality.value) {
-//       errors.value.player_nationality.push('Player nationality is required.');
-//     }
-//   }
-
-//   // Check if there are any errors
-//   const hasErrors = Object.values(errors.value).some(errorArray => errorArray.length > 0);
-
-//   return { errors, hasErrors };
-// };
 
 </script>
 

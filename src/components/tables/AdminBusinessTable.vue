@@ -67,7 +67,7 @@
     </div>
 
 
-    <el-table :data="filteredItems" style="width: 100%" v-loading="loading">
+    <el-table :data="filteredItems" style="width: 100%" v-loading="loading" @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
       <el-table-column prop="name" label="Name" sortable></el-table-column>
       <el-table-column prop="total_staff" label="Total Staff" sortable></el-table-column>
       <el-table-column prop="admin_staff" label="Admin Staff" sortable></el-table-column>
@@ -80,7 +80,7 @@
         </template>
       </el-table-column>
         <!-- Actions Column -->
-        <el-table-column label="Actions">
+        <!-- <el-table-column label="Actions">
           <template v-slot="scope">
             <el-dropdown>
               <template #dropdown>
@@ -102,7 +102,7 @@
               </el-button>
             </el-dropdown>
           </template>
-        </el-table-column>
+        </el-table-column> -->
     </el-table>
 
     <el-pagination v-model:current-page="options.page" :page-size="options.itemsPerPage" :total="totalItems"
@@ -200,7 +200,7 @@ const viewDetails = (row) => {
     path: '/business/businessGeneral',
     query: {
       action: 'view',
-      userId: row.id
+     business_id: row.id
     }
   });
 };
@@ -211,7 +211,7 @@ const editRecord = (row) => {
     path: '/business/businessGeneral',
     query: {
       action: 'edit',
-      userId: row.id
+      business_id: row.id
     }
   });
 };
@@ -225,6 +225,12 @@ const manageMembers = (row) => {
     }
   });
 };
+
+const handleRowClick = (row) => {
+  editRecord(row);
+};
+
+
 
 </script>
 

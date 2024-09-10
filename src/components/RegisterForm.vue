@@ -27,12 +27,12 @@
 
 
           <div class="self-center">
-            <h1 class="text-2xl font-bold text-primary">Let's sign up!</h1>
+            <h1 class="text-2xl font-bold text-black">Let's sign up!</h1>
           </div>
         </div>
         <div class="w-full">
         
-          <button type="button" @click="initiateGoogleAuth('register')"  class="flex justify-center items-center py-2.5 w-full px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-steelBlue focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 transition">
+          <button type="button" @click="initiateGoogleAuth()"  class="flex justify-center items-center py-2.5 w-full px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-steelBlue focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 transition">
             <span class="me-6"><img src="@/assets/images/google_icon.png"></span>Sign up with Google
           </button>
         </div>
@@ -46,61 +46,67 @@
             <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
           </ul>
         </div>
+
+
+        <form @submit.prevent="handleSubmit">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2">
-          <div class="space-y-4">
-            <div>
-              <label for="first_name" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">First
-                name</label>
-              <input type="text" id="first_name" v-model="first_name" autocomplete="given-name"
-                class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
-                placeholder="" required />
-            </div>
-            <span v-if="errors.first_name" class="text-red-500 text-sm ">{{ errors.first_name.join(', ') }}</span>
-          </div>
-          <div class="space-y-4">
-            <div>
-              <label for="last_name" class="font-normal block mb-2 text-sm text-gray-900 light:text-gray">Last
-                name</label>
-              <input type="text" id="last_name" v-model="last_name" autocomplete="family-name"
-                class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
-                placeholder="" required />
-            </div>
-            <span v-if="errors.last_name" class="text-red-500 text-sm ">{{ errors.last_name.join(', ') }}</span>
-          </div>
-        </div>
+          
 
-        <div class="space-y-4">
-          <div class="pt-2">
-            <label for="email" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Email
-              address</label>
-            <input type="email" id="email" v-model="email" autocomplete="email"
-              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
-              placeholder="" required />
-          </div>
-          <span v-if="errors.email" class="text-red-500 text-sm ">{{ errors.email.join(', ') }}</span>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2 pt-3">
-          <div class="space-y-4">
-            <div>
-              <label for="password"
-                class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Password</label>
-              <input type="password" id="password" v-model="password" autocomplete="new-password"
-                class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
-                placeholder="" required />
-            </div>
-            <span v-if="errors.email" class="text-red-500 text-sm ">{{ errors.email.join(', ') }}</span>
-          </div>
           <div>
-            <div>
-              <label for="password_confirmation" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Confirm
-                password</label>
-              <input type="password" id="password_confirmation" v-model="password_confirmation" autocomplete="new-password"
-                class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
-                placeholder="" required />
-            </div>
-            <span v-if="errors.password_confirmation" class="text-red-500 text-sm ">{{ errors.password_confirmation.join(', ') }}</span>
+              <label class="block mb-1 text-gray-700 font-sans">First name <span aria-hidden="true" class="text-red-600"
+                  title="This field is required">*</span></label>
+              <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                <input id="first_name" v-model="first_name" autocomplete="given-name"
+                  class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                  placeholder="" required>
+              </div>
+              <p v-if="errors.first_name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.first_name.join(', ') }}</p>
           </div>
+
+          <div>
+              <label class="block mb-1 text-gray-700 font-sans">Last name <span aria-hidden="true" class="text-red-600"
+                  title="This field is required">*</span></label>
+              <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                <input type="text" id="last_name" v-model="last_name" autocomplete="family-name"
+                  class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                  placeholder="" required>
+              </div>
+              <p v-if="errors.last_name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.last_name.join(', ') }}</p>
+          </div>
+
+          <div class="col-span-2">
+              <label class="block mb-1 text-gray-700 font-sans">Email address <span aria-hidden="true" class="text-red-600"
+                  title="This field is required">*</span></label>
+              <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                <input type="email" id="email" v-model="email" autocomplete="email"
+                  class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                  placeholder="" required>
+              </div>
+              <p v-if="errors.email" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.email.join(', ') }}</p>
+          </div>
+
+          <div>
+              <label class="block mb-1 text-gray-700 font-sans">Password <span aria-hidden="true" class="text-red-600"
+                  title="This field is required">*</span></label>
+              <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                <input type="password" id="password" v-model="password" autocomplete="new-password"
+                  class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                  placeholder="" required>
+              </div>
+              <p v-if="errors.email" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.email.join(', ') }}</p>
+          </div>
+
+          <div>
+              <label class="block mb-1 text-gray-700 font-sans">Confirm password <span aria-hidden="true" class="text-red-600"
+                  title="This field is required">*</span></label>
+              <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                <input type="password" id="password_confirmation" v-model="password_confirmation" autocomplete="new-password"
+                  class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                  placeholder="" required>
+              </div>
+              <p v-if="errors.password_confirmation" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.password_confirmation.join(', ') }}</p>
+          </div>
+
         </div>
 
         <div class="space-y-4 mt-5">
@@ -117,12 +123,12 @@
         </div>
 
         <div class="flex items-center justify-end mt-5">
-          <button @click="handleSubmit" class="text-white bg-steelBlue hover:bg-blue-800 focus:outline-none focus:ring-4 
-              focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 
-              dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          <button type="submit" class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-darkAzureBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue ml-4 !px-8 !py-2.5 transition">
             Sign up now for free
           </button>
+
         </div>
+      </form>
       </div>
     </div>
       <!-- Notification Component -->
@@ -235,10 +241,10 @@ const checkUserStatus = () => {
 };
 
 // Function to handle Google authentication
-const initiateGoogleAuth = async (type) => {
+const initiateGoogleAuth = async () => {
   try {
-    authType.value = type;
-    localStorage.setItem('authType', type);
+    localStorage.removeItem('authType');
+    localStorage.setItem('authType', 'register');
     const authUrl = await $authService.getGoogleAuthUrl();
     window.location.href = authUrl; // Redirect to Google authentication URL
   } catch (err) {

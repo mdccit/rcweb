@@ -35,7 +35,7 @@
     </div>
 
     <!-- Data Table -->
-    <el-table :data="filteredItems" style="width: 100%" v-loading="loading" @row-click="handleRowClick">
+    <el-table :data="filteredItems" style="width: 100%" v-loading="loading"  @row-click="handleRowClick"  :default-sort="{ prop: 'joined_at', order: 'descending' }">
       <!-- Display Name Column -->
       <el-table-column prop="display_name" label="Display Name" sortable></el-table-column>
 
@@ -227,7 +227,7 @@ const editRecord = (row) => {
 };
 
 const handleRowClick = (row) => {
-  viewDetails(row);
+  editRecord(row);
 };
 
 const handlePageChange = (newPage) => {

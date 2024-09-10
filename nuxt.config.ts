@@ -107,11 +107,16 @@ export default defineNuxtConfig({
         '/admin/**',      // Ignore all nested admin routes
         '/user',          // Ignore all user routes
         '/user/**',       // Ignore all nested user routes
+        '/business',         // Ignore all admin routes
+        '/business/**',      // Ignore all nested admin routes
+        '/school',         // Ignore all admin routes
+        '/school/**',      // Ignore all nested admin routes
         '/dashboard',     // Ignore dashboard route (likely user-specific)        
         '/google-auth',   // Ignore Google authentication route
-        '/pending-approval', // Ignore pending approval route
+        '/register-step-two/', // Ignore pending approval route
         '/time',          // Ignore time page (if it's dynamic)
         '/unauthorized',  // Ignore unauthorized access page
+        '/verification-failed',  // Ignore unauthorized access page
       ]
     }
   },
