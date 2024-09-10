@@ -14,6 +14,12 @@
   import { useUserStore } from '~/stores/userStore';
   import  AdminMorderationTable from '~/components/tables/AdminMorderationTable.vue';
   
+  definePageMeta({
+    ssr: 'true',
+    layout: 'admin',
+    middleware: ['permissions'],
+    roles: ['admin'],
+});
   const userStore = useUserStore()
   
   const email = userStore.user?.email

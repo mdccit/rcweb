@@ -1,6 +1,6 @@
 <template>
     <!-- Start Filter Section  -->
-    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-16">
+    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-semibold text-black">Filters</h2>
             <button class="flex text-ceil text-sm">
@@ -38,7 +38,7 @@
             </li>
             <!-- <li class="flex justify-between items-center mb-2  hover:bg-lightGray">
                 <a href="#" class="flex items-center w-full text-black p-2 rounded-md">
-                    <img class="w-5" src="../../assets/css/images/sports.png" alt="">
+                    <img class="w-5" src="@/assets/css/images/sports.png" alt="">
                     <span class="pl-2.5">Events</span>
                 </a>
             </li> -->
@@ -70,7 +70,7 @@
             <li class="flex justify-between items-center hover:bg-lightGray">
                 <a href="#" class="flex items-center text-black p-2 rounded-md">
                     <div class="bg-mintGreen p-1 rounded">
-                        <img src="../../assets/css/images/man-medal.png" alt="" class=" w-4 h-4">
+                        <img src="@/assets/css/images/man-medal.png" alt="" class=" w-4 h-4">
                     </div>
 
                     <span class="pl-2.5">Coaches</span>

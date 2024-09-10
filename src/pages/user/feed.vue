@@ -1,11 +1,11 @@
 <template>
-  <div class="mt-16">
+  <div>
 
     <section>
         <!--start card 01 -->
         <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-3">
           <div class="flex">
-            <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-14 h-14 mr-4">
+            <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-14 h-14 mr-4">
             <div class="basis-full flex flex-col">
               <textarea  type="text" placeholder="Write your thoughts..." v-model="newPost.description" 
               class="text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 "> </textarea>
@@ -56,7 +56,7 @@
               <div>
                 <div class="flex items-center justify-between">
                   <div class="flex items-center space-x-3">
-                    <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-12 h-12">
+                    <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-12 h-12">
                     <div>
                       <div class="text-md font-bold text-black">{{ post.school }}</div>
                       <div class="flex space-x-2 items-center">
@@ -84,7 +84,7 @@
                 <hr class="mt-5 mb-3 text-pigeonBlue">
                  <div class="flex items-center justify-between">
                 <div class="flex space-x-3 items-center">
-                    <img src="@/assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-10 h-10">
+                  <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
                   <div>
                     <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
                     <div class="text-darkSlateBlue text-xs">{{ post.school }}</div>

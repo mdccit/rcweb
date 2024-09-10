@@ -44,6 +44,8 @@ export const useUserStore = defineStore('user', {
       }
     },
     setUser(user) {
+      if (!user) return;
+      
       this.user = user;
       this.token = user.token;
       this.user_role = user.role || 'default';
@@ -64,6 +66,11 @@ export const useUserStore = defineStore('user', {
         // Store the user in localStorage
         localStorage.setItem('user', JSON.stringify(user));
       }
+    },
+
+    setTempUser(role,token) {
+      this.token = token;
+      this.user_role = role || 'default';
     },
 
     clearUser() {

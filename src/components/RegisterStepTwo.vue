@@ -1,7 +1,8 @@
 <template>
   <div class="min-h-screen w-full bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4"
     style="background-image: url(https://qa1.recruited.qualitapps.com/static/bg-generic.svg);">
-    <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-4xl">
+    <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl">
+      <form @submit.prevent="handleSubmitStep2">
       <div class="flex items-center space-x-4">
         <div class="flex self-center items-center">
           <!-- <NuxtLink to="/register" class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full">
@@ -27,7 +28,7 @@
           <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="player" type="radio"
             value="player" v-model="role" name="role">
           <div
-            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'player' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
+            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'player' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
             <div class="tile-icon"></div>
             <label for="player" class="text-sm text-black mb-2">Player</label>
           </div>
@@ -38,7 +39,7 @@
           <input class="radio-input  absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="coach" type="radio"
             value="coach" v-model="role" name="role">
           <div
-            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'coach' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
+            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'coach' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
             <img class="mt-1" src="@/assets/images/coach_icon.png">
             <label for="coach" class="text-sm text-black mb-2">Coach</label>
           </div>
@@ -49,7 +50,7 @@
           <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="parent" type="radio"
             value="parent" v-model="role" name="role">
           <div
-            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'parent' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
+            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'parent' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
             <img class="mt-1" src="@/assets/images/parent.png">
             <label for="parent" class="text-sm text-black  mb-2">Parent</label>
           </div>
@@ -60,7 +61,7 @@
           <input class="radio-input text-black absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="business"
             type="radio" value="business" v-model="role" name="role">
           <div
-            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'business' ? 'border-blue-500 bg-blue-50' : 'border-gray-300']">
+            :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'business' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
             <img class="mt-1" src="@/assets/images/bussiness.png">
             <label for="business" class="text-sm text-black  mb-2">Business</label>
           </div>
@@ -73,17 +74,22 @@
         <div v-if="roleFields.includes('nationality')">
           <label for="nationality" class="block  text-sm font-normal text-gray-900 dark:text-gray mb-[20px]">Nationality
             *</label>
-          <NationalityDropdown :nationalities="nationalities" v-model="nationality" id="nationality"
+          <NationalityDropdown :nationalities="nationalities" v-model="nationality" id="nationality" :required="roleFields.includes('nationality')"
             label="Nationality" />
-        </div>
+          <span v-if="errors.nationality" class="text-red-500 text-sm ">{{ errors.nationality.join(', ')
+            }}</span>
 
+        </div>
 
         <div class="space-y-4" v-if="roleFields.includes('country')">
           <label for="country"
             class="font-normal text-black block text-sm text-gray-900 dark:text-gray mb-[20px]">Country
             *</label>
           <CountryDropdown :countries="countries" v-model="country" id="country" class="mt-0" label="Country *" />
+          <span v-if="errors.country" class="text-red-500 text-sm ">{{ errors.country.join(', ')
+            }}</span>
         </div>
+
 
         <div class="space-y-4" v-if="roleFields.includes('phone_code_country')">
           <label for="phone_code_country"
@@ -104,23 +110,36 @@
 
           <div class="grid grid-cols-5 gap-3 items-center -mt-[9px]">
             <CountryCodeDropdown :country_codes="country_codes" v-model="phone_code_country" name="phone_code"
-              data-validation-key="phone_code" :disabled="action === 'view'" class="col-span-2 h-12" />
+              data-validation-key="phone_code" class="col-span-2 h-12" />
+
             <input type="text" id="phone_number" v-model="phone_number"
-              class=" mt-[4px] h-12 col-span-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
+              class=" mt-[4px] h-12 col-span-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-steelBlue light:focus:border-steelBlue"
               placeholder="Number" required />
           </div>
+          <ul>
+            <li> <span v-if="errors.phone_code_country" class="text-red-500 text-sm ">{{ errors.phone_code_country.join(',')
+                }}</span> </li>
+            <li> <span v-if="errors.phone_number" class="text-red-500 text-sm ">{{ errors.phone_number.join(', ')
+                }}</span></li>
+          </ul>
+
         </div>
 
 
         <div class="space-y-4" v-if="roleFields.includes('gender')">
           <label for="gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">Gender *</label>
           <GenderDropDown :genders="genders" v-model="gender" id="gender" label="Gender *" />
+          <span v-if="errors.gender" class="text-red-500 text-sm ">{{ errors.gender.join(', ')
+            }}</span>
         </div>
+
 
         <div class="space-y-4" v-if="roleFields.includes('handedness')">
           <label for="handedness" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Handedness
             *</label>
           <HandednessDropdown :handedness="handednesses" v-model="handedness" id="handedness" label="Handedness *" />
+          <span v-if="errors.handedness" class="text-red-500 text-sm ">{{ errors.handedness.join(', ')
+            }}</span>
         </div>
 
         <!-- Height Selection with Feet/Inches and Centimeters Toggle -->
@@ -149,26 +168,34 @@
           <!-- Height in Centimeters -->
           <div v-if="height_in_cm" class="-mt-[8px]">
             <input type="number" id="height_cm" v-model="height_cm"
-              class="bg-gray-50 border h-12 -mt-[8px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="Height in cm" />
+              class="bg-gray-50 border h-12 -mt-[8px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
+              placeholder="Height in cm" :required="roleFields.includes('height_cm')" />
+            <span v-if="errors.height_cm" class="text-red-500 text-sm ">{{ errors.height_cm.join(', ')
+              }}</span>
           </div>
           <!-- Height in Feet/Inches -->
           <div v-else class="grid grid-cols-10 gap-3 items-center -mt-[8px]">
             <input type="number" id="height_ft" v-model="height_ft"
-              class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="Ft" />
+              class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
+              placeholder="Ft" :required="roleFields.includes('height_ft')" />
+            <span v-if="errors.height_ft" class="text-red-500 text-sm ">{{ errors.height_ft.join(', ')
+              }}</span>
             <input type="number" id="height_in" v-model="height_in"
-              class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="In" />
+              class="col-span-5 bg-gray-50 border -mt-[8px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
+              placeholder="In" :required="roleFields.includes('height_in')" />
+            <span v-if="errors.height_in" class="text-red-500 text-sm ">{{ errors.height_in.join(', ')
+              }}</span>
           </div>
         </div>
 
-        <div class="grid grid-cols-10 gap-3 items-center">
-          <div class="col-span-5" v-if="roleFields.includes('utr')">
+        <div class="grid grid-cols-10 gap-3 items-center" v-if="roleFields.includes('utr')">
+          <div class="col-span-5" >
             <label for="utr" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">UTR *</label>
             <input type="text" id="utr" v-model="utr"
-              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
               placeholder="UTR" required />
+            <span v-if="errors.utr" class="text-red-500 text-sm ">{{ errors.utr.join(', ')
+              }}</span>
           </div>
           <div class="col-span-5" v-if="roleFields.includes('gpa')">
             <label for="gpa" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-7">
@@ -191,17 +218,21 @@
             </label>
 
             <input type="text" id="gpa" v-model="gpa"
-              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+              class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
               placeholder="GPA" required />
+            <span v-if="errors.gpa" class="text-red-500 text-sm ">{{ errors.gpa.join(', ')
+              }}</span>
           </div>
         </div>
 
         <div v-if="roleFields.includes('graduation')">
           <label for="graduation" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Graduation
             Month/Year *</label>
-          <input type="month" v-model="graduation"
-            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-primary light:focus:ring-blue-500 light:focus:border-blue-500"
+          <input type="month" v-model="graduation" :required="roleFields.includes('graduation')"
+            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full ps-10 p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-primary light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="Select Month/Year" />
+          <span v-if="errors.graduation_month_year" class="text-red-500 text-sm ">{{ errors.graduation_month_year.join(', ')
+            }}</span>
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('budget')">
@@ -224,6 +255,8 @@
             </div>
           </label>
           <BudgetDropdown :player_budgets="budgets" v-model="selectedBudget" id="budgets" label="Budgets *" />
+          <span v-if="errors.player_budget" class="text-red-500 text-sm ">{{ errors.player_budget.join(', ')
+            }}</span>
         </div>
 
 
@@ -234,8 +267,10 @@
           <label for="player_first_name" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">
             First Name *</label>
           <input type="text" id="player_first_name" v-model="player_first_name"
-            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
             placeholder="First Name" required />
+          <span v-if="errors.player_first_name" class="text-red-500 text-sm ">{{ errors.player_first_name.join(', ')
+            }}</span>
         </div>
 
         <div class="space-y-4 mt-2" v-if="roleFields.includes('player_last_name')">
@@ -243,25 +278,31 @@
           <label for="player_last_name" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Last
             Name *</label>
           <input type="text" id="player_last_name" v-model="player_last_name"
-            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
             placeholder="Last Name" required />
+          <span v-if="errors.player_last_name" class="text-red-500 text-sm ">{{ errors.player_last_name.join(', ')
+            }}</span>
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('email')">
           <label for="email" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Email *</label>
           <input type="email" id="email" v-model="email"
-            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
             placeholder="Email" required />
+          <span v-if="errors.email" class="text-red-500 text-sm ">{{ errors.email.join(', ')
+            }}</span>
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('player_country')">
           <label for="player_country" class="font-normal text-black block mb-2 text-sm text-gray-900 dark:text-gray">
             Country *</label>
-          <CountryDropdown :countries="countries" v-model="player_country" id="player_country" label="Player Country" />
+          <CountryDropdown :countries="countries" v-model="player_country" id="player_country" label="Player Country" :required="roleFields.includes('player_country')" />
+          <span v-if="errors.player_country" class="text-red-500 text-sm ">{{ errors.player_country.join(', ')
+            }}</span>
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('player_phone_code_country')">
-            <label for="phone_code_country"
+          <label for="phone_code_country"
             class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
             <div class="col-span-9">Mobile No *</div>
             <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right tooltip"><svg
@@ -278,40 +319,91 @@
           </label>
           <div class="grid grid-cols-5 gap-3 items-center">
             <CountryCodeDropdown :country_codes="country_codes" v-model="player_phone_code_country"
-              name="player_phone_code" data-validation-key="player_phone_code" :disabled="action === 'view'"
-              class="col-span-2" />
+              name="player_phone_code" data-validation-key="player_phone_code" class="col-span-2" :required="roleFields.includes('player_phone_code_country')" />
             <input type="text" id="player_phone_number" v-model="player_phone_number"
-              class="col-span-3 bg-gray-50 border mt-[4px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500"
-              placeholder="Player Number" required />
+              class="col-span-3 bg-gray-50 border mt-[4px] h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-steelBlue light:focus:border-steelBlue"
+              placeholder="Player Number" :required="roleFields.includes('player_phone_number')"/>
           </div>
+          <ul>
+            <li><span v-if="errors.player_phone_code_country" class="text-red-500 text-sm ">{{
+            errors.player_phone_code_country.join(', ')
+          }}</span></li>
+            <li><span v-if="errors.player_phone_number" class="text-red-500 text-sm ">{{
+            errors.player_phone_number.join(',')
+          }}</span></li>
+          </ul>
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('player_gender')">
           <label for="player_gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">
             Gender *</label>
-          <GenderDropDown :genders="genders" v-model="player_gender" id="player_gender" label="Player Gender" />
+          <GenderDropDown :genders="genders" v-model="player_gender" id="player_gender" label="Player Gender" :required="roleFields.includes('player_gender')" />
+          <span v-if="errors.player_gender" class="text-red-500 text-sm ">{{ errors.player_gender.join(', ')
+            }}</span>
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('player_handedness')">
           <label for="player_handedness" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">
             Handedness *</label>
-          <HandednessDropdown :handedness="handednesses" v-model="player_handedness" id="player_handedness"
+          <HandednessDropdown :handedness="handednesses" v-model="player_handedness" id="player_handedness" :required="roleFields.includes('player_handedness')"
             label="Player Handedness" />
+          <span v-if="errors.player_handedness" class="text-red-500 text-sm ">{{ errors.player_handedness.join(', ')
+            }}</span>
         </div>
 
-        <div v-if="roleFields.includes('player_height_ft')" class="grid grid-cols-10 gap-3 items-center">
-          <label class="col-span-10 font-normal block  text-sm text-gray-900 dark:text-gray">
-            Height *</label>
-          <input type="text" id="player_height_ft" v-model="player_height_ft"
-            class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
-            placeholder="Ft" required />
-          <input type="text" id="player_height_in" v-model="player_height_in"
-            class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
-            placeholder="In" required />
+        <div v-if="roleFields.includes('player_height')" class="space-y-4">
+          <div class="flex">
+            <!-- Toggle between Feet/Inches and Centimeters -->
+            <div class="flex-1">
+              <label for="height" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray mr-[20px]">
+                Height *
+              </label>
+            </div>
+
+            <div class="flex-1">
+              <div class="flex text-last">
+                <div class="flex text-black items-center">
+                  <input type="radio" id="player_height_in_cm" v-model="player_height_in_cm" :value="true" />
+                  <label for="player_height_in_cm" class="ml-2">Centimeters</label>
+                </div>
+                <div class="flex text-black items-center ml-3">
+                  <input type="radio" id="height_ft_in" v-model="player_height_in_cm" :value="false" />
+                  <label for="height_ft_in" class="ml-2">Feet/Inches</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Height in Centimeters -->
+          <div v-if="player_height_in_cm" class="-mt-[8px]">
+            <input type="number" id="player_height_cm" v-model="player_height_cm"
+              class="bg-gray-50 border h-12 -mt-[8px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
+              placeholder="Height in cm" />
+            <span v-if="errors.player_height_cm" class="text-red-500 text-sm ">{{ errors.player_height_cm.join(', ')
+              }}</span>
+          </div>
+
+          <!-- Height in Feet/Inches -->
+          <div v-else class="grid grid-cols-10 gap-3 items-center minus-margin-8">
+            <input type="number" id="player_height_ft" v-model="player_height_ft"
+              class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
+              placeholder="Ft" required />
+            <input type="number" id="player_height_in" v-model="player_height_in"
+              class="col-span-5 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5"
+              placeholder="In" required />
+          </div>
+          <ul>
+            <li> <span v-if="errors.player_height_ft" class="text-red-500 text-sm ">{{ errors.player_height_ft.join(', ')
+                }}</span></li>
+            <li> <span v-if="errors.player_height_in" class="text-red-500 text-sm ">{{ errors.player_height_in.join(', ')
+                }}</span></li>
+          </ul>
         </div>
+
 
         <div v-if="roleFields.includes('player_budget')">
-            <label for="player_budget" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
+          <label for="player_budget"
+            class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
             <div class="col-span-9">Budget *</div>
             <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right tooltip"><svg
                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -329,44 +421,55 @@
             </div>
           </label>
           <BudgetDropdown :player_budgets="budgets" v-model="player_budget" id="player_budget" label="Player Budget" />
+          <span v-if="errors.player_budget" class="text-red-500 text-sm ">{{ errors.player_budget.join(', ')
+            }}</span>
         </div>
 
         <div v-if="roleFields.includes('player_utr')">
           <label for="player_utr" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray"> UTR *</label>
           <input type="text" id="player_utr" v-model="player_utr"
-            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="Player UTR" required />
+          <span v-if="errors.player_utr" class="text-red-500 text-sm ">{{ errors.player_utr.join(', ')
+            }}</span>
         </div>
 
         <div v-if="roleFields.includes('player_gpa')">
           <label for="player_gpa" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray"> GPA *</label>
           <input type="text" id="player_gpa" v-model="player_gpa"
-            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+            class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="Player GPA" required />
+          <span v-if="errors.player_gpa" class="text-red-500 text-sm ">{{ errors.player_gpa.join(', ')
+            }}</span>
         </div>
 
         <div v-if="roleFields.includes('player_graduation_month_year')">
           <label for="player_graduation_month_year" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">
             Graduation Month/Year *</label>
           <input type="month" v-model="player_graduation_month_year"
-            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 text-black focus:border-blue-500 block w-full ps-10 p-2.5"
-            placeholder="Player Graduation Month/Year" />
+            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue text-black focus:border-steelBlue block w-full ps-10 p-2.5"
+            placeholder="Player Graduation Month/Year" :required="roleFields.includes('player_graduation_month_year')" />
+          <span v-if="errors.player_graduation_month_year" class="text-red-500 text-sm ">{{
+            errors.player_graduation_month_year.join(', ')
+          }}</span>
         </div>
 
         <div class="space-y-4" v-if="roleFields.includes('player_nationality')">
           <label for="player_nationality" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">
             Nationality *</label>
-          <NationalityDropdown :nationalities="nationalities" v-model="player_nationality" id="player_nationality"
+          <NationalityDropdown :nationalities="nationalities" v-model="player_nationality" id="player_nationality" :required="roleFields.includes('player_nationality')"
             label="Player Nationality" />
+          <span v-if="errors.player_nationality" class="text-red-500 text-sm ">{{ errors.player_nationality.join(', ')
+            }}</span>
         </div>
 
       </div>
 
 
-      <div class="space-y-4 mt-5">
+      <div class="space-y-4 mt-5" v-if="(role == 'parent' || role =='player')">
         <div class="flex items-center">
-          <input id="notEnrolled" type="checkbox" v-model="notEnrolled"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
+          <input id="notEnrolled" type="checkbox" v-model="notEnrolled" required="true"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-steelBlue dark:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
           <label for="notEnrolled" class="ms-2 text-sm font-normal text-gray-900 light:text-gray-600">
             I certify I am currently not enrolled in a U.S. school or have already informed the school of my choice
             to transfer, registering in the Transfer Portal.
@@ -374,7 +477,7 @@
         </div>
       </div>
 
-      <div class="space-y-4 mt-5">
+      <div class="space-y-4 mt-5"  v-if="(role == 'parent' || role =='player')">
         <p class="text-sm text-black text-warning-600">
           <svg class="mb-2 text-orange-400 w-4 h-4 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24"
             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -388,38 +491,27 @@
         </p>
       </div>
 
-      <div class="space-y-4 mt-5">
+      <div class="space-y-4 mt-5"  v-if="(role == 'parent' || role =='player')">
         <div class="flex items-center">
-          <input id="termsAccepted" type="checkbox" v-model="termsAccepted"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
+          <input id="termsAccepted" type="checkbox" v-model="termsAccepted" required
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-steelBlue light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
           <label for="termsAccepted" class="ms-2 text-sm font-medium text-gray-900 light:text-gray-300">
             I agree to the
-            <NuxtLink to="/terms" class="text-blue-600 light:text-blue-500 hover:underline">Terms of Service</NuxtLink>
+            <NuxtLink to="/terms" class="text-blue-600 light:text-steelBlue hover:underline">Terms of Service</NuxtLink>
             and
-            <NuxtLink to="/privacy" class="text-blue-600 light:text-blue-500 hover:underline">Privacy Policy </NuxtLink>
+            <NuxtLink to="/privacy" class="text-blue-600 light:text-steelBlue hover:underline">Privacy Policy </NuxtLink>
             .
           </label>
         </div>
       </div>
 
       <div class="flex items-center justify-end mt-6">
-        <button @click="handleSubmitStep2"
-          class="text-white bg-blue-500 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 light:bg-blue-600 light:hover:bg-blue-700 light:focus:ring-blue-800">
-          Sign up now for free
+        <button type="submit"
+          class="text-white bg-steelBlue hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 light:bg-blue-600 light:hover:bg-blue-700 light:focus:ring-blue-800">
+          Sign up now for free 
         </button>
       </div>
-
-
-      <!-- Display error messages -->
-      <div v-if="errors.length" class="error-messages">
-        <p class="error-title">Validation Errors:</p>
-        <ul class="error-list">
-          <li v-for="(error, index) in splitErrors" :key="index" class="error-item">
-            {{ error }}
-          </li>
-        </ul>
-      </div>
-
+    </form>
     </div>
 
 
@@ -427,6 +519,7 @@
     <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
   </div>
 </template>
+
 
 
 <script setup>
@@ -440,6 +533,7 @@ import GenderDropDown from '~/components/common/select/GenderDropDown.vue';
 import BudgetDropdown from '~/components/common/select/BudgetDropdown.vue';
 import HandednessDropdown from '~/components/common/select/HandednessDropdown.vue';
 import Notification from '~/components/common/Notification.vue';
+import { handleError } from '@/utils/handleError';
 import { useNuxtApp } from '#app';
 definePageMeta({ colorMode: 'light', layout: 'outer' },)
 // Access authService from the context
@@ -469,7 +563,6 @@ const notEnrolled = ref(false);
 const termsAccepted = ref(false);
 const error = ref('');
 const route = useRoute();
-const errors = ref([]);
 const notification_type = ref('');
 
 const selectedCountry = ref(null);
@@ -480,11 +573,13 @@ const country_codes = ref([]);
 const genders = ref([]);
 const handednesses = ref([]);
 const router = useRouter();
-const userId = route.params.userId;
 const monthInput = ref(null);
 
+
+const loading = ref(false);
 const showNotification = ref(false);
 const notificationMessage = ref('');
+const notificationKey = ref(0);
 
 // Player-specific fields
 const player_first_name = ref('');
@@ -495,8 +590,10 @@ const player_phone_code_country = ref('');
 const player_phone_number = ref('');
 const player_gender = ref('');
 const player_handedness = ref('');
+const player_height_in_cm = ref(false);
 const player_height_ft = ref('');
 const player_height_in = ref('');
+const player_height_cm = ref('');
 const player_budget = ref('');
 const player_utr = ref('');
 const player_gpa = ref('');
@@ -512,13 +609,35 @@ defineProps({
 });
 
 
-const action = () => {
-  // Define what the action should do
-  console.log('Action performed');
-};
-
-// Computed property to split error messages by comma
-const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
+// Define reactive error state
+const errors = ref({
+  nationality: [],
+  height: [],
+  handedness: [],
+  budget: [],
+  utr: [],
+  gpa: [],
+  graduation: [],
+  gender: [],
+  player_first_name: [],
+  player_last_name: [],
+  email: [],
+  player_country: [],
+  player_phone_code_country: [],
+  player_phone_number: [],
+  player_gender: [],
+  player_handedness: [],
+  player_height: [],
+  player_budget: [],
+  player_utr: [],
+  player_gpa: [],
+  player_graduation_month_year: [],
+  player_nationality: [],
+  role: [],
+  country: [],
+  phone_code_country: [],
+  phone_number: []
+});
 
 function showPicker() {
   if (monthInput.value) {
@@ -540,33 +659,16 @@ onMounted(() => {
   loadBudgets();
   loadHandness();
 });
-const toggleHeightMode = () => {
-  // Toggle the height mode between 'feet' and 'cm'
-  height_in_cm.value = !height_in_cm.value;
-};
-
-
 
 const handleSubmitStep2 = async () => {
-  console.log('handleSubmitStep2 called');
+
   try {
     error.value = '';
-    errors.value = [];
+    errors.value = {};  // Reset errors before submitting
+    loading.value = true;  // Set loading state
     notification_type.value = '';
     notificationMessage.value = '';
     showNotification.value = false; // Reset the notification state
-    console.log('Preparing data...');
-
-    // Trigger validation
-    if (!validateForm()) {
-      console.log('validation errors exist');
-      return; // Exit if validation fails
-    }
-
-    // Continue only if there are no validation errors
-    if (errors.value.length > 0) {
-      return; // Exit the function if there are validation errors
-    }
 
     let endpoint;
     const data = {
@@ -575,9 +677,6 @@ const handleSubmitStep2 = async () => {
       phone_code_country: phone_code_country.value,
       phone_number: phone_number.value
     };
-
-    console.log('Role:', role.value);
-    console.log('Data:', data);
 
     if (role.value === 'player') {
       endpoint = `/auth/player-register`;
@@ -607,8 +706,8 @@ const handleSubmitStep2 = async () => {
         player_handedness: player_handedness.value,
         player_height_ft: player_height_ft.value,
         player_height_in: player_height_in.value,
-        player_height_in_cm: height_in_cm.value,
-        player_height_cm: height_cm.value,
+        player_height_in_cm: player_height_in_cm.value,
+        player_height_cm: player_height_cm.value,
         player_budget: player_budget.value,
         player_utr: player_utr.value,
         player_gpa: player_gpa.value,
@@ -620,145 +719,75 @@ const handleSubmitStep2 = async () => {
     } else if (role.value === 'business') {
       endpoint = `/auth/${role.value}-manager-register`;
     }
-
-
-    console.log('Endpoint:', endpoint);
-    const response = await $authService.registerStepTwo(endpoint, data);
-
-    if (response.status === 200) {
-      notification_type.value = 'success';
-      notificationMessage.value = response.display_message || 'Registration successful!';
-      showNotification.value = true;
-      router.push('/dashboard');
-    } else {
-      error.value = response.data.message;
-      errors.value.push(response.message);
-      notification_type.value = 'failure';
-      notificationMessage.value = response.display_message || 'Registration failed. Please try again.';
-      showNotification.value = true;
-      console.log('Registration failed:', response.data.message);
-    }
-  } catch (err) {
-    if (err.response?.data?.message) {
-      if (Array.isArray(err.response.data.message)) {
-        errors.value = err.response.data.message;
+    
+      if (endpoint === undefined || endpoint === 'undefined') {
+        triggerNotification('Please Select Role!', 'failure');
+      } else if ((role.value == 'parent' || role.value == 'player') && notEnrolled.value !== true) {
+        triggerNotification('Please Accept Enrollment!', 'failure');
+      } else if ((role.value == 'parent' || role.value == 'player') && termsAccepted.value !== true) {
+        triggerNotification('Please Accept Terms!', 'failure');
       } else {
-        errors.value = [err.response.data.message];
+
+      const response = await $authService.registerStepTwo(endpoint, data);
+
+      if (response.status === 200) {
+        notification_type.value = 'success';
+        notificationMessage.value = response.display_message || 'Registration successful!';
+        showNotification.value = true;
+        if(role.value == 'coach' || role.value == 'business'){
+          router.push('/user/approval-pending');
+        }else if (role.value == 'player' || role.value == 'parent'){
+          router.push('/app');
+        }else if (role.value == 'admin'){
+          router.push('/dashboard');
+        }
+      
       }
-    } else {
-      errors.value = [err.response?.data?.message || err.message];
+      else if (response.status === 401) {
+        console.log('401 detected, redirecting to login...');
+        await router.push('/login');
+        // try {
+        //   // const logout_response = $authService.logout({ bearer_token: token });
+
+        //   // If the logout was successful, clear user data and redirect
+        //   if (logout_response.status === 200) {
+        //     userStore.clearUser(); // Clear user from store
+        //     await router.push('/login'); // Redirect to login page
+        //   } else {
+        //     console.error('Logout failed.');
+        //   }
+        // } catch (error) {
+        //   console.error('Error during logout:', error);
+        // }
+      } else {
+        error.value = response.data.message;
+        errors.value.push(response.message);
+        notification_type.value = 'failure';
+        notificationMessage.value = response.display_message || 'Registration failed. Please try again.';
+        showNotification.value = true;
+      }
     }
 
-    // Handle the error notification
-    notification_type.value = 'failure';
-    notificationMessage.value = 'An error occurred. Please try again later.';
-    showNotification.value = true;
+  } catch (error) {
+    handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
+  } finally {
+    loading.value = false;  // Reset loading state
   }
 };
 
 
-const validateForm = () => {
-  errors.value = []; // Clear previous errors
+const triggerNotification = (message, type) => {
+  notificationMessage.value = message;
+  notification_type.value = type;
+  showNotification.value = true;
 
-  // Basic Validation: Common for all roles
-  if (!role.value) {
-    errors.value.push('Role selection is required.');
-  }
-  if (!country.value) {
-    errors.value.push('Country selection is required.');
-  }
+  notificationKey.value += 1; // Force re-render
 
-  if (!phone_code_country.value) {
-    errors.value.push('Mobile code is required.');
-  }
-  if (!phone_number.value) {
-    errors.value.push('Mobile number is required.');
-  }
-
-
-  // Additional Validation: Role-specific fields
-  if (role.value === 'player') {
-    if (!nationality.value) {
-      errors.value.push('Nationality selection is required.');
-    }
-    if (!height_ft.value && !height_in_cm.value) {
-      errors.value.push('Height selection is required.');
-    }
-    if (!handedness.value) {
-      errors.value.push('Handedness selection is required.');
-    }
-    if (!selectedBudget.value) {
-      errors.value.push('Player budget is required.');
-    }
-    if (!utr.value) {
-      errors.value.push('UTR is required.');
-    }
-    if (!gpa.value) {
-      errors.value.push('GPA is required.');
-    }
-    if (!graduation.value) {
-      errors.value.push('Graduation month/year is required.');
-    }
-    if (!gender.value) {
-      errors.value.push('Gender selection is required.');
-    }
-  }
-
-  if (role.value === 'parent') {
-    if (!player_first_name.value) {
-      errors.value.push('Player first name is required.');
-    }
-    if (!player_last_name.value) {
-      errors.value.push('Player last name is required.');
-    }
-    if (!email.value) {
-      errors.value.push('Email is required.');
-    }
-    if (!player_country.value) {
-      errors.value.push('Player country selection is required.');
-    }
-    if (!player_phone_code_country.value) {
-      errors.value.push('Player mobile code is required.');
-    }
-    if (!player_phone_number.value) {
-      errors.value.push('Player mobile number is required.');
-    }
-    if (!player_gender.value) {
-      errors.value.push('Player gender selection is required.');
-    }
-    if (!player_handedness.value) {
-      errors.value.push('Player handedness selection is required.');
-    }
-    if (!player_height_ft.value && !height_in_cm.value) {
-      errors.value.push('Player height selection is required.');
-    }
-    if (!player_budget.value) {
-      errors.value.push('Player budget is required.');
-    }
-    if (!player_utr.value) {
-      errors.value.push('Player UTR is required.');
-    }
-    if (!player_gpa.value) {
-      errors.value.push('Player GPA is required.');
-    }
-    if (!player_graduation_month_year.value) {
-      errors.value.push('Player graduation month/year is required.');
-    }
-    if (!player_nationality.value) {
-      errors.value.push('Player nationality is required.');
-    }
-  }
-
-  if (role.value === 'coach' || role.value === 'business') {
-    // Add any specific validation for coach or business if needed
-  }
-
-  // Return true if there are no errors, false otherwise
-  return errors.value.length === 0;
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    showNotification.value = false;
+  }, 3000);
 };
-
-
-
 const loadCountries = async () => {
   try {
     countries.value = await loadCountryList();
@@ -807,62 +836,22 @@ const loadCountryCodes = async () => {
   }
 };
 
-
 const roleFields = computed(() => {
   switch (role.value) {
     case 'player':
-      return [
-        'country',
-        'phone_code_country',
-        'phone_number',
-        'gender',
-        'handedness',
-        'height_ft',
-        'height_in',
-        'utr',
-        'gpa',
-        'graduation',
-        'nationality',
-        'budget',
-        'height'
-      ];
-
+      return ['country', 'phone_code_country', 'phone_number', 'gender', 'handedness', 'height_ft', 'height_in', 'height_cm', 'utr', 'gpa', 'graduation', 'nationality', 'budget', 'height'];
+      
     case 'parent':
-      return [
-        'country',
-        'phone_code_country',
-        'phone_number',
-        'player_first_name',
-        'player_last_name',
-        'email',
-        'player_country',
-        'player_phone_code_country',
-        'player_phone_number',
-        'player_gender',
-        'player_handedness',
-        'player_height_ft',
-        'player_height_in',
-        'player_budget',
-        'player_utr',
-        'player_gpa',
-        'player_graduation_month_year',
-        'player_nationality',
-        'height'
-      ];
-
+      return ['country', 'phone_code_country', 'phone_number', 'player_first_name', 'player_last_name', 'email', 'player_country', 'player_phone_code_country', 'player_phone_number', 'player_gender', 'player_handedness', 'player_height_ft', 'player_height_in', 'player_budget', 'player_utr', 'player_gpa', 'player_graduation_month_year', 'player_nationality', 'player_height'];
+      
     case 'coach':
     case 'business':
-      return [
-        'country',
-        'phone_code_country',
-        'phone_number'
-      ];
-
+      return ['country', 'phone_code_country', 'phone_number'];
+      
     default:
       return [];
   }
 });
-
 
 
 </script>
@@ -930,6 +919,9 @@ label input {
   /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 1;
+}
+.minus-margin-8{
+  margin-top: 8px !important;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
