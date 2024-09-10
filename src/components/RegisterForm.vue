@@ -123,9 +123,7 @@
         </div>
 
         <div class="flex items-center justify-end mt-5">
-          <button type="submit" class="text-white bg-steelBlue hover:bg-blue-800 focus:outline-none focus:ring-4 
-              focus:ring-blue-300 font-normal rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 
-              dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          <button type="submit" class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-darkAzureBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue ml-4 !px-8 !py-2.5 transition">
             Sign up now for free
           </button>
 
