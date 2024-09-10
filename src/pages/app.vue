@@ -57,7 +57,7 @@
                       <div class="flex space-x-2 items-center">
                         <!-- Display only for the coach - start -->
                         <!-- <div class="bg-mintGreen p-1 rounded-md flex items-center justify-center">
-                          <img src="~/assets/images/coach-icon-green.png" alt="" class="w-4">
+                          <img src="@/assets/images/coach-icon-green.png" alt="" class="w-4">
                         </div> -->
                         <!-- Display only for the coach - end -->
 

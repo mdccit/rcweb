@@ -232,23 +232,15 @@
                         <div id="dropdownUser" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">                      
                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
                                 <li>
-                                    <NuxtLink to="/" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Admin Dashboard</NuxtLink>
+                                    <NuxtLink to="/admin/dashbaord" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Admin Dashboard</NuxtLink>
                                 </li>
                             </ul>
                             <div class="py-2">
-                                <NuxtLink to="/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</NuxtLink>
+                                <NuxtLink to="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</NuxtLink>
                             </div>
                         </div>
-                    </div>
-
-
-
+                    </div>                
                     
-                    
-
-                    
-
-
                 </div>
             </div>
         </div>

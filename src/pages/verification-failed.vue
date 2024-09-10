@@ -16,29 +16,18 @@
             </div>
             <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg soverflow-hidden sm:max-w-lg ">
                 <div class="flex items-center space-x-4 mb-8">
-                    <!-- <div class="flex self-center items-center">
-                        <NuxtLink to="/login" class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full">
-                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M15 6l-6 6l6 6"></path>
-                            </svg> <span class="sr-only">Go back</span>
-                        </NuxtLink>
-                    </div> -->
-                    <div class="self-center ">
+                           <div class="self-center ">
                         <h2 class="text-2xl text-black">Email Verification Failed</h2>
                     </div>
                 </div>
-                <p class="text-gray-800">In publishing and graphic design, Lorem ipsum is a placeholder text
-                        commonly used to demonstrate the visual form of a document or a typeface without relying
-                        on</p>
+                <p class="text-gray-800">{{ verification_message }}</p>
                 <div class="m-12"></div>
 
                 <!-- Notification Component -->
                 <Notification v-if="showNotification" :message="notificationMessage" :duration="3000" />
 
                 <div class="flex items-center justify-end mt-4">
-                    <button
+                    <button @click="resendVerification"
                         class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700">
                         <div class="flex flex-row items-center justify-center"><span v-if="!loading" class="">
                                 Resend</span>
@@ -64,5 +53,64 @@ import { ref } from 'vue';
 import { useNuxtApp, useRouter } from '#app';
 import Notification from '~/components/common/Notification.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';  
-definePageMeta({ colorMode: 'light', layout: 'outer'},)
+definePageMeta({ colorMode: 'light', layout: 'outer'} );
+import { handleError } from '@/utils/handleError';
+
+const nuxtApp = useNuxtApp();
+const router = useRouter();
+const route = useRoute();
+const email = ref('');
+const showNotification = ref(false); // To control the visibility of the notification
+const notificationMessage = ref('');
+const loading = ref(false);
+const notification_type = ref('');
+const errors = ref({});
+const user_id = ref('');
+const verification_message = ref('');
+const notificationKey = ref(0);
+
+onMounted(() => {
+    user_id.value = route.query.userId || ''; // Capture userId from query parameters
+    verification_message.value = route.query.message || 'Verification failed.'; // Capture the message or set a default message
+});
+
+
+const resendVerification = async () => {
+    loading.value = true;
+    try {
+        const type = localStorage.getItem('authType');
+        const result = await nuxtApp.$authService.resendVerificationEmail(user_id.value);
+
+        // Extract display_message from the response
+        if (result.status === 200) {
+            triggerNotification(result.display_message, 'success');
+            notification_type.value = 'success';
+            loading.value = false;
+           
+        } else {
+             triggerNotification('Email Verfication Sending Failed.', 'failure');
+            loading.value = false;
+        }
+        loading.value = false;
+        showNotification.value = true;
+
+        } catch (error) {
+        loading.value = false;
+        handleError(error, errors, notificationMessage, notification_type, showNotification, loading); 
+    }
+};
+
+const triggerNotification = (message, type) => {
+  notificationMessage.value = message;
+  notification_type.value = type;
+  showNotification.value = true;
+
+  notificationKey.value += 1; // Force re-render
+
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    showNotification.value = false;
+  }, 2000);
+};
+
 </script>
