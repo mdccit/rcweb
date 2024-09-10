@@ -21,7 +21,7 @@ module.exports = {
         sans: ['Figtree', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        primary: '#3D7FFF',
+        // primary: '#3D7FFF',
         primaryblue: '#3D7FFF',
         secondary:'#DFE4EE',
         black: '#000000',
@@ -44,7 +44,6 @@ module.exports = {
         ceil: '#8CA4CE', // Placeholder color
         limegreen: '#4AC220',
         lightred: '#F9697A',
-        amber: '#FFA800',
         mintGreen: '#A4FFA2',
         orangeRed: '#FF0000',
         lightPink: '#FFA9A9',
@@ -56,7 +55,8 @@ module.exports = {
         brightSkyBlue: '#2999ff', // Primary blue button hover color // primary-400
         royalBlue: '#0068c7', // Primary blue button active color // primary-600
         lightAzure: '#52acff', // Primary blue button focus border color // primary-300
-        lightPastalBlue: '#7ac0ff80' // Primary blue button focus color // primary-200
+        lightPastalBlue: '#7ac0ff80', // Primary blue button focus color // primary-200
+        tealGray:'#3b82f680'
       },
       testred: {
         lightest: '#efdfa4',

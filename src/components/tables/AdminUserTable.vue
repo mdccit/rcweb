@@ -35,15 +35,20 @@
     </div>
 
     <!-- Data Table -->
-    <el-table :data="filteredItems" style="width: 100%" v-loading="loading"  @row-click="handleRowClick"  :default-sort="{ prop: 'joined_at', order: 'descending' }">
+    <el-table :data="filteredItems" stripe style="width: 100%" v-loading="loading"  @row-click="handleRowClick"  :default-sort="{ prop: 'joined_at', order: 'descending' }">
       <!-- Display Name Column -->
-      <el-table-column prop="display_name" label="Display Name" sortable></el-table-column>
+      <el-table-column prop="display_name" label="DISPLAY NAME" sortable></el-table-column>
 
       <!-- Email Column -->
-      <el-table-column prop="email" label="Email" sortable></el-table-column>
+      <el-table-column prop="email" label="EMAIL" sortable class="truncate-text" show-overflow-tooltip>
+        <template v-slot="scope">
+          <span class="truncate-text show-overflow-tooltip">{{scope.row.email }}</span>
+        </template>
+        
+      </el-table-column>
 
       <!-- User Role Column -->
-      <el-table-column prop="user_role" label="User Role" sortable>
+      <el-table-column prop="user_role" label="USER ROLE" sortable>
         <template v-slot="scope">
           <span class="" :class="scope.row.user_role == 'Coach' ? 'text-black' : 'text-blue-500'">
 
@@ -87,20 +92,20 @@
       </el-table-column>
 
       <!-- Joined At Column -->
-      <el-table-column prop="joined_at" label="Joined Date" sortable>
+      <el-table-column prop="joined_at" label="JOINED DATE" sortable>
         <template v-slot="scope">
           <span>{{ formatDate(scope.row.joined_at) }}</span>
         </template>
       </el-table-column>
 
       <!-- Last Seen At Column -->
-      <el-table-column prop="last_seen_at" label="Last Seen At" sortable>
+      <el-table-column prop="last_seen_at" label="LAST SEEN AT" sortable>
         <template v-slot="scope">
           <span>{{ scope.row.last_seen_at ? formatDate(scope.row.last_seen_at) : 'Never' }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="Actions">
+      <el-table-column label="ACTIONS">
         <template v-slot="scope">
           <!-- Select Record Button -->
           <!-- <button @click="viewDetails(scope.row)"

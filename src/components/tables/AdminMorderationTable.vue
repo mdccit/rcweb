@@ -2,7 +2,7 @@
     <el-card>
       <!-- <el-input v-model="search" placeholder="Search" class="input-with-select" clearable></el-input> -->
       <div class="p-1 text-right">
-        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+        <!-- <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
           class="text-white mr-2 bg-blue-100 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           type="button">
           <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -11,9 +11,26 @@
               d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z" />
           </svg>
   
-        </button>
+        </button> -->
+        <button class="text-white bg-gray-200 hover:bg-gray-300 focus:bg-gray-300 border rounded h-[40px] w-[50px] mr-1 ">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </button>
+      <button id="dropdownToggleButton" data-dropdown-toggle="dropdownToggle"
+        class="text-white bg-gray-200 hover:bg-gray-300  border rounded h-[40px] w-[50px] mr-1 mx-auto focus:bg-gray-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
+          fill="currentColor">
+          <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+          <path fill-rule="evenodd"
+            d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </button>
   
-        <button id="dropdownToggleButton" data-dropdown-toggle="dropdownToggle"
+        <!-- <button id="dropdownToggleButton" data-dropdown-toggle="dropdownToggle"
           class="text-white bg-blue-100 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           type="button">
           <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +40,7 @@
             <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
           </svg>
   
-        </button>
+        </button> -->
   
         <!-- Dropdown menu -->
         <div id="dropdownToggle"
@@ -67,18 +84,18 @@
       </div>
   
   
-      <el-table :data="items" style="width: 100%" v-loading="loading" @row-click="handleRowClick">
-        <el-table-column  prop="priority" label="Priority" sortable></el-table-column>
-        <el-table-column  prop="joined_at" label="Details" sortable>
+      <el-table :data="items" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick">
+        <el-table-column  prop="priority" label="PRIORITY" sortable></el-table-column>
+        <el-table-column  prop="joined_at" label="DETAILS" sortable>
             <template v-slot="scope">
                 <span>User Creation - Needs Approval</span>
            </template>
         </el-table-column>
-        <el-table-column  prop="joined_at" label="Status" sortable>
+        <el-table-column  prop="joined_at" label="STATUS" sortable>
             <template v-slot="scope">
                 <button  dusk="splade-confirm-confirm" type="button"
-                   class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto sm:text-sm"
-                   :class="scope.row.is_closed ? 'bg-gray-300 hover:bg-gray-500' : 'bg-red-500 hover:bg-red'"
+                   class=" w-[100px] inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2  sm:text-sm"
+                   :class="scope.row.is_closed ? 'bg-gray-300 hover:bg-gray-500' : 'bg-red-500 hover:bg-red-700'"
                     >
                   
                    {{ scope.row.is_closed ? "Closed":"Open" }}
