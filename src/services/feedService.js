@@ -128,9 +128,9 @@ const createFeedService = (apiService) => {
   };
 
   const unlike_post = async (post_id, request_body) => {
-    const url = `/feed/post/${post_id}/like`;
+    const url = `/feed/posts/${post_id}/like`;
     const body = request_body;
-
+    
     try {
       const response = await apiService.deleteRequest(url, body);
       return response;

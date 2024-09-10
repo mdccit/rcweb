@@ -7,7 +7,7 @@
           <div class="flex">
             <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-14 h-14 mr-4">
             <div class="basis-full flex flex-col">
-              <textarea  type="text" placeholder="Write your thoughts..." v-model="newPost.description"
+              <textarea  type="text" placeholder="Write your thoughts..." v-model="newPost.description" 
               class="text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 "> </textarea>
               
               <div class="flex justify-between items-center mt-2">
@@ -33,10 +33,15 @@
                     <span class="pl-1.5">Video</span>
                   </button> -->
                 </div>
-                <button @click="writePost" class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-8 py-2 rounded-lg text-sm">Post</button>
+                <button @click="writePost" class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-8 py-2 rounded-lg text-sm">
+                  <span v-if="!postAdd"> Post</span>
+                  <LoadingSpinner v-else />
+                </button>
               </div>
             </div>
+            
           </div>
+         
         </div>
         <!--end card 01 -->
     </section>
@@ -44,7 +49,7 @@
 
     <section>
         <!-- Iterate over posts and display them -->
-        <div v-for="post in posts" :key="post.id"
+        <div v-for="post in posts" :key="post.id" 
           class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-5 mt-3">
           <div class="flex items-start space-x-4">
             <div class="flex-1">
@@ -53,7 +58,7 @@
                   <div class="flex items-center space-x-3">
                     <img src="../../assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-12 h-12">
                     <div>
-                      <div class="text-md font-bold text-black">{{ post.user.display_name }}</div>
+                      <div class="text-md font-bold text-black">{{ post.school }}</div>
                       <div class="flex space-x-2 items-center">
                         <!-- Display only for the coach - start -->
                         <!-- <div class="bg-mintGreen p-1 rounded-md flex items-center justify-center">
@@ -71,31 +76,84 @@
                       </div>
                     </div>
                   </div>
+              
+                
                 </div>
 
                 <!-- Display only for the school - start -->
                 <hr class="mt-5 mb-3 text-pigeonBlue">
-
+                 <div class="flex items-center justify-between">
                 <div class="flex space-x-3 items-center">
-                  <img src="@/assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-10 h-10">
+                    <img src="@/assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-10 h-10">
                   <div>
-                    <div class="font-bold text-sm text-black">Coach Name</div>
-                    <div class="text-darkSlateBlue text-xs">Coach at Whittier College</div>
+                    <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
+                    <div class="text-darkSlateBlue text-xs">{{ post.school }}</div>
                   </div>
+                  
                 </div>
+                <button
+                  :id="'post-button-' + post.id"
+                  :aria-labelledby="'post-dropdown-' + post.id"
+                  data-dropdown-toggle="'post-dropdown-' + post.id"
+                  data-dropdown-delay="500"
+                  data-dropdown-trigger="hover"
+                  class="text-white bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                  type="button"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-5 text-periwinkleBlue"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z"
+                    />
+                  </svg>
+                </button>
+                <!-- Action Dropdown menu -->
+                <div   :id="'post-dropdown-' + post.id" class="z-10 hidden bg-white rounded-lg shadow w-30">
+                  <ul class="py-2 text-sm"    :aria-labelledby="'post-button-' + post.id">
+                    <li class="text-black">
+                      <a href="#" class="block px-4 py-2 hover:bg-lightGray flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                          stroke-width="1.5" stroke="currentColor" class="size-4 mr-2">
+                          <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                        </svg>
+                        Edit post
+                      </a>
+                    </li>
+                    <li class="text-red">
+                      <a href="#" class="block px-4 py-2 hover:bg-lightGray flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                          stroke-width="1.5" stroke="currentColor" class="size-4 mr-2">
+                          <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                        </svg>
+                      Delete</a>
+                    </li>
+                  </ul>
+                </div> 
+              </div>
+                
                 <!-- Display only for the school - end -->
-
+                
                 <h3 v-if="post.type === 'blog' || post.type === 'event'" class="mt-4 text-darkSlateBlue text-base">
                   {{ post.title }}
                 </h3>
-                <p class="mt-4 text-darkSlateBlue text-base">{{ post.description }}</p>
+                <p class="mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
               </div>
             </div>
           </div>
 
           <div class="flex items-center justify-between mt-3">
             <div class="flex items-center space-x-4">
-              <button class="flex items-center space-x-1" @click="likePost(post.id)">
+              <button class="flex items-center space-x-1" :disabled="likeButton" @click="likePost(post.id,post), post.user_has_liked== true? post.likes_count=0 : post.likes_count = post.likes_count+1">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="size-5" :class="post.likes_count ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -105,7 +163,7 @@
               </button>
               <div>
                 <h2>
-                  <button type="button"
+                  <button type="button" @click="toggleCommentSection(post.id)"
                     class="flex items-center space-x-1 text-darkSlateBlue dark:bg-white dark:text-darkSlateBlue"
                     data-accordion-target="#accordion-collapse-comment-2-body" aria-expanded="false"
                     aria-controls="accordion-collapse-comment-2-body">
@@ -121,23 +179,27 @@
             </div>
           </div>
 
-          <!-- Comment Section Component -->
-          <CommentSection :comments="post.comments" :postId="post.id"  @refreshComments="refreshComments"/>
-
-          <div class="mt-4">
-            <div class="flex space-x-3">
-              <img src="@/assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-10 h-10">
-              <div class="grow">
-                <textarea v-model="newComment" type="text" placeholder="Write your comment..." class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4"></textarea>
-                <div class="flex justify-end mt-2">
-                  <button @click="addComment(post.id)" :disabled="commentAdd" class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-4 py-2 rounded-lg text-sm">
-                    <span v-if="!commentAdd"> Post Comment</span>
-                    <LoadingSpinner v-else />
-                   </button>
+          <div :id="post.id" :class="{hide:isHiddden(post.id)}" >
+            <!-- Comment Section Component -->
+            <CommentSection  :comments="post.comments" :postId="post.id"  @refreshComments="refreshComments"/>
+            <div class="mt-4">
+              <div class="flex space-x-3">
+                 <img src="@/assets/user/images/Rectangle 117.png" alt="" class="rounded-lg w-10 h-10">
+                 <div class="grow">
+                    <textarea v-model="newComment" type="text" placeholder="Write your comment..." class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4"></textarea>
+                    <div class="flex justify-end mt-2">
+                      <button @click="addComment(post.id)" :disabled="commentAdd" class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-4 py-2 rounded-lg text-sm">
+                        <span v-if="!commentAdd"> Post Comment</span>
+                        <LoadingSpinner v-else />
+                      </button>
+                   </div>
+                  </div>
                 </div>
               </div>
-            </div>
           </div>
+        
+
+          
         
 
         </div>
@@ -172,7 +234,7 @@ import CommentSection from '~/components/user/feed/CommentSection.vue';
 // State variables
 const posts = ref([]);
 const newComment = ref('');
-
+const visibleCommentSections= ref({}) 
 // State to hold new post data
 const newPost = ref({
   description: '',
@@ -186,42 +248,64 @@ const notificationMessage = ref('');
 const loading = ref(false);
 const notification_type = ref('');
 const commentAdd = ref(false)
-
+const isHidddenComment =ref([])
 // Access feedService from the context
 const nuxtApp = useNuxtApp();
 const $feedService = nuxtApp.$feedService;
-
+const likeButton =ref(false)
+const postAdd = ref(false)
 onMounted(async () => {
   try {
     const response = await $feedService.list_posts({});
     posts.value = response || [];
+    const idsArray = [];
+    for (const post of posts.value) {
+      idsArray[post.id] = false
+    }
+    isHidddenComment.value =idsArray
   } catch (error) {
     console.error('Failed to load posts:', error.message);
   }
 });
 
 // Function to create a new post
-const writePost = async () => {
+const writePost =  async() => {
   try {
-    const response = await $feedService.create_post(newPost.value);
+
+    postAdd.value =true
+    let htmlText = newPost.value.description.replace(/\n/g, '<br>');
+    let newValue ={
+      description: htmlText,
+      type: 'post', 
+      publisher_type: 'user', 
+      title: '',
+    }
+    const response = await $feedService.create_post(newValue);
+
     newPost.value = {
-                      description: '',
-                      type: 'post', // default type
-                      publisher_type: 'user', // default publisher type
-                      title: '',
-                    }
+            description: '',
+            type: 'post', 
+            publisher_type: 'user', 
+            title: '',
+          }
+    postAdd.value =false
     loadPosts();
    
-    // Optionally, reload posts or redirect the user
-  } catch (error) {
-    console.error('Failed to create post:', error.message);
-  }
+ } catch (error) {
+     console.error('Failed to create post:', error.message);
+ }
 };
 
-const likePost = async (post_id) => {
+const likePost = async (post_id,post) => {
   try {
-    const response = await $feedService.like_post(post_id);
-    console.log('Post liked successfully:', response);
+    likeButton.value =true
+    if(post.user_has_liked){
+      const response = await $feedService.unlike_post(post_id);
+      
+    }else{
+      const response = await $feedService.like_post(post_id);
+    }
+    likeButton.value =false
     loadPosts(); // Optionally, reload posts to update the like count
   } catch (error) {
     console.error('Failed to like post:', error.message);
@@ -275,4 +359,23 @@ const formatDate = (dateString) => {
 };
 
 
+
+const toggleCommentSection= (postId) => {
+  isHidddenComment.value[postId] = !isHidddenComment.value[postId]
+  console.log(isHidddenComment.value)
+      // $set(visibleCommentSections.value, postId, !visibleCommentSections[postId]);
+      // console.log(visibleCommentSections.value)
+}
+
+const isHiddden = (id) =>{
+  return isHidddenComment.value[id] == false
+}
+
+
 </script>
+
+<style scoped>
+.hide {
+  display: none;
+}
+</style>
