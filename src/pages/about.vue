@@ -115,24 +115,15 @@
 import { useUserStore } from '~/stores/userStore'
 import { useUserStore } from '~/stores/userStore'
 
-const userStore = useUserStore()
+// const userStore = useUserStore()
 
-const email = userStore.user?.email
-const token = userStore.user?.token
-const userStore = useUserStore()
+// const email = userStore.user?.email
+// const token = userStore.user?.token
+// const userStore = useUserStore()
 
-const email = userStore.user?.email
-const token = userStore.user?.token
+// const email = userStore.user?.email
+// const token = userStore.user?.token
 </script>
 
 <style scoped>
-h1 {
-h1 {
-    color: #333;
-}
-
-p {
-    font-size: 16px;
-}
-}
 </style>
