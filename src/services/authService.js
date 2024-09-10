@@ -84,7 +84,7 @@ const createAuthService = (apiService) => {
       if (error.response) {
         throw error.response; // Pass the full response to be handled in the frontend
       } else {
-        throw new Error(error.message || 'Failed to register');
+        throw new Error(error.message || 'Failed to login');
       }
     }
   };

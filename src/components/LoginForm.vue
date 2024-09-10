@@ -61,7 +61,7 @@
     </form>
 
       <div class="w-full mt-5">
-        <button type="button" @click="initiateGoogleAuth('login')"
+        <button type="button" @click="initiateGoogleAuth()"
           class="py-2.5 w-full px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-steelBlue focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 transition">
           <span><img class="absolute -mt-13" src="@/assets/images/google_icon.png"></span>Sign In with Google
         </button>
@@ -194,10 +194,10 @@ const userLogin = async (autoLogin = false) => {
 };
 
 // Function to handle Google authentication
-const initiateGoogleAuth = async (type) => {
+const initiateGoogleAuth = async () => {
   try {
-    authType.value = type;
-    localStorage.setItem('authType', type);
+    localStorage.removeItem('authType');
+    localStorage.setItem('authType', 'login');
     const authUrl = await $authService.getGoogleAuthUrl();
     window.location.href = authUrl; // Redirect to Google authentication URL
   } catch (err) {

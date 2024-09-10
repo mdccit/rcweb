@@ -66,9 +66,14 @@ const handleGoogleAuthCallback = async () => {
         localStorage.setItem('token', token);
       }
       userStore.setUser({ token });
-      setTimeout(() => {
+      if(type === 'login'){
+        router.push('/app');
+      }else{
+        setTimeout(() => {
         router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
       }, 2000);
+      }
+   
     } catch (err) {
       triggerNotification(err.message, 'failure');
     }

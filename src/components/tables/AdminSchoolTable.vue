@@ -23,7 +23,7 @@
     </div>
 
     <!-- Data Table -->
-    <el-table :data="filteredItems" style="width: 100%" v-loading="loading"  @row-click="handleRowClick">
+    <el-table :data="filteredItems" style="width: 100%" v-loading="loading"  @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
       <!-- Display Name Column -->
       <el-table-column prop="name" label="Display Name" sortable></el-table-column>
 
@@ -149,7 +149,7 @@ const viewDetails = (row) => {
     path: '/school/schoolGeneralDetails',
     query: {
       action: 'view',
-      userId: row.id
+      school_id: row.id
     }
   });
 };
@@ -160,7 +160,7 @@ const editRecord = (row) => {
     path: '/school/schoolGeneralDetails',
     query: {
       action: 'edit',
-      userId: row.id
+      school_id: row.id
     }
   });
 };
