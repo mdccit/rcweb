@@ -4,15 +4,15 @@
     <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl">
       <form @submit.prevent="handleSubmitStep2">
       <div class="flex items-center space-x-4">
-        <div class="flex self-center items-center">
-          <!-- <NuxtLink to="/register" class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full">
+        <!-- <div class="flex self-center items-center">
+          <NuxtLink to="/register" class="bg-black/10 p-2 hover:bg-black/15 active:bg-black/20 rounded-full">
             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
               stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path d="M15 6l-6 6l6 6"></path>
             </svg>
             <span class="sr-only">Go back</span>
-          </NuxtLink> -->
-        </div>
+          </NuxtLink>
+        </div> -->
         <div class="self-center">
           <h1 class="text-2xl font-bold text-primary">{{ $t('register.title') }}</h1>
         </div>
@@ -497,9 +497,9 @@
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-steelBlue light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
           <label for="termsAccepted" class="ms-2 text-sm font-medium text-gray-900 light:text-gray-300">
             I agree to the
-            <NuxtLink to="/terms" class="text-blue-600 light:text-steelBlue hover:underline">Terms of Service</NuxtLink>
+            <NuxtLink to="/terms" target="_blank" class="text-blue-600 light:text-steelBlue hover:underline">Terms of Service</NuxtLink>
             and
-            <NuxtLink to="/privacy" class="text-blue-600 light:text-steelBlue hover:underline">Privacy Policy </NuxtLink>
+            <NuxtLink to="/privacy" target="_blank" class="text-blue-600 light:text-steelBlue hover:underline">Privacy Policy </NuxtLink>
             .
           </label>
         </div>
