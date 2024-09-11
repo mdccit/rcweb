@@ -513,7 +513,8 @@
           <div v-if="roleFields.includes('player_budget')">
             <label for="player_budget"
               class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
-              <div class="col-span-9">Budget *</div>
+              <div class="col-span-9">Budget  <span
+                class="text-red-600">*</span> </div>
               <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right tooltip"><svg
                   xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="size-4 ml-[20px]">
