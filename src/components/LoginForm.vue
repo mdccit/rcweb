@@ -138,9 +138,6 @@ const userLogin = async (autoLogin = false) => {
     if (response.status === 200) {
       successMessage.value = response.display_message;
 
-
-      console.log('auto login', autoLogin);
-      console.log('auto me', rememberMe.value);
       // Save credentials if rememberMe is checked and it's not autoLogin
       if (!autoLogin && rememberMe.value) {
         const credentials = {
@@ -208,6 +205,8 @@ const initiateGoogleAuth = async () => {
 onMounted(() => {
   const savedCredentials = localStorage.getItem('encryptedCredentials');
   const sessionToken = Cookies.get('session');  // Check if session token exists
+  const authType = localStorage.getItem('authType');
+  const userToken = localStorage.getItem('token') || null;  // Set token to null if not found
 
   if (savedCredentials) {
     const decryptedData = decryptCredentials(savedCredentials);
@@ -219,16 +218,27 @@ onMounted(() => {
       // Auto-login with the saved credentials
       // userLogin(true);  // Change 'handleLogin(true)' to 'userLogin(true)'
     }
-  } else if (sessionToken) {
+  } else if (sessionToken && userToken) {
     const userRole = localStorage.getItem('user_role');
-    const userToken = localStorage.getItem('token');
-
+    
     if (userRole === 'default') {
       userStore.setTempUser(userRole, userToken);
       router.push({ name: 'register-step-two-token', params: { token: userToken } });
     }
+  } else if (!sessionToken && authType === 'login' && userToken) {
+    const userRole = localStorage.getItem('user_role');
+
+    if (!userRole || userRole === 'undefined') {
+      userStore.setTempUser(userRole, userToken);
+      router.push({ name: 'register-step-two-token', params: { token: userToken } });
+    }
+  } else if (!sessionToken && !userToken) {
+    // Handle the case where neither sessionToken nor userToken exists
+    console.log('No valid session or token found, redirecting to login');
+    router.push('/login');
   }
 });
+
 
 
 // Function to encrypt and save credentials to localStorage

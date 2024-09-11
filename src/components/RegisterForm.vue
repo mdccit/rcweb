@@ -93,7 +93,7 @@
                   class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                   placeholder="" required>
               </div>
-              <p v-if="errors.email" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.email.join(', ') }}</p>
+              <p v-if="errors.password" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.password.join(', ') }}</p>
           </div>
 
           <div>
