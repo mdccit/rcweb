@@ -63,7 +63,6 @@
 import { useUserStore } from '~/stores/userStore'
 import schoolTable from '~/components/tables/AdminSchoolTable.vue';
 import schoolCreateModal from '~/components/shared/schoolCreateModal.vue';
-import BusinessTable from '~/components/tables/BusinessTable.vue';
 
 const userStore = useUserStore()
 

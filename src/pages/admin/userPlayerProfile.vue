@@ -312,7 +312,6 @@
 
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue';
-import UserTable from '~/components/tables/UserTable.vue';
 import { useUserStore } from '~/stores/userStore'
 import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.vue';
 import NationalityDropdown from '~/components/common/select/NationalityDropdown.vue';
