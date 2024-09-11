@@ -6,7 +6,9 @@
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-3">
               <!-- Safely access user profile image and display default image if not available -->
-              <img :src="post?.user?.profile_image || defaultImage" alt="User image" class="rounded-lg w-12 h-12">
+              <!-- <img :src="post?.user?.profile_image || defaultImage" alt="User image" class="rounded-lg w-12 h-12"> -->
+              <img src="@/assets/user/images/Rectangle_117.png" alt="User image" class="rounded-lg w-12 h-12">
+
               <div>
                 <!-- Safely access user display name -->
                 <div class="text-md font-bold text-black">{{ post?.user?.display_name || 'Unknown User' }}</div>
@@ -74,7 +76,7 @@ const props = defineProps({
 });
 
 // Default image to be used when profile image is not available
-const defaultImage = "@/assets/user/images/default-avatar.png";
+const defaultImage = "@/assets/user/images/Rectangle_117.png";
 
 // Format date function
 const formatDate = (dateString) => {
