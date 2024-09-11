@@ -87,7 +87,7 @@ const fetchBusinessMembers = async (businessId) => {
     errors.value = [];  // Reset errors
     try {
         const data = await $adminService.get_business_members(businessId);
-        members.value = data || []; // Set the fetched members
+        members.value = data.data || []; // Set the fetched members
     } catch (error) {
         console.error('Failed to load business members:', error.message);
         errors.value.push('Failed to load business members.');
