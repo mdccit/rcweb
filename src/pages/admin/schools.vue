@@ -5,7 +5,7 @@
             <div class="">
                 <button @click="openCreateSchoolModal"
                 class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring 
-                        focus:ring-opacity-50 bg-steelBlue hover:bg-blue-700">
+                        focus:ring-opacity-50 bg-steelBlue hover:bg-blue-700 text-white">
                     Create new
                     <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"

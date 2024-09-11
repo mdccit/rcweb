@@ -233,7 +233,7 @@
           <label for="graduation" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Graduation
             Month/Year  <span class="text-red-600">*</span> </label>
           <input type="month" v-model="graduation" :required="roleFields.includes('graduation')"
-            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full ps-10 p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-primary light:focus:ring-steelBlue light:focus:border-steelBlue"
+            class="bg-gray-50 h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-steelBlue focus:border-steelBlue block w-full ps-10 p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:focus:ring-steelBlue light:focus:border-steelBlue"
             placeholder="Select Month/Year" />
           <span v-if="errors.graduation_month_year" class="text-red-500 text-sm ">{{ errors.graduation_month_year.join(', ')
             }}</span>

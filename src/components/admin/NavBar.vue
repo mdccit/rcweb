@@ -14,7 +14,7 @@
           </div>
           <div class="hidden space-x-6 sm:-my-px sm:ml-10 sm:flex">
             <NuxtLink to="/admin/dashboard"
-              class="inline-flex items-center px-1 pt-1 border-b-2 border-primary-400 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-primary-700 transition duration-150 ease-in-out">
+              class="inline-flex items-center px-1 pt-1 border-b-2  text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-primary-700 transition duration-150 ease-in-out">
               Dashboard
             </NuxtLink>
             <div
