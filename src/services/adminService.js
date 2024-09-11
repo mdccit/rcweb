@@ -440,20 +440,25 @@ const createAdminService = (apiService) => {
 
   
   const search_school_users = async (school_id, page, per_page_items, search_key = '') => {
+    // Build the base URL
+    let url = `/admin/schools/search-users/${school_id}?page=${page}&per_page_items=${per_page_items}`;
 
-    const url = `/admin/school/search-users/${school_id}?page=${page}&per_page_items=${per_page_items}&search_key=${search_key}`;
-  
-    try {
-      const response = await apiService.getRequest(url);
-      if (response && response.data) {
-        return response.data;
-      } else {
-        throw new Error('Unexpected API response structure');
-      }
-    } catch (error) {
-      throw new Error(error.message || 'Failed to retrieve businesses');
+    // Add search_key to URL only if it's not an empty string
+    if (search_key) {
+        url += `&search_key=${encodeURIComponent(search_key)}`;
     }
-  };
+
+    try {
+        const response = await apiService.getRequest(url);
+        if (response && response.data) {
+            return response.data;
+        } else {
+            throw new Error('Unexpected API response structure');
+        }
+    } catch (error) {
+        throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+};
 
   return {
     new_user_register,

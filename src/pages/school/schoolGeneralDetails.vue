@@ -26,20 +26,10 @@
         </div>
     </div>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="flex gap-x-4"><NuxtLink to="/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b"><button
-                    class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200"> General
-                    Details </button></NuxtLink>
-                    <NuxtLink :to="{ path: '/school/schoolStaff', query: { school_id: schoolId } }">
-                        <button class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
-                          Staff &amp; Teams
-                        </button>
-                      </NuxtLink>
-                    <NuxtLink to="/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/sync"><button
-                    class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
-                    Synchronization </button></NuxtLink><NuxtLink to="/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/danger-zone"><button
-                    class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50"> Danger
-                    Zone </button></NuxtLink>
-        </div>
+
+        <!-- Use the SchoolNavigation component -->
+        <SchoolNavigation :schoolId="school_id" />
+
         <div class="my-8"></div>
         <div class="">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
@@ -230,6 +220,7 @@ import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
 import { useRoute } from 'vue-router';
 import Notification from '~/components/common/Notification.vue';
+import SchoolNavigation from '~/components/admin/school/SchoolNavigation.vue';
 
 const route = useRoute(); // Use useRoute to access query parameters
 
@@ -237,7 +228,6 @@ const route = useRoute(); // Use useRoute to access query parameters
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
 
-const schoolId = route.query.school_id; 
 const errors = ref([]);
 const userStore = useUserStore();
 const router = useRouter();
@@ -312,11 +302,11 @@ const updateSchoolDetails = async () => {
 
 
 // Fetch School Details
-const fetchSchoolDetails = async (schoolId) => {
+const fetchSchoolDetails = async (school_id) => {
     console.log('loading');
     errors.value = [];
     try {
-        const data = await $adminService.get_school_details(schoolId);
+        const data = await $adminService.get_school_details(school_id);
         school_id.value = data.id || '';
         name.value = data.name || '';
         bio.value = data.bio || '';

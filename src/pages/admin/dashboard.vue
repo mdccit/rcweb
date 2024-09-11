@@ -4,10 +4,6 @@
   
   </div>
   <!-- <div>
-    <DataTable />
-  </div> -->
-
-  <!-- <div>
     <h1>Image Upload with Crop and Resize</h1>
     <ImageUpload />
   </div> -->
@@ -21,7 +17,7 @@ import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore()
 
 definePageMeta({
-    ssr: true,
+    ssr: false,
     layout: 'admin',
     // middleware: ['permissions'],
     roles: ['admin'],
