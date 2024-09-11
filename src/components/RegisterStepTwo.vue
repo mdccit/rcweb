@@ -535,7 +535,6 @@ import HandednessDropdown from '~/components/common/select/HandednessDropdown.vu
 import Notification from '~/components/common/Notification.vue';
 import { handleError } from '@/utils/handleError';
 import { useNuxtApp } from '#app';
-definePageMeta({ colorMode: 'light', layout: 'outer' },)
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;

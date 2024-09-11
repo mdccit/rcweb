@@ -176,13 +176,27 @@ const createAdminService = (apiService) => {
     }
   };
 
+  const business_update = async (request_body) => {
+    
+    const url = `/admin/business-update/${request_body.business_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+
   const get_business_members = async (business_id) => {
     const url = `/admin/businesses/users/${business_id}`;
   
     try {
       const response = await apiService.getRequest(url);
-      if (response && response.data) {
-        return response.data;
+      if (response) {
+        return response;
       } else {
         throw new Error('Unexpected API response structure');
       }
@@ -193,7 +207,12 @@ const createAdminService = (apiService) => {
   
   const search_business_users = async (business_id,page , per_page_items, search_key = '') => {
 
-    const url = `/admin/businesses/search-users/${business_id}?page=${page}&per_page_items=${per_page_items}&search_key=${search_key}`;
+    const url = `/admin/businesses/search-users/${business_id}?page=${page}&per_page_items=${per_page_items}`;
+  
+        // Add search_key to URL only if it's not an empty string
+        if (search_key) {
+          url += `&search_key=${encodeURIComponent(search_key)}`;
+      }
   
     try {
       const response = await apiService.getRequest(url);
@@ -478,7 +497,7 @@ const createAdminService = (apiService) => {
     search_business_users,
     add_business_user,
     get_business_details,
-    school_update,
+    business_update,
     get_player_details,
     player_update,
     user_session_delete,

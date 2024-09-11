@@ -241,8 +241,6 @@ const division = ref('');
 const is_verified = ref(false);
 const is_approved = ref(false);
 
-
-
 // Computed property to split error messages by comma
 const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
 

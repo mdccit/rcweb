@@ -15,23 +15,10 @@
     </div>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex gap-x-4">
-                <NuxtLink to="businessGeneral">
-                    <button class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200">
-                        General Details
-                    </button>
-                </NuxtLink>
-                <NuxtLink to="businessMembers">
-                    <button class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200">
-                        Members
-                    </button>
-                </NuxtLink>
-                <NuxtLink to="businessDangerZone">
-                    <button class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
-                        Danger Zone
-                    </button>
-                </NuxtLink>
-            </div>
+      <!-- Use the BusinessNavigation component -->
+      <BusinessNavigation :businessId="business_id" />
+
+
             <div class="my-8"></div>
             <div class="">
                 <div class="my-8"></div>
@@ -39,7 +26,7 @@
                     <div class="flex justify-between">
                         <div class="flex-1 text-2xl font-bold mb-4 text-black"> All Members </div>
                         <div class="">
-                            <NuxtLink to="/business/BusinessAdd">
+                            <NuxtLink >
                                 <button @click="addMembers"
                                     class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
                                     Add User
@@ -77,40 +64,61 @@ import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 
+import Notification from '~/components/common/Notification.vue';
+import BusinessNavigation from '~/components/admin/business/BusinessNavigation.vue';
+
 const route = useRoute();
 const router = useRouter();
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
 
 const business_id = ref('');
-const businessName = ref('');
-const members = ref([]);
+const members = ref([]); // Array to store members
+const errors = ref([]);  // Array to handle error messages
 
+// Fetch business members on component mount
 onMounted(() => {
     business_id.value = route.query.business_id || '';
-    fetchBusinessMembers(business_id.value);
+    fetchBusinessMembers(business_id.value); // Load members
 });
 
+// Fetch business members from the service
 const fetchBusinessMembers = async (businessId) => {
+    errors.value = [];  // Reset errors
     try {
         const data = await $adminService.get_business_members(businessId);
-        members.value = data || [];
+        members.value = data || []; // Set the fetched members
     } catch (error) {
         console.error('Failed to load business members:', error.message);
+        errors.value.push('Failed to load business members.');
     }
 };
 
+// Navigate to the add member page
 const addMembers = () => {
     router.push({ path: '/business/businessAdd', query: { action: 'add', business_id: business_id.value } });
 };
 
+const triggerNotification = (message, type) => {
+  notificationMessage.value = message;
+  notification_type.value = type;
+  showNotification.value = true;
+
+  notificationKey.value += 1; // Force re-render
+
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    showNotification.value = false;
+  }, 3000);
+};
+
+
+
 definePageMeta({
     ssr: true,
     layout: 'admin',
-    // middleware: ['permissions'],
     roles: ['admin'],
 });
-
 </script>
 
 
