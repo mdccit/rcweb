@@ -315,17 +315,17 @@ const writePost =  async() => {
             title: '',
           }
     postAdd.value =false
-    // notificationMessage.value = response.display_message
+    notificationMessage.value = response.display_message
 
-    // showNotification.value =true;
-    // notification_type.value = "success"
+    showNotification.value =true;
+    notification_type.value = "success"
     loadPosts();
    
  } catch (error) {
-  // notificationMessage.value = error.message
+  notificationMessage.value = error.message
 
-  // showNotification.value =true;
-  // notification_type.value = "failure"
+  showNotification.value =true;
+  notification_type.value = "failure"
   newPost.value = {
     description: '',
     type: 'post', 
