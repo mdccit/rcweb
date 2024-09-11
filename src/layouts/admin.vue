@@ -20,16 +20,20 @@ import NavBar from '~/components/admin/NavBar.vue';
 
 const loading = ref(false);
 const router = useRouter();
-definePageMeta({ colorMode: 'light', })
+definePageMeta({ colorMode: 'light',  middleware: 'auth', });
 
-router.beforeEach((to, from, next) => {
-  loading.value = true;
-  next();
-});
 
-router.afterEach(() => {
-  loading.value = false;
-});
+// // Handle loading state during route transitions
+// router.beforeEach((to, from, next) => {
+//   loading.value = true;
+//   next();
+// });
+
+// router.afterEach(() => {
+//   loading.value = false;
+// });
+
+
 </script>
 
 <style scoped>

@@ -291,6 +291,9 @@ const userStore = useUserStore()
 const router = useRouter();
 const showNotification = ref(false);
 const notificationMessage = ref('');
+const loading = ref(false);
+const notificationKey = ref(0);
+const notification_type = ref('');
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -305,30 +308,30 @@ defineExpose({ clearForm });
 const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
 
 const action = ref(route.params.action || 'view'); // default to 'view' if action not provided
-const userId = ref(route.params.userId || '');
+const user_id = ref(route.params.user_id || '');
 
 onMounted(() => {
     loadCountryCodes();
 
     // Update the refs directly
     action.value = route.query.action || 'view';
-    userId.value = route.query.userId || '';
+    user_id.value = route.query.user_id || '';
 
     if (action.value === 'view' || action.value === 'edit') {
-        fetchUserDetails(userId.value);
+        fetchUserDetails(user_id.value);
     }
 });
 
 // Watch for changes in the route query parameters
-watch([() => route.query.action, () => route.query.userId], ([newAction, newUserId]) => {
+watch([() => route.query.action, () => route.query.user_id], ([newAction, newUserId]) => {
     action.value = newAction || 'view';
-    userId.value = newUserId || '';
+    user_id.value = newUserId || '';
 
     if (action.value === 'create') {
         clearForm();  // Clear form for "create"
     } else if (action.value === 'edit' || action.value === 'view') {
         errors.value = [];  // Clear errors for "edit" & "view"
-        fetchUserDetails(userId.value);  // Fetch user details for "edit" & "view"
+        fetchUserDetails(user_id.value);  // Fetch user details for "edit" & "view"
     }
 });
 
@@ -352,26 +355,17 @@ const updateUserDetails = async () => {
             phone_number: phone_number.value,
         });
 
+        console.log('response', response);
+
         if (response.status === 200) {
-            notificationMessage.value = response.display_message;
-            showNotification.value = true;
+            triggerNotification(response.display_message, 'success');
         } else {
-            errors.value.push(response.display_message);
-            notificationMessage.value = response.display_message;
-            showNotification.value = true;
+            triggerNotification(response.display_message, 'failure');
         }
 
 
     } catch (err) {
-        if (err.response?.data?.message) {
-            if (Array.isArray(err.response.data.message)) {
-                errors.value = err.response.data.message;
-            } else {
-                errors.value = [err.response.data.message];
-            }
-        } else {
-            errors.value = [err.response?.data?.message || err.message];
-        }
+        triggerNotification(err.message, 'failure')
     }
 };
 
@@ -381,12 +375,12 @@ const fetchUserDetails = async (userId) => {
     try {
         const data = await $adminService.get_user_details(userId);
         id.value = data.id,
-            first_name.value = data.first_name || '';
+        first_name.value = data.first_name || '';
         last_name.value = data.last_name || '';
         other_names.value = data.other_names || '';
         email.value = data.email || '';
         is_approved.value = data.is_approved,
-            user_role.value = data.user_role_id || '';
+        user_role.value = data.user_role_id || '';
         phone_code_country.value = data.phone_code_country || ''; // Adjust if needed
         phone_number.value = data.phone_number || '';             // Adjust if needed
         is_set_email_verified.value = data.is_approved === 1;
@@ -421,9 +415,23 @@ function clearForm() {
     errors.value = [];
 }
 
+const triggerNotification = (message, type) => {
+  notificationMessage.value = message;
+  notification_type.value = type;
+  showNotification.value = true;
+
+  notificationKey.value += 1; // Force re-render
+
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    showNotification.value = false;
+  }, 3000);
+};
+
+
 definePageMeta({
     layout: 'admin',
-    middleware: ['permissions'],
+    // middleware: ['permissions'],
     roles: ['admin'],
 });
 </script>
