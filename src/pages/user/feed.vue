@@ -88,7 +88,7 @@
                   <div>
                     <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
                     <div class="text-darkSlateBlue text-xs">{{ post.school_id != null ? post.school.name : '' }}</div>
-                    <!-- <div class="text-darkSlateBlue text-xs">{{ formatDate(post.updated_at) }}</div> -->
+                    <div v-if="post.school_id == null"  class="text-darkSlateBlue text-xs">{{ formatDate(post.updated_at) }}</div>
 
                   </div>
                   
@@ -315,11 +315,17 @@ const writePost =  async() => {
             title: '',
           }
     postAdd.value =false
+    // notificationMessage.value = response.display_message
+
+    // showNotification.value =true;
+    // notification_type.value = "success"
     loadPosts();
    
  } catch (error) {
-  showNotification.value =true;
-  notificationMessage.value = error.message
+  // notificationMessage.value = error.message
+
+  // showNotification.value =true;
+  // notification_type.value = "failure"
   newPost.value = {
     description: '',
     type: 'post', 
