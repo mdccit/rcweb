@@ -64,7 +64,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div class="border border-border rounded-lg px-8 py-12 text-center"><img
                                 src="@/assets/images/ivan.png" alt="Profile picture"
-                                class=" h-32 rounded-full w-16 md:w-32 h-16 md:h-32 mx-auto mb-6">
+                                class=" h-32 rounded-full w-16 w-32 h-16 h-32 mx-auto mb-6">
                             <h3 class="text-xl font-bold mb-1">Ivan Yatsuk</h3>
                             <p class="text-gray-600 mb-8">Co-Founder CEO</p>
                             <p>{{ $t('about.early_from_Minsk') }}
@@ -72,14 +72,14 @@
                         </div>
                         <div class="border border-border rounded-lg px-8 py-12 text-center"><img
                                 src="@/assets/images/tony.png" alt="Profile picture"
-                                class=" h-32 rounded-full w-16 md:w-32 h-16 md:h-32 mx-auto mb-6">
+                                class=" h-32 rounded-full w-16 w-32 h-16 h-32 mx-auto mb-6">
                             <h3 class="text-xl font-bold mb-1">Antonio Muniz-Hidalgo</h3>
                             <p class="text-gray-600 mb-8">Co-Founder &amp; CFO</p>
                             <p> {{ $t('about.originally_from_barcelona') }}</p>
                         </div>
                         <div class="border border-border rounded-lg px-8 py-12 text-center"><img
                                 src="@/assets/images/bruno.png" alt="Profile picture"
-                                class="h-32 rounded-full w-16 md:w-32 h-16 md:h-32 mx-auto mb-6">
+                                class="h-32 rounded-full w-16 w-32 h-16 h-32 mx-auto mb-6">
                             <h3 class="text-xl font-bold mb-1">Bruno Oliveira</h3>
                             <p class="text-gray-600 mb-8">CCO</p>
                             <p>{{ $t('about.born_in_Belo') }}</p>
