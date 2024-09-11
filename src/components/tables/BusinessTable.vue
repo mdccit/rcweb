@@ -106,7 +106,6 @@
           </li>
         </ul>
       </div>
-    </div>
 
 
     <el-table :data="filteredItems" style="width: 100%" v-loading="loading">
