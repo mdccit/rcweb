@@ -84,6 +84,7 @@
             <span v-if="errors.nationality" class="text-red-500 text-sm ">{{ errors.nationality.join(', ')
               }}</span>
 
+
           </div>
 
           <div class="space-y-4" v-if="roleFields.includes('country')">
@@ -96,6 +97,7 @@
             </div>
             <span v-if="errors.country" class="text-red-500 text-sm ">{{ errors.country.join(', ')
               }}</span>
+
           </div>
 
 
@@ -133,11 +135,10 @@
             <ul>
               <li> <span v-if="errors.phone_code_country" class="text-red-500 text-sm ">{{
                 errors.phone_code_country.join(',')
-              }}</span> </li>
+                  }}</span> </li>
               <li> <span v-if="errors.phone_number" class="text-red-500 text-sm ">{{ errors.phone_number.join(', ')
                   }}</span></li>
             </ul>
-
           </div>
 
 
@@ -150,8 +151,8 @@
 
             <span v-if="errors.gender" class="text-red-500 text-sm ">{{ errors.gender.join(', ')
               }}</span>
-          </div>
 
+          </div>
 
           <div class="space-y-4" v-if="roleFields.includes('handedness')">
             <label for="handedness" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Handedness
@@ -200,26 +201,29 @@
                 }}</span>
             </div>
             <!-- Height in Feet/Inches -->
-            <div v-else class="grid grid-cols-10 gap-3 items-center mt-8">
-              <div class="col-span-5 flex rounded-lg border border-gray-300 shadow-sm ">
+            <div v-else class="grid grid-cols-10 gap-3 items-center mt-8 mb-3">
+              <div class="col-span-5  rounded-lg border border-gray-300 shadow-sm ">
                 <input type="number" id="height_ft" v-model="height_ft"
                   class=" block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                   placeholder="Ft" :required="roleFields.includes('height_ft')" />
-                <span v-if="errors.height_ft" class="text-red-500 text-sm ">{{ errors.height_ft.join(', ') }}</span>
+                <span v-if="errors.height_ft" class="text-red-500 text-sm absolute">{{ errors.height_ft.join(', ')
+                  }}</span>
               </div>
 
               <div class="col-span-5 flex rounded-lg border border-gray-300 shadow-sm">
                 <input type="number" id="height_in" v-model="height_in"
                   class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                   placeholder="In" :required="roleFields.includes('height_in')" />
-                <span v-if="errors.height_in" class="text-red-500 text-sm ">{{ errors.height_in.join(', ')
-                  }}</span>
+                <span v-if="errors.height_in" class="text-red-500 text-sm absolute mt-[50px] ">{{
+                  errors.height_in.join(', ') }}</span>
+
               </div>
+
 
             </div>
           </div>
 
-          <div class="grid grid-cols-10 gap-3 items-center" v-if="roleFields.includes('utr')">
+          <div class="grid grid-cols-10 gap-3 items-center mt-2" v-if="roleFields.includes('utr')">
             <div class="col-span-5">
               <label for="utr" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">UTR <span
                   class="text-red-600">*</span> </label>
@@ -230,6 +234,7 @@
                   placeholder="UTR" required />
                 <span v-if="errors.utr" class="text-red-500 text-sm ">{{ errors.utr.join(', ')
                   }}</span>
+
               </div>
 
             </div>
@@ -259,13 +264,14 @@
                   placeholder="GPA" required />
                 <span v-if="errors.gpa" class="text-red-500 text-sm ">{{ errors.gpa.join(', ')
                   }}</span>
+
               </div>
 
             </div>
           </div>
 
           <div v-if="roleFields.includes('graduation')">
-            <label for="graduation" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray">Graduation
+            <label for="graduation" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray mt-2">Graduation
               Month/Year <span class="text-red-600">*</span> </label>
             <div class="flex rounded-lg border border-gray-300 shadow-sm">
               <input type="month" v-model="graduation" :required="roleFields.includes('graduation')"
@@ -274,6 +280,7 @@
               <span v-if="errors.graduation_month_year" class="text-red-500 text-sm ">{{
                 errors.graduation_month_year.join(', ')
               }}</span>
+
             </div>
 
           </div>
@@ -302,6 +309,7 @@
               <BudgetDropdown :player_budgets="budgets" v-model="selectedBudget" id="budgets" label="Budgets *" />
               <span v-if="errors.player_budget" class="text-red-500 text-sm ">{{ errors.player_budget.join(', ')
                 }}</span>
+
             </div>
 
           </div>
@@ -317,8 +325,10 @@
               <input type="text" id="player_first_name" v-model="player_first_name"
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 placeholder="First Name" required />
-              <span v-if="errors.player_first_name" class="text-red-500 text-sm ">{{ errors.player_first_name.join(', ')
-                }}</span>
+              <span v-if="errors.player_first_name" class="text-red-500 text-sm absolute mb-3 mt-[50px] ">{{
+                errors.player_first_name.join(', ')
+              }}</span>
+
             </div>
           </div>
 
@@ -330,8 +340,10 @@
               <input type="text" id="player_last_name" v-model="player_last_name"
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 placeholder="Last Name" required />
-              <span v-if="errors.player_last_name" class="text-red-500 text-sm ">{{ errors.player_last_name.join(', ')
-                }}</span>
+              <span v-if="errors.player_last_name" class="text-red-500 text-sm absolute mb-3 mt-[50px]">{{
+                errors.player_last_name.join(', ')
+              }}</span>
+
             </div>
 
           </div>
@@ -343,8 +355,9 @@
               <input type="email" id="email" v-model="email"
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 placeholder="Email" required />
-              <span v-if="errors.email" class="text-red-500 text-sm ">{{ errors.email.join(', ')
+              <span v-if="errors.email" class="text-red-500 text-sm absolute mb-3 mt-[50px]">{{ errors.email.join(', ')
                 }}</span>
+
             </div>
 
           </div>
@@ -355,9 +368,12 @@
             <div class="flex rounded-lg border border-gray-300 shadow-sm">
               <CountryDropdown :countries="countries" v-model="player_country" id="player_country"
                 label="Player Country" :required="roleFields.includes('player_country')" />
-            </div>
-            <span v-if="errors.player_country" class="text-red-500 text-sm ">{{ errors.player_country.join(', ')
+              <span v-if="errors.player_country" class="text-red-500 text-sm absolute mt-[50px]">{{
+                errors.player_country.join(', ')
               }}</span>
+            </div>
+
+
           </div>
 
           <div class="space-y-4" v-if="roleFields.includes('player_phone_code_country')">
@@ -381,21 +397,26 @@
                 <CountryCodeDropdown :country_codes="country_codes" v-model="player_phone_code_country"
                   name="player_phone_code" data-validation-key="player_phone_code" class=""
                   :required="roleFields.includes('player_phone_code_country')" />
+
+                <span v-if="errors.player_phone_code_country" class="text-red-500 text-sm absolute mt-[50px]">{{
+                  errors.player_phone_code_country.join(', ') }}</span>
               </div>
               <div class="flex rounded-lg border border-gray-300 shadow-sm col-span-3">
                 <input type="text" id="player_phone_number" v-model="player_phone_number"
                   class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                   placeholder="Player Number" :required="roleFields.includes('player_phone_number')" />
+
+                <span v-if="errors.player_phone_number" class="text-red-500 text-sm absolute mt-[50px]">{{
+                  errors.player_phone_number.join(',')
+                }}</span>
               </div>
 
             </div>
             <ul>
-              <li><span v-if="errors.player_phone_code_country" class="text-red-500 text-sm ">{{
-                errors.player_phone_code_country.join(', ')
-              }}</span></li>
-              <li><span v-if="errors.player_phone_number" class="text-red-500 text-sm ">{{
-                errors.player_phone_number.join(',')
-              }}</span></li>
+              <li>
+
+              </li>
+              <li></li>
             </ul>
           </div>
 
@@ -407,6 +428,7 @@
                 :required="roleFields.includes('player_gender')" />
               <span v-if="errors.player_gender" class="text-red-500 text-sm ">{{ errors.player_gender.join(', ')
                 }}</span>
+
             </div>
           </div>
 
@@ -416,8 +438,10 @@
             <div class="flex rounded-lg border border-gray-300 shadow-sm col-span-3">
               <HandednessDropdown :handedness="handednesses" v-model="player_handedness" id="player_handedness"
                 :required="roleFields.includes('player_handedness')" label="Player Handedness" />
-              <span v-if="errors.player_handedness" class="text-red-500 text-sm ">{{ errors.player_handedness.join(', ')
-                }}</span>
+              <span v-if="errors.player_handedness" class="text-red-500 text-sm absolute mt-[50px]">{{
+                errors.player_handedness.join(', ')
+              }}</span>
+
             </div>
           </div>
 
@@ -450,8 +474,10 @@
                 <input type="number" id="player_height_cm" v-model="player_height_cm"
                   class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                   placeholder="Height in cm" />
-                <span v-if="errors.player_height_cm" class="text-red-500 text-sm ">{{ errors.player_height_cm.join(', ')
-                  }}</span>
+                <span v-if="errors.player_height_cm" class="text-red-500 text-sm absolute mt-[50px]">{{
+                  errors.player_height_cm.join(', ')
+                }}</span>
+
               </div>
 
             </div>
@@ -462,21 +488,24 @@
                 <input type="number" id="player_height_ft" v-model="player_height_ft"
                   class=" block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                   placeholder="Ft" required />
+
+                <span v-if="errors.player_height_ft" class="text-red-500 text-sm ">{{
+                  errors.player_height_ft.join(',')
+                }}</span>
               </div>
 
               <div class="flex rounded-lg border border-gray-300 shadow-sm col-span-5">
                 <input type="number" id="player_height_in" v-model="player_height_in"
                   class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                  placeholder="In" required/>
+                  placeholder="In" required />
+                <span v-if="errors.player_height_in" class="text-red-500 text-sm ">{{
+                  errors.player_height_in.join(',')
+                }}</span>
               </div>
             </div>
             <ul>
-              <li> <span v-if="errors.player_height_ft" class="text-red-500 text-sm ">{{
-                errors.player_height_ft.join(',')
-                  }}</span></li>
-              <li> <span v-if="errors.player_height_in" class="text-red-500 text-sm ">{{
-                errors.player_height_in.join(',')
-                  }}</span></li>
+              <li></li>
+              <li></li>
             </ul>
           </div>
 
@@ -504,8 +533,10 @@
             <div class="flex rounded-lg border border-gray-300 shadow-sm col-span-3">
               <BudgetDropdown :player_budgets="budgets" v-model="player_budget" id="player_budget"
                 label="Player Budget" />
-              <span v-if="errors.player_budget" class="text-red-500 text-sm ">{{ errors.player_budget.join(', ')
+              <span v-if="errors.player_budget" class="text-red-500 text-sm absolute mt-[50px]">{{
+                errors.player_budget.join(', ')
                 }}</span>
+
             </div>
 
           </div>
@@ -517,8 +548,9 @@
               <input type="text" id="player_utr" v-model="player_utr"
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 placeholder="Player UTR" required />
-              <span v-if="errors.player_utr" class="text-red-500 text-sm ">{{ errors.player_utr.join(', ')
-                }}</span>
+              <span v-if="errors.player_utr" class="text-red-500 text-sm absolute mt-[50px]">{{
+                errors.player_utr.join(', ')}}</span>
+
             </div>
 
           </div>
@@ -530,8 +562,9 @@
               <input type="text" id="player_gpa" v-model="player_gpa"
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 placeholder="Player GPA" required />
-              <span v-if="errors.player_gpa" class="text-red-500 text-sm ">{{ errors.player_gpa.join(', ')
-                }}</span>
+              <span v-if="errors.player_gpa" class="text-red-500 text-sm absolute mt-[50px]">{{
+                errors.player_gpa.join(', ')}}</span>
+
             </div>
 
           </div>
@@ -545,7 +578,7 @@
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 placeholder="Player Graduation Month/Year"
                 :required="roleFields.includes('player_graduation_month_year')" />
-              <span v-if="errors.player_graduation_month_year" class="text-red-500 text-sm ">{{
+              <span v-if="errors.player_graduation_month_year" class="text-red-500 text-sm absolute mt-[50px]">{{
                 errors.player_graduation_month_year.join(', ')
               }}</span>
             </div>
@@ -557,7 +590,7 @@
             <div class="flex rounded-lg border border-gray-300 shadow-sm">
               <NationalityDropdown :nationalities="nationalities" v-model="player_nationality" id="player_nationality"
                 :required="roleFields.includes('player_nationality')" label="Player Nationality" />
-              <span v-if="errors.player_nationality" class="text-red-500 text-sm ">{{
+              <span v-if="errors.player_nationality" class="text-red-500 text-sm absolute mt-[50px] ">{{
                 errors.player_nationality.join(',') }}</span>
             </div>
           </div>
