@@ -1,9 +1,9 @@
 module.exports = {
   apps: [
     {
-      name: 'RecruitedV2-QA',
-      port: 3000,
-      script: './dist/qa/server/index.mjs'
+      name: 'RecruitedV2-Beta',
+      port: 3001,
+      script: './dist/uat/server/index.mjs'
     }
   ]
 }
