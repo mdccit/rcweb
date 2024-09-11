@@ -149,7 +149,8 @@ const getTimeAgo = (date) => {
 };
 
 onMounted(() => {
-   userId.value = userStore.user_id
+  userId.value = userStore.user.user_id
+
 });
 </script>
 

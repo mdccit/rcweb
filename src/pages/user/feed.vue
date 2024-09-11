@@ -167,7 +167,7 @@
 
           <div class="flex items-center justify-between mt-3">
             <div class="flex items-center space-x-4">
-              <button class="flex items-center space-x-1" :disabled="likeButton" @click="likePost(post.id,post), post.user_has_liked== true? post.likes_count=0 : post.likes_count = post.likes_count+1">
+              <button class="flex items-center space-x-1" :disabled="likeButton" @click="likePost(post.id,post), post.user_has_liked== true? post.likes_count-1 : post.likes_count = post.likes_count+1">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="size-5" :class="post.likes_count ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -281,7 +281,7 @@ const editingPostId = ref(null)
 const userId = ref('')
 onMounted(async () => {
   window.addEventListener('scroll', handleScroll);
-  userId.value = userStore.user_id
+  userId.value = userStore.user.user_id
   try {
     const response = await $feedService.list_posts({});
     posts.value = response || [];
@@ -351,8 +351,9 @@ const likePost = async (post_id,post) => {
     }else{
       const response = await $feedService.like_post(post_id);
     }
-    likeButton.value =false
     loadPosts(); // Optionally, reload posts to update the like count
+    likeButton.value =false
+
   } catch (error) {
     console.error('Failed to like post:', error.message);
   }

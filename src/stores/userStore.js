@@ -12,13 +12,13 @@ export const useUserStore = defineStore('user', {
     user_permission_type: null,
     roles: [],
     permissions: [],
-    user_id :'9cf9d75b-eb28-4aff-b699-fa0cdf8a2eea'
+    user_id :''
   }),
   getters: {
     isAuthenticated: (state) => !!state.user && !!state.token,
     isLoggedIn: (state) => !!state.token,  // Check if token exists
     role: (state) => state.user_role || 'default',  // Default role if not set
-    userId: (state) => state.user_id || '9cf9d75b-eb28-4aff-b699-fa0cdf8a2eea',  
+    userId: (state) => state.user_id || '',  
 
   },
   actions: {
@@ -54,7 +54,7 @@ export const useUserStore = defineStore('user', {
     },
     setUser(user) {
       if (!user) return;
-      
+      console.log(user)
       this.email = user.email || '';
       this.user = user;
       this.token = user.token;
@@ -62,7 +62,7 @@ export const useUserStore = defineStore('user', {
       this.user_permission_type = user.user_permission_type || 'none';
       this.roles = user.roles ? [...user.roles, user.role] : [user.role];
       this.permissions = user.permissions || []; // Set user permissions
-      this.user_id = user.id || '9cf9d75b-eb28-4aff-b699-fa0cdf8a2eea'; 
+      this.user_id = user.user_id || ''; 
 
 
       // Set the token and role
