@@ -365,7 +365,7 @@ const updateUserDetails = async () => {
 
 
     } catch (err) {
-        triggerNotification(err.message, 'failure')
+        triggerNotification(err.message, 'failure');
     }
 };
 
@@ -373,20 +373,21 @@ const updateUserDetails = async () => {
 // Fetch user details function
 const fetchUserDetails = async (userId) => {
     try {
-        const data = await $adminService.get_user_details(userId);
-        id.value = data.id,
-        first_name.value = data.first_name || '';
-        last_name.value = data.last_name || '';
-        other_names.value = data.other_names || '';
-        email.value = data.email || '';
-        is_approved.value = data.is_approved,
-        user_role.value = data.user_role_id || '';
-        phone_code_country.value = data.phone_code_country || ''; // Adjust if needed
-        phone_number.value = data.phone_number || '';             // Adjust if needed
-        is_set_email_verified.value = data.is_approved === 1;
+        const response = await $adminService.get_user_details(userId);
+        const user = response.user_basic_info;
+        const contact_info = response.user_contact_info;
+        id.value = user.id,
+        first_name.value = user.first_name || '';
+        last_name.value = user.last_name || '';
+        other_names.value = user.other_names || '';
+        email.value = user.email || '';
+        is_approved.value = user.is_approved,
+        user_role.value = user.user_role_id || '';
+        phone_code_country.value = contact_info.country_id || ''; // Adjust if needed
+        phone_number.value = contact_info.phone_number || '';             // Adjust if needed
+        is_set_email_verified.value = user.is_approved === 1;
     } catch (error) {
-        console.error('Failed to load user details:', error.message);
-        errors.value.push('Failed to load user details.');
+        triggerNotification(error.message, 'failure');
     }
 };
 
