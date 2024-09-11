@@ -59,6 +59,20 @@
 
     <!-- Comment Section (Optional) -->
     <CommentSection v-if="post?.comments?.length" :comments="post.comments" :postId="post.id" @refreshComments="refreshComments" />
+    <div class="mt-4">
+      <div class="flex space-x-3">
+        <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
+          <div class="grow">
+            <textarea   v-model="newComment" type="text" placeholder="Write your comment..." class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4"></textarea>
+              <div class="flex justify-end mt-2">
+                <button @click="addComment(post.id)" :disabled="commentAdd" class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-4 py-2 rounded-lg text-sm">
+                  <span v-if="!commentAdd"> Post Comment</span>
+                  <LoadingSpinner v-else />
+                </button>
+              </div>
+          </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -66,6 +80,10 @@
 import CommentSection from '@/components/user/feed/CommentSection.vue';
 import { useNuxtApp } from '#app';
 import { ref, onMounted } from 'vue';
+import LoadingSpinner from '~/components/LoadingSpinner.vue';
+
+
+const emit = defineEmits(['getPost']);
 
 
 const nuxtApp = useNuxtApp();
@@ -83,6 +101,9 @@ const formatDate = (dateString) => {
   const date = new Date(dateString);
   return date.toLocaleDateString();
 };
+
+const commentAdd = ref(false)
+const newComment = ref('');
 
 onMounted(() => {
     
@@ -105,6 +126,25 @@ const likePost = async(postId,post) => {
 const refreshComments = () => {
   console.log('Comments refreshed');
 };
+
+const addComment = async (postId) => {
+  
+  if (newComment.value.trim() === '') {
+    return;
+  }
+  commentAdd.value =true;
+  try {
+    await $feedService.create_comment(postId, { content: newComment.value });
+    newComment.value = '';
+    emit('getPost')
+    // Clear the comment input after submission
+   // loadPosts(); // Reload posts to update the comments section
+  } catch (error) {
+    console.error('Failed to add comment:', error.message);
+  }
+  commentAdd.value =false;
+};
+
 </script>
 
 <style scoped>
