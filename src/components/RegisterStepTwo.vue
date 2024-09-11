@@ -24,45 +24,45 @@
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-4">
 
         <!-- Radio option for Player role -->
-        <div class="radio relative" @click="role = 'player'">
+        <div class="radio relative cursor-pointer" @click="role = 'player'">
           <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="player" type="radio"
             value="player" v-model="role" name="role">
           <div
             :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'player' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
-            <div class="tile-icon"></div>
+            <div class="tile-icon cursor-pointer"></div>
             <label for="player" class="text-sm text-black mb-2">Player</label>
           </div>
         </div>
 
         <!-- Radio option for Coach role -->
-        <div class="radio relative" @click="role = 'coach'">
+        <div class="radio relative cursor-pointer" @click="role = 'coach'">
           <input class="radio-input  absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="coach" type="radio"
             value="coach" v-model="role" name="role">
           <div
             :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'coach' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
-            <img class="mt-1" src="@/assets/images/coach_icon.png">
+            <img class="mt-1 cursor-pointer" src="@/assets/images/coach_icon.png">
             <label for="coach" class="text-sm text-black mb-2">Coach</label>
           </div>
         </div>
 
         <!-- Radio option for Parent role -->
-        <div class="radio relative" @click="role = 'parent'">
+        <div class="radio relative cursor-pointer" @click="role = 'parent'">
           <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="parent" type="radio"
             value="parent" v-model="role" name="role">
           <div
             :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'parent' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
-            <img class="mt-1" src="@/assets/images/parent.png">
+            <img class="mt-1 cursor-pointer" src="@/assets/images/parent.png">
             <label for="parent" class="text-sm text-black  mb-2">Parent</label>
           </div>
         </div>
 
         <!-- Radio option for Business role -->
-        <div class="radio relative" @click="role = 'business'">
+        <div class="radio relative cursor-pointer" @click="role = 'business'">
           <input class="radio-input text-black absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="business"
             type="radio" value="business" v-model="role" name="role">
           <div
             :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'business' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
-            <img class="mt-1" src="@/assets/images/bussiness.png">
+            <img class="mt-1 cursor-pointer" src="@/assets/images/bussiness.png">
             <label for="business" class="text-sm text-black  mb-2">Business</label>
           </div>
         </div>
