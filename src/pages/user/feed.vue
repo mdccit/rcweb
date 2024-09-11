@@ -88,6 +88,8 @@
                   <div>
                     <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
                     <div class="text-darkSlateBlue text-xs">{{ post.school_id != null ? post.school.name : '' }}</div>
+                    <!-- <div class="text-darkSlateBlue text-xs">{{ formatDate(post.updated_at) }}</div> -->
+
                   </div>
                   
                 </div>
@@ -148,9 +150,8 @@
                 <h3 v-if="post.type === 'blog' || post.type === 'event'" class="mt-4 text-darkSlateBlue text-base">
                   {{ post.title }}
                 </h3>
-                <div class="basis-full flex flex-col">
-
-                <p @click="viewPost(post.id)" v-if="!editingPostId || editingPostId !== post.id"class="mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
+                <div class="basis-full flex flex-col  ">
+                <p @click="viewPost(post.id)" v-if="!editingPostId || editingPostId !== post.id"class="cursor-pointer mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
                 <textarea v-else  type="text" placeholder="Write your thoughts..." v-model="editPost"
                    class="mt-4 text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 ">
                     
