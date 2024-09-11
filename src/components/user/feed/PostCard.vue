@@ -124,7 +124,7 @@ const likePost = async(postId,post) => {
 
 // Refresh comments (optional event handler)
 const refreshComments = () => {
-  console.log('Comments refreshed');
+  emit('getPost')
 };
 
 const addComment = async (postId) => {

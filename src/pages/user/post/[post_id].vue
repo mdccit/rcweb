@@ -45,6 +45,8 @@ const getPost =async () =>{
     loading.value = false;
   }
 }
+
+
 </script>
 
 <style scoped>

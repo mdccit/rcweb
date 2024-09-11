@@ -11,12 +11,15 @@ export const useUserStore = defineStore('user', {
     email: null,
     user_permission_type: null,
     roles: [],
-    permissions: []
+    permissions: [],
+    user_id :'9cf9d75b-eb28-4aff-b699-fa0cdf8a2eea'
   }),
   getters: {
     isAuthenticated: (state) => !!state.user && !!state.token,
     isLoggedIn: (state) => !!state.token,  // Check if token exists
     role: (state) => state.user_role || 'default',  // Default role if not set
+    userId: (state) => state.user_id || '9cf9d75b-eb28-4aff-b699-fa0cdf8a2eea',  
+
   },
   actions: {
     setToken(token) {
@@ -43,6 +46,12 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem('user_permission_type', type);
       }
     },
+    setUserId(id) {
+      this.user_id = id;
+      if (process.client) {
+        localStorage.setItem('user_id', id);
+      }
+    },
     setUser(user) {
       if (!user) return;
       
@@ -53,12 +62,14 @@ export const useUserStore = defineStore('user', {
       this.user_permission_type = user.user_permission_type || 'none';
       this.roles = user.roles ? [...user.roles, user.role] : [user.role];
       this.permissions = user.permissions || []; // Set user permissions
+      this.user_id = user.id || '9cf9d75b-eb28-4aff-b699-fa0cdf8a2eea'; 
 
 
       // Set the token and role
       this.setToken(user.token);
       this.setRole(user.role);
       this.setEmail(user.email);
+      this.setUserId(user.id);
 
       if (process.client) {
         // Remove session cookie by setting it to an expired date
@@ -81,7 +92,7 @@ export const useUserStore = defineStore('user', {
       this.user_role = null;
       this.roles = [];
       this.permissions = [];
-
+      this.user_id = ''; 
        // Remove session cookie
        Cookies.remove('session', { path: '/' });
 

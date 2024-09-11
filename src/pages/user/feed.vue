@@ -93,7 +93,7 @@
                   </div>
                   
                 </div>
-                <button
+                <button v-if="post.user_id == userId"
                   :id="'post-button-' + post.id"
                   :aria-labelledby="'post-dropdown-' + post.id"
                   data-dropdown-toggle="'post-dropdown-' + post.id"
@@ -245,6 +245,9 @@ import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import Notification from '~/components/common/Notification.vue';
 import CommentSection from '~/components/user/feed/CommentSection.vue';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '~/stores/userStore'
+
+const userStore = useUserStore()
 
 const router = useRouter();
 
@@ -275,10 +278,10 @@ const likeButton =ref(false)
 const postAdd = ref(false)
 const model_id = ref('');
 const editingPostId = ref(null)
-
+const userId = ref('')
 onMounted(async () => {
   window.addEventListener('scroll', handleScroll);
-
+  userId.value = userStore.user_id
   try {
     const response = await $feedService.list_posts({});
     posts.value = response || [];
