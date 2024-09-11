@@ -297,7 +297,9 @@ const handleScroll = () =>{
 // Function to create a new post
 const writePost =  async() => {
   try {
-
+    if (newPost.value.trim() === '') {
+      return;
+    }
     postAdd.value =true
     let htmlText = newPost.value.description.replace(/\n/g, '<br>');
     let newValue ={
@@ -363,10 +365,11 @@ const loadPosts = async () => {
 };
 
 const addComment = async (postId) => {
-  commentAdd.value =true;
+
   if (newComment.value.trim() === '') {
     return;
   }
+  commentAdd.value =true;
 
   try {
     await $feedService.create_comment(postId, { content: newComment.value });
