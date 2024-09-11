@@ -61,7 +61,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import CommentSection from '@/components/user/feed/CommentSection.vue';
 import { useNuxtApp } from '#app';
 import { ref, onMounted } from 'vue';
