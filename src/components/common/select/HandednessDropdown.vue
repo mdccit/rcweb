@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <select v-model="selected" @change="updateValue" placeholder="Handness" class="bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500" id="handedness" required>
+  <div class="w-full">
+    <select v-model="selected" @change="updateValue" placeholder="Handness" 
+    class="h-12 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" id="handedness" required>
       <option v-for="handed in handedness" :key="handed.value" :value="handed.value">
         {{ handed.label }}
       </option>
@@ -40,9 +41,5 @@ watch(
 </script>
 
 <style scoped>
-select {
-  width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-}
+
 </style>
