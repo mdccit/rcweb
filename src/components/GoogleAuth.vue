@@ -65,13 +65,25 @@ const handleGoogleAuthCallback = async () => {
       if (process.client) {
         localStorage.setItem('token', token);
       }
-      userStore.setUser({ token });
+
+      const userRole = localStorage.getItem('user_role');
+      userStore.setUser({
+        email: '',
+        role: 'default',
+        token: token,
+        user_permission_type: 'none',
+      });
+
       if(type === 'login'){
-        router.push('/app');
+        if(userRole === 'default' || userRole === 'undefined' || userRole === undefined){
+          router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
+        }else{
+            router.push('/app');
+        }
       }else{
         setTimeout(() => {
         router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
-      }, 2000);
+        }, 2000);
       }
    
     } catch (err) {

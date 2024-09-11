@@ -46,6 +46,7 @@ export const useUserStore = defineStore('user', {
     setUser(user) {
       if (!user) return;
       
+      this.email = user.email || '';
       this.user = user;
       this.token = user.token;
       this.user_role = user.role || 'default';

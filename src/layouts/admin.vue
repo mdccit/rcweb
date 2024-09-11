@@ -14,9 +14,9 @@ import { useRouter } from 'vue-router';
 
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import NavBar from '~/components/admin/NavBar.vue';
-import checkSession from '~/middleware/checkSession';
+// import checkSession from '~/middleware/checkSession';
 
-defineNuxtRouteMiddleware(checkSession);
+// defineNuxtRouteMiddleware(checkSession);
 
 const loading = ref(false);
 const router = useRouter();
