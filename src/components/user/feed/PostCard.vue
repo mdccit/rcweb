@@ -26,7 +26,7 @@
           </h3>
 
           <!-- Post description -->
-          <p class="mt-4 text-darkSlateBlue text-base">{{ post?.description || 'No description available' }}</p>
+          <p class="mt-4 text-darkSlateBlue text-base" v-html=" post?.description"></p>
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@
     <div class="flex items-center justify-between mt-3">
       <div class="flex items-center space-x-4">
         <!-- Like button -->
-        <button class="flex items-center space-x-1" @click="likePost(post.id)">
+        <button class="flex items-center space-x-1" @click="likePost(post.id,post)">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="size-5" :class="post?.likes_count ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -63,7 +63,12 @@
 <script setup>
 import { ref } from 'vue';
 import CommentSection from '@/components/user/feed/CommentSection.vue';
+import { useNuxtApp } from '#app';
+import { ref, onMounted } from 'vue';
 
+
+const nuxtApp = useNuxtApp();
+const $feedService = nuxtApp.$feedService;
 // Props
 const props = defineProps({
   post: Object,  // Post object passed as a prop
@@ -78,9 +83,21 @@ const formatDate = (dateString) => {
   return date.toLocaleDateString();
 };
 
+onMounted(() => {
+    
+    
+
+  });
+
+  
 // Function to handle post like (for demonstration)
-const likePost = (postId) => {
-  console.log(`Liked post with ID: ${postId}`);
+const likePost = async(postId,post) => {
+  if(post.user_has_liked){
+      const response = await $feedService.unlike_post(postId);
+      
+    }else{
+      const response = await $feedService.like_post(postId);
+    }
 };
 
 // Refresh comments (optional event handler)
