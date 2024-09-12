@@ -56,7 +56,7 @@
               <div>
                 <div class="flex items-center justify-between">
                   <div v-if="post.school_id != null" class="flex items-center space-x-3">
-                    <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-12 h-12">
+                    <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12">
                     <div>
                       <div class="text-md font-bold text-black">{{ post.school.name }}</div>
                       <div class="flex space-x-2 items-center">
@@ -151,7 +151,7 @@
                   {{ post.title }}
                 </h3>
                 <div class="basis-full flex flex-col  ">
-                <p @click="viewPost(post.id)" v-if="!editingPostId || editingPostId !== post.id"class="cursor-pointer mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
+                <p  v-if="!editingPostId || editingPostId !== post.id"class="mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
                 <textarea v-else  type="text" placeholder="Write your thoughts..." v-model="editPost"
                    class="mt-4 text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 ">
                     
@@ -190,6 +190,13 @@
                   </button>
                 </h2>
               </div>
+              <button @click="viewPost(post.id)" class="flex items-center space-x-1 text-gray-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="size-4">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                     d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg>
+              </button>
             </div>
           </div>
 
@@ -238,6 +245,7 @@ definePageMeta({
   middleware: ['role'],
   requiredRole: ['admin','coach','business','player','parent'],
 });
+
 import { ref, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 
@@ -281,6 +289,8 @@ const model_id = ref('');
 const editingPostId = ref(null)
 const userId = ref('')
 const userRole = ref('')
+const notificationKey = ref(0);
+
 onMounted(async () => {
   window.addEventListener('scroll', handleScroll);
   userId.value = userStore.user.user_id
@@ -305,7 +315,7 @@ const handleScroll = () =>{
 // Function to create a new post
 const writePost =  async() => {
   try {
-    
+  
     postAdd.value =true
     let htmlText = newPost.value.description.replace(/\n/g, '<br>');
     let newValue ={
@@ -323,17 +333,13 @@ const writePost =  async() => {
             title: '',
           }
     postAdd.value =false
-    notificationMessage.value = response.display_message
 
-    showNotification.value =true;
-    notification_type.value = "success"
+    triggerNotification(response.display_message, 'success');
     loadPosts();
    
  } catch (error) {
-  notificationMessage.value = error.message
+  triggerNotification(error.message, 'failure');
 
-  showNotification.value =true;
-  notification_type.value = "failure"
   newPost.value = {
     description: '',
     type: 'post', 
@@ -463,6 +469,19 @@ const viewPost = (post_id) =>{
       path: '/user/post/'+post_id,
     });
 }
+
+const triggerNotification = (message, type) => {
+  notificationMessage.value = message;
+  notification_type.value = type;
+  showNotification.value = true;
+
+  notificationKey.value += 1; // Force re-render
+
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    showNotification.value = false;
+  }, 3000);
+};
 </script>
 
 <style scoped>
