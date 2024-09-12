@@ -19,7 +19,7 @@ const userStore = useUserStore()
 definePageMeta({
     ssr: false,
     layout: 'admin',
-    middleware: ['auth','role'],
+    middleware: ['role'],
     requiredRole: ['admin'],
 });
 

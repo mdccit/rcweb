@@ -252,11 +252,6 @@ const userStore = useUserStore()
 
 const router = useRouter();
 
-definePageMeta({
-  layout: 'socialhub-three-column',
-  // middleware: ['role'],
-  // requiredRole: ['admin','coach','business','player','parent'],
-});
 // State variables
 const posts = ref([]);
 const newComment = ref('');
@@ -310,9 +305,7 @@ const handleScroll = () =>{
 // Function to create a new post
 const writePost =  async() => {
   try {
-    if (newPost.value.trim() === '') {
-      return;
-    }
+    
     postAdd.value =true
     let htmlText = newPost.value.description.replace(/\n/g, '<br>');
     let newValue ={
