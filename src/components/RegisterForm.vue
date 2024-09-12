@@ -74,7 +74,7 @@
               <p v-if="errors.last_name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.last_name.join(', ') }}</p>
           </div>
 
-          <div class="sm:col-span-2 col-span-1 lg:col-span-1">
+          <div class="sm:col-span-2 col-span-2 lg:col-span-2">
               <label class="block mb-1 text-gray-700 font-sans">Email address <span aria-hidden="true" class="text-red-600"
                   title="This field is required">*</span></label>
               <div class="flex rounded-lg border border-gray-300 shadow-sm">
