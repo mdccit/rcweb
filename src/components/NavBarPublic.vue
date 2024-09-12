@@ -103,7 +103,7 @@ const error = ref('');
 const notification_type = ref('');
 
 onMounted(() => {
-  userStore.initializeUser();
+  //userStore.initializeUser();
 });
 
 const isLoggedIn = computed(() => userStore.isLoggedIn);

@@ -191,35 +191,77 @@
             <span class="flex items-center">Transcripts</span>
           </NuxtLink> -->
         </div>
-        <div class="pt-4 pb-1 border-t border-gray-200">
-          <div class="flex items-center px-4">
-            <div class="shrink-0 mr-3">
-              <img class="h-10 w-10 rounded-full object-cover"
-                src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin">
+        <div class="relative inline-block">
+          <!-- Dropdown toggle button -->
+          
+          <NuxtLink to="/app">
+          <button
+            id="dropdownUserButton"
+            data-dropdown-toggle="dropdownUser"
+            class="flex items-center text-sm font-medium text-gray-800 hover:text-gray-900"
+            type="button"
+          >
+            <img
+              class="h-10 w-10 rounded-full object-cover mr-3"
+              src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF"
+              alt="Admin"
+            />
+            <span>Admin</span>
+            <svg
+              class="ml-2 w-4 h-4"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+        </NuxtLink>
+      
+          <!-- Dropdown menu -->
+          <div
+            id="dropdownUser"
+            class="hidden z-10 w-48 bg-white rounded divide-y divide-gray-100 shadow"
+            data-popper-placement="bottom"
+          >
+            <div class="py-3 px-4 text-sm text-gray-900">
+              <div class="font-medium">Admin</div>
+              <div class="text-sm text-gray-500">{{ loggedUserMail }}</div>
             </div>
-            <div>
-              <div class="font-medium text-base text-gray-800"> Admin </div>
-              <div class="font-medium text-sm text-gray-500"> admin@user.com </div>
-            </div>
-          </div>
-          <div class="mt-3 space-y-1">
-            <NuxtLink to="https://qa1.recruited.qualitapps.com/app"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-              Go to Members Area
-            </NuxtLink>
-            <NuxtLink to="/user/profile"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-              Profile
-            </NuxtLink>
-            <form data-splade-id="mRNnwLKi9BPg5dGs" method="POST" action="/logout">
-              <fieldset>
-                <button type="submit"
-                  class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+            <ul class="py-1 text-gray-700">
+              <li>
+                <NuxtLink
+                  to="/app"
+                  class="block py-2 px-4 text-sm hover:bg-gray-100"
+                >
+                  Go to Members Area
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink
+                  to="/user/profile"
+                  class="block py-2 px-4 text-sm hover:bg-gray-100"
+                >
+                  Profile
+                </NuxtLink>
+              </li>
+            </ul>
+            <div class="py-1">
+              <form>
+                <button
+                  type="submit"
+                  class="block w-full py-2 px-4 text-sm text-left hover:bg-gray-100"
+                >
                   Log Out
                 </button>
-              </fieldset>
-            </form>
-            <div class="border-t border-gray-200"></div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -234,6 +276,8 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 import { useUserStore } from '@/stores/userStore';
+// Manually initialize Flowbite's dropdown
+import Dropdown from 'flowbite/lib/esm/components/dropdown';
 const userStore = useUserStore();
 
 
@@ -241,6 +285,8 @@ import Notification from '~/components/common/Notification.vue';
 
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
+const isAuthenticated = computed(() => userStore.isAuthenticated);
+const loggedUserMail = computed(() => userStore.loggedUserEmail);
 const router = useRouter();
 
 const showNotification = ref(false);
@@ -248,6 +294,18 @@ const notificationMessage = ref('');
 const error = ref('');
 const notification_type = ref('');
 const loading = ref(false);
+const dropdownVisible = ref(false)
+
+const toggleDropdown = () => {
+  dropdownVisible.value = !dropdownVisible.value
+}
+
+const closeDropdown = (event) => {
+  if (!event.target.closest('.relative')) {
+    dropdownVisible.value = false
+  }
+}
+
 
 const logout = async () => {
   try {
@@ -307,7 +365,16 @@ const logout = async () => {
 
 
 onMounted(() => {
-  userStore.initializeUser();
+// // Example initialization in your Nuxt app
+// const dropdownToggleElement = document.getElementById('dropdownUserButton');
+// const dropdownMenuElement = document.getElementById('dropdownUser');
+
+// if (dropdownToggleElement && dropdownMenuElement) {
+//   new Dropdown(dropdownMenuElement, dropdownToggleElement);
+// }
+
+
+  window.removeEventListener('click', closeDropdown);
 });
 
 const login = () => {
