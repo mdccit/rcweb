@@ -17,6 +17,7 @@ export const useUserStore = defineStore('user', {
     isAuthenticated: (state) => !!state.user && !!state.token,
     isLoggedIn: (state) => !!state.token,  // Check if token exists
     role: (state) => state.user_role || 'default',  // Default role if not set
+    loggedUserEmail: (state) => state.email || '',  // Default role if not set
   },
   actions: {
     setToken(token) {
@@ -105,6 +106,13 @@ export const useUserStore = defineStore('user', {
     getRole() {
       if (this.user) {
         return this.user_role;
+       
+      }
+      return null;
+    },
+    getEmail() {
+      if (this.user) {
+        return this.email;
        
       }
       return null;

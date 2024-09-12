@@ -215,7 +215,7 @@ onMounted(() => {
       // Auto-login with the saved credentials
       // userLogin(true);  // Change 'handleLogin(true)' to 'userLogin(true)'
     }
-  } else if (authType === 'login' && userToken) {
+  } else if (authType == 'login' && userToken) {
     const userRole = localStorage.getItem('user_role');
     
     if (userRole === 'default') {
@@ -224,7 +224,7 @@ onMounted(() => {
     }else{
       router.push('/app');  
     }
-  } else if (authType === 'register' && userToken) {
+  } else if (authType == 'register' && userToken) {
     const userRole = localStorage.getItem('user_role');
       userStore.setTempUser(userRole, userToken);
       router.push({ name: 'register-step-two-token', params: { token: userToken } });

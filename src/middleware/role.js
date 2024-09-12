@@ -11,7 +11,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
   // Get the user's role from the store
   const userRole = userStore.getRole();
-  console.log('role', userRole);
 
   // Check if the user's role is in the required roles array
   if (!rolesArray.includes(userRole)) {

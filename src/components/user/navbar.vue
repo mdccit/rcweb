@@ -216,7 +216,7 @@
                                     src="@/assets/user/images/Rectangle_117.png" alt="">
                             </div>
                             <div class="hidden sm:hidden md:hidden lg:block">
-                                <h6 class="text-sm text-black max-w-24 truncate">Jacob Johnes</h6>
+                                <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserMail }}</h6>
                                 <p class="text-xs text-limegreen">Online</p>
                             </div>
                         </div>
@@ -257,9 +257,11 @@ const userStore = useUserStore();
 // Get the user's role from the store
 const user = userStore.user;
 const userRole = userStore.getRole();
+const userEmail = userStore.getEmail();
 
 const isLoggedIn = computed(() => userStore.isLoggedIn);
 const isAuthenticated = computed(() => userStore.isAuthenticated);
+const loggedUserMail = computed(() => userStore.loggedUserEmail);
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const errors = ref({});
@@ -327,6 +329,7 @@ const triggerNotification = (message, type) => {
 
 // initialize components based on data attribute selectors
 onMounted(() => {
+
     useFlowbite(() => {
         initFlowbite();
     })
