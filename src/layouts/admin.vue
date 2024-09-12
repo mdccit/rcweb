@@ -5,12 +5,16 @@
     <main class="min-h-screen bg-gray-100" v-else>
       <NuxtPage />
     </main>
+
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '~/stores/userStore';
+const userStore = useUserStore();
+
 
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import NavBar from '~/components/admin/NavBar.vue';
@@ -20,19 +24,9 @@ import NavBar from '~/components/admin/NavBar.vue';
 
 const loading = ref(false);
 const router = useRouter();
-definePageMeta({ colorMode: 'light',  middleware: 'auth', });
-
-
-// // Handle loading state during route transitions
-// router.beforeEach((to, from, next) => {
-//   loading.value = true;
-//   next();
-// });
-
-// router.afterEach(() => {
-//   loading.value = false;
-// });
-
+definePageMeta({ 
+ colorMode: 'light', 
+});
 
 </script>
 

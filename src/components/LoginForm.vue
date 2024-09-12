@@ -178,6 +178,8 @@ const userLogin = async (autoLogin = false) => {
           router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
         }
       }, 1000);
+    }else{
+      triggerNotification(response.display_message, 'warning')
     }
   } catch (error) {
     handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
@@ -214,7 +216,7 @@ onMounted(() => {
       // Auto-login with the saved credentials
       // userLogin(true);  // Change 'handleLogin(true)' to 'userLogin(true)'
     }
-  } else if (authType === 'login' && userToken) {
+  } else if (authType == 'login' && userToken) {
     const userRole = localStorage.getItem('user_role');
     
     if (userRole === 'default') {
@@ -223,7 +225,7 @@ onMounted(() => {
     }else{
       router.push('/app');  
     }
-  } else if (authType === 'register' && userToken) {
+  } else if (authType == 'register' && userToken) {
     const userRole = localStorage.getItem('user_role');
       userStore.setTempUser(userRole, userToken);
       router.push({ name: 'register-step-two-token', params: { token: userToken } });

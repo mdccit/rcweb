@@ -341,10 +341,10 @@ const morderationApprove = async () => {
 };
 
 definePageMeta({
-    ssr: true,
+    ssr: false,
     layout: 'admin',
-    middleware: ['permissions'],
-    roles: ['admin'],
+    middleware: ['role'],
+    requiredRole: ['admin'],
 });
 
 </script>

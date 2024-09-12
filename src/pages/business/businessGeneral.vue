@@ -154,12 +154,11 @@ import Notification from '~/components/common/Notification.vue';
 import BusinessNavigation from '~/components/admin/business/BusinessNavigation.vue';
 
 definePageMeta({
-    ssr: true,
-    layout: 'admin',
-    // middleware: ['permissions'],
-    roles: ['admin'],
+  ssr: false,
+  layout: 'admin',
+  middleware: ['role'],
+  requiredRole: ['admin'],
 });
-
 
 const route = useRoute();
 const router = useRouter();
