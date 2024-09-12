@@ -41,7 +41,7 @@ const createApiService = (config) => {
 
       return await handleResponse(response);
     } catch (error) {
-      throw new Error(error.message || 'Error making GET request');
+      throw error;
     }
   };
 
@@ -70,6 +70,10 @@ const createApiService = (config) => {
         body: JSON.stringify(body),
       });
 
+      // if (!response.ok) {
+      //   const errorData = await response.json(); // Parse the error response
+      //   throw { status: response.status, ...errorData }; // Throw the entire error response
+      // }
       return await handleResponse(response);
     } catch (error) {
       throw error;
@@ -84,7 +88,7 @@ const createApiService = (config) => {
       });
       return await handleResponse(response);
     } catch (error) {
-      throw new Error(error.message || 'Error making DELETE request');
+      throw error;
     }
   };
 

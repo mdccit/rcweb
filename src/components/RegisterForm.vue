@@ -49,10 +49,10 @@
 
 
         <form @submit.prevent="handleSubmit">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-2">
+        <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-8 mb-2">
           
 
-          <div>
+          <div class="sm:col-span-2 col-span-1 lg:col-span-1">
               <label class="block mb-1 text-gray-700 font-sans">First name <span aria-hidden="true" class="text-red-600"
                   title="This field is required">*</span></label>
               <div class="flex rounded-lg border border-gray-300 shadow-sm">
@@ -63,7 +63,7 @@
               <p v-if="errors.first_name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.first_name.join(', ') }}</p>
           </div>
 
-          <div>
+          <div class="sm:col-span-2 col-span-1 lg:col-span-1" >
               <label class="block mb-1 text-gray-700 font-sans">Last name <span aria-hidden="true" class="text-red-600"
                   title="This field is required">*</span></label>
               <div class="flex rounded-lg border border-gray-300 shadow-sm">
@@ -74,7 +74,7 @@
               <p v-if="errors.last_name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.last_name.join(', ') }}</p>
           </div>
 
-          <div class="col-span-2">
+          <div class="sm:col-span-2 col-span-1 lg:col-span-1">
               <label class="block mb-1 text-gray-700 font-sans">Email address <span aria-hidden="true" class="text-red-600"
                   title="This field is required">*</span></label>
               <div class="flex rounded-lg border border-gray-300 shadow-sm">
@@ -85,7 +85,7 @@
               <p v-if="errors.email" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.email.join(', ') }}</p>
           </div>
 
-          <div>
+          <div class="sm:col-span-2 col-span-1 lg:col-span-1">
               <label class="block mb-1 text-gray-700 font-sans">Password <span aria-hidden="true" class="text-red-600"
                   title="This field is required">*</span></label>
               <div class="flex rounded-lg border border-gray-300 shadow-sm">
@@ -96,7 +96,7 @@
               <p v-if="errors.password" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.password.join(', ') }}</p>
           </div>
 
-          <div>
+          <div class="sm:col-span-2 col-span-1 lg:col-span-1">
               <label class="block mb-1 text-gray-700 font-sans">Confirm password <span aria-hidden="true" class="text-red-600"
                   title="This field is required">*</span></label>
               <div class="flex rounded-lg border border-gray-300 shadow-sm">
