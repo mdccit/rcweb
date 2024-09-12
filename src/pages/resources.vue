@@ -7,11 +7,11 @@
 
 <script setup>
 definePageMeta({
-    ssr: 'true',
+    ssr: false,
     colorMode: 'light',
     layout: 'admin',
-    middleware: ['permissions'],
-    roles: ['admin'],
+    middleware: ['role'],
+    requiredRole: ['admin'],
 });
 
 </script>

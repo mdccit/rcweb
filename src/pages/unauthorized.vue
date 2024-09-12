@@ -36,7 +36,7 @@ const user = userStore.user;
 const userRole = userStore.getRole();  // Assuming this returns the role, null if undefined
 
 definePageMeta({
-    layout: 'admin',
+    layout: 'outer',
 });
 </script>
 
