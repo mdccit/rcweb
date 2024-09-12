@@ -188,18 +188,7 @@
                         <span class=""> Save changes</span>
                     </div>
                 </button>
-
-
-                <!-- Display error messages -->
-                <div v-if="errors.length" class="error-messages">
-                    <p class="error-title">Validation Errors:</p>
-                    <ul class="error-list">
-                        <li v-for="(error, index) in splitErrors" :key="index" class="error-item">
-                            {{ error }}
-                        </li>
-                    </ul>
-                </div>
-
+   
             </div>
 
             <div class="my-16"></div>
@@ -233,6 +222,8 @@ const userStore = useUserStore();
 const router = useRouter();
 const showNotification = ref(false);
 const notificationMessage = ref('');
+const notificationKey = ref(0);
+
 
 const name = ref('');
 const bio = ref('');
@@ -240,9 +231,6 @@ const conference = ref('');
 const division = ref('');
 const is_verified = ref(false);
 const is_approved = ref(false);
-
-// Computed property to split error messages by comma
-const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
 
 const action = ref(route.params.action || 'view'); // default to 'view' if action not provided
 const school_id = ref(route.params.school_id || '');
@@ -320,12 +308,11 @@ const fetchSchoolDetails = async (school_id) => {
 };
 
 definePageMeta({
-    ssr: true,
-    layout: 'admin',
-    // middleware: ['permissions'],
-    roles: ['admin'],
+  ssr: false,
+  layout: 'admin',
+  middleware: ['role'],
+  requiredRole: ['admin'],
 });
-
 </script>
 
 

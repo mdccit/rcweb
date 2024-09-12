@@ -116,17 +116,30 @@
                 <!-- Email Verification Checkbox -->
                 <div class="flex justify-end mt-4">
                     <label class="flex items-center">
-                        <input name="set_email_verified" v-model="is_set_email_verified" type="checkbox"
-                            data-validation-key="set_email_verified"
-                            class="rounded-full text-black p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"  :disabled="action === 'view'" />
-                        <span class="ml-4 text-black">Set email verified {{ action }}</span>
+                        <input
+                        name="set_email_verified"
+                        v-model="is_set_email_verified"
+                        type="checkbox"
+                        data-validation-key="set_email_verified"
+                        class="rounded-full text-black p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
+                        :disabled="action === 'view'"
+                      />
+                      
+                      <!-- Conditionally hide this span based on is_set_email_verified -->
+                      <span v-if="!is_set_email_verified" class="ml-4 text-black">
+                        Set email verified {{ action }}
+                      </span>
+                      <!-- <span v-if="!is_set_email_verified" class="ml-4 text-black">
+                        Email verified {{ action }}
+                      </span>
+                       -->
                     </label>
                 </div>
 
                 <!-- Resend Verification Email Link -->
                 <div class="mt-4 flex text-black justify-end gap-2">
                     Or
-                    <NuxtLink to="/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7/send-verification-email"
+                    <NuxtLink  v-if="!is_set_email_verified" to="/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7/send-verification-email"
                         class="bg-gray-200 opacity-60 hover:opacity-100 p-2 rounded"  :disabled="action === 'view'">
                         send again
                     </NuxtLink>
@@ -291,6 +304,9 @@ const userStore = useUserStore()
 const router = useRouter();
 const showNotification = ref(false);
 const notificationMessage = ref('');
+const loading = ref(false);
+const notificationKey = ref(0);
+const notification_type = ref('');
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -305,30 +321,30 @@ defineExpose({ clearForm });
 const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
 
 const action = ref(route.params.action || 'view'); // default to 'view' if action not provided
-const userId = ref(route.params.userId || '');
+const user_id = ref(route.params.user_id || '');
 
 onMounted(() => {
     loadCountryCodes();
 
     // Update the refs directly
     action.value = route.query.action || 'view';
-    userId.value = route.query.userId || '';
+    user_id.value = route.query.user_id || '';
 
     if (action.value === 'view' || action.value === 'edit') {
-        fetchUserDetails(userId.value);
+        fetchUserDetails(user_id.value);
     }
 });
 
 // Watch for changes in the route query parameters
-watch([() => route.query.action, () => route.query.userId], ([newAction, newUserId]) => {
+watch([() => route.query.action, () => route.query.user_id], ([newAction, newUserId]) => {
     action.value = newAction || 'view';
-    userId.value = newUserId || '';
+    user_id.value = newUserId || '';
 
     if (action.value === 'create') {
         clearForm();  // Clear form for "create"
     } else if (action.value === 'edit' || action.value === 'view') {
         errors.value = [];  // Clear errors for "edit" & "view"
-        fetchUserDetails(userId.value);  // Fetch user details for "edit" & "view"
+        fetchUserDetails(user_id.value);  // Fetch user details for "edit" & "view"
     }
 });
 
@@ -344,34 +360,25 @@ const updateUserDetails = async () => {
             other_names: other_names.value,
             email: email.value,
             user_role: user_role.value,
-            is_set_email_verified: is_set_email_verified.value,
-            is_approved: is_approved.value,
+            is_set_email_verified: is_set_email_verified.value == 1 ? true : false,
+            is_approved: is_approved.value == 1 ? true : false,
             password: password.value,
             password_confirmation: password_confirmation.value,
             phone_code_country: phone_code_country.value,
             phone_number: phone_number.value,
         });
 
+        console.log('response', response);
+
         if (response.status === 200) {
-            notificationMessage.value = response.display_message;
-            showNotification.value = true;
+            triggerNotification(response.display_message, 'success');
         } else {
-            errors.value.push(response.display_message);
-            notificationMessage.value = response.display_message;
-            showNotification.value = true;
+            triggerNotification(response.display_message, 'failure');
         }
 
 
     } catch (err) {
-        if (err.response?.data?.message) {
-            if (Array.isArray(err.response.data.message)) {
-                errors.value = err.response.data.message;
-            } else {
-                errors.value = [err.response.data.message];
-            }
-        } else {
-            errors.value = [err.response?.data?.message || err.message];
-        }
+        triggerNotification(err.message, 'failure');
     }
 };
 
@@ -379,20 +386,21 @@ const updateUserDetails = async () => {
 // Fetch user details function
 const fetchUserDetails = async (userId) => {
     try {
-        const data = await $adminService.get_user_details(userId);
-        id.value = data.id,
-            first_name.value = data.first_name || '';
-        last_name.value = data.last_name || '';
-        other_names.value = data.other_names || '';
-        email.value = data.email || '';
-        is_approved.value = data.is_approved,
-            user_role.value = data.user_role_id || '';
-        phone_code_country.value = data.phone_code_country || ''; // Adjust if needed
-        phone_number.value = data.phone_number || '';             // Adjust if needed
-        is_set_email_verified.value = data.is_approved === 1;
+        const response = await $adminService.get_user_details(userId);
+        const user = response.user_basic_info;
+        const contact_info = response.user_contact_info;
+        id.value = user.id,
+        first_name.value = user.first_name || '';
+        last_name.value = user.last_name || '';
+        other_names.value = user.other_names || '';
+        email.value = user.email || '';
+        is_approved.value = user.is_approved,
+        user_role.value = user.user_role_id || '';
+        phone_code_country.value = contact_info.country_id || ''; // Adjust if needed
+        phone_number.value = contact_info.phone_number || '';             // Adjust if needed
+        is_set_email_verified.value = user.email_verified_at !== null;
     } catch (error) {
-        console.error('Failed to load user details:', error.message);
-        errors.value.push('Failed to load user details.');
+        triggerNotification(error.message, 'failure');
     }
 };
 
@@ -421,9 +429,23 @@ function clearForm() {
     errors.value = [];
 }
 
+const triggerNotification = (message, type) => {
+  notificationMessage.value = message;
+  notification_type.value = type;
+  showNotification.value = true;
+
+  notificationKey.value += 1; // Force re-render
+
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    showNotification.value = false;
+  }, 3000);
+};
+
+
 definePageMeta({
     layout: 'admin',
-    middleware: ['permissions'],
+    // middleware: ['permissions'],
     roles: ['admin'],
 });
 </script>

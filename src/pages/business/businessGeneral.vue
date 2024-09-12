@@ -7,7 +7,7 @@
                         <path d="M15 6l-6 6l6 6"></path>
                     </svg>
                 </NuxtLink>
-                <h2 class="font-bold text-lg self-center text-black"> Editing: DEF Business </h2>
+                <h2 class="font-bold text-lg self-center text-black"> Editing </h2>
             </div>
             <div>
                 <a href="https://qa1.recruited.qualitapps.com/app/business/9c7d0c22-c388-4383-8da0-4d83319cf4ba">
@@ -154,12 +154,11 @@ import Notification from '~/components/common/Notification.vue';
 import BusinessNavigation from '~/components/admin/business/BusinessNavigation.vue';
 
 definePageMeta({
-    ssr: true,
-    layout: 'admin',
-    // middleware: ['permissions'],
-    roles: ['admin'],
+  ssr: false,
+  layout: 'admin',
+  middleware: ['role'],
+  requiredRole: ['admin'],
 });
-
 
 const route = useRoute();
 const router = useRouter();

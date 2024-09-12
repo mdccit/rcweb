@@ -15,7 +15,7 @@
         <!-- Display Comment -->
         <div v-if="!editingCommentId || editingCommentId !== comment.id">
           <p class="text-darkSlateBlue text-sm mt-2">{{ comment.content }}</p>
-          <div class="flex space-x-2 mt-2">
+          <div v-if="comment.user_id == userId" class="flex space-x-2 mt-2">
             <!-- Edit and Delete Buttons -->
             <button class="text-sm text-blue-500" @click="startEditComment(comment.id)">Edit</button>
             <button class="text-sm text-red-500" @click="deleteComment(comment.id)">Delete</button>
@@ -42,10 +42,15 @@
 
 
 <script setup>
-import { ref } from 'vue';
+import { ref , onMounted} from 'vue';
 import { useNuxtApp, useRouter } from '#app';
 import { defineProps , defineEmits} from 'vue';
+import { useUserStore } from '~/stores/userStore'
+
+const userStore = useUserStore()
+
 const nuxtApp = useNuxtApp();
+const userId = ref('')
 
 const props = defineProps({
   comments: {
@@ -142,6 +147,11 @@ const getTimeAgo = (date) => {
 
   return secondsAgo === 1 ? '1 second ago' : `${secondsAgo} seconds ago`;
 };
+
+onMounted(() => {
+  userId.value = userStore.user.user_id
+
+});
 </script>
 
 <style scoped>

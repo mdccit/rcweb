@@ -36,8 +36,7 @@
 
 
         <!-- Password Reset Form -->
-        <form @submit.prevent="resetPassword">
-          <fieldset class="space-y-4">
+        <form @submit.prevent="resetPassword">       
             <!-- Recovery Code -->
             <div>
               <label class="block">
@@ -91,24 +90,36 @@
                 Reset Password
               </button>
             </div>
-          </fieldset>
         </form>
       </div>
 
 
-    </div><!----><!---->
+    </div>
 
+<!-- Notification Component -->
+<Notification 
+v-if="showNotification" 
+:message="notificationMessage" 
+:type="notification_type" 
+:duration="3000" 
+/>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useNuxtApp, useRouter } from '#app';
-import Notification from '~/components/common/Notification.vue'; // Import the Notification component
+import Notification from '~/components/common/Notification.vue';
+import LoadingSpinner from '~/components/LoadingSpinner.vue';
+const { $notification } = useNuxtApp(); // Access global notification function
+
+const showAlert = (message,type) => {
+  $notification.triggerNotification(message, type);
+};
 
 const nuxtApp = useNuxtApp();
 const router = useRouter();
-definePageMeta({ colorMode: 'light', layout: 'outer' },)
+definePageMeta({ colorMode: 'light', layout: 'outer' });
 
 // State variables
 const recovery_code = ref('');
@@ -119,41 +130,65 @@ const showNotification = ref(false);
 const notificationMessage = ref('');
 const errors = ref({});
 
+const loading = ref(false);
+const notification_type = ref('');
+const notificationKey = ref(0);
+
+
 // Function to handle password reset form submission
 const resetPassword = async () => {
-  try {
 
-    const password_reset_id = localStorage.getItem('password_reset_id') || '';
-    // Use the resetPassword function from authService
-    const result = await nuxtApp.$authService.resetPassword(
-      password_reset_id,
-      recovery_code.value,
-      password.value,
-      password_confirmation.value
-    );
-
-    // Handle the response
-    if (result && result.data && result.data.display_message) {
-      notificationMessage.value = result.data.display_message;
-    } else {
-      notificationMessage.value = 'Password has been successfully reset.';
-    }
-
-    showNotification.value = true;
-
-    // Redirect after a delay
-    setTimeout(() => {
-      router.push('/login'); // Redirect to login page after password reset
-    }, 2000);
-  } catch (error) {
-    if (error.message) {
-      // Assign validation messages to the respective fields
-      for (const [field, messages] of Object.entries(error.message)) {
-        errors.value[field] = messages; // Map error messages to the form fields
-      }
-    } else {
-      console.error('An unexpected error occurred:', err);
-    }
+try {
+  loading.value = true;
+  const password_reset_id = localStorage.getItem('password_reset_id') || '';
+  // Use the resetPassword function from authService
+  const result = await nuxtApp.$authService.resetPassword(
+    password_reset_id,
+    recovery_code.value,
+    password.value,
+    password_confirmation.value
+  );
+  console.log('result', result);
+  // Handle the response
+  if (result.status === 200) {
+    loading.value = false;
+    triggerNotification(result.display_message, 'success');
+  } else if (result.status === 422) {
+    loading.value = false;
+    triggerNotification(result.display_message, 'failure');
   }
+  else {
+    loading.value = false;
+    triggerNotification(result.display_message, 'warning');
+  }
+
+  loading.value = false;
+  // Redirect after a delay
+  setTimeout(() => {
+    router.push('/login'); // Redirect to login page after password reset
+  }, 2000);
+} catch (error) {
+  loading.value = false;
+  console.log('errprrr', error.status);
+  if (error.status === 422) {
+    triggerNotification(error.display_message, 'failure');
+  } else {
+    triggerNotification(error.display_message, 'failure');
+  }
+}
 };
+
+const triggerNotification = (message, type) => {
+  notificationMessage.value = message;
+  notification_type.value = type;
+  showNotification.value = true;
+
+  notificationKey.value += 1; // Force re-render
+
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    showNotification.value = false;
+  }, 3000);
+};
+
 </script>

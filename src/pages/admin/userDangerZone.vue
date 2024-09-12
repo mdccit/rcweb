@@ -110,7 +110,6 @@
 
 <script setup>
 import { ref } from 'vue';
-import UserTable from '~/components/tables/UserTable.vue';
 import { useUserStore } from '~/stores/userStore'
 import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.vue';
 import AdminUserLogoutSession from '~/components/admin/user/adminUserLogoutSession.vue';

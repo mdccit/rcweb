@@ -6,7 +6,9 @@
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-3">
               <!-- Safely access user profile image and display default image if not available -->
-              <img :src="post?.user?.profile_image || defaultImage" alt="User image" class="rounded-lg w-12 h-12">
+              <!-- <img :src="post?.user?.profile_image || defaultImage" alt="User image" class="rounded-lg w-12 h-12"> -->
+              <img src="@/assets/user/images/Rectangle_117.png" alt="User image" class="rounded-lg w-12 h-12">
+
               <div>
                 <!-- Safely access user display name -->
                 <div class="text-md font-bold text-black">{{ post?.user?.display_name || 'Unknown User' }}</div>
@@ -36,7 +38,7 @@
         <!-- Like button -->
         <button class="flex items-center space-x-1" @click="likePost(post.id,post)">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="size-5" :class="post?.likes_count ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
+            stroke="currentColor" class="size-5" :class="post?.user_has_liked ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
           </svg>
@@ -57,25 +59,43 @@
 
     <!-- Comment Section (Optional) -->
     <CommentSection v-if="post?.comments?.length" :comments="post.comments" :postId="post.id" @refreshComments="refreshComments" />
+    <div class="mt-4">
+      <div class="flex space-x-3">
+        <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
+          <div class="grow">
+            <textarea   v-model="newComment" type="text" placeholder="Write your comment..." class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4"></textarea>
+              <div class="flex justify-end mt-2">
+                <button @click="addComment(post.id)" :disabled="commentAdd" class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-4 py-2 rounded-lg text-sm">
+                  <span v-if="!commentAdd"> Post Comment</span>
+                  <LoadingSpinner v-else />
+                </button>
+              </div>
+          </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import CommentSection from '@/components/user/feed/CommentSection.vue';
 import { useNuxtApp } from '#app';
 import { ref, onMounted } from 'vue';
+import LoadingSpinner from '~/components/LoadingSpinner.vue';
+
+
+const emit = defineEmits(['getPost']);
 
 
 const nuxtApp = useNuxtApp();
 const $feedService = nuxtApp.$feedService;
+const likeButton = ref(false)
 // Props
 const props = defineProps({
   post: Object,  // Post object passed as a prop
 });
 
 // Default image to be used when profile image is not available
-const defaultImage = "@/assets/user/images/default-avatar.png";
+const defaultImage = "@/assets/user/images/Rectangle_117.png";
 
 // Format date function
 const formatDate = (dateString) => {
@@ -83,27 +103,55 @@ const formatDate = (dateString) => {
   return date.toLocaleDateString();
 };
 
+const commentAdd = ref(false)
+const newComment = ref('');
+
 onMounted(() => {
     
     
 
   });
 
-  
-// Function to handle post like (for demonstration)
-const likePost = async(postId,post) => {
-  if(post.user_has_liked){
-      const response = await $feedService.unlike_post(postId);
+
+const likePost = async (post_id,post) => {
+  try {
+    likeButton.value =true
+    if(post.user_has_liked){
+      const response = await $feedService.unlike_post(post_id);
       
     }else{
-      const response = await $feedService.like_post(postId);
+      const response = await $feedService.like_post(post_id);
     }
-};
+    emit('getPost')
+    likeButton.value =false
 
+  } catch (error) {
+    console.error('Failed to like post:', error.message);
+  }
+};
 // Refresh comments (optional event handler)
 const refreshComments = () => {
-  console.log('Comments refreshed');
+  emit('getPost')
 };
+
+const addComment = async (postId) => {
+  
+  if (newComment.value.trim() === '') {
+    return;
+  }
+  commentAdd.value =true;
+  try {
+    await $feedService.create_comment(postId, { content: newComment.value });
+    newComment.value = '';
+    emit('getPost')
+    // Clear the comment input after submission
+   // loadPosts(); // Reload posts to update the comments section
+  } catch (error) {
+    console.error('Failed to add comment:', error.message);
+  }
+  commentAdd.value =false;
+};
+
 </script>
 
 <style scoped>

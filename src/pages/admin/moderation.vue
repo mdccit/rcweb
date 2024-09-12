@@ -15,10 +15,10 @@
   import  AdminMorderationTable from '~/components/tables/AdminMorderationTable.vue';
   
   definePageMeta({
-    ssr: 'true',
+    ssr: false,
     layout: 'admin',
-    // middleware: ['permissions'],
-    roles: ['admin'],
+    middleware: ['role'],
+    requiredRole: ['admin'],
 });
   const userStore = useUserStore()
   

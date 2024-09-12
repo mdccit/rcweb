@@ -114,7 +114,7 @@ const authType = ref('');
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const loading = ref(false);
-const notificationType = ref('');
+const notificationKey = ref(0);
 
 definePageMeta({ colorMode: 'light', })
 
@@ -144,7 +144,6 @@ const userLogin = async (autoLogin = false) => {
           username: email.value,  // Corrected from 'username' to 'email'
           password: password.value,
         };
-        console.log('Saving credentials:', credentials);  // This log should be printed now
         saveEncryptedCredentials(credentials);  // Save the credentials
       }
 
@@ -154,12 +153,11 @@ const userLogin = async (autoLogin = false) => {
         role: response.data.user_role,
         token: response.data.token,
         user_permission_type: response.data.user_permission_type,
+        user_id:response.data.user_id
       });
 
       // Set success notification
-      notification_type.value = 'success';
-      notificationMessage.value = response.display_message;
-      showNotification.value = true;
+      triggerNotification(response.display_message,'success')
 
       // Set session cookie (conditionally for remember me)
       if (rememberMe.value) {
@@ -180,6 +178,8 @@ const userLogin = async (autoLogin = false) => {
           router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
         }
       }, 1000);
+    }else{
+      triggerNotification(response.display_message, 'warning')
     }
   } catch (error) {
     handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
@@ -196,9 +196,7 @@ const initiateGoogleAuth = async () => {
     const authUrl = await $authService.getGoogleAuthUrl();
     window.location.href = authUrl; // Redirect to Google authentication URL
   } catch (err) {
-    notificationType.value = 'failure';
-    notificationMessage.value = err.message;
-    showNotification.value = true;
+    triggerNotification(err.message,'failure')
   }
 };
 
@@ -218,23 +216,23 @@ onMounted(() => {
       // Auto-login with the saved credentials
       // userLogin(true);  // Change 'handleLogin(true)' to 'userLogin(true)'
     }
-  } else if (sessionToken && userToken) {
+  } else if (authType == 'login' && userToken) {
     const userRole = localStorage.getItem('user_role');
     
     if (userRole === 'default') {
       userStore.setTempUser(userRole, userToken);
       router.push({ name: 'register-step-two-token', params: { token: userToken } });
+    }else{
+      router.push('/app');  
     }
-  } else if (!sessionToken && authType === 'login' && userToken) {
+  } else if (authType == 'register' && userToken) {
     const userRole = localStorage.getItem('user_role');
-
-    if (!userRole || userRole === 'undefined') {
       userStore.setTempUser(userRole, userToken);
       router.push({ name: 'register-step-two-token', params: { token: userToken } });
-    }
-  } else if (!sessionToken && !userToken) {
+  } else if (!userToken) {
+    userStore.clearUser();
     // Handle the case where neither sessionToken nor userToken exists
-    console.log('No valid session or token found, redirecting to login');
+   // triggerNotification('No valid session or token found, redirecting to login','failure');
     router.push('/login');
   }
 });
@@ -261,6 +259,19 @@ const decryptCredentials = (encryptedData) => {
     console.error('Failed to decrypt credentials', error);
     return null;
   }
+};
+
+const triggerNotification = (message, type) => {
+  notificationMessage.value = message;
+  notification_type.value = type;
+  showNotification.value = true;
+
+  notificationKey.value += 1; // Force re-render
+
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    showNotification.value = false;
+  }, 3000);
 };
 
 
