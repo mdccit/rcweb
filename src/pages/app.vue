@@ -252,11 +252,6 @@ const userStore = useUserStore()
 
 const router = useRouter();
 
-definePageMeta({
-  layout: 'socialhub-three-column',
-  // middleware: ['role'],
-  // requiredRole: ['admin','coach','business','player','parent'],
-});
 // State variables
 const posts = ref([]);
 const newComment = ref('');
