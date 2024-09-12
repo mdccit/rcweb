@@ -232,7 +232,7 @@
                         <div id="dropdownUser" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">                      
                             <ul v-if="userRole === 'admin'" class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
                                 <li>
-                                    <NuxtLink to="/admin/dashbaord" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Admin Dashboard</NuxtLink>
+                                    <NuxtLink  @click="gotoAdminDashboard" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Admin Dashboard</NuxtLink>
                                 </li>
                             </ul>
                             <div class="py-2">
@@ -253,7 +253,10 @@ import { onMounted } from 'vue'
 import { useFlowbite } from '~/composables/useFlowbite';
 import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore();
+import { useRouter } from 'vue-router';
 
+
+const router = useRouter();
 // Get the user's role from the store
 const user = userStore.user;
 const userRole = userStore.getRole();
@@ -325,6 +328,12 @@ const triggerNotification = (message, type) => {
     showNotification.value = false;
   }, 2000);
 };
+
+
+const gotoAdminDashboard = async (event) => {
+    event.preventDefault(); 
+  router.push('/admin/dashboard'); 
+}
 
 
 // initialize components based on data attribute selectors
