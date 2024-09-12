@@ -144,7 +144,6 @@ import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
 
-definePageMeta({ colorMode: 'light', })
 const user_id = ref('');
 const first_name = ref('');
 const last_name = ref('');

@@ -116,7 +116,6 @@ const notificationMessage = ref('');
 const loading = ref(false);
 const notificationKey = ref(0);
 
-definePageMeta({ colorMode: 'light', })
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();

@@ -83,6 +83,9 @@ export const useUserStore = defineStore('user', {
       this.token = token;
       this.user_role = role || 'default';
     },
+    clearRole() {
+      this.user_role = null;
+    },
 
     clearUser() {
       this.email = null;
@@ -100,6 +103,8 @@ export const useUserStore = defineStore('user', {
         localStorage.removeItem('token');
         localStorage.removeItem('user_role');
         localStorage.removeItem('user_permission_type');
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('email');
       }
     },
 

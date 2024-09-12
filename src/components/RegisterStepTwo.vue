@@ -624,7 +624,7 @@
           </p>
         </div>
 
-        <div class="space-y-4 mt-5" v-if="(role == 'parent' || role == 'player')">
+        <div class="space-y-4 mt-5">
           <div class="flex items-center">
             <input id="termsAccepted" type="checkbox" v-model="termsAccepted" required
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-steelBlue light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
@@ -664,6 +664,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useUserStore } from '~/stores/userStore';
 import { loadCountryList, loadNationalityList, loadBudgetList, loadGenderList, loadHandnessList } from '~/services/commonService';
 import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
 import CountryDropdown from '~/components/common/select/CountryDropdown.vue';
@@ -674,11 +675,12 @@ import HandednessDropdown from '~/components/common/select/HandednessDropdown.vu
 import Notification from '~/components/common/Notification.vue';
 import { handleError } from '@/utils/handleError';
 import { useNuxtApp } from '#app';
+
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 
-
+const userStore = useUserStore();
 const token = ref('');
 const role = ref('');
 const country = ref('');
@@ -873,15 +875,16 @@ const handleSubmitStep2 = async () => {
 
       if (response.status === 200) {
         loading.value = false; 
-        notification_type.value = 'success';
-        notificationMessage.value = response.display_message || 'Registration successful!';
-        showNotification.value = true;
+        userStore.clearRole();
+        userStore.setRole(role.value);
+
+        triggerNotification(response.display_message, 'success');
         if (role.value == 'coach' || role.value == 'business') {
           router.push('/user/approval-pending');
-        } else if (role.value == 'player' || role.value == 'parent') {
+        } else if (role.value == 'player' || role.value == 'parent' || role.value == 'admin') {
           router.push('/app');
-        } else if (role.value == 'admin') {
-          router.push('/dashboard');
+        } else{
+          router.push('/');
         }
 
       }
@@ -889,26 +892,9 @@ const handleSubmitStep2 = async () => {
         loading.value = false; 
         console.log('401 detected, redirecting to login...');
         await router.push('/login');
-        // try {
-        //   // const logout_response = $authService.logout({ bearer_token: token });
-
-        //   // If the logout was successful, clear user data and redirect
-        //   if (logout_response.status === 200) {
-        //     userStore.clearUser(); // Clear user from store
-        //     await router.push('/login'); // Redirect to login page
-        //   } else {
-        //     console.error('Logout failed.');
-        //   }
-        // } catch (error) {
-        //   console.error('Error during logout:', error);
-        // }
       } else {
         loading.value = false; 
-        error.value = response.data.message;
-        errors.value.push(response.message);
-        notification_type.value = 'failure';
-        notificationMessage.value = response.display_message || 'Registration failed. Please try again.';
-        showNotification.value = true;
+        triggerNotification(response.display_message, 'failure');
       }
     }
 
