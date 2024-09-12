@@ -116,17 +116,30 @@
                 <!-- Email Verification Checkbox -->
                 <div class="flex justify-end mt-4">
                     <label class="flex items-center">
-                        <input name="set_email_verified" v-model="is_set_email_verified" type="checkbox"
-                            data-validation-key="set_email_verified"
-                            class="rounded-full text-black p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"  :disabled="action === 'view'" />
-                        <span class="ml-4 text-black">Set email verified {{ action }}</span>
+                        <input
+                        name="set_email_verified"
+                        v-model="is_set_email_verified"
+                        type="checkbox"
+                        data-validation-key="set_email_verified"
+                        class="rounded-full text-black p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
+                        :disabled="action === 'view'"
+                      />
+                      
+                      <!-- Conditionally hide this span based on is_set_email_verified -->
+                      <span v-if="!is_set_email_verified" class="ml-4 text-black">
+                        Set email verified {{ action }}
+                      </span>
+                      <!-- <span v-if="!is_set_email_verified" class="ml-4 text-black">
+                        Email verified {{ action }}
+                      </span>
+                       -->
                     </label>
                 </div>
 
                 <!-- Resend Verification Email Link -->
                 <div class="mt-4 flex text-black justify-end gap-2">
                     Or
-                    <NuxtLink to="/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7/send-verification-email"
+                    <NuxtLink  v-if="!is_set_email_verified" to="/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7/send-verification-email"
                         class="bg-gray-200 opacity-60 hover:opacity-100 p-2 rounded"  :disabled="action === 'view'">
                         send again
                     </NuxtLink>
@@ -385,7 +398,7 @@ const fetchUserDetails = async (userId) => {
         user_role.value = user.user_role_id || '';
         phone_code_country.value = contact_info.country_id || ''; // Adjust if needed
         phone_number.value = contact_info.phone_number || '';             // Adjust if needed
-        is_set_email_verified.value = user.is_approved === 1;
+        is_set_email_verified.value = user.email_verified_at !== null;
     } catch (error) {
         triggerNotification(error.message, 'failure');
     }
