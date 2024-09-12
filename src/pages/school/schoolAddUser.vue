@@ -185,6 +185,13 @@ const triggerNotification = (message, type) => {
   }, 3000);
 };
 
+definePageMeta({
+  ssr: false,
+  layout: 'admin',
+  middleware: ['role'],
+  requiredRole: ['admin'],
+});
+
 </script>
 
 <style scoped>

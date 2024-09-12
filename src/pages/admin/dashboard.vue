@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto mt-10">
-    <h1 class="text-2xl text-black mb-4">Admin Dashboard</h1>
+    <h1 class="text-2xl text-black mb-4">Dashboard</h1>
   
   </div>
   <!-- <div>
@@ -19,8 +19,8 @@ const userStore = useUserStore()
 definePageMeta({
     ssr: false,
     layout: 'admin',
-    // middleware: ['permissions'],
-    roles: ['admin'],
+    middleware: ['auth','role'],
+    requiredRole: ['admin'],
 });
 
 </script>
