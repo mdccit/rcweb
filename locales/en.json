@@ -22,7 +22,7 @@
   "terms":{
       "terms_and_condition": "Terms and Conditions",
       "agreement_between": "Agreement between User and recruited.pro",
-      "welcome_to_recruited": "Welcome to recruited.pro. The recruited.pro website (the ''Site'') is comprised of various web pages operated by Recruited. recruited.pro is offered to you conditioned on your acceptance without modification of the terms, conditions, and notices contained herein (the 'Terms'). Your use of recruited.pro constitutes your agreement to all such Terms. Please read these terms carefully, and keep a copy of them for your reference.",
+      "welcome_to_recruited": "Welcome to recruited.pro. The recruited.pro website (the ''Site'') is comprised of various web pages operated by Recruited. recruited.pro is offered to you conditioned on your acceptance without modification of the terms, conditions, and notices contained herein (the ''Terms''). Your use of recruited.pro constitutes your agreement to all such Terms. Please read these terms carefully, and keep a copy of them for your reference.",
       "social_Networking_Site": "recruited.pro is a Social Networking Site.",
       "our_goal_is": "Our goal is to connect college coaches directly to college recruits and save both parties time by providing custom search results with many filter options.",
       "use_of_recruited": "Your use of recruited.pro is subject to Recruited's Privacy Policy. Please review our Privacy Policy, which also governs the Site and informs users of our data collection practices.",
@@ -81,7 +81,7 @@
       "our_mission": "Our Mission",   
       "at_our_core": "At our core, we are dedicated to empowering aspiring student-athletes worldwide to unlock their full potential and secure a spot on their dream college tennis team.",                            
       "we_are_unwavering": "We are unwavering in our belief that every talented individual deserves an equal opportunity to pursue their passion for tennis at the collegiate level. Our mission is to bridge the gap between high school athletes and college coaches, simplifying the intricate recruitment process. We understand the challenges and complexities involved, and our platform serves as a guiding light, ensuring a seamless and enriching experience for all.",                                             
-      "with_a_deep_rooted ": "With a deep-rooted commitment to excellence, we strive to foster an environment where dreams become reality. Our team of experts is dedicated to providing personalized guidance, invaluable insights, and a supportive network, enabling each student-athlete to showcase their skills, achievements, and aspirations effectively. We are driven by a relentless pursuit of success, fueled by the belief that hard work, determination, and unwavering dedication can transcend boundaries. Join us on this journey, and together, we will unlock the doors to a world of opportunities, where collegiate tennis and academic excellence intertwine, paving the way for a future filled with growth, accomplishments, and enduring memories.", 
+      "with_a_deep_rooted": "With a deep-rooted commitment to excellence, we strive to foster an environment where dreams become reality. Our team of experts is dedicated to providing personalized guidance, invaluable insights, and a supportive network, enabling each student-athlete to showcase their skills, achievements, and aspirations effectively. We are driven by a relentless pursuit of success, fueled by the belief that hard work, determination, and unwavering dedication can transcend boundaries. Join us on this journey, and together, we will unlock the doors to a world of opportunities, where collegiate tennis and academic excellence intertwine, paving the way for a future filled with growth, accomplishments, and enduring memories.", 
       "need_customer_support": "Need customer support?",  
       "see_something_wrong": "See something wrong", 
       "business_address": "Business Address", 
@@ -106,13 +106,13 @@
       "we_are_in_beta":" Everyone can use the platform for free while we are in beta! And the core features will always stay free for all players!",
       "personalized_help":"Personalized help & Consultations.",
       "consultation_call_with_a_team":"Get a consultation call with a team of college tennis recruiting experts and more personalized help if wanted.",
-      "detailed_page_editing":"Detailed page editing",
+      "detailed_page_editing":"Detailed page editing.",
       "get_very_detailed":"School and player profiles can get very detailed. Add your achievements, goals, and stats to get noticed by people from all over the world.",
       "saving_of_pages":"Easy saving of pages by clicking the Heart icon.",
       "your_favorite_schools":"In the Lists page, you can organize your favorite schools or users. In Lists, you can also see your connections.",
       "helpful_resources":"Free helpful resources for students & parents",
       "everybody_needs":"Everybody needs a little help sometimes. We cover everything from how the college tennis format is to how to approach recruiting and life as a student-athlete. ",
-      "open_beta_and_quickly":"Recruited is in open beta and quickly growing! Sign up for free today!",
+      "open_beta_and_quickly":"Recruited is offering a free consultation call to all athletes and parents! Sign up for free today!",
       "the_first_platform":"Recruited offers a comprehensive solution for tennis players and coaches worldwide. We are here to help you get noticed and connect with the right people."
     },
     
