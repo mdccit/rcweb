@@ -308,12 +308,11 @@ const fetchSchoolDetails = async (school_id) => {
 };
 
 definePageMeta({
-    ssr: true,
-    layout: 'admin',
-    // middleware: ['permissions'],
-    roles: ['admin'],
+  ssr: false,
+  layout: 'admin',
+  middleware: ['role'],
+  requiredRole: ['admin'],
 });
-
 </script>
 
 
