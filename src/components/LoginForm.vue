@@ -177,6 +177,8 @@ const userLogin = async (autoLogin = false) => {
           router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
         }
       }, 1000);
+    }else{
+      triggerNotification(response.display_message, 'warning')
     }
   } catch (error) {
     handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
