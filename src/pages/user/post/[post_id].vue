@@ -36,7 +36,7 @@ onMounted(async () => {
 const getPost =async () =>{
   try {
     // Call the backend to fetch the post data
-    const response = await $feedService.get_single_post(postId);
+    const response = await $feedService.get_single_post_with_like_boolean(postId);
     post.value = response.message;  // Assuming the response contains the post in `message`
   } catch (err) {
     error.value = 'Failed to load the post.';

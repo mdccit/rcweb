@@ -38,7 +38,7 @@
         <!-- Like button -->
         <button class="flex items-center space-x-1" @click="likePost(post.id,post)">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="size-5" :class="post?.likes_count ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
+            stroke="currentColor" class="size-5" :class="post?.user_has_liked ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
           </svg>
@@ -88,6 +88,7 @@ const emit = defineEmits(['getPost']);
 
 const nuxtApp = useNuxtApp();
 const $feedService = nuxtApp.$feedService;
+const likeButton = ref(false)
 // Props
 const props = defineProps({
   post: Object,  // Post object passed as a prop
@@ -111,17 +112,23 @@ onMounted(() => {
 
   });
 
-  
-// Function to handle post like (for demonstration)
-const likePost = async(postId,post) => {
-  if(post.user_has_liked){
-      const response = await $feedService.unlike_post(postId);
+
+const likePost = async (post_id,post) => {
+  try {
+    likeButton.value =true
+    if(post.user_has_liked){
+      const response = await $feedService.unlike_post(post_id);
       
     }else{
-      const response = await $feedService.like_post(postId);
+      const response = await $feedService.like_post(post_id);
     }
-};
+    emit('getPost')
+    likeButton.value =false
 
+  } catch (error) {
+    console.error('Failed to like post:', error.message);
+  }
+};
 // Refresh comments (optional event handler)
 const refreshComments = () => {
   emit('getPost')

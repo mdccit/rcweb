@@ -3,7 +3,7 @@
 
     <section>
         <!--start card 01 -->
-        <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-3">
+        <div v-if="userRole=='coach'" class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-3">
           <div class="flex">
             <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-14 h-14 mr-4">
             <div class="basis-full flex flex-col">
@@ -169,7 +169,7 @@
             <div class="flex items-center space-x-4">
               <button class="flex items-center space-x-1" :disabled="likeButton" @click="likePost(post.id,post), post.user_has_liked== true? post.likes_count-1 : post.likes_count = post.likes_count+1">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" class="size-5" :class="post.likes_count ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
+                  stroke="currentColor" class="size-5" :class="post.user_has_liked ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                 </svg>
@@ -279,9 +279,13 @@ const postAdd = ref(false)
 const model_id = ref('');
 const editingPostId = ref(null)
 const userId = ref('')
+const userRole = ref('')
 onMounted(async () => {
   window.addEventListener('scroll', handleScroll);
   userId.value = userStore.user.user_id
+  userRole.value = userStore.user.role
+  
+
   try {
     const response = await $feedService.list_posts({});
     posts.value = response || [];
@@ -308,8 +312,8 @@ const writePost =  async() => {
     let newValue ={
       description: htmlText,
       type: 'post', 
-      publisher_type: 'user', 
-      title: '',
+      publisher_type: 'school', 
+      title: ''
     }
     const response = await $feedService.create_post(newValue);
 
