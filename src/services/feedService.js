@@ -150,6 +150,18 @@ const createFeedService = (apiService) => {
     }
   };
 
+  const get_single_post_with_like_boolean = async (post_id, request_body) => {
+    const url = `/feed/post/${post_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.getRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update post');
+    }
+  };
+
   return {
     create_post,
     list_posts,
@@ -162,7 +174,8 @@ const createFeedService = (apiService) => {
     unlike_post,
     get_comment,
     get_all_post_comment,
-    get_single_post
+    get_single_post,
+    get_single_post_with_like_boolean
 
   };
 

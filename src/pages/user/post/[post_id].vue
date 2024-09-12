@@ -4,7 +4,7 @@
     <div v-if="error">{{ error }}</div>
 
     <!-- Show the post using PostCard once it's loaded -->
-    <PostCard v-if="post" :post="post" />
+    <PostCard v-if="post" :post="post"  @getPost="getPost"/>
   </section>
 </template>
 
@@ -30,10 +30,13 @@ const $feedService = nuxtApp.$feedService;  // Assuming feedService is injected
 
 // Fetch the post when the component is mounted
 onMounted(async () => {
+     getPost()
+});
+
+const getPost =async () =>{
   try {
     // Call the backend to fetch the post data
-    const response = await $feedService.get_single_post(postId);
-    console.log(response)
+    const response = await $feedService.get_single_post_with_like_boolean(postId);
     post.value = response.message;  // Assuming the response contains the post in `message`
   } catch (err) {
     error.value = 'Failed to load the post.';
@@ -41,7 +44,9 @@ onMounted(async () => {
   } finally {
     loading.value = false;
   }
-});
+}
+
+
 </script>
 
 <style scoped>

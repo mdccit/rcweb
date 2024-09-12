@@ -3,7 +3,7 @@
 
     <section>
         <!--start card 01 -->
-        <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-3">
+        <div v-if="userRole=='coach'" class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-3">
           <div class="flex">
             <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-14 h-14 mr-4">
             <div class="basis-full flex flex-col">
@@ -88,10 +88,12 @@
                   <div>
                     <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
                     <div class="text-darkSlateBlue text-xs">{{ post.school_id != null ? post.school.name : '' }}</div>
+                    <div v-if="post.school_id == null"  class="text-darkSlateBlue text-xs">{{ formatDate(post.updated_at) }}</div>
+
                   </div>
                   
                 </div>
-                <button
+                <button v-if="post.user_id == userId"
                   :id="'post-button-' + post.id"
                   :aria-labelledby="'post-dropdown-' + post.id"
                   data-dropdown-toggle="'post-dropdown-' + post.id"
@@ -148,9 +150,8 @@
                 <h3 v-if="post.type === 'blog' || post.type === 'event'" class="mt-4 text-darkSlateBlue text-base">
                   {{ post.title }}
                 </h3>
-                <div class="basis-full flex flex-col">
-
-                <p @click="viewPost(post.id)" v-if="!editingPostId || editingPostId !== post.id"class="mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
+                <div class="basis-full flex flex-col  ">
+                <p @click="viewPost(post.id)" v-if="!editingPostId || editingPostId !== post.id"class="cursor-pointer mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
                 <textarea v-else  type="text" placeholder="Write your thoughts..." v-model="editPost"
                    class="mt-4 text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 ">
                     
@@ -166,9 +167,9 @@
 
           <div class="flex items-center justify-between mt-3">
             <div class="flex items-center space-x-4">
-              <button class="flex items-center space-x-1" :disabled="likeButton" @click="likePost(post.id,post), post.user_has_liked== true? post.likes_count=0 : post.likes_count = post.likes_count+1">
+              <button class="flex items-center space-x-1" :disabled="likeButton" @click="likePost(post.id,post), post.user_has_liked== true? post.likes_count-1 : post.likes_count = post.likes_count+1">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" class="size-5" :class="post.likes_count ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
+                  stroke="currentColor" class="size-5" :class="post.user_has_liked ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                 </svg>
@@ -234,8 +235,9 @@
 <script setup>
 definePageMeta({
   layout: 'socialhub-three-column',
+  middleware: ['role'],
+  requiredRole: ['admin','coach','business','player','parent'],
 });
-
 import { ref, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 
@@ -244,9 +246,17 @@ import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import Notification from '~/components/common/Notification.vue';
 import CommentSection from '~/components/user/feed/CommentSection.vue';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '~/stores/userStore'
+
+const userStore = useUserStore()
 
 const router = useRouter();
 
+definePageMeta({
+  layout: 'socialhub-three-column',
+  // middleware: ['role'],
+  // requiredRole: ['admin','coach','business','player','parent'],
+});
 // State variables
 const posts = ref([]);
 const newComment = ref('');
@@ -274,9 +284,13 @@ const likeButton =ref(false)
 const postAdd = ref(false)
 const model_id = ref('');
 const editingPostId = ref(null)
-
+const userId = ref('')
+const userRole = ref('')
 onMounted(async () => {
   window.addEventListener('scroll', handleScroll);
+  userId.value = userStore.user.user_id
+  userRole.value = userStore.user.role
+  
 
   try {
     const response = await $feedService.list_posts({});
@@ -296,14 +310,16 @@ const handleScroll = () =>{
 // Function to create a new post
 const writePost =  async() => {
   try {
-
+    if (newPost.value.trim() === '') {
+      return;
+    }
     postAdd.value =true
     let htmlText = newPost.value.description.replace(/\n/g, '<br>');
     let newValue ={
       description: htmlText,
       type: 'post', 
-      publisher_type: 'user', 
-      title: '',
+      publisher_type: 'school', 
+      title: ''
     }
     const response = await $feedService.create_post(newValue);
 
@@ -314,11 +330,17 @@ const writePost =  async() => {
             title: '',
           }
     postAdd.value =false
+    notificationMessage.value = response.display_message
+
+    showNotification.value =true;
+    notification_type.value = "success"
     loadPosts();
    
  } catch (error) {
-  showNotification.value =true;
   notificationMessage.value = error.message
+
+  showNotification.value =true;
+  notification_type.value = "failure"
   newPost.value = {
     description: '',
     type: 'post', 
@@ -339,8 +361,9 @@ const likePost = async (post_id,post) => {
     }else{
       const response = await $feedService.like_post(post_id);
     }
-    likeButton.value =false
     loadPosts(); // Optionally, reload posts to update the like count
+    likeButton.value =false
+
   } catch (error) {
     console.error('Failed to like post:', error.message);
   }
@@ -356,10 +379,11 @@ const loadPosts = async () => {
 };
 
 const addComment = async (postId) => {
-  commentAdd.value =true;
+
   if (newComment.value.trim() === '') {
     return;
   }
+  commentAdd.value =true;
 
   try {
     await $feedService.create_comment(postId, { content: newComment.value });

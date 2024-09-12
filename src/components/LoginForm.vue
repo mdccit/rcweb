@@ -153,6 +153,7 @@ const userLogin = async (autoLogin = false) => {
         role: response.data.user_role,
         token: response.data.token,
         user_permission_type: response.data.user_permission_type,
+        user_id:response.data.user_id
       });
 
       // Set success notification
