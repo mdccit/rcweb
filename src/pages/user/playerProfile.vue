@@ -489,8 +489,6 @@ onMounted(() => {
 });
 
 const fetchUserDatils = async () =>{
-    console.log("Geloo")
- 
     try {
        const dataSets = await $publicService.get_player('sara');
         bio.value =dataSets.player_info.other_data.bio
