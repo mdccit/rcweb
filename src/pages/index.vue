@@ -237,11 +237,18 @@
         </h2>
         <p class="text-lg font-medium mb-8">{{ $t('home.the_first_platform') }}
         </p>
-        <NuxtLink to="/register" onclick="dataLayer.push({'event': 'star_signup'});"
-          class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-lightAzure focus:ring-lightPastalBlue !px-20 !py-4"
+        <!-- <NuxtLink to="/register" onclick="dataLayer.push({'event': 'star_signup'});"
+          class=" w-full border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-lightAzure focus:ring-lightPastalBlue !px-20 !py-4"
           data-v-inspector="src/pages/index.vue:7:95" data-v-02281a80="">
           <span class="text-xl text-black" data-v-inspector="src/pages/index.vue:9:270" data-v-02281a80="">{{
             $t('home.sign_up_forfree') }}</span>
+        </NuxtLink> -->
+
+        <NuxtLink to="/register" onclick="dataLayer.push({'event': 'star_signup'});">
+          <button type="submit"
+            class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white text-gray-700 border-gray-300  focus:ring-lightPastalBlue !px-20 !py-4 block mx-auto"><span
+              class="text-xl">Sign up for free</span>
+          </button>
         </NuxtLink>
       </div>
     </section>

@@ -23,7 +23,7 @@
 
         </label>
       </div>
-      <div class="w-full">
+      <div class="w-full py-4">
         <label class="block">
           <span class="block mb-1 text-gray-700 font-sans">Password <span aria-hidden="true" class="text-red-600"
               title="This field is required">*</span></span>
