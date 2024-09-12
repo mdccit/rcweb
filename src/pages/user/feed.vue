@@ -280,6 +280,7 @@ const model_id = ref('');
 const editingPostId = ref(null)
 const userId = ref('')
 const userRole = ref('')
+
 onMounted(async () => {
   window.addEventListener('scroll', handleScroll);
   userId.value = userStore.user.user_id
@@ -304,9 +305,7 @@ const handleScroll = () =>{
 // Function to create a new post
 const writePost =  async() => {
   try {
-    if (newPost.value.trim() === '') {
-      return;
-    }
+  
     postAdd.value =true
     let htmlText = newPost.value.description.replace(/\n/g, '<br>');
     let newValue ={
