@@ -104,9 +104,8 @@ export const useUserStore = defineStore('user', {
     },
     getRole() {
       if (this.user) {
-        return {
-          user_role: this.user_role
-        };
+        return this.user_role;
+       
       }
       return null;
     },

@@ -12,7 +12,7 @@
     
     <!-- Conditionally Display User Role -->
     <p v-if="user && userRole" class="text-md text-gray-600 mb-6">
-      Your user role: {{ userRole.user_role }}
+      Your user role: {{ userRole }}
     </p>
     <p v-else class="text-md text-gray-600 mb-6">
       You are not logged in or your role is not defined.
