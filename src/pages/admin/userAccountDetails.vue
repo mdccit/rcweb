@@ -4,16 +4,7 @@
         <userEditSection />
 
 
-        <!-- Display error messages -->
-        <div v-if="errors.length" class="error-messages">
-            <p class="error-title">Validation Errors:</p>
-            <ul class="error-list">
-                <li v-for="(error, index) in splitErrors" :key="index" class="error-item">
-                    {{ error }}
-                </li>
-            </ul>
-        </div>
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
+       <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
             <!-- Photo Upload Section -->
             <div class="col-span-6 sm:col-span-4">
                 <span class="block mb-1 text-gray-700 font-sans">Photo</span>
@@ -127,20 +118,19 @@
                       
                       <!-- Conditionally hide this span based on is_set_email_verified -->
                       <span v-if="!is_set_email_verified" class="ml-4 text-black">
-                        Set email verified {{ action }}
+                        Set email verified 
                       </span>
-                      <!-- <span v-if="!is_set_email_verified" class="ml-4 text-black">
-                        Email verified {{ action }}
+                      <span v-if="is_set_email_verified" class="ml-4 text-black">
+                        Email verified
                       </span>
-                       -->
+                      
                     </label>
                 </div>
 
                 <!-- Resend Verification Email Link -->
-                <div class="mt-4 flex text-black justify-end gap-2">
+                <div v-if="!is_set_email_verified" class="mt-4 flex text-black justify-end gap-2">
                     Or
-                    <NuxtLink  v-if="!is_set_email_verified" to="/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7/send-verification-email"
-                        class="bg-gray-200 opacity-60 hover:opacity-100 p-2 rounded"  :disabled="action === 'view'">
+                    <NuxtLink   class="bg-gray-200 opacity-60 hover:opacity-100 p-2 rounded"  :disabled="action === 'view'">
                         send again
                     </NuxtLink>
                 </div>
@@ -263,9 +253,7 @@
         </div>
 
         <div class="my-16"></div>
-
-        <!-- Notification Component -->
-        <Notification v-if="showNotification" :message="notificationMessage" :duration="3000" />
+ 
     </div>
 </template>
 
@@ -280,7 +268,6 @@ import { useRoute } from 'vue-router';
 import userEditSection from '~/components/admin/user/userEditSections.vue';
 import { loadCountryList } from '~/services/commonService';
 import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
-import Notification from '~/components/common/Notification.vue';
 
 const route = useRoute(); // Use useRoute to access query parameters
 
@@ -296,9 +283,6 @@ const password = ref('');
 const password_confirmation = ref('');
 const phone_code_country = ref('');
 const phone_number = ref('');
-const error = ref('');
-const successMessage = ref('');
-const errors = ref([]);
 const country_codes = ref([]);
 const userStore = useUserStore()
 const router = useRouter();
@@ -317,23 +301,23 @@ const modalRef = ref(null);
 const emit = defineEmits(['close']);
 defineExpose({ clearForm });
 
-// Computed property to split error messages by comma
-const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
-
 const action = ref(route.params.action || 'view'); // default to 'view' if action not provided
 const user_id = ref(route.params.user_id || '');
 
 onMounted(() => {
     loadCountryCodes();
-
     // Update the refs directly
     action.value = route.query.action || 'view';
     user_id.value = route.query.user_id || '';
 
     if (action.value === 'view' || action.value === 'edit') {
         fetchUserDetails(user_id.value);
-    }
+    }   
 });
+
+const showLogoutNotification = async () => {
+    nuxtApp.$notification.triggerNotification('You have been logged out successfully!', 'success');
+}
 
 // Watch for changes in the route query parameters
 watch([() => route.query.action, () => route.query.user_id], ([newAction, newUserId]) => {
@@ -342,8 +326,7 @@ watch([() => route.query.action, () => route.query.user_id], ([newAction, newUse
 
     if (action.value === 'create') {
         clearForm();  // Clear form for "create"
-    } else if (action.value === 'edit' || action.value === 'view') {
-        errors.value = [];  // Clear errors for "edit" & "view"
+    } else if (action.value === 'edit' || action.value === 'view') {       
         fetchUserDetails(user_id.value);  // Fetch user details for "edit" & "view"
     }
 });
@@ -351,7 +334,7 @@ watch([() => route.query.action, () => route.query.user_id], ([newAction, newUse
 
 //Update User
 const updateUserDetails = async () => {
-    errors.value = [];
+    loading.value = true;
     try {
         const response = await $adminService.user_update({
             user_id: id.value,
@@ -368,17 +351,18 @@ const updateUserDetails = async () => {
             phone_number: phone_number.value,
         });
 
-        console.log('response', response);
-
         if (response.status === 200) {
-            triggerNotification(response.display_message, 'success');
+            loading.value = false;
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
         } else {
-            triggerNotification(response.display_message, 'failure');
+            loading.value = false;
+            nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
         }
 
 
     } catch (err) {
-        triggerNotification(err.message, 'failure');
+        loading.value = false;
+        nuxtApp.$notification.triggerNotification(err.message, 'failure');
     }
 };
 
@@ -400,7 +384,7 @@ const fetchUserDetails = async (userId) => {
         phone_number.value = contact_info.phone_number || '';             // Adjust if needed
         is_set_email_verified.value = user.email_verified_at !== null;
     } catch (error) {
-        triggerNotification(error.message, 'failure');
+        nuxtApp.$notification.triggerNotification(error.message, 'failure');
     }
 };
 
@@ -409,7 +393,7 @@ const loadCountryCodes = async () => {
     try {
         country_codes.value = await loadCountryList();
     } catch (err) {
-        console.error('Error loading country codes:', err);
+        nuxtApp.$notification.triggerNotification('Error loading country codes:', 'failure');
     }
 };
 
@@ -426,27 +410,14 @@ function clearForm() {
     phone_code_country.value = '';
     phone_number.value = '';
     is_set_email_verified.value = false;
-    errors.value = [];
 }
-
-const triggerNotification = (message, type) => {
-  notificationMessage.value = message;
-  notification_type.value = type;
-  showNotification.value = true;
-
-  notificationKey.value += 1; // Force re-render
-
-  // Auto-hide after 3 seconds
-  setTimeout(() => {
-    showNotification.value = false;
-  }, 3000);
-};
 
 
 definePageMeta({
+    ssr: false,
     layout: 'admin',
-    // middleware: ['permissions'],
-    roles: ['admin'],
+    middleware: ['role'],
+    requiredRole: ['admin'],
 });
 </script>
 
