@@ -196,9 +196,6 @@
 
         </div>
     </div>
-
-    <!-- Notification Component -->
-    <Notification v-if="showNotification" :message="notificationMessage" :duration="3000" />
 </template>
 
 <script setup>
@@ -210,6 +207,7 @@ import { useNuxtApp } from '#app';
 import { useRoute } from 'vue-router';
 import Notification from '~/components/common/Notification.vue';
 import SchoolNavigation from '~/components/admin/school/SchoolNavigation.vue';
+import { handleError } from '@/utils/handleError';
 
 const route = useRoute(); // Use useRoute to access query parameters
 
@@ -222,7 +220,8 @@ const userStore = useUserStore();
 const router = useRouter();
 const showNotification = ref(false);
 const notificationMessage = ref('');
-const notificationKey = ref(0);
+const notification_type = ref('');
+const loading = ref(false);
 
 
 const name = ref('');
@@ -265,35 +264,23 @@ const updateSchoolDetails = async () => {
         });
 
         if (response.status === 200) {
-            notificationMessage.value = response.display_message;
-            showNotification.value = true;
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
         } else {
-            errors.value.push(response.display_message);
-            notificationMessage.value = response.display_message;
-            showNotification.value = true;
+            nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
         }
 
-    } catch (err) {
-        if (err.response?.data?.message) {
-            if (Array.isArray(err.response.data.message)) {
-                errors.value = err.response.data.message;
-            } else {
-                errors.value = [err.response.data.message];
-            }
-        } else {
-            errors.value = [err.response?.data?.message || err.message];
-        }
+    } catch (error) {
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+        handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
     }
 };
 
 
 // Fetch School Details
 const fetchSchoolDetails = async (school_id) => {
-    console.log('loading');
     errors.value = [];
     try {
         const data = await $adminService.get_school_details(school_id);
-        school_id.value = data.id || '';
         name.value = data.name || '';
         bio.value = data.bio || '';
         conference.value = data.conference || '';
@@ -302,8 +289,7 @@ const fetchSchoolDetails = async (school_id) => {
         is_verified.value = data.is_verified === 1;
         is_approved.value = data.is_approved === 1;
     } catch (error) {
-        console.error('Failed to load school details:', error.message);
-        errors.value.push('Failed to load school details.');
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     }
 };
 

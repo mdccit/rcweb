@@ -99,7 +99,6 @@ const authType = ref('');
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const loading = ref(false);
-const notificationKey = ref(0);
 
 
 // Access authService from the context
