@@ -15,6 +15,9 @@ import { useRoute } from 'vue-router';
 import PostCard from '@/components/user/feed/PostCard.vue'; // Assuming PostCard.vue is used for displaying posts
 import { useNuxtApp } from '#app';  // To access global services
 
+definePageMeta({
+  layout: 'socialhub-three-column',
+});
 // State variables
 const post = ref(null);  // To store the post data
 const loading = ref(true);  // To show loading state

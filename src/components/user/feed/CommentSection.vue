@@ -36,7 +36,7 @@
     </div>
 
     <!-- Optional: Show more comments link -->
-    <a href="#" class="text-steelBlue hover:underline mt-2 block text-sm">Show all comments...</a>
+    <!-- <a href="#" class="text-steelBlue hover:underline mt-2 block text-sm">Show all comments...</a> -->
   </div>
 </template>
 

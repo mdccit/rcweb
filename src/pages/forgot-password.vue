@@ -42,11 +42,7 @@
                             class="font-bold text-steelBlue">hello@recruited.pro</a> from the email you signed up with and
                         we will help you.</li>
                 </ul>
-                <div class="m-12"></div>
-
-                <!-- Notification Component -->
-                <Notification v-if="showNotification" :message="notificationMessage" :duration="3000" />
-
+                <div class="m-12"></div>              
 
                 <form @submit.prevent="sendResetPasswordRequest">
                 <div class=""><label class="block"><span class="block mb-1 text-gray-700 font-sans"> Email <span
@@ -104,25 +100,17 @@
             <div class="relative">
                 <div class="absolute w-full h-full flex flex-col p-4 space-y-4 items-end justify-end"></div>
             </div>
-        </div><!---->
-
-        <!-- Notification Component -->
-        <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type"
-            :duration="3000" />
+        </div>
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useNuxtApp, useRouter } from '#app';
-import LoadingSpinner from '~/components/LoadingSpinner.vue';
-import Notification from '~/components/common/Notification.vue';
-
 
 const nuxtApp = useNuxtApp();
 const router = useRouter();
 const email = ref('');
-const showNotification = ref(false); // To control the visibility of the notification
 const notificationMessage = ref('');
 const loading = ref(false);
 const notification_type = ref('');
@@ -134,33 +122,26 @@ definePageMeta({ colorMode: 'light', layout: 'outer' },)
 const sendResetPasswordRequest = async () => {
     loading.value = true;
     try {
-
         const result = await nuxtApp.$authService.resetPasswordRequest(email.value);
 
         // Store the password_reset_id in local storage
         if (result && result.data && result.data.password_reset_id) {
             localStorage.setItem('password_reset_id', result.data.password_reset_id);
         }
-
         // Extract display_message from the response
-        if (result && result.data && result.data.display_message) {
-            notificationMessage.value = result.data.display_message;
-            notification_type.value = 'success';
-            loading.value = false;
+        if (result && result.data && result.data.display_message) {          
+            nuxtApp.$notification.triggerNotification(result.data.display_message , 'success');
         } else {
-            notificationMessage.value = 'Password reset request was recorded.';
-            notification_type.value = 'success';
-   
-            loading.value = false;
+            nuxtApp.$notification.triggerNotification('Password reset request was recorded.' , 'success');           
         }
 
-        showNotification.value = true;
 
         // Redirect to the new password page after a short delay
         setTimeout(() => {
             router.push('/reset-password'); // Change '/new-password' to your actual route
         }, 2000);
     } catch (error) {
+        nuxtApp.$notification.triggerNotification(error.display_message , 'failure');
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading); 
     }
 };

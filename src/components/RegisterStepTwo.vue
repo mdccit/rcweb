@@ -22,7 +22,6 @@
           <label for="role" class="block mb-2 text-sm font-normal text-gray-900 mt-3">I am</label>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-4">
-
           <!-- Radio option for Player role -->
           <div class="radio relative cursor-pointer" @click="role = 'player'">
             <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="player" type="radio"
@@ -624,7 +623,7 @@
           </p>
         </div>
 
-        <div class="space-y-4 mt-5" v-if="(role == 'parent' || role == 'player')">
+        <div class="space-y-4 mt-5">
           <div class="flex items-center">
             <input id="termsAccepted" type="checkbox" v-model="termsAccepted" required
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-steelBlue light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
@@ -653,9 +652,6 @@
       </form>
     </div>
 
-
-    <!-- Notification Component -->
-    <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
   </div>
 </template>
 
@@ -664,6 +660,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useUserStore } from '~/stores/userStore';
 import { loadCountryList, loadNationalityList, loadBudgetList, loadGenderList, loadHandnessList } from '~/services/commonService';
 import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
 import CountryDropdown from '~/components/common/select/CountryDropdown.vue';
@@ -671,14 +668,14 @@ import NationalityDropdown from '~/components/common/select/NationalityDropdown.
 import GenderDropDown from '~/components/common/select/GenderDropDown.vue';
 import BudgetDropdown from '~/components/common/select/BudgetDropdown.vue';
 import HandednessDropdown from '~/components/common/select/HandednessDropdown.vue';
-import Notification from '~/components/common/Notification.vue';
 import { handleError } from '@/utils/handleError';
 import { useNuxtApp } from '#app';
+
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 
-
+const userStore = useUserStore();
 const token = ref('');
 const role = ref('');
 const country = ref('');
@@ -860,28 +857,29 @@ const handleSubmitStep2 = async () => {
 
     if (endpoint === undefined || endpoint === 'undefined') {
       loading.value = false; 
-      triggerNotification('Please Select Role!', 'failure');
+      nuxtApp.$notification.triggerNotification('Please Select Role!', 'failure');
     } else if ((role.value == 'parent' || role.value == 'player') && notEnrolled.value !== true) {
       loading.value = false; 
-      triggerNotification('Please Accept Enrollment!', 'failure');
+      nuxtApp.$notification.triggerNotification('Please Accept Enrollment!', 'failure');
     } else if ((role.value == 'parent' || role.value == 'player') && termsAccepted.value !== true) {
       loading.value = false; 
-      triggerNotification('Please Accept Terms!', 'failure');
+      nuxtApp.$notification.triggerNotification('Please Accept Terms!', 'failure');
     } else {
 
       const response = await $authService.registerStepTwo(endpoint, data);
 
       if (response.status === 200) {
         loading.value = false; 
-        notification_type.value = 'success';
-        notificationMessage.value = response.display_message || 'Registration successful!';
-        showNotification.value = true;
+        userStore.clearRole();
+        userStore.setRole(role.value);
+
+        nuxtApp.$notification.triggerNotification(response.display_message, 'success');
         if (role.value == 'coach' || role.value == 'business') {
           router.push('/user/approval-pending');
-        } else if (role.value == 'player' || role.value == 'parent') {
+        } else if (role.value == 'player' || role.value == 'parent' || role.value == 'admin') {
           router.push('/app');
-        } else if (role.value == 'admin') {
-          router.push('/dashboard');
+        } else{
+          router.push('/');
         }
 
       }
@@ -889,50 +887,21 @@ const handleSubmitStep2 = async () => {
         loading.value = false; 
         console.log('401 detected, redirecting to login...');
         await router.push('/login');
-        // try {
-        //   // const logout_response = $authService.logout({ bearer_token: token });
-
-        //   // If the logout was successful, clear user data and redirect
-        //   if (logout_response.status === 200) {
-        //     userStore.clearUser(); // Clear user from store
-        //     await router.push('/login'); // Redirect to login page
-        //   } else {
-        //     console.error('Logout failed.');
-        //   }
-        // } catch (error) {
-        //   console.error('Error during logout:', error);
-        // }
       } else {
         loading.value = false; 
-        error.value = response.data.message;
-        errors.value.push(response.message);
-        notification_type.value = 'failure';
-        notificationMessage.value = response.display_message || 'Registration failed. Please try again.';
-        showNotification.value = true;
+        nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
       }
     }
 
   } catch (error) {
     loading.value = false; 
+    nuxtApp.$notification.triggerNotification(error.display_message,'failure');
     handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
   } finally {
     loading.value = false;  // Reset loading state
   }
 };
 
-
-const triggerNotification = (message, type) => {
-  notificationMessage.value = message;
-  notification_type.value = type;
-  showNotification.value = true;
-
-  notificationKey.value += 1; // Force re-render
-
-  // Auto-hide after 3 seconds
-  setTimeout(() => {
-    showNotification.value = false;
-  }, 3000);
-};
 const loadCountries = async () => {
   try {
     countries.value = await loadCountryList();

@@ -4,15 +4,6 @@
         <userEditSection />
 
 
-        <!-- Display error messages -->
-        <div v-if="errors.length" class="error-messages">
-            <p class="error-title">Validation Errors:</p>
-            <ul class="error-list">
-                <li v-for="(error, index) in splitErrors" :key="index" class="error-item">
-                    {{ error }}
-                </li>
-            </ul>
-        </div>
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
             <!-- Photo Upload Section -->
             <div class="col-span-6 sm:col-span-4">
@@ -64,9 +55,11 @@
             <div class="w-full">
                 <label class="block">
                     <span class="block mb-1 text-gray-700 font-sans">First Name {{ first_name }}</span>
-                    <input v-model="first_name" type="text"  :disabled="action === 'view'"
+                    <input v-model="first_name" type="text" :disabled="action === 'view'"
                         class="block text-black w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300" />
                 </label>
+                <p v-if="errors.first_name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
+                        errors.first_name.join(', ') }}</p>
             </div>
 
             <div class="my-8"></div>
@@ -78,8 +71,11 @@
                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
                         <input
                             class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
-                            v-model="last_name" name="name" type="text" data-validation-key="name"  :disabled="action === 'view'" />
+                            v-model="last_name" name="name" type="text" data-validation-key="name"
+                            :disabled="action === 'view'" />
                     </div>
+                    <p v-if="errors.last_name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
+                        errors.last_name.join(', ') }}</p>
                 </label>
             </div>
 
@@ -92,8 +88,11 @@
                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
                         <input
                             class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
-                            v-model="other_names" name="name" type="text" data-validation-key="other-names"  :disabled="action === 'view'" />
+                            v-model="other_names" name="name" type="text" data-validation-key="other-names"
+                            :disabled="action === 'view'" />
                     </div>
+                    <p v-if="errors.other_names" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
+                        errors.other_names.join(', ') }}</p>
                 </label>
             </div>
 
@@ -108,39 +107,37 @@
                         <div class="flex rounded-lg border border-gray-300 shadow-sm">
                             <input v-model="email"
                                 class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                name="email" type="text" data-validation-key="email"  :disabled="action === 'view'" />
+                                name="email" type="text" data-validation-key="email" :disabled="action === 'view'" />
                         </div>
+                        <p v-if="errors.email" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
+                        errors.email.join(', ') }}</p>
                     </label>
                 </div>
 
                 <!-- Email Verification Checkbox -->
                 <div class="flex justify-end mt-4">
                     <label class="flex items-center">
-                        <input
-                        name="set_email_verified"
-                        v-model="is_set_email_verified"
-                        type="checkbox"
-                        data-validation-key="set_email_verified"
-                        class="rounded-full text-black p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                        :disabled="action === 'view'"
-                      />
-                      
-                      <!-- Conditionally hide this span based on is_set_email_verified -->
-                      <span v-if="!is_set_email_verified" class="ml-4 text-black">
-                        Set email verified {{ action }}
-                      </span>
-                      <!-- <span v-if="!is_set_email_verified" class="ml-4 text-black">
-                        Email verified {{ action }}
-                      </span>
-                       -->
+                        <input name="set_email_verified" v-model="is_set_email_verified" type="checkbox"
+                            data-validation-key="set_email_verified"
+                            class="rounded-full text-black p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
+                            :disabled="action === 'view'" />
+
+                        <!-- Conditionally hide this span based on is_set_email_verified -->
+                        <span v-if="!is_set_email_verified" class="ml-4 text-black">
+                            Set email verified
+                        </span>
+                        <span v-if="is_set_email_verified" class="ml-4 text-black">
+                            Email verified
+                        </span>
+
                     </label>
                 </div>
 
                 <!-- Resend Verification Email Link -->
-                <div class="mt-4 flex text-black justify-end gap-2">
+                <div v-if="!is_set_email_verified" class="mt-4 flex text-black justify-end gap-2">
                     Or
-                    <NuxtLink  v-if="!is_set_email_verified" to="/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7/send-verification-email"
-                        class="bg-gray-200 opacity-60 hover:opacity-100 p-2 rounded"  :disabled="action === 'view'">
+                    <NuxtLink class="bg-gray-200 opacity-60 hover:opacity-100 p-2 rounded"
+                        :disabled="action === 'view'">
                         send again
                     </NuxtLink>
                 </div>
@@ -155,8 +152,11 @@
                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
                         <input
                             class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                            name="password" v-model="password" type="text" data-validation-key="password"  :disabled="action === 'view'" />
+                            name="password" v-model="password" type="text" data-validation-key="password"
+                            :disabled="action === 'view'" />
                     </div>
+                    <p v-if="errors.password" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
+                        errors.password.join(', ') }}</p>
                 </label>
             </div>
 
@@ -167,7 +167,8 @@
                 <label class="block">
                     <span class="block mb-1 text-gray-700 font-sans">Approved</span>
                     <div class="relative">
-                        <select v-model="is_approved" name="is_approved" data-validation-key="is_approved"  :disabled="action === 'view'"
+                        <select v-model="is_approved" name="is_approved" data-validation-key="is_approved"
+                            :disabled="action === 'view'"
                             class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
                             <option value="1">Yes</option>
                             <option value="0">No</option>
@@ -206,7 +207,7 @@
                             </span>
                             <div class="relative">
                                 <CountryCodeDropdown :country_codes="country_codes" v-model="phone_code_country"
-                                    name="phone_code" data-validation-key="phone_code"  :disabled="action === 'view'" />
+                                    name="phone_code" data-validation-key="phone_code" :disabled="action === 'view'" />
                             </div>
                         </label>
                     </div>
@@ -222,7 +223,7 @@
                                         class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                         name="phone_number" type="text" data-validation-key="phone_number"
                                         v-model="phone_number" id="phone_number" step="0.01" required=""
-                                        placeholder="123456789"  :disabled="action === 'view'" />
+                                        placeholder="123456789" :disabled="action === 'view'" />
                                 </div>
                             </label>
                         </div>
@@ -239,7 +240,8 @@
                     <div class="relative">
 
                         <select v-model="user_role" name="role" data-validation-key="role"
-                            class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"  :disabled="action === 'view'">
+                            class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
+                            :disabled="action === 'view'">
                             <option value="2">Admin</option>
                             <option value="3">Operator</option>
                             <option value="4">Player</option>
@@ -264,8 +266,6 @@
 
         <div class="my-16"></div>
 
-        <!-- Notification Component -->
-        <Notification v-if="showNotification" :message="notificationMessage" :duration="3000" />
     </div>
 </template>
 
@@ -280,7 +280,7 @@ import { useRoute } from 'vue-router';
 import userEditSection from '~/components/admin/user/userEditSections.vue';
 import { loadCountryList } from '~/services/commonService';
 import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
-import Notification from '~/components/common/Notification.vue';
+import { handleError } from '@/utils/handleError';
 
 const route = useRoute(); // Use useRoute to access query parameters
 
@@ -296,17 +296,14 @@ const password = ref('');
 const password_confirmation = ref('');
 const phone_code_country = ref('');
 const phone_number = ref('');
-const error = ref('');
-const successMessage = ref('');
-const errors = ref([]);
 const country_codes = ref([]);
 const userStore = useUserStore()
 const router = useRouter();
+const loading = ref(false);
 const showNotification = ref(false);
 const notificationMessage = ref('');
-const loading = ref(false);
-const notificationKey = ref(0);
 const notification_type = ref('');
+const errors = ref([]);
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -317,15 +314,11 @@ const modalRef = ref(null);
 const emit = defineEmits(['close']);
 defineExpose({ clearForm });
 
-// Computed property to split error messages by comma
-const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
-
 const action = ref(route.params.action || 'view'); // default to 'view' if action not provided
 const user_id = ref(route.params.user_id || '');
 
 onMounted(() => {
     loadCountryCodes();
-
     // Update the refs directly
     action.value = route.query.action || 'view';
     user_id.value = route.query.user_id || '';
@@ -335,6 +328,10 @@ onMounted(() => {
     }
 });
 
+const showLogoutNotification = async () => {
+    nuxtApp.$notification.triggerNotification('You have been logged out successfully!', 'success');
+}
+
 // Watch for changes in the route query parameters
 watch([() => route.query.action, () => route.query.user_id], ([newAction, newUserId]) => {
     action.value = newAction || 'view';
@@ -343,7 +340,6 @@ watch([() => route.query.action, () => route.query.user_id], ([newAction, newUse
     if (action.value === 'create') {
         clearForm();  // Clear form for "create"
     } else if (action.value === 'edit' || action.value === 'view') {
-        errors.value = [];  // Clear errors for "edit" & "view"
         fetchUserDetails(user_id.value);  // Fetch user details for "edit" & "view"
     }
 });
@@ -351,6 +347,7 @@ watch([() => route.query.action, () => route.query.user_id], ([newAction, newUse
 
 //Update User
 const updateUserDetails = async () => {
+    loading.value = true;
     errors.value = [];
     try {
         const response = await $adminService.user_update({
@@ -368,17 +365,18 @@ const updateUserDetails = async () => {
             phone_number: phone_number.value,
         });
 
-        console.log('response', response);
-
         if (response.status === 200) {
-            triggerNotification(response.display_message, 'success');
+            loading.value = false;
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
         } else {
-            triggerNotification(response.display_message, 'failure');
+            loading.value = false;
+            nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
         }
 
-
-    } catch (err) {
-        triggerNotification(err.message, 'failure');
+    } catch (error) {
+        loading.value = false;
+        handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
+        // handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
     }
 };
 
@@ -390,17 +388,17 @@ const fetchUserDetails = async (userId) => {
         const user = response.user_basic_info;
         const contact_info = response.user_contact_info;
         id.value = user.id,
-        first_name.value = user.first_name || '';
+            first_name.value = user.first_name || '';
         last_name.value = user.last_name || '';
         other_names.value = user.other_names || '';
         email.value = user.email || '';
         is_approved.value = user.is_approved,
-        user_role.value = user.user_role_id || '';
+            user_role.value = user.user_role_id || '';
         phone_code_country.value = contact_info.country_id || ''; // Adjust if needed
         phone_number.value = contact_info.phone_number || '';             // Adjust if needed
         is_set_email_verified.value = user.email_verified_at !== null;
     } catch (error) {
-        triggerNotification(error.message, 'failure');
+        nuxtApp.$notification.triggerNotification(error.message, 'failure');
     }
 };
 
@@ -409,7 +407,7 @@ const loadCountryCodes = async () => {
     try {
         country_codes.value = await loadCountryList();
     } catch (err) {
-        console.error('Error loading country codes:', err);
+        nuxtApp.$notification.triggerNotification('Error loading country codes:', 'failure');
     }
 };
 
@@ -426,27 +424,14 @@ function clearForm() {
     phone_code_country.value = '';
     phone_number.value = '';
     is_set_email_verified.value = false;
-    errors.value = [];
 }
-
-const triggerNotification = (message, type) => {
-  notificationMessage.value = message;
-  notification_type.value = type;
-  showNotification.value = true;
-
-  notificationKey.value += 1; // Force re-render
-
-  // Auto-hide after 3 seconds
-  setTimeout(() => {
-    showNotification.value = false;
-  }, 3000);
-};
 
 
 definePageMeta({
+    ssr: false,
     layout: 'admin',
-    // middleware: ['permissions'],
-    roles: ['admin'],
+    middleware: ['role'],
+    requiredRole: ['admin'],
 });
 </script>
 

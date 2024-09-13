@@ -18,7 +18,7 @@ const closeModal = () => {
 };
 
 definePageMeta({
-    ssr: 'true',
+    ssr: false,
     layout: 'admin',
     middleware: ['role'],
     requiredRole: ['admin'],

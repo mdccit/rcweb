@@ -19,7 +19,7 @@ export const useUserStore = defineStore('user', {
     isLoggedIn: (state) => !!state.token,  // Check if token exists
     role: (state) => state.user_role || 'default',  // Default role if not set
     userId: (state) => state.user_id || '',  
-   loggedUserEmail: (state) => state.email || '',  // Default role if not set
+    loggedUserEmail: (state) => state.email || '',  // Default role if not set
   },
   actions: {
     setToken(token) {
@@ -83,6 +83,9 @@ export const useUserStore = defineStore('user', {
       this.token = token;
       this.user_role = role || 'default';
     },
+    clearRole() {
+      this.user_role = null;
+    },
 
     clearUser() {
       this.email = null;
@@ -100,6 +103,8 @@ export const useUserStore = defineStore('user', {
         localStorage.removeItem('token');
         localStorage.removeItem('user_role');
         localStorage.removeItem('user_permission_type');
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('email');
       }
     },
 

@@ -12,6 +12,12 @@ export default defineNuxtRouteMiddleware((to, from) => {
   // Get the user's role from the store
   const userRole = userStore.getRole();
 
+    // If the user's role is not defined yet (e.g., during async fetching), avoid redirecting right away
+    if (!userRole) {
+      console.warn('User role is not defined yet. Avoiding redirection.');
+      return;
+    }
+
   // Check if the user's role is in the required roles array
   if (!rolesArray.includes(userRole)) {
     // Redirect to an unauthorized page if the user doesn't have the correct role
