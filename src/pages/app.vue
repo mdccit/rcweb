@@ -87,7 +87,7 @@
                   <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
                   <div>
                     <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
-                    <div class="text-darkSlateBlue text-xs">{{ post.school_id != null ? post.school.name : '' }}</div>
+                    <div class="text-darkSlateBlue text-xs">Coach at {{ post.school_id != null ? post.school.name : '' }}</div>
                     <div v-if="post.school_id == null"  class="text-darkSlateBlue text-xs">{{  getTimeAgo(post.updated_at) }}</div>
 
                   </div>
