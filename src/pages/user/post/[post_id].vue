@@ -4,7 +4,8 @@
     <div v-if="error">{{ error }}</div>
 
     <!-- Show the post using PostCard once it's loaded -->
-    <PostCard v-if="post" :post="post"  @getPost="getPost"/>
+    <PostCard v-if="post" :post="post"  @getPost="getPost" @deletedPost="deletedPost"/>
+    
   </section>
 </template>
 
@@ -25,6 +26,8 @@ const error = ref(null);  // To handle errors
 
 // Access the route and extract the post_id from the URL
 const route = useRoute();
+const router = useRouter();
+
 const postId = route.params.post_id;
 
 // Access Nuxt's injected services (e.g., your feedService)
@@ -49,6 +52,12 @@ const getPost =async () =>{
   }
 }
 
+
+const deletedPost = () =>{
+  router.push({
+      path: '/app',
+    });
+}
 
 
 
