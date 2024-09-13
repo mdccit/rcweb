@@ -56,11 +56,11 @@
           </div>
 
           <!-- Radio option for Business role -->
-          <div class="radio relative cursor-pointer" @click="role = 'business'">
+          <div class="radio relative cursor-pointer" @click="role = 'business_manager'">
             <input class="radio-input text-black absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="business"
               type="radio" value="business" v-model="role" name="role">
             <div
-              :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'business' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
+              :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'business_manager' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
               <img class="mt-1 cursor-pointer" src="@/assets/images/bussiness.png">
               <label for="business" class="text-sm text-black  mb-2">Business</label>
             </div>
@@ -874,7 +874,7 @@ const handleSubmitStep2 = async () => {
         userStore.setRole(role.value);
 
         nuxtApp.$notification.triggerNotification(response.display_message, 'success');
-        if (role.value == 'coach' || role.value == 'business') {
+        if (role.value == 'coach' || role.value == 'business_manager') {
           router.push('/user/approval-pending');
         } else if (role.value == 'player' || role.value == 'parent' || role.value == 'admin') {
           router.push('/app');

@@ -151,9 +151,9 @@ const userLogin = async (autoLogin = false) => {
 
       // Delay routing to show notification for 1 second
       setTimeout(() => {
-        if (response.data.user_permission_type === 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
+        if (response.data.user_permission_type === 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business_manager')) {
           router.push('/user/approval-pending');  // Redirect to pending approval page
-        } else if (response.data.user_permission_type != 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
+        } else if (response.data.user_permission_type != 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business_manager')) {
           router.push('/app');  
         } else if((response.data.user_role === 'player') || (response.data.user_role === 'parent') || (response.data.user_role === 'admin')) {
           router.push('/app');  // Redirect to Feed
