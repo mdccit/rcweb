@@ -101,7 +101,7 @@
           </div>
           
           <!-- Show title only if available -->
-          <h3  class="mt-4 text-darkSlateBlue text-base">
+          <h3  v-if="post.type === 'blog' || post.type === 'event'" class="mt-4 text-darkSlateBlue text-base">
             {{ post.title }}
           </h3>
 
