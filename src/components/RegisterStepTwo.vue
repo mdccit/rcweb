@@ -121,12 +121,12 @@
             </label>
 
             <div class="grid grid-cols-5 gap-3 items-center -mt-[9px]">
-              <div class="flex rounded-lg border border-gray-300 shadow-sm w-full col-span-2">
+              <div class="flex rounded-lg border border-gray-300 shadow-sm w-full col-span-2 mt-1">
                 <CountryCodeDropdown :country_codes="country_codes" v-model="phone_code_country" name="phone_code"
                   data-validation-key="phone_code" class="col-span-2 h-12" />
               </div>
 
-              <div class="flex rounded-lg border border-gray-300 shadow-sm w-full col-span-3">
+              <div class="flex rounded-lg border border-gray-300 shadow-sm w-full col-span-3 mt-1">
                 <input type="text" id="phone_number" v-model="phone_number"
                   class=" h-12 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                   placeholder="Number" required />
@@ -145,7 +145,7 @@
           <div class="space-y-4 w-full" v-if="roleFields.includes('gender')">
             <label for="gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">Gender <span
                 class="text-red-600">*</span> </label>
-            <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
+            <div class="flex rounded-lg border border-gray-300 shadow-sm w-full mt-1">
               <GenderDropDown :genders="genders" v-model="gender" id="gender" label="Gender *" />
             </div>
 
