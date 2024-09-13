@@ -33,7 +33,7 @@
         <!-- Password Reset Form -->
         <form @submit.prevent="resetPassword">       
             <!-- Recovery Code -->
-            <div>
+            <div class="py-2">
               <label class="block">
                 <span class="block mb-1 text-gray-700 font-sans">Recovery Code <span class="text-red-600"
                     title="This field is required">*</span></span>
@@ -48,7 +48,7 @@
             </div>
 
             <!-- Password -->
-            <div>
+            <div  class="py-2">
               <label class="block">
                 <span class="block mb-1 text-gray-700 font-sans">Password <span class="text-red-600"
                     title="This field is required">*</span></span>
@@ -63,7 +63,7 @@
             </div>
 
             <!-- Password Confirmation -->
-            <div>
+            <div  class="py-2">
               <label class="block">
                 <span class="block mb-1 text-gray-700 font-sans">Password Confirmation <span class="text-red-600"
                     title="This field is required">*</span></span>
