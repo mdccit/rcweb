@@ -29,7 +29,7 @@
 <script setup>
 import { useUserStore } from '~/stores/userStore'
 const userStore = useUserStore()
-definePageMeta({ colorMode: 'light',layout:'Outer' })
+definePageMeta({ colorMode: 'light',layout:'Outer' });
 
 </script>
 <style scoped>

@@ -38,28 +38,21 @@
             </div>
 
 
-        </div><!----><!---->
-
-
+        </div>
         <LoadingSpinner v-if="loading" />
-        <!-- Notification Component -->
-        <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type"
-            :duration="3000" />
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import { useNuxtApp, useRouter } from '#app';
+import { useNuxtApp, useRouter , useRoute } from '#app';
 import Notification from '~/components/common/Notification.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';  
 definePageMeta({ colorMode: 'light', layout: 'outer'} );
 import { handleError } from '@/utils/handleError';
 
 const nuxtApp = useNuxtApp();
-const router = useRouter();
 const route = useRoute();
-const email = ref('');
 const showNotification = ref(false); // To control the visibility of the notification
 const notificationMessage = ref('');
 const loading = ref(false);
@@ -67,7 +60,6 @@ const notification_type = ref('');
 const errors = ref({});
 const user_id = ref('');
 const verification_message = ref('');
-const notificationKey = ref(0);
 
 onMounted(() => {
     user_id.value = route.query.userId || ''; // Capture userId from query parameters
@@ -83,34 +75,21 @@ const resendVerification = async () => {
 
         // Extract display_message from the response
         if (result.status === 200) {
-            triggerNotification(result.display_message, 'success');
-            notification_type.value = 'success';
+            nuxtApp.$notification.triggerNotification(result.display_message, 'success');
             loading.value = false;
            
         } else {
-             triggerNotification('Email Verfication Sending Failed.', 'failure');
+            nuxtApp.$notification.triggerNotification('Email Verfication Sending Failed.', 'failure');
             loading.value = false;
         }
         loading.value = false;
-        showNotification.value = true;
 
         } catch (error) {
         loading.value = false;
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure')
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading); 
     }
 };
 
-const triggerNotification = (message, type) => {
-  notificationMessage.value = message;
-  notification_type.value = type;
-  showNotification.value = true;
-
-  notificationKey.value += 1; // Force re-render
-
-  // Auto-hide after 3 seconds
-  setTimeout(() => {
-    showNotification.value = false;
-  }, 2000);
-};
 
 </script>

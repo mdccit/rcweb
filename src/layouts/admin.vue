@@ -6,13 +6,15 @@
       <NuxtPage />
     </main>
 
-            <!-- Notification Component -->
-            <Notification
-            v-if="showNotification"
-            :message="notificationMessage"
-            :type="notification_type"
-            :key="notificationKey"
-          />
+           <!-- Notification component -->
+    <Notification 
+    v-if="showNotification" 
+    :message="notificationMessage" 
+    :type="notificationType" 
+    :visible="showNotification" 
+    @close="closeNotification" 
+    :key="notificationKey"
+  />
   </div>
 </template>
 
@@ -20,27 +22,37 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
-const userStore = useUserStore();
-
-
+import { useNuxtApp } from '#app';
+import Notification from '~/components/common/Notification.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import NavBar from '~/components/admin/NavBar.vue';
+
 const loading = ref(false);
+const userStore = useUserStore();
+
 const router = useRouter();
 definePageMeta({ 
  colorMode: 'light', 
 });
 
-import { useNuxtApp } from '#app';
-import Notification from '~/components/common/Notification.vue';
-
-// Access notification data from the plugin
 const nuxtApp = useNuxtApp();
-const showNotification = nuxtApp.$notification.showNotification;
-const notificationMessage = nuxtApp.$notification.notificationMessage;
-const notification_type = nuxtApp.$notification.notification_type;
-const notificationKey = nuxtApp.$notification.notificationKey;
 
+const showNotification = ref(false);
+const notificationMessage = ref('');
+const notificationType = ref('');
+const notificationKey = ref(0);
+
+// Sync the state from the notification plugin to the layout
+watchEffect(() => {
+  showNotification.value = nuxtApp.$notification.showNotification.value;
+  notificationMessage.value = nuxtApp.$notification.notificationMessage.value;
+  notificationType.value = nuxtApp.$notification.notification_type.value;
+  notificationKey.value = nuxtApp.$notification.notificationKey.value;
+});
+
+const closeNotification = () => {
+  showNotification.value = false; // Hide the notification
+};
 </script>
 
 <style scoped>

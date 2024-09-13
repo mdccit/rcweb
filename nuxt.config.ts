@@ -9,6 +9,7 @@ export default defineNuxtConfig({
   srcDir: 'src/',
   ssr: true,
   target: 'server',
+  components: true,
   router: {
     base: '/',  // Base URL for your router, assuming your app is served from the root
     middleware: ['permissions','role'],

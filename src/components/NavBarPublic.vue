@@ -91,7 +91,6 @@ import { useUserStore } from '@/stores/userStore';
 import { useRouter } from 'vue-router';
 import Notification from '~/components/common/Notification.vue';
 
-definePageMeta({ colorMode: 'light', });
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 const router = useRouter();
