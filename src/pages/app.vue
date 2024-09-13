@@ -315,7 +315,7 @@ const handleScroll = () =>{
 // Function to create a new post
 const writePost =  async() => {
   try {
-  
+    
     postAdd.value =true
     let htmlText = newPost.value.description.replace(/\n/g, '<br>');
     let newValue ={
