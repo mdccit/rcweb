@@ -260,7 +260,7 @@
                                 </li>
                             </ul>
                             <div class="py-2">
-                                <NuxtLink to="/login" @click="logout"
+                                <NuxtLink  @click="logout"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                     Sign out</NuxtLink>
                             </div>
@@ -290,14 +290,6 @@ const router = useRouter();
 const userRole = userStore.getRole();
 
 const loggedUserMail = computed(() => userStore.loggedUserEmail);
-const showNotification = ref(false);
-const notificationMessage = ref('');
-const errors = ref({});
-
-const loading = ref(false);
-const notification_type = ref('');
-const notificationKey = ref(0);
-
 
 const logout = async (event) => {
     event.preventDefault();
@@ -307,8 +299,8 @@ const logout = async (event) => {
         const token = localStorage.getItem('token');  // Retrieve the token from local storage
 
         if (!token) {
-            userStore.clearUser();  // Clear user data if no token is found
-            triggerNotification('You have been logged out.', 'success');
+            // userStore.clearUser();  // Clear user data if no token is found
+            //nuxtApp.$notification.triggerNotification('You have been logged out.', 'success');
             // Use a timeout to display the notification before redirecting to login
             setTimeout(() => {
                 router.push('/login');  // Redirect to login
@@ -320,44 +312,43 @@ const logout = async (event) => {
             const response = await $authService.logout({
                 bearer_token: token
             });
+
+            console.log(response);
             if (response.status === 200) {
-                triggerNotification(response.display_message, 'success');
-                setTimeout(() => {
-                    router.push('/login'); 
-                }, 2000);  
-                return;
-            } else {
-                // triggerNotification(response.display_message, 'warning');
+                //nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+                userStore.clearUser(); 
                 setTimeout(() => {
                     router.push('/login');
                 }, 2000);
-                return;
+            } else {
+              
+                // nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
+                setTimeout(() => {
+                    router.push('/login');
+                }, 2000);
             }
         }
-
-    } catch (err) {
-        // Handle logout errors
-           // triggerNotification(err.message, 'failure');
-           userStore.clearUser();
+        } catch (err) {
+        if (err.response && err.response.status === 401) {
+            // Handle 401 error and redirect to login
+            nuxtApp.$notification.triggerNotification('Session expired. Please log in again.', 'failure');
+            userStore.clearUser();  // Clear user data
+            setTimeout(() => {
+                router.push('/login');  // Redirect to login on 401 error
+            }, 2000);  // 2-second delay
+        } else {
+            // For other errors
+            nuxtApp.$notification.triggerNotification(err.display_message || 'An error occurred.', 'failure');
+            setTimeout(() => {
+                router.push('/login');  // Ensure redirection to login even on other errors
+            }, 2000);  // 2-second delay
+        }
+        nuxtApp.$notification.triggerNotification(err.display_message, 'failure');
         setTimeout(() => {
             router.push('/login');  // Ensure redirection to login even on error
         }, 2000);  // 2-second delay
-        return;
     }
 };
-
-const triggerNotification = (message, type) => {
-    notificationMessage.value = message;
-    notification_type.value = type;
-    showNotification.value = true;
-    notificationKey.value += 1; // Force re-render
-
-    // Auto-hide after 3 seconds
-    setTimeout(() => {
-        showNotification.value = false;
-    }, 2000);
-};
-
 
 const gotoAdminDashboard = async (event) => {
     event.preventDefault();
