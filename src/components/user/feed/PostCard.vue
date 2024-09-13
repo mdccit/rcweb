@@ -16,7 +16,7 @@
                   <div class="bg-lightPink p-1 rounded-md flex items-center justify-center">
                     <img src="@/assets/images/college-icon-red.png" alt="College icon" class="w-4">
                   </div>
-                  <div class="text-darkSlateBlue text-xs">{{ formatDate(post?.updated_at) }}</div>
+                  <div class="text-darkSlateBlue text-xs">{{  getTimeAgo(post?.updated_at) }}</div>
                 </div>
               </div>
             </div>
@@ -152,6 +152,29 @@ const addComment = async (postId) => {
   commentAdd.value =false;
 };
 
+const getTimeAgo = (date) => {
+  const secondsAgo = Math.floor((new Date() - new Date(date)) / 1000);
+
+  let interval = Math.floor(secondsAgo / 31536000);
+  if (interval >= 1) return interval === 1 ? '1 year ago' : `${interval} years ago`;
+
+  interval = Math.floor(secondsAgo / 2592000);
+  if (interval >= 1) return interval === 1 ? '1 month ago' : `${interval} months ago`;
+
+  interval = Math.floor(secondsAgo / 604800);
+  if (interval >= 1) return interval === 1 ? '1 week ago' : `${interval} weeks ago`;
+
+  interval = Math.floor(secondsAgo / 86400);
+  if (interval >= 1) return interval === 1 ? '1 day ago' : `${interval} days ago`;
+
+  interval = Math.floor(secondsAgo / 3600);
+  if (interval >= 1) return interval === 1 ? '1 hour ago' : `${interval} hours ago`;
+
+  interval = Math.floor(secondsAgo / 60);
+  if (interval >= 1) return interval === 1 ? '1 minute ago' : `${interval} minutes ago`;
+
+  return secondsAgo === 1 ? '1 second ago' : `${secondsAgo} seconds ago`;
+};
 </script>
 
 <style scoped>

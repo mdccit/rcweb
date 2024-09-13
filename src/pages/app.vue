@@ -72,7 +72,7 @@
                         </div>
                         <!-- Display only for the school - end -->
 
-                        <div class="text-darkSlateBlue text-xs">{{ formatDate(post.updated_at) }}</div>
+                        <div class="text-darkSlateBlue text-xs">{{  getTimeAgo(post.updated_at) }}</div>
                       </div>
                     </div>
                   </div>
@@ -88,7 +88,7 @@
                   <div>
                     <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
                     <div class="text-darkSlateBlue text-xs">{{ post.school_id != null ? post.school.name : '' }}</div>
-                    <div v-if="post.school_id == null"  class="text-darkSlateBlue text-xs">{{ formatDate(post.updated_at) }}</div>
+                    <div v-if="post.school_id == null"  class="text-darkSlateBlue text-xs">{{  getTimeAgo(post.updated_at) }}</div>
 
                   </div>
                   
@@ -481,6 +481,30 @@ const triggerNotification = (message, type) => {
   setTimeout(() => {
     showNotification.value = false;
   }, 3000);
+};
+
+const getTimeAgo = (date) => {
+  const secondsAgo = Math.floor((new Date() - new Date(date)) / 1000);
+
+  let interval = Math.floor(secondsAgo / 31536000);
+  if (interval >= 1) return interval === 1 ? '1 year ago' : `${interval} years ago`;
+
+  interval = Math.floor(secondsAgo / 2592000);
+  if (interval >= 1) return interval === 1 ? '1 month ago' : `${interval} months ago`;
+
+  interval = Math.floor(secondsAgo / 604800);
+  if (interval >= 1) return interval === 1 ? '1 week ago' : `${interval} weeks ago`;
+
+  interval = Math.floor(secondsAgo / 86400);
+  if (interval >= 1) return interval === 1 ? '1 day ago' : `${interval} days ago`;
+
+  interval = Math.floor(secondsAgo / 3600);
+  if (interval >= 1) return interval === 1 ? '1 hour ago' : `${interval} hours ago`;
+
+  interval = Math.floor(secondsAgo / 60);
+  if (interval >= 1) return interval === 1 ? '1 minute ago' : `${interval} minutes ago`;
+
+  return secondsAgo === 1 ? '1 second ago' : `${secondsAgo} seconds ago`;
 };
 </script>
 
