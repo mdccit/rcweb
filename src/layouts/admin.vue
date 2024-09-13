@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar />
+    <AdminNavBar />
     <LoadingSpinner v-if="loading" />
     <main class="min-h-screen bg-gray-100" v-else>
       <NuxtPage />
@@ -25,7 +25,7 @@ import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
-import NavBar from '~/components/admin/NavBar.vue';
+import AdminNavBar from '~/components/admin/AdminNavBar.vue';
 
 const loading = ref(false);
 const userStore = useUserStore();

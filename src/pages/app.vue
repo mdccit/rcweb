@@ -2,13 +2,14 @@
   <div>
 
     <section>
-      <!--start card 01 -->
-      <div v-if="userRole == 'coach'"
-        class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-3">
-        <div class="flex">
-          <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-14 h-14 mr-4">
-          <div class="basis-full flex flex-col">
-            <textarea type="text" placeholder="Write your thoughts..." v-model="newPost.description"
+        <!--start card 01 -->
+        <div v-if="userRole=='coach'" class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-3">
+          <div class="flex">
+            <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-14 h-14 mr-4">
+            <div class="basis-full flex flex-col">
+              <p v-if="meesge != ''" class="mt-4 text-sm text-red-600 dark:text-red-500">{{ meesge }}</p>
+
+              <textarea  type="text" placeholder="Write your thoughts..." v-model="newPost.description" 
               class="text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 "> </textarea>
 
             <div class="flex justify-between items-center mt-2">
@@ -83,13 +84,13 @@
                       </div>
                       <!-- Display only for the school - end -->
 
-                      <div class="text-darkSlateBlue text-xs">{{ formatDate(post.updated_at) }}</div>
+                        <div class="text-darkSlateBlue text-xs">{{ formatDate(post.updated_at) }}</div>
+                      </div>
                     </div>
                   </div>
+              
+                
                 </div>
-
-
-              </div>
 
               <!-- Display only for the school - start -->
               <hr v-if="post.school" class="mt-5 mb-3 text-pigeonBlue">
@@ -99,8 +100,7 @@
                   <div>
                     <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
                     <div class="text-darkSlateBlue text-xs">{{ post.school_id != null ? post.school.name : '' }}</div>
-                    <div v-if="post.school_id == null" class="text-darkSlateBlue text-xs">{{ formatDate(post.updated_at)
-                      }}</div>
+                    <div v-if="post.school_id == null"  class="text-darkSlateBlue text-xs">{{ formatDate(post.updated_at) }}</div>
 
                   </div>
 
@@ -168,69 +168,65 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-between mt-3">
-          <div class="flex items-center space-x-4">
-            <button class="flex items-center space-x-1" :disabled="likeButton"
-              @click="likePost(post.id, post), post.user_has_liked == true ? post.likes_count - 1 : post.likes_count = post.likes_count + 1">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="size-5"
-                :class="post.user_has_liked ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-              </svg>
-              <span class="text-darkSlateBlue" v-if="post.likes_count">{{ post.likes_count }}</span>
-            </button>
-            <div>
-              <h2>
-                <button type="button" @click="toggleCommentSection(post.id)"
-                  class="flex items-center space-x-1 text-darkSlateBlue dark:bg-white dark:text-darkSlateBlue"
-                  data-accordion-target="#accordion-collapse-comment-2-body" aria-expanded="false"
-                  aria-controls="accordion-collapse-comment-2-body">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="size-5" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
-                  </svg>
-                  <span class="text-darkSlateBlue" v-if="post.comments.length">{{ post.comments.length }}</span>
-                </button>
-              </h2>
-            </div>
-            <button @click="viewPost(post.id)" class="flex items-center space-x-1 text-gray-500">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="size-4">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <div :id="post.id" :class="{ hide: isHiddden(post.id) }">
-          <!-- Comment Section Component -->
-          <CommentSection :comments="post.comments" :postId="post.id" @refreshComments="refreshComments" />
-          <div class="mt-4">
-            <div class="flex space-x-3">
-              <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
-              <div class="grow">
-                <textarea v-model="newComment" type="text" placeholder="Write your comment..."
-                  class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4"></textarea>
-                <div class="flex justify-end mt-2">
-                  <button @click="addComment(post.id)" :disabled="commentAdd"
-                    class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-4 py-2 rounded-lg text-sm">
-                    <span v-if="!commentAdd"> Post Comment</span>
-                    <LoadingSpinner v-else />
+          <div class="flex items-center justify-between mt-3">
+            <div class="flex items-center space-x-4">
+              <button class="flex items-center space-x-1" :disabled="likeButton" @click="likePost(post.id,post), post.user_has_liked== true? post.likes_count-1 : post.likes_count = post.likes_count+1">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="size-5" :class="post.user_has_liked ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                </svg>
+                <span class="text-darkSlateBlue" v-if="post.likes_count">{{ post.likes_count }}</span>
+              </button>
+              <div>
+                <h2>
+                  <button type="button" @click="toggleCommentSection(post.id)"
+                    class="flex items-center space-x-1 text-darkSlateBlue dark:bg-white dark:text-darkSlateBlue"
+                    data-accordion-target="#accordion-collapse-comment-2-body" aria-expanded="false"
+                    aria-controls="accordion-collapse-comment-2-body">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="size-5" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
+                    </svg>
+                    <span class="text-darkSlateBlue" v-if="post.comments.length">{{ post.comments.length }}</span>
                   </button>
+                </h2>
+              </div>
+              <button @click="viewPost(post.id)" class="flex items-center space-x-1 text-gray-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="size-4">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                     d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div :id="post.id" :class="{hide:isHiddden(post.id)}" >
+            <!-- Comment Section Component -->
+            <CommentSection  :comments="post.comments" :postId="post.id"  @refreshComments="refreshComments"/>
+            <div class="mt-4">
+              <div class="flex space-x-3">
+                 <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
+                 <div class="grow">
+                    <textarea v-model="newComment" type="text" placeholder="Write your comment..." class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4"></textarea>
+                    <div class="flex justify-end mt-2">
+                      <button @click="addComment(post.id)" :disabled="commentAdd" class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-4 py-2 rounded-lg text-sm">
+                        <span v-if="!commentAdd"> Post Comment</span>
+                        <LoadingSpinner v-else />
+                      </button>
+                   </div>
+                  </div>
                 </div>
               </div>
-            </div>
           </div>
+        
+
+          
+        
+
         </div>
-
-
-
-
-
-      </div>
     </section>
 
 
@@ -239,9 +235,6 @@
     </section>
 
     <LoadingSpinner v-if="loading" />
-    <!-- Notification Component -->
-    <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
-
   </div>
 
 </template>
@@ -250,7 +243,7 @@
 definePageMeta({
   layout: 'socialhub-three-column',
   middleware: ['role'],
-  requiredRole: ['admin', 'coach', 'business', 'player', 'parent', 'default'],
+  requiredRole: ['admin','coach','business','player','parent','default'],
 });
 
 import { ref, onMounted } from 'vue';
@@ -258,7 +251,6 @@ import { useNuxtApp } from '#app';
 
 
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
-import Notification from '~/components/common/Notification.vue';
 import CommentSection from '~/components/user/feed/CommentSection.vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore'
@@ -270,7 +262,7 @@ const router = useRouter();
 // State variables
 const posts = ref([]);
 const newComment = ref('');
-const visibleCommentSections = ref({})
+const visibleCommentSections= ref({}) 
 // State to hold new post data
 const newPost = ref({
   description: '',
@@ -281,8 +273,6 @@ const newPost = ref({
 
 const editPost = ref('')
 
-const showNotification = ref(false); // To control the visibility of the notification
-const notificationMessage = ref('');
 const loading = ref(false);
 const notification_type = ref('');
 const commentAdd = ref(false)
@@ -290,13 +280,14 @@ const isHidddenComment = ref([])
 // Access feedService from the context
 const nuxtApp = useNuxtApp();
 const $feedService = nuxtApp.$feedService;
-const likeButton = ref(false)
+const likeButton =ref(false)
 const postAdd = ref(false)
 const model_id = ref('');
 const editingPostId = ref(null)
 const userId = ref('')
 const userRole = ref('')
 const notificationKey = ref(0);
+const meesge = ref('')
 
 onMounted(async () => {
   window.addEventListener('scroll', handleScroll);
@@ -322,8 +313,8 @@ const handleScroll = () => {
 // Function to create a new post
 const writePost = async () => {
   try {
-
-    postAdd.value = true
+  
+    postAdd.value =true
     let htmlText = newPost.value.description.replace(/\n/g, '<br>');
     let newValue = {
       description: htmlText,
@@ -341,11 +332,11 @@ const writePost = async () => {
     }
     postAdd.value = false
 
-    triggerNotification(response.display_message, 'success');
+    nuxtApp.$notification.triggerNotification(response.display_message, 'success');
     loadPosts();
-
-  } catch (error) {
-    triggerNotification(error.message, 'failure');
+   
+ } catch (error) {
+  triggerNotification(error.message, 'failure');
 
     newPost.value = {
       description: '',
@@ -360,15 +351,15 @@ const writePost = async () => {
 
 const likePost = async (post_id, post) => {
   try {
-    likeButton.value = true
-    if (post.user_has_liked) {
+    likeButton.value =true
+    if(post.user_has_liked){
       const response = await $feedService.unlike_post(post_id);
-
-    } else {
+      
+    }else{
       const response = await $feedService.like_post(post_id);
     }
     loadPosts(); // Optionally, reload posts to update the like count
-    likeButton.value = false
+    likeButton.value =false
 
   } catch (error) {
     console.error('Failed to like post:', error.message);
@@ -488,6 +479,30 @@ const triggerNotification = (message, type) => {
   setTimeout(() => {
     showNotification.value = false;
   }, 3000);
+};
+
+const getTimeAgo = (date) => {
+  const secondsAgo = Math.floor((new Date() - new Date(date)) / 1000);
+
+  let interval = Math.floor(secondsAgo / 31536000);
+  if (interval >= 1) return interval === 1 ? '1 year ago' : `${interval} years ago`;
+
+  interval = Math.floor(secondsAgo / 2592000);
+  if (interval >= 1) return interval === 1 ? '1 month ago' : `${interval} months ago`;
+
+  interval = Math.floor(secondsAgo / 604800);
+  if (interval >= 1) return interval === 1 ? '1 week ago' : `${interval} weeks ago`;
+
+  interval = Math.floor(secondsAgo / 86400);
+  if (interval >= 1) return interval === 1 ? '1 day ago' : `${interval} days ago`;
+
+  interval = Math.floor(secondsAgo / 3600);
+  if (interval >= 1) return interval === 1 ? '1 hour ago' : `${interval} hours ago`;
+
+  interval = Math.floor(secondsAgo / 60);
+  if (interval >= 1) return interval === 1 ? '1 minute ago' : `${interval} minutes ago`;
+
+  return secondsAgo === 1 ? '1 second ago' : `${secondsAgo} seconds ago`;
 };
 </script>
 
