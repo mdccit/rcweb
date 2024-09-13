@@ -24,7 +24,7 @@ const createFeedService = (apiService) => {
       const response = await apiService.postRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.response.display_message || 'Failed to register');
     }
   };
 

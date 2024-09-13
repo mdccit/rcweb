@@ -7,6 +7,8 @@
           <div class="flex">
             <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-14 h-14 mr-4">
             <div class="basis-full flex flex-col">
+              <p v-if="meesge != ''" class="mt-4 text-sm text-red-600 dark:text-red-500">{{ meesge }}</p>
+
               <textarea  type="text" placeholder="Write your thoughts..." v-model="newPost.description" 
               class="text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 "> </textarea>
               
@@ -72,7 +74,7 @@
                         </div>
                         <!-- Display only for the school - end -->
 
-                        <div class="text-darkSlateBlue text-xs">{{ formatDate(post.updated_at) }}</div>
+                        <div class="text-darkSlateBlue text-xs">{{  getTimeAgo(post.updated_at) }}</div>
                       </div>
                     </div>
                   </div>
@@ -87,8 +89,8 @@
                   <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
                   <div>
                     <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
-                    <div class="text-darkSlateBlue text-xs">{{ post.school_id != null ? post.school.name : '' }}</div>
-                    <div v-if="post.school_id == null"  class="text-darkSlateBlue text-xs">{{ formatDate(post.updated_at) }}</div>
+                    <div v-if="post.school_id != null" class="text-darkSlateBlue text-xs">Coach at {{ post.school_id != null ? post.school.name : '' }}</div>
+                    <div v-if="post.school_id == null"  class="text-darkSlateBlue text-xs">{{  getTimeAgo(post.updated_at) }}</div>
 
                   </div>
                   
@@ -167,7 +169,7 @@
 
           <div class="flex items-center justify-between mt-3">
             <div class="flex items-center space-x-4">
-              <button class="flex items-center space-x-1" :disabled="likeButton" @click="likePost(post.id,post), post.user_has_liked== true? post.likes_count-1 : post.likes_count = post.likes_count+1">
+              <button class="flex items-center space-x-1" :disabled="likeButtonDisable.includes(post.id)" @click="likePost(post.id,post), post.user_has_liked== true? post.user_has_liked=false : post.user_has_liked = true">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="size-5" :class="post.user_has_liked ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -192,7 +194,7 @@
               </div>
               <button @click="viewPost(post.id)" class="flex items-center space-x-1 text-gray-500">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" class="size-4">
+                  stroke="currentColor" class="size-5">
                   <path stroke-linecap="round" stroke-linejoin="round"
                      d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                 </svg>
@@ -272,11 +274,14 @@ const isHidddenComment =ref([])
 const nuxtApp = useNuxtApp();
 const $feedService = nuxtApp.$feedService;
 const likeButton =ref(false)
+const likeButtonDisable = ref([])
 const postAdd = ref(false)
 const model_id = ref('');
 const editingPostId = ref(null)
 const userId = ref('')
-const userRole = ref('');
+const userRole = ref('')
+const notificationKey = ref(0);
+const meesge = ref('')
 
 onMounted(async () => {
   window.addEventListener('scroll', handleScroll);
@@ -302,7 +307,7 @@ const handleScroll = () =>{
 // Function to create a new post
 const writePost =  async() => {
   try {
-  
+    
     postAdd.value =true
     let htmlText = newPost.value.description.replace(/\n/g, '<br>');
     let newValue ={
@@ -325,7 +330,8 @@ const writePost =  async() => {
     loadPosts();
    
  } catch (error) {
-  nuxtApp.$notification.triggerNotification( response.display_message, 'success');
+  meesge.value ="Input validation failed"
+  nuxtApp.$notification.triggerNotification( "Input validation failed", 'failure');
 
   newPost.value = {
     description: '',
@@ -340,15 +346,17 @@ const writePost =  async() => {
 
 const likePost = async (post_id,post) => {
   try {
-    likeButton.value =true
+    likeButtonDisable.value.push(post_id)
     if(post.user_has_liked){
-      const response = await $feedService.unlike_post(post_id);
+       await $feedService.unlike_post(post_id);
       
     }else{
-      const response = await $feedService.like_post(post_id);
+      await $feedService.like_post(post_id);
     }
-    loadPosts(); // Optionally, reload posts to update the like count
-    likeButton.value =false
+    loadPosts(); 
+
+    likeButtonDisable.value = likeButtonDisable.value.filter(item => item !== post_id);
+
 
   } catch (error) {
     console.error('Failed to like post:', error.message);
@@ -457,6 +465,42 @@ const viewPost = (post_id) =>{
     });
 }
 
+const triggerNotification = (message, type) => {
+  notificationMessage.value = message;
+  notification_type.value = type;
+  showNotification.value = true;
+
+  notificationKey.value += 1; // Force re-render
+
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    showNotification.value = false;
+  }, 3000);
+};
+
+const getTimeAgo = (date) => {
+  const secondsAgo = Math.floor((new Date() - new Date(date)) / 1000);
+
+  let interval = Math.floor(secondsAgo / 31536000);
+  if (interval >= 1) return interval === 1 ? '1 year ago' : `${interval} years ago`;
+
+  interval = Math.floor(secondsAgo / 2592000);
+  if (interval >= 1) return interval === 1 ? '1 month ago' : `${interval} months ago`;
+
+  interval = Math.floor(secondsAgo / 604800);
+  if (interval >= 1) return interval === 1 ? '1 week ago' : `${interval} weeks ago`;
+
+  interval = Math.floor(secondsAgo / 86400);
+  if (interval >= 1) return interval === 1 ? '1 day ago' : `${interval} days ago`;
+
+  interval = Math.floor(secondsAgo / 3600);
+  if (interval >= 1) return interval === 1 ? '1 hour ago' : `${interval} hours ago`;
+
+  interval = Math.floor(secondsAgo / 60);
+  if (interval >= 1) return interval === 1 ? '1 minute ago' : `${interval} minutes ago`;
+
+  return secondsAgo === 1 ? '1 second ago' : `${secondsAgo} seconds ago`;
+};
 </script>
 
 <style scoped>
