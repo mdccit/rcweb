@@ -78,7 +78,7 @@
             </div>
 
             <!-- Submit Button -->
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex items-center justify-end mt-4 py-2">
               <button type="submit" :disabled="loading"
                 class="border rounded-full shadow-sm font-normal text-white py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-blue-600 text-blue border-transparent focus:border-blue-300">
                 <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
