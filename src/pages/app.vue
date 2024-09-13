@@ -219,12 +219,7 @@
                   </div>
                 </div>
               </div>
-          </div>
-        
-
-          
-        
-
+          </div>                
         </div>
     </section>
 
@@ -234,9 +229,6 @@
     </section>
 
     <LoadingSpinner v-if="loading" />
-    <!-- Notification Component -->
-    <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
-
   </div>
 
 </template>
@@ -245,7 +237,7 @@
 definePageMeta({
   layout: 'socialhub-three-column',
   middleware: ['role'],
-  requiredRole: ['admin','coach','business','player','parent','default'],
+  requiredRole: ['admin','coach','business_manager','player','parent','default'],
 });
 
 import { ref, onMounted } from 'vue';
@@ -253,7 +245,6 @@ import { useNuxtApp } from '#app';
 
 
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
-import Notification from '~/components/common/Notification.vue';
 import CommentSection from '~/components/user/feed/CommentSection.vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore'
@@ -265,7 +256,6 @@ const router = useRouter();
 // State variables
 const posts = ref([]);
 const newComment = ref('');
-const visibleCommentSections= ref({}) 
 // State to hold new post data
 const newPost = ref({
   description: '',
@@ -276,8 +266,6 @@ const newPost = ref({
 
 const editPost =ref('')
 
-const showNotification = ref(false); // To control the visibility of the notification
-const notificationMessage = ref('');
 const loading = ref(false);
 const notification_type = ref('');
 const commentAdd = ref(false)
@@ -338,12 +326,12 @@ const writePost =  async() => {
           }
     postAdd.value =false
 
-    triggerNotification(response.display_message, 'success');
+    nuxtApp.$notification.triggerNotification(response.display_message, 'success');
     loadPosts();
    
  } catch (error) {
-  meesge.value =error.message
-  triggerNotification(error.message, 'failure');
+  meesge.value ="Input validation failed"
+  nuxtApp.$notification.triggerNotification( "Input validation failed", 'failure');
 
   newPost.value = {
     description: '',

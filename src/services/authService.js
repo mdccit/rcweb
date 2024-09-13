@@ -22,8 +22,9 @@ const createAuthService = (apiService) => {
     try {
       const response = await apiService.putRequest(url, body);
       return response;
-    } catch (error) {
-      throw new Error(error.message || 'Failed to Logout');
+    } catch (error) {   
+        throw error; // Pass the full response to be handled in the frontend
+    
     }
   };
 

@@ -151,14 +151,17 @@ const userLogin = async (autoLogin = false) => {
 
       // Delay routing to show notification for 1 second
       setTimeout(() => {
-        if (response.data.user_permission_type === 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
+        if (response.data.user_permission_type === 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business_manager')) {
           router.push('/user/approval-pending');  // Redirect to pending approval page
-        } else if (response.data.user_permission_type != 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
+        } else if (response.data.user_permission_type != 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business_manager')) {
           router.push('/app');  
-        } else if((response.data.user_role === 'player') || (response.data.user_role === 'parent') || (response.data.user_role === 'admin')) {
+        } else if(['player', 'admin', 'parent'].includes(response.data.user_role)){
           router.push('/app');  // Redirect to Feed
         } else if ((response.data.user_role === 'default')){
           router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
+        }else{
+          nuxtApp.$notification.triggerNotification('No valid session found', 'warning');
+          router.push('/login'); 
         }
       }, 1000);
     }else{

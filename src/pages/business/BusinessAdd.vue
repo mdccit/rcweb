@@ -124,17 +124,19 @@ const options = {
 // Function to search users by query for adding to business
 const searchBusinessUsers = async () => {
   try {
-    const searchKeyToSend = search_key.value.trim() ? search_key.value : '';
-    const response = await $adminService.search_business_users(business_id.value, options.page, options.per_page_items, searchKeyToSend);
+  let searchKeyToSend = search_key.value.trim() ? search_key.value : ''; // Use 'let' instead of 'const'
+  
+  const response = await $adminService.search_business_users(business_id.value, options.page, options.per_page_items, searchKeyToSend);
 
-    if (response && response.dataSets && response.dataSets.data) {
-      users.value = response.dataSets.data || [];
-    } else {
-      users.value = [];
-    }
-  } catch (error) {
-    console.error('Failed to search users:', error.message);
+  if (response && response.dataSets && response.dataSets.data) {
+    users.value = response.dataSets.data || [];
+  } else {
+    users.value = [];
   }
+} catch (error) {
+  console.error('Failed to search users:', error.message);
+}
+
 };
 
 // Function to add a user to the business
