@@ -25,6 +25,8 @@ logs
 .env.uat
 .env.production
 
+ecosystem.config.cjs
+
 .ssh/
 setup.sh
 
