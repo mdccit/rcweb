@@ -3,9 +3,8 @@
 </template>
 
 <script setup>
-import Notification from '~/components/common/Notification.vue';
 import PendingApproval from '~/components/user/pending-approval.vue';
-
+definePageMeta({ colorMode: 'light',layout:'Outer' });
 </script>
 
 <style scoped>
