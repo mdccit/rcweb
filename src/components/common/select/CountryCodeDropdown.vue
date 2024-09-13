@@ -44,11 +44,17 @@ watch(
 </script>
 
 <style scoped>
+
+
+
 option span.truncate {
   display: inline-block;
   max-width: 100px; /* Adjust the width as needed */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+select{
+  padding: 5px;
 }
 </style>
