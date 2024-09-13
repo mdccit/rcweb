@@ -1,12 +1,15 @@
+// ~/plugins/notification.ts
 import { ref } from 'vue';
 
 export default defineNuxtPlugin((nuxtApp) => {
+  console.log('Notification plugin loaded');
   const notificationMessage = ref('');
   const notification_type = ref('');
   const showNotification = ref(false);
   const notificationKey = ref(0);
 
   const triggerNotification = (message, type) => {
+    console.log('Triggering notification:', message, type); 
     notificationMessage.value = message;
     notification_type.value = type;
     showNotification.value = true;

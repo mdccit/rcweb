@@ -22,7 +22,7 @@
           <label for="role" class="block mb-2 text-sm font-normal text-gray-900 mt-3">I am</label>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-4">
-
+g
           <!-- Radio option for Player role -->
           <div class="radio relative cursor-pointer" @click="role = 'player'">
             <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="player" type="radio"
@@ -653,9 +653,6 @@
       </form>
     </div>
 
-
-    <!-- Notification Component -->
-    <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
   </div>
 </template>
 
@@ -672,7 +669,6 @@ import NationalityDropdown from '~/components/common/select/NationalityDropdown.
 import GenderDropDown from '~/components/common/select/GenderDropDown.vue';
 import BudgetDropdown from '~/components/common/select/BudgetDropdown.vue';
 import HandednessDropdown from '~/components/common/select/HandednessDropdown.vue';
-import Notification from '~/components/common/Notification.vue';
 import { handleError } from '@/utils/handleError';
 import { useNuxtApp } from '#app';
 
@@ -862,13 +858,13 @@ const handleSubmitStep2 = async () => {
 
     if (endpoint === undefined || endpoint === 'undefined') {
       loading.value = false; 
-      triggerNotification('Please Select Role!', 'failure');
+      nuxtApp.$notification.triggerNotification('Please Select Role!', 'failure');
     } else if ((role.value == 'parent' || role.value == 'player') && notEnrolled.value !== true) {
       loading.value = false; 
-      triggerNotification('Please Accept Enrollment!', 'failure');
+      nuxtApp.$notification.triggerNotification('Please Accept Enrollment!', 'failure');
     } else if ((role.value == 'parent' || role.value == 'player') && termsAccepted.value !== true) {
       loading.value = false; 
-      triggerNotification('Please Accept Terms!', 'failure');
+      nuxtApp.$notification.triggerNotification('Please Accept Terms!', 'failure');
     } else {
 
       const response = await $authService.registerStepTwo(endpoint, data);
@@ -878,7 +874,7 @@ const handleSubmitStep2 = async () => {
         userStore.clearRole();
         userStore.setRole(role.value);
 
-        triggerNotification(response.display_message, 'success');
+        nuxtApp.$notification.triggerNotification(response.display_message, 'success');
         if (role.value == 'coach' || role.value == 'business') {
           router.push('/user/approval-pending');
         } else if (role.value == 'player' || role.value == 'parent' || role.value == 'admin') {
@@ -894,31 +890,19 @@ const handleSubmitStep2 = async () => {
         await router.push('/login');
       } else {
         loading.value = false; 
-        triggerNotification(response.display_message, 'failure');
+        nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
       }
     }
 
   } catch (error) {
     loading.value = false; 
+    nuxtApp.$notification.triggerNotification(error.display_message,'failure');
     handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
   } finally {
     loading.value = false;  // Reset loading state
   }
 };
 
-
-const triggerNotification = (message, type) => {
-  notificationMessage.value = message;
-  notification_type.value = type;
-  showNotification.value = true;
-
-  notificationKey.value += 1; // Force re-render
-
-  // Auto-hide after 3 seconds
-  setTimeout(() => {
-    showNotification.value = false;
-  }, 3000);
-};
 const loadCountries = async () => {
   try {
     countries.value = await loadCountryList();

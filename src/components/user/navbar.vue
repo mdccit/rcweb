@@ -337,7 +337,8 @@ const logout = async (event) => {
 
     } catch (err) {
         // Handle logout errors
-        triggerNotification(err.message, 'failure');
+           // triggerNotification(err.message, 'failure');
+           userStore.clearUser();
         setTimeout(() => {
             router.push('/login');  // Ensure redirection to login even on error
         }, 2000);  // 2-second delay

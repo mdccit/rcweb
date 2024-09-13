@@ -19,7 +19,7 @@ export const useUserStore = defineStore('user', {
     isLoggedIn: (state) => !!state.token,  // Check if token exists
     role: (state) => state.user_role || 'default',  // Default role if not set
     userId: (state) => state.user_id || '',  
-   loggedUserEmail: (state) => state.email || '',  // Default role if not set
+    loggedUserEmail: (state) => state.email || '',  // Default role if not set
   },
   actions: {
     setToken(token) {
