@@ -24,6 +24,7 @@ logs
 .env.qa
 .env.uat
 .env.production
+.env.*
 
 ecosystem.config.cjs
 
