@@ -84,7 +84,7 @@
     </div>
 
 
-    <el-table :data="items" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick">
+    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick">
       <el-table-column prop="priority" label="PRIORITY" sortable></el-table-column>
       <el-table-column prop="joined_at" label="DETAILS" sortable>
         <template v-slot="scope">
@@ -117,9 +117,7 @@ import { useUserStore } from '~/stores/userStore';
 import { useModerationStore } from '~/stores/moderation';
 
 const moderationStore = useModerationStore();
-definePageMeta({
-  colorMode: 'light',
-})
+
 const router = useRouter();
 const search = ref('');
 const items = ref([]);
@@ -143,10 +141,10 @@ const fetchData = async () => {
     const search_term = search.value; // Get the search term
 
     // Fetch data from the server with pagination and search parameters
-    const dataSets = await $adminService.morderation_all(current_page, per_page_items);
+    const dataSets = await $adminService.morderation_all();
     // Update the table data
-    items.value = dataSets.data; // Data for the current page
-
+    items.value = dataSets; // Data for the current page
+    totalItems.value = dataSets.length
   } catch (error) {
     console.error('Error fetching data:', error.message);
   } finally {
@@ -165,10 +163,11 @@ onMounted(() => {
 });
 
 
+
 // Handle page change
 const handlePageChange = (newPage) => {
   options.value.page = newPage;
-  fetchData();
+ // fetchData();
 };
 
 // Format date function
@@ -178,17 +177,14 @@ const formatDate = (dateString) => {
 };
 
 const filteredItems = computed(() => {
-  if (!search.value) return items.value;
+  let filtered = items.value;
 
-  return items.value.filter(item =>
-    item.name.toLowerCase().includes(search.value.toLowerCase()) ||
-    (item.bio && item.bio.toLowerCase().includes(search.value.toLowerCase()))
-  );
+  
 
   // Paginate items
-  const start = (options.value.page - 1) * options.value.itemsPerPage
-  const end = start + options.value.itemsPerPage
-  return filtered.slice(start, end)
+  const start = (options.value.page - 1) * options.value.itemsPerPage;
+  const end = start + options.value.itemsPerPage;
+  return filtered.slice(start, end);
 });
 
 

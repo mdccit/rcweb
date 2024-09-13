@@ -342,8 +342,8 @@ const createAdminService = (apiService) => {
     }
   };
 
-  const morderation_all =async (page = 1, per_page_items = 10) => {
-    const url = `/admin/morderation-get-all?page=${page}&per_page_items=${per_page_items}`;
+  const morderation_all =async () => {
+    const url = `/admin/morderation-get-all`;
   
     try {
       const response = await apiService.getRequest(url);

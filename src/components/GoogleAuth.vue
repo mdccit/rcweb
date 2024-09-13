@@ -42,7 +42,7 @@ const handleGoogleAuthCallback = async () => {
 
   if (!type) {
     // If authType is not set in localStorage
-    triggerNotification('Authentication type not found. Redirecting to login.', 'failure');
+    nuxtApp.$notification.triggerNotification('User not found. Redirecting to login.', 'failure');
     // Wait for the notification to be displayed and then redirect to the login page
     setTimeout(() => {
       router.push('/login');
@@ -59,8 +59,6 @@ const handleGoogleAuthCallback = async () => {
         response = await $authService.googleRegister(code);
       }
 
-      triggerNotification(response.display_message, 'success');
-
       const token = response.data.token;
       if (process.client) {
         localStorage.setItem('token', token);
@@ -69,17 +67,22 @@ const handleGoogleAuthCallback = async () => {
       const userRole = localStorage.getItem('user_role');
       userStore.setUser({
         email: '',
-        role: 'default',
+        role: response.data.user_role,
         token: token,
-        user_permission_type: 'none',
-        user_id:''
+        user_permission_type: response.data.user_permission_type,
+        user_id: response.data.user_id
       });
 
       if(type === 'login'){
         if(userRole === 'default' || userRole === 'undefined' || userRole === undefined){
+          nuxtApp.$notification.triggerNotification(response.display_message, 'success');
           router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
-        }else{
+        }else if(['player', 'admin', 'coach','parent', 'business_user'].includes(userRole)){
+          nuxtApp.$notification.triggerNotification(response.display_message, 'success');
             router.push('/app');
+        }else{
+          nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+           router.push('/login');
         }
       }else{
         setTimeout(() => {
@@ -87,24 +90,10 @@ const handleGoogleAuthCallback = async () => {
         }, 2000);
       }
    
-    } catch (err) {
-      triggerNotification(err.message, 'failure');
+    } catch (error) {
+      nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     }
   }
-};
-
-
-const triggerNotification = (message, type) => {
-  notificationMessage.value = message;
-  notification_type.value = type;
-  showNotification.value = true;
-
-  notificationKey.value += 1; // Force re-render
-
-  // Auto-hide after 3 seconds
-  setTimeout(() => {
-    showNotification.value = false;
-  }, 3000);
 };
 
 // Ensure the callback is handled when the component is mounted

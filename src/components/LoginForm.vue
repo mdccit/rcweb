@@ -71,19 +71,7 @@
             class="text-steelBlue">Create new account</strong></NuxtLink>
       </div>
     </div>
-
-    <!-- Display error messages -->
-    <div v-if="errors.length" class="error-messages">
-      <!-- <p class="error-title">Validation Errors:</p> -->
-      <ul class="error-list">
-        <li v-for="(error, index) in splitErrors" :key="index" class="error-item">
-          {{ error }}
-        </li>
-      </ul>
-    </div>
-
-    <!-- Notification Component -->
-    <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
+    
   </div>
 </template>
 
@@ -95,9 +83,6 @@ import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
 import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
-
-import Notification from '~/components/common/Notification.vue';
-import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import { handleError } from '@/utils/handleError';
 
 const email = ref('');
@@ -114,9 +99,7 @@ const authType = ref('');
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const loading = ref(false);
-const notificationKey = ref(0);
 
-definePageMeta({ colorMode: 'light', })
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -157,7 +140,7 @@ const userLogin = async (autoLogin = false) => {
       });
 
       // Set success notification
-      triggerNotification(response.display_message,'success')
+      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
 
       // Set session cookie (conditionally for remember me)
       if (rememberMe.value) {
@@ -168,20 +151,24 @@ const userLogin = async (autoLogin = false) => {
 
       // Delay routing to show notification for 1 second
       setTimeout(() => {
-        if (response.data.user_permission_type === 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
+        if (response.data.user_permission_type === 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business_manager')) {
           router.push('/user/approval-pending');  // Redirect to pending approval page
-        } else if (response.data.user_permission_type != 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
+        } else if (response.data.user_permission_type != 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business_manager')) {
           router.push('/app');  
-        } else if((response.data.user_role === 'player') || (response.data.user_role === 'parent') || (response.data.user_role === 'admin')) {
+        } else if(['player', 'admin', 'parent'].includes(response.data.user_role)){
           router.push('/app');  // Redirect to Feed
         } else if ((response.data.user_role === 'default')){
           router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
+        }else{
+          nuxtApp.$notification.triggerNotification('No valid session found', 'warning');
+          router.push('/login'); 
         }
       }, 1000);
     }else{
-      triggerNotification(response.display_message, 'warning')
+      nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
     }
   } catch (error) {
+    nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
   } finally {
     loading.value = false;  // Reset loading state
@@ -196,7 +183,7 @@ const initiateGoogleAuth = async () => {
     const authUrl = await $authService.getGoogleAuthUrl();
     window.location.href = authUrl; // Redirect to Google authentication URL
   } catch (err) {
-    triggerNotification(err.message,'failure')
+    nuxtApp.$notification.triggerNotification(err.message,'failure');
   }
 };
 
@@ -216,7 +203,7 @@ onMounted(() => {
       // Auto-login with the saved credentials
       // userLogin(true);  // Change 'handleLogin(true)' to 'userLogin(true)'
     }
-  } else if (authType == 'login' && userToken) {
+  } else if (authType == 'login' && userToken ) {
     const userRole = localStorage.getItem('user_role');
     
     if (userRole === 'default') {
@@ -259,19 +246,6 @@ const decryptCredentials = (encryptedData) => {
     console.error('Failed to decrypt credentials', error);
     return null;
   }
-};
-
-const triggerNotification = (message, type) => {
-  notificationMessage.value = message;
-  notification_type.value = type;
-  showNotification.value = true;
-
-  notificationKey.value += 1; // Force re-render
-
-  // Auto-hide after 3 seconds
-  setTimeout(() => {
-    showNotification.value = false;
-  }, 3000);
 };
 
 

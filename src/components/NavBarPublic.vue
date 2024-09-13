@@ -81,17 +81,15 @@
       <div class="pb-8"></div>
     </div>
   </nav>
-  <!-- Notification Component -->
-  <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
+import { useNuxtApp } from '#app';
 import { useUserStore } from '@/stores/userStore';
 import { useRouter } from 'vue-router';
 import Notification from '~/components/common/Notification.vue';
 
-definePageMeta({ colorMode: 'light', });
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 const router = useRouter();
@@ -101,7 +99,6 @@ const showNotification = ref(false);
 const notificationMessage = ref('');
 const error = ref('');
 const notification_type = ref('');
-
 onMounted(() => {
   //userStore.initializeUser();
 });
@@ -117,10 +114,7 @@ const logout = async () => {
 
     if (!token) {
       userStore.clearUser();  // Clear user data if no token is found
-      notificationMessage.value = 'You have been logged out.';
-      notification_type.value = 'success';
-      showNotification.value = true;
-
+      nuxtApp.$notification.triggerNotification('You have been logged out.', 'success');
       // Use a timeout to display the notification before redirecting to login
       setTimeout(() => {
         router.push('/login');  // Redirect to login
@@ -136,17 +130,14 @@ const logout = async () => {
 
     if (response.status === 200) {
       userStore.clearUser();  // Clear user data from Pinia store
-      notificationMessage.value = response.display_message;
-      notification_type.value = 'success';
-      showNotification.value = true;
+      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
 
       setTimeout(() => {
         router.push('/login');  // Redirect to login after 2 seconds
       }, 2000);  // 2-second delay
     } else {
-      notificationMessage.value = response.display_message;
-      notification_type.value = 'failure';
-      showNotification.value = true;
+      userStore.clearUser(); 
+      nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
       setTimeout(() => {
         router.push('/login');
       }, 2000);
@@ -154,10 +145,7 @@ const logout = async () => {
   } catch (err) {
     // Handle logout errors
     error.value = err.response?.data?.message || err.message;
-    notification_type.value = 'failure';
-    notificationMessage.value = err.message;
-    showNotification.value = true;
-
+    nuxtApp.$notification.triggerNotification(err.display_message, 'failure');
     setTimeout(() => {
       router.push('/login');  // Ensure redirection to login even on error
     }, 2000);  // 2-second delay
