@@ -32,9 +32,9 @@ const props = defineProps({
 const emit = defineEmits(['close']);
 
 // Log the props to check if they are being passed correctly
-console.log('Notification component - visible:', props.visible);
-console.log('Notification component - message:', props.message);
-console.log('Notification component - type:', props.type);
+// console.log('Notification component - visible:', props.visible);
+// console.log('Notification component - message:', props.message);
+// console.log('Notification component - type:', props.type);
 
 // Automatically hide the notification after the specified duration
 setTimeout(() => {

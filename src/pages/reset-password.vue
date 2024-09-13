@@ -73,14 +73,13 @@
                     name="password_confirmation" type="password" v-model="password_confirmation"
                     id="password_confirmation" required>
                 </div>
-                <span v-if="errors.password_confirmation" class="text-red-500 text-sm ">{{ errors.password_confirmation.join(', ')
-                }}</span>
+                <span v-if="errors.password_confirmation" class="text-red-500 text-sm ">{{ errors.password_confirmation.join(', ')}}</span>
               </label>
             </div>
 
             <!-- Submit Button -->
             <div class="flex items-center justify-end mt-4">
-              <button type="submit"
+              <button type="submit" :disabled="loading"
                 class="border rounded-full shadow-sm font-normal text-white py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-primary-600 text-primary border-transparent focus:border-primary-300 focus:ring-primary-200">
                 <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/>
@@ -101,7 +100,8 @@
 <script setup>
 import { ref } from 'vue';
 import { useNuxtApp, useRouter } from '#app';
-import LoadingSpinner from '~/components/LoadingSpinner.vue';
+
+import { handleError } from '@/utils/handleError';
 
 const nuxtApp = useNuxtApp();
 const router = useRouter();
@@ -111,10 +111,14 @@ definePageMeta({ colorMode: 'light', layout: 'outer' });
 const recovery_code = ref('');
 const password = ref('');
 const password_confirmation = ref('');
-const password_reset_id = ref(''); // Store the password_reset_id from the previous request
 const errors = ref({});
-
 const loading = ref(false);
+const authType = ref('');
+
+const showNotification = ref(false);
+const notificationMessage = ref('');
+
+const notification_type = ref('');
 
 // Function to handle password reset form submission
 const resetPassword = async () => {
@@ -129,7 +133,6 @@ try {
     password.value,
     password_confirmation.value
   );
-  console.log('result', result);
   // Handle the response
   if (result.status === 200) {
     loading.value = false;
@@ -150,11 +153,7 @@ try {
   }, 2000);
 } catch (error) {
   loading.value = false;
-  if (error.status === 422) {
-    nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
-  } else {
-    nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
-  }
+  handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
 }
 };
 

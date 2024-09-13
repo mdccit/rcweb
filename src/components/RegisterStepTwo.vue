@@ -22,7 +22,6 @@
           <label for="role" class="block mb-2 text-sm font-normal text-gray-900 mt-3">I am</label>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-4">
-g
           <!-- Radio option for Player role -->
           <div class="radio relative cursor-pointer" @click="role = 'player'">
             <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="player" type="radio"
