@@ -267,8 +267,6 @@
       </div>
     </div>
   </nav>
-  <!-- Notification Component -->
-  <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
 </template>
 
 <script setup>
@@ -276,29 +274,13 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 import { useUserStore } from '@/stores/userStore';
-// Manually initialize Flowbite's dropdown
-import Dropdown from 'flowbite/lib/esm/components/dropdown';
+
 const userStore = useUserStore();
-
-
-import Notification from '~/components/common/Notification.vue';
-
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 const isAuthenticated = computed(() => userStore.isAuthenticated);
 const loggedUserMail = computed(() => userStore.loggedUserEmail);
 const router = useRouter();
-
-const showNotification = ref(false);
-const notificationMessage = ref('');
-const error = ref('');
-const notification_type = ref('');
-const loading = ref(false);
-const dropdownVisible = ref(false)
-
-const toggleDropdown = () => {
-  dropdownVisible.value = !dropdownVisible.value
-}
 
 const closeDropdown = (event) => {
   if (!event.target.closest('.relative')) {
@@ -314,10 +296,7 @@ const logout = async () => {
     
     if (!token) {
       userStore.clearUser();  // Clear user data if no token is found
-      notificationMessage.value = 'You have been logged out.';
-      notification_type.value = 'success';
-      showNotification.value = true;
-      
+      nuxtApp.$notification.triggerNotification( 'You have been logged out.', 'success');
       // Use a timeout to display the notification before redirecting to login
       setTimeout(() => {
         router.push('/login');  // Redirect to login
@@ -331,49 +310,48 @@ const logout = async () => {
       bearer_token: token
     });
 
+
+    console.log(response);
     if (response.status === 200) {
       userStore.clearUser();  // Clear user data from Pinia store
-      notificationMessage.value = response.display_message;
-      notification_type.value = 'success';
-      showNotification.value = true;
+      console.log('user cleared');
+      nuxtApp.$notification.triggerNotification( response.display_message, 'success');
       
       setTimeout(() => {
         router.push('/login');  // Redirect to login after 2 seconds
       }, 2000);  // 2-second delay
     } else {
-      notificationMessage.value = response.display_message;
-      notification_type.value = 'failure';
-      showNotification.value = true;
+      nuxtApp.$notification.triggerNotification( response.display_message, 'failure');
+      
       setTimeout(() => {
         router.push('/login');
       }, 2000);
     }
   } catch (err) {
-    // Handle logout errors
-    error.value = err.response?.data?.message || err.message;
-    notification_type.value = 'failure';
-    notificationMessage.value = err.message;
-    showNotification.value = true;
 
+console.log(err);
+    if (err.response && err.response.status === 401) {
+      // Handle 401 error and redirect to login
+      nuxtApp.$notification.triggerNotification('Session expired. Please log in again.', 'failure');
+      userStore.clearUser();  // Clear user data
+      setTimeout(() => {
+        router.push('/login');  // Redirect to login on 401 error
+      }, 2000);  // 2-second delay
+    } else {
+      // For other errors
+      nuxtApp.$notification.triggerNotification(err.display_message || 'An error occurred.', 'failure');
+      setTimeout(() => {
+        router.push('/login');  // Ensure redirection to login even on other errors
+      }, 2000);  // 2-second delay
+    }
+    nuxtApp.$notification.triggerNotification( err.display_message, 'failure');
     setTimeout(() => {
       router.push('/login');  // Ensure redirection to login even on error
     }, 2000);  // 2-second delay
   }
 };
 
-
-
-
 onMounted(() => {
-// // Example initialization in your Nuxt app
-// const dropdownToggleElement = document.getElementById('dropdownUserButton');
-// const dropdownMenuElement = document.getElementById('dropdownUser');
-
-// if (dropdownToggleElement && dropdownMenuElement) {
-//   new Dropdown(dropdownMenuElement, dropdownToggleElement);
-// }
-
-
   window.removeEventListener('click', closeDropdown);
 });
 
