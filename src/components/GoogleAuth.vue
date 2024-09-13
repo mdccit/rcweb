@@ -69,10 +69,10 @@ const handleGoogleAuthCallback = async () => {
       const userRole = localStorage.getItem('user_role');
       userStore.setUser({
         email: '',
-        role: 'default',
+        role: response.data.user_role,
         token: token,
-        user_permission_type: 'none',
-        user_id:''
+        user_permission_type: response.data.user_permission_type,
+        user_id: response.data.user_id
       });
 
       if(type === 'login'){

@@ -117,9 +117,7 @@ import { useUserStore } from '~/stores/userStore';
 import { useModerationStore } from '~/stores/moderation';
 
 const moderationStore = useModerationStore();
-definePageMeta({
-  colorMode: 'light',
-})
+
 const router = useRouter();
 const search = ref('');
 const items = ref([]);

@@ -387,7 +387,7 @@ const register = () => {
 };
 
 const profile = () => {
-  router.push('/feed');
+  router.push('/app');
 };
 
 const isLoggedIn = computed(() => userStore.isLoggedIn);

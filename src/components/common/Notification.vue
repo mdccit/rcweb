@@ -2,7 +2,7 @@
   <div v-if="visible" :class="notificationClasses" class="fixed top-4 right-4 w-96 border rounded-lg shadow-lg p-4">
     <div class="flex justify-between items-center">
       <div class="flex items-center">
-        <span class="text-sm text-white" :class="messageClasses">{{ message }}</span>
+        <span class="text-sm text-white">{{ message }}</span>
       </div>
       <button @click="closeNotification" class="text-white">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -13,54 +13,38 @@
   </div>
 </template>
 
-
 <script setup>
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps({
   message: String,
   type: {
     type: String,
-    default: 'success', // 'success', 'failure', 'warning'
+    default: 'success',
   },
+  visible: Boolean, // Bound to the parent-provided visibility
   duration: {
     type: Number,
-    default: 3000
-  }
+    default: 3000,
+  },
 });
 
-const visible = ref(true);
+const emit = defineEmits(['close']);
 
-const closeNotification = () => {
-  visible.value = false;
-};
+// Log the props to check if they are being passed correctly
+console.log('Notification component - visible:', props.visible);
+console.log('Notification component - message:', props.message);
+console.log('Notification component - type:', props.type);
 
-// Set visibility timeout
-if (props.duration > 0) {
-  setTimeout(() => {
-    visible.value = false;
-  }, props.duration);
-}
+// Automatically hide the notification after the specified duration
+setTimeout(() => {
+  emit('close');
+}, props.duration);
 
 // Computed classes for notification based on type
-const notificationClasses = computed(() => {
-  return {
-    'bg-limegreen border-green-500': props.type === 'success',
-    'bg-red-500 border-red-500': props.type === 'failure',
-    'bg-yellow-400 border-yellow-500': props.type === 'warning',
-  };
-});
-
-const messageClasses = computed(() => {
-  return {
-    'text-white': props.type === 'success',
-    'text-white': props.type === 'failure',
-    'text-white': props.type === 'warning',
-  };
-});
+const notificationClasses = computed(() => ({
+  'bg-green-500 border-green-500': props.type === 'success',
+  'bg-red-500 border-red-500': props.type === 'failure',
+  'bg-yellow-400 border-yellow-500': props.type === 'warning',
+}));
 </script>
-
-
-<style scoped>
-/* Add your styles here */
-</style>
