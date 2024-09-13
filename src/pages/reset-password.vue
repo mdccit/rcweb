@@ -44,7 +44,7 @@
                     title="This field is required">*</span></span>
                 <div class="flex rounded-lg border border-gray-300 shadow-sm">
                   <input
-                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                     name="recovery_code" type="text" v-model="recovery_code" id="recovery_code" required autofocus>
                 </div>
                 <span v-if="errors.recovery_code" class="text-red-500 text-sm ">{{ errors.recovery_code.join(', ')
@@ -59,7 +59,7 @@
                     title="This field is required">*</span></span>
                 <div class="flex rounded-lg border border-gray-300 shadow-sm">
                   <input
-                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                     name="password" type="password" v-model="password" id="password" required>
                 </div>
                 <span v-if="errors.password" class="text-red-500 text-sm ">{{ errors.password.join(', ')
@@ -74,7 +74,7 @@
                     title="This field is required">*</span></span>
                 <div class="flex rounded-lg border border-gray-300 shadow-sm">
                   <input
-                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                     name="password_confirmation" type="password" v-model="password_confirmation"
                     id="password_confirmation" required>
                 </div>
@@ -86,7 +86,7 @@
             <!-- Submit Button -->
             <div class="flex items-center justify-end mt-4">
               <button type="submit"
-                class="border rounded-full shadow-sm font-normal text-white py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-primary-600 text-primary border-transparent focus:border-primary-300 focus:ring-primary-200">
+                class="border rounded-full shadow-sm font-normal text-white py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-blue-600 text-blue border-transparent focus:border-blue-300 ">
                 Reset Password
               </button>
             </div>

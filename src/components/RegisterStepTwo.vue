@@ -142,10 +142,10 @@
           </div>
 
 
-          <div class="space-y-4 w-full" v-if="roleFields.includes('gender')">
-            <label for="gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">Gender <span
+          <div class="space-y-4 w-full" v-if="roleFields.includes('gender')"> 
+            <label for="gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray mb-[20px]">Gender <span
                 class="text-red-600">*</span> </label>
-            <div class="flex rounded-lg border border-gray-300 shadow-sm w-full mt-1">
+            <div class="flex rounded-lg border border-gray-300 shadow-sm w-full mt-[20px]">
               <GenderDropDown :genders="genders" v-model="gender" id="gender" label="Gender *" />
             </div>
 
@@ -423,7 +423,7 @@
           <div class="space-y-4" v-if="roleFields.includes('player_gender')">
             <label for="player_gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">
               Gender <span class="text-red-600">*</span> </label>
-            <div class="flex rounded-lg border border-gray-300 shadow-sm col-span-3">
+            <div class="flex rounded-lg border border-gray-300 shadow-sm col-span-3 mt-[20px]">
               <GenderDropDown :genders="genders" v-model="player_gender" id="player_gender" label="Player Gender"
                 :required="roleFields.includes('player_gender')" />
               <span v-if="errors.player_gender" class="text-red-500 text-sm ">{{ errors.player_gender.join(', ')
