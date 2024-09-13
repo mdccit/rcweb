@@ -39,7 +39,7 @@
                 <!-- Safely access user display name -->
                 <div class="text-md font-bold text-black">{{ post?.user?.display_name || 'Unknown User' }}</div>
                 <div class="flex space-x-2 items-center">
-                  <div class="text-darkSlateBlue text-xs">Coach at {{ post.school_id != null ? post.school.name : '' }}</div>
+                  <div v-if="post.school_id != null" class="text-darkSlateBlue text-xs">Coach at {{ post.school_id != null ? post.school.name : '' }}</div>
 
                   <!-- <div class="bg-lightPink p-1 rounded-md flex items-center justify-center">
                     <img src="@/assets/images/college-icon-red.png" alt="College icon" class="w-4">
@@ -107,7 +107,7 @@
 
           <!-- Post description -->
           <!-- <p class="mt-4 text-darkSlateBlue text-base" v-html=" post?.description"></p> -->
-          <p v-if="meesge != ''" class="mt-4 text-sm text-red-600 dark:text-red-500">{{ message }}</p>
+          <p v-if="meesge != ''" class="mt-4 text-sm text-red-600 dark:text-red-500">{{ meesge }}</p>
           <p  v-if="!editingPostId || editingPostId !== post.id"class="mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
          
 
@@ -126,7 +126,7 @@
     <div class="flex items-center justify-between mt-3">
       <div class="flex items-center space-x-4">
         <!-- Like button -->
-        <button class="flex items-center space-x-1" @click="likePost(post.id,post)">
+        <button class="flex items-center space-x-1" :disabled="likeButton"  @click="likePost(post.id,post)  ,post.user_has_liked== true? post.user_has_liked=false : post.user_has_liked = true">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="size-5" :class="post?.user_has_liked ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
             <path stroke-linecap="round" stroke-linejoin="round"

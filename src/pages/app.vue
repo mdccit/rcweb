@@ -7,6 +7,8 @@
           <div class="flex">
             <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-14 h-14 mr-4">
             <div class="basis-full flex flex-col">
+              <p v-if="meesge != ''" class="mt-4 text-sm text-red-600 dark:text-red-500">{{ meesge }}</p>
+
               <textarea  type="text" placeholder="Write your thoughts..." v-model="newPost.description" 
               class="text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 "> </textarea>
               
@@ -87,7 +89,7 @@
                   <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
                   <div>
                     <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
-                    <div class="text-darkSlateBlue text-xs">Coach at {{ post.school_id != null ? post.school.name : '' }}</div>
+                    <div v-if="post.school_id != null" class="text-darkSlateBlue text-xs">Coach at {{ post.school_id != null ? post.school.name : '' }}</div>
                     <div v-if="post.school_id == null"  class="text-darkSlateBlue text-xs">{{  getTimeAgo(post.updated_at) }}</div>
 
                   </div>
@@ -167,7 +169,7 @@
 
           <div class="flex items-center justify-between mt-3">
             <div class="flex items-center space-x-4">
-              <button class="flex items-center space-x-1" :disabled="likeButton" @click="likePost(post.id,post), post.user_has_liked== true? post.likes_count-1 : post.likes_count = post.likes_count+1">
+              <button class="flex items-center space-x-1" :disabled="likeButtonDisable.includes(post.id)" @click="likePost(post.id,post), post.user_has_liked== true? post.user_has_liked=false : post.user_has_liked = true">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="size-5" :class="post.user_has_liked ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -284,12 +286,14 @@ const isHidddenComment =ref([])
 const nuxtApp = useNuxtApp();
 const $feedService = nuxtApp.$feedService;
 const likeButton =ref(false)
+const likeButtonDisable = ref([])
 const postAdd = ref(false)
 const model_id = ref('');
 const editingPostId = ref(null)
 const userId = ref('')
 const userRole = ref('')
 const notificationKey = ref(0);
+const meesge = ref('')
 
 onMounted(async () => {
   window.addEventListener('scroll', handleScroll);
@@ -338,6 +342,7 @@ const writePost =  async() => {
     loadPosts();
    
  } catch (error) {
+  meesge.value =error.message
   triggerNotification(error.message, 'failure');
 
   newPost.value = {
@@ -353,15 +358,17 @@ const writePost =  async() => {
 
 const likePost = async (post_id,post) => {
   try {
-    likeButton.value =true
+    likeButtonDisable.value.push(post_id)
     if(post.user_has_liked){
-      const response = await $feedService.unlike_post(post_id);
+       await $feedService.unlike_post(post_id);
       
     }else{
-      const response = await $feedService.like_post(post_id);
+      await $feedService.like_post(post_id);
     }
-    loadPosts(); // Optionally, reload posts to update the like count
-    likeButton.value =false
+    loadPosts(); 
+
+    likeButtonDisable.value = likeButtonDisable.value.filter(item => item !== post_id);
+
 
   } catch (error) {
     console.error('Failed to like post:', error.message);
