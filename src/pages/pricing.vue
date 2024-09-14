@@ -1,17 +1,21 @@
 <template>
     <div id="maincontent text-black" class="mx-auto">
         <h1 class="font-bold tracking-wider mb-2 mt-8 opacity-50 text-xs text-center uppercase  text-black">Pricing</h1>
-        <h2 class="mb-8 text-5xl tracking-tight text-center font-bold md:text-6xl  text-black"> Success at any budget </h2>
+        <h2 class="mb-8 text-5xl tracking-tight text-center font-bold md:text-6xl  text-black"> Success at any budget
+        </h2>
         <div class="container mx-auto">
             <div class="p-20 text-center font-lg border border-border container max-w-3xl ">
-                <p class="mb-6 text-3xl font-bold text-black">Everyone can use the platform for free while we are in beta!</p>
-                <p class="mb-8 text-black"> We are working hard to bring you extra benefits like personalized Recruited merch,
+                <p class="mb-6 text-3xl font-bold text-black">Everyone can use the platform for free while we are in
+                    beta!</p>
+                <p class="mb-8 text-black"> We are working hard to bring you extra benefits like personalized Recruited
+                    merch,
                     discounts to consultation calls, analytics, boosts, and so much more later this year. For now,
                     everybody can use the essential functions of Recruited at no cost. </p>
-                    <button type="submit"
-                        class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-400 active:bg-blue-500 text-white border-transparent focus:border-primary-300 focus:ring-primary-200 py-4 w-full mx-auto max-w-xl"
-                        href="https://qa1.recruited.qualitapps.com/register"><span class="text-lg">
-                            <NuxtLink to="/register">Sign up for free now</NuxtLink></span></button>
+                <button type="submit"
+                    class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-blue-700 active:bg-steelBlue text-white border-transparent  py-4 w-full mx-auto max-w-xl"
+                    href="https://qa1.recruited.qualitapps.com/register"><span class="text-lg">
+                        <NuxtLink to="/register">Sign up for free now</NuxtLink>
+                    </span></button>
             </div>
             <div class="mx-auto max-w-3xl">
                 <h2 class="mt-16 mb-10 text-4xl font-bold tracking-tight text-black"> Available add-ons </h2>
@@ -26,7 +30,8 @@
                                     <path
                                         d="M9 3a1 1 0 0 1 .877 .519l.051 .11l2 5a1 1 0 0 1 -.313 1.16l-.1 .068l-1.674 1.004l.063 .103a10 10 0 0 0 3.132 3.132l.102 .062l1.005 -1.672a1 1 0 0 1 1.113 -.453l.115 .039l5 2a1 1 0 0 1 .622 .807l.007 .121v4c0 1.657 -1.343 3 -3.06 2.998c-8.579 -.521 -15.418 -7.36 -15.94 -15.998a3 3 0 0 1 2.824 -2.995l.176 -.005h4z"
                                         stroke-width="0" fill="currentColor"></path>
-                                </svg></div>
+                                </svg>
+                            </div>
                         </div>
                         <div class="flex-1 self-center text-black">
                             <h3 class="text-2xl font-bold mb-2"> Consultation Call <span
@@ -36,14 +41,14 @@
                         </div>
                     </div>
                     <div class="self-center w-full md:w-auto"><button type="submit"
-                                class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200 w-full block"
-                                primary="primary"><span class="">Book call</span></button></div>
+                            class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-blue-700 text-white border-transparent  w-full block"
+                            primary="primary"><span class="">Book call</span></button></div>
                 </div>
                 <h2 class="mt-20 mb-10 text-4xl font-bold tracking-tight text-black"> Frequently asked questions </h2>
                 <div class="max-w-4xl mb-16">
                     <div>
                         <details class="question my-8 text-black">
-                            <summary class="lg:text-lgg flex items-center cursor-pointer font-bold"><span
+                            <summary class="lg:text-lgg flex items-center cursor-pointer font-bold transition-transform"><span
                                     class="mr-4 text-blue-500"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -129,16 +134,20 @@
 <script setup>
 import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore();
-definePageMeta({ ssr: 'true', colorMode: 'light', layout: 'default'});
+definePageMeta({ ssr: 'true', colorMode: 'light', layout: 'public-default' });
 
 </script>
-
-<style scoped>
-h1 {
-    color: #333;
+<style>
+details summary svg {
+    transform: rotate(90deg)
 }
 
-p {
-    font-size: 16px;
+details[open] summary svg {
+    transform: rotate(-90deg)
+}
+
+details[open] summary~* {
+    animation: ease-opacity-t-b .5s ease
 }
 </style>
+

@@ -1,14 +1,27 @@
 <script setup>
 import AdminBusinessTable from '~/components/tables/AdminBusinessTable.vue';
 import { useUserStore } from '~/stores/userStore';
+import businessCreateModal from '~/components/shared/businessCreateModal.vue';
 const userStore = useUserStore();
 
 
+const showModal = ref(false);
+
+// Method to open the modal
+const openCreateBusinessModal = () => {
+  showModal.value = true;
+};
+
+// Method to close the modal
+const closeModal = () => {
+  showModal.value = false;
+};
+
 definePageMeta({
-    ssr: 'true',
+    ssr: false,
     layout: 'admin',
-    middleware: ['permissions'],
-    roles: ['admin'],
+    middleware: ['role'],
+    requiredRole: ['admin'],
 });
 </script>
 
@@ -23,7 +36,7 @@ definePageMeta({
         <div class="flex w-full justify-between gap-8">
             <h2 class="font-bold text-lg self-center text-black"> Businesses </h2>
             <div class="">
-                <button type="submit"
+                <button @click="openCreateBusinessModal"
                     class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-500 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
                     Create new <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24"
                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -43,6 +56,9 @@ definePageMeta({
         
     </div>
 
+     <!-- Admin Bsuienss Create Modal Component -->
+     <businessCreateModal :isVisible="showModal" @close="showModal = false"     
+     ref="businessModal" />
   
 
 </template>

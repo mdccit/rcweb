@@ -6,10 +6,10 @@
                 reserved.
             </strong>
         </p>
-        <p class="max-w-xl mt-2 text-xs mx-auto opacity-50 text-gray-500"> Vamos! Recruited is currently in open beta.
+        <p class="max-w-xl mt-2 text-xs mx-auto opacity-50"> Vamos! Recruited is currently in open beta.
             Please report
             any issues you may encounter and send suggestions to hello (at) recruited (dot) pro. </p>
-        <div class="max-w-[300px] mt-4 mx-auto text-gray-500">
+        <div class="max-w-[300px] mt-4 mx-auto">
             <div class="opacity-75 mt-8 flex flex-wrap justify-center gap-x-8 gap-y-2">
                 <NuxtLink to="/about">About</NuxtLink>
                 <NuxtLink to="/about#contacts">Contact</NuxtLink>
@@ -26,7 +26,6 @@
 
 <script setup>
 import { useUserStore } from '~/stores/userStore'
-definePageMeta({ colorMode: 'light', })
 const userStore = useUserStore()
 </script>
 

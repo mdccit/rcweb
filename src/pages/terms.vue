@@ -1,20 +1,20 @@
 <template>
-    <div class="WordSection1 container text-black p-3 mx-auto">
+    <div>
         <div class="my-12"></div>
         <p class="text-3xl"><b>{{ $t('terms.terms_and_condition') }}</b></p>
         <p class="MsoNormal"><b>{{ $t('terms.agreement_between') }}</b></p>
-        <p class="MsoNormal"></p>
+        <p class="MsoNormal">&nbsp;</p>
         <p class="MsoNormal">{{ $t('terms.welcome_to_recruited') }}</p>
         <p class="MsoNormal">{{ $t('terms.social_Networking_Site') }}</p>
         <p class="MsoNormal">{{ $t('terms.our_goal_is') }}</p>
         <p class="MsoNormal"><b>Privacy:</b> {{ $t('terms.use_of_recruited') }}
         </p>
         <p class="MsoNormal"><b>{{ $t('terms.electronic_communications') }}</b>{{ $t('terms.visiting_recruited') }} </p>
-        <p class="MsoNormal"><b>{{ $t('terms.your_account') }}Your Account:</b>{{ $t('terms.if_use') }}</p>
+        <p class="MsoNormal"><b>{{ $t('terms.your_account') }}</b>{{ $t('terms.if_use') }}</p>
         <p class="MsoNormal"><b>{{ $t('terms.children_cnder') }}</b>{{ $t('terms.recruited_does_not') }}</p>
         <p class="MsoNormal"><b>{{ $t('terms.to_third') }}</b>{{ $t('terms.may_contain_links') }}</p>
         <p class="MsoNormal">{{ $t('terms.certain_services') }}</p>
-        <p class="MsoNormal"><b>{{ $t('terms.no_unlawful') }}No Unlawful or Prohibited Use/Intellectual Property:</b> 
+        <p class="MsoNormal"><b>{{ $t('terms.no_unlawful') }}</b> 
             {{ $t('terms.you_are_granted') }}
         </p>
         <p class="MsoNormal">All content included as part of the Service, such as text, graphics, logos, images, as well
@@ -203,17 +203,7 @@
 import { useUserStore } from '~/stores/userStore'
 
 const userStore = useUserStore()
-definePageMeta({ colorMode: 'light', layout: 'outer'},)
+definePageMeta({ colorMode: 'light', layout: 'public-full-page'},)
 const email = userStore.user?.email
 const token = userStore.user?.token
 </script>
-
-<style scoped>
-h1 {
-    color: #333;
-}
-
-p {
-    font-size: 16px;
-}
-</style>

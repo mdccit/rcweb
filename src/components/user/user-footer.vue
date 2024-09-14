@@ -4,7 +4,7 @@
         <section class="grid grid-cols-10 px-4 h-14 drop-shadow-md border-t border-t-poloBlue">
             <div class="col-span-1 md:block hidden">
                 <a class="flex items-center pt-2">
-                    <img class="w-10" src="../../assets/images/glyph-imprint.png" alt="">
+                    <img class="w-10" src="@/assets/images/glyph-imprint.png" alt="">
                 </a>
             </div>
             <div class="col-span-9">

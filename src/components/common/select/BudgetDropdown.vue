@@ -1,13 +1,15 @@
 <template>
-  <div>
+  <div class="w-full">
+    <span class="text-black absolute ml-[10px] mt-[12px]">$</span>
     <select 
       v-model="selected" 
       @change="updateValue" 
       placeholder="Player Budget" 
-      class="bg-gray-50 text-black block w-full h-12 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 px-5 py-3 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-gray light:focus:ring-blue-500 light:focus:border-blue-500" 
+      class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" 
       id="budget" 
       required
     >
+    
       <option v-for="budget in player_budgets" :key="budget.value" :value="budget.value">
         {{ budget.label }}
       </option>
@@ -58,9 +60,5 @@ watch(
 
 
 <style scoped>
-select {
-  width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-}
+
 </style>

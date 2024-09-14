@@ -16,9 +16,9 @@ import FooterPublic from '~/components/FooterPublic.vue';
 
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import NavBarPublic from '~/components/NavBarPublic.vue';
-import checkSession from '~/middleware/checkSession';
+// import checkSession from '~/middleware/checkSession';
 
-defineNuxtRouteMiddleware(checkSession);
+// defineNuxtRouteMiddleware(checkSession);
 definePageMeta({ colorMode: 'light', })
 const loading = ref(false);
 const router = useRouter();

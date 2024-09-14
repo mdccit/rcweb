@@ -202,6 +202,13 @@ import AdminModerationDeleteModal from '~/components/admin/moderation/adminModer
 import { useModerationStore } from '~/stores/moderation';
 const moderationStore = useModerationStore();
 
+definePageMeta({
+    ssr: 'true',
+    layout: 'admin',
+    middleware: ['permissions'],
+    roles: ['admin'],
+    colorMode: 'light'
+});
 const route = useRoute()
 
 const nuxtApp = useNuxtApp();
@@ -334,10 +341,10 @@ const morderationApprove = async () => {
 };
 
 definePageMeta({
-    ssr: true,
+    ssr: false,
     layout: 'admin',
-    middleware: ['permissions'],
-    roles: ['admin'],
+    middleware: ['role'],
+    requiredRole: ['admin'],
 });
 
 </script>
