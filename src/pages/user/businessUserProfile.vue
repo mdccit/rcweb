@@ -392,7 +392,7 @@
                                     </div>
                                 </div>
                                 <div class="flex items-center space-x-4 mt-3">
-                                    <img style="margin-bottom: 42px;" src="@/assets/user/images/Rectangle 117.png"
+                                    <img style="margin-bottom: 42px;" src="@/assets/user/images/Rectangle_117.png"
                                         alt="" class="rounded-lg w-12 h-12 mr-4">
                                     <div>
                                         <div class="text-lg font-semibold text-black">Kristin Watson</div>
