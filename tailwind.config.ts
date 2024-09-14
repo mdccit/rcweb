@@ -81,7 +81,8 @@ module.exports = {
         950: '#052e16'
       },      
       opacity: {
-        '23': '0.23'
+        '23': '0.23',
+        '27': '0.27'
       },
       container: {
         center: true,
