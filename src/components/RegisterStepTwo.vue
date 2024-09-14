@@ -14,55 +14,59 @@
           </NuxtLink>
         </div> -->
           <div class="self-center">
-            <h1 class="text-2xl font-bold text-black">{{ $t('register.title') }}</h1>
+            <h1 class="text-2xl font-bold text-black mb-4">{{ $t('register.title') }}</h1>
           </div>
         </div>
         <div class="w-full"></div>
         <div>
-          <label for="role" class="block mb-2 text-sm font-normal text-gray-900 mt-3">I am</label>
+          <label for="role" class="block mb-2 text-sm font-normal text-gray-900 mt-3">I am a ...</label>
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-4">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-4">
           <!-- Radio option for Player role -->
           <div class="radio relative cursor-pointer" @click="role = 'player'">
-            <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="player" type="radio"
+            <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0 peer" id="player" type="radio"
               value="player" v-model="role" name="role">
             <div
-              :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'player' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
-              <div class="tile-icon cursor-pointer"></div>
-              <label for="player" class="text-sm text-black mb-2">Player</label>
+              :class="['radio-tile rounded-2xl relaive group flex flex-col items-center justify-center border border-gray-300 h-28 transition-all duration-150 ease-in hover:bg-steelBlue hover:border-steelBlue peer-checked:border-steelBlue peer-checked:bg-steelBlue', role === 'player' ? 'group is-checked' : '']">
+              <img class="cursor-pointer absolute bottom-11 group-hover:opacity-0 group-[.is-checked]:opacity-0 transition" src="@/assets/images/player-icon.png">
+              <img class="cursor-pointer absolute bottom-11 opacity-0 group-hover:opacity-100 group-[.is-checked]:opacity-100 transition" src="@/assets/images/player-white.png">
+              <label for="player" class="text-sm text-black absolute bottom-6 group-hover:text-white group-[.is-checked]:text-white transition">Player</label>
             </div>
           </div>
 
           <!-- Radio option for Coach role -->
           <div class="radio relative cursor-pointer" @click="role = 'coach'">
-            <input class="radio-input  absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="coach" type="radio"
+            <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0 peer" id="coach" type="radio"
               value="coach" v-model="role" name="role">
             <div
-              :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'coach' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
-              <img class="mt-1 cursor-pointer" src="@/assets/images/coach_icon.png">
-              <label for="coach" class="text-sm text-black mb-2">Coach</label>
+              :class="['radio-tile rounded-2xl relaive group flex flex-col items-center justify-center border border-gray-300 h-28 transition-all duration-150 ease-in hover:bg-steelBlue hover:border-steelBlue peer-checked:border-steelBlue peer-checked:bg-steelBlue', role === 'coach' ? 'group is-checked' : '']">
+              <img class="cursor-pointer absolute bottom-11 group-hover:opacity-0 group-[.is-checked]:opacity-0 transition" src="@/assets/images/coach_icon.png">
+              <img class="cursor-pointer absolute bottom-11 opacity-0 group-hover:opacity-100 group-[.is-checked]:opacity-100 transition" src="@/assets/images/coach-white.png">
+              <label for="coach" class="text-sm text-black absolute bottom-6 group-hover:text-white group-[.is-checked]:text-white transition">Coach</label>
             </div>
           </div>
 
           <!-- Radio option for Parent role -->
           <div class="radio relative cursor-pointer" @click="role = 'parent'">
-            <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="parent" type="radio"
+            <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0 peer" id="parent" type="radio"
               value="parent" v-model="role" name="role">
             <div
-              :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'parent' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
-              <img class="mt-1 cursor-pointer" src="@/assets/images/parent.png">
-              <label for="parent" class="text-sm text-black  mb-2">Parent</label>
+              :class="['radio-tile rounded-2xl relaive group flex flex-col items-center justify-center border border-gray-300 h-28 transition-all duration-150 ease-in hover:bg-steelBlue hover:border-steelBlue peer-checked:border-steelBlue peer-checked:bg-steelBlue', role === 'parent' ? 'group is-checked' : '']">
+              <img class="cursor-pointer absolute bottom-12 group-hover:opacity-0 group-[.is-checked]:opacity-0 transition" src="@/assets/images/parent.png">
+              <img class="cursor-pointer absolute bottom-12 opacity-0 group-hover:opacity-100 group-[.is-checked]:opacity-100 transition" src="@/assets/images/parent-white.png">
+              <label for="parent" class="text-sm text-black absolute bottom-6 group-hover:text-white group-[.is-checked]:text-white transition">Parent</label>
             </div>
           </div>
 
           <!-- Radio option for Business role -->
           <div class="radio relative cursor-pointer" @click="role = 'business_manager'">
-            <input class="radio-input text-black absolute h-24 m-0 cursor-pointer z-2 opacity-0" id="business"
-              type="radio" value="business" v-model="role" name="role">
+            <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0 peer" id="business"
+              type="radio" value="business_manager" v-model="role" name="role">
             <div
-              :class="['radio-tile', 'rounded-md', 'flex', 'flex-col', 'items-center', 'justify-center', 'border', 'h-full', 'transition-all', 'duration-300', 'ease-in', role === 'business_manager' ? 'border-steelBlue bg-blue-50' : 'border-gray-300']">
-              <img class="mt-1 cursor-pointer" src="@/assets/images/bussiness.png">
-              <label for="business" class="text-sm text-black  mb-2">Business</label>
+              :class="['radio-tile rounded-2xl relaive group flex flex-col items-center justify-center border border-gray-300 h-28 transition-all duration-150 ease-in hover:bg-steelBlue hover:border-steelBlue peer-checked:border-steelBlue peer-checked:bg-steelBlue', role === 'business_manager' ? 'group is-checked' : '']">
+              <img class="cursor-pointer absolute bottom-12 group-hover:opacity-0 group-[.is-checked]:opacity-0 transition" src="@/assets/images/bussiness.png">
+              <img class="cursor-pointer absolute bottom-12 opacity-0 group-hover:opacity-100 group-[.is-checked]:opacity-100 transition" src="@/assets/images/bussiness-white.png">
+              <label for="business" class="text-sm text-black absolute bottom-6 group-hover:text-white group-[.is-checked]:text-white transition">Business</label>
             </div>
           </div>
 
@@ -72,7 +76,7 @@
 
           <div v-if="roleFields.includes('nationality')">
             <label for="nationality"
-              class="block  text-sm font-normal text-gray-900 dark:text-gray mb-[20px]">Nationality
+              class="block  text-sm font-normal text-gray-900 dark:text-gray mb-1">Nationality
               <span class="text-red-600">*</span>
             </label>
             <div class="flex rounded-lg border border-gray-300 shadow-sm w-100">
@@ -86,9 +90,9 @@
 
           </div>
 
-          <div class="space-y-4" v-if="roleFields.includes('country')">
+          <div v-if="roleFields.includes('country')">
             <label for="country"
-              class="font-normal text-black block text-sm text-gray-900 dark:text-gray mb-[20px]">Country
+              class="font-normal text-black block text-sm text-gray-900 dark:text-gray mb-1">Country
               <span class="text-red-600">*</span>
             </label>
             <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
@@ -100,7 +104,7 @@
           </div>
 
 
-          <div class="space-y-4" v-if="roleFields.includes('phone_code_country')">
+          <div v-if="roleFields.includes('phone_code_country')">
             <label for="phone_code_country"
               class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
               <div class="col-span-9">Mobile No
@@ -141,10 +145,10 @@
           </div>
 
 
-          <div class="space-y-4 w-full" v-if="roleFields.includes('gender')"> 
-            <label for="gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray mb-[20px]">Gender <span
+          <div class="w-full" v-if="roleFields.includes('gender')"> 
+            <label for="gender" class="font-normal block text-sm text-gray-900 dark:text-gray mb-1">Gender <span
                 class="text-red-600">*</span> </label>
-            <div class="flex rounded-lg border border-gray-300 shadow-sm w-full mt-[20px]">
+            <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
               <GenderDropDown :genders="genders" v-model="gender" id="gender" label="Gender *" />
             </div>
 
@@ -153,7 +157,7 @@
 
           </div>
 
-          <div class="space-y-4" v-if="roleFields.includes('handedness')">
+          <div v-if="roleFields.includes('handedness')">
             <label for="handedness" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Handedness
               <span class="text-red-600">*</span> </label>
             <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
@@ -166,30 +170,30 @@
           </div>
 
           <!-- Height Selection with Feet/Inches and Centimeters Toggle -->
-          <div v-if="roleFields.includes('height')" class="space-y-4 ">
+          <div v-if="roleFields.includes('height')">
 
-            <div class="flex">
+            <div class="flex mb-1">
               <!-- Toggle between Feet/Inches and Centimeters -->
               <div class="flex-1">
-                <label for="height" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray mr-[20px]">Height
+                <label for="height" class="font-normal block text-sm text-gray-900 dark:text-gray mr-[20px]">Height
                   <span class="text-red-600">*</span> </label>
               </div>
 
               <div class="flex-1">
                 <div class="flex text-last">
-                  <div class="flex text-black items-center">
+                  <div class="flex items-center">
                     <input type="radio" id="height_in_cm" v-model="height_in_cm" :value="true" />
-                    <label for="height_in_cm" class="ml-2">Centimeters</label>
+                    <label for="height_in_cm" class="ml-2 text-sm text-gray-900">Centimeters</label>
                   </div>
-                  <div class="flex text-black items-center ml-3">
+                  <div class="flex items-center ml-3">
                     <input type="radio" id="height_ft_in" v-model="height_in_cm" :value="false" />
-                    <label for="height_ft_in" class="ml-2">Feet/Inches</label>
+                    <label for="height_ft_in" class="ml-2 text-sm text-gray-900">Feet/Inches</label>
                   </div>
                 </div>
               </div>
             </div>
             <!-- Height in Centimeters -->
-            <div v-if="height_in_cm" class="flex rounded-lg border border-gray-300 shadow-sm w-full mt-8 ">
+            <div v-if="height_in_cm" class="flex rounded-lg border border-gray-300 shadow-sm w-full">
               <div class="w-full ">
                 <input type="number" id="height_cm" v-model="height_cm"
                   class="h-12 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
@@ -200,7 +204,7 @@
                 }}</span>
             </div>
             <!-- Height in Feet/Inches -->
-            <div v-else class="grid grid-cols-10 gap-3 items-center mt-8 mb-3">
+            <div v-else class="grid grid-cols-10 gap-3 items-center">
               <div class="col-span-5  rounded-lg border border-gray-300 shadow-sm ">
                 <input type="number" id="height_ft" v-model="height_ft"
                   class=" block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
@@ -238,7 +242,7 @@
 
             </div>
             <div class="col-span-5" v-if="roleFields.includes('gpa')">
-              <label for="gpa" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-7">
+              <label for="gpa" class="block mb-1 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-7">
                 <div class="col-span-6">GPA <span class="text-red-600">*</span> </div>
                 <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right tooltip"><svg
                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -270,7 +274,7 @@
           </div>
 
           <div v-if="roleFields.includes('graduation')">
-            <label for="graduation" class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray mt-2">Graduation
+            <label for="graduation" class="block mb-1 text-sm font-normal text-gray-900 dark:text-gray mt-2">Graduation
               Month/Year <span class="text-red-600">*</span> </label>
             <div class="flex rounded-lg border border-gray-300 shadow-sm">
               <input type="month" v-model="graduation" :required="roleFields.includes('graduation')"
@@ -284,9 +288,9 @@
 
           </div>
 
-          <div class="space-y-4" v-if="roleFields.includes('budget')">
+          <div v-if="roleFields.includes('budget')">
             <!-- <label for="budget" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Budget *</label> -->
-            <label for="budget" class="block mb-3 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
+            <label for="budget" class="block mb-1 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
               <div class="col-span-9">Budget <span class="text-red-600">*</span> </div>
               <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right tooltip"><svg
                   xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -315,11 +319,14 @@
 
 
           <!-- Fields for Parent Role -->
+          <div v-if="roleFields.includes('player_first_name')" class="col-span-2 mt-4 mb-2">
+            <hr>            
+            <h2 class="text-black mt-3"><b>Player infomation</b></h2>
+          </div>
 
-          <div class="space-y-4 mt-2" v-if="roleFields.includes('player_first_name')">
-            <h2 class="text-black"><b>Player infomation</b></h2>
+          <div v-if="roleFields.includes('player_first_name')">
             <label for="player_first_name" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">
-              First Name *</label>
+              First Name <span class="text-red-600">*</span></label>
             <div class="flex rounded-lg border border-gray-300 shadow-sm">
               <input type="text" id="player_first_name" v-model="player_first_name"
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
@@ -331,9 +338,8 @@
             </div>
           </div>
 
-          <div class="space-y-4 mt-2" v-if="roleFields.includes('player_last_name')">
-            <h2 class="text-white">*</h2>
-            <label for="player_last_name" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Last
+          <div v-if="roleFields.includes('player_last_name')">
+            <label for="player_last_name" class="font-normal block mb-1 text-sm text-gray-900 dark:text-gray">Last
               Name <span class="text-red-600">*</span> </label>
             <div class="flex rounded-lg border border-gray-300 shadow-sm">
               <input type="text" id="player_last_name" v-model="player_last_name"
@@ -347,7 +353,7 @@
 
           </div>
 
-          <div class="space-y-4" v-if="roleFields.includes('email')">
+          <div v-if="roleFields.includes('email')">
             <label for="email" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">Email <span
                 class="text-red-600">*</span> </label>
             <div class="flex rounded-lg border border-gray-300 shadow-sm">
@@ -361,7 +367,7 @@
 
           </div>
 
-          <div class="space-y-4" v-if="roleFields.includes('player_country')">
+          <div v-if="roleFields.includes('player_country')">
             <label for="player_country" class="font-normal text-black block mb-2 text-sm text-gray-900 dark:text-gray">
               Country <span class="text-red-600">*</span> </label>
             <div class="flex rounded-lg border border-gray-300 shadow-sm">
@@ -375,7 +381,7 @@
 
           </div>
 
-          <div class="space-y-4" v-if="roleFields.includes('player_phone_code_country')">
+          <div v-if="roleFields.includes('player_phone_code_country')">
             <label for="phone_code_country"
               class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
               <div class="col-span-9">Mobile No <span class="text-red-600">*</span> </div>
@@ -419,10 +425,10 @@
             </ul>
           </div>
 
-          <div class="space-y-4" v-if="roleFields.includes('player_gender')">
-            <label for="player_gender" class="font-normal block mb-3 text-sm text-gray-900 dark:text-gray">
+          <div v-if="roleFields.includes('player_gender')">
+            <label for="player_gender" class="font-normal block mb-1 text-sm text-gray-900 dark:text-gray">
               Gender <span class="text-red-600">*</span> </label>
-            <div class="flex rounded-lg border border-gray-300 shadow-sm col-span-3 mt-[20px]">
+            <div class="flex rounded-lg border border-gray-300 shadow-sm col-span-3">
               <GenderDropDown :genders="genders" v-model="player_gender" id="player_gender" label="Player Gender"
                 :required="roleFields.includes('player_gender')" />
               <span v-if="errors.player_gender" class="text-red-500 text-sm ">{{ errors.player_gender.join(', ')
@@ -431,7 +437,7 @@
             </div>
           </div>
 
-          <div class="space-y-4" v-if="roleFields.includes('player_handedness')">
+          <div v-if="roleFields.includes('player_handedness')">
             <label for="player_handedness" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">
               Handedness <span class="text-red-600">*</span> </label>
             <div class="flex rounded-lg border border-gray-300 shadow-sm col-span-3">
@@ -444,31 +450,31 @@
             </div>
           </div>
 
-          <div v-if="roleFields.includes('player_height')" class="space-y-4">
-            <div class="flex">
+          <div v-if="roleFields.includes('player_height')">
+            <div class="flex mb-1">
               <!-- Toggle between Feet/Inches and Centimeters -->
               <div class="flex-1">
-                <label for="height" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray mr-[20px]">
+                <label for="height" class="font-normal block text-sm text-gray-900 dark:text-gray mr-[20px]">
                   Height <span class="text-red-600">*</span>
                 </label>
               </div>
 
               <div class="flex-1">
                 <div class="flex text-last">
-                  <div class="flex text-black items-center">
+                  <div class="flex items-center">
                     <input type="radio" id="player_height_in_cm" v-model="player_height_in_cm" :value="true" />
-                    <label for="player_height_in_cm" class="ml-2">Centimeters</label>
+                    <label for="player_height_in_cm" class="ml-2 text-sm text-gray-900">Centimeters</label>
                   </div>
-                  <div class="flex text-black items-center ml-3">
+                  <div class="flex items-center ml-3">
                     <input type="radio" id="height_ft_in" v-model="player_height_in_cm" :value="false" />
-                    <label for="height_ft_in" class="ml-2">Feet/Inches</label>
+                    <label for="height_ft_in" class="ml-2 text-sm text-gray-900">Feet/Inches</label>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Height in Centimeters -->
-            <div v-if="player_height_in_cm" class="mt-8">
+            <div v-if="player_height_in_cm">
               <div class="flex rounded-lg border border-gray-300 shadow-sm col-span-3">
                 <input type="number" id="player_height_cm" v-model="player_height_cm"
                   class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
@@ -482,7 +488,7 @@
             </div>
 
             <!-- Height in Feet/Inches -->
-            <div v-else class="grid grid-cols-10 gap-3 items-center minus-margin-8">
+            <div v-else class="grid grid-cols-10 gap-3 items-center">
               <div class="flex rounded-lg border border-gray-300 shadow-sm col-span-5">
                 <input type="number" id="player_height_ft" v-model="player_height_ft"
                   class=" block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
@@ -584,7 +590,7 @@
             </div>
           </div>
 
-          <div class="space-y-4" v-if="roleFields.includes('player_nationality')">
+          <div v-if="roleFields.includes('player_nationality')">
             <label for="player_nationality" class="font-normal block mb-2 text-sm text-gray-900 dark:text-gray">
               Nationality <span class="text-red-600">*</span> </label>
             <div class="flex rounded-lg border border-gray-300 shadow-sm">
@@ -598,7 +604,7 @@
         </div>
 
 
-        <div class="space-y-4 mt-5" v-if="(role == 'parent' || role == 'player')">
+        <div class="mt-5" v-if="(role == 'parent' || role == 'player')">
           <div class="flex items-center">
             <input id="notEnrolled" type="checkbox" v-model="notEnrolled" required="true"
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-steelBlue dark:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
@@ -609,7 +615,7 @@
           </div>
         </div>
 
-        <div class="space-y-4 mt-5" v-if="(role == 'parent' || role == 'player')">
+        <div class="mt-5" v-if="(role == 'parent' || role == 'player')">
           <p class="text-sm text-black text-warning-600">
             <svg class="mb-2 text-orange-400 w-4 h-4 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24"
               height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -623,7 +629,7 @@
           </p>
         </div>
 
-        <div class="space-y-4 mt-5">
+        <div class="mt-5">
           <div class="flex items-center">
             <input id="termsAccepted" type="checkbox" v-model="termsAccepted" required
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-steelBlue light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
@@ -951,6 +957,7 @@ const loadCountryCodes = async () => {
 };
 
 const roleFields = computed(() => {
+  console.log(role.value);
   switch (role.value) {
     case 'player':
       return ['country', 'phone_code_country', 'phone_number', 'gender', 'handedness', 'height_ft', 'height_in', 'height_cm', 'utr', 'gpa', 'graduation', 'nationality', 'budget', 'height'];
@@ -959,7 +966,7 @@ const roleFields = computed(() => {
       return ['country', 'phone_code_country', 'phone_number', 'player_first_name', 'player_last_name', 'email', 'player_country', 'player_phone_code_country', 'player_phone_number', 'player_gender', 'player_handedness', 'player_height_ft', 'player_height_in', 'player_budget', 'player_utr', 'player_gpa', 'player_graduation_month_year', 'player_nationality', 'player_height'];
 
     case 'coach':
-    case 'business':
+    case 'business_manager':
       return ['country', 'phone_code_country', 'phone_number'];
 
     default:
@@ -973,16 +980,6 @@ const roleFields = computed(() => {
 <style scoped>
 .radio-input {
   display: none;
-}
-
-.radio-tile {
-  text-align: center;
-  padding: 1rem;
-}
-
-.radio-input:checked+.radio-tile {
-  border-color: #2563EB;
-  background-color: #EFF6FF;
 }
 
 label input {
@@ -1037,10 +1034,6 @@ label input {
   /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 1;
-}
-
-.minus-margin-8 {
-  margin-top: 8px !important;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
