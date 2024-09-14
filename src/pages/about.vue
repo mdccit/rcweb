@@ -112,7 +112,7 @@
 </template>
 
 <script setup>
+definePageMeta({ 
+  layout: 'public-default',
+})
 </script>
-
-<style scoped>
-</style>
