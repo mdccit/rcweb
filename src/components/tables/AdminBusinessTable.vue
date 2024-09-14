@@ -1,28 +1,33 @@
 <template>
   <el-card>
     <!-- <el-input v-model="search" placeholder="Search" class="input-with-select" clearable></el-input> -->
-    <div class="p-1 text-right">
-      <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-        class="text-white mr-2 bg-blue-100 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        type="button">
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-          width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-            d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z" />
-        </svg>
+    <div class="flex justify-between items-center mb-4">
+      <!-- Search Input for Filtering -->
+      <el-input v-model="search" class="h-[40px] mr-2" placeholder="Search..." clearable></el-input>
 
+      <!--  Search Button -->
+      <button id="searchButton"
+        class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 p-2 border rounded h-[40px] mr-1 mx-auto"
+        type="button">
+        <span class=" mx-auto">Search</span>
       </button>
 
-      <button id="dropdownToggleButton" data-dropdown-toggle="dropdownToggle"
-        class="text-white bg-blue-100 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        type="button">
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-          width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-width="2"
-            d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
-          <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+      <button class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
+            clip-rule="evenodd"></path>
         </svg>
-
+      </button>
+      <button
+        class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 mx-auto">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
+          fill="currentColor">
+          <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+          <path fill-rule="evenodd"
+            d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+            clip-rule="evenodd"></path>
+        </svg>
       </button>
 
       <!-- Dropdown menu -->
@@ -67,20 +72,20 @@
     </div>
 
 
-    <el-table :data="filteredItems" style="width: 100%" v-loading="loading">
-      <el-table-column prop="name" label="Name" sortable></el-table-column>
-      <el-table-column prop="total_staff" label="Total Staff" sortable></el-table-column>
-      <el-table-column prop="admin_staff" label="Admin Staff" sortable></el-table-column>
-      <el-table-column prop="non_admin_staff" label="Non Admin Staff" sortable></el-table-column>
-      <el-table-column prop="admin_staff" label="Admin Staff" sortable></el-table-column>
+    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
+      <el-table-column class="text-tealGray" prop="name" label="NAME" sortable></el-table-column>
+      <el-table-column class="text-tealGray" prop="total_staff" label="TITAL STAFF" sortable></el-table-column>
+      <el-table-column class="text-tealGray" prop="admin_staff" label="ADMIN STAFF" sortable></el-table-column>
+      <el-table-column class="text-tealGray" prop="non_admin_staff" label="NON ADMIN STAFF" sortable></el-table-column>
+      <el-table-column class="text-tealGray" prop="admin_staff" label="ADMIN STAFF" sortable></el-table-column>
       <!-- Joined At Column -->
-      <el-table-column prop="joined_at" label="Joined Date" sortable>
+      <el-table-column class="text-tealGray" prop="joined_at" label="JOINED DATE" sortable>
         <template v-slot="scope">
           <span>{{ formatDate(scope.row.joined_at) }}</span>
         </template>
       </el-table-column>
         <!-- Actions Column -->
-        <el-table-column label="Actions">
+        <!-- <el-table-column label="Actions">
           <template v-slot="scope">
             <el-dropdown>
               <template #dropdown>
@@ -102,7 +107,7 @@
               </el-button>
             </el-dropdown>
           </template>
-        </el-table-column>
+        </el-table-column> -->
     </el-table>
 
     <el-pagination v-model:current-page="options.page" :page-size="options.itemsPerPage" :total="totalItems"
@@ -200,7 +205,7 @@ const viewDetails = (row) => {
     path: '/business/businessGeneral',
     query: {
       action: 'view',
-      userId: row.id
+     business_id: row.id
     }
   });
 };
@@ -211,7 +216,7 @@ const editRecord = (row) => {
     path: '/business/businessGeneral',
     query: {
       action: 'edit',
-      userId: row.id
+      business_id: row.id
     }
   });
 };
@@ -225,6 +230,12 @@ const manageMembers = (row) => {
     }
   });
 };
+
+const handleRowClick = (row) => {
+  editRecord(row);
+};
+
+
 
 </script>
 

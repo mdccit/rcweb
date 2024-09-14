@@ -541,10 +541,6 @@
 
 <script>
 export default {
-  middleware: 'auth',
-  meta: {
-    roles: ['admin'],
-  },
 };
 </script>
 

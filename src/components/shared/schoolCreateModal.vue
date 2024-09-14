@@ -41,15 +41,7 @@
                             placeholder="Enter Name" />
                     </div>
 
-
-                    <!-- Form Fields -->
-                    <div>
-                        <label for="name" class="block text-sm font-normal text-gray-900 light:text-gray">Bio</label>
-
-                        <input type="text" id="first_name" v-model="bio"
-                            class=" bg-transparent w-full text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500 "
-                            placeholder="Enter Bio" />
-                    </div>
+                
 
                 </div>
                 <!-- Modal Footer -->

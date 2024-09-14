@@ -1,5 +1,5 @@
 <template>
-    <div class="p-5 card">
+    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
       <div class="mb-3">
             <h1> <b>Moderation</b> </h1>
         </div>
@@ -15,10 +15,10 @@
   import  AdminMorderationTable from '~/components/tables/AdminMorderationTable.vue';
   
   definePageMeta({
-    ssr: 'true',
+    ssr: false,
     layout: 'admin',
-    middleware: ['permissions'],
-    roles: ['admin'],
+    middleware: ['role'],
+    requiredRole: ['admin'],
 });
   const userStore = useUserStore()
   

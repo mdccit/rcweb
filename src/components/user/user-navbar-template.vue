@@ -3,7 +3,7 @@
         <nav class="bg-clearwhite drop-shadow-md border-b border-b-poloBlue">
             <div class="grid grid-cols-12 px-4 h-14">
                 <div class="col-span-2 ">
-                    <img class="w-32" src="../assets/css/images/logo-recruited.png" alt="logo-recruited">
+                    <img class="w-32" src="@/assets/css/images/logo-recruited.png" alt="logo-recruited">
                 </div>
                 <div class="col-span-3">
                     <div
@@ -117,7 +117,7 @@
                 <!-- start logo section -->
                 <div class="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1">
                     <a href="https://flowbite.com/" class="flex items-center">
-                        <img class="w-96 md:w-32" src="../../assets/user/images/logo-recruited.png" alt="">
+                        <img class="w-96 md:w-32" src="@/assets/user/images/logo-recruited.png" alt="">
                     </a>
                 </div>
                 <!-- end logo section -->
@@ -274,7 +274,7 @@
                 <div class="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-2 xl:col-span-1 flex justify-end">
                     <div class="p-2 hidden sm:hidden md:hidden lg:block">
                         <img class="w-10 md:w-10 h-10 rounded-lg border border-white shadow-lg"
-                            src="../../assets/user/images/Rectangle 117.png" alt="">
+                            src="@/assets/user/images/Rectangle_117.png" alt="">
                     </div>
                     <div class="p-2 hidden sm:hidden md:hidden lg:block">
                         <h6 class="text-sm text-black">Jacob Johnes</h6>

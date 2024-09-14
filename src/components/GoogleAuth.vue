@@ -2,7 +2,7 @@
   <div class="container mx-auto mt-10">
     <LoadingSpinner v-if="loading" />
     <!-- Notification Component for showing messages -->
-    <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType" :duration="3000" />
+    <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
     
   </div>
 </template>
@@ -24,7 +24,9 @@ const authType = ref('');
 // Notification related states
 const showNotification = ref(false);
 const notificationMessage = ref('');
-const notificationType = ref('');
+const loading = ref(false);
+const notification_type = ref('');
+const notificationKey = ref(0);
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -40,10 +42,7 @@ const handleGoogleAuthCallback = async () => {
 
   if (!type) {
     // If authType is not set in localStorage
-    notificationType.value = 'failure';
-    notificationMessage.value = 'Authentication type not found. Redirecting to login.';
-    showNotification.value = true;
-
+    nuxtApp.$notification.triggerNotification('User not found. Redirecting to login.', 'failure');
     // Wait for the notification to be displayed and then redirect to the login page
     setTimeout(() => {
       router.push('/login');
@@ -59,27 +58,43 @@ const handleGoogleAuthCallback = async () => {
       } else {
         response = await $authService.googleRegister(code);
       }
-      
-      notificationType.value = 'success';
-      notificationMessage.value = response.display_message;
-      showNotification.value = true;
 
       const token = response.data.token;
       if (process.client) {
         localStorage.setItem('token', token);
       }
-      userStore.setUser({ token });
-      setTimeout(() => {
-        router.push('/dashboard'); // Redirect after successful login/registration
-      }, 2000);
-    } catch (err) {
-      notificationType.value = 'failure';
-      notificationMessage.value = err.message;
-      showNotification.value = true;
+
+      const userRole = localStorage.getItem('user_role');
+      userStore.setUser({
+        email: '',
+        role: response.data.user_role,
+        token: token,
+        user_permission_type: response.data.user_permission_type,
+        user_id: response.data.user_id
+      });
+
+      if(type === 'login'){
+        if(userRole === 'default' || userRole === 'undefined' || userRole === undefined){
+          nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+          router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
+        }else if(['player', 'admin', 'coach','parent', 'business_user'].includes(userRole)){
+          nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+            router.push('/app');
+        }else{
+          nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+           router.push('/login');
+        }
+      }else{
+        setTimeout(() => {
+        router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
+        }, 2000);
+      }
+   
+    } catch (error) {
+      nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     }
   }
 };
-
 
 // Ensure the callback is handled when the component is mounted
 onMounted(handleGoogleAuthCallback);

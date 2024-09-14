@@ -26,17 +26,10 @@
         </div>
     </div>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="flex gap-x-4"><NuxtLink to="/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b"><button
-                    class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200"> General
-                    Details </button></NuxtLink>
-            <NuxtLink to="/school/schoolStaff"><button
-                    class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50"> Staff
-                    &amp; Teams </button></NuxtLink><NuxtLink to="/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/sync"><button
-                    class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
-                    Synchronization </button></NuxtLink><NuxtLink to="/admin/schools/9c2845cc-7676-45e1-b498-13f930b22e9b/danger-zone"><button
-                    class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50"> Danger
-                    Zone </button></NuxtLink>
-        </div>
+
+        <!-- Use the SchoolNavigation component -->
+        <SchoolNavigation :schoolId="school_id" />
+
         <div class="my-8"></div>
         <div class="">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
@@ -176,11 +169,11 @@
                                 <div class="mr-1"><select name="division" data-validation-key="division"
                                         v-model="division"
                                         class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
-                                        <option value="division_i"> Division I </option>
-                                        <option value="division_ii"> Division II </option>
-                                        <option value="division_iii"> Division III </option>
-                                        <option value="naia"> NAIA </option>
-                                        <option value="njcaa"> NJCAA </option>
+                                        <option value="1"> Division I </option>
+                                        <option value="2"> Division II </option>
+                                        <option value="3"> Division III </option>
+                                        <option value="4"> NAIA </option>
+                                        <option value="5"> NJCAA </option>
                                     </select></div>
                             </div>
                         </label>
@@ -195,18 +188,7 @@
                         <span class=""> Save changes</span>
                     </div>
                 </button>
-
-
-                <!-- Display error messages -->
-                <div v-if="errors.length" class="error-messages">
-                    <p class="error-title">Validation Errors:</p>
-                    <ul class="error-list">
-                        <li v-for="(error, index) in splitErrors" :key="index" class="error-item">
-                            {{ error }}
-                        </li>
-                    </ul>
-                </div>
-
+   
             </div>
 
             <div class="my-16"></div>
@@ -214,9 +196,6 @@
 
         </div>
     </div>
-
-    <!-- Notification Component -->
-    <Notification v-if="showNotification" :message="notificationMessage" :duration="3000" />
 </template>
 
 <script setup>
@@ -227,6 +206,8 @@ import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
 import { useRoute } from 'vue-router';
 import Notification from '~/components/common/Notification.vue';
+import SchoolNavigation from '~/components/admin/school/SchoolNavigation.vue';
+import { handleError } from '@/utils/handleError';
 
 const route = useRoute(); // Use useRoute to access query parameters
 
@@ -239,8 +220,10 @@ const userStore = useUserStore();
 const router = useRouter();
 const showNotification = ref(false);
 const notificationMessage = ref('');
+const notification_type = ref('');
+const loading = ref(false);
 
-const school_id = ref('');
+
 const name = ref('');
 const bio = ref('');
 const conference = ref('');
@@ -248,22 +231,17 @@ const division = ref('');
 const is_verified = ref(false);
 const is_approved = ref(false);
 
-
-
-// Computed property to split error messages by comma
-const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
-
 const action = ref(route.params.action || 'view'); // default to 'view' if action not provided
-const userId = ref(route.params.userId || '');
+const school_id = ref(route.params.school_id || '');
 
 onMounted(() => {
 
     // Update the refs directly
     action.value = route.query.action || 'view';
-    userId.value = route.query.userId || '';
+    school_id.value = route.query.school_id || '';
 
     if (action.value === 'view' || action.value === 'edit') {
-        fetchSchoolDetails(userId.value);
+        fetchSchoolDetails(school_id.value);
     }
 });
 
@@ -286,35 +264,23 @@ const updateSchoolDetails = async () => {
         });
 
         if (response.status === 200) {
-            notificationMessage.value = response.display_message;
-            showNotification.value = true;
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
         } else {
-            errors.value.push(response.display_message);
-            notificationMessage.value = response.display_message;
-            showNotification.value = true;
+            nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
         }
 
-    } catch (err) {
-        if (err.response?.data?.message) {
-            if (Array.isArray(err.response.data.message)) {
-                errors.value = err.response.data.message;
-            } else {
-                errors.value = [err.response.data.message];
-            }
-        } else {
-            errors.value = [err.response?.data?.message || err.message];
-        }
+    } catch (error) {
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+        handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
     }
 };
 
 
 // Fetch School Details
-const fetchSchoolDetails = async (schoolId) => {
-    console.log('loading');
+const fetchSchoolDetails = async (school_id) => {
     errors.value = [];
     try {
-        const data = await $adminService.get_school_details(schoolId);
-        school_id.value = data.id || '';
+        const data = await $adminService.get_school_details(school_id);
         name.value = data.name || '';
         bio.value = data.bio || '';
         conference.value = data.conference || '';
@@ -323,18 +289,16 @@ const fetchSchoolDetails = async (schoolId) => {
         is_verified.value = data.is_verified === 1;
         is_approved.value = data.is_approved === 1;
     } catch (error) {
-        console.error('Failed to load school details:', error.message);
-        errors.value.push('Failed to load school details.');
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     }
 };
 
 definePageMeta({
-    ssr: true,
-    layout: 'admin',
-    middleware: ['permissions'],
-    roles: ['admin'],
+  ssr: false,
+  layout: 'admin',
+  middleware: ['role'],
+  requiredRole: ['admin'],
 });
-
 </script>
 
 
