@@ -95,7 +95,8 @@
                   </div>
                   
                 </div>
-                <button v-if="post.user_id == userId"
+                <div>
+                  <button v-if="post.user_id == userId"
                   :id="'post-button-' + post.id"
                   :aria-labelledby="'post-dropdown-' + post.id"
                   data-dropdown-toggle="'post-dropdown-' + post.id"
@@ -122,7 +123,7 @@
                   </svg>
                 </button>
                 <!-- Action Dropdown menu -->
-                <div  v-if="model_id ==post.id" id="post-dropdown" class="z-10  bg-white rounded-lg shadow w-30">
+                <div  v-if="model_id ==post.id" id="post-dropdown" class="z-10  bg-white rounded-lg shadow w-30 absolute">
                   <ul class="py-2 text-sm"    >
                     <li class="text-black">
                       <button type="buttton" @click="postEditingShow(post.id, post.description)" class="block px-4 py-2 hover:bg-lightGray flex">
@@ -135,7 +136,7 @@
                       </button>
                     </li>
                     <li class="text-red">
-                      <button type="buttton" @click="postDelete(post.id)" class="block px-4 py-2 hover:bg-lightGray flex">
+                      <button type="buttton" @click="postDelete(post.id)" class="block px-4 py-2 text-red-500 hover:bg-lightGray flex w-full">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                           stroke-width="1.5" stroke="currentColor" class="size-4 mr-2">
                           <path stroke-linecap="round" stroke-linejoin="round"
@@ -145,6 +146,8 @@
                     </li>
                   </ul>
                 </div> 
+                </div>
+                
               </div>
                 
                 <!-- Display only for the school - end -->
@@ -169,7 +172,7 @@
 
           <div class="flex items-center justify-between mt-3">
             <div class="flex items-center space-x-4">
-              <button class="flex items-center space-x-1" :disabled="likeButtonDisable.includes(post.id)" @click="likePost(post.id,post), post.user_has_liked== true? post.user_has_liked=false : post.user_has_liked = true">
+              <button  :class="likeButtonDisable.includes(post.id)?'cursor-default opacity-50 ':'flex items-center space-x-1' "  :disabled="likeButtonDisable.includes(post.id)" @click="likePost(post.id,post), post.user_has_liked== true? post.user_has_liked=false : post.user_has_liked = true">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="size-5" :class="post.user_has_liked ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
                   <path stroke-linecap="round" stroke-linejoin="round"
