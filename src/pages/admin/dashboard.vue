@@ -1,12 +1,8 @@
 <template>
   <div class="container mx-auto mt-10">
-    <h1 class="text-2xl text-black mb-4">Admin Dashboard</h1>
+    <h1 class="text-2xl text-black mb-4">Dashboard</h1>
   
   </div>
-  <!-- <div>
-    <DataTable />
-  </div> -->
-
   <!-- <div>
     <h1>Image Upload with Crop and Resize</h1>
     <ImageUpload />
@@ -21,10 +17,10 @@ import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore()
 
 definePageMeta({
-    ssr: true,
+    ssr: false,
     layout: 'admin',
-    // middleware: ['permissions'],
-    roles: ['admin'],
+    middleware: ['role'],
+    requiredRole: ['admin'],
 });
 
 </script>

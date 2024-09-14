@@ -10,9 +10,12 @@
       You do not have permission to access this page.
     </p>
     
-    <!-- Display User Role -->
-    <p class="text-md text-gray-600 mb-6">
-      User role: {{ user.role }}.
+    <!-- Conditionally Display User Role -->
+    <p v-if="user && userRole" class="text-md text-gray-600 mb-6">
+      Your user role: {{ userRole }}
+    </p>
+    <p v-else class="text-md text-gray-600 mb-6">
+      You are not logged in or your role is not defined.
     </p>
 
     <!-- Back to Home Button -->
@@ -28,12 +31,13 @@
 import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore();
 
+// Get the user's role from the store
 const user = userStore.user;
+const userRole = userStore.getRole();  // Assuming this returns the role, null if undefined
 
 definePageMeta({
-    layout: 'admin',
+    layout: 'outer',
 });
-
 </script>
 
 <style scoped>

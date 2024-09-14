@@ -26,7 +26,6 @@
 
 <script setup>
 import { useUserStore } from '~/stores/userStore'
-definePageMeta({ colorMode: 'light', })
 const userStore = useUserStore()
 </script>
 

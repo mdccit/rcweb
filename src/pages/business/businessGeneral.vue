@@ -7,7 +7,7 @@
                         <path d="M15 6l-6 6l6 6"></path>
                     </svg>
                 </NuxtLink>
-                <h2 class="font-bold text-lg self-center text-black"> Editing: DEF Business </h2>
+                <h2 class="font-bold text-lg self-center text-black"> Editing </h2>
             </div>
             <div>
                 <a href="https://qa1.recruited.qualitapps.com/app/business/9c7d0c22-c388-4383-8da0-4d83319cf4ba">
@@ -25,23 +25,8 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex gap-x-4">
-                <NuxtLink to="businessGeneral">
-                    <button class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200">
-                        General Details
-                    </button>
-                </NuxtLink>
-                <NuxtLink to="businessMembers">
-                    <button class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200">
-                        Members
-                    </button>
-                </NuxtLink>
-                <NuxtLink to="businessDangerZone">
-                    <button class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
-                        Danger Zone
-                    </button>
-                </NuxtLink>
-            </div>
+            <!-- Use the BusinessNavigation component -->
+            <BusinessNavigation :businessId="business_id" />
 
             <div class="my-8"></div>
 
@@ -149,6 +134,8 @@
 
             <div class="my-16"></div>
         </div>
+         <!-- Notification Component -->
+    <Notification v-if="showNotification" :message="notificationMessage" :duration="3000" />
     </div>
 </template>
 
@@ -163,13 +150,15 @@ import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 
-definePageMeta({
-    ssr: true,
-    layout: 'admin',
-    // middleware: ['permissions'],
-    roles: ['admin'],
-});
+import Notification from '~/components/common/Notification.vue';
+import BusinessNavigation from '~/components/admin/business/BusinessNavigation.vue';
 
+definePageMeta({
+  ssr: false,
+  layout: 'admin',
+  middleware: ['role'],
+  requiredRole: ['admin'],
+});
 
 const route = useRoute();
 const router = useRouter();
@@ -178,14 +167,21 @@ const $adminService = nuxtApp.$adminService;
 
 const business_id = ref('');
 const name = ref('');
+const action = ref('');
 const bio = ref('');
 const is_verified = ref(false);
 const is_approved = ref(false);
 
+const showNotification = ref(false);
+const notificationMessage = ref('');
+const loading = ref(false);
+const notification_type = ref('');
+const notificationKey = ref(0);
+
 // Fetch business details
 const fetchBusinessDetails = async () => {
   try {
-    const data = await $adminService.get_business_details(route.params.business_id);
+    const data = await $adminService.get_business_details(business_id.value);
     business_id.value = data.id;
     name.value = data.name;
     bio.value = data.bio;
@@ -199,7 +195,7 @@ const fetchBusinessDetails = async () => {
 // Update business details
 const updateBusinessDetails = async () => {
   try {
-    const response = await $adminService.update_business({
+    const response = await $adminService.business_update({
       business_id: business_id.value,
       name: name.value,
       bio: bio.value,
@@ -207,17 +203,36 @@ const updateBusinessDetails = async () => {
       is_approved: is_approved.value ? 1 : 0,
     });
     if (response.status === 200) {
-      console.log('Business updated successfully');
+
+        triggerNotification(response.display_message, 'success');
     } else {
-      console.error('Failed to update business');
+        triggerNotification(response.display_message, 'failure');
     }
   } catch (error) {
     console.error('Error updating business:', error.message);
   }
 };
 
+
+const triggerNotification = (message, type) => {
+  notificationMessage.value = message;
+  notification_type.value = type;
+  showNotification.value = true;
+
+  notificationKey.value += 1; // Force re-render
+
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    showNotification.value = false;
+  }, 3000);
+};
+
+
 // Fetch details on component mount
 onMounted(() => {
+    action.value = route.query.action || 'view';
+    business_id.value = route.query.business_id || '';
+
   fetchBusinessDetails();
 });
 </script>

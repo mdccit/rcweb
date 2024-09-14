@@ -163,12 +163,16 @@
                 <path d="M11 15h1"></path>
                 <path d="M12 15v3"></path>
               </svg></div>
-            <div class="flex-1 self-center"><strong>{{ $t('home.coming_soons') }}</strong>
-              {{ $t('home.recruited_Showcase') }}
+            <div class="flex-1 self-center"><strong>{{ $t('home.helpful_resources') }}</strong>
+              {{ $t('home.everybody_needs') }}
             </div>
           </div>
         </div>
-        <div class="p-12"></div>
+        <div class="p-12 w-full text-center text-lg">
+          <!-- <h1 class="text-2xl">
+            Recruited is offering a free consultation call to all athletes and parents! 
+          </h1> -->
+        </div>
         <NuxtLink to="/register">
           <button type="submit"
             class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white text-gray-700 border-gray-300  focus:ring-lightPastalBlue !px-20 !py-4 block mx-auto"><span
@@ -233,11 +237,18 @@
         </h2>
         <p class="text-lg font-medium mb-8">{{ $t('home.the_first_platform') }}
         </p>
-        <NuxtLink to="/register" onclick="dataLayer.push({'event': 'star_signup'});"
-          class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-lightAzure focus:ring-lightPastalBlue !px-20 !py-4"
+        <!-- <NuxtLink to="/register" onclick="dataLayer.push({'event': 'star_signup'});"
+          class=" w-full border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-lightAzure focus:ring-lightPastalBlue !px-20 !py-4"
           data-v-inspector="src/pages/index.vue:7:95" data-v-02281a80="">
           <span class="text-xl text-black" data-v-inspector="src/pages/index.vue:9:270" data-v-02281a80="">{{
             $t('home.sign_up_forfree') }}</span>
+        </NuxtLink> -->
+
+        <NuxtLink to="/register" onclick="dataLayer.push({'event': 'star_signup'});">
+          <button type="submit"
+            class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white text-gray-700 border-gray-300  focus:ring-lightPastalBlue !px-20 !py-4 block mx-auto"><span
+              class="text-xl">Sign up for free</span>
+          </button>
         </NuxtLink>
       </div>
     </section>

@@ -60,13 +60,12 @@
                         <label for="email" class="block text-sm font-normal text-gray-900 light:text-gray">Email</label>
                         <input type="email" id="email" v-model="email"
                             class="bg-transparent text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500"
-                            placeholder="Enter Email"  />
+                            placeholder="Enter Email" />
 
                         <div class="flex items-end text-right mt-2">
                             <input checked id="checked-checkbox" type="checkbox" value=""
                                 v-model="is_set_email_verified"
-                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600"
-                               >
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
                             <label for="checked-checkbox"
                                 class="ms-2 text-sm font-normal text-gray-600 light:text-gray-300">Set email
                                 verified</label>
@@ -112,24 +111,47 @@
                             <option value="7">Parent</option>
                         </select>
                     </div>
+
+
                     <div>
-                        <label for="phone_code_country"
-                            class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">Mobile No</label>
-                        <div class="grid grid-cols-10 gap-3 items-center">
-                            <input type="text" id="phone_code_country" v-model="phone_code_country"
-                                class="col-span-2 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                                focus:border-blue-500 block w-full p-2.5 light:bg-gray-600 light:border-gray-600 
-                                dark:placeholder-gray-600 light:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Code" required :disabled="props.action === 'view'" />
-                            <input type="text" id="phone_number" v-model="phone_number" class="font-normal col-span-8 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                                focus:border-blue-500 block w-full p-2.5 light:bg-gray-600 light:border-gray-600 dark:placeholder-gray-600 
-                               light:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Number" required :disabled="props.action === 'view'" />
+                        <div class="grid grid-cols-2 gap-3 items-center">
+                          <div>
+                            <!-- Label for Phone Number -->
+                            <label for="phone_code_country" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">
+                              Phone Number
+                            </label>
+                    
+                            <!-- Country Code and Phone Number in One Column -->
+                            <div class="flex space-x-2">
+                              <!-- Country Code Dropdown -->
+                              <ModalCountryCodeDropdown 
+                                :country_codes="country_codes" 
+                                v-model="phone_code_country"
+                                name="phone_code_country" 
+                                data-validation-key="player_phone_code"
+                                class="w-1/3 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 light:bg-gray-600 light:border-gray-600 dark:placeholder-gray-600 light:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                :disabled="props.action === 'view'" 
+                              />
+                    
+                              <!-- Phone Number Input -->
+                              <input 
+                                type="text" 
+                                id="phone_number" 
+                                v-model="phone_number"
+                                class="w-2/3 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 light:bg-gray-600 light:border-gray-600 dark:placeholder-gray-600 light:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Number" 
+                                required 
+                                :disabled="props.action === 'view'" 
+                              />
+                            </div>
+                          </div>
                         </div>
-                    </div>
+                      </div>
 
                 </div>
                 <!-- Modal Footer -->
-                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-300" v-if="props.action !== 'view'">
+                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-300"
+                    v-if="props.action !== 'view'">
                     <button @click="submitRegistration"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         {{ action === 'edit' ? 'Update' : 'Create' }}
@@ -149,9 +171,12 @@
 </template>
 
 <script setup>
-import { ref, computed, watch , onMounted } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
-import { defineProps, defineEmits, defineExpose} from 'vue';
+import { defineProps, defineEmits, defineExpose } from 'vue';
+import { loadCountryList } from '~/services/commonService';
+import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
+import ModalCountryCodeDropdown from '~/components/common/select/ModalCountryCodeDropdown.vue';
 
 
 const first_name = ref('');
@@ -166,6 +191,7 @@ const phone_number = ref('');
 const error = ref('');
 const successMessage = ref('');
 const errors = ref([]);
+const country_codes = ref([]);
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -181,6 +207,11 @@ defineExpose({ clearForm });
 const openModal = () => {
     modalRef.value.openModal();
 };
+
+onMounted(() => {
+    loadCountryCodes();
+});
+
 
 // Computed property to split error messages by comma
 const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
@@ -288,18 +319,26 @@ watch(() => props.isVisible, (newValue) => {
 });
 
 watch([() => props.action, () => props.userId], () => {
-  if (props.action === 'view' || props.action === 'edit') {
-    fetchUserDetails();
-  }
+    if (props.action === 'view' || props.action === 'edit') {
+        fetchUserDetails();
+    }
 });
 
+const loadCountryCodes = async () => {
+    try {
+        country_codes.value = await loadCountryList();
+        console.log(country_codes.value);
+    } catch (err) {
+        console.error('Error loading country codes:', err);
+    }
+};
 
 
 
 onMounted(() => {
-  if (props.action === 'view' || props.action === 'edit') {
-    fetchUserDetails();
-  }
+    if (props.action === 'view' || props.action === 'edit') {
+        fetchUserDetails();
+    }
 });
 </script>
 

@@ -23,7 +23,7 @@
 
         </label>
       </div>
-      <div class="w-full">
+      <div class="w-full py-4">
         <label class="block">
           <span class="block mb-1 text-gray-700 font-sans">Password <span aria-hidden="true" class="text-red-600"
               title="This field is required">*</span></span>
@@ -71,19 +71,7 @@
             class="text-steelBlue">Create new account</strong></NuxtLink>
       </div>
     </div>
-
-    <!-- Display error messages -->
-    <div v-if="errors.length" class="error-messages">
-      <!-- <p class="error-title">Validation Errors:</p> -->
-      <ul class="error-list">
-        <li v-for="(error, index) in splitErrors" :key="index" class="error-item">
-          {{ error }}
-        </li>
-      </ul>
-    </div>
-
-    <!-- Notification Component -->
-    <Notification v-if="showNotification" :message="notificationMessage" :type="notification_type" :duration="3000" />
+    
   </div>
 </template>
 
@@ -95,9 +83,6 @@ import { useUserStore } from '~/stores/userStore';
 import { useNuxtApp } from '#app';
 import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
-
-import Notification from '~/components/common/Notification.vue';
-import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import { handleError } from '@/utils/handleError';
 
 const email = ref('');
@@ -114,9 +99,7 @@ const authType = ref('');
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const loading = ref(false);
-const notificationType = ref('');
 
-definePageMeta({ colorMode: 'light', })
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -138,16 +121,12 @@ const userLogin = async (autoLogin = false) => {
     if (response.status === 200) {
       successMessage.value = response.display_message;
 
-
-      console.log('auto login', autoLogin);
-      console.log('auto me', rememberMe.value);
       // Save credentials if rememberMe is checked and it's not autoLogin
       if (!autoLogin && rememberMe.value) {
         const credentials = {
           username: email.value,  // Corrected from 'username' to 'email'
           password: password.value,
         };
-        console.log('Saving credentials:', credentials);  // This log should be printed now
         saveEncryptedCredentials(credentials);  // Save the credentials
       }
 
@@ -157,12 +136,11 @@ const userLogin = async (autoLogin = false) => {
         role: response.data.user_role,
         token: response.data.token,
         user_permission_type: response.data.user_permission_type,
+        user_id:response.data.user_id
       });
 
       // Set success notification
-      notification_type.value = 'success';
-      notificationMessage.value = response.display_message;
-      showNotification.value = true;
+      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
 
       // Set session cookie (conditionally for remember me)
       if (rememberMe.value) {
@@ -173,20 +151,24 @@ const userLogin = async (autoLogin = false) => {
 
       // Delay routing to show notification for 1 second
       setTimeout(() => {
-        if (response.data.user_permission_type === 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
+        if (response.data.user_permission_type === 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business_manager')) {
           router.push('/user/approval-pending');  // Redirect to pending approval page
-        } else if (response.data.user_permission_type != 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business')) {
+        } else if (response.data.user_permission_type != 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business_manager')) {
           router.push('/app');  
-        } else if(response.data.user_role === 'admin') {
-          router.push('/app');  // Redirect to dashboard
-        } else if((response.data.user_role === 'player') || (response.data.user_role === 'parent')) {
+        } else if(['player', 'admin', 'parent'].includes(response.data.user_role)){
           router.push('/app');  // Redirect to Feed
         } else if ((response.data.user_role === 'default')){
           router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
+        }else{
+          nuxtApp.$notification.triggerNotification('No valid session found', 'warning');
+          router.push('/login'); 
         }
       }, 1000);
+    }else{
+      nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
     }
   } catch (error) {
+    nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
   } finally {
     loading.value = false;  // Reset loading state
@@ -201,15 +183,15 @@ const initiateGoogleAuth = async () => {
     const authUrl = await $authService.getGoogleAuthUrl();
     window.location.href = authUrl; // Redirect to Google authentication URL
   } catch (err) {
-    notificationType.value = 'failure';
-    notificationMessage.value = err.message;
-    showNotification.value = true;
+    nuxtApp.$notification.triggerNotification(err.message,'failure');
   }
 };
 
 onMounted(() => {
   const savedCredentials = localStorage.getItem('encryptedCredentials');
   const sessionToken = Cookies.get('session');  // Check if session token exists
+  const authType = localStorage.getItem('authType');
+  const userToken = localStorage.getItem('token') || null;  // Set token to null if not found
 
   if (savedCredentials) {
     const decryptedData = decryptCredentials(savedCredentials);
@@ -221,16 +203,27 @@ onMounted(() => {
       // Auto-login with the saved credentials
       // userLogin(true);  // Change 'handleLogin(true)' to 'userLogin(true)'
     }
-  } else if (sessionToken) {
+  } else if (authType == 'login' && userToken ) {
     const userRole = localStorage.getItem('user_role');
-    const userToken = localStorage.getItem('token');
-
+    
     if (userRole === 'default') {
       userStore.setTempUser(userRole, userToken);
       router.push({ name: 'register-step-two-token', params: { token: userToken } });
+    }else{
+      router.push('/app');  
     }
+  } else if (authType == 'register' && userToken) {
+    const userRole = localStorage.getItem('user_role');
+      userStore.setTempUser(userRole, userToken);
+      router.push({ name: 'register-step-two-token', params: { token: userToken } });
+  } else if (!userToken) {
+    userStore.clearUser();
+    // Handle the case where neither sessionToken nor userToken exists
+   // triggerNotification('No valid session or token found, redirecting to login','failure');
+    router.push('/login');
   }
 });
+
 
 
 // Function to encrypt and save credentials to localStorage

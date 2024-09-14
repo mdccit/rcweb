@@ -21,10 +21,10 @@ const createAuthService = (apiService) => {
 
     try {
       const response = await apiService.putRequest(url, body);
-
       return response;
-    } catch (error) {
-      throw new Error(error.message || 'Failed to Logout');
+    } catch (error) {   
+        throw error; // Pass the full response to be handled in the frontend
+    
     }
   };
 
@@ -59,6 +59,17 @@ const createAuthService = (apiService) => {
       } else {
         throw new Error(error.message || 'Failed to login');
       }
+    }
+  };
+
+  const resendVerificationEmail = async (user_id) => {
+    const url = `/auth/email/resend/${user_id}`;
+
+    try {
+      const response = await apiService.getRequest(url);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to fetch Google auth URL');
     }
   };
 
@@ -123,11 +134,6 @@ const createAuthService = (apiService) => {
 
 
   const resetPassword = async (password_reset_id, recovery_code, password, password_confirmation) => {
-    // Check if password_reset_id is provided
-    if (!password_reset_id) {
-      throw new Error('Password reset ID is required.');
-    }
-
     // Construct the URL with the password_reset_id
     const url = `/auth/reset-password/${password_reset_id}`;
 
@@ -143,10 +149,10 @@ const createAuthService = (apiService) => {
       const response = await apiService.putRequest(url, body);
       return response;
     } catch (error) {
-      if (error.response) {
-        throw error.response; // Pass the full response to be handled in the frontend
+          if (error.response) {
+        throw error.response;  // Throw the entire response to be handled in the frontend
       } else {
-      throw new Error(error.message || 'Failed to register');
+        throw new Error('An unexpected error occurred.');
       }
     }
   };
@@ -162,6 +168,7 @@ const createAuthService = (apiService) => {
     googleRegister,
     resetPasswordRequest,
     resetPassword,
+    resendVerificationEmail,
   };
 };
 

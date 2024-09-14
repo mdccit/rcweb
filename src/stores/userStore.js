@@ -11,12 +11,15 @@ export const useUserStore = defineStore('user', {
     email: null,
     user_permission_type: null,
     roles: [],
-    permissions: []
+    permissions: [],
+    user_id :''
   }),
   getters: {
     isAuthenticated: (state) => !!state.user && !!state.token,
     isLoggedIn: (state) => !!state.token,  // Check if token exists
     role: (state) => state.user_role || 'default',  // Default role if not set
+    userId: (state) => state.user_id || '',  
+    loggedUserEmail: (state) => state.email || '',  // Default role if not set
   },
   actions: {
     setToken(token) {
@@ -43,21 +46,29 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem('user_permission_type', type);
       }
     },
+    setUserId(id) {
+      this.user_id = id;
+      if (process.client) {
+        localStorage.setItem('user_id', id);
+      }
+    },
     setUser(user) {
       if (!user) return;
-      
+      this.email = user.email || '';
       this.user = user;
       this.token = user.token;
       this.user_role = user.role || 'default';
       this.user_permission_type = user.user_permission_type || 'none';
       this.roles = user.roles ? [...user.roles, user.role] : [user.role];
       this.permissions = user.permissions || []; // Set user permissions
+      this.user_id = user.user_id || ''; 
 
 
       // Set the token and role
       this.setToken(user.token);
       this.setRole(user.role);
       this.setEmail(user.email);
+      this.setUserId(user.id);
 
       if (process.client) {
         // Remove session cookie by setting it to an expired date
@@ -72,6 +83,9 @@ export const useUserStore = defineStore('user', {
       this.token = token;
       this.user_role = role || 'default';
     },
+    clearRole() {
+      this.user_role = null;
+    },
 
     clearUser() {
       this.email = null;
@@ -80,21 +94,17 @@ export const useUserStore = defineStore('user', {
       this.user_role = null;
       this.roles = [];
       this.permissions = [];
-
+      this.user_id = ''; 
        // Remove session cookie
        Cookies.remove('session', { path: '/' });
-
-      // // const userPermissions = usePermissions();
-      // const userRoles = useRoles();
-
-      // // userPermissions.value = []; // Clear permissions
-      // userRoles.value = []; // Clear roles
 
       if (process.client) {
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         localStorage.removeItem('user_role');
         localStorage.removeItem('user_permission_type');
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('email');
       }
     },
 
@@ -107,15 +117,26 @@ export const useUserStore = defineStore('user', {
       }
       return null;
     },
+    getRole() {
+      if (this.user) {
+        return this.user_role;
+       
+      }
+      return null;
+    },
+    getEmail() {
+      if (this.user) {
+        return this.email;
+       
+      }
+      return null;
+    },
   
     initializeUser() {
       if (process.client) {
         const userData = localStorage.getItem('user');
         const token = localStorage.getItem('token');
         const user_role = localStorage.getItem('user_role');
-    
-        // Log user data from localStorage
-        // console.log('Loaded user from localStorage:', userData);
     
         // Handle non-logged-in users gracefully
         if (userData) {

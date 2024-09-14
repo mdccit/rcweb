@@ -10,11 +10,11 @@
         <p class="MsoNormal"><b>Privacy:</b> {{ $t('terms.use_of_recruited') }}
         </p>
         <p class="MsoNormal"><b>{{ $t('terms.electronic_communications') }}</b>{{ $t('terms.visiting_recruited') }} </p>
-        <p class="MsoNormal"><b>{{ $t('terms.your_account') }}Your Account:</b>{{ $t('terms.if_use') }}</p>
+        <p class="MsoNormal"><b>{{ $t('terms.your_account') }}</b>{{ $t('terms.if_use') }}</p>
         <p class="MsoNormal"><b>{{ $t('terms.children_cnder') }}</b>{{ $t('terms.recruited_does_not') }}</p>
         <p class="MsoNormal"><b>{{ $t('terms.to_third') }}</b>{{ $t('terms.may_contain_links') }}</p>
         <p class="MsoNormal">{{ $t('terms.certain_services') }}</p>
-        <p class="MsoNormal"><b>{{ $t('terms.no_unlawful') }}No Unlawful or Prohibited Use/Intellectual Property:</b> 
+        <p class="MsoNormal"><b>{{ $t('terms.no_unlawful') }}</b> 
             {{ $t('terms.you_are_granted') }}
         </p>
         <p class="MsoNormal">All content included as part of the Service, such as text, graphics, logos, images, as well
