@@ -1,6 +1,5 @@
 <template>
-  <div class="min-h-screen w-full bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4"
-    style="background-image: url(https://qa1.recruited.qualitapps.com/static/bg-generic.svg);">
+  <div class="min-h-screen w-full bg-generic bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4">
     <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl">
       <form @submit.prevent="handleSubmitStep2">
         <div class="flex items-center space-x-4">

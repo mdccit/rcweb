@@ -13,7 +13,7 @@
                     everybody can use the essential functions of Recruited at no cost. </p>
                 <button type="submit"
                     class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-blue-700 active:bg-steelBlue text-white border-transparent  py-4 w-full mx-auto max-w-xl"
-                    href="https://qa1.recruited.qualitapps.com/register"><span class="text-lg">
+                    ><span class="text-lg">
                         <NuxtLink to="/register">Sign up for free now</NuxtLink>
                     </span></button>
             </div>

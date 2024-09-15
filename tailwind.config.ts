@@ -91,6 +91,9 @@ module.exports = {
         '1.25': '1.25px',
         '1.5': '1.5px',
         '1.75': '1.75px',
+      },
+      backgroundImage: {
+        'generic': "url('/_nuxt/assets/images/bg-generic.svg')"
       }
     },
   },
