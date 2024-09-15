@@ -20,7 +20,7 @@
                                     </div>
                                     <div class="col-span-7">
                                         <div class="text-left mt-[80px] w-full">
-                                            <h2 class="text-lg font-semibold  text-white text-3xl">Jerome Bell</h2>
+                                            <h2 class="text-lg font-semibold  text-white text-3xl">{{  name }}</h2>
                                             <h5 class=" text-md  text-white font-normal text-black text-primaryblue">
                                                 Business user
                                             </h5>
@@ -125,12 +125,8 @@
                                 <h1 class="text-lg font-semibold mb-4 text-black">Bio</h1>
                             </div>
                         </div>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">Lorem ipsum dolor sit amet,
-                            consectetur
-                            adipiscing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
+                            {{  bio }}
                         </p>
                     </div>
                 </div>
@@ -462,11 +458,11 @@
 
                             <div class="">
 
-                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto text-center mb-3">Associated with </p>
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto text-center mb-3">{{ position }} with </p>
                                 <div class="... text-center">
                                     <img class="mx-auto w-[85px] h-[85px] rounded-[20px] mb-3"
                                         src="../../assets/user/images/whitter collage.png" alt="">
-                                    <p class="text-black text-sm text-center font-normal mb-3 w-[200px] mx-auto"> <b>ICSA (Intercollegiate Soccer Association)</b></p>
+                                    <p class="text-black text-sm text-center font-normal mb-3 w-[200px] mx-auto"> <b>{{  business }}</b></p>
                                     <p class="text-steelBlue text-sm text-center  mb-3">Business</p>
                                 </div>
                             </div>
@@ -482,6 +478,56 @@
     </main>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch, onMounted } from 'vue';
+import { useNuxtApp } from '#app';
+import Connection from '~/components/user/profile/connection.vue';
 
+// Access authService from the context
+const nuxtApp = useNuxtApp();
+const $publicService = nuxtApp.$publicService;
+const $userService = nuxtApp.$userService;
+
+const bio =ref('');
+const country =ref('');
+const position =ref('');
+const name =ref('')
+const role =ref('')
+const business =ref('')
+
+onMounted(() => {
+    fetchCoacheDatils();
+    fetchConnections();
+
+});
+
+const fetchCoacheDatils = async () =>{
+    try {
+       const dataSets = await $publicService.get_business_user('ra');
+        bio.value =dataSets.user_basic_info.bio
+      //  country.value =dataSets.user_address_info.country
+        position.value =dataSets.business_manager_info.position
+        name.value =dataSets.user_basic_info.display_name
+        role.value = dataSets.user_basic_info.user_role
+        business.value =  dataSets.business_manager_info.business_name
+
+       
+    
+
+    } catch (error) {
+        console.log(error)
+       console.error('Error fetching data:', error.message);
+    } 
+}
+
+const fetchConnections = async () =>{
+    try {
+       const dataSets = await $userService.get_connection('9cf182dd-aff5-43b7-a3ed-4c693b9530c3');
+       //connections.value =dataSets.connection   
+    } catch (error) {
+        console.log(error)
+       c
+       onsole.error('Error fetching data:', error.message);
+    } 
+}
 </script>
