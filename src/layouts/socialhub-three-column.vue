@@ -3,12 +3,12 @@
     <!-- Top Navigation Bar -->
     <SocialHubNavbar />
 
-    <main class="bg-graySnowDrift">
+    <main class="bg-graySnowDrift min-h-screen">
       <div class="container-compressed">
         <div class="grid grid-cols-6 gap-4 mt-16">
           <!-- Left pane -->
           <div>
-            <Filter />
+            <!-- <Filter /> -->
           </div>
 
           <!-- Middle pane -->
