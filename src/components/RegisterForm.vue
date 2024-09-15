@@ -181,6 +181,13 @@ const handleSubmit = async () => {
       if (token) {
         localStorage.setItem('token', token);
         localStorage.setItem('user_role', user_role);
+         // Set the user in the Pinia store
+         userStore.setUser({
+          email: email.value,
+          token: response.data.token,
+          user_permission_type: response.data.user_permission_type? response.data.user_permission_type:'none',
+          user_id:response.data.user_id
+         });
 
         // Use named route navigation
         router.push({ name: 'register-step-two-token', params: { token: token } });
