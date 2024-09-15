@@ -155,7 +155,7 @@
                     <!--end card 01 -->
 
                     <!--start card 02 -->
-                    <div class="flex">
+                    <!-- <div class="flex">
                         <div class="flex-1 p-2">
 
                             <div class="bg-white p-4 border rounded-2xl">
@@ -330,7 +330,7 @@
 
 
 
-                    </div>
+                    </div> -->
 
 
 
@@ -370,7 +370,7 @@
                     </div> -->
 
                     <!--end card 02 -->
-
+                    <Connection  :connections="connections"  />
                     <!--start card 03 -->
 
                     <!--end card 03 -->
@@ -406,7 +406,7 @@
 
                             <div>
                                 <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                    Connect +
+                                    Connect 6+
                                 </button>
                             </div>
                             <div class="">
@@ -460,10 +460,13 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
+import Connection from '~/components/user/profile/connection.vue';
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $publicService = nuxtApp.$publicService;
+const $userService = nuxtApp.$userService;
+
 const bio =ref('');
 const country =ref('');
 const city =ref('');
@@ -483,9 +486,12 @@ const atp =ref("Unknown")
 const itf =ref("Unknown")
 const feet =ref(0)
 const pounds =ref(0)
+const connections = ref([])
 
 onMounted(() => {
     fetchUserDatils();
+    fetchConnections();
+
 });
 
 const fetchUserDatils = async () =>{
@@ -534,6 +540,18 @@ const fetchUserDatils = async () =>{
        joinDate.value =`${year} ${month} ${day}`
     
 
+    } catch (error) {
+        console.log(error)
+       console.error('Error fetching data:', error.message);
+    } 
+}
+
+const fetchConnections = async () =>{
+    try {
+       const dataSets = await $userService.get_connection('9cf182dd-aff5-43b7-a3ed-4c693b9530c3');
+       console.log(dataSets.connection)
+       connections.value =dataSets.connection   
+       console.log(connections.value)     
     } catch (error) {
         console.log(error)
        console.error('Error fetching data:', error.message);

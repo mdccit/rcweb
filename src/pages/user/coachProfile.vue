@@ -711,6 +711,15 @@
     </main>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch, onMounted } from 'vue';
+import { useNuxtApp } from '#app';
+import Connection from '~/components/user/profile/connection.vue';
+
+// Access authService from the context
+const nuxtApp = useNuxtApp();
+const $publicService = nuxtApp.$publicService;
+
+
 
 </script>
