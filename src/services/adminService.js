@@ -48,7 +48,7 @@ const createAdminService = (apiService) => {
     try {
       const response = await apiService.getRequest(url);
       if (response && response.data && response.data.user_basic_info) {
-        return response.data.user_basic_info;
+        return response.data;
       } else {
         throw new Error('Unexpected API response structure');
       }
@@ -129,6 +129,8 @@ const createAdminService = (apiService) => {
     }
   };
 
+
+
   const list_business = async (page = 1, per_page_items = 10) => {
     const url = `/admin/businesses?page=${page}&per_page_items=${per_page_items}`;
   
@@ -144,13 +146,57 @@ const createAdminService = (apiService) => {
     }
   };
 
-  const get_business_members = async (business_id) => {
-    const url = `/admin/businesses/users/${business_id}`;
+
+  const get_business_details = async (business_id) => {
+    const url = `/admin/businesses/${business_id}`;
   
     try {
       const response = await apiService.getRequest(url);
       if (response && response.data) {
         return response.data;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to get details');
+    }
+  };
+
+
+
+  const business_register = async (request_body) => {
+    const url = '/admin/business-register';
+    const body = request_body;
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register business');
+    }
+  };
+
+  const business_update = async (request_body) => {
+    
+    const url = `/admin/business-update/${request_body.business_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+
+  const get_business_members = async (business_id) => {
+    const url = `/admin/businesses/users/${business_id}`;
+  
+    try {
+      const response = await apiService.getRequest(url);
+      if (response) {
+        return response;
       } else {
         throw new Error('Unexpected API response structure');
       }
@@ -161,7 +207,12 @@ const createAdminService = (apiService) => {
   
   const search_business_users = async (business_id,page , per_page_items, search_key = '') => {
 
-    const url = `/admin/businesses/search-users/${business_id}?page=${page}&per_page_items=${per_page_items}&search_key=${search_key}`;
+    const url = `/admin/businesses/search-users/${business_id}?page=${page}&per_page_items=${per_page_items}`;
+  
+        // Add search_key to URL only if it's not an empty string
+        if (search_key) {
+          url += `&search_key=${encodeURIComponent(search_key)}`;
+      }
   
     try {
       const response = await apiService.getRequest(url);
@@ -175,6 +226,33 @@ const createAdminService = (apiService) => {
     }
   };
   
+
+  const add_business_user = async (request_body) => {
+    const url = '/admin/businesses/add-user';
+    const body = request_body;
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+
+  const add_school_user = async (request_body) => {
+    const url = '/admin/schools/add-user';
+    const body = request_body;
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+
 
   const get_player_details = async (user_id) => {
     const url = `/admin/player-get/${user_id}`;
@@ -264,8 +342,8 @@ const createAdminService = (apiService) => {
     }
   };
 
-  const morderation_all =async (page = 1, per_page_items = 10) => {
-    const url = `/admin/morderation-get-all?page=${page}&per_page_items=${per_page_items}`;
+  const morderation_all =async () => {
+    const url = `/admin/morderation-get-all`;
   
     try {
       const response = await apiService.getRequest(url);
@@ -379,6 +457,28 @@ const createAdminService = (apiService) => {
     }
   };
 
+  
+  const search_school_users = async (school_id, page, per_page_items, search_key = '') => {
+    // Build the base URL
+    let url = `/admin/schools/search-users/${school_id}?page=${page}&per_page_items=${per_page_items}`;
+
+    // Add search_key to URL only if it's not an empty string
+    if (search_key) {
+        url += `&search_key=${encodeURIComponent(search_key)}`;
+    }
+
+    try {
+        const response = await apiService.getRequest(url);
+        if (response && response.data) {
+            return response.data;
+        } else {
+            throw new Error('Unexpected API response structure');
+        }
+    } catch (error) {
+        throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+};
+
   return {
     new_user_register,
     list_users,
@@ -388,14 +488,18 @@ const createAdminService = (apiService) => {
     school_register,
     school_update,
     list_school_staff,
+    search_school_users,
+    add_school_user,
     get_school_details,
     list_business,
+    business_register,
     get_business_members,
     search_business_users,
-    school_update,
+    add_business_user,
+    get_business_details,
+    business_update,
     get_player_details,
     player_update,
-    search_business_users,
     user_session_delete,
     user_delete,
     school_delete,

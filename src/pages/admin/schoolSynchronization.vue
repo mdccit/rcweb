@@ -330,7 +330,6 @@
 
 <script setup>
 import { useUserStore } from '~/stores/userStore'
-import schoolTable from '~/components/tables/schoolTables.vue';
 import schoolCreateModal from '~/components/shared/schoolCreateModal.vue';
 
 const userStore = useUserStore()

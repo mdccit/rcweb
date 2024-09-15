@@ -24,13 +24,13 @@ const createFeedService = (apiService) => {
       const response = await apiService.postRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.response.display_message || 'Failed to register');
     }
   };
 
 
   const update_post = async (post_id, request_body) => {
-    const url = `/feed/post/${post_id}`;
+    const url = `/feed/posts/${post_id}`;
     const body = request_body;
 
     try {
@@ -42,11 +42,10 @@ const createFeedService = (apiService) => {
   };
 
   const delete_post = async (post_id) => {
-    const url = `/feed/post/${post_id}`;
-    const body = request_body;
-
+    const url = `/feed/posts/${post_id}`;
+    
     try {
-      const response = await apiService.deleteRequest(url, body);
+      const response = await apiService.deleteRequest(url);
       return response;
     } catch (error) {
       throw new Error(error.message || 'Failed to update post');
@@ -128,9 +127,9 @@ const createFeedService = (apiService) => {
   };
 
   const unlike_post = async (post_id, request_body) => {
-    const url = `/feed/post/${post_id}/like`;
+    const url = `/feed/posts/${post_id}/like`;
     const body = request_body;
-
+    
     try {
       const response = await apiService.deleteRequest(url, body);
       return response;
@@ -141,6 +140,18 @@ const createFeedService = (apiService) => {
 
   const get_single_post = async (post_id, request_body) => {
     const url = `/feed/posts/${post_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.getRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update post');
+    }
+  };
+
+  const get_single_post_with_like_boolean = async (post_id, request_body) => {
+    const url = `/feed/post/${post_id}`;
     const body = request_body;
 
     try {
@@ -163,7 +174,8 @@ const createFeedService = (apiService) => {
     unlike_post,
     get_comment,
     get_all_post_comment,
-    get_single_post
+    get_single_post,
+    get_single_post_with_like_boolean
 
   };
 

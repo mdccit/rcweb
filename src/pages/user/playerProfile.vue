@@ -49,7 +49,7 @@
                         <div class="grid grid-cols-3 gap-4">
                             <div class="...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl "
-                                    src="../../assets/user/images/Group 179.png" alt="">
+                                    src="@/assets/user/images/Group 179.png" alt="">
                             </div>
                             <div class="col-span-2 ...">
                                 <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Has {{  budgetMin }} - {{ budgetMax }}
@@ -65,7 +65,7 @@
                         <div class="grid grid-cols-3 gap-4">
                             <div class="...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl"
-                                    src="../../assets/user/images/Group 79.png" alt="">
+                                    src="@/assets/user/images/Group 79.png" alt="">
                             </div>
                             <div class="col-span-2 ...">
                                 <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Signed up {{ joinDate }}
@@ -106,7 +106,7 @@
                     <!--start card 01 -->
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
                         <div class="flex items-center">
-                            <img src="../../assets/user/images/Rectangle 193.png" alt=""
+                            <img src="@/assets/user/images/Rectangle 193.png" alt=""
                                 class="rounded-lg w-12 h-12 mr-4">
                             <input type="text" placeholder="Write your thoughts..."
                                 class="flex-grow text-ceil bg-culturedBlue  rounded-xl py-2 px-4 focus:outline-none focus:border-blue-500">
@@ -137,7 +137,7 @@
                                 </button>
                                 <button
                                     class="flex items-center space-x-1 text-lightred px-3 py-1 rounded-md text-sm bg-culturedBlue">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green"
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="green-500"
                                         class="size-4">
                                         <path
                                             d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
@@ -146,7 +146,7 @@
                                             clip-rule="evenodd" />
                                     </svg>
 
-                                    <span class="text-green pl-1.5">Event</span>
+                                    <span class="text-green-500 pl-1.5">Event</span>
                                 </button>
                             </div>
                             <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Post</button>
@@ -162,16 +162,16 @@
                                 <div class=" grid grid-cols-12 gap-4">
                                     <div class="col-span-3">
                                         <img class=" rounded-2xl w-[85px] h-[85px]"
-                                            src="../../assets/user/images/Rectangle 193.png" alt="Neil image">
+                                            src="@/assets/user/images/Rectangle 193.png" alt="Neil image">
                                     </div>
                                     <div class="col-span-6">
                                         <h4 class="text-black font-normal">Ronald Richards</h4>
                                         <div class="flex items-center space-x-2 mb-2">
                                             <div class="bg-mintGreen p-1 rounded">
-                                                <img src="../../assets/user/images/man-medal.png" alt=""
+                                                <img src="@/assets/user/images/man-medal.png" alt=""
                                                     class=" w-4 h-4">
                                             </div>
-                                            <div class="text-sm ml-2 text-green">Tennis Coach</div>
+                                            <div class="text-sm ml-2 text-green-500">Tennis Coach</div>
                                         </div>
                                         <div class="flex items-center space-x-2">
                                             <div class=" rounded">
@@ -250,15 +250,15 @@
                                 <div class=" grid grid-cols-12 gap-4">
                                     <div class="col-span-3">
                                         <img class=" rounded-2xl w-[85px] h-[85px]"
-                                            src="../../assets/user/images/Rectangle 193.png" alt="Neil image">
+                                            src="@/assets/user/images/Rectangle 193.png" alt="Neil image">
                                     </div>
                                     <div class="col-span-6">
                                         <h4 class="text-black font-normal">Ronald Richards</h4>
                                         <div class="flex items-center space-x-2 mb-2">
                                             <div class="bg-blue-200 p-1 rounded">
-                                                <img src="../../assets/images/player-blue.png" alt="" class=" w-4 h-4">
+                                                <img src="@/assets/images/player-blue.png" alt="" class=" w-4 h-4">
                                             </div>
-                                            <div class="text-sm ml-2 text-blue">Tennis Player</div>
+                                            <div class="text-sm ml-2 text-blue-500">Tennis Player</div>
                                         </div>
                                         <div class="flex items-center space-x-2">
                                             <div class=" rounded">
@@ -349,7 +349,7 @@
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0">
                                             <img class="w-8 h-8 rounded-full"
-                                                src="../../assets/user/images/Rectangle 193.png" alt="Neil image">
+                                                src="@/assets/user/images/Rectangle 193.png" alt="Neil image">
                                         </div>
                                         <div class="flex-1 min-w-0 ms-4">
                                             <p class="text-sm font-medium text-black truncate ">
