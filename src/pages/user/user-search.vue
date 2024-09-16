@@ -113,6 +113,8 @@
 
 <script setup>
 definePageMeta({
-    layout: 'user',
+  layout: 'user',
+  middleware: ['role'],
+  requiredRole: ['admin','coach','business_manager','player','parent','default'],
 });
 </script>
