@@ -87,13 +87,13 @@
                                     class=" text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
                                     <ul class="flex flex-wrap -mb-px">
                                         <li class="me-2">
-                                            <a href="#"
-                                                class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</a>
+                                            <button @click="handleTab('feed')"
+                                                class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</button>
                                         </li>
                                         <li class="me-2">
-                                            <a href="#"
+                                            <button @click="handleTab('member')"
                                                 class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                                aria-current="page">Members</a>
+                                                aria-current="page">Members</button>
                                         </li>
                                         <li class="me-2">
                                             <a href="#"
@@ -191,9 +191,11 @@
                         </div>
                     </div> -->
                     <!--end card 01 -->
-
+                    <!-- Posts section -->
+                        <UserFeed v-if="tab == 'feed'" :posts="posts" />
+                    <!-- Posts section End -->
                     <!-- Members section -->
-                        <Member :members="members"/>
+                        <Member v-if="tab == 'member'" :members="members"/>
                     <!-- Member section End -->
                 </div>
                 <!-- End post Section -->
@@ -331,18 +333,23 @@
 import { ref, computed, watch, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import Member from '~/components/user/profile/member.vue';
+import UserFeed from '~/components/user/profile/userFeed.vue';
+
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $publicService = nuxtApp.$publicService;
 const $userService = nuxtApp.$userService;
+const $feedService = nuxtApp.$feedService;
 
 const bio =ref('');
 const name =ref('')
 const members =ref([])
-
+const tab = ref('feed')
+const posts = ref([])
 onMounted(() => {
     fetchCoacheDatils();
     fetchConnections();
+    fetchPost();
 
 });
 
@@ -368,5 +375,19 @@ const fetchConnections = async () =>{
        c
        onsole.error('Error fetching data:', error.message);
     } 
+}
+
+const fetchPost = async () =>{
+      try {
+    const response = await $feedService.list_posts({});
+    posts.value = response || [];
+  
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
+  }
+}
+
+const handleTab = (name) =>{
+    tab.value = name
 }
 </script>

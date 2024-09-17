@@ -86,13 +86,13 @@
                                     class=" text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
                                     <ul class="flex flex-wrap -mb-px">
                                         <li class="me-2">
-                                            <a href="#"
-                                                class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</a>
+                                            <button @click="handleTab('feed')"
+                                                class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</button>
                                         </li>
                                         <li class="me-2">
-                                            <a href="#"
+                                            <button @click="handleTab('connection')"
                                                 class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                                aria-current="page">Members</a>
+                                                aria-current="page">Connections</button>
                                         </li>
                                         <li class="me-2">
                                             <a href="#"
@@ -131,11 +131,10 @@
                     </div>
                 </div>
                 <!-- End Profile pic section  -->
-
+                   
                 <!-- Start post Section -->
                 <div class="col-span-5 sm:col-span-3 md:col-span-5 lg:col-span-2 xl:col-span-3">
-                    <!--start card 01 -->
-                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6">
+                    <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6">
                         <div class="flex items-center">
                             <img src="../../assets/user/images/businessuser.png" alt=""
                                 class="rounded-lg w-12 h-12 mr-4">
@@ -183,9 +182,6 @@
                             <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Post</button>
                         </div>
                     </div>
-                    <!--end card 01 -->
-
-                    <!--start card 02 -->
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
                         <div class="flex items-start space-x-4">
                             <div class="flex-1">
@@ -293,9 +289,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end card 02 -->
 
-                    <!--start card 03 -->
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
                         <div class="flex items-start space-x-4">
                             <div class="flex-1">
@@ -442,12 +436,15 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
-                    <!--end card 03 -->
+                    </div>-->
+                   <!-- Posts section -->
+                         <UserFeed v-if="tab == 'feed'" :posts="posts" />
+                    <!-- Posts section End -->
+                    <!-- Members section -->
+                        <Connection v-if="tab == 'connection'" :members="members"/>
+                    <!-- Member section End -->
 
-
-                    <!--end card 04 -->
-                </div>
+                </div> 
                 <!-- End post Section -->
 
                 <!-- Start UTR Section -->
@@ -482,11 +479,12 @@
 import { ref, computed, watch, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import Connection from '~/components/user/profile/connection.vue';
-
+import UserFeed from '~/components/user/profile/userFeed.vue';
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $publicService = nuxtApp.$publicService;
 const $userService = nuxtApp.$userService;
+const $feedService = nuxtApp.$feedService;
 
 const bio =ref('');
 const country =ref('');
@@ -494,10 +492,13 @@ const position =ref('');
 const name =ref('')
 const role =ref('')
 const business =ref('')
-
+const connections = ref([])
+const tab = ref('feed')
+const posts = ref([])
 onMounted(() => {
     fetchCoacheDatils();
     fetchConnections();
+    fetchPost();
 
 });
 
@@ -511,9 +512,6 @@ const fetchCoacheDatils = async () =>{
         role.value = dataSets.user_basic_info.user_role
         business.value =  dataSets.business_manager_info.business_name
 
-       
-    
-
     } catch (error) {
         console.log(error)
        console.error('Error fetching data:', error.message);
@@ -523,11 +521,25 @@ const fetchCoacheDatils = async () =>{
 const fetchConnections = async () =>{
     try {
        const dataSets = await $userService.get_connection('9cf182dd-aff5-43b7-a3ed-4c693b9530c3');
-       //connections.value =dataSets.connection   
+       connections.value =dataSets.connection   
     } catch (error) {
         console.log(error)
        c
        onsole.error('Error fetching data:', error.message);
     } 
+}
+
+const fetchPost = async () =>{
+      try {
+    const response = await $feedService.list_posts({});
+    posts.value = response || [];
+  
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
+  }
+}
+
+const handleTab = (name) =>{
+    tab.value = name
 }
 </script>

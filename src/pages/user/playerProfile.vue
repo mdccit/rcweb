@@ -86,13 +86,13 @@
                         class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
                         <ul class="flex flex-wrap -mb-px">
                             <li class="me-2">
-                                <a href="#"
-                                    class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</a>
+                                <button @click="handleTab('feed')"
+                                    class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</button>
                             </li>
                             <li class="me-2">
-                                <a href="#"
+                                <button @click="handleTab('connection')"
                                     class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                    aria-current="page">Connections</a>
+                                    aria-current="page">Connections</button>
                             </li>
                             <li class="me-2">
                                 <a href="#"
@@ -104,7 +104,7 @@
                     </div>
 
                     <!--start card 01 -->
-                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
+                    <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
                         <div class="flex items-center">
                             <img src="@/assets/user/images/Rectangle 193.png" alt=""
                                 class="rounded-lg w-12 h-12 mr-4">
@@ -151,8 +151,11 @@
                             </div>
                             <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Post</button>
                         </div>
-                    </div>
+                    </div> -->
                     <!--end card 01 -->
+                     <!-- Posts section -->
+                     <UserFeed v-if="tab == 'feed'" :posts="posts" />
+                    <!-- Posts section End -->
 
                     <!--start card 02 -->
                     <!-- <div class="flex">
@@ -370,7 +373,7 @@
                     </div> -->
 
                     <!--end card 02 -->
-                    <Connection  :connections="connections"  />
+                    <Connection   v-if="tab == 'connection'":connections="connections"  />
                     <!--start card 03 -->
 
                     <!--end card 03 -->
@@ -461,11 +464,13 @@
 import { ref, computed, watch, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import Connection from '~/components/user/profile/connection.vue';
+import UserFeed from '~/components/user/profile/userFeed.vue';
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $publicService = nuxtApp.$publicService;
 const $userService = nuxtApp.$userService;
+const $feedService = nuxtApp.$feedService;
 
 const bio =ref('');
 const country =ref('');
@@ -487,11 +492,13 @@ const itf =ref("Unknown")
 const feet =ref(0)
 const pounds =ref(0)
 const connections = ref([])
+const tab = ref('feed')
+const posts = ref([])
 
 onMounted(() => {
     fetchUserDatils();
     fetchConnections();
-
+    fetchPost();
 });
 
 const fetchUserDatils = async () =>{
@@ -556,5 +563,20 @@ const fetchConnections = async () =>{
         console.log(error)
        console.error('Error fetching data:', error.message);
     } 
+}
+
+const fetchPost = async () =>{
+      try {
+    const response = await $feedService.list_posts({});
+    posts.value = response || [];
+  
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
+  }
+}
+
+
+const handleTab = (name) =>{
+    tab.value = name
 }
 </script>
