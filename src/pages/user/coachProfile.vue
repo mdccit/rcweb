@@ -72,8 +72,8 @@
                                         </div>
 
                                         <div>
-                                            <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                                Connect +
+                                            <button @click="connectAcceptOrConnect" class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                {{ connectionButtonName }}
                                             </button>
                                         </div>
                                         <div class="">
@@ -382,12 +382,14 @@ import { ref, computed, watch, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import Connection from '~/components/user/profile/connection.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
+import { useUserStore } from '~/stores/userStore'
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $publicService = nuxtApp.$publicService;
 const $userService = nuxtApp.$userService;
 const $feedService = nuxtApp.$feedService;
+const userStore = useUserStore()
 
 const bio =ref('');
 const country =ref('');
@@ -398,10 +400,17 @@ const colleage =ref('')
 const connections = ref([])
 const tab = ref('feed')
 const posts = ref([])
+const connectionStatus = ref(false)
+const connectionType = ref(null)
+const connectionButtonName =ref('Connect')
+const userId = ref('')
 onMounted(() => {
     fetchCoacheDatils();
     fetchConnections();
     fetchPost();
+    fetchCheckConnection();
+
+    userId.value = userStore.user.user_id
 
 });
 
@@ -443,5 +452,54 @@ const fetchPost = async () =>{
 
 const handleTab = (name) =>{
     tab.value = name
+}
+
+const fetchCheckConnection = async () =>{
+    try {
+       const dataSets = await $userService.get_check_connection_type('9ce354e8-e661-4c54-95e0-3aa5c20497a8');
+       connectionStatus.value =dataSets.connection
+
+       if(connectionStatus.value){
+          connectionType.value = dataSets.type
+          
+          if((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)){
+              connectionButtonName.value = " Invite "
+          }
+
+          if((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)){
+            connectionButtonName.value = " Accepted "
+          }
+
+          if(dataSets.type.connection_status == 'accepted'){
+            connectionButtonName.value = " Connected "
+          }
+
+       }
+       
+    } catch (error) {
+        console.log(error)
+       console.error('Error fetching data:', error.message);
+    } 
+}
+
+const connectAcceptOrConnect = async () =>{
+      try {
+        if(connectionButtonName.value == "Accepted"){
+            await $userService.connection_accept(connectionType.value.id,{
+                connection_status:"accepted"
+            });
+        }
+
+        if(connectionButtonName.value == "Connect"){
+            await $userService.connection_request({
+                receiver_id:"9ce354e8-e661-4c54-95e0-3aa5c20497a8"
+            });
+        }
+
+        fetchCheckConnection()
+  
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
+  }
 }
 </script>
