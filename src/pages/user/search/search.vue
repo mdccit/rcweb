@@ -41,7 +41,7 @@
             <div class="flex">
 
                 <!-- card 01 -->
-                <div class="flex-1 p-2">
+                 <div v-for="user in search" class="flex-1 p-2"> 
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
                         <div class=" grid grid-cols-12 gap-4">
                             <div class="col-span-4">
@@ -51,7 +51,7 @@
                             <div class="col-span-8">
                                 <div class="flex justify-between items-center">
                                     <div class="flex-1">
-                                        <h4 class="text-black font-bold">Jane Cooper</h4>
+                                        <h4 class="text-black font-bold">{{ user.display_name }}</h4>
                                     </div>
                                     <div class="flex-3">
 
@@ -67,7 +67,7 @@
                                             <div class="bg-lightPale p-1 rounded">
                                                 <img src="@/assets/user/images/playerIcon.png" alt="" class=" w-4 h-4">
                                             </div>
-                                            <div class="text-xs ml-2 text-steelBlue">Tennis Player</div>
+                                            <div class="text-xs ml-2 text-steelBlue">Tennis {{ user.user_role }}</div>
                                         </div>
                                     </div>
                                     <div class="flex-1">
@@ -86,7 +86,7 @@
                                         <p class="text-base font-bold">50.00</p>
                                     </div>
                                     <p class="text-xs mr-3">ATP Score : <span>538</span></p>
-                                    <p class="text-xs mr-3">GPA :<span>538</span></p>
+                                    <p class="text-xs mr-3">GPA :<span>{{  user.gpa }}</span></p>
                                     <p class="text-xs">SAT Score : <span>145</span></p>
                                 </div>
                                 <div class="flex items-center mt-2 text-sm text-gray-500">
@@ -175,10 +175,10 @@
 
                         </div>
                     </div>
-                </div>
+                </div> 
                 <!--/ card 01 -->
                 <!-- card 02 -->
-                <div class="flex-1 p-2">
+                <!-- <div class="flex-1 p-2">
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
                         <div class=" grid grid-cols-12 gap-4">
                             <div class="col-span-4">
@@ -276,12 +276,12 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- / card 02 -->
             </div>
             <div class="flex">
                 <!-- card 03 -->
-                <div class="flex-1 p-2">
+                <!-- <div class="flex-1 p-2">
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
                         <div class=" grid grid-cols-12 gap-4">
                             <div class="col-span-4">
@@ -360,10 +360,10 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!--/ card 03 -->
                 <!-- card 04 -->
-                <div class="flex-1 p-2">
+                <!-- <div class="flex-1 p-2">
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
                         <div class=" grid grid-cols-12 gap-4">
                             <div class="col-span-4">
@@ -475,7 +475,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!--/ card 04 -->
             </div>
         </div>
@@ -490,29 +490,50 @@
 
 </template>
 
+<!-- <script setup>
+definePageMeta({
+    layout: 'user',
+    middleware: ['role'],
+    requiredRole: ['admin', 'coach', 'business_manager', 'player', 'parent', 'default'],
+});
+</script> -->
 <script setup>
 definePageMeta({
     layout: 'user',
     middleware: ['role'],
     requiredRole: ['admin', 'coach', 'business_manager', 'player', 'parent', 'default'],
-});
-</script>
-<script>
+})
 import PopupModal from '~/pages/user/search/saveSearchModal.vue';
+import { ref, computed, watch, onMounted } from 'vue';
+import { useNuxtApp } from '#app';
 
-definePageMeta({
-    layout: 'user',
-    middleware: ['role'],
-    requiredRole: ['admin', 'coach', 'business_manager', 'player', 'parent', 'default'],
-});
-export default {
-  components: {
-    PopupModal
-  },
-  data() {
-    return {
-      showPopup: false
-    };
+const nuxtApp = useNuxtApp();
+const $feedService = nuxtApp.$feedService;
+const search = ref([])
+onMounted(() => {
+    fetchData();
+  
+
+  });
+
+  const fetchData = async () =>{
+    try {
+    const response = await $feedService.search_user();
+    console.log(response.data.dataSets.users)
+     search.value = response.data.dataSets.users || [];
+    
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
   }
-}
+  }
+// export default {
+//   components: {
+//     PopupModal
+//   },
+//   data() {
+//     return {
+//       showPopup: false
+//     };
+//   }
+// }
 </script>
