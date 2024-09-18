@@ -1,7 +1,6 @@
 <template>
   <div>
-    <LoadingSpinner v-if="loading" />
-    <main class="min-h-screen bg-gray-100 p-[0px]" v-else>
+    <main class="min-h-screen bg-gray-100 p-[0px]">
       <NuxtPage />
     </main>
 
@@ -24,7 +23,7 @@ import Notification from '~/components/common/Notification.vue'; // <-- Ensure t
 
 const nuxtApp = useNuxtApp();
 
-const loading = ref(false);
+
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const notificationType = ref('');

@@ -132,26 +132,22 @@ definePageMeta({ colorMode: 'light', layout: 'outer' },)
 const sendResetPasswordRequest = async () => {
     loading.value = true;
     try {
-        const result = await nuxtApp.$authService.resetPasswordRequest(email.value);
-
-        if (response.status === 200) {
-            nuxtApp.$notification.triggerNotification(result.data.display_message, 'success');
-            // Store the password_reset_id in local storage
-            if (result && result.data && result.data.password_reset_id) {
-                localStorage.setItem('password_reset_id', result.data.password_reset_id);
-            }
+        const response = await nuxtApp.$authService.resetPasswordRequest(email.value);
+        if (response.status == 200) {
             loading.value = false;
+            // Store the password_reset_id in local storage
+            if (response.data.password_reset_id) {
+                nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+                localStorage.setItem('password_reset_id', response.data.password_reset_id);
+                // Redirect to the new password page after a short delay               
+                    router.push('/reset-password'); // Change '/new-password' to your actual route               
+            }           
         } else {
-            nuxtApp.$notification.triggerNotification(result.data.display_message, 'warning');
+            nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
             loading.value = false;
         }
-
-        // Redirect to the new password page after a short delay
-        setTimeout(() => {
-            router.push('/reset-password'); // Change '/new-password' to your actual route
-        }, 2000);
     } catch (error) {
-        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+        nuxtApp.$notification.triggerNotification(error.display_message, 'warning');
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
         loading.value = false;
     }
