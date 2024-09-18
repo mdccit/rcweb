@@ -12,7 +12,11 @@ export const useUserStore = defineStore('user', {
     user_permission_type: null,
     roles: [],
     permissions: [],
-    user_id :''
+    user_id :'',
+    player_id:'',
+    player_slug:'',
+    coache_id:'',
+    coache_slug:''
   }),
   getters: {
     isAuthenticated: (state) => !!state.user && !!state.token,
@@ -20,6 +24,10 @@ export const useUserStore = defineStore('user', {
     role: (state) => state.user_role || 'default',  // Default role if not set
     userId: (state) => state.user_id || '',  
     loggedUserEmail: (state) => state.email || '',  // Default role if not set
+    playerId:(state) => state.player_id || '',
+    playerSlug:(state) => state.player_slug || '',
+    coacheId:(state) => state.coache_id || '',
+    coacheSlug:(state) => state.coache_slug || ''
   },
   actions: {
     setToken(token) {
@@ -46,11 +54,17 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem('user_permission_type', type);
       }
     },
-    setUserId(id) {
-      this.user_id = id;
-      if (process.client) {
-        localStorage.setItem('user_id', id);
-      }
+    setPlayerId(id) {
+      this.player_id = id;
+    },
+    setPlayerSlug(slug) {
+      this.player_slug = slug;
+    },
+    setCoacheId(id) {
+      this.coache_id = id;
+    },
+    setCoacheSlug(slug) {
+      this.coache_slug = slug;
     },
     setUser(user) {
       if (!user) return;
@@ -78,7 +92,17 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem('user', JSON.stringify(user));
       }
     },
-
+    setPlayerId(id) {
+      this.user_id = id;
+      if (process.client) {
+        localStorage.setItem('user_id', id);
+      }
+    }, setUserId(id) {
+      this.user_id = id;
+      if (process.client) {
+        localStorage.setItem('user_id', id);
+      }
+    },
     setTempUser(role,token) {
       this.token = token;
       this.user_role = role || 'default';

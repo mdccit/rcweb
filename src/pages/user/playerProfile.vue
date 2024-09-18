@@ -500,19 +500,24 @@ const connectionStatus = ref(false)
 const connectionType = ref(null)
 const connectionButtonName =ref('Connect')
 const userId = ref('')
+const plyerSlug = ref('')
+const plyerId = ref('')
 
 onMounted(() => {
+    userId.value = userStore.user.user_id
+    plyerSlug.value = userStore.player_slug
+    playerId.value = userStore.player_id
     fetchUserDatils();
     fetchConnections();
     fetchPost();
     fetchCheckConnection();
-    userId.value = userStore.user.user_id
+    
 
 });
 
 const fetchUserDatils = async () =>{
     try {
-       const dataSets = await $publicService.get_player('sara');
+       const dataSets = await $publicService.get_player(plyerSlug.value);
         bio.value =dataSets.player_info.other_data.bio
         country.value =dataSets.user_address_info.country
         city.value =dataSets.user_address_info.city
@@ -564,7 +569,7 @@ const fetchUserDatils = async () =>{
 
 const fetchCheckConnection = async () =>{
     try {
-       const dataSets = await $userService.get_check_connection_type('9ce354e8-e661-4c54-95e0-3aa5c20497a8');
+       const dataSets = await $userService.get_check_connection_type(playerId.value);
        connectionStatus.value =dataSets.connection
 
        if(connectionStatus.value){
@@ -585,14 +590,13 @@ const fetchCheckConnection = async () =>{
        }
        
     } catch (error) {
-        console.log(error)
        console.error('Error fetching data:', error.message);
     } 
 }
 
 const fetchConnections = async () =>{
     try {
-       const dataSets = await $userService.get_connection('9cf182dd-aff5-43b7-a3ed-4c693b9530c3');
+       const dataSets = await $userService.get_connection(playerId);
        console.log(dataSets.connection)
        connections.value =dataSets.connection   
     } catch (error) {
@@ -625,7 +629,7 @@ const connectAcceptOrConnect = async () =>{
 
         if(connectionButtonName.value == "Connect"){
             await $userService.connection_request({
-                receiver_id:"9ce354e8-e661-4c54-95e0-3aa5c20497a8"
+                receiver_id:playerId.value
             });
         }
 

@@ -42,7 +42,7 @@
 
                 <!-- card 01 -->
                  <div v-for="user in search" class="flex-1 p-2"> 
-                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+                    <button @click="profileView(user)" class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
                         <div class=" grid grid-cols-12 gap-4">
                             <div class="col-span-4">
                                 <img class=" rounded-2xl w-[160px] h-[160px]"
@@ -174,7 +174,7 @@
                             </div>
 
                         </div>
-                    </div>
+                    </button>
                 </div> 
                 <!--/ card 01 -->
                 <!-- card 02 -->
@@ -506,10 +506,16 @@ definePageMeta({
 import PopupModal from '~/pages/user/search/saveSearchModal.vue';
 import { ref, computed, watch, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
+import { useUserStore } from '~/stores/userStore';
+import { useRouter } from 'vue-router';
 
 const nuxtApp = useNuxtApp();
+const userStore = useUserStore();
+const router = useRouter();
+
 const $feedService = nuxtApp.$feedService;
 const search = ref([])
+const showPopup =ref(false)
 onMounted(() => {
     fetchData();
   
@@ -518,10 +524,29 @@ onMounted(() => {
 
   const fetchData = async () =>{
     try {
-    const response = await $feedService.search_user();
-    console.log(response.data.dataSets.users)
+    const response = await $feedService.search_user({
+        user_role:'',
+        search_key:null,
+        state:null,
+        city:null,
+        tuition_in_state_min:null,
+        tuition_in_state_max:null,
+        tuition_out_state_min:null,
+        tuition_out_state_max:null,
+        gender:null,
+        graduation_month:null,
+        graduation_year:null,
+        country_id:null,
+        handedness:null,
+        utr_min:null,
+        utr_max:null,
+        wtn_min:null,
+        wtn_max:null,
+        atp_ranking:null,
+        itf_ranking:null,
+        national_ranking:null
+    });
      search.value = response.data.dataSets.users || [];
-    
   } catch (error) {
     console.error('Failed to load posts:', error.message);
   }
@@ -536,4 +561,24 @@ onMounted(() => {
 //     };
 //   }
 // }
+
+const profileView = (user) =>{
+   console.log(user) 
+    if(user.user_role == 'Player'){
+      userStore.setPlayerId(user.user_id);
+      userStore.setPlayerSlug(user.slug);
+      router.push({
+        path: '/user/playerProfile',
+      });
+    }
+
+    if(user.user_role == 'Coach'){
+        userStore.setCoacheId(user.user_id);
+        userStore.setCoacheSlug(user.slug);
+        router.push({
+           path: '/user/coachProfile',
+        });
+    }
+   
+}
 </script>
