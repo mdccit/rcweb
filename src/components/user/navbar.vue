@@ -236,7 +236,7 @@
                                     src="@/assets/user/images/Rectangle_117.png" alt="">
                             </div>
                             <div class="hidden sm:hidden md:hidden lg:block">
-                                <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserMail }}</h6>
+                                <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
                                 <p class="text-xs text-limegreen">Online</p>
                             </div>
                         </div>
@@ -290,6 +290,7 @@ const router = useRouter();
 const userRole = userStore.getRole();
 
 const loggedUserMail = computed(() => userStore.loggedUserEmail);
+const loggedUserName = computed(() => userStore.loggedUserName);
 
 const logout = async (event) => {
     event.preventDefault();
@@ -313,7 +314,6 @@ const logout = async (event) => {
                 bearer_token: token
             });
 
-            console.log(response);
             if (response.status === 200) {
                 //nuxtApp.$notification.triggerNotification(response.display_message, 'success');
                 userStore.clearUser(); 

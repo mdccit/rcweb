@@ -186,7 +186,8 @@ const handleSubmit = async () => {
           email: email.value,
           token: response.data.token,
           user_permission_type: response.data.user_permission_type? response.data.user_permission_type:'none',
-          user_id:response.data.user_id
+          user_id:response.data.user_id,
+          user_name:response.data.user_name
          });
 
         // Use named route navigation
