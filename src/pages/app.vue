@@ -264,6 +264,7 @@ definePageMeta({
   layout: 'socialhub-three-column',
   middleware: ['role'],
   requiredRole: ['admin','coach','business_manager','player','parent','default'],
+  showFilterLeft: false,
 });
 
 import { ref, onMounted } from 'vue';

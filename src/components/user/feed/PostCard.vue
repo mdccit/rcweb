@@ -96,11 +96,19 @@
             {{ post.title }}
           </h3>
 
+
+              <!-- Media Section -->
+              <PostMedia :media="post.media" :hasMedia="post.has_media" />
+
+
           <!-- Post description -->
           <!-- <p class="mt-4 text-darkSlateBlue text-base" v-html=" post?.description"></p> -->
           <p v-if="meesge != ''" class="mt-4 text-sm text-red-600 dark:text-red-500">{{ meesge }}</p>
           <p v-if="!editingPostId || editingPostId !== post.id" class="mt-4 text-darkSlateBlue text-base"
             v-html="post.description"></p>
+
+        
+
 
 
           <textarea v-else type="text" placeholder="Write your thoughts..." v-model="editPost"
@@ -169,7 +177,7 @@ import CommentSection from '@/components/user/feed/CommentSection.vue';
 import { useNuxtApp } from '#app';
 import { ref, onMounted } from 'vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
-
+import PostMedia from '~/components/user/feed/PostMedia.vue';
 import { useUserStore } from '~/stores/userStore'
 
 const userStore = useUserStore()
