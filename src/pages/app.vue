@@ -337,7 +337,6 @@ const writePost =  async() => {
       title: ''
     }
     const response = await $feedService.create_post(newValue);
-
     newPost.value = {
             description: '',
             type: 'post', 
@@ -348,7 +347,7 @@ const writePost =  async() => {
 
     nuxtApp.$notification.triggerNotification(response.display_message, 'success');
     loadPosts();
-   
+
  } catch (error) {
   meesge.value ="Input validation failed"
   nuxtApp.$notification.triggerNotification( "Input validation failed", 'failure');
@@ -386,7 +385,12 @@ const likePost = async (post_id,post) => {
 const loadPosts = async () => {
   try {
     const response = await $feedService.list_posts({});
-    posts.value = response;
+    posts.value = response || [];
+    const idsArray = [];
+    for (const post of posts.value) {
+      idsArray[post.id] = false
+    }
+    isHidddenComment.value =idsArray
   } catch (error) {
     console.error('Failed to load posts:', error.message);
   }
