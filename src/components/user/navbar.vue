@@ -283,6 +283,7 @@ import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 
 const nuxtApp = useNuxtApp();
+const nprogress = nuxtApp.$nprogress.done(); 
 const $authService = nuxtApp.$authService;
 
 const router = useRouter();
@@ -296,10 +297,11 @@ const logout = async (event) => {
     event.preventDefault();
 
     try {
-
+nprogress.start();
         const token = localStorage.getItem('token');  // Retrieve the token from local storage
 
         if (!token) {
+            nprogress.done();
             // userStore.clearUser();  // Clear user data if no token is found
             //nuxtApp.$notification.triggerNotification('You have been logged out.', 'success');
             // Use a timeout to display the notification before redirecting to login
@@ -315,13 +317,15 @@ const logout = async (event) => {
             });
 
             if (response.status === 200) {
-                //nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+                nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+               
                 userStore.clearUser(); 
+                nprogress.done();
                 setTimeout(() => {
                     router.push('/login');
                 }, 2000);
             } else {
-              
+                nprogress.done();
                 // nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
                 setTimeout(() => {
                     router.push('/login');
@@ -329,6 +333,7 @@ const logout = async (event) => {
             }
         }
         } catch (err) {
+            nprogress.done();
         if (err.response && err.response.status === 401) {
             // Handle 401 error and redirect to login
             nuxtApp.$notification.triggerNotification('Session expired. Please log in again.', 'failure');

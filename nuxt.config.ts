@@ -71,7 +71,8 @@ export default defineNuxtConfig({
     '~/plugins/element-plus.ts',
     '~/plugins/flowbite.client.ts',
     '~/plugins/notification.ts',
-    '~/plugins/i18n.js'
+    '~/plugins/i18n.js',
+    '~/plugins/nprogress.client.ts'
   ],
   alias: {
     '@': resolve(__dirname, './src'),
