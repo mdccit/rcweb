@@ -162,6 +162,10 @@
                 <h3 v-if="post.type === 'blog' || post.type === 'event'" class="mt-4 text-darkSlateBlue text-base">
                   {{ post.title }}
                 </h3>
+
+                <!-- Media Section -->
+                <PostMedia :media="post.media" :hasMedia="post.has_media" />
+
                 <div class="basis-full flex flex-col  ">
                   <p  v-if="!editingPostId || editingPostId !== post.id"class="mt-4 text-darkSlateBlue text-base break-words"  v-html="post.description"></p>
                   <textarea v-else  type="text" placeholder="Write your thoughts..." v-model="editPost"
@@ -239,7 +243,9 @@
                   </div>
                 </div>
               </div>
-          </div>                
+          </div>   
+          
+          
         </div>
     </section>
 
@@ -266,6 +272,8 @@ import { useNuxtApp } from '#app';
 
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import CommentSection from '~/components/user/feed/CommentSection.vue';
+import PostMedia from '~/components/user/feed/PostMedia.vue';
+
 import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore'
 
