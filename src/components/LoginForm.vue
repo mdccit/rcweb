@@ -8,7 +8,7 @@
         </div>
       </div>
 
-      <form @submit.prevent="handleSubmit">
+      <form @submit.prevent="handleSubmit" class="space-y-4">
       <div class="w-full">
         <label class="block">
           <span class="block mb-1 text-gray-700 font-sans">Email <span aria-hidden="true" class="text-red-600"
@@ -23,7 +23,7 @@
 
         </label>
       </div>
-      <div class="w-full py-4">
+      <div class="w-full">
         <label class="block">
           <span class="block mb-1 text-gray-700 font-sans">Password <span aria-hidden="true" class="text-red-600"
               title="This field is required">*</span></span>
@@ -66,7 +66,7 @@
           <span><img class="absolute -mt-13" src="@/assets/images/google_icon.png"></span>Sign In with Google
         </button>
       </div>
-      <div class="text-center mt-8 pt-4 text-sm">
+      <div class="text-center mt-4 text-sm">
         <NuxtLink to="/register"><span class="text-black">Don't have an account yet? </span><br><strong
             class="text-steelBlue">Create new account</strong></NuxtLink>
       </div>
@@ -255,10 +255,6 @@ const decryptCredentials = (encryptedData) => {
 
 
 <style scoped>
-form {
-  max-width: 400px;
-  margin: auto;
-}
 
 .container {
   max-width: 400px;

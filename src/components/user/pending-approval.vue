@@ -1,9 +1,8 @@
 <template>
-  <div class="min-h-screen w-full bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4"
-      style="background-image: url(https://qa1.recruited.qualitapps.com/static/bg-generic.svg);">
-      <div class="w-full max-w-md">
-          <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-6">
-              <div class="w-full text-center mt-4">
+  <div class="min-h-screen w-full bg-generic bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4">
+      <div class="w-full sm:max-w-lg">
+          <div class="bg-white rounded-lg p-12 mb-6">
+              <div class="w-full text-center">
                   <img class="text-center mx-auto w-8 h-8" img src="@/assets/images/hourglass.gif" alt="">
               </div>
               <h1 class="text-2xl font-bold mb-4 text-center mt-4">Hi User</h1>
@@ -12,12 +11,8 @@
                   notify you as soon as it's approved.
               
               </p>
-              <div class="w-full text-center mt-4">
-                  <button type="button" @click="logoutUser" class="text-black bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 
-                  focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2
-                   mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-2">
-                  Go back to Home
-              </button>
+              <div class="w-full text-center mt-8">
+                <button type="submit" @click="logoutUser"  class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-brightSkyBlue active:bg-royalBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue min-w-44"><span>Go back to Home</span></button>
               </div>
           </div>
       </div>
@@ -71,13 +66,3 @@ const logoutUser = async () => {
   showNotification.value = true;
 };
 </script>
-
-<style scoped>
-h1 {
-  color: #333;
-}
-
-p {
-  font-size: 16px;
-}
-</style>

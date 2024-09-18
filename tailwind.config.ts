@@ -81,7 +81,8 @@ module.exports = {
         950: '#052e16'
       },      
       opacity: {
-        '23': '0.23'
+        '23': '0.23',
+        '27': '0.27'
       },
       container: {
         center: true,
@@ -90,6 +91,9 @@ module.exports = {
         '1.25': '1.25px',
         '1.5': '1.5px',
         '1.75': '1.75px',
+      },
+      backgroundImage: {
+        'generic': "url('@/assets/images/bg-generic.svg')"
       }
     },
   },

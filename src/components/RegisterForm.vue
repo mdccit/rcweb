@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div class="min-h-screen w-full bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4"
-      style="background-image: url(https://qa1.recruited.qualitapps.com/static/bg-generic.svg);">
+    <div class="min-h-screen w-full bg-generic bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4">
       <div>
         <NuxtLink to="/login"><svg viewBox="0 0 206 45" class="w-auto h-10" fill="none"
             xmlns="http://www.w3.org/2000/svg">
@@ -49,7 +48,7 @@
 
 
         <form @submit.prevent="handleSubmit">
-        <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-8 mb-2">
+        <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4 mb-2">
           
 
           <div class="sm:col-span-2 col-span-1 lg:col-span-1">
@@ -182,6 +181,13 @@ const handleSubmit = async () => {
       if (token) {
         localStorage.setItem('token', token);
         localStorage.setItem('user_role', user_role);
+         // Set the user in the Pinia store
+         userStore.setUser({
+          email: email.value,
+          token: response.data.token,
+          user_permission_type: response.data.user_permission_type? response.data.user_permission_type:'none',
+          user_id:response.data.user_id
+         });
 
         // Use named route navigation
         router.push({ name: 'register-step-two-token', params: { token: token } });

@@ -1,7 +1,6 @@
 <template>
     <div>
-        <div class="min-h-screen w-full bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4"
-            style="background-image: url(https://qa1.recruited.qualitapps.com/static/bg-generic.svg);">
+        <div class="min-h-screen w-full bg-generic bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4">
             <div>
                 <NuxtLink to="/login"><svg viewBox="0 0 206 45" class="w-auto h-10" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
