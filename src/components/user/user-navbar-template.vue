@@ -127,22 +127,26 @@
                     <div class="flex justify-around pt-2 md:space-x-8">
                         <div class="relative hidden sm:hidden md:block">
 
-                            <input type="text" id="search-navbar"
+                            <input  type="text" id="search-navbar"
                                 class="block w-96 p-2 ps-10 text-sm rounded-full border bg-ceil"
                                 style="background-color:#F4F6F9; color:#8CA4CE; border-color: aliceblue;" placeholder="Search...">
-                            <div class="absolute inset-y-2.5 end-5 flex ps-3 pointer-events-none">
+                            
+                        </div>
+                        <!-- <button @click="search1" type="button" class=" absolute inset-y-2.5 end-5 flex ps-3 pointer-events-none cursor-pointer">
                                 <span class="mr-2"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="steelBlue" class="size-4">
                                         <path
                                             d="M6 12a.75.75 0 0 1-.75-.75v-7.5a.75.75 0 1 1 1.5 0v7.5A.75.75 0 0 1 6 12ZM18 12a.75.75 0 0 1-.75-.75v-7.5a.75.75 0 0 1 1.5 0v7.5A.75.75 0 0 1 18 12ZM6.75 20.25v-1.5a.75.75 0 0 0-1.5 0v1.5a.75.75 0 0 0 1.5 0ZM18.75 18.75v1.5a.75.75 0 0 1-1.5 0v-1.5a.75.75 0 0 1 1.5 0ZM12.75 5.25v-1.5a.75.75 0 0 0-1.5 0v1.5a.75.75 0 0 0 1.5 0ZM12 21a.75.75 0 0 1-.75-.75v-7.5a.75.75 0 0 1 1.5 0v7.5A.75.75 0 0 1 12 21ZM3.75 15a2.25 2.25 0 1 0 4.5 0 2.25 2.25 0 0 0-4.5 0ZM12 11.25a2.25 2.25 0 1 1 0-4.5 2.25 2.25 0 0 1 0 4.5ZM15.75 15a2.25 2.25 0 1 0 4.5 0 2.25 2.25 0 0 0-4.5 0Z" />
                                     </svg></span>
-                                <span><svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                <span ><svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                         <path stroke="steelBlue" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                     </svg></span>
-                            </div>
-                        </div>
+                            </button> -->
+                            <button @click="search1">
+                                Search 
+                            </button>
                         <ul
                             class="font-medium hidden p-4 md:p-0 mt-4 border sm:hidden  md:hidden lg:flex md:space-x-8  md:mt-0 md:border-0 border-poloBlue">
                             <li>
@@ -311,3 +315,12 @@
     </header>
     <!-- end header -->
 </template>
+
+<script setup>
+import {ref, defineProps, defineEmits, defineExpose} from 'vue';
+const emit = defineEmits(['search']);
+
+  const search1 = () =>{
+     emit('search');
+  }
+</script>

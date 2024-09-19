@@ -32,9 +32,9 @@
                 </div>
                 <div class="flex-3">
                     <div class="flex items-center border-lightSteelBlue bg-white rounded-full overflow-hidden px-3 py-4 divide-x h-10">
-                        <button class="bg-blue-500 p-2 text-white rounded-full mr-2 text-xs" @click="showPopup = true">Saved
+                        <button @click="showPopupView = true" class="bg-blue-500 p-2 text-white rounded-full mr-2 text-xs" >Saved
                             Search</button>
-                        <button class="text-blue-500 p-2 text-xs" >New +</button>
+                        <button @click="showPopup = true"class="text-blue-500 p-2 text-xs" >New +</button>
                     </div>
                 </div>
             </div>
@@ -483,11 +483,15 @@
     </div>
 
 <!-- Popup Modal -->
-<PopupModal
+<!-- <PopupModal
       :isOpen="showPopup"
       @close="showPopup = false"
-    />
+    /> -->
+    <SaveSearch  :isOpen="showPopup"
+        @close="showPopup = false"/>
 
+    <ViewSaveSearch  :isOpen="showPopupView"
+        @close="showPopupView = false"/>
 </template>
 
 <!-- <script setup>
@@ -504,27 +508,30 @@ definePageMeta({
     requiredRole: ['admin', 'coach', 'business_manager', 'player', 'parent', 'default'],
 })
 import PopupModal from '~/pages/user/search/saveSearchModal.vue';
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted ,inject  } from 'vue';
 import { useNuxtApp } from '#app';
 import { useUserStore } from '~/stores/userStore';
 import { useRouter } from 'vue-router';
-
+import SaveSearch from '~/components/user/search/saveSearch.vue';
+import ViewSaveSearch from '~/components/user/search/viewSaveSearch.vue';
 const nuxtApp = useNuxtApp();
 const userStore = useUserStore();
 const router = useRouter();
 
-const $feedService = nuxtApp.$feedService;
+const $userService = nuxtApp.$userService;
 const search = ref([])
 const showPopup =ref(false)
+const showPopupView =ref(false)
+
 onMounted(() => {
     fetchData();
   
 
   });
-
+ 
   const fetchData = async () =>{
     try {
-    const response = await $feedService.search_user({
+    const response = await $userService.search_user({
         user_role:'',
         search_key:null,
         state:null,

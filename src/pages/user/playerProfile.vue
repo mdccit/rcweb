@@ -506,7 +506,7 @@ const plyerId = ref('')
 onMounted(() => {
     userId.value = userStore.user.user_id
     plyerSlug.value = userStore.player_slug
-    playerId.value = userStore.player_id
+    plyerId.value = userStore.player_id
     fetchUserDatils();
     fetchConnections();
     fetchPost();

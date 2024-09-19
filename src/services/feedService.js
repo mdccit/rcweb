@@ -162,17 +162,9 @@ const createFeedService = (apiService) => {
     }
   };
 
-  const search_user = async ( request_body) => {
-    const url = `/user/search`;
-    const body = request_body;
+ 
 
-    try {
-      const response = await apiService.getRequest(url, body);
-      return response;
-    } catch (error) {
-      throw new Error(error.message || 'Failed to update post');
-    }
-  };
+ 
   return {
     create_post,
     list_posts,
@@ -187,7 +179,6 @@ const createFeedService = (apiService) => {
     get_all_post_comment,
     get_single_post,
     get_single_post_with_like_boolean,
-    search_user
 
   };
 
