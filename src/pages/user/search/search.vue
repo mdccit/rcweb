@@ -32,17 +32,17 @@
                 </div>
                 <div class="flex-3">
                     <div class="flex items-center border-lightSteelBlue bg-white rounded-full overflow-hidden px-3 py-4 divide-x h-10">
-                        <button class="bg-blue-500 p-2 text-white rounded-full mr-2 text-xs" @click="showPopup = true">Saved
+                        <button @click="showPopupView = true" class="bg-blue-500 p-2 text-white rounded-full mr-2 text-xs" >Saved
                             Search</button>
-                        <button class="text-blue-500 p-2 text-xs" >New +</button>
+                        <button @click="showPopup = true"class="text-blue-500 p-2 text-xs" >New +</button>
                     </div>
                 </div>
             </div>
             <div class="flex">
 
                 <!-- card 01 -->
-                <div class="flex-1 p-2">
-                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+                 <div v-for="user in search" class="flex-1 p-2"> 
+                    <button @click="profileView(user)" class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
                         <div class=" grid grid-cols-12 gap-4">
                             <div class="col-span-4">
                                 <img class=" rounded-2xl w-[160px] h-[160px]"
@@ -51,7 +51,7 @@
                             <div class="col-span-8">
                                 <div class="flex justify-between items-center">
                                     <div class="flex-1">
-                                        <h4 class="text-black font-bold">Jane Cooper</h4>
+                                        <h4 class="text-black font-bold">{{ user.display_name }}</h4>
                                     </div>
                                     <div class="flex-3">
 
@@ -67,7 +67,7 @@
                                             <div class="bg-lightPale p-1 rounded">
                                                 <img src="@/assets/user/images/playerIcon.png" alt="" class=" w-4 h-4">
                                             </div>
-                                            <div class="text-xs ml-2 text-steelBlue">Tennis Player</div>
+                                            <div class="text-xs ml-2 text-steelBlue">Tennis {{ user.user_role }}</div>
                                         </div>
                                     </div>
                                     <div class="flex-1">
@@ -86,7 +86,7 @@
                                         <p class="text-base font-bold">50.00</p>
                                     </div>
                                     <p class="text-xs mr-3">ATP Score : <span>538</span></p>
-                                    <p class="text-xs mr-3">GPA :<span>538</span></p>
+                                    <p class="text-xs mr-3">GPA :<span>{{  user.gpa }}</span></p>
                                     <p class="text-xs">SAT Score : <span>145</span></p>
                                 </div>
                                 <div class="flex items-center mt-2 text-sm text-gray-500">
@@ -174,11 +174,11 @@
                             </div>
 
                         </div>
-                    </div>
-                </div>
+                    </button>
+                </div> 
                 <!--/ card 01 -->
                 <!-- card 02 -->
-                <div class="flex-1 p-2">
+                <!-- <div class="flex-1 p-2">
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
                         <div class=" grid grid-cols-12 gap-4">
                             <div class="col-span-4">
@@ -276,12 +276,12 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- / card 02 -->
             </div>
             <div class="flex">
                 <!-- card 03 -->
-                <div class="flex-1 p-2">
+                <!-- <div class="flex-1 p-2">
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
                         <div class=" grid grid-cols-12 gap-4">
                             <div class="col-span-4">
@@ -360,10 +360,10 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!--/ card 03 -->
                 <!-- card 04 -->
-                <div class="flex-1 p-2">
+                <!-- <div class="flex-1 p-2">
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
                         <div class=" grid grid-cols-12 gap-4">
                             <div class="col-span-4">
@@ -475,7 +475,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!--/ card 04 -->
             </div>
         </div>
@@ -483,36 +483,109 @@
     </div>
 
 <!-- Popup Modal -->
-<PopupModal
+<!-- <PopupModal
       :isOpen="showPopup"
       @close="showPopup = false"
-    />
+    /> -->
+    <SaveSearch  :isOpen="showPopup"
+        @close="showPopup = false"/>
 
+    <ViewSaveSearch  :isOpen="showPopupView"
+        @close="showPopupView = false"/>
 </template>
 
+<!-- <script setup>
+definePageMeta({
+    layout: 'user',
+    middleware: ['role'],
+    requiredRole: ['admin', 'coach', 'business_manager', 'player', 'parent', 'default'],
+});
+</script> -->
 <script setup>
 definePageMeta({
     layout: 'user',
     middleware: ['role'],
     requiredRole: ['admin', 'coach', 'business_manager', 'player', 'parent', 'default'],
-});
-</script>
-<script>
+})
 import PopupModal from '~/pages/user/search/saveSearchModal.vue';
+import { ref, computed, watch, onMounted ,inject  } from 'vue';
+import { useNuxtApp } from '#app';
+import { useUserStore } from '~/stores/userStore';
+import { useRouter } from 'vue-router';
+import SaveSearch from '~/components/user/search/saveSearch.vue';
+import ViewSaveSearch from '~/components/user/search/viewSaveSearch.vue';
+const nuxtApp = useNuxtApp();
+const userStore = useUserStore();
+const router = useRouter();
 
-definePageMeta({
-    layout: 'user',
-    middleware: ['role'],
-    requiredRole: ['admin', 'coach', 'business_manager', 'player', 'parent', 'default'],
-});
-export default {
-  components: {
-    PopupModal
-  },
-  data() {
-    return {
-      showPopup: false
-    };
+const $userService = nuxtApp.$userService;
+const search = ref([])
+const showPopup =ref(false)
+const showPopupView =ref(false)
+
+onMounted(() => {
+    fetchData();
+  
+
+  });
+ 
+  const fetchData = async () =>{
+    try {
+    const response = await $userService.search_user({
+        user_role:'',
+        search_key:null,
+        state:null,
+        city:null,
+        tuition_in_state_min:null,
+        tuition_in_state_max:null,
+        tuition_out_state_min:null,
+        tuition_out_state_max:null,
+        gender:null,
+        graduation_month:null,
+        graduation_year:null,
+        country_id:null,
+        handedness:null,
+        utr_min:null,
+        utr_max:null,
+        wtn_min:null,
+        wtn_max:null,
+        atp_ranking:null,
+        itf_ranking:null,
+        national_ranking:null
+    });
+     search.value = response.data.dataSets.users || [];
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
   }
+  }
+// export default {
+//   components: {
+//     PopupModal
+//   },
+//   data() {
+//     return {
+//       showPopup: false
+//     };
+//   }
+// }
+
+const profileView = (user) =>{
+   console.log(user) 
+    if(user.user_role == 'Player'){
+      userStore.setPlayerId(user.user_id);
+      userStore.setPlayerSlug(user.slug);
+      router.push({
+        path: '/user/playerProfile',
+      });
+    }
+
+    if(user.user_role == 'Coach'){
+        userStore.setCoacheId(user.user_id);
+        userStore.setCoacheSlug(user.slug);
+        router.push({
+           path: '/user/coachProfile',
+        });
+    }
+   
 }
 </script>

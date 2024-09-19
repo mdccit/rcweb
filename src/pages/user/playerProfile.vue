@@ -8,8 +8,8 @@
                     <div>
                         <div class="text-center">
                             <img class="mx-auto w-[200px] h-[200px] rounded-xl"
-                                src="@/assets/user/images/Rectangle 193.png" alt="">
-                            <h3 class="text-lg font-semibold text-center text-black">Jane Cooper</h3>
+                                src="../../assets/user/images/Rectangle 193.png" alt="">
+                            <h3 class="text-lg font-semibold text-center text-black">{{ name }}</h3>
                             <h5 class="text-normal text-md text-center text-black text-primaryblue">Tennis player</h5>
                         </div>
                     </div>
@@ -24,12 +24,8 @@
                                 <h1 class="text-lg font-semibold mb-4 text-black">Bio</h1>
                             </div>
                         </div>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">Lorem ipsum dolor sit amet,
-                            consectetur
-                            adipiscing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
+                            {{  bio }}
                         </p>
                     </div>
 
@@ -41,12 +37,11 @@
                                 <h1 class="text-lg font-semibold mb-4 text-black">Info</h1>
                             </div>
                         </div>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>New pura , Belgium</b> </p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>5'8" (172.72 cm)</b> </p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>75lb (34 kg)</b> </p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>Graduation December
-                                2024</b> </p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>24 Years Old</b> </p>
+                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ city }} , {{ country }}</b> </p>
+                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{Number(feet.toFixed(2))}} ( {{ heigth }} cm)</b> </p>
+                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{Number(pounds.toFixed(1))}}lb ({{ weight }} kg)</b> </p>
+                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>Graduation {{ graduationDate }}</b> </p>
+                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ birthday }} Years Old </b> </p>
                     </div>
 
                     <div style="height: 70px;"
@@ -57,7 +52,7 @@
                                     src="@/assets/user/images/Group 179.png" alt="">
                             </div>
                             <div class="col-span-2 ...">
-                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Has $5,000 - $10,000
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Has {{  budgetMin }} - {{ budgetMax }}
                                 </p>
 
                             </div>
@@ -73,7 +68,7 @@
                                     src="@/assets/user/images/Group 79.png" alt="">
                             </div>
                             <div class="col-span-2 ...">
-                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Signed up 2023 May 4
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Signed up {{ joinDate }}
                                 </p>
 
                             </div>
@@ -91,13 +86,13 @@
                         class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
                         <ul class="flex flex-wrap -mb-px">
                             <li class="me-2">
-                                <a href="#"
-                                    class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</a>
+                                <button @click="handleTab('feed')"
+                                    class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</button>
                             </li>
                             <li class="me-2">
-                                <a href="#"
+                                <button @click="handleTab('connection')"
                                     class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                    aria-current="page">Connections</a>
+                                    aria-current="page">Connections</button>
                             </li>
                             <li class="me-2">
                                 <a href="#"
@@ -109,7 +104,7 @@
                     </div>
 
                     <!--start card 01 -->
-                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
+                    <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
                         <div class="flex items-center">
                             <img src="@/assets/user/images/Rectangle 193.png" alt=""
                                 class="rounded-lg w-12 h-12 mr-4">
@@ -156,11 +151,14 @@
                             </div>
                             <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Post</button>
                         </div>
-                    </div>
+                    </div> -->
                     <!--end card 01 -->
+                     <!-- Posts section -->
+                     <UserFeed v-if="tab == 'feed'" :posts="posts" />
+                    <!-- Posts section End -->
 
                     <!--start card 02 -->
-                    <div class="flex">
+                    <!-- <div class="flex">
                         <div class="flex-1 p-2">
 
                             <div class="bg-white p-4 border rounded-2xl">
@@ -335,7 +333,7 @@
 
 
 
-                    </div>
+                    </div> -->
 
 
 
@@ -375,7 +373,7 @@
                     </div> -->
 
                     <!--end card 02 -->
-
+                    <Connection   v-if="tab == 'connection'":connections="connections"  />
                     <!--start card 03 -->
 
                     <!--end card 03 -->
@@ -410,8 +408,8 @@
                             </div>
 
                             <div>
-                                <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                    Connect +
+                                <button @click="connectAcceptOrConnect" class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                     {{  connectionButtonName }}
                                 </button>
                             </div>
                             <div class="">
@@ -432,7 +430,7 @@
                                 <h2 class="text-lg font-semibold mb-4">UTR score</h2>
                             </div>
                             <div class="">
-                                <h2 class="text-lg font-semibold mb-4">50.00</h2>
+                                <h2 class="text-lg font-semibold mb-4">{{ utr }}</h2>
                             </div>
                             <div class="">
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
@@ -442,11 +440,11 @@
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ITF Ranking</p>
                             </div>
                             <div class="">
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">Unknown</p>
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">Unknown</p>
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">Unknown</p>
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">Unknown</p>
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">Unknown</p>
+                                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ gpa }}</p>
+                                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ sat }}</p>
+                                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ toefl }}</p>
+                                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ atp }}</p>
+                                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ itf }}</p>
                             </div>
                         </div>
 
@@ -462,6 +460,184 @@
     </main>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch, onMounted } from 'vue';
+import { useNuxtApp } from '#app';
+import Connection from '~/components/user/profile/connection.vue';
+import UserFeed from '~/components/user/profile/userFeed.vue';
+import { useUserStore } from '~/stores/userStore'
+
+// Access authService from the context
+const nuxtApp = useNuxtApp();
+const $publicService = nuxtApp.$publicService;
+const $userService = nuxtApp.$userService;
+const $feedService = nuxtApp.$feedService;
+const userStore = useUserStore()
+
+const bio =ref('');
+const country =ref('');
+const city =ref('');
+const heigth =ref('');
+const weight =ref('');
+const graduationDate =ref('');
+const birthday =ref('');
+const budgetMin =ref('')
+const budgetMax =ref('')
+const name =ref('')
+const joinDate =ref('')
+const utr =ref(0)
+const gpa =ref("Unknown")
+const sat =ref("Unknown")
+const toefl =ref("Unknown")
+const atp =ref("Unknown")
+const itf =ref("Unknown")
+const feet =ref(0)
+const pounds =ref(0)
+const connections = ref([])
+const tab = ref('feed')
+const posts = ref([])
+const connectionStatus = ref(false)
+const connectionType = ref(null)
+const connectionButtonName =ref('Connect')
+const userId = ref('')
+const plyerSlug = ref('')
+const plyerId = ref('')
+
+onMounted(() => {
+    userId.value = userStore.user.user_id
+    plyerSlug.value = userStore.player_slug
+    plyerId.value = userStore.player_id
+    fetchUserDatils();
+    fetchConnections();
+    fetchPost();
+    fetchCheckConnection();
+    
+
+});
+
+const fetchUserDatils = async () =>{
+    try {
+       const dataSets = await $publicService.get_player(plyerSlug.value);
+        bio.value =dataSets.player_info.other_data.bio
+        country.value =dataSets.user_address_info.country
+        city.value =dataSets.user_address_info.city
+        heigth.value =dataSets.player_info.height
+        weight.value =dataSets.player_info.weight
+        budgetMin.value =dataSets.player_info.other_data.budget_max
+        budgetMax.value =dataSets.player_info.other_data.budget_min
+        name.value =dataSets.user_basic_info.display_name
+        utr.value =dataSets.player_info.other_data.utr
+        gpa.value =dataSets.player_info.gpa??"Unknown"
+        sat.value =dataSets.player_info.other_data.sat_score ?? "Unknown"
+        toefl.value =dataSets.player_info.other_data.toefl_score ?? "Unknown"
+        atp.value =dataSets.player_info.other_data.atp_ranking ?? "Unknown"
+        itf.value =dataSets.player_info.other_data.itf_ranking ?? "Unknown"
+
+        const parsedDate = new Date(dataSets.player_info.graduation_month_year);
+        const options = { year: 'numeric', month: 'long' };
+        graduationDate.value = parsedDate.toLocaleDateString('en-US', options);
+
+        const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDifference = today.getMonth() - birthDate.getMonth();
+        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        birthday.value =age
+
+        feet.value = dataSets.player_info.height/30.48;
+
+        pounds.value =2.20462*dataSets.player_info.weight
+
+        const date = new Date(dataSets.user_basic_info.joined_at);
+        const monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+             'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+       const year = date.getFullYear();
+       const month = monthNames[date.getMonth()]; 
+       const day = date.getDate();
+       joinDate.value =`${year} ${month} ${day}`
+    
+
+    } catch (error) {
+        console.log(error)
+       console.error('Error fetching data:', error.message);
+    } 
+}
+
+const fetchCheckConnection = async () =>{
+    try {
+       const dataSets = await $userService.get_check_connection_type(playerId.value);
+       connectionStatus.value =dataSets.connection
+
+       if(connectionStatus.value){
+          connectionType.value = dataSets.type
+          
+          if((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)){
+              connectionButtonName.value = " Invite "
+          }
+
+          if((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)){
+            connectionButtonName.value = " Accepted "
+          }
+
+          if(dataSets.type.connection_status == 'accepted'){
+            connectionButtonName.value = " Connected "
+          }
+
+       }
+       
+    } catch (error) {
+       console.error('Error fetching data:', error.message);
+    } 
+}
+
+const fetchConnections = async () =>{
+    try {
+       const dataSets = await $userService.get_connection(playerId);
+       console.log(dataSets.connection)
+       connections.value =dataSets.connection   
+    } catch (error) {
+        console.log(error)
+       console.error('Error fetching data:', error.message);
+    } 
+}
+const fetchPost = async () =>{
+      try {
+       const response = await $feedService.list_posts({});
+        posts.value = response || [];
+  
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
+  }
+}
+
+
+const handleTab = (name) =>{
+    tab.value = name
+}
+
+const connectAcceptOrConnect = async () =>{
+      try {
+        if(connectionButtonName.value == "Accepted"){
+            await $userService.connection_accept(connectionType.value.id,{
+                connection_status:"accepted"
+            });
+        }
+
+        if(connectionButtonName.value == "Connect"){
+            await $userService.connection_request({
+                receiver_id:playerId.value
+            });
+        }
+
+        fetchCheckConnection()
+  
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
+  }
+}
 
 </script>
