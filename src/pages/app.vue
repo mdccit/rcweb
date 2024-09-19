@@ -412,8 +412,14 @@ const loadPosts = async () => {
   try {
     nuxtApp.$nprogress.start();
     const response = await $feedService.list_posts({});
-    nuxtApp.$nprogress.done();
-    posts.value = response;
+    nuxtApp.$nprogress.done(); 
+
+    posts.value = response || [];
+    const idsArray = [];
+    for (const post of posts.value) {
+      idsArray[post.id] = false
+    }
+    isHidddenComment.value =idsArray
   } catch (error) {
     nuxtApp.$nprogress.done();
     console.error('Failed to load posts:', error.message);
