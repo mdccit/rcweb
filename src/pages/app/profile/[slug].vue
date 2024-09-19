@@ -1,6 +1,6 @@
 <template>
-    <!-- Conditionally render the appropriate profile component -->
-    <component :is="profileComponent" :user="user" />
+  <!-- Conditionally render the appropriate profile component -->
+  <component :is="profileComponent" :user="user" />
 </template>
 
 <script setup>
@@ -53,14 +53,18 @@ const profileComponent = computed(() => {
 
   const roleId = user.value.user_basic_info?.user_role_id;
 
-  switch (roleId) {
-    case 2:
+  switch (roleId) {    
+    case 4:
       // Load PlayerProfile component lazily
       return defineAsyncComponent(() => import('~/components/profiles/playerProfile.vue'));
 
     case 5:
       // Load CoachProfile component lazily
       return defineAsyncComponent(() => import('~/components/profiles/coachProfile.vue'));
+
+    case 6:
+      // Load Business User component lazily
+      return defineAsyncComponent(() => import('~/components/profiles/businessUserProfile.vue'));
 
     default:
       // You can return a default component for roles that don't match

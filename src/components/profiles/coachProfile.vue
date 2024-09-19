@@ -1,127 +1,128 @@
 <template>
-  <main class="flex-1 bg-graySnowDrift overflow-y-auto mt-14">
+    <main class="flex-1 bg-graySnowDrift overflow-y-auto mt-14">
 
-      <div>
-          <!-- start cover photo section -->
-          <section class="w-full mb-5">
-              <img class="w-full h-[400px] rounded-xl" src="../../assets/user/images/coach-cover.jpg " alt="">
-              <span>
-                  <div class="-mt-[144px]">
-                      <div class="grid grid-cols-5 gap-4 flex">
+        <div>
+            <!-- start cover photo section -->
+            <section class="w-full mb-5">
+                <img class="w-full h-[400px] rounded-xl" src="../../assets/user/images/coach-cover.jpg " alt="">
+                <span>
+                    <div class="-mt-[144px]">
+                        <div class="grid grid-cols-5 gap-4 flex">
 
-                          <div class="col-span-1">
-                              <div class="text-center flex">
-                                  <img class="mx-auto w-[150px] h-[150px] rounded-xl mt-[45px]"
-                                      src="../../assets/user/images/coachProPic.png" alt="">
+                            <div class="col-span-1">
+                                <div class="text-center flex">
+                                    <img class="mx-auto w-[150px] h-[150px] rounded-xl mt-[45px]"
+                                        src="../../assets/user/images/coachProPic.png" alt="">
 
-                                  <div class="text-left mt-[80px] ">
-                                      <h2 class="text-lg font-semibold  text-white text-3xl">{{ name }}</h2>
-                                      <h5 class=" text-md  text-white font-normal text-black text-primaryblue">Tennis
-                                          {{ role }}
-                                      </h5>
-                                  </div>
-                              </div>
+                                    <div class="text-left mt-[80px] ">
+                                        <h2 class="text-lg font-semibold  text-white text-3xl">{{ name }}</h2>
+                                        <h5 class=" text-md  text-white font-normal text-black text-primaryblue">Tennis
+                                            {{ role }}
+                                        </h5>
+                                    </div>
+                                </div>
 
-                          </div>
+                            </div>
 
-                          <div class="col-span-3">
-                              <div
-                                  class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                                  <ul class="flex flex-wrap -mb-px">
-                                      <li class="me-2">
-                                          <button @click="handleTab('feed')"
-                                              class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</button>
-                                      </li>
-                                      <li class="me-2">
-                                          <button @click="handleTab('connection')"
-                                              class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                              aria-current="page">Connections</button>
-                                      </li>
-                                      <li class="me-2">
-                                          <a href="#"
-                                              class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</a>
-                                      </li>
-
-
-                                  </ul>
-                              </div>
-                          </div>
-                          <div class="col-span-1 mt-[70px]">
-                              <div>
-                                  <div class="flex">
-                                      <div class="">
-                                          <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
-                                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                  stroke-width="1.5" stroke="currentColor"
-                                                  class="size-5 text-blue-500 m-auto">
-                                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                                      d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                                              </svg>
-                                          </button>
-                                      </div>
-                                      <div class="">
-                                          <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
-                                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                  stroke-width="1.5" stroke="currentColor"
-                                                  class="size-5 text-blue-500 m-auto">
-                                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                                      d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
-                                              </svg>
-
-                                          </button>
-                                      </div>
-
-                                      <div>
-                                          <button @click="connectAcceptOrConnect" class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                              {{ connectionButtonName }}
-                                          </button>
-                                      </div>
-                                      <div class="">
-                                          <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
-                                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                  stroke-width="1.5" stroke="currentColor"
-                                                  class="size-5 text-blue-500 m-auto">
-                                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                                      d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                              </svg>
-
-                                          </button>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-
-                      </div>
-                  </div>
-              </span>
-
-          </section>
-          <section class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
-              <!-- Start Profile pic section  -->
-              <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
+                            <div class="col-span-3">
+                                <div
+                                    class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
+                                    <ul class="flex flex-wrap -mb-px">
+                                        <li class="me-2">
+                                            <button @click="handleTab('feed')"
+                                                class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</button>
+                                        </li>
+                                        <li class="me-2">
+                                            <button @click="handleTab('connection')"
+                                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
+                                                aria-current="page">Connections</button>
+                                        </li>
+                                        <li class="me-2">
+                                            <a href="#"
+                                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</a>
+                                        </li>
 
 
-                  <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3">
-                      <div class="flex items-center justify-between">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-span-1 mt-[70px]">
+                                <div>
+                                    <div class="flex">
+                                        <div class="">
+                                            <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor"
+                                                    class="size-5 text-blue-500 m-auto">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="">
+                                            <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor"
+                                                    class="size-5 text-blue-500 m-auto">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
+                                                </svg>
 
-                          <div class="flex items-center space-x-4 w-48">
+                                            </button>
+                                        </div>
 
-                              <h1 class="text-lg font-semibold mb-4 text-black">Bio</h1>
-                          </div>
-                      </div>
-                      <p class="text-xs text-darkSlateBlue leading-relaxed">
-                          {{  bio }}
-                      </p>
-                  </div>
-              </div>
-              <!-- End Profile pic section  -->
+                                        <div>
+                                            <button @click="connectAcceptOrConnect"
+                                                class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                {{ connectionButtonName }}
+                                            </button>
+                                        </div>
+                                        <div class="">
+                                            <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor"
+                                                    class="size-5 text-blue-500 m-auto">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                </svg>
 
-              <!-- Start post Section -->
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-              <div class="col-span-5 sm:col-span-3 md:col-span-5 lg:col-span-2 xl:col-span-3">
+                        </div>
+                    </div>
+                </span>
+
+            </section>
+            <section class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
+                <!-- Start Profile pic section  -->
+                <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
 
 
-                  <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
+                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3">
+                        <div class="flex items-center justify-between">
+
+                            <div class="flex items-center space-x-4 w-48">
+
+                                <h1 class="text-lg font-semibold mb-4 text-black">Bio</h1>
+                            </div>
+                        </div>
+                        <p class="text-xs text-darkSlateBlue leading-relaxed">
+                            {{ bio }}
+                        </p>
+                    </div>
+                </div>
+                <!-- End Profile pic section  -->
+
+                <!-- Start post Section -->
+
+                <div class="col-span-5 sm:col-span-3 md:col-span-5 lg:col-span-2 xl:col-span-3">
+
+
+                    <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
                       <div class="flex items-center">
                           <img src="../../assets/user/images/Rectangle 193.png" alt=""
                               class="rounded-lg w-12 h-12 mr-4">
@@ -169,17 +170,17 @@
                           <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Post</button>
                       </div>
                   </div> -->
-                  <!--end card 01 -->
+                    <!--end card 01 -->
 
-                  <!--start card 02 -->
-                   <!-- Posts section -->
-                      <UserFeed v-if="tab == 'feed'" :posts="posts" />
-                  <!-- Posts section End -->
-                  <Connection   v-if="tab == 'connection'":connections="connections"  />
-         
-             
-                  <!--start card 03 -->
-                  <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
+                    <!--start card 02 -->
+                    <!-- Posts section -->
+                    <UserFeed v-if="tab == 'feed'" :posts="posts" />
+                    <!-- Posts section End -->
+                    <Connection v-if="tab == 'connection'" :connections="connections" />
+
+
+                    <!--start card 03 -->
+                    <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
                       <div class="flex items-start space-x-4">
                           <div class="flex-1">
                               <div class="flex items-center justify-between">
@@ -324,65 +325,68 @@
                           </div>
                       </div>
                   </div> -->
-                  <!--end card 03 -->
+                    <!--end card 03 -->
 
 
-                  <!--end card 04 -->
-              </div>
-              <!-- End post Section -->
+                    <!--end card 04 -->
+                </div>
+                <!-- End post Section -->
 
-              <!-- Start UTR Section -->
-              <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
-                  <div
-                      class="h-[80px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 h-auto">
-                      <div class="grid grid-cols-3 gap-4">
-                          <div class="... text-center">
-                              <img class="mx-auto w-[60px] h-[60px] rounded-full "
-                                  src="../../assets/user/images/whitter collage.png" alt="">
-                          </div>
-                          <div class="col-span-2 ...">
-                              <p class="text-black text-sm">Coach at {{ colleage }}</p>
-                              <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">Lorem ipsum is a
-                                  placeholder
-                              </p>
-                              <button type="button"
-                                  class="mt-3 btn-sm py-2.5 px-5 me-2 mb-2 text-xs text-blue-500 focus:outline-none bg-white rounded-full border border-blue-500 hover:bg-blue-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-blue-700 light:focus:ring-gray-700 light:bg-gray-800 light:text-gray-400 dark:border-blue-600 light:hover:text-white light:hover:bg-gray-700">Manage</button>
-                          </div>
-                      </div>
-                  </div>
+                <!-- Start UTR Section -->
+                <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
+                    <div
+                        class="h-[80px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 h-auto">
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="... text-center">
+                                <img class="mx-auto w-[60px] h-[60px] rounded-full "
+                                    src="../../assets/user/images/whitter collage.png" alt="">
+                            </div>
+                            <div class="col-span-2 ...">
+                                <p class="text-black text-sm">Coach at {{ colleage }}</p>
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">Lorem ipsum is a
+                                    placeholder
+                                </p>
+                                <button type="button"
+                                    class="mt-3 btn-sm py-2.5 px-5 me-2 mb-2 text-xs text-blue-500 focus:outline-none bg-white rounded-full border border-blue-500 hover:bg-blue-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-blue-700 light:focus:ring-gray-700 light:bg-gray-800 light:text-gray-400 dark:border-blue-600 light:hover:text-white light:hover:bg-gray-700">Manage</button>
+                            </div>
+                        </div>
+                    </div>
 
-                  <div
-                      class="h-[70px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
-                      <div class="grid grid-cols-3 gap-4">
-                          <div class="...">
-                              <img class="mx-auto w-[45px] h-[45px] rounded-xl "
-                                  src="../../assets/user/images/Group 348.png" alt="">
-                          </div>
-                          <div class="col-span-2 ...">
-                              <p class="text-xs text-black leading-relaxed mx-auto mt-3">{{ city }},  {{ country }}
-                              </p>
+                    <div
+                        class="h-[70px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="...">
+                                <img class="mx-auto w-[45px] h-[45px] rounded-xl "
+                                    src="../../assets/user/images/Group 348.png" alt="">
+                            </div>
+                            <div class="col-span-2 ...">
+                                <p class="text-xs text-black leading-relaxed mx-auto mt-3">{{ city }},  {{ country }}
+                                </p>
 
-                          </div>
-                      </div>
+                            </div>
+                        </div>
 
-                  </div>
+                    </div>
 
-              </div>
+                </div>
 
 
 
-              <!-- End Pending Req. Section -->
-          </section>
-      </div>
-  </main>
+                <!-- End Pending Req. Section -->
+            </section>
+        </div>
+    </main>
 </template>
 
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
+import { useRoute } from 'vue-router';
 import Connection from '~/components/user/profile/connection.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
-import { useUserStore } from '~/stores/userStore'
+import { useUserStore } from '~/stores/userStore';
+
+
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -391,115 +395,140 @@ const $userService = nuxtApp.$userService;
 const $feedService = nuxtApp.$feedService;
 const userStore = useUserStore()
 
-const bio =ref('');
-const country =ref('');
-const city =ref('');
-const name =ref('')
-const role =ref('')
-const colleage =ref('')
+const bio = ref('');
+const country = ref('');
+const city = ref('');
+const name = ref('')
+const role = ref('')
+const colleage = ref('')
 const connections = ref([])
 const tab = ref('feed')
 const posts = ref([])
 const connectionStatus = ref(false)
 const connectionType = ref(null)
-const connectionButtonName =ref('Connect')
+const connectionButtonName = ref('Connect')
 const userId = ref('')
-onMounted(() => {
-  fetchCoacheDatils();
-  fetchConnections();
-  fetchPost();
-  fetchCheckConnection();
 
-  userId.value = userStore.user.user_id
+const route = useRoute();
+
+const props = defineProps({
+    user: {
+        type: Object,
+        required: true,
+    },
+});
+
+onMounted(() => {
+    if (props.user) {
+        fetchCoacheDetailsFromProps(); // Extract the user data when the component mounts
+    }
+
+    fetchConnections();
+    fetchPost();
+    fetchCheckConnection();
+
+    userId.value = route.query.id;
 
 });
 
-const fetchCoacheDatils = async () =>{
+// Watch for changes to the `user` prop (if user data is fetched asynchronously)
+watch(
+    () => props.user,
+    (newUser) => {
+        if (newUser) {
+            fetchCoacheDetailsFromProps(); // Update the coach details if the `user` prop changes
+        }
+    },
+);
+
+// Extract data from the `user` prop
+const fetchCoacheDetailsFromProps = async () => {
   try {
-     const dataSets = await $publicService.get_coache('sa');
-      bio.value =dataSets.user_basic_info.bio
-      country.value =dataSets.user_address_info.country
-      city.value =dataSets.user_address_info.city
-      name.value =dataSets.user_basic_info.display_name
-      role.value = dataSets.user_basic_info.user_role
-      colleage.value =  dataSets.coach_info.school_name
+    const dataSets = await $publicService.get_coache(props.user?.user_basic_info?.slug);
 
+    // Safely set values with null checks
+    bio.value = props.user?.user_basic_info?.bio || 'N/A';
+    country.value = props.user?.user_contact_info?.country || '';
+    city.value = dataSets?.user_address_info?.city || '';
+    name.value = props.user?.user_basic_info?.display_name || 'Anonymous';
+    role.value = props.user?.user_basic_info?.user_role || '';
+    colleage.value = dataSets?.coach_info?.school_name || '';
   } catch (error) {
-      console.log(error)
-     console.error('Error fetching data:', error.message);
-  } 
-}
+    console.error('Error fetching coach details:', error);
+  }
+};
 
-const fetchConnections = async () =>{
-  try {
-     const dataSets = await $userService.get_connection('9cf182dd-aff5-43b7-a3ed-4c693b9530c3');
-     connections.value =dataSets.connection   
-  } catch (error) {
-      console.log(error)
-     console.error('Error fetching data:', error.message);
-  } 
-}
 
-const fetchPost = async () =>{
+const fetchConnections = async () => {
     try {
-  const response = await $feedService.list_posts({});
-  posts.value = response || [];
-
-} catch (error) {
-  console.error('Failed to load posts:', error.message);
-}
-}
-
-const handleTab = (name) =>{
-  tab.value = name
+        const dataSets = await $userService.get_connection(userId);
+        connections.value = dataSets.connection
+    } catch (error) {
+        console.log(error)
+        console.error('Error fetching data:', error.message);
+    }
 }
 
-const fetchCheckConnection = async () =>{
-  try {
-     const dataSets = await $userService.get_check_connection_type('9ce354e8-e661-4c54-95e0-3aa5c20497a8');
-     connectionStatus.value =dataSets.connection
-
-     if(connectionStatus.value){
-        connectionType.value = dataSets.type
-        
-        if((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)){
-            connectionButtonName.value = " Invite "
-        }
-
-        if((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)){
-          connectionButtonName.value = " Accepted "
-        }
-
-        if(dataSets.type.connection_status == 'accepted'){
-          connectionButtonName.value = " Connected "
-        }
-
-     }
-     
-  } catch (error) {
-      console.log(error)
-     console.error('Error fetching data:', error.message);
-  } 
-}
-
-const connectAcceptOrConnect = async () =>{
+const fetchPost = async () => {
     try {
-      if(connectionButtonName.value == "Accepted"){
-          await $userService.connection_accept(connectionType.value.id,{
-              connection_status:"accepted"
-          });
-      }
+        const response = await $feedService.list_posts({});
+        posts.value = response || [];
 
-      if(connectionButtonName.value == "Connect"){
-          await $userService.connection_request({
-              receiver_id:"9ce354e8-e661-4c54-95e0-3aa5c20497a8"
-          });
-      }
-
-      fetchCheckConnection()
-
-} catch (error) {
-  console.error('Failed to load posts:', error.message);
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
 }
+
+const handleTab = (name) => {
+    tab.value = name
+}
+
+const fetchCheckConnection = async () => {
+    try {
+        const dataSets = await $userService.get_check_connection_type('9ce354e8-e661-4c54-95e0-3aa5c20497a8');
+        connectionStatus.value = dataSets.connection
+
+        if (connectionStatus.value) {
+            connectionType.value = dataSets.type
+
+            if ((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)) {
+                connectionButtonName.value = " Invite "
+            }
+
+            if ((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)) {
+                connectionButtonName.value = " Accepted "
+            }
+
+            if (dataSets.type.connection_status == 'accepted') {
+                connectionButtonName.value = " Connected "
+            }
+
+        }
+
+    } catch (error) {
+        console.log(error)
+        console.error('Error fetching data:', error.message);
+    }
+}
+
+const connectAcceptOrConnect = async () => {
+    try {
+        if (connectionButtonName.value == "Accepted") {
+            await $userService.connection_accept(connectionType.value.id, {
+                connection_status: "accepted"
+            });
+        }
+
+        if (connectionButtonName.value == "Connect") {
+            await $userService.connection_request({
+                receiver_id: "9ce354e8-e661-4c54-95e0-3aa5c20497a8"
+            });
+        }
+
+        fetchCheckConnection()
+
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
 }
 </script>
