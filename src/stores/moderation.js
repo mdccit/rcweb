@@ -9,7 +9,6 @@ export const useModerationStore = defineStore("moderation", {
   },
   actions: {
     setModeration(moderation) {
-        console.log(moderation)
         this.moderation_id = moderation.id;
         
       },

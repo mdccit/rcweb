@@ -56,11 +56,69 @@ const createUserService = (apiService) => {
       }
     };
   
+    const save_search = async ( request_body) => {
+      const url = `/user/save-search`;
+      const body = request_body;
+  
+      try {
+        const response = await apiService.postRequest(url, body);
+        return response;
+      } catch (error) {
+        throw new Error(error.message || 'Failed to register');
+      }
+    };
+
+    const get_save_search = async () => {
+      const url = `/user/get-save-search`;
+      try {
+        const response = await apiService.getRequest(url);
+        if (response && response.data) {
+          return response.data;
+        } else {
+          throw new Error('Unexpected API response structure');
+        }
+      } catch (error) {
+        console.log(error)
+        throw new Error(error.message || 'Failed to register');
+      }
+   };
+
+   const delete_save = async (id) => {
+    const url = `/user/delete-search/${id}`;
+    try {
+      const response = await apiService.deleteRequest(url);
+      if (response ) {
+        return response;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      console.log(error)
+      throw new Error(error.message || 'Failed to register');
+    }
+ };
+
+ const search_user = async ( request_body) => {
+  const url = `/user/search`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.getRequest(url, body);
+    return response;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to update post');
+  }
+};
     return {
         get_connection,
         connection_request,
         connection_accept,
-        get_check_connection_type
+        get_check_connection_type,
+        save_search,
+        get_save_search,
+        delete_save,
+        search_user
+
 
     };
   

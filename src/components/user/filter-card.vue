@@ -55,7 +55,7 @@
                 <span class="text-steelBlue text-sm p-1 bg-steelBlueLight79 text-sm rounded-md">9+
                     new</span>
             </li> -->
-            <!-- <li class="flex justify-between items-center hover:bg-lightGray">
+            <li class="flex justify-between items-center hover:bg-lightGray">
                 <a href="#" class="flex items-center  text-black p-2 rounded-md">
                     <div class="bg-lightPink p-1 rounded">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -70,15 +70,596 @@
             <li class="flex justify-between items-center hover:bg-lightGray">
                 <a href="#" class="flex items-center text-black p-2 rounded-md">
                     <div class="bg-mintGreen p-1 rounded">
-                        <img src="@/assets/css/images/man-medal.png" alt="" class=" w-4 h-4">
+                        <img src="@/assets/user/images/man-medal.png" alt="" class=" w-4 h-4">
                     </div>
 
                     <span class="pl-2.5">Coaches</span>
                 </a>
-            </li> -->
+            </li>
+            <li class="flex justify-between items-center hover:bg-lightGray">
+                <a href="#" class="flex items-center text-black p-2 rounded-md">
+                    <div class="bg-lightPale p-1 rounded">
+                        <img src="@/assets/user/images/playerIcon.png" alt="" class=" w-4 h-4">
+                    </div>
+
+                    <span class="pl-2.5">Players</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!-- End Fiter Section  -->
+
+    <!-- Start Location Card -->
+    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-black">Location</h2>
+            <button class="flex text-ceil text-sm">
+                <svg class="w-3 h-3 mt-1 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span> Clear</span>
+            </button>
+        </div>
+        <div class="space-y-2">
+            <input type="text"
+                class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                placeholder="Illinois">
+            <input type="text"
+                class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                placeholder="City">
+        </div>
+    </div>
+    <!-- End Location Card -->
+
+    <!-- Start Turion and Cost Card -->
+    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-black">Turion and Cost</h2>
+            <button class="flex text-ceil text-sm">
+                <svg class="w-3 h-3 mt-1 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span> Clear</span>
+            </button>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">In-state tuition</label>
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                        placeholder="Min">
+                </div>
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift ml-2"
+                        placeholder="Max">
+                </div>
+            </div>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Out-of-state tuition</label>
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                        placeholder="Min">
+                </div>
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift ml-2"
+                        placeholder="Max">
+                </div>
+            </div>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Cost of attendence</label>
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                        placeholder="Min">
+                </div>
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift ml-2"
+                        placeholder="Max">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Turion and Cost Card -->
+
+    <!-- Start Athletics Card -->
+    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-black">Athletics</h2>
+            <button class="flex text-ceil text-sm">
+                <svg class="w-3 h-3 mt-1 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span> Clear</span>
+            </button>
+        </div>
+        <div class="space-y-2">
+            <input type="text"
+                class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                placeholder="Division">
+            <input type="text"
+                class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                placeholder="Conference">
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Ranking</label>
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                        placeholder="Min">
+                </div>
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift ml-2"
+                        placeholder="Max">
+                </div>
+            </div>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Average UTR</label>
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                        placeholder="Min">
+                </div>
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift ml-2"
+                        placeholder="Max">
+                </div>
+            </div>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Average WTN</label>
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                        placeholder="Min">
+                </div>
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift ml-2"
+                        placeholder="Max">
+                </div>
+            </div>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">In-state tuition</label>
+
+            <input type="text"
+                class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                placeholder="All">
+        </div>
+    </div>
+    <!-- End Athletics Card -->
+
+    <!-- Start Academics Card -->
+    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-black">Academics</h2>
+            <button class="flex text-ceil text-sm">
+                <svg class="w-3 h-3 mt-1 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span> Clear</span>
+            </button>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Degrees Offered</label>
+            <input type="text"
+                class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                placeholder="">
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Acceptence Rate (%)</label>
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                        placeholder="Min">
+                </div>
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift ml-2"
+                        placeholder="Max">
+                </div>
+            </div>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Graduation Rate (%)</label>
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                        placeholder="Min">
+                </div>
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift ml-2"
+                        placeholder="Max">
+                </div>
+            </div>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Student Count</label>
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                        placeholder="Min">
+                </div>
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift ml-2"
+                        placeholder="Max">
+                </div>
+            </div>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Student toFaculty Ratio</label>
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                        placeholder="Min">
+                </div>
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift ml-2"
+                        placeholder="Max">
+                </div>
+            </div>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Percentage of International Students (%)</label>
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                        placeholder="Min">
+                </div>
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift ml-2"
+                        placeholder="Max">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End Acasemics Card -->
+
+    <!-- Start Athletics Card -->
+    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-black">Earnings</h2>
+            <button class="flex text-ceil text-sm">
+                <svg class="w-3 h-3 mt-1 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span> Clear</span>
+            </button>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Earnings 1 year after graduation</label>
+            <input type="number"
+                class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                placeholder="Select Minimum">
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Earnings 1 year after graduation</label>
+            <input type="number"
+                class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                placeholder="Select Minimum">
+        </div>
+    </div>
+    <!-- End Athletics Card -->
+
+    <!-- Start Player Profile Card -->
+    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-black">Player Profile </h2>
+            <button class="flex text-ceil text-sm">
+                <svg class="w-3 h-3 mt-1 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span> Clear</span>
+            </button>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Gender</label>
+            <div class="flex flex-wrap mt-2">
+
+                <button
+                    class="pl-2 text-black bg-white border border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
+                    d="dropdownGenderButton" data-dropdown-toggle="dropdownGender">
+                    Select <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-4 text-black ms-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                    </svg>
+
+                </button>
+                <div id="dropdownGender" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                    <ul class="py-2 text-sm text-black" aria-labelledby="dropdownMenuIconButton">
+                        <li>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">sample 01</a>
+                        </li>
+                        <li>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">sample 2</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div class="space-y-2">
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <label class="text-black text-sm">Grad Month</label>
+                    <div class="flex flex-wrap mt-2">
+
+                        <button
+                            class="pl-2 text-black bg-white border border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
+                            d="dropdownGradMonthButton" data-dropdown-toggle="dropdownGradMonth">
+                            Select <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="size-4 text-black ms-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>
+
+                        </button>
+                        <div id="dropdownGradMonth"
+                            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                            <ul class="py-2 text-sm text-black" aria-labelledby="dropdownMenuIconButton">
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">sample 01</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">sample 2</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <label class="text-black text-sm">Grad Year</label>
+                    <div class="flex flex-wrap mt-2">
+
+                        <button
+                            class="pl-2 text-black bg-white border border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
+                            d="dropdownGradYearButton" data-dropdown-toggle="dropdownGradYear">
+                            Select <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="size-4 text-black ms-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>
+
+                        </button>
+                        <div id="dropdownGradYear"
+                            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                            <ul class="py-2 text-sm text-black" aria-labelledby="dropdownMenuIconButton">
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">sample 01</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">sample 2</a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Hendedness</label>
+            <div class="flex flex-wrap mt-2">
+
+                <button
+                            class="pl-2 text-black bg-white border border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
+                            d="dropdownHendednessButton" data-dropdown-toggle="dropdownHendedness">
+                            Select <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="size-4 text-black ms-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>
+
+                        </button>
+                        <div id="dropdownHendedness"
+                            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                            <ul class="py-2 text-sm text-black" aria-labelledby="dropdownMenuIconButton">
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">sample 01</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">sample 2</a>
+                                </li>
+                            </ul>
+                        </div>
+
+            </div>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Country</label>
+            <div class="flex flex-wrap mt-2">
+
+                <button
+                            class="pl-2 text-black bg-white border border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
+                            d="dropdownGradYearButton" data-dropdown-toggle="dropdownGradYear">
+                            Select <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="size-4 text-black ms-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>
+
+                        </button>
+                        <div id="dropdownGradYear"
+                            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                            <ul class="py-2 text-sm text-black" aria-labelledby="dropdownMenuIconButton">
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">sample 01</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">sample 2</a>
+                                </li>
+                            </ul>
+                        </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- End Player Profile Card -->
+
+    <!-- Start Rankings & Ratings Card -->
+    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-black">Rankings & Ratings</h2>
+            <button class="flex text-ceil text-sm">
+                <svg class="w-3 h-3 mt-1 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span> Clear</span>
+            </button>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">UTR</label>
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                        placeholder="Min">
+                </div>
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift ml-2"
+                        placeholder="Max">
+                </div>
+            </div>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">WTN</label>
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                        placeholder="Min">
+                </div>
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift ml-2"
+                        placeholder="Max">
+                </div>
+            </div>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Minimum Rankings</label>
+            <input type="number"
+                class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                placeholder="ATP Ranking">
+            <input type="number"
+                class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                placeholder="ITF Ranking">
+            <input type="number"
+                class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                placeholder="National Ranking">
+        </div>
+    </div>
+
+    <!-- End Rankings & Ratings Card -->
+
+    <!-- Start Physical Attributes Card -->
+    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-black">Physical Attributes</h2>
+            <button class="flex text-ceil text-sm">
+                <svg class="w-3 h-3 mt-1 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span> Clear</span>
+            </button>
+        </div>
+        <div class="space-y-2">
+            <label class="flex items-center">
+                <input type="checkbox"
+                    class="rounded-full p-3 border-border-alt text-steelBlue shadow-sm focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50">
+                <span class="ml-4 text-sm text-black">Search by cm</span>
+            </label>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Minimum Height (in)</label>
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                        placeholder="Min">
+                </div>
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift ml-2"
+                        placeholder="Max">
+                </div>
+            </div>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Maximum Height (in)</label>
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                        placeholder="Min">
+                </div>
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift ml-2"
+                        placeholder="Max">
+                </div>
+            </div>
+        </div>
+        <div class="space-y-2">
+            <label class="text-black text-sm">Age</label>
+            <div class="flex flex-wrap mt-2">
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                        placeholder="Min">
+                </div>
+                <div class="flex-1">
+                    <input type="text"
+                        class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift ml-2"
+                        placeholder="Max">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End Physical Attributes Card -->
+
 </template>
 
 <script>

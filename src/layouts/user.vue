@@ -1,15 +1,15 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <Navbar /> <!-- Top Navigation Bar -->
+    <Navbar @search="search"/> <!-- Top Navigation Bar -->
     
     <div class="flex flex-grow">
       <!-- Sidebar for Filters -->
-      <aside class="w-1/4 p-4 bg-white shadow-md"> <!-- Adjust the width to 1/4 or any fraction -->
+      <aside class="w-1/5 p-4 bg-white shadow-md filters-leftBar"> <!-- Adjust the width to 1/4 or any fraction -->
         <FilterCard />
       </aside>
 
       <!-- Main Content Area -->
-      <main class="w-3/4 flex-grow bg-gray-100 p-4"> <!-- Set the main content to take the remaining space -->
+      <main   class="w-4/5 flex-grow bg-gray-100 p-4"> <!-- Set the main content to take the remaining space -->
         <LoadingSpinner v-if="loading" />
         <NuxtPage v-else />
       </main>
@@ -21,12 +21,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref ,provide  } from 'vue';
 import { useRouter } from 'vue-router';
 import Navbar from '~/components/user/user-navbar-template.vue';
 import FilterCard from '~/components/user/filter-card.vue';
 import FooterBar from '~/components/user/user-footer.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
+import Search from '~/pages/user/search/search.vue';
 // import checkSession from '~/middleware/checkSession';
 
 // defineNuxtRouteMiddleware(checkSession);
@@ -42,6 +43,10 @@ router.beforeEach((to, from, next) => {
 router.afterEach(() => {
   loading.value = false;
 });
+
+const search = ()  =>{
+ console.log(2)
+}
 </script>
 
 <style scoped>
