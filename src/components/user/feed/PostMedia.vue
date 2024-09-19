@@ -1,18 +1,16 @@
 <template>
-  <div v-if="hasMedia == 1">
+  <div v-if="hasMedia === 1">
     <!-- If there is only one media item, show it full-width, full-height -->
-    <div v-if="media.length === 1" class="single-media">
-      <img v-if="media[0].media_information.media_type === 'image'" :src="media[0].file_url" alt="Post media" class="w-full h-auto object-cover rounded-lg">
-      <video v-if="media[0].media_information.media_type === 'video'" :src="media[0].file_url" controls class="w-full h-auto object-cover rounded-lg"></video>
+    <div v-if="media && media.length === 1" class="single-media">
+      <img v-if="media[0]?.media_information?.media_type === 'image'" :src="media[0]?.file_url" alt="Post media" class="w-full h-auto object-cover rounded-lg">
+      <video v-if="media[0]?.media_information?.media_type === 'video'" :src="media[0]?.file_url" controls class="w-full h-auto object-cover rounded-lg"></video>
     </div>
 
     <!-- If there are multiple media items, show them in a grid -->
-    <div v-else :class="{'grid-cols-2': media.length === 2, 'grid-cols-3': media.length > 2}" class="grid gap-4 mt-4">
+    <div v-else-if="media && media.length > 1" :class="{'grid-cols-2': media.length === 2, 'grid-cols-3': media.length > 2}" class="grid gap-4 mt-4">
       <div v-for="(mediaItem, index) in media" :key="mediaItem.id" class="media-item">
-        <!-- Click event to open modal -->
-        <img v-if="mediaItem.media_information.media_type === 'image'" :src="mediaItem.file_url" alt="Post media" class="w-full h-full object-cover rounded-lg cursor-pointer" @click="openModal(index)">
-        <video v-if="mediaItem.media_information.media_type === 'video'" :src="mediaItem.file_url" controls class="w-full h-full object-cover rounded-lg cursor-pointer" @click="openModal(index)">
-        </video>
+        <img v-if="mediaItem?.media_information?.media_type === 'image'" :src="mediaItem?.file_url" alt="Post media" class="w-full h-full object-cover rounded-lg cursor-pointer" @click="openModal(index)">
+        <video v-if="mediaItem?.media_information?.media_type === 'video'" :src="mediaItem?.file_url" controls class="w-full h-full object-cover rounded-lg cursor-pointer" @click="openModal(index)"></video>
       </div>
     </div>
   </div>
@@ -27,9 +25,9 @@
       </button>
 
       <!-- Display the selected media -->
-      <div v-if="media[selectedIndex]" class="media-content">
-        <img v-if="media[selectedIndex].media_information.media_type === 'image'" :src="media[selectedIndex].file_url" alt="Magnified media" class="w-full h-auto rounded-lg">
-        <video v-if="media[selectedIndex].media_information.media_type === 'video'" :src="media[selectedIndex].file_url" controls class="w-full h-auto rounded-lg"></video>
+      <div v-if="media && media[selectedIndex]" class="media-content">
+        <img v-if="media[selectedIndex]?.media_information?.media_type === 'image'" :src="media[selectedIndex]?.file_url" alt="Magnified media" class="w-full h-auto rounded-lg">
+        <video v-if="media[selectedIndex]?.media_information?.media_type === 'video'" :src="media[selectedIndex]?.file_url" controls class="w-full h-auto rounded-lg"></video>
       </div>
 
       <!-- Previous Button (Left Side) -->
@@ -52,8 +50,14 @@ import { ref } from 'vue';
 
 // Props
 const props = defineProps({
-  media: Array,
-  hasMedia: Number
+  media: {
+    type: Array,
+    default: () => [], // Initialize as an empty array
+  },
+  hasMedia: {
+    type: Number,
+    default: 0,
+  },
 });
 
 // Modal state
@@ -86,6 +90,7 @@ const nextMedia = () => {
   }
 };
 </script>
+
 
 <style scoped>
 /* Single media full fit */

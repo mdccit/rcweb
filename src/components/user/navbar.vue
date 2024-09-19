@@ -283,7 +283,7 @@ import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 
 const nuxtApp = useNuxtApp();
-const nprogress = nuxtApp.$nprogress.done(); 
+const nprogress = nuxtApp.$nprogress; 
 const $authService = nuxtApp.$authService;
 
 const router = useRouter();
