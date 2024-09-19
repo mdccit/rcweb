@@ -105,7 +105,7 @@
                     <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
                     <div>
                       <!-- Pass the user ID as a query parameter and the slug as part of the path -->
-                      <NuxtLink :to="`/app/profile/${post.user.slug}?id=${post.user.id}`"
+                      <NuxtLink :to="`/app/profile/${post.user.slug}`"
                         class="font-bold text-sm text-black">
                         {{ post.user.display_name }}
                       </NuxtLink>
