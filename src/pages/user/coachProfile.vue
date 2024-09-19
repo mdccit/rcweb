@@ -404,19 +404,24 @@ const connectionStatus = ref(false)
 const connectionType = ref(null)
 const connectionButtonName =ref('Connect')
 const userId = ref('')
+const coacheSlug = ref('')
+const coacheId = ref('')
 onMounted(() => {
+    userId.value = userStore.user.user_id
+    coacheSlug.value = userStore.coache_slug
+    coacheId.value = userStore.coache_id 
+
     fetchCoacheDatils();
     fetchConnections();
     fetchPost();
     fetchCheckConnection();
 
-    userId.value = userStore.user.user_id
 
 });
 
 const fetchCoacheDatils = async () =>{
     try {
-       const dataSets = await $publicService.get_coache('sa');
+       const dataSets = await $publicService.get_coache(coacheSlug.value);
         bio.value =dataSets.user_basic_info.bio
         country.value =dataSets.user_address_info.country
         city.value =dataSets.user_address_info.city
@@ -432,7 +437,7 @@ const fetchCoacheDatils = async () =>{
 
 const fetchConnections = async () =>{
     try {
-       const dataSets = await $userService.get_connection('9cf182dd-aff5-43b7-a3ed-4c693b9530c3');
+       const dataSets = await $userService.get_connection(coacheId.value);
        connections.value =dataSets.connection   
     } catch (error) {
         console.log(error)
@@ -456,7 +461,7 @@ const handleTab = (name) =>{
 
 const fetchCheckConnection = async () =>{
     try {
-       const dataSets = await $userService.get_check_connection_type('9ce354e8-e661-4c54-95e0-3aa5c20497a8');
+       const dataSets = await $userService.get_check_connection_type(coacheId.value);
        connectionStatus.value =dataSets.connection
 
        if(connectionStatus.value){
@@ -492,7 +497,7 @@ const connectAcceptOrConnect = async () =>{
 
         if(connectionButtonName.value == "Connect"){
             await $userService.connection_request({
-                receiver_id:"9ce354e8-e661-4c54-95e0-3aa5c20497a8"
+                receiver_id:coacheId.value
             });
         }
 
