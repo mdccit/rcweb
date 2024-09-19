@@ -411,6 +411,7 @@ const userId = ref('')
 
 const route = useRoute();
 
+
 const props = defineProps({
     user: {
         type: Object,
@@ -447,11 +448,11 @@ const fetchCoacheDetailsFromProps = async () => {
     const dataSets = await $publicService.get_coache(props.user?.user_basic_info?.slug);
 
     // Safely set values with null checks
-    bio.value = props.user?.user_basic_info?.bio || 'N/A';
-    country.value = props.user?.user_contact_info?.country || '';
+    bio.value = dataSets?.user_basic_info?.bio || 'N/A';
+    country.value = dataSets?.user_phone_info?.country || '';
     city.value = dataSets?.user_address_info?.city || '';
-    name.value = props.user?.user_basic_info?.display_name || 'Anonymous';
-    role.value = props.user?.user_basic_info?.user_role || '';
+    name.value = dataSets?.user_basic_info?.display_name || 'Anonymous';
+    role.value = dataSets?.user_basic_info?.user_role || '';
     colleage.value = dataSets?.coach_info?.school_name || '';
   } catch (error) {
     console.error('Error fetching coach details:', error);
