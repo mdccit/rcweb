@@ -503,10 +503,17 @@ const userId = ref('')
 const plyerSlug = ref('')
 const plyerId = ref('')
 
+const props = defineProps({
+    user: {
+        type: Object,
+        required: true,
+    },
+});
+
 onMounted(() => {
-    userId.value = userStore.user.user_id
-    plyerSlug.value = userStore.player_slug
-    plyerId.value = userStore.player_id
+     userId.value = userStore.user.user_id
+     plyerSlug.value = props.user.user_basic_info.slug
+     plyerId.value = props.user.user_basic_info.id
     fetchUserDatils();
     fetchConnections();
     fetchPost();
@@ -569,7 +576,7 @@ const fetchUserDatils = async () =>{
 
 const fetchCheckConnection = async () =>{
     try {
-       const dataSets = await $userService.get_check_connection_type(playerId.value);
+       const dataSets = await $userService.get_check_connection_type(plyerId.value);
        connectionStatus.value =dataSets.connection
 
        if(connectionStatus.value){
@@ -596,7 +603,7 @@ const fetchCheckConnection = async () =>{
 
 const fetchConnections = async () =>{
     try {
-       const dataSets = await $userService.get_connection(playerId);
+       const dataSets = await $userService.get_connection(plyerId.value);
        console.log(dataSets.connection)
        connections.value =dataSets.connection   
     } catch (error) {
@@ -629,7 +636,7 @@ const connectAcceptOrConnect = async () =>{
 
         if(connectionButtonName.value == "Connect"){
             await $userService.connection_request({
-                receiver_id:playerId.value
+                receiver_id:plyerId.value
             });
         }
 
