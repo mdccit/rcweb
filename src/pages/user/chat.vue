@@ -134,7 +134,7 @@
                             <div class="p-4">
                                 <!-- Left-aligned message -->
                                 <div class="flex justify-start mb-4">
-                                    <div class="bg-lighterGray p-3 rounded-lg max-w-xs">
+                                    <div class="bg-lighterGray p-3 lg rounded-b-lg rounded-tr-lg max-w-xs">
                                         <p class="text-xs text-black">Lorem ipsum dolor sit amet, consectetur adipiscing
                                             elit, sed do eiusmod
                                             tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -143,7 +143,7 @@
 
                                 <!-- Left-aligned message (Short) -->
                                 <div class="flex justify-start mb-4">
-                                    <div class="bg-lighterGray p-3 rounded-lg max-w-xs">
+                                    <div class="bg-lighterGray p-3 rounded-b-lg rounded-tr-lg max-w-xs">
                                         <p class="text-xs text-black">Lorem ipsum dolor sit amet.</p>
                                     </div>
                                 </div>
@@ -155,7 +155,7 @@
 
                                 <!-- Right-aligned message -->
                                 <div class="flex justify-end mb-4">
-                                    <div class="bg-steelBlue text-white p-3 rounded-lg max-w-xs">
+                                    <div class="bg-steelBlue text-white p-3 rounded-b-lg rounded-tl-lg max-w-xs">
                                         <p class="text-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                                             do eiusmod
                                             tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -164,14 +164,14 @@
 
                                 <!-- Right-aligned message (Short) -->
                                 <div class="flex justify-end mb-4">
-                                    <div class="bg-steelBlue text-white p-3 rounded-lg max-w-xs">
+                                    <div class="bg-steelBlue text-white p-3 rounded-b-lg rounded-tl-lg max-w-xs">
                                         <p class="text-xs">Lorem ipsum dolor sit amet.</p>
                                     </div>
                                 </div>
 
                                 <!-- Right-aligned message (Repeated) -->
                                 <div class="flex justify-end mb-4">
-                                    <div class="bg-steelBlue text-white p-3 rounded-lg max-w-xs">
+                                    <div class="bg-steelBlue text-white p-3 rounded-b-lg rounded-tl-lg max-w-xs">
                                         <p class="text-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                                             do eiusmod
                                             tempor incididunt ut labore et dolore magna aliqua.</p>
