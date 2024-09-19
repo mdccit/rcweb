@@ -13,17 +13,17 @@ const loading = ref(true); // To show loading state
 const error = ref(null); // To handle any potential errors
 
 const route = useRoute(); // Access route params and query
-const id = route.query.id; // Extract id from query parameters (e.g., ?id=123)
+const slug = route.params.slug;
 
 // Fetch user data using the id
 const fetchUserData = async () => {
   const nuxtApp = useNuxtApp();
-  const $userService = nuxtApp.$adminService; // Assuming $adminService is your service
+  const $userService = nuxtApp.$publicService; // Assuming $adminService is your service
 
   try {
     loading.value = true; // Start loading
-    if (id) {
-      const response = await $userService.get_user_details(id);
+    if (slug) {
+      const response = await $userService.get_coache(slug);
       console.log(response); // Debugging: log the response to see the fetched data
 
       // Assign the response to the user ref
