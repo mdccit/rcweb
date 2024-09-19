@@ -84,7 +84,7 @@
     </div>
 
 
-    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick">
+    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick" class="cursor-pointer">
       <el-table-column prop="priority" label="PRIORITY" sortable></el-table-column>
       <el-table-column prop="joined_at" label="DETAILS" sortable>
         <template v-slot="scope">
