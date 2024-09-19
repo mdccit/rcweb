@@ -23,11 +23,17 @@ const fetchUserData = async () => {
   try {
     loading.value = true; // Start loading
     if (slug) {
+      
       const response = await $userService.get_coache(slug);
-      console.log(response); // Debugging: log the response to see the fetched data
 
+      if(response.coach_info != null){
+        user.value = response;
+      }else{
+        const response = await $userService.get_player(slug);
+        user.value = response;
+      }
       // Assign the response to the user ref
-      user.value = response;
+     
     }
 
     if (!user.value) {
