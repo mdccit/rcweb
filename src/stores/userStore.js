@@ -12,7 +12,8 @@ export const useUserStore = defineStore('user', {
     user_permission_type: null,
     roles: [],
     permissions: [],
-    user_id :''
+    user_id :'',
+    user_name :''
   }),
   getters: {
     isAuthenticated: (state) => !!state.user && !!state.token,
@@ -20,6 +21,7 @@ export const useUserStore = defineStore('user', {
     role: (state) => state.user_role || 'default',  // Default role if not set
     userId: (state) => state.user_id || '',  
     loggedUserEmail: (state) => state.email || '',  // Default role if not set
+    loggedUserName: (state) => state.user_name,
   },
   actions: {
     setToken(token) {
@@ -52,6 +54,12 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem('user_id', id);
       }
     },
+    setUserId(name) {
+      this.user_name = name;
+      if (process.client) {
+        localStorage.setItem('user_name', name);
+      }
+    },
     setUser(user) {
       if (!user) return;
       this.email = user.email || '';
@@ -62,6 +70,7 @@ export const useUserStore = defineStore('user', {
       this.roles = user.roles ? [...user.roles, user.role] : [user.role];
       this.permissions = user.permissions || []; // Set user permissions
       this.user_id = user.user_id || ''; 
+      this.user_name = user.user_name || ''; 
 
 
       // Set the token and role
@@ -69,7 +78,7 @@ export const useUserStore = defineStore('user', {
       this.setRole(user.role);
       this.setEmail(user.email);
       this.setUserId(user.id);
-
+      this.setUserId(user.user_name);
       if (process.client) {
         // Remove session cookie by setting it to an expired date
         document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -95,6 +104,7 @@ export const useUserStore = defineStore('user', {
       this.roles = [];
       this.permissions = [];
       this.user_id = ''; 
+      this.user_id = null; 
        // Remove session cookie
        Cookies.remove('session', { path: '/' });
 
@@ -105,6 +115,7 @@ export const useUserStore = defineStore('user', {
         localStorage.removeItem('user_permission_type');
         localStorage.removeItem('user_id');
         localStorage.removeItem('email');
+        localStorage.removeItem('user_name');
       }
     },
 

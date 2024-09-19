@@ -70,7 +70,8 @@ const handleGoogleAuthCallback = async () => {
         role: response.data.user_role,
         token: token,
         user_permission_type: response.data.user_permission_type,
-        user_id: response.data.user_id
+        user_id: response.data.user_id,
+        user_name:response.data.user_name
       });
 
       if(type === 'login'){

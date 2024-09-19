@@ -162,6 +162,10 @@
                 <h3 v-if="post.type === 'blog' || post.type === 'event'" class="mt-4 text-darkSlateBlue text-base">
                   {{ post.title }}
                 </h3>
+
+                <!-- Media Section -->
+                <PostMedia :media="post.media" :hasMedia="post.has_media" />
+
                 <div class="basis-full flex flex-col  ">
                   <p  v-if="!editingPostId || editingPostId !== post.id"class="mt-4 text-darkSlateBlue text-base break-words"  v-html="post.description"></p>
                   <textarea v-else  type="text" placeholder="Write your thoughts..." v-model="editPost"
@@ -239,7 +243,9 @@
                   </div>
                 </div>
               </div>
-          </div>                
+          </div>   
+          
+          
         </div>
     </section>
 
@@ -258,6 +264,7 @@ definePageMeta({
   layout: 'socialhub-three-column',
   middleware: ['role'],
   requiredRole: ['admin','coach','business_manager','player','parent','default'],
+  showFilterLeft: false,
 });
 
 import { ref, onMounted } from 'vue';
@@ -266,6 +273,8 @@ import { useNuxtApp } from '#app';
 
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import CommentSection from '~/components/user/feed/CommentSection.vue';
+import PostMedia from '~/components/user/feed/PostMedia.vue';
+
 import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore'
 
@@ -327,7 +336,7 @@ const handleScroll = () =>{
 // Function to create a new post
 const writePost =  async() => {
   try {
-    
+    nuxtApp.$nprogress.start(); 
     postAdd.value =true
     let htmlText = newPost.value.description.replace(/\n/g, '<br>');
     let newValue ={
@@ -337,6 +346,7 @@ const writePost =  async() => {
       title: ''
     }
     const response = await $feedService.create_post(newValue);
+    nuxtApp.$nprogress.done(); 
     newPost.value = {
             description: '',
             type: 'post', 
@@ -349,6 +359,7 @@ const writePost =  async() => {
     loadPosts();
 
  } catch (error) {
+  nuxtApp.$nprogress.done(); 
   meesge.value ="Input validation failed"
   nuxtApp.$notification.triggerNotification( "Input validation failed", 'failure');
 
@@ -365,12 +376,14 @@ const writePost =  async() => {
 
 const likePost = async (post_id,post) => {
   try {
+    nuxtApp.$nprogress.start(); 
     likeButtonDisable.value.push(post_id)
     if(post.user_has_liked){
        await $feedService.unlike_post(post_id);
-      
+       nuxtApp.$nprogress.done(); 
     }else{
       await $feedService.like_post(post_id);
+      nuxtApp.$nprogress.done(); 
     }
     loadPosts(); 
 
@@ -378,13 +391,17 @@ const likePost = async (post_id,post) => {
 
 
   } catch (error) {
+    nuxtApp.$nprogress.done(); 
     console.error('Failed to like post:', error.message);
   }
 };
 
 const loadPosts = async () => {
   try {
+    nuxtApp.$nprogress.start(); 
     const response = await $feedService.list_posts({});
+    nuxtApp.$nprogress.done(); 
+
     posts.value = response || [];
     const idsArray = [];
     for (const post of posts.value) {
@@ -392,22 +409,27 @@ const loadPosts = async () => {
     }
     isHidddenComment.value =idsArray
   } catch (error) {
+    nuxtApp.$nprogress.done(); 
     console.error('Failed to load posts:', error.message);
   }
 };
 
 const addComment = async (postId) => {
-
+  nuxtApp.$nprogress.start(); 
   if (newComment.value.trim() === '') {
+    nuxtApp.$nprogress.done(); 
     return;
   }
   commentAdd.value =true;
 
   try {
+    nuxtApp.$nprogress.start(); 
     await $feedService.create_comment(postId, { content: newComment.value });
+    nuxtApp.$nprogress.done(); 
     newComment.value = ''; // Clear the comment input after submission
     loadPosts(); // Reload posts to update the comments section
   } catch (error) {
+    nuxtApp.$nprogress.done(); 
     console.error('Failed to add comment:', error.message);
   }
   commentAdd.value =false;
@@ -416,17 +438,21 @@ const addComment = async (postId) => {
 
 const fetchComments = async () => {
   try {
+    nuxtApp.$nprogress.start(); 
     comments.value = await nuxtApp.$feedService.get_all_post_comment(postId);
+    nuxtApp.$nprogress.done(); 
   } catch (error) {
+    nuxtApp.$nprogress.done(); 
     console.error('Failed to fetch comments:', error.message);
   }
 };
 
 const refreshComments = async () => {
   // await fetchComments();
+  nuxtApp.$nprogress.start(); 
   const response = await $feedService.list_posts({});
     posts.value = response;
-  console.log('refreshed comments');
+    nuxtApp.$nprogress.done(); 
 };
 
 const formatDate = (dateString) => {

@@ -84,14 +84,14 @@
     </div>
 
 
-    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick">
+    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick" class="cursor-pointer" :default-sort="{ prop: 'created_at', order: 'descending' }">
       <el-table-column prop="priority" label="PRIORITY" sortable></el-table-column>
       <el-table-column prop="joined_at" label="DETAILS" sortable>
         <template v-slot="scope">
           <span>User Creation - Needs Approval</span>
         </template>
       </el-table-column>
-      <el-table-column prop="joined_at" label="STATUS" sortable>
+      <el-table-column prop="created_at" label="STATUS" sortable>
         <template v-slot="scope">
           <button dusk="splade-confirm-confirm" type="button"
             class=" w-[100px] inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2  sm:text-sm"
