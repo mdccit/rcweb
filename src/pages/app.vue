@@ -105,8 +105,7 @@
                     <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
                     <div>
                       <!-- Pass the user ID as a query parameter and the slug as part of the path -->
-                      <NuxtLink :to="`/app/profile/${post.user.slug}`"
-                        class="font-bold text-sm text-black">
+                      <NuxtLink :to="`/app/profile/${post.user.slug}`" class="font-bold text-sm text-black">
                         {{ post.user.display_name }}
                       </NuxtLink>
 
@@ -169,6 +168,10 @@
                 <h3 v-if="post.type === 'blog' || post.type === 'event'" class="mt-4 text-darkSlateBlue text-base">
                   {{ post.title }}
                 </h3>
+
+                <!-- Media Gallery Section -->
+                <postGalleryComponent :galleryItems="post.media || []" />
+
                 <div class="basis-full flex flex-col  ">
                   <p v-if="!editingPostId || editingPostId !== post.id"
                     class="mt-4 text-darkSlateBlue text-base break-words" v-html="post.description"></p>
@@ -294,10 +297,11 @@ import { ref, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 
 
-import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import CommentSection from '~/components/user/feed/CommentSection.vue';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '~/stores/userStore'
+import { useUserStore } from '~/stores/userStore';
+import postGalleryComponent from '~/components/user/feed/postGalleryComponent.vue';
+
 
 const userStore = useUserStore()
 
@@ -334,10 +338,18 @@ const notificationKey = ref(0);
 const meesge = ref('')
 
 onMounted(async () => {
-  window.addEventListener('scroll', handleScroll);
-  userId.value = userStore.user.user_id
-  userRole.value = userStore.user.role
+  if (process.client) {
+    // Check or fetch user role
+    if (!userStore.role) {
+      console.warn('User role is not defined yet.');
+    } else {
+      // Perform any redirection or logic based on user role
+    }
+  }
 
+  window.addEventListener('scroll', handleScroll);
+  userId.value = userStore.user.user_id || null;
+  userRole.value = userStore.user.role || null;
 
   try {
     const response = await $feedService.list_posts({});
