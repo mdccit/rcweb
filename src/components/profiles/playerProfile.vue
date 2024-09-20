@@ -514,6 +514,7 @@ onMounted(() => {
      userId.value = userStore.user.user_id
      plyerSlug.value = props.user.user_basic_info.slug
      plyerId.value = props.user.user_basic_info.id
+     
     fetchUserDatils();
     fetchConnections();
     fetchPost();
@@ -525,15 +526,16 @@ onMounted(() => {
 const fetchUserDatils = async () =>{
     try {
        const dataSets = await $publicService.get_player(plyerSlug.value);
-        bio.value =dataSets.player_info.other_data.bio
+       console.log(dataSets)
+        bio.value =dataSets.user_basic_info.bio
         country.value =dataSets.user_address_info.country
         city.value =dataSets.user_address_info.city
-        heigth.value =dataSets.player_info.height
-        weight.value =dataSets.player_info.weight
-        budgetMin.value =dataSets.player_info.other_data.budget_max
-        budgetMax.value =dataSets.player_info.other_data.budget_min
+        heigth.value =dataSets.player_info.height??0
+        weight.value =dataSets.player_info.weight??0
+        budgetMin.value =dataSets.player_info.other_data.budget_max??''
+        budgetMax.value =dataSets.player_info.other_data.budget_min??''
         name.value =dataSets.user_basic_info.display_name
-        utr.value =dataSets.player_info.other_data.utr
+        utr.value =dataSets.player_info.other_data.utr??0
         gpa.value =dataSets.player_info.gpa??"Unknown"
         sat.value =dataSets.player_info.other_data.sat_score ?? "Unknown"
         toefl.value =dataSets.player_info.other_data.toefl_score ?? "Unknown"
