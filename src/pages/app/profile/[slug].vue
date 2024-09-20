@@ -23,9 +23,16 @@ const fetchUserData = async () => {
   try {
     loading.value = true; // Start loading
     if (slug) {
-      const response = await $userService.get_user_profile(slug);
-       user.value = response;
       
+      const response = await $userService.get_coache(slug);
+
+      if(response.coach_info != null){
+        user.value = response;
+      }else{
+        const response = await $userService.get_player(slug);
+        user.value = response;
+      }
+      // Assign the response to the user ref
      
     }
 
