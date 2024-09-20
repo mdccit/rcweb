@@ -117,26 +117,8 @@
 
                 <div class="col-span-5 sm:col-span-3 md:col-span-5 lg:col-span-2 xl:col-span-3 mb-5">
 
-                    <div
-                        class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                        <ul class="flex flex-wrap -mb-px">
-                            <li class="me-2">
-                                <button @click="handleTab('feed')"
-                                    class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</button>
-                            </li>
-                            <li class="me-2">
-                                <button @click="handleTab('connection')"
-                                    class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                    aria-current="page">Connections</button>
-                            </li>
-                            <li class="me-2">
-                                <button @click="handleTab('media')"
-                                    class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</button>
-                            </li>
-
-
-                        </ul>
-                    </div>
+                    <!-- Tab Navigation Component -->
+                    <PlayerTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
 
                     <!--start card 01 -->
                     <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
@@ -412,19 +394,17 @@
                     <!--start card 03 -->
 
                     <!-- Media Gallery Section -->
-                    <div v-if="tab === 'media'" class="media-gallery">
-
-
-                        <a v-for="(item, index) in galleryItems" :key="index" data-fancybox="gallery" :href="item.href">
-
-                            <img v-if="item.type === 'image'" class="rounded" :src="item.src" />
-                            <video v-if="item.type === 'video'" class="rounded" controls>
+                    <div v-if="tab === 'media'" class="media-gallery grid">
+                        <a v-for="(item, index) in galleryItems" :key="index" data-fancybox="gallery" :href="item.href"
+                            class="media-item">
+                            <img v-if="item.type === 'image'" class="rounded w-full" :src="item.src" />
+                            <video v-if="item.type === 'video'" class="rounded w-full" controls>
                                 <source :src="item.src" type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                         </a>
-
                     </div>
+
 
                     <!--end card 03 -->
 
@@ -532,6 +512,7 @@ import { useNuxtApp } from '#app';
 import Connection from '~/components/user/profile/connection.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
 import { useUserStore } from '~/stores/userStore';
+import PlayerTabNavigation from '~/components/profiles/navigation/PlayerTabNavigation.vue';
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
 
@@ -562,7 +543,6 @@ const itf = ref("Unknown")
 const feet = ref(0)
 const pounds = ref(0)
 const connections = ref([])
-const tab = ref('feed')
 const posts = ref([])
 const connectionStatus = ref(false)
 const connectionType = ref(null)
@@ -578,10 +558,27 @@ const props = defineProps({
     },
 });
 
+// Tabs data
+const tabs = ref([
+    { name: 'feed', label: 'Post' },
+    { name: 'connection', label: 'Connections' },
+    { name: 'media', label: 'Media' }
+]);
+
+// The default active tab
+const tab = ref('feed');
+
+// Function to handle tab change
+const handleTab = (selectedTab) => {
+    tab.value = selectedTab;
+};
+
+
 onMounted(() => {
-    userId.value = userStore.user.user_id
-    plyerSlug.value = props.user.user_basic_info.slug
-    plyerId.value = props.user.user_basic_info.id
+     userId.value = userStore.user.user_id
+     plyerSlug.value = props.user.user_basic_info.slug
+     plyerId.value = props.user.user_basic_info.id
+     
     fetchUserDatils();
     fetchConnections();
     fetchPost();
@@ -593,21 +590,22 @@ onMounted(() => {
 
 const fetchUserDatils = async () => {
     try {
-        const dataSets = await $publicService.get_player(plyerSlug.value);
-        bio.value = dataSets.player_info.other_data.bio
-        country.value = dataSets.user_address_info.country
-        city.value = dataSets.user_address_info.city
-        heigth.value = dataSets.player_info.height
-        weight.value = dataSets.player_info.weight
-        budgetMin.value = dataSets.player_info.other_data.budget_max
-        budgetMax.value = dataSets.player_info.other_data.budget_min
-        name.value = dataSets.user_basic_info.display_name
-        utr.value = dataSets.player_info.other_data.utr
-        gpa.value = dataSets.player_info.gpa ?? "Unknown"
-        sat.value = dataSets.player_info.other_data.sat_score ?? "Unknown"
-        toefl.value = dataSets.player_info.other_data.toefl_score ?? "Unknown"
-        atp.value = dataSets.player_info.other_data.atp_ranking ?? "Unknown"
-        itf.value = dataSets.player_info.other_data.itf_ranking ?? "Unknown"
+       const dataSets = await $publicService.get_player(plyerSlug.value);
+       console.log(dataSets)
+        bio.value =dataSets.user_basic_info.bio
+        country.value =dataSets.user_address_info.country
+        city.value =dataSets.user_address_info.city
+        heigth.value =dataSets.player_info.height??0
+        weight.value =dataSets.player_info.weight??0
+        budgetMin.value =dataSets.player_info.other_data.budget_max??''
+        budgetMax.value =dataSets.player_info.other_data.budget_min??''
+        name.value =dataSets.user_basic_info.display_name
+        utr.value =dataSets.player_info.other_data.utr??0
+        gpa.value =dataSets.player_info.gpa??"Unknown"
+        sat.value =dataSets.player_info.other_data.sat_score ?? "Unknown"
+        toefl.value =dataSets.player_info.other_data.toefl_score ?? "Unknown"
+        atp.value =dataSets.player_info.other_data.atp_ranking ?? "Unknown"
+        itf.value =dataSets.player_info.other_data.itf_ranking ?? "Unknown"
 
         const parsedDate = new Date(dataSets.player_info.graduation_month_year);
         const options = { year: 'numeric', month: 'long' };
@@ -688,11 +686,6 @@ const fetchPost = async () => {
     } catch (error) {
         console.error('Failed to load posts:', error.message);
     }
-}
-
-
-const handleTab = (name) => {
-    tab.value = name
 }
 
 const connectAcceptOrConnect = async () => {
@@ -827,5 +820,28 @@ const galleryItems = ref([
 
     --f-thumb-border-radius: 6px;
     --f-thumb-outline: 0;
+}
+
+
+.media-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 items per row */
+    gap: 16px;
+    /* Add some spacing between items */
+    margin-top: 24px;
+}
+
+.media-item {
+    position: relative;
+}
+
+.media-item img,
+.media-item video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 </style>
