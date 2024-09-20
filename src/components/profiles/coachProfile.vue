@@ -364,7 +364,6 @@
         </div>
     </main>
 </template>
-
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
@@ -374,7 +373,7 @@ import UserFeed from '~/components/user/profile/userFeed.vue';
 import { useUserStore } from '~/stores/userStore';
 import ProfileTabNavigation from '~/components/profiles/navigation/ProfileTabNavigation.vue';
 import mediaGalleryComponent from '~/components/profiles/media/mediaGalleryComponent.vue';
-
+import profileCard from '~/components/profiles/card/cardOriginal.vue';
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -394,7 +393,11 @@ const posts = ref([])
 const connectionStatus = ref(false)
 const connectionType = ref(null)
 const connectionButtonName = ref('Connect')
-const userId = ref('')
+const userId = ref('');
+const slug = ref('');
+const user = ref('');
+const loading = ref(true); // To show loading state
+const error = ref(null); // To handle any potential errors
 
 const route = useRoute();
 
@@ -446,16 +449,55 @@ const galleryItems = ref([
 ]);
 
 
+const profiles = [
+    {
+        id: 1,
+        name: 'John Doe',
+        role: 'Tennis Player',
+        city: 'New York',
+        country: 'USA',
+        utr: '15.25',
+        connection_status: 'connect',
+        profileImage: 'https://via.placeholder.com/85'
+    },
+    {
+        id: 2,
+        name: 'Jane Smith',
+        role: 'Football Player',
+        city: 'London',
+        country: 'UK',
+        utr: '20.50',
+        connection_status: 'pending',
+        profileImage: 'https://via.placeholder.com/85'
+    },
+    {
+        id: 3,
+        name: 'Bob Johnson',
+        role: 'Basketball Player',
+        city: 'Los Angeles',
+        country: 'USA',
+        utr: '18.75',
+        connection_status: 'accepted',  // Chat button will appear
+        profileImage: 'https://via.placeholder.com/85'
+    }
+]
+
+
 onMounted(() => {
     if (props.user) {
         fetchCoacheDetailsFromProps(); // Extract the user data when the component mounts
+    }
+    slug.value = route.params.slug;
+
+    if (slug) {
+        fetchUserData();
     }
 
     fetchConnections();
     fetchPost();
     fetchCheckConnection();
 
-    userId.value = route.query.id;
+
 
 });
 
@@ -555,6 +597,32 @@ const connectAcceptOrConnect = async () => {
         console.error('Failed to load posts:', error.message);
     }
 }
+
+
+// Fetch user data using the id
+const fetchUserData = async () => {
+
+    try {
+        loading.value = true; // Start loading
+        if (slug) {
+            const response = await $publicService.get_user_profile(slug);
+            user.value = response;
+            console.log(response);
+        }
+
+        if (!user.value) {
+            throw new Error("User not found");
+        }
+
+    } catch (err) {
+        console.error("Error fetching user data:", err);
+        user.value = null; // Set user to null if there is an error
+    } finally {
+        loading.value = false; // Stop loading when done
+    }
+};
+
+
 
 
 
