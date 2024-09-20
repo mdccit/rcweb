@@ -116,7 +116,7 @@
             <section class=" grid grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 px-4 h-14">
                 <!-- start logo section -->
                 <div class="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1">
-                    <a href="https://flowbite.com/" class="flex items-center">
+                    <a href="https://flowbite.com/" class="flex items-center mt-4">
                         <img class="w-96 md:w-32" src="@/assets/user/images/logo-recruited.png" alt="">
                     </a>
                 </div>
