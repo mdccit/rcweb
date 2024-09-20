@@ -52,7 +52,7 @@
                             <div class="col-span-8">
                                 <div class="flex justify-between items-center">
                                     <div class="flex-1">
-                                        <h4 class="text-black font-bold">{{ user.slug }}</h4>
+                                        <h4 class="text-black font-bold">{{ user.display_name }}</h4>
                                     </div>
                                     <div class="flex-3">
 
