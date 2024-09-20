@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <select v-model="selected" @change="updateValue" placeholder="Nationality" class="bg-gray-50 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50" id="nationality" required>
+  <div class="w-full">
+    <select v-model="selected" @change="updateValue" placeholder="Nationality"
+      class=" h-12 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+      id="nationality" required>
       <option v-for="nationality in nationalities" :key="nationality.value" :value="nationality.value">
         {{ nationality.label }}
       </option>
@@ -39,10 +41,4 @@ watch(
 );
 </script>
 
-<style scoped>
-select {
-  width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-}
-</style>
+<style scoped></style>

@@ -1,10 +1,10 @@
 <template>
-    <div class="p-5 card">
+    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
       <div class="mb-3">
             <h1> <b>Moderation</b> </h1>
         </div>
         <div class="p-8">
-          <EPDataTable />
+          <AdminMorderationTable />
         </div>
      
     </div>
@@ -12,8 +12,14 @@
   
   <script setup>
   import { useUserStore } from '~/stores/userStore';
-  import  EPDataTable from '~/components/EPDataTable.vue';
+  import  AdminMorderationTable from '~/components/tables/AdminMorderationTable.vue';
   
+  definePageMeta({
+    ssr: false,
+    layout: 'admin',
+    middleware: ['role'],
+    requiredRole: ['admin'],
+});
   const userStore = useUserStore()
   
   const email = userStore.user?.email

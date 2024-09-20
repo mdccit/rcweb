@@ -1,209 +1,462 @@
 <template>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="flex gap-x-4"><a
-                href="https://qa1.recruited.qualitapps.com/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7"><button
-                    class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200"> Account
-                    Details </button></a><a
-                href="https://qa1.recruited.qualitapps.com/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7/connections"><button
-                    class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
-                    Connections </button></a><a
-                href="https://qa1.recruited.qualitapps.com/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7/lists"><button
-                    class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50"> Lists
-                </button></a><a
-                href="https://qa1.recruited.qualitapps.com/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7/danger-zone"><button
-                    class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50"> Danger
-                    Zone </button></a></div>
-        <div class="my-8"></div>
-        <div class="">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
-                <form data-splade-id="Qz7drVUokJqH6uZN" method="PUT"
-                    action="https://qa1.recruited.qualitapps.com/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7">
-                    <fieldset>
-                        <div class="col-span-6 sm:col-span-4"><span
-                                class="block mb-1 text-gray-700 font-sans">Photo</span>
-                            <div class="mt-2"><img
-                                    src="https://ui-avatars.com/api/?name=e+e&amp;color=7F9CF5&amp;background=EBF4FF"
-                                    alt="ee et" class="rounded-full h-20 w-20 object-cover"></div>
-                            <div class="mt-2" style="display: none;"><span
-                                    class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
-                                    style="background-image: url(&quot;&quot;);"></span></div>
-                            <div class="flex mt-2 space-x-2">
-                                <div><label class="block"><a
-                                            class="font-semibold border border-border rounded py-4 px-4 w-full block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center"><svg
-                                                class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg"
-                                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                stroke="currentColor" fill="none" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
-                                                <path d="M7 9l5 -5l5 5"></path>
-                                                <path d="M12 4l0 12"></path>
-                                            </svg> Select A New Photo <input name="photo" type="file"
-                                                data-validation-key="photo"
-                                                class="invisible absolute inset-0 w-full h-full disabled:opacity-50"></a></label><!---->
-                                </div><a href="https://qa1.recruited.qualitapps.com/user/profile-photo"
-                                    class="font-semibold border border-border rounded py-4 px-4 inline-block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center"><svg
-                                        class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24"
-                                        height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M4 7l16 0"></path>
-                                        <path d="M10 11l0 6"></path>
-                                        <path d="M14 11l0 6"></path>
-                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
-                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                                    </svg> Remove Photo </a>
-                            </div>
-                        </div>
-                        <div class="my-8"></div>
-                        <div class="w-full"><label class="block"><span class="block mb-1 text-gray-700 font-sans"> Name
-                                </span>
-                                <div class="flex rounded-lg border border-gray-300 shadow-sm"><input
-                                        class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                        name="name" type="text" data-validation-key="name"></div>
-                            </label><!----></div>
-                        <div class="my-8"></div>
-                        <div class="">
-                            <div class="w-full"><label class="block"><span class="block mb-1 text-gray-700 font-sans">
-                                        Email address </span>
-                                    <div class="flex rounded-lg border border-gray-300 shadow-sm"><input
-                                            class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                            name="email" type="text" data-validation-key="email"></div>
-                                </label><!----></div>
-                            <div class="flex justify-end">
-                                <div class="">
-                                    <div class="flex justify-end mt-4">
-                                        <div><label class="flex items-center"><input name="set_email_verified"
-                                                    type="checkbox" data-validation-key="set_email_verified"
-                                                    class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                                                    true-value="1" false-value="false" value="1"><span class="ml-4">Set
-                                                    email verified</span></label><!----></div>
-                                    </div>
-                                    <div class="mt-4 flex justify-end gap-2"> Or <a
-                                            href="https://qa1.recruited.qualitapps.com/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7/send-verification-email"
-                                            class="bg-gray-200 opacity-60 hover:opacity-100 p-2 rounded"> send again
-                                        </a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="my-8"></div>
-                        <div class="w-full"><label class="block"><span class="block mb-1 text-gray-700 font-sans">
-                                    Password </span>
-                                <div class="flex rounded-lg border border-gray-300 shadow-sm"><input
-                                        class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                        name="password" type="text" data-validation-key="password"></div>
-                            </label><!----></div>
-                        <div class="my-8"></div>
-                        <div class="w-full"><label class="block"><span class="block mb-1 text-gray-700 font-sans">
-                                    Approved </span>
-                                <div class="relative">
-                                    <div class=""><select name="is_approved" data-validation-key="is_approved"
-                                            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
-                                            <option value="1"> Yes </option>
-                                            <option value="0"> No </option>
-                                        </select></div><!---->
-                                </div>
-                            </label><!----></div>
-                        <div class="my-8"></div>
-                        <div class="relative">
-                            <div class="absolute right-0 top-0"><svg id="phoneInputButton"
-                                    onclick="showPhoneEditTooltip(event,'phoneInputtooltip')" class="w-4 h-4 inline"
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                                    stroke-linejoin="round" style="cursor: pointer;">
-                                    <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
-                                    <path d="M12 9h.01"></path>
-                                    <path d="M11 12h1v4h1"></path>
-                                </svg><span id="phoneInputtooltip"
-                                    class="fixed hidden z-10 w-72 px-2 py-4 bg-black rounded-lg text-center text-white text-sm before:content-[''] before:absolute before:top-10 before:right-[-16px] before:-translate-y-1/2 before:border-8 before:border-r-transparent before:border-l-gray-700"
-                                    hidden="true" style="display: none;"> If you are a player or a parent, your phone
-                                    number will be visible to coaches. </span></div>
-                            <div class="grid grid-cols-10 gap-4 items-center mt-4 mb-3">
-                                <div class="col-span-4">
-                                    <div class="phone-code-pl-5 phone-code-pr-6"><label class="block"><span
-                                                class="block mb-1 text-gray-700 font-sans"> Phone <span
-                                                    aria-hidden="true" class="text-red-600"
-                                                    title="This field is required">*</span></span>
-                                            <div class="relative">
-                                                <div class=""><select name="phone_code" data-validation-key="phone_code"
-                                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                                                        id="country" required=""
-                                                        onchange="handleCountryCodeChange(this)">
-                                                        <option disabled="" selected="" value="null">Country code
-                                                        </option>
-                                                        <option value="+244">Angola (+244)</option>
-                                                        <option value="+1-264">Anguilla (+1-264)</option>
-                                                        <option value="+672">Norfolk Island (+672)</option>
-                                                        <option value="+1-268">Antigua and Barbuda (+1-268)</option>
-                                                        <option value="+54">Argentina (+54)</option>
-                                                        <option value="+374">Armenia (+374)</option>
-                                                        <option value="+297">Aruba (+297)</option>
-                                                    </select></div><!---->
-                                            </div>
-                                        </label><!----></div>
-                                </div>
-                                <div class="col-span-6">
-                                    <div class="w-full no-asterisk"><label class="block"><span
-                                                class="block mb-1 text-gray-700 font-sans"><span aria-hidden="true"
-                                                    class="text-red-600" title="This field is required">*</span></span>
-                                            <div class="flex rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                    name="phone_number" type="number" data-validation-key="phone_number"
-                                                    id="phone_number" step="0.01" required="" placeholder="123456789">
-                                            </div>
-                                        </label><!----></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="my-8"></div>
-                        <div class="w-full"><label class="block"><span class="block mb-1 text-gray-700 font-sans"> Role
-                                </span>
-                                <div class="relative">
-                                    <div class=""><select name="role" data-validation-key="role"
-                                            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
-                                            <option value="admin"> Admin </option>
-                                            <option value="coach"> Coach </option>
-                                            <option value="player"> Player </option>
-                                            <option value="business"> Business User </option>
-                                        </select></div><!---->
-                                </div>
-                            </label><!----></div>
-                        <div class="my-8"></div><button type="submit"
-                            class="border bg-blue-500 rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
-                            <div class="flex flex-row items-center justify-center"><!----><span class=""> Save changes
-                                </span></div>
-                        </button>
-                    </fieldset>
-                </form>
+        <!-- User Edit Section Component -->
+        <userEditSection />
+
+
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
+            <!-- Photo Upload Section -->
+            <div class="col-span-6 sm:col-span-4">
+                <span class="block mb-1 text-gray-700 font-sans">Photo</span>
+                <div class="mt-2">
+                    <img src="https://ui-avatars.com/api/?name=e+e&amp;color=7F9CF5&amp;background=EBF4FF"
+                        alt="User Photo" class="rounded-full h-20 w-20 object-cover" />
+                </div>
+                <div class="flex mt-2 space-x-2">
+                    <!-- Select a New Photo -->
+                    <div>
+                        <label class="block">
+                            <a
+                                class="font-semibold border border-border rounded py-4 px-4 w-full block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center">
+                                <svg class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24"
+                                    height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
+                                    <path d="M7 9l5 -5l5 5"></path>
+                                    <path d="M12 4l0 12"></path>
+                                </svg>
+                                Select A New Photo
+                                <input name="photo" type="file" data-validation-key="photo"
+                                    class="invisible absolute inset-0 w-full h-full disabled:opacity-50" />
+                            </a>
+                        </label>
+                    </div>
+
+                    <!-- Remove Photo -->
+                    <NuxtLink to="/user/profile-photo"
+                        class="font-semibold border border-border rounded py-4 px-4 inline-block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center">
+                        <svg class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 7l16 0"></path>
+                            <path d="M10 11l0 6"></path>
+                            <path d="M14 11l0 6"></path>
+                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                        </svg>
+                        Remove Photo
+                    </NuxtLink>
+                </div>
             </div>
-            <div class="my-16"></div>
+
+            <div class="my-8"></div>
+
+            <!-- First Name Input -->
+            <div class="w-full">
+                <label class="block">
+                    <span class="block mb-1 text-gray-700 font-sans">First Name {{ first_name }}</span>
+                    <input v-model="first_name" type="text" :disabled="action === 'view'"
+                        class="block text-black w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300" />
+                </label>
+                <p v-if="errors.first_name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
+                        errors.first_name.join(', ') }}</p>
+            </div>
+
+            <div class="my-8"></div>
+
+            <!-- Last Name Input -->
+            <div class="w-full">
+                <label class="block">
+                    <span class="block mb-1 text-gray-700 font-sans">Last Name</span>
+                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                        <input
+                            class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
+                            v-model="last_name" name="name" type="text" data-validation-key="name"
+                            :disabled="action === 'view'" />
+                    </div>
+                    <p v-if="errors.last_name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
+                        errors.last_name.join(', ') }}</p>
+                </label>
+            </div>
+
+            <div class="my-8"></div>
+
+            <!-- Other Names Input -->
+            <div class="w-full">
+                <label class="block">
+                    <span class="block mb-1 text-gray-700 font-sans">Other Names</span>
+                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                        <input
+                            class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
+                            v-model="other_names" name="name" type="text" data-validation-key="other-names"
+                            :disabled="action === 'view'" />
+                    </div>
+                    <p v-if="errors.other_names" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
+                        errors.other_names.join(', ') }}</p>
+                </label>
+            </div>
+
+            <div class="my-8"></div>
+
+
+            <!-- Email Address Input -->
+            <div class="">
+                <div class="w-full">
+                    <label class="block">
+                        <span class="block mb-1 text-gray-700 font-sans">Email address</span>
+                        <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                            <input v-model="email"
+                                class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                name="email" type="text" data-validation-key="email" :disabled="action === 'view'" />
+                        </div>
+                        <p v-if="errors.email" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
+                        errors.email.join(', ') }}</p>
+                    </label>
+                </div>
+
+                <!-- Email Verification Checkbox -->
+                <div class="flex justify-end mt-4">
+                    <label class="flex items-center">
+                        <input name="set_email_verified" v-model="is_set_email_verified" type="checkbox"
+                            data-validation-key="set_email_verified"
+                            class="rounded-full text-black p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
+                            :disabled="action === 'view'" />
+
+                        <!-- Conditionally hide this span based on is_set_email_verified -->
+                        <span v-if="!is_set_email_verified" class="ml-4 text-black">
+                            Set email verified
+                        </span>
+                        <span v-if="is_set_email_verified" class="ml-4 text-black">
+                            Email verified
+                        </span>
+
+                    </label>
+                </div>
+
+                <!-- Resend Verification Email Link -->
+                <div v-if="!is_set_email_verified" class="mt-4 flex text-black justify-end gap-2">
+                    Or
+                    <NuxtLink class="bg-gray-200 opacity-60 hover:opacity-100 p-2 rounded"
+                        :disabled="action === 'view'">
+                        send again
+                    </NuxtLink>
+                </div>
+            </div>
+
+            <div class="my-8"></div>
+
+            <!-- Password Input -->
+            <div class="w-full">
+                <label class="block">
+                    <span class="block mb-1 text-gray-700 font-sans">Password</span>
+                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                        <input
+                            class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                            name="password" v-model="password" type="text" data-validation-key="password"
+                            :disabled="action === 'view'" />
+                    </div>
+                    <p v-if="errors.password" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
+                        errors.password.join(', ') }}</p>
+                </label>
+            </div>
+
+            <div class="my-8"></div>
+
+            <!-- Approval Dropdown -->
+            <div class="w-full">
+                <label class="block">
+                    <span class="block mb-1 text-gray-700 font-sans">Approved</span>
+                    <div class="relative">
+                        <select v-model="is_approved" name="is_approved" data-validation-key="is_approved"
+                            :disabled="action === 'view'"
+                            class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                </label>
+            </div>
+
+            <div class="my-8"></div>
+
+            <!-- Phone Number Input -->
+            <div class="relative">
+                <div class="absolute right-0 top-0">
+                    <svg id="phoneInputButton" onclick="showPhoneEditTooltip(event,'phoneInputtooltip')"
+                        class="w-4 h-4 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round" style="cursor: pointer;">
+                        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
+                        <path d="M12 9h.01"></path>
+                        <path d="M11 12h1v4h1"></path>
+                    </svg>
+                    <span id="phoneInputtooltip"
+                        class="fixed text-black hidden z-10 w-72 px-2 py-4 bg-black rounded-lg text-center text-white text-sm before:content-[''] before:absolute before:top-10 before:right-[-16px] before:-translate-y-1/2 before:border-8 before:border-r-transparent before:border-l-gray-700"
+                        hidden="true" style="display: none;">
+                        If you are a player or a parent, your phone number will be visible to coaches.
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-10 gap-4 items-center mt-4 mb-3">
+                    <!-- Country Code Dropdown -->
+                    <div class="col-span-4">
+                        <label class="block">
+                            <span class="block mb-1 text-gray-700 font-sans">
+                                Phone
+                                <span aria-hidden="true" class="text-red-600" title="This field is required">*</span>
+                            </span>
+                            <div class="relative">
+                                <CountryCodeDropdown :country_codes="country_codes" v-model="phone_code_country"
+                                    name="phone_code" data-validation-key="phone_code" :disabled="action === 'view'" />
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Phone Number Input -->
+                    <div class="col-span-6">
+                        <div class="w-full no-asterisk">
+                            <label class="block">
+                                <span class="block mb-1 text-gray-700 font-sans"><span aria-hidden="true"
+                                        class="text-red-600" title="This field is required">*</span></span>
+                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                    <input
+                                        class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                        name="phone_number" type="text" data-validation-key="phone_number"
+                                        v-model="phone_number" id="phone_number" step="0.01" required=""
+                                        placeholder="123456789" :disabled="action === 'view'" />
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="my-8"></div>
+
+            <!-- Role Dropdown -->
+            <div class="w-full">
+                <label class="block">
+                    <span class="block mb-1 text-gray-700 font-sans">Role</span>
+                    <div class="relative">
+
+                        <select v-model="user_role" name="role" data-validation-key="role"
+                            class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
+                            :disabled="action === 'view'">
+                            <option value="2">Admin</option>
+                            <option value="3">Operator</option>
+                            <option value="4">Player</option>
+                            <option value="5">Coach</option>
+                            <option value="6">Business Manager</option>
+                            <option value="7">Parent</option>
+                        </select>
+                    </div>
+                </label>
+            </div>
+
+            <div class="my-8"></div>
+
+            <!-- Submit Button -->
+            <button type="submit" @click="updateUserDetails" v-if="action !== 'view'"
+                class="border bg-blue-500 rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
+                <div class="flex flex-row items-center justify-center">
+                    <span>Save changes </span>
+                </div>
+            </button>
         </div>
+
+        <div class="my-16"></div>
+
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import UserTable from '~/components/tables/UserTable.vue';
-import { useUserStore } from '~/stores/userStore'
-import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.vue';
 
+import { ref, computed, watch, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '~/stores/userStore';
+import { useNuxtApp } from '#app';
+import { defineProps, defineEmits, defineExpose } from 'vue';
+import { useRoute } from 'vue-router';
+import userEditSection from '~/components/admin/user/userEditSections.vue';
+import { loadCountryList } from '~/services/commonService';
+import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
+import { handleError } from '@/utils/handleError';
 
-const showModal = ref(false);
+const route = useRoute(); // Use useRoute to access query parameters
+
+const first_name = ref('');
+const last_name = ref('');
+const other_names = ref('');
+const id = ref('');
+const email = ref('');
+const user_role = ref('');
+const is_approved = ref('');
+const is_set_email_verified = ref(false);
+const password = ref('');
+const password_confirmation = ref('');
+const phone_code_country = ref('');
+const phone_number = ref('');
+const country_codes = ref([]);
 const userStore = useUserStore()
+const router = useRouter();
+const loading = ref(false);
+const showNotification = ref(false);
+const notificationMessage = ref('');
+const notification_type = ref('');
+const errors = ref([]);
 
-const email = userStore.user?.email;
-const token = userStore.user?.token;
+// Access authService from the context
+const nuxtApp = useNuxtApp();
+const $adminService = nuxtApp.$adminService;
 
 // Reference to the modal component
 const modalRef = ref(null);
+const emit = defineEmits(['close']);
+defineExpose({ clearForm });
 
-// Function to open the modal
-const openModal = () => {
-    modalRef.value.openModal();
+const action = ref(route.params.action || 'view'); // default to 'view' if action not provided
+const user_id = ref(route.params.user_id || '');
+
+onMounted(() => {
+    loadCountryCodes();
+    // Update the refs directly
+    action.value = route.query.action || 'view';
+    user_id.value = route.query.user_id || '';
+
+    if (action.value === 'view' || action.value === 'edit') {
+        fetchUserDetails(user_id.value);
+    }
+});
+
+const showLogoutNotification = async () => {
+    nuxtApp.$notification.triggerNotification('You have been logged out successfully!', 'success');
+}
+
+// Watch for changes in the route query parameters
+watch([() => route.query.action, () => route.query.user_id], ([newAction, newUserId]) => {
+    action.value = newAction || 'view';
+    user_id.value = newUserId || '';
+
+    if (action.value === 'create') {
+        clearForm();  // Clear form for "create"
+    } else if (action.value === 'edit' || action.value === 'view') {
+        fetchUserDetails(user_id.value);  // Fetch user details for "edit" & "view"
+    }
+});
+
+
+//Update User
+const updateUserDetails = async () => {
+    loading.value = true;
+    errors.value = [];
+    try {
+        const response = await $adminService.user_update({
+            user_id: id.value,
+            first_name: first_name.value,
+            last_name: last_name.value,
+            other_names: other_names.value,
+            email: email.value,
+            user_role: user_role.value,
+            is_set_email_verified: is_set_email_verified.value == 1 ? true : false,
+            is_approved: is_approved.value == 1 ? true : false,
+            password: password.value,
+            password_confirmation: password_confirmation.value,
+            phone_code_country: phone_code_country.value,
+            phone_number: phone_number.value,
+        });
+
+        if (response.status === 200) {
+            loading.value = false;
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+        } else {
+            loading.value = false;
+            nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+        }
+
+    } catch (error) {
+        loading.value = false;
+        handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
+        // handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
+    }
 };
 
+
+// Fetch user details function
+const fetchUserDetails = async (userId) => {
+    try {
+        const response = await $adminService.get_user_details(userId);
+        const user = response.user_basic_info;
+        const contact_info = response.user_contact_info;
+        id.value = user.id,
+            first_name.value = user.first_name || '';
+        last_name.value = user.last_name || '';
+        other_names.value = user.other_names || '';
+        email.value = user.email || '';
+        is_approved.value = user.is_approved,
+            user_role.value = user.user_role_id || '';
+        phone_code_country.value = contact_info.country_id || ''; // Adjust if needed
+        phone_number.value = contact_info.phone_number || '';             // Adjust if needed
+        is_set_email_verified.value = user.email_verified_at !== null;
+    } catch (error) {
+        nuxtApp.$notification.triggerNotification(error.message, 'failure');
+    }
+};
+
+
+const loadCountryCodes = async () => {
+    try {
+        country_codes.value = await loadCountryList();
+    } catch (err) {
+        nuxtApp.$notification.triggerNotification('Error loading country codes:', 'failure');
+    }
+};
+
+function clearForm() {
+    id.value = '';
+    first_name.value = '';
+    last_name.value = '';
+    other_names.value = '';
+    email.value = '';
+    password.value = '';
+    password_confirmation.value = '';
+    user_role.value = '';
+    is_approved.value = '';
+    phone_code_country.value = '';
+    phone_number.value = '';
+    is_set_email_verified.value = false;
+}
+
+
+definePageMeta({
+    ssr: false,
+    layout: 'admin',
+    middleware: ['role'],
+    requiredRole: ['admin'],
+});
 </script>
 
 <style scoped>
 .container {
     max-width: 600px;
+}
+
+.error-messages {
+    margin-top: 20px;
+    color: red;
+}
+
+.error-title {
+    font-weight: bold;
+}
+
+.error-list {
+    list-style-type: disc;
+    /* Ensure bullet points are shown */
+    margin-left: 20px;
+    /* Indent the list */
+}
+
+.error-item {
+    margin-bottom: 5px;
 }
 </style>

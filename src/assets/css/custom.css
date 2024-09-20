@@ -1,0 +1,19 @@
+.radio-input {
+  width: 150px !important;
+}
+
+.tile-icon {
+  background-image: url("images/player-gray.png");
+  width: 33px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.-mt-13 {
+  margin-top: -3px;
+}
+
+textarea{
+  overflow: hidden;
+}

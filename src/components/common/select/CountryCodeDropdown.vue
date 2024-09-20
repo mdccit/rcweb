@@ -1,11 +1,18 @@
 <template>
-    <select v-model="selected" @change="updateValue" placeholder="Code" class="col-span-4 bg-gray-50 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-primary dark:focus:ring-blue-500 dark:focus:border-blue-500" id="mobileCode" required>
-      <option v-for="code in country_codes" :key="code.phone_code" :value="code.phone_code">
-        {{ code.phone_code }}
-      </option>
-    </select>
+  <select 
+    v-model="selected" 
+    @change="updateValue" 
+    placeholder="Code" 
+    class="h-12 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" 
+    id="mobileCode" 
+    required
+  >
+    <option v-for="code in country_codes" :key="code.phone_code" :value="code.value">
+      {{ '(' + code.phone_code + ') '  }}
+      {{ code.label }}
+    </option>
+  </select>
 </template>
-
 <script setup>
 import { defineProps, defineEmits, watch } from 'vue';
 
@@ -25,7 +32,7 @@ const emits = defineEmits(['update:modelValue']);
 const selected = ref(props.modelValue);
 
 const updateValue = () => {
-  emits('update:modelValue', selected.value);
+  emits('update:modelValue', Number(selected.value));
 };
 
 watch(
@@ -37,9 +44,17 @@ watch(
 </script>
 
 <style scoped>
-select {
-  width: 100%;
-  padding: 8px;
-  margin-top: 4px;
+
+
+
+option span.truncate {
+  display: inline-block;
+  max-width: 100px; /* Adjust the width as needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+select{
+  padding: 5px;
 }
 </style>

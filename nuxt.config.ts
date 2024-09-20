@@ -1,18 +1,27 @@
 import { defineNuxtConfig } from 'nuxt/config';
 import { resolve } from 'path';
 import dotenv from 'dotenv';
+import customRoutes from './src/config/routes'
 dotenv.config();
 
 export default defineNuxtConfig({
   // devtools: { enabled: true },
   srcDir: 'src/',
   ssr: true,
-  target: 'universal',
+  target: 'server',
+  components: true,
+  router: {
+    base: '/',  // Base URL for your router, assuming your app is served from the root
+    middleware: ['permissions','role'],
+  },
+  generate: {
+    fallback: true,  // Generates a 404.html for static hosting fallback
+  },
   css: [
-    '@/assets/css/tailwind.css', // Ensure this is the first CSS file
+    '@/assets/css/main.css', // Ensure this is the first CSS file
     'element-plus/dist/index.css',
-    'flowbite/dist/flowbite.css',
-    '~/assets/main.css'
+    // 'flowbite/dist/flowbite.css',
+    '@/assets/css/custom.css'
   ],
   modules: [
     '@vueuse/nuxt',
@@ -47,6 +56,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
+      
       apiUrl: process.env.NUXT_PUBLIC_API_URL,
       accessKey: process.env.ACCESS_KEY,
       defaultLang: process.env.DEFAULT_LANG,
@@ -54,12 +64,15 @@ export default defineNuxtConfig({
   },
   plugins: [
     '~/plugins/runtimeConfig.js',
+    '~/plugins/router.plugin.ts',
     '~/plugins/services.js',
-    '~/plugins/pinia.js',
+    '~/plugins/pinia.js',        
     '~/plugins/initUser.js',
     '~/plugins/element-plus.ts',
     '~/plugins/flowbite.client.ts',
-    '~/plugins/i18n.js'
+    '~/plugins/notification.ts',
+    '~/plugins/i18n.js',
+    '~/plugins/nprogress.client.ts'
   ],
   alias: {
     '@': resolve(__dirname, './src'),
@@ -74,8 +87,9 @@ export default defineNuxtConfig({
     '@assets': resolve(__dirname, './src/assets')
   },
   nitro: {
+    // preset: 'node-server',
     output: {
-      dir: '../dist',  // Set the output directory to 'dist/'
+      dir: process.env.NUXT_BUILD_PATH,  // Set the output directory to 'dist/'
     },
     prerender: {
       crawlLinks: false,  // Automatically discover and crawl links
@@ -84,7 +98,6 @@ export default defineNuxtConfig({
         '/pricing',    // Pricing
         '/about',      // About
         '/register',   // Register        
-        '/register2',     // Ignore second part of registration
         '/login',      // Login
         '/reset-password', // Reset password
         '/forgot-password', // Ignore forgot password route
@@ -97,11 +110,16 @@ export default defineNuxtConfig({
         '/admin/**',      // Ignore all nested admin routes
         '/user',          // Ignore all user routes
         '/user/**',       // Ignore all nested user routes
+        '/business',         // Ignore all admin routes
+        '/business/**',      // Ignore all nested admin routes
+        '/school',         // Ignore all admin routes
+        '/school/**',      // Ignore all nested admin routes
         '/dashboard',     // Ignore dashboard route (likely user-specific)        
         '/google-auth',   // Ignore Google authentication route
-        '/pending-approval', // Ignore pending approval route
+        '/register-step-two/', // Ignore pending approval route
         '/time',          // Ignore time page (if it's dynamic)
         '/unauthorized',  // Ignore unauthorized access page
+        '/verification-failed',  // Ignore unauthorized access page
       ]
     }
   },
@@ -109,6 +127,7 @@ export default defineNuxtConfig({
     classSuffix: '',
     fallback: 'light',
     storageKey: 'color-mode',
+    preference: 'light',
   },
   compatibilityDate: '2024-07-31',
   vite: {
