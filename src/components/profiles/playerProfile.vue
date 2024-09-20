@@ -1028,7 +1028,7 @@
     </div>
 
     <!-- Budget change modal -->
-    <div  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <!-- <div   class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
@@ -1069,7 +1069,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
 </template>
@@ -1119,6 +1119,16 @@ const userId = ref('')
 const plyerSlug = ref('')
 const plyerId = ref('')
 const sportName =ref('')
+const email = ref('')
+const phone = ref('')
+const wtn =ref('')
+const act = ref('')
+const nationalRanking = ref('')
+const gender =ref('')
+const nationality = ref('')
+const handness = ref('')
+const preferredSurface=ref('')
+
 const props = defineProps({
     user: {
         type: Object,
@@ -1159,7 +1169,6 @@ onMounted(() => {
 const fetchUserDatils = async () => {
     try {
        const dataSets = await $publicService.get_player(plyerSlug.value);
-       console.log(dataSets.user_basic_info)
        if(dataSets.user_basic_info){
             bio.value =dataSets.user_basic_info.bio??""
             name.value =dataSets.user_basic_info.display_name??""
