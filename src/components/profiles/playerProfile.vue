@@ -5,10 +5,22 @@
                 <!-- Start Profile pic section  -->
                 <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
 
-                    <div>
+                    <div class="group">
                         <div class="text-center">
-                            <img class="mx-auto w-[200px] h-[200px] rounded-xl"
-                                src="../../assets/user/images/Rectangle 193.png" alt="">
+                            <div class="w-[200px] h-[200px] relative">
+                                <img class="mx-auto w-[200px] h-[200px] rounded-xl"
+                                    src="../../assets/user/images/Rectangle 193.png" alt="">
+                                <div
+                                    class="absolute top-0 right-0 m-2 rounded-lg flex justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor"
+                                        class="w-6 h-6 bg-white p-[3px] rounded-md">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                    </svg>
+                                </div>
+                            </div>
+
                             <h3 class="text-lg font-semibold text-center text-black">{{ name }}</h3>
                             <h5 class="text-normal text-md text-center text-black text-primaryblue">Tennis player</h5>
                         </div>
@@ -18,10 +30,17 @@
 
                     <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
-
-                            <div class="flex items-center space-x-4 w-48">
-
-                                <h1 class="text-lg font-semibold mb-4 text-black">Bio</h1>
+                            <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
+                                <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
+                                <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
+                                    <div class="cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                        </svg>
+                                    </div>
+                                </h1>
                             </div>
                         </div>
                         <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
@@ -31,10 +50,17 @@
 
                     <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
-
-                            <div class="flex items-center space-x-4 w-48">
-
-                                <h1 class="text-lg font-semibold mb-4 text-black">Info</h1>
+                            <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
+                                <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
+                                <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
+                                    <div class="cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                        </svg>
+                                    </div>
+                                </h1>
                             </div>
                         </div>
                         <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ city }} , {{ country
@@ -46,22 +72,52 @@
                             <b>{{ Number(pounds.toFixed(1)) }}lb ({{ weight }} kg)</b>
                         </p>
                         <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>Graduation {{
-                                graduationDate }}</b> </p>
+                            graduationDate }}</b> </p>
                         <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ birthday }} Years Old
                             </b> </p>
                     </div>
 
                     <div style="height: 70px;"
                         class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
-                        <div class="grid grid-cols-3 gap-4">
-                            <div class="...">
+                        <div class="grid grid-cols-5 gap-4">
+                            <div class="col-span-1...">
+                                <img class="mx-auto w-[45px] h-[45px] rounded-xl " src="@/assets/images/pin.png" alt="">
+                            </div>
+                            <div class="col-span-3 ...">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Location
+                                </p>
+
+                            </div>
+                            <div class="col-span-1 ...">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                </svg>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div style="height: 70px;"
+                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                        <div class="grid grid-cols-5 gap-4">
+                            <div class="col-span-1...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl "
                                     src="@/assets/user/images/Group 179.png" alt="">
                             </div>
-                            <div class="col-span-2 ...">
+                            <div class="col-span-3 ...">
                                 <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Has {{ budgetMin }} -
                                     {{ budgetMax }}
                                 </p>
+
+                            </div>
+                            <div class="col-span-1 ...">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                </svg>
+
 
                             </div>
                         </div>
@@ -388,7 +444,7 @@
                 <!-- End post Section -->
 
                 <!-- Start UTR Section -->
-                <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1 mt-4">
+                <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1 mt-4 text-white">
                     <div>
                         <div class="flex">
                             <div class="">
@@ -430,6 +486,22 @@
                         </div>
                     </div>
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-blue-500 p-3 mt-2">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
+                                <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
+                                <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
+                                    <div class="cursor-pointer mr-[20px]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor"
+                                            class="size-4 bg-white rounded-sm m-2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                        </svg>
+                                    </div>
+                                </h1>
+                            </div>
+                        </div>
+
                         <div class="grid grid-cols-2 gap-4">
                             <div class="">
                                 <h2 class="text-lg font-semibold mb-4">UTR score</h2>
@@ -459,10 +531,547 @@
                     </div>
 
                 </div>
+
+                
                 <!-- End Pending Req. Section -->
             </section>
         </div>
     </main>
+
+
+    <!-- Name change modal -->
+    <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:items-start">
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">User Name
+                                    change</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want todeactivate</p>
+                                    <div class="">
+                                        <label class="block mb-1 text-gray-700 font-sans">Name
+                                            <span aria-hidden="true" class="text-red-600"
+                                                title="This field is required">*</span></label>
+                                        <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                            <input id="first_name" v-model="first_name" autocomplete="given-name" class="block px-5 py-3 w-full border-0 focus:border-lightAzure
+                                                         focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50
+                                                         disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                placeholder="" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button"
+                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
+                            changes</button>
+                        <button type="button"
+                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bio change modal -->
+    <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+
+                <div
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
+                                    Bio</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want to
+                                        deactivate
+                                        your account? All of your data will be permanently removed.
+                                    </p>
+
+                                    <div>
+                                        <div class="">
+                                            <div class="">
+                                                <label class="block mb-1 text-gray-700 font-sans">Bio
+                                                    <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
+                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                    <textarea id="first_name" v-model="first_name"
+                                                        autocomplete="given-name"
+                                                        class="w-full block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                        placeholder="" required>
+                                            </textarea>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button"
+                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
+                            changes</button>
+                        <button type="button"
+                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info change modal -->
+    <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
+                                    Info</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want to
+                                        deactivate
+                                        your account? All of your data will be permanently removed.
+                                    </p>
+
+                                    <div>
+                                        <div class="">
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Height
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Weight
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Handness
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <Select id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                            <option value="">gg</option>
+                                                        </Select>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Gender
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <Select id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                            <option value="">gg</option>
+                                                        </Select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="mb-2">
+                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Graduation
+                                                    month
+                                                    <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
+                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                    <input id="first_name" v-model="first_name"
+                                                        autocomplete="given-name"
+                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                        placeholder="" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-2">
+                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Email
+                                                    <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
+                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                    <input id="first_name" v-model="first_name"
+                                                        autocomplete="given-name"
+                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                        placeholder="" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-2 grid grid-cols-10 gap-4">
+                                                <div class="col-span-3">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Code
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-7">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Number
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span>
+                                                    </label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-2">
+                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Age
+                                                    <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
+                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                    <input id="first_name" v-model="first_name"
+                                                        autocomplete="given-name"
+                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                        placeholder="" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-2">
+                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Budget
+                                                    <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
+                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                    <select id="first_name" v-model="first_name"
+                                                        autocomplete="given-name"
+                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                        placeholder="" required>
+                                                        <option value="">ggg</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button"
+                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
+                            changes</button>
+                        <button type="button"
+                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UTR change modal -->
+    <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
+                                    Info</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want to
+                                        deactivate
+                                        your account? All of your data will be permanently removed.
+                                    </p>
+
+                                    <div>
+                                        <div class="">
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">UTR
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">WTN
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">SAT Score
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">ACT Score
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">SAT Score
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">TOEFL
+                                                        Score
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">ATP
+                                                        Ranking
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">National
+                                                        Ranking
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button"
+                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
+                            changes</button>
+                        <button type="button"
+                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Address change modal -->
+    <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
+                                    Address</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want to
+                                        deactivate
+                                        your account? All of your data will be permanently removed.
+                                    </p>
+
+                                    <div>
+                                        <div class="">
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Address line 1
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Address line 2
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">City
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+        
+                                            </div>
+                                        
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button"
+                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
+                            changes</button>
+                        <button type="button"
+                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Budget change modal -->
+    <div  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:items-start">
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Budget 
+                                    change</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want todeactivate</p>
+                                    <div class="">
+                                        <label class="block mb-1 text-gray-700 font-sans">Budget
+                                            <span aria-hidden="true" class="text-red-600"
+                                                title="This field is required">*</span></label>
+                                        <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                            <select id="first_name" v-model="first_name" autocomplete="given-name" class="block px-5 py-3 w-full border-0 focus:border-lightAzure
+                                                         focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50
+                                                         disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                placeholder="" required>
+                                            <option>dsd</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button"
+                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
+                            changes</button>
+                        <button type="button"
+                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </template>
 
 <script setup>
@@ -534,10 +1143,10 @@ const handleTab = (selectedTab) => {
 
 
 onMounted(() => {
-     userId.value = userStore.user.user_id
-     plyerSlug.value = props.user.user_basic_info.slug
-     plyerId.value = props.user.user_basic_info.id
-     
+    userId.value = userStore.user.user_id
+    plyerSlug.value = props.user.user_basic_info.slug
+    plyerId.value = props.user.user_basic_info.id
+
     fetchUserDatils();
     fetchConnections();
     fetchPost();
@@ -549,22 +1158,22 @@ onMounted(() => {
 
 const fetchUserDatils = async () => {
     try {
-       const dataSets = await $publicService.get_player(plyerSlug.value);
-       console.log(dataSets)
-        bio.value =dataSets.user_basic_info.bio
-        country.value =dataSets.user_address_info.country
-        city.value =dataSets.user_address_info.city
-        heigth.value =dataSets.player_info.height??0
-        weight.value =dataSets.player_info.weight??0
-        budgetMin.value =dataSets.player_info.other_data.budget_max??''
-        budgetMax.value =dataSets.player_info.other_data.budget_min??''
-        name.value =dataSets.user_basic_info.display_name
-        utr.value =dataSets.player_info.other_data.utr??0
-        gpa.value =dataSets.player_info.gpa??"Unknown"
-        sat.value =dataSets.player_info.other_data.sat_score ?? "Unknown"
-        toefl.value =dataSets.player_info.other_data.toefl_score ?? "Unknown"
-        atp.value =dataSets.player_info.other_data.atp_ranking ?? "Unknown"
-        itf.value =dataSets.player_info.other_data.itf_ranking ?? "Unknown"
+        const dataSets = await $publicService.get_player(plyerSlug.value);
+        console.log(dataSets)
+        bio.value = dataSets.user_basic_info.bio
+        // country.value = dataSets.user_address_info.country ?? ''
+        // city.value = dataSets.user_address_info.city ?? ''
+        heigth.value = dataSets.player_info.height ?? 0
+        weight.value = dataSets.player_info.weight ?? 0
+        // budgetMin.value = dataSets.player_info.other_data.budget_max ?? ''
+        // budgetMax.value = dataSets.player_info.other_data.budget_min ?? ''
+        name.value = dataSets.user_basic_info.display_name
+        utr.value = dataSets.player_info.other_data.utr ?? 0
+        gpa.value = dataSets.player_info.gpa ?? "Unknown"
+        sat.value = dataSets.player_info.other_data.sat_score ?? "Unknown"
+        toefl.value = dataSets.player_info.other_data.toefl_score ?? "Unknown"
+        atp.value = dataSets.player_info.other_data.atp_ranking ?? "Unknown"
+        itf.value = dataSets.player_info.other_data.itf_ranking ?? "Unknown"
 
         const parsedDate = new Date(dataSets.player_info.graduation_month_year);
         const options = { year: 'numeric', month: 'long' };
