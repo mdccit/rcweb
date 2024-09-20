@@ -1,4 +1,4 @@
-<template>
+ <template>
     <!-- <div class="flex"> -->
         <div class="">
         <div v-for="connection in connections" class="flex-1 p-2">
@@ -183,22 +183,17 @@
 </template>
 
 <script setup>
-import { useNuxtApp } from '#app';
-import { defineProps, defineEmits, defineExpose,ref, onMounted} from 'vue';
+import { defineProps, ref, onMounted} from 'vue';
 
 const props = defineProps({
     connections: Array
 });
 
-const nuxtApp = useNuxtApp();
-const $userService = nuxtApp.$userService;
-const userId = ref(null)
 const connections = ref([])
 
 onMounted(() => {
-console.log(455)
+console.log('connections : ')
     connections.value = props.connections
-    console.log(455)
 console.log(connections.value)
 
 });

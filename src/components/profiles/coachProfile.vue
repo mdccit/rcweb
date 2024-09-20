@@ -161,13 +161,18 @@
                     <!-- Posts section -->
                     <UserFeed v-if="tab == 'feed'" :posts="posts" />
                     <!-- Posts section End -->
-                    <Connection v-if="tab == 'connection'" :connections="connections" />
+                    <!-- <Connection v-if="tab == 'connection'" :connections="connections" /> -->                   
+                    <div class="card-container" v-if="tab == 'connection'">
+                        <ProfileCard v-for="profile in profiles" :key="profile.id" :profile="profile" size="medium"
+                            theme="light" />
+                    </div>
+                </div>
 
-                     <!-- Media Gallery Section -->
-                    <mediaGalleryComponent v-if="tab === 'media'" :galleryItems="galleryItems" />             
-     
-                    <!--start card 03 -->
-                    <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
+                <!-- Media Gallery Section -->
+                <mediaGalleryComponent v-if="tab === 'media'" :galleryItems="galleryItems" />
+
+                <!--start card 03 -->
+                <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
                       <div class="flex items-start space-x-4">
                           <div class="flex-1">
                               <div class="flex items-center justify-between">
@@ -312,55 +317,54 @@
                           </div>
                       </div>
                   </div> -->
-                    <!--end card 03 -->
+                <!--end card 03 -->
 
 
-                    <!--end card 04 -->
-                </div>
-                <!-- End post Section -->
+                <!--end card 04 -->
+        </div>
+        <!-- End post Section -->
 
-                <!-- Start UTR Section -->
-                <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
-                    <div
-                        class="h-[80px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 h-auto">
-                        <div class="grid grid-cols-3 gap-4">
-                            <div class="... text-center">
-                                <img class="mx-auto w-[60px] h-[60px] rounded-full "
-                                    src="../../assets/user/images/whitter collage.png" alt="">
-                            </div>
-                            <div class="col-span-2 ...">
-                                <p class="text-black text-sm">Coach at {{ colleage }}</p>
-                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">Lorem ipsum is a
-                                    placeholder
-                                </p>
-                                <button type="button"
-                                    class="mt-3 btn-sm py-2.5 px-5 me-2 mb-2 text-xs text-blue-500 focus:outline-none bg-white rounded-full border border-blue-500 hover:bg-blue-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-blue-700 light:focus:ring-gray-700 light:bg-gray-800 light:text-gray-400 dark:border-blue-600 light:hover:text-white light:hover:bg-gray-700">Manage</button>
-                            </div>
-                        </div>
+        <!-- Start UTR Section -->
+        <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
+            <div class="h-[80px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 h-auto">
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="... text-center">
+                        <img class="mx-auto w-[60px] h-[60px] rounded-full "
+                            src="../../assets/user/images/whitter collage.png" alt="">
                     </div>
+                    <div class="col-span-2 ...">
+                        <p class="text-black text-sm">Coach at {{ colleage }}</p>
+                        <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">Lorem ipsum is a
+                            placeholder
+                        </p>
+                        <button type="button"
+                            class="mt-3 btn-sm py-2.5 px-5 me-2 mb-2 text-xs text-blue-500 focus:outline-none bg-white rounded-full border border-blue-500 hover:bg-blue-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-blue-700 light:focus:ring-gray-700 light:bg-gray-800 light:text-gray-400 dark:border-blue-600 light:hover:text-white light:hover:bg-gray-700">Manage</button>
+                    </div>
+                </div>
+            </div>
 
-                    <div
-                        class="h-[70px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
-                        <div class="grid grid-cols-3 gap-4">
-                            <div class="...">
-                                <img class="mx-auto w-[45px] h-[45px] rounded-xl "
-                                    src="../../assets/user/images/Group 348.png" alt="">
-                            </div>
-                            <div class="col-span-2 ...">
-                                <p class="text-xs text-black leading-relaxed mx-auto mt-3">{{ city }},  {{ country }}
-                                </p>
-
-                            </div>
-                        </div>
+            <div
+                class="h-[70px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="...">
+                        <img class="mx-auto w-[45px] h-[45px] rounded-xl " src="../../assets/user/images/Group 348.png"
+                            alt="">
+                    </div>
+                    <div class="col-span-2 ...">
+                        <p class="text-xs text-black leading-relaxed mx-auto mt-3">{{ city }},  {{ country }}
+                        </p>
 
                     </div>
-
                 </div>
 
+            </div>
+
+        </div>
 
 
-                <!-- End Pending Req. Section -->
-            </section>
+
+        <!-- End Pending Req. Section -->
+        </section>
         </div>
     </main>
 </template>
@@ -374,7 +378,7 @@ import UserFeed from '~/components/user/profile/userFeed.vue';
 import { useUserStore } from '~/stores/userStore';
 import ProfileTabNavigation from '~/components/profiles/navigation/ProfileTabNavigation.vue';
 import mediaGalleryComponent from '~/components/profiles/media/mediaGalleryComponent.vue';
-
+import profileCard from '~/components/profiles/card/profileCard.vue';
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -394,7 +398,11 @@ const posts = ref([])
 const connectionStatus = ref(false)
 const connectionType = ref(null)
 const connectionButtonName = ref('Connect')
-const userId = ref('')
+const userId = ref('');
+const slug = ref('');
+const user = ref('');
+const loading = ref(true); // To show loading state
+const error = ref(null); // To handle any potential errors
 
 const route = useRoute();
 
@@ -446,16 +454,55 @@ const galleryItems = ref([
 ]);
 
 
+const profiles = [
+  {
+    id: 1,
+    name: 'John Doe',
+    role: 'Tennis Player',
+    city: 'New York',
+    country: 'USA',
+    utr: '15.25',
+    connection_status: 'connect',
+    profileImage: 'https://via.placeholder.com/85'
+  },
+  {
+    id: 2,
+    name: 'Jane Smith',
+    role: 'Football Player',
+    city: 'London',
+    country: 'UK',
+    utr: '20.50',
+    connection_status: 'pending',
+    profileImage: 'https://via.placeholder.com/85'
+  },
+  {
+    id: 3,
+    name: 'Bob Johnson',
+    role: 'Basketball Player',
+    city: 'Los Angeles',
+    country: 'USA',
+    utr: '18.75',
+    connection_status: 'accepted',  // Chat button will appear
+    profileImage: 'https://via.placeholder.com/85'
+  }
+]
+
+
 onMounted(() => {
     if (props.user) {
         fetchCoacheDetailsFromProps(); // Extract the user data when the component mounts
+    }
+    slug.value = route.params.slug;
+
+    if (slug) {
+        fetchUserData();
     }
 
     fetchConnections();
     fetchPost();
     fetchCheckConnection();
 
-    userId.value = route.query.id;
+
 
 });
 
@@ -555,6 +602,32 @@ const connectAcceptOrConnect = async () => {
         console.error('Failed to load posts:', error.message);
     }
 }
+
+
+// Fetch user data using the id
+const fetchUserData = async () => {
+
+    try {
+        loading.value = true; // Start loading
+        if (slug) {
+            const response = await $publicService.get_user_profile(slug);
+            user.value = response;
+            console.log(response);
+        }
+
+        if (!user.value) {
+            throw new Error("User not found");
+        }
+
+    } catch (err) {
+        console.error("Error fetching user data:", err);
+        user.value = null; // Set user to null if there is an error
+    } finally {
+        loading.value = false; // Stop loading when done
+    }
+};
+
+
 
 
 
