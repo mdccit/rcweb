@@ -8,7 +8,7 @@
                     <div class="group">
                         <div class="text-center">
                             <div class="w-[200px] h-[200px] relative">
-                                <img class="mx-auto w-[200px] h-[200px] rounded-xl"
+                                <img class="mx-auto w-[180px] h-[180px] rounded-xl"
                                     src="../../assets/user/images/Rectangle 193.png" alt="">
                                 <div
                                     class="absolute top-0 right-0 m-2 rounded-lg flex justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer">
@@ -63,18 +63,95 @@
                                 </h1>
                             </div>
                         </div>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ city }} , {{ country
-                                }}</b> </p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
-                            <b>{{ Number(feet.toFixed(2)) }} ( {{ heigth }} cm)</b>
-                        </p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
-                            <b>{{ Number(pounds.toFixed(1)) }}lb ({{ weight }} kg)</b>
-                        </p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>Graduation {{
-                            graduationDate }}</b> </p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ birthday }} Years Old
-                            </b> </p>
+
+
+                        <div class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
+                                </svg>
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>gmail</b> </p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto">
+                                <img class="mx-auto  rounded-xl w-[30px]" src="@/assets/images/ruler.png" alt="">
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>
+                                        {{ Number(feet.toFixed(2)) }} ( {{ heigth }} cm)</b> </p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto">
+                                <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/weight.png" alt="">
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
+                                    <b>{{ Number(pounds.toFixed(1)) }}lb ({{ weight }} kg)</b>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto">
+                                <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/graduation.png" alt="">
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
+                                    <b>Graduation {{ graduationDate }}</b>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M10.05 4.575a1.575 1.575 0 1 0-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 0 1 3.15 0v1.5m-3.15 0 .075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 0 1 3.15 0V15M6.9 7.575a1.575 1.575 0 1 0-3.15 0v8.175a6.75 6.75 0 0 0 6.75 6.75h2.018a5.25 5.25 0 0 0 3.712-1.538l1.732-1.732a5.25 5.25 0 0 0 1.538-3.712l.003-2.024a.668.668 0 0 1 .198-.471 1.575 1.575 0 1 0-2.228-2.228 3.818 3.818 0 0 0-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0 1 16.35 15m.002 0h-.002" />
+                                </svg>
+
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
+                                    <b>Handness</b>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m6.115 5.19.319 1.913A6 6 0 0 0 8.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 0 0 2.288-4.042 1.087 1.087 0 0 0-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 0 1-.98-.314l-.295-.295a1.125 1.125 0 0 1 0-1.591l.13-.132a1.125 1.125 0 0 1 1.3-.21l.603.302a.809.809 0 0 0 1.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 0 0 1.528-1.732l.146-.292M6.115 5.19A9 9 0 1 0 17.18 4.64M6.115 5.19A8.965 8.965 0 0 1 12 3c1.929 0 3.716.607 5.18 1.64" />
+                                </svg>
+
+
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
+                                    <b>Nation</b>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto">
+                                <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/bday.png" alt="">
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ birthday }}
+                                        Years Old </b></p>
+                            </div>
+                        </div>
                     </div>
 
                     <div style="height: 70px;"
@@ -84,7 +161,8 @@
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl " src="@/assets/images/pin.png" alt="">
                             </div>
                             <div class="col-span-3 ...">
-                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Location
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">{{ city }} , {{
+                                    country }}
                                 </p>
 
                             </div>
@@ -448,13 +526,13 @@
                     <div>
                         <div class="flex">
                             <div class="">
-                                <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                <!-- <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                     </svg>
-                                </button>
+                                </button> -->
                             </div>
                             <div class="">
                                 <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -515,12 +593,16 @@
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ATP Ranking</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ITF Ranking</p>
+                                <p class="text-lg font-semibold mb-4 text-sm text-normal">WTN</p>
+                                <p class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
                             </div>
                             <div class="">
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ gpa }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ sat }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ toefl }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ atp }}</p>
+                                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ itf }}</p>
+                                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ itf }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ itf }}</p>
                             </div>
                         </div>
@@ -532,7 +614,7 @@
 
                 </div>
 
-                
+
                 <!-- End Pending Req. Section -->
             </section>
         </div>
@@ -970,7 +1052,8 @@
                                         <div class="">
                                             <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
                                                 <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Address line 1
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Address
+                                                        line 1
                                                         <span aria-hidden="true" class="text-red-600"
                                                             title="This field is required">*</span></label>
                                                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
@@ -981,7 +1064,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Address line 2
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Address
+                                                        line 2
                                                         <span aria-hidden="true" class="text-red-600"
                                                             title="This field is required">*</span></label>
                                                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
@@ -1004,9 +1088,9 @@
                                                             placeholder="" required>
                                                     </div>
                                                 </div>
-        
+
                                             </div>
-                                        
+
 
                                         </div>
                                     </div>
@@ -1028,7 +1112,7 @@
     </div>
 
     <!-- Budget change modal -->
-    <div  class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
@@ -1037,7 +1121,7 @@
                     <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                         <div class="sm:items-start">
                             <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Budget 
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Budget
                                     change</h3>
                                 <div class="mt-2">
                                     <p class="text-sm text-gray-500 mb-3">Are you sure you want todeactivate</p>
@@ -1046,11 +1130,12 @@
                                             <span aria-hidden="true" class="text-red-600"
                                                 title="This field is required">*</span></label>
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                            <select id="first_name" v-model="first_name" autocomplete="given-name" class="block px-5 py-3 w-full border-0 focus:border-lightAzure
+                                            <select id="first_name" v-model="first_name" autocomplete="given-name"
+                                                class="block px-5 py-3 w-full border-0 focus:border-lightAzure
                                                          focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50
                                                          disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                 placeholder="" required>
-                                            <option>dsd</option>
+                                                <option>dsd</option>
                                             </select>
                                         </div>
                                     </div>
@@ -1083,6 +1168,8 @@ import { useUserStore } from '~/stores/userStore';
 import PlayerTabNavigation from '~/components/profiles/navigation/PlayerTabNavigation.vue';
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
+
+
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
