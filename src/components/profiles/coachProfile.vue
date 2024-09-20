@@ -162,17 +162,12 @@
                     <UserFeed v-if="tab == 'feed'" :posts="posts" />
                     <!-- Posts section End -->
                     <Connection v-if="tab == 'connection'" :connections="connections" />
-                    <!-- <div class="card-container" v-if="tab == 'connection'">
-                        <ProfileCard v-for="profile in profiles" :key="profile.id" :profile="profile" size="medium"
-                            theme="light" />
-                    </div> -->
-                </div>
 
-                <!-- Media Gallery Section -->
-                <mediaGalleryComponent v-if="tab === 'media'" :galleryItems="galleryItems" />
-
-                <!--start card 03 -->
-                <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
+                     <!-- Media Gallery Section -->
+                    <mediaGalleryComponent v-if="tab === 'media'" :galleryItems="galleryItems" />             
+     
+                    <!--start card 03 -->
+                    <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
                       <div class="flex items-start space-x-4">
                           <div class="flex-1">
                               <div class="flex items-center justify-between">
@@ -317,56 +312,58 @@
                           </div>
                       </div>
                   </div> -->
-                <!--end card 03 -->
+                    <!--end card 03 -->
 
+
+                    <!--end card 04 -->
+                </div>
+                <!-- End post Section -->
+
+                <!-- Start UTR Section -->
+                <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
+                    <div
+                        class="h-[80px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 h-auto">
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="... text-center">
+                                <img class="mx-auto w-[60px] h-[60px] rounded-full "
+                                    src="../../assets/user/images/whitter collage.png" alt="">
+                            </div>
+                            <div class="col-span-2 ...">
+                                <p class="text-black text-sm">Coach at {{ colleage }}</p>
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">Lorem ipsum is a
+                                    placeholder
+                                </p>
+                                <button type="button"
+                                    class="mt-3 btn-sm py-2.5 px-5 me-2 mb-2 text-xs text-blue-500 focus:outline-none bg-white rounded-full border border-blue-500 hover:bg-blue-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-blue-700 light:focus:ring-gray-700 light:bg-gray-800 light:text-gray-400 dark:border-blue-600 light:hover:text-white light:hover:bg-gray-700">Manage</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="h-[70px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="...">
+                                <img class="mx-auto w-[45px] h-[45px] rounded-xl "
+                                    src="../../assets/user/images/Group 348.png" alt="">
+                            </div>
+                            <div class="col-span-2 ...">
+                                <p class="text-xs text-black leading-relaxed mx-auto mt-3">{{ city }},  {{ country }}
+                                </p>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- End Pending Req. Section -->
             </section>
         </div>
-        <!-- End post Section -->
-        <!-- Start UTR Section -->
-        <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
-            <div class="h-[80px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 h-auto">
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="... text-center">
-                        <img class="mx-auto w-[60px] h-[60px] rounded-full "
-                            src="../../assets/user/images/whitter collage.png" alt="">
-                    </div>
-                    <div class="col-span-2 ...">
-                        <p class="text-black text-sm">Coach at {{ colleage }}</p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">Lorem ipsum is a
-                            placeholder
-                        </p>
-                        <button type="button"
-                            class="mt-3 btn-sm py-2.5 px-5 me-2 mb-2 text-xs text-blue-500 focus:outline-none bg-white rounded-full border border-blue-500 hover:bg-blue-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-blue-700 light:focus:ring-gray-700 light:bg-gray-800 light:text-gray-400 dark:border-blue-600 light:hover:text-white light:hover:bg-gray-700">Manage</button>
-                    </div>
-                </div>
-            </div>
-
-            <div
-                class="h-[70px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="...">
-                        <img class="mx-auto w-[45px] h-[45px] rounded-xl " src="../../assets/user/images/Group 348.png"
-                            alt="">
-                    </div>
-                    <div class="col-span-2 ...">
-                        <p class="text-xs text-black leading-relaxed mx-auto mt-3">{{ city }},  {{ country }}
-                        </p>
-
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- End Pending Req. Section -->
-        <!-- </section>
-        </div> -->
     </main>
 </template>
-
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
