@@ -25,7 +25,7 @@
                             </div>
                         </div>
                         <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
-                            {{  bio }}
+                            {{ bio }}
                         </p>
                     </div>
 
@@ -37,11 +37,18 @@
                                 <h1 class="text-lg font-semibold mb-4 text-black">Info</h1>
                             </div>
                         </div>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ city }} , {{ country }}</b> </p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{Number(feet.toFixed(2))}} ( {{ heigth }} cm)</b> </p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{Number(pounds.toFixed(1))}}lb ({{ weight }} kg)</b> </p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>Graduation {{ graduationDate }}</b> </p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ birthday }} Years Old </b> </p>
+                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ city }} , {{ country
+                                }}</b> </p>
+                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
+                            <b>{{ Number(feet.toFixed(2)) }} ( {{ heigth }} cm)</b>
+                        </p>
+                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
+                            <b>{{ Number(pounds.toFixed(1)) }}lb ({{ weight }} kg)</b>
+                        </p>
+                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>Graduation {{
+                                graduationDate }}</b> </p>
+                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ birthday }} Years Old
+                            </b> </p>
                     </div>
 
                     <div style="height: 70px;"
@@ -52,7 +59,8 @@
                                     src="@/assets/user/images/Group 179.png" alt="">
                             </div>
                             <div class="col-span-2 ...">
-                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Has {{  budgetMin }} - {{ budgetMax }}
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Has {{ budgetMin }} -
+                                    {{ budgetMax }}
                                 </p>
 
                             </div>
@@ -68,7 +76,8 @@
                                     src="@/assets/user/images/Group 79.png" alt="">
                             </div>
                             <div class="col-span-2 ...">
-                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Signed up {{ joinDate }}
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Signed up {{ joinDate
+                                    }}
                                 </p>
 
                             </div>
@@ -95,8 +104,8 @@
                                     aria-current="page">Connections</button>
                             </li>
                             <li class="me-2">
-                                <a href="#"
-                                    class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</a>
+                                <button @click="handleTab('media')"
+                                    class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</button>
                             </li>
 
 
@@ -153,8 +162,8 @@
                         </div>
                     </div> -->
                     <!--end card 01 -->
-                     <!-- Posts section -->
-                     <UserFeed v-if="tab == 'feed'" :posts="posts" />
+                    <!-- Posts section -->
+                    <UserFeed v-if="tab == 'feed'" :posts="posts" />
                     <!-- Posts section End -->
 
                     <!--start card 02 -->
@@ -373,8 +382,23 @@
                     </div> -->
 
                     <!--end card 02 -->
-                    <Connection   v-if="tab == 'connection'":connections="connections"  />
+                    <Connection v-if="tab == 'connection'" :connections="connections" />
                     <!--start card 03 -->
+
+                    <!-- Media Gallery Section -->
+                    <div v-if="tab === 'media'" class="media-gallery">
+
+
+                        <a v-for="(item, index) in galleryItems" :key="index" data-fancybox="gallery" :href="item.href">
+
+                            <img v-if="item.type === 'image'" class="rounded" :src="item.src" />
+                            <video v-if="item.type === 'video'" class="rounded" controls>
+                                <source :src="item.src" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                        </a>
+
+                    </div>
 
                     <!--end card 03 -->
 
@@ -408,8 +432,9 @@
                             </div>
 
                             <div>
-                                <button @click="connectAcceptOrConnect" class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                     {{  connectionButtonName }}
+                                <button @click="connectAcceptOrConnect"
+                                    class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    {{ connectionButtonName }}
                                 </button>
                             </div>
                             <div class="">
@@ -465,7 +490,9 @@ import { ref, computed, watch, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import Connection from '~/components/user/profile/connection.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
-import { useUserStore } from '~/stores/userStore'
+import { useUserStore } from '~/stores/userStore';
+import { Fancybox } from '@fancyapps/ui';
+import '@fancyapps/ui/dist/fancybox/fancybox.css';
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -474,31 +501,31 @@ const $userService = nuxtApp.$userService;
 const $feedService = nuxtApp.$feedService;
 const userStore = useUserStore()
 
-const bio =ref('');
-const country =ref('');
-const city =ref('');
-const heigth =ref('');
-const weight =ref('');
-const graduationDate =ref('');
-const birthday =ref('');
-const budgetMin =ref('')
-const budgetMax =ref('')
-const name =ref('')
-const joinDate =ref('')
-const utr =ref(0)
-const gpa =ref("Unknown")
-const sat =ref("Unknown")
-const toefl =ref("Unknown")
-const atp =ref("Unknown")
-const itf =ref("Unknown")
-const feet =ref(0)
-const pounds =ref(0)
+const bio = ref('');
+const country = ref('');
+const city = ref('');
+const heigth = ref('');
+const weight = ref('');
+const graduationDate = ref('');
+const birthday = ref('');
+const budgetMin = ref('')
+const budgetMax = ref('')
+const name = ref('')
+const joinDate = ref('')
+const utr = ref(0)
+const gpa = ref("Unknown")
+const sat = ref("Unknown")
+const toefl = ref("Unknown")
+const atp = ref("Unknown")
+const itf = ref("Unknown")
+const feet = ref(0)
+const pounds = ref(0)
 const connections = ref([])
 const tab = ref('feed')
 const posts = ref([])
 const connectionStatus = ref(false)
 const connectionType = ref(null)
-const connectionButtonName =ref('Connect')
+const connectionButtonName = ref('Connect')
 const userId = ref('')
 const plyerSlug = ref('')
 const plyerId = ref('')
@@ -511,34 +538,35 @@ const props = defineProps({
 });
 
 onMounted(() => {
-     userId.value = userStore.user.user_id
-     plyerSlug.value = props.user.user_basic_info.slug
-     plyerId.value = props.user.user_basic_info.id
+    userId.value = userStore.user.user_id
+    plyerSlug.value = props.user.user_basic_info.slug
+    plyerId.value = props.user.user_basic_info.id
     fetchUserDatils();
     fetchConnections();
     fetchPost();
     fetchCheckConnection();
-    
+    fetchMediaGallery();
+
 
 });
 
-const fetchUserDatils = async () =>{
+const fetchUserDatils = async () => {
     try {
-       const dataSets = await $publicService.get_player(plyerSlug.value);
-        bio.value =dataSets.player_info.other_data.bio
-        country.value =dataSets.user_address_info.country
-        city.value =dataSets.user_address_info.city
-        heigth.value =dataSets.player_info.height
-        weight.value =dataSets.player_info.weight
-        budgetMin.value =dataSets.player_info.other_data.budget_max
-        budgetMax.value =dataSets.player_info.other_data.budget_min
-        name.value =dataSets.user_basic_info.display_name
-        utr.value =dataSets.player_info.other_data.utr
-        gpa.value =dataSets.player_info.gpa??"Unknown"
-        sat.value =dataSets.player_info.other_data.sat_score ?? "Unknown"
-        toefl.value =dataSets.player_info.other_data.toefl_score ?? "Unknown"
-        atp.value =dataSets.player_info.other_data.atp_ranking ?? "Unknown"
-        itf.value =dataSets.player_info.other_data.itf_ranking ?? "Unknown"
+        const dataSets = await $publicService.get_player(plyerSlug.value);
+        bio.value = dataSets.player_info.other_data.bio
+        country.value = dataSets.user_address_info.country
+        city.value = dataSets.user_address_info.city
+        heigth.value = dataSets.player_info.height
+        weight.value = dataSets.player_info.weight
+        budgetMin.value = dataSets.player_info.other_data.budget_max
+        budgetMax.value = dataSets.player_info.other_data.budget_min
+        name.value = dataSets.user_basic_info.display_name
+        utr.value = dataSets.player_info.other_data.utr
+        gpa.value = dataSets.player_info.gpa ?? "Unknown"
+        sat.value = dataSets.player_info.other_data.sat_score ?? "Unknown"
+        toefl.value = dataSets.player_info.other_data.toefl_score ?? "Unknown"
+        atp.value = dataSets.player_info.other_data.atp_ranking ?? "Unknown"
+        itf.value = dataSets.player_info.other_data.itf_ranking ?? "Unknown"
 
         const parsedDate = new Date(dataSets.player_info.graduation_month_year);
         const options = { year: 'numeric', month: 'long' };
@@ -551,100 +579,212 @@ const fetchUserDatils = async () =>{
         if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
             age--;
         }
-        birthday.value =age
+        birthday.value = age
 
-        feet.value = dataSets.player_info.height/30.48;
+        feet.value = dataSets.player_info.height / 30.48;
 
-        pounds.value =2.20462*dataSets.player_info.weight
+        pounds.value = 2.20462 * dataSets.player_info.weight
 
         const date = new Date(dataSets.user_basic_info.joined_at);
         const monthNames = [
             'January', 'February', 'March', 'April', 'May', 'June',
-             'July', 'August', 'September', 'October', 'November', 'December'
+            'July', 'August', 'September', 'October', 'November', 'December'
         ];
-       const year = date.getFullYear();
-       const month = monthNames[date.getMonth()]; 
-       const day = date.getDate();
-       joinDate.value =`${year} ${month} ${day}`
-    
+        const year = date.getFullYear();
+        const month = monthNames[date.getMonth()];
+        const day = date.getDate();
+        joinDate.value = `${year} ${month} ${day}`
+
 
     } catch (error) {
         console.log(error)
-       console.error('Error fetching data:', error.message);
-    } 
+        console.error('Error fetching data:', error.message);
+    }
 }
 
-const fetchCheckConnection = async () =>{
+const fetchCheckConnection = async () => {
     try {
-       const dataSets = await $userService.get_check_connection_type(plyerId.value);
-       connectionStatus.value =dataSets.connection
+        const dataSets = await $userService.get_check_connection_type(plyerId.value);
+        connectionStatus.value = dataSets.connection
 
-       if(connectionStatus.value){
-          connectionType.value = dataSets.type
-          
-          if((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)){
-              connectionButtonName.value = " Invite "
-          }
+        if (connectionStatus.value) {
+            connectionType.value = dataSets.type
 
-          if((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)){
-            connectionButtonName.value = " Accepted "
-          }
+            if ((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)) {
+                connectionButtonName.value = " Invite "
+            }
 
-          if(dataSets.type.connection_status == 'accepted'){
-            connectionButtonName.value = " Connected "
-          }
+            if ((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)) {
+                connectionButtonName.value = " Accepted "
+            }
 
-       }
-       
+            if (dataSets.type.connection_status == 'accepted') {
+                connectionButtonName.value = " Connected "
+            }
+
+        }
+
     } catch (error) {
-       console.error('Error fetching data:', error.message);
-    } 
+        console.error('Error fetching data:', error.message);
+    }
 }
 
-const fetchConnections = async () =>{
+const fetchConnections = async () => {
     try {
-       const dataSets = await $userService.get_connection(plyerId.value);
-       console.log(dataSets.connection)
-       connections.value =dataSets.connection   
+        const dataSets = await $userService.get_connection(plyerId.value);
+        console.log(dataSets.connection)
+        connections.value = dataSets.connection
     } catch (error) {
         console.log(error)
-       console.error('Error fetching data:', error.message);
-    } 
+        console.error('Error fetching data:', error.message);
+    }
 }
-const fetchPost = async () =>{
-      try {
-       const response = await $feedService.list_posts({});
+const fetchPost = async () => {
+    try {
+        const response = await $feedService.list_posts({});
         posts.value = response || [];
-  
-  } catch (error) {
-    console.error('Failed to load posts:', error.message);
-  }
+
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
 }
 
 
-const handleTab = (name) =>{
+const handleTab = (name) => {
     tab.value = name
 }
 
-const connectAcceptOrConnect = async () =>{
-      try {
-        if(connectionButtonName.value == "Accepted"){
-            await $userService.connection_accept(connectionType.value.id,{
-                connection_status:"accepted"
+const connectAcceptOrConnect = async () => {
+    try {
+        if (connectionButtonName.value == "Accepted") {
+            await $userService.connection_accept(connectionType.value.id, {
+                connection_status: "accepted"
             });
         }
 
-        if(connectionButtonName.value == "Connect"){
+        if (connectionButtonName.value == "Connect") {
             await $userService.connection_request({
-                receiver_id:plyerId.value
+                receiver_id: plyerId.value
             });
         }
 
         fetchCheckConnection()
-  
-  } catch (error) {
-    console.error('Failed to load posts:', error.message);
-  }
+
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
 }
 
+
+const fetchMediaGallery = async () => {
+    try {
+        Fancybox.bind('[data-fancybox="gallery"]', {
+            dragToClose: false,
+
+            Toolbar: {
+                display: {
+                    left: ['close'],
+                    middle: [],
+                    right: [],
+                },
+            },
+
+            Images: {
+                zoom: false,
+            },
+
+            Thumbs: {
+                type: 'classic',
+            },
+
+            Carousel: {
+                transition: false,
+                friction: 0,
+            },
+
+            on: {
+                'Carousel.ready Carousel.change': (fancybox) => {
+                    fancybox.container.style.setProperty(
+                        '--bg-image',
+                        `url("${fancybox.getSlide().thumbSrc}")`
+                    );
+                },
+            },
+        });
+    } catch (error) {
+        console.error('Error fetching media:', error);
+    }
+};
+
+
+// Array of gallery items (images and video)
+const galleryItems = ref([
+    {
+        type: 'image',
+        href: 'https://lipsum.app/id/46/1600x1200',
+        src: 'https://lipsum.app/id/46/200x150',
+    },
+    {
+        type: 'image',
+        href: 'https://lipsum.app/id/47/1600x1200',
+        src: 'https://lipsum.app/id/47/200x150',
+    },
+    {
+        type: 'image',
+        href: 'https://lipsum.app/id/51/1600x1200',
+        src: 'https://lipsum.app/id/51/200x150',
+    },
+    {
+        type: 'video',
+        href: 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
+        src: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    },
+]);
+
+
 </script>
+
+
+<style scoped>
+.fancybox__backdrop::after {
+    content: '';
+    position: absolute;
+    width: 10%;
+    height: 10%;
+    filter: blur(2px);
+    left: 50%;
+    top: 50%;
+    transform: scale(11);
+    opacity: 0.3;
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.fancybox__toolbar {
+    padding: 16px;
+}
+
+.fancybox__toolbar,
+.fancybox__nav {
+    --f-button-border-radius: 50%;
+    --f-button-bg: rgb(91 78 76 / 64%);
+    --f-button-hover-bg: rgb(91 78 76 / 74%);
+    --f-button-active-bg: rgb(91 78 76 / 84%);
+}
+
+.fancybox__nav {
+    --f-button-svg-width: 22px;
+    --f-button-svg-height: 22px;
+}
+
+.fancybox__thumbs.is-classic {
+    --f-thumb-width: 48px;
+    --f-thumb-height: 48px;
+    --f-thumb-gap: 16px;
+
+    --f-thumb-border-radius: 6px;
+    --f-thumb-outline: 0;
+}
+</style>
