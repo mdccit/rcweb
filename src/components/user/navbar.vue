@@ -230,6 +230,7 @@
                 <div class="flex justify-end">
 
                     <div class="flex space-x-3">
+                        <NuxtLink :to="`/app/profile/${userSlug}`">
                         <div class="flex space-x-2 items-center">
                             <div class="hidden sm:hidden md:hidden lg:block">
                                 <img class="w-10 h-10 rounded-lg border border-white shadow-lg"
@@ -240,7 +241,7 @@
                                 <p class="text-xs text-limegreen">Online</p>
                             </div>
                         </div>
-
+                        </NuxtLink>
                         <button data-dropdown-toggle="dropdownUser" data-dropdown-placement="bottom-end" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor" class="size-5 text-black stroke-1.5">
@@ -292,7 +293,7 @@ const userRole = userStore.getRole();
 
 const loggedUserMail = computed(() => userStore.loggedUserEmail);
 const loggedUserName = computed(() => userStore.loggedUserName);
-
+const userSlug = ref(null)
 const logout = async (event) => {
     event.preventDefault();
 
@@ -363,7 +364,7 @@ const gotoAdminDashboard = async (event) => {
 
 // initialize components based on data attribute selectors
 onMounted(() => {
-
+    userSlug.value = userStore.userSlug??null
     useFlowbite(() => {
         initFlowbite();
     })

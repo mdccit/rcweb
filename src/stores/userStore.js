@@ -13,10 +13,7 @@ export const useUserStore = defineStore('user', {
     roles: [],
     permissions: [],
     user_id :'',
-    player_id:'',
-    player_slug:'',
-    coache_id:'',
-    coache_slug:''
+    user_slug:null
   }),
   getters: {
     isAuthenticated: (state) => !!state.user && !!state.token,
@@ -25,10 +22,7 @@ export const useUserStore = defineStore('user', {
     userId: (state) => state.user_id || '',  
     loggedUserEmail: (state) => state.email || '',  // Default role if not set
     loggedUserName: (state) => state.user_name,
-    playerId:(state) => state.player_id || '',
-    playerSlug:(state) => state.player_slug || '',
-    coacheId:(state) => state.coache_id || '',
-    coacheSlug:(state) => state.coache_slug || ''
+    userSlug:(state) => state.user_slug||null,
   },
   actions: {
     setToken(token) {
@@ -55,17 +49,8 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem('user_permission_type', type);
       }
     },
-    setPlayerId(id) {
-      this.player_id = id;
-    },
-    setPlayerSlug(slug) {
-      this.player_slug = slug;
-    },
-    setCoacheId(id) {
-      this.coache_id = id;
-    },
-    setCoacheSlug(slug) {
-      this.coache_slug = slug;
+    setUserSlug(slug) {
+      this.user_slug = slug;
     },
     setUserId(name) {
       this.user_name = name;
@@ -84,7 +69,6 @@ export const useUserStore = defineStore('user', {
       this.permissions = user.permissions || []; // Set user permissions
       this.user_id = user.user_id || ''; 
       this.user_name = user.user_name || ''; 
-
 
       // Set the token and role
       this.setToken(user.token);
@@ -128,6 +112,7 @@ export const useUserStore = defineStore('user', {
       this.permissions = [];
       this.user_id = ''; 
       this.user_id = null; 
+      this.user_slug=null;
        // Remove session cookie
        Cookies.remove('session', { path: '/' });
 
