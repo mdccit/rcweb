@@ -21,7 +21,7 @@ export default defineNuxtConfig({
     '@/assets/css/main.css', // Ensure this is the first CSS file
     'element-plus/dist/index.css',
     // 'flowbite/dist/flowbite.css',
-    '@/assets/css/custom.css'
+    '@/assets/css/custom.css',
   ],
   modules: [
     '@vueuse/nuxt',
