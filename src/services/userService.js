@@ -5,6 +5,7 @@ const createUserService = (apiService) => {
       const url = `/user/connections-list-with-compare/${user_id}`;
       try {
         const response = await apiService.getRequest(url);
+        console.log(response)
         if (response && response.data) {
           return response.data;
         } else {

@@ -43,7 +43,7 @@
                 <!-- card 01 -->
                  <div v-for="user in search" class="flex-1 p-2"> 
                     <NuxtLink :to="`/app/profile/${user.slug}`">
-                    <button @click="profileView(user)" class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+                    <button  class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
                         <div class=" grid grid-cols-12 gap-4">
                             <div class="col-span-4">
                                 <img class=" rounded-2xl w-[160px] h-[160px]"
@@ -561,34 +561,6 @@ onMounted(() => {
     console.error('Failed to load posts:', error.message);
   }
   }
-// export default {
-//   components: {
-//     PopupModal
-//   },
-//   data() {
-//     return {
-//       showPopup: false
-//     };
-//   }
-// }
 
-const profileView = (user) =>{
-//    console.log(user) 
-//     if(user.user_role == 'Player'){
-//       userStore.setPlayerId(user.user_id);
-//       userStore.setPlayerSlug(user.slug);
-//       router.push({
-//         path: '/user/playerProfile',
-//       });
-//     }
 
-//     if(user.user_role == 'Coach'){
-//         userStore.setCoacheId(user.user_id);
-//         userStore.setCoacheSlug(user.slug);
-//         router.push({
-//            path: '/user/coachProfile',
-//         });
-//     }
-   
-}
 </script>

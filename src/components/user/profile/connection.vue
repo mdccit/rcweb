@@ -16,7 +16,7 @@
                                     <img src="@/assets/user/images/man-medal.png" alt=""
                                         class=" w-4 h-4">
                                 </div>
-                                <div class="text-sm ml-2 text-green-500">Tennis {{ connection.role }}</div>
+                                <div class="text-sm ml-2 text-green-500">{{ connection.sport_name??'' }} {{ connection.role }}</div>
                             </div>
                             <div class="flex items-center space-x-2">
                                 <div class=" rounded">
@@ -192,9 +192,7 @@ const props = defineProps({
 const connections = ref([])
 
 onMounted(() => {
-console.log('connections : ')
     connections.value = props.connections
-console.log(connections.value)
 
 });
 </script>
