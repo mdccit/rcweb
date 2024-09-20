@@ -22,7 +22,7 @@
                             </div>
 
                             <h3 class="text-lg font-semibold text-center text-black">{{ name }}</h3>
-                            <h5 class="text-normal text-md text-center text-black text-primaryblue">Tennis player</h5>
+                            <h5 class="text-normal text-md text-center text-black text-primaryblue">{{  sportName }} player</h5>
                         </div>
                     </div>
 
@@ -1118,7 +1118,7 @@ const connectionButtonName = ref('Connect')
 const userId = ref('')
 const plyerSlug = ref('')
 const plyerId = ref('')
-
+const sportName =ref('')
 const props = defineProps({
     user: {
         type: Object,
@@ -1158,51 +1158,61 @@ onMounted(() => {
 
 const fetchUserDatils = async () => {
     try {
-        const dataSets = await $publicService.get_player(plyerSlug.value);
-        console.log(dataSets)
-        bio.value = dataSets.user_basic_info.bio
-        // country.value = dataSets.user_address_info.country ?? ''
-        // city.value = dataSets.user_address_info.city ?? ''
-        heigth.value = dataSets.player_info.height ?? 0
-        weight.value = dataSets.player_info.weight ?? 0
-        // budgetMin.value = dataSets.player_info.other_data.budget_max ?? ''
-        // budgetMax.value = dataSets.player_info.other_data.budget_min ?? ''
-        name.value = dataSets.user_basic_info.display_name
-        utr.value = dataSets.player_info.other_data.utr ?? 0
-        gpa.value = dataSets.player_info.gpa ?? "Unknown"
-        sat.value = dataSets.player_info.other_data.sat_score ?? "Unknown"
-        toefl.value = dataSets.player_info.other_data.toefl_score ?? "Unknown"
-        atp.value = dataSets.player_info.other_data.atp_ranking ?? "Unknown"
-        itf.value = dataSets.player_info.other_data.itf_ranking ?? "Unknown"
+       const dataSets = await $publicService.get_player(plyerSlug.value);
+       console.log(dataSets.user_basic_info)
+       if(dataSets.user_basic_info){
+            bio.value =dataSets.user_basic_info.bio??""
+            name.value =dataSets.user_basic_info.display_name??""
+            
+            const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDifference = today.getMonth() - birthDate.getMonth();
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+             birthday.value = age
 
-        const parsedDate = new Date(dataSets.player_info.graduation_month_year);
-        const options = { year: 'numeric', month: 'long' };
-        graduationDate.value = parsedDate.toLocaleDateString('en-US', options);
-
-        const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
-        const today = new Date();
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const monthDifference = today.getMonth() - birthDate.getMonth();
-        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
+            const date = new Date(dataSets.user_basic_info.joined_at);
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+           ];
+           const year = date.getFullYear();
+           const month = monthNames[date.getMonth()];
+           const day = date.getDate();
+           joinDate.value = `${year} ${month} ${day}`
         }
-        birthday.value = age
 
-        feet.value = dataSets.player_info.height / 30.48;
+        if(dataSets.user_address_info){
+            country.value =dataSets.user_address_info.country??''
+            city.value =dataSets.user_address_info.city??''
+        }
+        
+        if(dataSets.player_info){
+            heigth.value =dataSets.player_info.height??0
+            weight.value =dataSets.player_info.weight??0
+            utr.value =dataSets.player_info.other_data.utr??0
+            gpa.value =dataSets.player_info.gpa??"Unknown"
+            sportName.value =dataSets.player_info.sport_name??''
 
-        pounds.value = 2.20462 * dataSets.player_info.weight
+            if(dataSets.player_info.other_data){
+                budgetMin.value =dataSets.player_info.other_data.budget_max??''
+                budgetMax.value =dataSets.player_info.other_data.budget_min??''
+                sat.value =dataSets.player_info ?dataSets.player_info.other_data.sat_score : "Unknown"
+                toefl.value =dataSets.player_info ?dataSets.player_info.other_data.toefl_score: "Unknown"
+                atp.value =dataSets.player_info.other_data.atp_ranking ?? "Unknown"
+                itf.value =dataSets.player_info.other_data.itf_ranking ?? "Unknown"
+            }
 
-        const date = new Date(dataSets.user_basic_info.joined_at);
-        const monthNames = [
-            'January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'
-        ];
-        const year = date.getFullYear();
-        const month = monthNames[date.getMonth()];
-        const day = date.getDate();
-        joinDate.value = `${year} ${month} ${day}`
+            const parsedDate = new Date(dataSets.player_info.graduation_month_year);
+            const options = { year: 'numeric', month: 'long' };
+            graduationDate.value = parsedDate.toLocaleDateString('en-US', options);
 
-
+            feet.value = dataSets.player_info.height / 30.48;
+            pounds.value = 2.20462 * dataSets.player_info.weight
+        }
+         
     } catch (error) {
         console.log(error)
         console.error('Error fetching data:', error.message);
