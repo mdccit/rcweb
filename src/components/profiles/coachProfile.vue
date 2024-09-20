@@ -161,11 +161,11 @@
                     <!-- Posts section -->
                     <UserFeed v-if="tab == 'feed'" :posts="posts" />
                     <!-- Posts section End -->
-                    <!-- <Connection v-if="tab == 'connection'" :connections="connections" /> -->                   
-                    <div class="card-container" v-if="tab == 'connection'">
+                    <Connection v-if="tab == 'connection'" :connections="connections" />
+                    <!-- <div class="card-container" v-if="tab == 'connection'">
                         <ProfileCard v-for="profile in profiles" :key="profile.id" :profile="profile" size="medium"
                             theme="light" />
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- Media Gallery Section -->
@@ -319,11 +319,9 @@
                   </div> -->
                 <!--end card 03 -->
 
-
-                <!--end card 04 -->
+            </section>
         </div>
         <!-- End post Section -->
-
         <!-- Start UTR Section -->
         <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
             <div class="h-[80px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 h-auto">
@@ -364,8 +362,8 @@
 
 
         <!-- End Pending Req. Section -->
-        </section>
-        </div>
+        <!-- </section>
+        </div> -->
     </main>
 </template>
 
@@ -378,7 +376,7 @@ import UserFeed from '~/components/user/profile/userFeed.vue';
 import { useUserStore } from '~/stores/userStore';
 import ProfileTabNavigation from '~/components/profiles/navigation/ProfileTabNavigation.vue';
 import mediaGalleryComponent from '~/components/profiles/media/mediaGalleryComponent.vue';
-import profileCard from '~/components/profiles/card/profileCard.vue';
+import profileCard from '~/components/profiles/card/cardOriginal.vue';
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -455,36 +453,36 @@ const galleryItems = ref([
 
 
 const profiles = [
-  {
-    id: 1,
-    name: 'John Doe',
-    role: 'Tennis Player',
-    city: 'New York',
-    country: 'USA',
-    utr: '15.25',
-    connection_status: 'connect',
-    profileImage: 'https://via.placeholder.com/85'
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    role: 'Football Player',
-    city: 'London',
-    country: 'UK',
-    utr: '20.50',
-    connection_status: 'pending',
-    profileImage: 'https://via.placeholder.com/85'
-  },
-  {
-    id: 3,
-    name: 'Bob Johnson',
-    role: 'Basketball Player',
-    city: 'Los Angeles',
-    country: 'USA',
-    utr: '18.75',
-    connection_status: 'accepted',  // Chat button will appear
-    profileImage: 'https://via.placeholder.com/85'
-  }
+    {
+        id: 1,
+        name: 'John Doe',
+        role: 'Tennis Player',
+        city: 'New York',
+        country: 'USA',
+        utr: '15.25',
+        connection_status: 'connect',
+        profileImage: 'https://via.placeholder.com/85'
+    },
+    {
+        id: 2,
+        name: 'Jane Smith',
+        role: 'Football Player',
+        city: 'London',
+        country: 'UK',
+        utr: '20.50',
+        connection_status: 'pending',
+        profileImage: 'https://via.placeholder.com/85'
+    },
+    {
+        id: 3,
+        name: 'Bob Johnson',
+        role: 'Basketball Player',
+        city: 'Los Angeles',
+        country: 'USA',
+        utr: '18.75',
+        connection_status: 'accepted',  // Chat button will appear
+        profileImage: 'https://via.placeholder.com/85'
+    }
 ]
 
 
