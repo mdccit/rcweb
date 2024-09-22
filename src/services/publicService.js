@@ -3,7 +3,7 @@ const createPublicService = (apiService) => {
 
   const get_player = async (user_slug) => {
     const url = `/public/players/${user_slug}`;
-    console.log(url)
+
     try {
       const response = await apiService.getRequest(url);
       if (response && response.data) {
