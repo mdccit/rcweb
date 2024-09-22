@@ -21,7 +21,16 @@
                                 </div>
                             </div>
 
-                            <h3 class="text-lg font-semibold text-center text-black">{{ name }}</h3>
+                            <h3 class="text-lg font-semibold text-center text-black"   >{{ name }}</h3>
+                            <button @click="toggleModal('name')">
+                                <div class="cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                    </svg>
+                                </div>
+                            </button>
                             <h5 class="text-normal text-md text-center text-black text-primaryblue">{{  sportName }} player</h5>
                         </div>
                     </div>
@@ -32,7 +41,7 @@
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
-                                <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
+                                <h1 class="text-lg font-semibold mb-4 text-black col-span-2"  @click="toggleModal('bio')">
                                     <div class="cursor-pointer">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-4">
@@ -53,7 +62,7 @@
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                                    <div class="cursor-pointer">
+                                    <div class="cursor-pointer"  @click="toggleModal('bio')">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-4">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -79,7 +88,7 @@
                         </div> -->
 
                         <div v-if="userRole =='coach'|| userRole=='admin'" class="grid grid-cols-10">
-                            <div class="col-span-2 mx-auto">
+                            <div class="col-span-2 mx-auto"  @click="toggleModal('info')">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="2" stroke="currentColor" class="size-5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -195,7 +204,7 @@
                                 </p>
 
                             </div>
-                            <div class="col-span-1 ...">
+                            <div class="col-span-1 ..."  @click="toggleModal('address')">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-4">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -207,7 +216,7 @@
                     </div>
                     <div v-if="userRole =='coach'|| userRole=='admin'" style="height: 70px;"
                         class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
-                        <div class="grid grid-cols-5 gap-4">
+                        <div class="grid grid-cols-5 gap-4" @click="toggleModal('budget')">
                             <div class="col-span-1...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl "
                                     src="@/assets/user/images/Group 179.png" alt="">
@@ -564,7 +573,7 @@
                                 </button> -->
                             </div>
                             <div class="">
-                                <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1" >
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -581,7 +590,7 @@
                                 </button>
                             </div>
                             <div class="">
-                                <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1" >
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -597,7 +606,7 @@
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                                    <div class="cursor-pointer mr-[20px]">
+                                    <div class="cursor-pointer mr-[20px]"  @click="toggleModal('utr')">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
                                             class="size-4 bg-white rounded-sm m-2">
@@ -653,10 +662,18 @@
     </main>
 
 
+    <!-- Modal Components with Standardized Props -->
+    <NameModal :visible="modals.name" @close="modals.name = false" />
+    <BioModal :visible="modals.bio" @close="modals.bio = false" />
+    <InfoModal :visible="modals.info" @close="modals.info = false" />
+    <BudgetModal :visible="modals.budget" @close="modals.budget = false" />
+    <UTRModal :visible="modals.utr" @close="modals.utr = false" />
+    <AddressModal :visible="modals.address" @close="modals.address = false" />
+
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted , reactive } from 'vue';
 import { useNuxtApp } from '#app';
 import { useRoute } from 'vue-router';
 import Connection from '~/components/user/profile/connection.vue';
@@ -665,7 +682,12 @@ import { useUserStore } from '~/stores/userStore';
 import PlayerTabNavigation from '~/components/profiles/navigation/PlayerTabNavigation.vue';
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
-
+import NameModal from '~/components/profiles/player/modals/nameModal.vue';
+import BioModal from '~/components/profiles/player/modals/bioModal.vue';
+import InfoModal from '~/components/profiles/player/modals/infoModal.vue';
+import BudgetModal from '~/components/profiles/player/modals/budgetModal.vue';
+import UTRModal from '~/components/profiles/player/modals/utrModal.vue';
+import AddressModal from '~/components/profiles/player/modals/addressModal.vue';
 
 
 // Access authService from the context
@@ -742,6 +764,25 @@ const tab = ref('feed');
 // Function to handle tab change
 const handleTab = (selectedTab) => {
     tab.value = selectedTab;
+};
+
+// Define reactive state for all modals
+const modals = reactive({
+  name: false,
+  bio: false,
+  info: false,
+  budget: false,
+  utr: false,
+  address: false,
+});
+
+// Generic toggle function
+const toggleModal = (modalName) => {
+  if (modals.hasOwnProperty(modalName)) {
+    modals[modalName] = !modals[modalName];
+  } else {
+    console.warn(`Modal "${modalName}" does not exist.`);
+  }
 };
 
 
@@ -986,6 +1027,7 @@ const galleryItems = ref([
         src: 'https://www.w3schools.com/html/mov_bbb.mp4',
     },
 ]);
+
 
 
 </script>
