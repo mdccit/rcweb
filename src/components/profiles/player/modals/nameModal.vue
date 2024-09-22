@@ -49,7 +49,8 @@
 import { ref } from 'vue';
 
 const props = defineProps({
-    visible: Boolean
+    visible: Boolean,
+    slug: String
 });
 
 // Define the reactive variable to hold the user's input

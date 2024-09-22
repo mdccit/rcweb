@@ -51,7 +51,8 @@
 import { ref } from 'vue';
 
 const props = defineProps({
-    visible: Boolean
+    visible: Boolean,
+    slug: String
 });
 
 
