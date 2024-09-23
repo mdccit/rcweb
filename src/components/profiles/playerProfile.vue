@@ -227,7 +227,7 @@
                         </div>
 
                     </div>
-                    
+
                     <div v-if="userRole == 'coach' || userRole == 'admin'" style="height: 70px;"
                         class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
                         <div class="grid grid-cols-5 gap-4" @click="toggleModal('budget')">
@@ -830,10 +830,10 @@ onMounted(() => {
 const fetchUserDetails = async (slug) => {
     try {
         const dataSets = await $publicService.get_player(route.params.slug);
-        console.log(dataSets);
         if (dataSets.user_basic_info) {
             bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"
-            name.value = dataSets.user_basic_info.display_name ?? "User has not entered name"
+            name.value = dataSets.user_basic_info.display_name ?? "User has not entered name";
+           
 
             const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
             const today = new Date();
@@ -949,7 +949,6 @@ const fetchConnections = async () => {
     try {
         if (playerID.value != null) {
             const dataSets = await $userService.get_connection(playerID.value);
-            console.log(dataSets.connection)
             connections.value = dataSets.connection
         }
 
@@ -969,6 +968,7 @@ const fetchPost = async () => {
 }
 
 const connectAcceptOrConnect = async () => {
+
     try {
         if (connectionButtonName.value == "Accepted") {
             await $userService.connection_accept(connectionType.value.id, {
@@ -977,18 +977,20 @@ const connectAcceptOrConnect = async () => {
         }
 
         if (connectionButtonName.value == "Connect") {
-            if (playerId.value != null) {
-                await $userService.connection_request({
+            if (playerID.value != null) {
+                const response = await $userService.connection_request({
                     receiver_id: playerID.value
                 });
+
+                nuxtApp.$notification.triggerNotification(response.display_message, 'success');
             }
 
         }
 
-        fetchCheckConnection()
+        // fetchCheckConnection();
 
     } catch (error) {
-        console.error('Failed to load posts:', error.message);
+        console.error('Failed to Connect :', error.message);
     }
 }
 
