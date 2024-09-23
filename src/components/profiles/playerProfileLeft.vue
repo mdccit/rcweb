@@ -25,7 +25,7 @@
 
 
 
-<div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
+<div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">F
     <div class="flex items-center justify-between">
         <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
             <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
@@ -238,7 +238,8 @@
   const loading = ref(false);
   const router = useRouter();
   const route = useRoute();
-  
+  const feet = ref(0)
+  const pounds = ref(0)
   const showFilterLeft = ref(false);
   
   router.beforeEach((to, from, next) => {

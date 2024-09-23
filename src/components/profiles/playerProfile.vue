@@ -180,7 +180,7 @@
                             <div class="col-span-8">
                                 <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ birthday }}
                                         <span v-if="birthday != 'User has not entered birthday'">Years Old</span> </b>
-                                </p>
+                                </p>                             
                             </div>
                         </div>
                         <!-- <div  v-if="userRole !='coach'|| userRole!='admin'" class="grid grid-cols-10">
@@ -271,6 +271,9 @@
 
                     </div>
                 </div>
+            
+                <!-- <PlayerProfileLeft/> -->
+
                 <!-- End Profile pic section  -->
 
                 <!-- Start post Section -->
@@ -554,6 +557,7 @@
                     <!--start card 03 -->
 
                     <!-- Media Gallery Section -->
+                    <h1 class="mt-7">Media(10)</h1>
                     <div v-if="tab === 'media'" class="media-gallery grid">
                         <a v-for="(item, index) in galleryItems" :key="index" data-fancybox="gallery" :href="item.href"
                             class="media-item">
@@ -596,23 +600,50 @@
 
                                 </button>
                             </div>
-
+                       
                             <div v-if="buttonHide == false">
                                 <button @click="connectAcceptOrConnect"
                                     class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                     {{ connectionButtonName }}
                                 </button>
                             </div>
+                            <div>
+                                <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    Accept
+                                </button>
+                            </div>
+                            <!-- <div>
+                                <button  
+                                    class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    Regect
+                                </button>
+                            </div> -->
                             <div class="">
-                                <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
-
                                 </button>
+                                <div id="dropdown"
+                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                    aria-labelledby="dropdownDefaultButton">
+                                    <li>
+                                        <a href="#"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">More</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
+                                    </li>
+                                </ul>
                             </div>
+                            </div>
+
+                          
+
                         </div>
                     </div>
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-blue-500 p-3 mt-2">
@@ -646,9 +677,17 @@
                                     class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
                                 <p v-if="userRole == 'coach' || userRole == 'admin'"
                                     class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ATP Ranking</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ITF Ranking</p>
                                 <!-- <p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">WTN</p> -->
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
                                 <p v-if="userRole == 'coach' || userRole == 'admin'"
                                     class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">National Ranking</p>
@@ -660,9 +699,17 @@
                                     class="text-lg font-semibold mb-4 text-sm text-normal">{{ sat }}</p>
                                 <p v-if="userRole == 'coach' || userRole == 'admin'"
                                     class="text-lg font-semibold mb-4 text-sm text-normal">{{ toefl }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ gpa }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ sat }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ toefl }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ atp }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ itf }}</p>
                                 <!-- <p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ wtn }}</p> -->
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ act }}</p>
                                 <p v-if="userRole == 'coach' || userRole == 'admin'"
                                     class="text-lg font-semibold mb-4 text-sm text-normal">{{ act }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ nationalRanking }}</p>
@@ -703,6 +750,7 @@ import { useUserStore } from '~/stores/userStore';
 import PlayerTabNavigation from '~/components/profiles/navigation/PlayerTabNavigation.vue';
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
+import PlayerProfileLeft from './playerProfileLeft.vue';
 import NameModal from '~/components/profiles/player/modals/nameModal.vue';
 import BioModal from '~/components/profiles/player/modals/bioModal.vue';
 import InfoModal from '~/components/profiles/player/modals/infoModal.vue';
