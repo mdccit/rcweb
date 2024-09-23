@@ -195,6 +195,29 @@ const createUserService = (apiService) => {
     }
   };
 
+  const upload_player_media = async (formData) => {
+
+    // console.log(formData);
+    // Extract user_slug from the formData to build the URL
+    const userSlug = formData.get('user_slug');
+  
+    const url = `/public/players/upload-media/${userSlug}`;
+  
+    try {
+      // Send the FormData directly as the body
+      const response = await apiService.postRequest(url, formData); // No need to set Content-Type, the browser will handle it
+  
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to upload media');
+      }
+    }
+  };
+  
+
   return {
     get_connection,
     connection_request,
@@ -209,9 +232,8 @@ const createUserService = (apiService) => {
     update_player_info,
     connection_reject,
     connection_cancelle,
-    connection_remove
-
-
+    connection_remove,
+    upload_player_media
   };
 
 

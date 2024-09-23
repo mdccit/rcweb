@@ -68,17 +68,30 @@ import 'cropperjs/dist/cropper.css';
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
 
-const isImageCropping = ref(false); // Toggle for image cropping
-const cropperImage = ref(null); // Image to be cropped
-const files = ref([]); // To hold the uploaded files
+const nuxtApp = useNuxtApp();
+const $publicService = nuxtApp.$publicService;
+const $userService = nuxtApp.$userService;
 
-
+// Props
 const props = defineProps({
   galleryItems: {
     type: Array,
     required: true,
   },
+  userSlug: {
+    type: String,
+    required: true,
+  },
 });
+
+// Reactive data
+const isImageCropping = ref(false); // Toggle for image cropping
+const cropperImage = ref(null); // Image to be cropped
+const files = ref([]); // To hold the uploaded files
+
+// Create a local copy of galleryItems to modify
+const localGalleryItems = ref([...props.galleryItems]);
+
 // Handle file input for image/video
 const handleMediaUpload = (event) => {
   const selectedFiles = Array.from(event.target.files);
@@ -89,33 +102,16 @@ const handleMediaUpload = (event) => {
     const reader = new FileReader();
     reader.onload = () => {
       if (fileType === 'image') {
-        // Add image directly to files array and galleryItems for display
+        // Add image directly to files array and localGalleryItems for display
         files.value.push(file);
-        galleryItems.value.push({ type: 'image', src: reader.result, href: reader.result });
+        localGalleryItems.value.push({ type: 'image', src: reader.result, href: reader.result });
       } else {
-        // Add video to files array and galleryItems for display
+        // Add video to files array and localGalleryItems for display
         files.value.push(file);
-        galleryItems.value.push({ type: 'video', src: reader.result, href: reader.result });
+        localGalleryItems.value.push({ type: 'video', src: reader.result, href: reader.result });
       }
     };
     reader.readAsDataURL(file);
-  });
-};
-
-// Handle image cropping
-const onCrop = () => {
-  const croppedCanvas = $refs.cropper.getCroppedCanvas();
-  croppedCanvas.toBlob((blob) => {
-    const croppedFile = new File([blob], 'cropped-image.jpg', { type: 'image/jpeg' });
-
-    // Push the cropped image to files array
-    files.value.push(croppedFile);
-
-    // Convert the cropped image to a data URL for display
-    const croppedDataUrl = croppedCanvas.toDataURL('image/jpeg');
-    galleryItems.value.push({ type: 'image', src: croppedDataUrl, href: croppedDataUrl });
-
-    isImageCropping.value = false;
   });
 };
 
@@ -128,20 +124,35 @@ const removeFile = (index) => {
 const removeMediaItem = (index) => {
   localGalleryItems.value.splice(index, 1); // Remove the media item at the given index
 };
-
-
 // Upload media files to the server
 const uploadMedia = async () => {
   const formData = new FormData();
 
-  // Append all files to formData
+  // Append user_slug to FormData
+  const userSlug = props.userSlug;
+  formData.append('user_slug', userSlug);  // Add user_slug to FormData
+
+  // Append all files to FormData with key 'files[]'
   files.value.forEach((file) => {
-    formData.append('files[]', file);
+    formData.append('files[]', file);  // Ensure files[] matches the API's expected format
   });
 
-  // Send the formData to the API (replace with actual API call)
-  console.log('Uploading media:', formData);
+  // Debugging: Log all formData entries
+  formData.forEach((value, key) => {
+    console.log(`${key}:`, value);
+  });
+
+  try {
+    // Make an API call to upload the media using FormData
+    const response = await $userService.upload_player_media(formData);
+
+    console.log('Response:', response);  // Handle response here
+  } catch (error) {
+    console.error('Error uploading media:', error);
+  }
 };
+
+
 
 onMounted(() => {
   Fancybox.bind('[data-fancybox="gallery"]', {

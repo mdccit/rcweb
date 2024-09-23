@@ -17,7 +17,7 @@
         <!-- Content changes based on the selected tab -->
         <UserFeed v-if="tab === 'feed'" :posts="posts" />
         <Connection v-if="tab === 'connection'" :playerId="playerID" />
-        <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" />
+        <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" />
 
       </div>
 
