@@ -43,8 +43,8 @@
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-2"
-                                    @click="toggleModal('bio')">
-                                    <div class="cursor-pointer">
+                                     @click="toggleModal('bio')">
+                                    <div v-if="userId.value == playerID.value" class="cursor-pointer">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-4">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -66,7 +66,7 @@
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                                    <div class="cursor-pointer" @click="toggleModal('info')">
+                                    <div v-if="userId.value == playerID.value" class="cursor-pointer" @click="toggleModal('info')">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-4">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -92,7 +92,7 @@
                         </div> -->
 
                         <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
-                            <div class="col-span-2 mx-auto" @click="toggleModal('info')">
+                            <div v-if="userId.value == playerID.value" class="col-span-2 mx-auto" @click="toggleModal('info')">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" class="size-5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -217,7 +217,7 @@
                                 </p>
 
                             </div>
-                            <div class="col-span-1 ..." @click="toggleModal('address')">
+                            <div v-if="userId.value == playerID.value" class="col-span-1 ..." @click="toggleModal('address')">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-4">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -597,7 +597,7 @@
                                 </button>
                             </div>
 
-                            <div v-if="buttonHide == false">
+                            <div v-if="buttonHide == false" >
                                 <button @click="connectAcceptOrConnect"
                                     class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                     {{ connectionButtonName }}
@@ -620,7 +620,7 @@
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                                    <div class="cursor-pointer mr-[20px]" @click="toggleModal('utr')">
+                                    <div v-if="userId.value == playerID.value" class="cursor-pointer mr-[20px]" @click="toggleModal('utr')">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
                                             class="size-4 bg-white rounded-sm m-2">
