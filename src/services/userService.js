@@ -159,7 +159,41 @@ const createUserService = (apiService) => {
       }
     }
   };
+  const connection_cancelle = async (connection_id,request_body) => {
+    const url = `/user/connections-cancelle/${connection_id}`;
+    const body = request_body;
 
+    try {
+      const response = await apiService.putRequest(url, body);
+       return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+  const connection_reject = async (connection_id,request_body) => {
+    const url = `/user/connections-reject/${connection_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+       return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+  const connection_remove = async (connection_id,request_body) => {
+    const url = `/user/connections-remove/${connection_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+       return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
 
   return {
     get_connection,
@@ -172,7 +206,10 @@ const createUserService = (apiService) => {
     search_user,
     update_player_bio,
     update_player_name,
-    update_player_info
+    update_player_info,
+    connection_reject,
+    connection_cancelle,
+    connection_remove
 
 
   };

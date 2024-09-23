@@ -35,7 +35,7 @@
                 <hr  v-if="post.school" class="mt-5 mb-3 text-pigeonBlue">
                  <div class="flex items-center justify-between">
                 <div class="flex space-x-3 items-center">
-                  <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
+                  <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-[35px] h-[35px]">
                   <div>
                     <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
                     <div v-if="post.school_id != null" class="text-darkSlateBlue text-xs">Coach at {{ post.school_id != null ? post.school.name : '' }}</div>

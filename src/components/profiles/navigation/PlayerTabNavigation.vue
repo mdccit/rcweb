@@ -1,5 +1,5 @@
 <template>
-  <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
+  <div class="text-sm font-medium text-center border-b border-gray-300 text-black">
     <ul class="flex flex-wrap -mb-px">
       <li v-for="(tab, index) in tabs" :key="index" class="me-2">
         <button
