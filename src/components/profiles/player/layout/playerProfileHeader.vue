@@ -5,7 +5,7 @@
 
                 <div
                     class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                    <ul class="flex flex-wrap -mb-px">
+                    <!-- <ul class="flex flex-wrap -mb-px">
                         <li class="me-2">
                             <a href="#"
                                 class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</a>
@@ -21,7 +21,9 @@
                         </li>
 
 
-                    </ul>
+                    </ul> -->
+                    <PlayerTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
+
                 </div>
             </div>
         </div>
@@ -95,7 +97,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref ,defineEmits } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import SocialHubNavbar from '~/components/user/navbar.vue';
 import Filter from '~/components/user/feed/filter.vue';
@@ -124,6 +126,7 @@ router.afterEach(() => {
     loading.value = false;
 });
 
+const emit = defineEmits(['changeTab']);
 
 const showNotification = ref(false);
 const notificationMessage = ref('');
@@ -141,6 +144,23 @@ watchEffect(() => {
 const closeNotification = () => {
     showNotification.value = false; // Hide the notification
 };
+
+const tabs = ref([
+    { name: 'feed', label: 'Post' },
+    { name: 'connection', label: 'Connections' },
+    { name: 'media', label: 'Media' }
+]);
+
+const tab = ref('feed');
+
+
+// Function to handle tab change
+const handleTab = (selectedTab) => {
+    tab.value = selectedTab;
+    emit('changeTab',selectedTab)
+};
+
+
 </script>
 
 <style scoped>

@@ -25,6 +25,7 @@ const fetchUserData = async () => {
     if (slug) {
       const response = await $userService.get_user_profile(slug);
       user.value = response;
+      console.log(user.value)
     }
 
     if (!user.value) {

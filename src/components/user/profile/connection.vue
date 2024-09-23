@@ -18,6 +18,28 @@
                                 connection.role
                                 }}</div>
                         </div>
+                        <div class="col-span-3">
+                            <h4 class="text-black">UTR <span class="text-blue-500">30.01</span></h4>
+                        </div>
+                    </div>
+                     <div class="flex mt-2">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <div class="bg-blue-100 p-1 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor"
+                                        class="size-4 text-blue-700">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                                    </svg>
+                                </div>
+                                <div class="text-xs ml-2 text-black"><span
+                                    class="text-blue-700">Ralph,Cameron</span> 3 more mutual connections
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-1 text-right">
+                            <button  class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                         <div class="flex items-center space-x-2">
                             <div class=" rounded">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -249,16 +271,91 @@
 </template>
 
 <script setup>
-import { defineProps, ref, onMounted } from 'vue';
+import { defineProps, ref, onMounted} from 'vue';
+import { useNuxtApp } from '#app';
+
+const nuxtApp = useNuxtApp();
+const $userService = nuxtApp.$userService;
 
 const props = defineProps({
-    connections: Array
+    playerId: String
 });
 
 const connections = ref([])
 
 onMounted(() => {
-    connections.value = props.connections
+    fetchConnections();
+
 
 });
+
+const fetchConnections = async () => {
+    try {
+        const dataSets = await $userService.get_connection( props.playerId);
+        console.log(dataSets.connection)
+        connections.value = dataSets.connection
+    } catch (error) {
+        console.log(error)
+        console.error('Error fetching data:', error.message);
+    }
+}
+
+const connectAccept = async () => {
+    try {
+        await $userService.connection_accept(connectionType.value.id, {
+            connection_status: "accepted"
+        });
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
+}
+
+const connectRequestSend = async (userId) => {
+    try {
+        await $userService.connection_request({
+            receiver_id: userId
+        });
+
+        fetchConnections();
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
+}
+
+const connectReject = async (id) => {
+    try {
+        const response = await $userService.connection_reject(id,{
+            connection_status: "rejected"
+        });
+        fetchConnections();
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
+}
+
+const connectRemove = async (id) => {
+    try {
+        const response = await $userService.connection_remove(id,{
+            connection_status: "removed"
+        });
+        fetchConnections();
+
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
+}
+
+const connectCancelle = async (id) => {
+    try {
+        const response =await $userService.connection_cancelle(id,{
+            connection_status: "cancelled"
+        });
+
+        fetchConnections();
+
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
+}
+
 </script>
