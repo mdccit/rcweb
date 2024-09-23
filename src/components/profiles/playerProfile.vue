@@ -554,7 +554,9 @@
                     <!--start card 03 -->
 
                     <!-- Media Gallery Section -->
-                    <div v-if="tab === 'media'" class="media-gallery grid">
+
+                    <mediaTab v-if="tab == 'media'" :galleryItems="galleryItems" />
+                    <!-- <div v-if="tab === 'media'" class="media-gallery grid">
                         <a v-for="(item, index) in galleryItems" :key="index" data-fancybox="gallery" :href="item.href"
                             class="media-item">
                             <img v-if="item.type === 'image'" class="rounded w-full" :src="item.src" />
@@ -563,7 +565,7 @@
                                 Your browser does not support the video tag.
                             </video>
                         </a>
-                    </div>
+                    </div> -->
 
 
                     <!--end card 03 -->
@@ -709,6 +711,7 @@ import InfoModal from '~/components/profiles/player/modals/infoModal.vue';
 import BudgetModal from '~/components/profiles/player/modals/budgetModal.vue';
 import UTRModal from '~/components/profiles/player/modals/utrModal.vue';
 import AddressModal from '~/components/profiles/player/modals/addressModal.vue';
+import mediaTab from '~/components/profiles/player/tabs/mediaTab.vue';
 
 
 // Access authService from the context
