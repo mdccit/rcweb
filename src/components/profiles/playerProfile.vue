@@ -22,7 +22,8 @@
                             </div>
 
                             <h3 class="text-lg font-semibold text-center text-black">{{ name }}</h3>
-                            <h5 class="text-normal text-md text-center text-black text-primaryblue">{{  sportName }} player</h5>
+                            <h5 class="text-normal text-md text-center text-black text-primaryblue">{{ sportName }}
+                                player</h5>
                         </div>
                     </div>
 
@@ -78,16 +79,17 @@
                             </div>
                         </div> -->
 
-                        <div v-if="userRole =='coach'|| userRole=='admin'" class="grid grid-cols-10">
+                        <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
                             <div class="col-span-2 mx-auto">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="2" stroke="currentColor" class="size-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="size-5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
                                 </svg>
                             </div>
                             <div class="col-span-8">
-                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ phoneCode }} {{ phone }}</b> </p>
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ phoneCode }} {{
+                                        phone }}</b> </p>
                             </div>
                         </div>
 
@@ -97,7 +99,8 @@
                             </div>
                             <div class="col-span-8">
                                 <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>
-                                        {{ Number(feet.toFixed(2)) }} (  {{ heigth }}  <span v-if="heigth !='User has not entered height'">cm)</span> </b> </p>
+                                        {{ Number(feet.toFixed(2)) }} ( {{ heigth }} <span
+                                            v-if="heigth != 'User has not entered height'">cm)</span> </b> </p>
                             </div>
                         </div>
 
@@ -107,7 +110,9 @@
                             </div>
                             <div class="col-span-8">
                                 <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
-                                    <b ><span v-if="weight !='User has not entered weight'">{{ Number(pounds.toFixed(1)) }} lb(</span> {{ weight }} <span v-if="weight !='User has not entered weight'">kg )</span></b>
+                                    <b><span v-if="weight != 'User has not entered weight'">{{ Number(pounds.toFixed(1))
+                                            }} lb(</span> {{ weight }} <span
+                                            v-if="weight != 'User has not entered weight'">kg )</span></b>
                                 </p>
                             </div>
                         </div>
@@ -162,7 +167,8 @@
                             </div>
                             <div class="col-span-8">
                                 <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ birthday }}
-                                       <span v-if="birthday!='User has not entered birthday' ">Years Old</span>  </b></p>
+                                        <span v-if="birthday != 'User has not entered birthday'">Years Old</span> </b>
+                                </p>
                             </div>
                         </div>
                         <!-- <div  v-if="userRole !='coach'|| userRole!='admin'" class="grid grid-cols-10">
@@ -190,8 +196,10 @@
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl " src="@/assets/images/pin.png" alt="">
                             </div>
                             <div class="col-span-3 ...">
-                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3"><span v-if="userRole =='coach'|| userRole=='admin'" > {{  addressLine01 }}  {{  addressLine02 }} {{  stateProvince }}</span> {{ city }} , {{
-                                    country }}
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3"><span
+                                        v-if="userRole == 'coach' || userRole == 'admin'"> {{ addressLine01 }} {{
+                                        addressLine02 }} {{ stateProvince }}</span> {{ city }} , {{
+                                            country }}
                                 </p>
 
                             </div>
@@ -205,7 +213,7 @@
                         </div>
 
                     </div>
-                    <div v-if="userRole =='coach'|| userRole=='admin'" style="height: 70px;"
+                    <div v-if="userRole == 'coach' || userRole == 'admin'" style="height: 70px;"
                         class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
                         <div class="grid grid-cols-5 gap-4">
                             <div class="col-span-1...">
@@ -248,6 +256,9 @@
 
                     </div>
                 </div>
+            
+                <!-- <PlayerProfileLeft/> -->
+
                 <!-- End Profile pic section  -->
 
                 <!-- Start post Section -->
@@ -531,6 +542,7 @@
                     <!--start card 03 -->
 
                     <!-- Media Gallery Section -->
+                    <h1 class="mt-7">Media(10)</h1>
                     <div v-if="tab === 'media'" class="media-gallery grid">
                         <a v-for="(item, index) in galleryItems" :key="index" data-fancybox="gallery" :href="item.href"
                             class="media-item">
@@ -574,22 +586,49 @@
                                 </button>
                             </div>
 
-                            <div v-if="buttonHide== false">
-                                <button  @click="connectAcceptOrConnect"
+                            <div v-if="buttonHide == false">
+                                <button @click="connectAcceptOrConnect"
                                     class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                     {{ connectionButtonName }}
                                 </button>
                             </div>
+                            <div>
+                                <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    Accept
+                                </button>
+                            </div>
+                            <!-- <div>
+                                <button  
+                                    class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    Regect
+                                </button>
+                            </div> -->
                             <div class="">
-                                <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
-
                                 </button>
+                                <div id="dropdown"
+                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                    aria-labelledby="dropdownDefaultButton">
+                                    <li>
+                                        <a href="#"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">More</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
+                                    </li>
+                                </ul>
                             </div>
+                            </div>
+
+                          
+
                         </div>
                     </div>
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-blue-500 p-3 mt-2">
@@ -617,23 +656,31 @@
                                 <h2 class="text-lg font-semibold mb-4">{{ utr }}</h2>
                             </div>
                             <div class="">
-                                <p v-if="userRole =='coach'|| userRole=='admin'"  class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
-                                <p v-if="userRole =='coach'|| userRole=='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
-                                <p v-if="userRole =='coach'|| userRole=='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ATP Ranking</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ITF Ranking</p>
                                 <!-- <p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">WTN</p> -->
-                                <p v-if="userRole =='coach'|| userRole=='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">National Ranking</p>
                             </div>
                             <div class="">
-                                <p v-if="userRole =='coach'|| userRole=='admin'"  class="text-lg font-semibold mb-4 text-sm text-normal">{{ gpa }}</p>
-                                <p v-if="userRole =='coach'|| userRole=='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ sat }}</p>
-                                <p v-if="userRole =='coach'|| userRole=='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ toefl }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ gpa }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ sat }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ toefl }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ atp }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ itf }}</p>
                                 <!-- <p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ wtn }}</p> -->
-                                <p v-if="userRole =='coach'|| userRole=='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ act }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ act }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ nationalRanking }}</p>
 
                             </div>
@@ -1186,7 +1233,7 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 
 
 </template>
@@ -1200,6 +1247,7 @@ import { useUserStore } from '~/stores/userStore';
 import PlayerTabNavigation from '~/components/profiles/navigation/PlayerTabNavigation.vue';
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
+import PlayerProfileLeft from './playerProfileLeft.vue';
 
 
 
@@ -1237,17 +1285,17 @@ const connectionButtonName = ref('Connect')
 const userId = ref('')
 const plyerSlug = ref('')
 const plyerId = ref('')
-const sportName =ref('')
+const sportName = ref('')
 const email = ref('')
 const phone = ref('')
-const wtn =ref('')
+const wtn = ref('')
 const act = ref('')
 const nationalRanking = ref('')
-const gender =ref('')
+const gender = ref('')
 const nationality = ref('')
 const handness = ref('')
-const preferredSurface=ref('')
-const phoneCode =ref('')
+const preferredSurface = ref('')
+const phoneCode = ref('')
 const userRole = ref(null)
 const addressLine01 = ref('')
 const addressLine02 = ref('')
@@ -1294,11 +1342,11 @@ onMounted(() => {
 
 const fetchUserDatils = async () => {
     try {
-       const dataSets = await $publicService.get_player(plyerSlug.value);
-       if(dataSets.user_basic_info){
-            bio.value =dataSets.user_basic_info.bio??"User has not entered bio"
-            name.value =dataSets.user_basic_info.display_name??"User has not entered name"
-            
+        const dataSets = await $publicService.get_player(plyerSlug.value);
+        if (dataSets.user_basic_info) {
+            bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"
+            name.value = dataSets.user_basic_info.display_name ?? "User has not entered name"
+
             const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
             const today = new Date();
             let age = today.getFullYear() - birthDate.getFullYear();
@@ -1306,68 +1354,68 @@ const fetchUserDatils = async () => {
             if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
                 age--;
             }
-             birthday.value = age??'User has not entered birthday'
+            birthday.value = age ?? 'User has not entered birthday'
 
             const date = new Date(dataSets.user_basic_info.joined_at);
             const monthNames = [
                 'January', 'February', 'March', 'April', 'May', 'June',
                 'July', 'August', 'September', 'October', 'November', 'December'
-           ];
-           const year = date.getFullYear();
-           const month = monthNames[date.getMonth()];
-           const day = date.getDate();
-           joinDate.value = `${year} ${month} ${day}`
+            ];
+            const year = date.getFullYear();
+            const month = monthNames[date.getMonth()];
+            const day = date.getDate();
+            joinDate.value = `${year} ${month} ${day}`
 
-            nationality.value =dataSets.user_basic_info.nationality??"User has not entered nationality"
-            email.value =dataSets.user_basic_info.email??"User has not entered email"
-            gender.value =dataSets.user_basic_info.gender??"User has not entered gender"
+            nationality.value = dataSets.user_basic_info.nationality ?? "User has not entered nationality"
+            email.value = dataSets.user_basic_info.email ?? "User has not entered email"
+            gender.value = dataSets.user_basic_info.gender ?? "User has not entered gender"
 
 
         }
 
-        if(dataSets.user_address_info){
-            country.value =dataSets.user_address_info.country??'User has not entered country'
-            city.value =dataSets.user_address_info.city??'User has not entered city'
-            addressLine01.value =dataSets.user_address_info.address_line_1??'User has not entered address line 01'
-            addressLine02.value =dataSets.user_address_info.address_line_2??'User has not entered address line 02'
-            stateProvince.value =dataSets.user_address_info.state_province??'User has not entered stare provice'
-        }
-        
-        if(dataSets.user_phone_info){
-            phone.value =dataSets.user_phone_info.phone_number??'User has not entered phone number'
-            phoneCode.value =dataSets.user_phone_info.phone_code??''
+        if (dataSets.user_address_info) {
+            country.value = dataSets.user_address_info.country ?? 'User has not entered country'
+            city.value = dataSets.user_address_info.city ?? 'User has not entered city'
+            addressLine01.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
+            addressLine02.value = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
+            stateProvince.value = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
         }
 
-        if(dataSets.player_info){
-            heigth.value =dataSets.player_info.height??'User has not entered height'
-            weight.value =dataSets.player_info.weight??'User has not entered weight'
-            utr.value =dataSets.player_info.other_data.utr??0
-            gpa.value =dataSets.player_info.gpa??"Unknown"
-            sportName.value =dataSets.player_info.sport_name??'User has not entered sport'
+        if (dataSets.user_phone_info) {
+            phone.value = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number'
+            phoneCode.value = dataSets.user_phone_info.phone_code ?? ''
+        }
 
-            if(dataSets.player_info.other_data){
-                budgetMin.value =dataSets.player_info.other_data.budget_max??'User has not entered budget min value'
-                budgetMax.value =dataSets.player_info.other_data.budget_min??'User has not entered budget max value'
-                sat.value =dataSets.player_info ?dataSets.player_info.other_data.sat_score : "Unknown"
-                toefl.value =dataSets.player_info ?dataSets.player_info.other_data.toefl_score: "Unknown"
-                atp.value =dataSets.player_info.other_data.atp_ranking ?? "Unknown"
-                itf.value =dataSets.player_info.other_data.itf_ranking ?? "Unknown"
-                act.value =dataSets.player_info.other_data.act_score ?? "Unknown"
-                wtn.value =dataSets.player_info.other_data.wtn_score_manual ?? "Unknown"
-                nationalRanking.value =dataSets.player_info.other_data.national_ranking ?? "Unknown"
-                handness.value =dataSets.player_info.other_data.handedness ?? "User has not entered handness"
-                preferredSurface.value =dataSets.player_info.other_data.preferred_surface ?? "User has not entered preferred surface"
+        if (dataSets.player_info) {
+            heigth.value = dataSets.player_info.height ?? 'User has not entered height'
+            weight.value = dataSets.player_info.weight ?? 'User has not entered weight'
+            utr.value = dataSets.player_info.other_data.utr ?? 0
+            gpa.value = dataSets.player_info.gpa ?? "Unknown"
+            sportName.value = dataSets.player_info.sport_name ?? 'User has not entered sport'
+
+            if (dataSets.player_info.other_data) {
+                budgetMin.value = dataSets.player_info.other_data.budget_max ?? 'User has not entered budget min value'
+                budgetMax.value = dataSets.player_info.other_data.budget_min ?? 'User has not entered budget max value'
+                sat.value = dataSets.player_info ? dataSets.player_info.other_data.sat_score : "Unknown"
+                toefl.value = dataSets.player_info ? dataSets.player_info.other_data.toefl_score : "Unknown"
+                atp.value = dataSets.player_info.other_data.atp_ranking ?? "Unknown"
+                itf.value = dataSets.player_info.other_data.itf_ranking ?? "Unknown"
+                act.value = dataSets.player_info.other_data.act_score ?? "Unknown"
+                wtn.value = dataSets.player_info.other_data.wtn_score_manual ?? "Unknown"
+                nationalRanking.value = dataSets.player_info.other_data.national_ranking ?? "Unknown"
+                handness.value = dataSets.player_info.other_data.handedness ?? "User has not entered handness"
+                preferredSurface.value = dataSets.player_info.other_data.preferred_surface ?? "User has not entered preferred surface"
 
             }
 
             const parsedDate = new Date(dataSets.player_info.graduation_month_year);
             const options = { year: 'numeric', month: 'long' };
-            graduationDate.value = parsedDate.toLocaleDateString('en-US', options)??'User has not entered graduation date'
+            graduationDate.value = parsedDate.toLocaleDateString('en-US', options) ?? 'User has not entered graduation date'
 
             feet.value = dataSets.player_info.height / 30.48;
             pounds.value = 2.20462 * dataSets.player_info.weight
         }
-         
+
     } catch (error) {
         console.log(error)
         console.error('Error fetching data:', error.message);
@@ -1398,10 +1446,10 @@ const fetchCheckConnection = async () => {
 
                 connectionButtonName.value = "Connected"
             }
-        }else{
+        } else {
             buttonHide.value = false
         }
-       
+
     } catch (error) {
         console.error('Error fetching data:', error.message);
     }

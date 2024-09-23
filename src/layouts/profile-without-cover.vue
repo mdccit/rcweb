@@ -14,13 +14,30 @@
       :key="notificationKey"
     />
   </div>
+
+  <div class="grid grid-cols-6 gap-4">
+  <div class="row-span-2 col-span-1">
+    <playerProfileLeft/>
+  </div>
+  <div class="col-start-2 col-span-5">
+    <PlayerProfileHeader/>
+  </div> 
+  <div class="col-start-2 col-span-4">
+    <PlayerProfileFeed/>
+  </div> 
+  <div> <PlayerProfileRight/></div>
+</div>
 </template>
 
 <script setup>
+
 import { ref, watchEffect } from 'vue';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue'; // <-- Ensure this path is correct!
-
+import playerProfileLeft from '~/components/profiles/playerProfileLeft.vue';
+import PlayerProfileHeader from '~/components/profiles/playerProfileHeader.vue';
+import PlayerProfileFeed from '~/components/profiles/playerProfileFeed.vue';
+import PlayerProfileRight from '~/components/profiles/playerProfileRight.vue';
 const nuxtApp = useNuxtApp();
 
 
@@ -43,5 +60,6 @@ const closeNotification = () => {
 </script>
 
 <style scoped>
+
 /* Add any styles here if needed */
 </style>
