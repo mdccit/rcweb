@@ -9,6 +9,7 @@
           <!-- Left pane -->
           <div >
             <Filter v-if="route.meta.showFilterLeft" />
+            <resources-left-bar />
           </div>
 
           <!-- Middle pane -->
@@ -51,6 +52,7 @@ import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
+import ResourcesLeftBar from '~/components/user/resourcesLeftBar.vue';
 
 
 defineNuxtRouteMiddleware(checkSession);
