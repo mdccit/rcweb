@@ -1,0 +1,49 @@
+<template>
+  <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
+    <ul class="flex flex-wrap -mb-px">
+      <li v-for="(tab, index) in tabs" :key="index" class="me-2">
+        <button
+          @click="selectTab(tab.name)"
+          :class="[
+            'inline-block p-4 rounded-t-lg',
+            tab.name === activeTab ? 'text-blue-600 border-b-2 border-blue-600' : 'border-transparent hover:text-gray-600 hover:border-gray-300'
+          ]"
+        >
+          {{ tab.label }}
+        </button>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script setup>
+import { defineProps, defineEmits, ref } from 'vue';
+
+// Props: Tabs to be passed from the parent component
+const props = defineProps({
+  tabs: {
+    type: Array,
+    required: true
+  },
+  initialTab: {
+    type: String,
+    default: ''
+  }
+});
+
+// Emits event to parent component when tab is changed
+const emit = defineEmits(['tabChanged']);
+
+// State to track the active tab
+const activeTab = ref(props.initialTab);
+
+// Function to handle tab selection
+const selectTab = (tabName) => {
+  activeTab.value = tabName;
+  emit('tabChanged', tabName);
+};
+</script>
+
+<style scoped>
+/* Optional: Add specific styling for the tab component here */
+</style>
