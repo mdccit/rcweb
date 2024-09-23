@@ -19,9 +19,9 @@
                 <div class="absolute">
 
                 </div>
-                <h3 class="text-lg font-semibold text-center text-black mt-2">Player Name
+                <h3 class="text-lg font-semibold text-center text-black mt-2">{{ props.data.name }}
                 </h3>
-                <h5 class="text-normal text-md text-center text-black">Tennis player</h5>
+                <h5 class="text-normal text-md text-center text-black">{{ props.data.sportName }} player</h5>
             </div>
         </div>
 
@@ -42,9 +42,7 @@
                 </div>
             </div>
             <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
-                Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a
-                typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the
-                final copy is available
+                {{ props.data.bio }}
             </p>
         </div>
 
@@ -65,7 +63,7 @@
             </div>
 
 
-            <div class="grid grid-cols-10">
+            <!-- <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                         stroke="currentColor" class="size-5">
@@ -76,15 +74,30 @@
                 <div class="col-span-8">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>gmail</b> </p>
                 </div>
-            </div>
+            </div> -->
+            <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto" @click="toggleModal('info')">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
+                                </svg>
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ props.data.phoneCode }} {{
+                                phone }}</b> </p>
+                            </div>
+             </div>
 
             <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
                     <img class="mx-auto  rounded-xl w-[27px]" src="@/assets/images/ruler.png" alt="">
                 </div>
                 <div class="col-span-8">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>
-                            6 ft</b> </p>
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b> 
+                        {{ Number(props.data.feet) }} ( {{ props.data.heigth }} 
+                        <span
+                         v-if="props.data.heigth != 'User has not entered height'">cm)</span> </b> </p>
                 </div>
             </div>
 
@@ -94,7 +107,11 @@
                 </div>
                 <div class="col-span-8">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
-                        <b>55 kg</b>
+                        <b><span v-if="props.data.weight != 'User has not entered weight'">
+                            {{ Number(props.data.pounds)
+                            }} 
+                            lb(</span> {{ props.data.weight }} <span
+                             v-if="props.data.weight != 'User has not entered weight'">kg )</span></b>
                     </p>
                 </div>
             </div>
@@ -105,12 +122,12 @@
                 </div>
                 <div class="col-span-8">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
-                        <b>Graduation {{ graduationDate }}</b>
+                        <b>Graduation {{ props.data.graduationDate }}</b>
                     </p>
                 </div>
             </div>
 
-            <div class="grid grid-cols-10">
+            <!-- <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                         stroke="currentColor" class="size-5">
@@ -124,9 +141,9 @@
                         <b>Handness</b>
                     </p>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="grid grid-cols-10">
+            <!-- <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                         stroke="currentColor" class="size-5">
@@ -141,15 +158,15 @@
                         <b>Nation</b>
                     </p>
                 </div>
-            </div>
+            </div> -->
 
             <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
                     <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/bday.png" alt="">
                 </div>
                 <div class="col-span-8">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ birthday }}
-                            Years Old </b></p>
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ props.data.birthday }}
+                        <span v-if=" props.data.birthday != 'User has not entered birthday'">Years Old</span> </b></p>
                 </div>
             </div>
         </div>
@@ -162,8 +179,9 @@
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/user/images/Group 179.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-2">Has 50000
-                    </p>
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Has {{ props.data.budgetMin }} -
+                                    {{ props.data.budgetMax }}
+                                </p>
                 </div>
                 <div class="col-span-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -183,8 +201,12 @@
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/images/pin.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-2">location
-                    </p>
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3"><span
+                                        v-if="userRole == 'coach' || userRole == 'admin'"> {{ props.data.addressLine01 }} {{
+                                 props.data.addressLine02 }} {{  props.data.stateProvince }}</span> 
+                                 {{  props.data.city }} , {{
+                                    props.data.country }}
+                                </p>
 
                 </div>
                 <div class="col-span-1">
@@ -205,7 +227,9 @@
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl" src="@/assets/user/images/Group 79.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-2">Signed up
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Signed up
+                         {{ props.data.joinDate
+                                    }}
                     </p>
 
                 </div>
@@ -226,7 +250,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref ,onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import SocialHubNavbar from '~/components/user/navbar.vue';
 import Filter from '~/components/user/feed/filter.vue';
@@ -235,7 +259,9 @@ import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
+import { useUserStore } from '~/stores/userStore';
 
+const userStore = useUserStore();
 
 defineNuxtRouteMiddleware(checkSession);
 const nuxtApp = useNuxtApp();
@@ -272,6 +298,21 @@ watchEffect(() => {
 const closeNotification = () => {
     showNotification.value = false; // Hide the notification
 };
+
+const userRole = ref(null)
+
+const props = defineProps({
+    data: {
+        type: Object,
+        required: true,
+    },
+});
+
+onMounted(() => {
+    
+    userRole.value = userStore.user?.role || null;
+    console.log(props.data)
+});
 </script>
 
 <style scoped>

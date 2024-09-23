@@ -87,27 +87,51 @@
                 <h2 class="text-lg font-semibold mb-4">UTR score</h2>
             </div>
             <div class="">
-                <h2 class="text-lg font-semibold mb-4">{{ utr }}</h2>
+                <h2 class="text-lg font-semibold mb-4">{{ props.data.utr }}</h2>
             </div>
             <div class="">
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
+                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                    class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
+                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                    class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
+                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                    class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
+                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                    class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
+                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                    class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
+                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                    class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ATP Ranking</p>
                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ITF Ranking</p>
-                <!-- <p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">WTN</p> -->
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
+                                <!-- <<p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">WTN</p> -->
+                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                    class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
+                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                    class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
                 <p class="text-lg font-semibold mb-4 text-sm text-normal">National Ranking</p>
             </div>
             <div class="">
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ gpa }}</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ sat }}</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ toefl }}</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ atp }}</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ itf }}</p>
-                <!-- <p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ wtn }}</p> -->
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ act }}</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ nationalRanking }}</p>
+                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.gpa }}</p>
+                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.sat }}</p>
+                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.toefl }}</p>
+                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.gpa }}</p>
+                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.sat }}</p>
+                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.toefl }}</p>
+                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.atp }}</p>
+                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.itf }}</p>
+                                <!-- <<p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ wtn }}</p> -->
+                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.act }}</p>
+                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.act }}</p>
+                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.nationalRanking }}</p>
 
             </div>
         </div>
@@ -119,7 +143,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref ,onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import SocialHubNavbar from '~/components/user/navbar.vue';
 import Filter from '~/components/user/feed/filter.vue';
@@ -128,7 +152,9 @@ import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
+import { useUserStore } from '~/stores/userStore';
 
+const userStore = useUserStore();
 
 defineNuxtRouteMiddleware(checkSession);
 const nuxtApp = useNuxtApp();
@@ -165,6 +191,21 @@ watchEffect(() => {
 const closeNotification = () => {
     showNotification.value = false; // Hide the notification
 };
+
+const userRole = ref(null)
+
+const props = defineProps({
+    data: {
+        type: Object,
+        required: true,
+    },
+});
+
+onMounted(() => {
+    
+    userRole.value = userStore.user?.role || null;
+   
+});
 </script>
 
 <style scoped>
