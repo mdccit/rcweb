@@ -132,7 +132,8 @@ const userLogin = async (autoLogin = false) => {
         };     
         saveEncryptedCredentials(credentials);  // Save the credentials
       }
-
+      //set user Slug
+      userStore.setUserSlug(response.data.user_slug??null)
       // Set the user in the Pinia store
       userStore.setUser({
         email: email.value,

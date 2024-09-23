@@ -25,26 +25,8 @@
                             </div>
 
                             <div class="col-span-3">
-                                <div
-                                    class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                                    <ul class="flex flex-wrap -mb-px">
-                                        <li class="me-2">
-                                            <button @click="handleTab('feed')"
-                                                class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</button>
-                                        </li>
-                                        <li class="me-2">
-                                            <button @click="handleTab('connection')"
-                                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                                aria-current="page">Connections</button>
-                                        </li>
-                                        <li class="me-2">
-                                            <a href="#"
-                                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</a>
-                                        </li>
 
 
-                                    </ul>
-                                </div>
                             </div>
                             <div class="col-span-1 mt-[70px]">
                                 <div>
@@ -122,6 +104,9 @@
                 <div class="col-span-5 sm:col-span-3 md:col-span-5 lg:col-span-2 xl:col-span-3">
 
 
+                    <!-- Tab Navigation Component -->
+                    <ProfileTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
+
                     <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
                       <div class="flex items-center">
                           <img src="../../assets/user/images/Rectangle 193.png" alt=""
@@ -178,7 +163,9 @@
                     <!-- Posts section End -->
                     <Connection v-if="tab == 'connection'" :connections="connections" />
 
-
+                     <!-- Media Gallery Section -->
+                    <mediaGalleryComponent v-if="tab === 'media'" :galleryItems="galleryItems" />             
+     
                     <!--start card 03 -->
                     <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
                       <div class="flex items-start space-x-4">
@@ -377,7 +364,6 @@
         </div>
     </main>
 </template>
-
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
@@ -385,8 +371,9 @@ import { useRoute } from 'vue-router';
 import Connection from '~/components/user/profile/connection.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
 import { useUserStore } from '~/stores/userStore';
-
-
+import ProfileTabNavigation from '~/components/profiles/navigation/ProfileTabNavigation.vue';
+import mediaGalleryComponent from '~/components/profiles/media/mediaGalleryComponent.vue';
+import profileCard from '~/components/profiles/card/cardOriginal.vue';
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -402,12 +389,15 @@ const name = ref('')
 const role = ref('')
 const colleage = ref('')
 const connections = ref([])
-const tab = ref('feed')
 const posts = ref([])
 const connectionStatus = ref(false)
 const connectionType = ref(null)
 const connectionButtonName = ref('Connect')
-const userId = ref('')
+const userId = ref('');
+const slug = ref('');
+const user = ref('');
+const loading = ref(true); // To show loading state
+const error = ref(null); // To handle any potential errors
 
 const route = useRoute();
 
@@ -419,16 +409,95 @@ const props = defineProps({
     },
 });
 
+// Tabs data
+const tabs = ref([
+    { name: 'feed', label: 'Post' },
+    { name: 'connection', label: 'Connections' },
+    { name: 'media', label: 'Media' }
+]);
+
+// The default active tab
+const tab = ref('feed');
+
+// Function to handle tab change
+const handleTab = (selectedTab) => {
+    tab.value = selectedTab;
+};
+
+// Array of gallery items (images and video)
+const galleryItems = ref([
+    {
+        type: 'image',
+        href: 'https://lipsum.app/id/46/1600x1200',
+        src: 'https://lipsum.app/id/46/200x150',
+    },
+    {
+        type: 'image',
+        href: 'https://lipsum.app/id/47/1600x1200',
+        src: 'https://lipsum.app/id/47/200x150',
+    },
+    {
+        type: 'image',
+        href: 'https://lipsum.app/id/51/1600x1200',
+        src: 'https://lipsum.app/id/51/200x150',
+    },
+    {
+        type: 'video',
+        href: 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
+        src: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    },
+]);
+
+
+const profiles = [
+    {
+        id: 1,
+        name: 'John Doe',
+        role: 'Tennis Player',
+        city: 'New York',
+        country: 'USA',
+        utr: '15.25',
+        connection_status: 'connect',
+        profileImage: 'https://via.placeholder.com/85'
+    },
+    {
+        id: 2,
+        name: 'Jane Smith',
+        role: 'Football Player',
+        city: 'London',
+        country: 'UK',
+        utr: '20.50',
+        connection_status: 'pending',
+        profileImage: 'https://via.placeholder.com/85'
+    },
+    {
+        id: 3,
+        name: 'Bob Johnson',
+        role: 'Basketball Player',
+        city: 'Los Angeles',
+        country: 'USA',
+        utr: '18.75',
+        connection_status: 'accepted',  // Chat button will appear
+        profileImage: 'https://via.placeholder.com/85'
+    }
+]
+
+
 onMounted(() => {
     if (props.user) {
         fetchCoacheDetailsFromProps(); // Extract the user data when the component mounts
+    }
+    slug.value = route.params.slug;
+
+    if (slug) {
+        fetchUserData();
     }
 
     fetchConnections();
     fetchPost();
     fetchCheckConnection();
 
-    userId.value = route.query.id;
+
 
 });
 
@@ -444,19 +513,19 @@ watch(
 
 // Extract data from the `user` prop
 const fetchCoacheDetailsFromProps = async () => {
-  try {
-    const dataSets = await $publicService.get_coache(props.user?.user_basic_info?.slug);
+    try {
+        const dataSets = await $publicService.get_coache(props.user?.user_basic_info?.slug);
 
-    // Safely set values with null checks
-    bio.value = dataSets?.user_basic_info?.bio || 'N/A';
-    country.value = dataSets?.user_phone_info?.country || '';
-    city.value = dataSets?.user_address_info?.city || '';
-    name.value = dataSets?.user_basic_info?.display_name || 'Anonymous';
-    role.value = dataSets?.user_basic_info?.user_role || '';
-    colleage.value = dataSets?.coach_info?.school_name || '';
-  } catch (error) {
-    console.error('Error fetching coach details:', error);
-  }
+        // Safely set values with null checks
+        bio.value = dataSets?.user_basic_info?.bio || 'N/A';
+        country.value = dataSets?.user_phone_info?.country || '';
+        city.value = dataSets?.user_address_info?.city || '';
+        name.value = dataSets?.user_basic_info?.display_name || 'Anonymous';
+        role.value = dataSets?.user_basic_info?.user_role || '';
+        colleage.value = dataSets?.coach_info?.school_name || '';
+    } catch (error) {
+        console.error('Error fetching coach details:', error);
+    }
 };
 
 
@@ -478,10 +547,6 @@ const fetchPost = async () => {
     } catch (error) {
         console.error('Failed to load posts:', error.message);
     }
-}
-
-const handleTab = (name) => {
-    tab.value = name
 }
 
 const fetchCheckConnection = async () => {
@@ -532,4 +597,33 @@ const connectAcceptOrConnect = async () => {
         console.error('Failed to load posts:', error.message);
     }
 }
+
+
+// Fetch user data using the id
+const fetchUserData = async () => {
+
+    try {
+        loading.value = true; // Start loading
+        if (slug) {
+            const response = await $publicService.get_user_profile(slug);
+            user.value = response;
+            console.log(response);
+        }
+
+        if (!user.value) {
+            throw new Error("User not found");
+        }
+
+    } catch (err) {
+        console.error("Error fetching user data:", err);
+        user.value = null; // Set user to null if there is an error
+    } finally {
+        loading.value = false; // Stop loading when done
+    }
+};
+
+
+
+
+
 </script>
