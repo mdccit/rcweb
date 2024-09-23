@@ -269,16 +269,18 @@ const fetchModerationLogs = async (morderationId) => {
 
 
 const closeOrReopen = async () => {
+   console.log(4)
     try {
         if(closeBy.value ===null){
            await $adminService.morderation_close(moderationStore.moderation_id,{});
-
+           
         }else{
              await $adminService.morderation_reopen(moderationStore.moderation_id,{});
         }
         fetchData(moderationStore.moderation_id);
         fetchModerationLogs(moderationStore.moderation_id);
     } catch (error) {
+      console
        console.error('Error fetching data:', error.message);
     }
 };
