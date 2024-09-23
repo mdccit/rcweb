@@ -1,43 +1,45 @@
 <template>
   <div>
     <!-- Upload Media Section -->
-    <!-- Upload Media Section with Icon and Highlighted Style -->
-    <div class="upload-section mb-4 border-2 border-dashed border-blue-500 rounded-lg p-4 bg-blue-50 hover:bg-blue-100">
-      <label for="media-upload" class="cursor-pointer flex flex-col items-center justify-center">
-        <!-- Icon for upload -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-2 text-blue-700" fill="none" viewBox="0 0 24 24"
-          stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M3 16l4-4m0 0l4 4m-4-4v12M21 12v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6m4-6h12M5 10h14" />
-        </svg>
-        <span class="text-blue-700 font-semibold text-lg mb-2">Click to Upload Image or Video</span>
-        <span class="text-gray-500 text-sm">or drag and drop files here</span>
-      </label>
-      <input id="media-upload" type="file" accept="image/*,video/mp4" multiple @change="handleMediaUpload"
-        class="hidden" />
-    </div>
+    <form @submit.prevent="uploadMedia" class="upload-form">
+      <div
+        class="upload-section mb-4 border-2 border-dashed border-blue-500 rounded-lg p-4 bg-blue-50 hover:bg-blue-100">
+        <label for="media-upload" class="cursor-pointer flex flex-col items-center justify-center">
+          <!-- Icon for upload -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-2 text-blue-700" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 16l4-4m0 0l4 4m-4-4v12M21 12v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6m4-6h12M5 10h14" />
+          </svg>
+          <span class="text-blue-700 font-semibold text-lg mb-2">Click to Upload Image or Video</span>
+          <span class="text-gray-500 text-sm">or drag and drop files here</span>
+        </label>
+        <!-- Input for file selection -->
+        <input id="media-upload" type="file" accept="image/*,video/mp4" multiple @change="handleFileUpload"
+          class="hidden" />
+      </div>
 
+      <!-- Cropping Section for Images -->
+      <vue-cropper v-if="isImageCropping" ref="cropper" :src="cropperImage" @crop="onCrop" />
 
-    <!-- Cropping Section for Images -->
-    <vue-cropper v-if="isImageCropping" ref="cropper" :src="cropperImage" @crop="onCrop" />
+      <!-- File List -->
+      <ul class="mt-4">
+        <li v-for="(file, index) in files" :key="index" class="mb-2 flex justify-between items-center">
+          <span>{{ file.name }} ({{ file.type }})</span>
+          <button @click.prevent="removeFile(index)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700">
+            Remove
+          </button>
+        </li>
+      </ul>
 
-    <!-- Upload Button -->
-    <div class="upload-btn-wrapper mt-4">
-      <button @click="uploadMedia" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 w-full text-center"
-        :disabled="files.length === 0">
-        Upload Media
-      </button>
-    </div>
-
-    <!-- Media List Temporarily Before Upload with Remove Button -->
-    <ul class="mt-4">
-      <li v-for="(file, index) in files" :key="index" class="mb-2 flex justify-between items-center">
-        <span>{{ file.name }} ({{ file.type }})</span>
-        <button @click="removeFile(index)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700">
-          Remove
+      <!-- Submit Button -->
+      <div class="upload-btn-wrapper mt-4">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 w-full text-center"
+          :disabled="files.length === 0">
+          Upload Media
         </button>
-      </li>
-    </ul>
+      </div>
+    </form>
 
     <!-- Media Gallery -->
     <div class="media-gallery grid">
@@ -53,11 +55,9 @@
         </button>
       </a>
     </div>
-
-
-
   </div>
 </template>
+
 
 <script setup>
 import { ref, onMounted } from 'vue';
@@ -68,55 +68,37 @@ import 'cropperjs/dist/cropper.css';
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
 
-const isImageCropping = ref(false); // Toggle for image cropping
-const cropperImage = ref(null); // Image to be cropped
+const nuxtApp = useNuxtApp();
+const $publicService = nuxtApp.$publicService;
+const $userService = nuxtApp.$userService;
 const files = ref([]); // To hold the uploaded files
-
-
+// Props
 const props = defineProps({
   galleryItems: {
     type: Array,
     required: true,
   },
+  userSlug: {
+    type: String,
+    required: true,
+  },
 });
-// Handle file input for image/video
-const handleMediaUpload = (event) => {
-  const selectedFiles = Array.from(event.target.files);
 
-  selectedFiles.forEach((file) => {
-    const fileType = file.type.startsWith('image/') ? 'image' : 'video';
+// Reactive data
+const isImageCropping = ref(false); // Toggle for image cropping
+const cropperImage = ref(null); // Image to be cropped
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (fileType === 'image') {
-        // Add image directly to files array and galleryItems for display
-        files.value.push(file);
-        galleryItems.value.push({ type: 'image', src: reader.result, href: reader.result });
-      } else {
-        // Add video to files array and galleryItems for display
-        files.value.push(file);
-        galleryItems.value.push({ type: 'video', src: reader.result, href: reader.result });
-      }
-    };
-    reader.readAsDataURL(file);
+// Create a local copy of galleryItems to modify
+const localGalleryItems = ref([...props.galleryItems]);
+
+
+// Handle file selection
+const handleFileUpload = (event) => {
+  const selected = Array.from(event.target.files);
+  selected.forEach((file) => {
+    files.value.push(file);
   });
-};
-
-// Handle image cropping
-const onCrop = () => {
-  const croppedCanvas = $refs.cropper.getCroppedCanvas();
-  croppedCanvas.toBlob((blob) => {
-    const croppedFile = new File([blob], 'cropped-image.jpg', { type: 'image/jpeg' });
-
-    // Push the cropped image to files array
-    files.value.push(croppedFile);
-
-    // Convert the cropped image to a data URL for display
-    const croppedDataUrl = croppedCanvas.toDataURL('image/jpeg');
-    galleryItems.value.push({ type: 'image', src: croppedDataUrl, href: croppedDataUrl });
-
-    isImageCropping.value = false;
-  });
+  console.log('Selected files:', files.value);
 };
 
 // Function to remove file from the files array
@@ -128,20 +110,34 @@ const removeFile = (index) => {
 const removeMediaItem = (index) => {
   localGalleryItems.value.splice(index, 1); // Remove the media item at the given index
 };
-
-
 // Upload media files to the server
 const uploadMedia = async () => {
   const formData = new FormData();
 
-  // Append all files to formData
+  // Append user_slug to FormData
+  formData.append('user_slug', props.userSlug);
+
+  // Append each file in files[] to FormData
   files.value.forEach((file) => {
-    formData.append('files[]', file);
+    formData.append('files[]', file); // Use 'files[]' to indicate an array
   });
 
-  // Send the formData to the API (replace with actual API call)
-  console.log('Uploading media:', formData);
+  // Log formData contents for debugging (log the file names for visibility)
+  formData.getAll('files[]').forEach((file) => console.log('File appended:', file.name));
+
+  try {
+    // Send FormData directly in the POST request
+    const response = await $userService.upload_player_media(formData);
+
+    // Handle response
+    console.log('Upload successful:', response);
+  } catch (error) {
+    console.error('Error uploading media:', error);
+  }
 };
+
+
+
 
 onMounted(() => {
   Fancybox.bind('[data-fancybox="gallery"]', {
@@ -211,6 +207,18 @@ onMounted(() => {
 }
 
 button[disabled] {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-btn-wrapper button[disabled] {
   background-color: #999;
   cursor: not-allowed;
 }
