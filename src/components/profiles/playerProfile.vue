@@ -22,17 +22,28 @@
                             </div>
 
                             <h3 class="text-lg font-semibold text-center text-black">{{ name }}</h3>
-                            <h5 class="text-normal text-md text-center text-black text-primaryblue">{{  sportName }} player</h5>
+                            <button @click="toggleModal('name')">
+                                <div class="cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                    </svg>
+                                </div>
+                            </button>
+                            <h5 class="text-normal text-md text-center text-black text-primaryblue">{{ sportName }}
+                                player</h5>
                         </div>
                     </div>
 
 
-
+                    <!-- BIO SECTION  -->
                     <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
-                                <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
+                                <h1 class="text-lg font-semibold mb-4 text-black col-span-2"
+                                    @click="toggleModal('bio')">
                                     <div class="cursor-pointer">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-4">
@@ -48,12 +59,14 @@
                         </p>
                     </div>
 
+
+                    <!-- INFO SECTION  -->
                     <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                                    <div class="cursor-pointer">
+                                    <div class="cursor-pointer" @click="toggleModal('info')">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-4">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -78,16 +91,17 @@
                             </div>
                         </div> -->
 
-                        <div v-if="userRole =='coach'|| userRole=='admin'" class="grid grid-cols-10">
-                            <div class="col-span-2 mx-auto">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="2" stroke="currentColor" class="size-5">
+                        <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto" @click="toggleModal('info')">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="size-5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
                                 </svg>
                             </div>
                             <div class="col-span-8">
-                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ phoneCode }} {{ phone }}</b> </p>
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ phoneCode }} {{
+                                phone }}</b> </p>
                             </div>
                         </div>
 
@@ -97,7 +111,8 @@
                             </div>
                             <div class="col-span-8">
                                 <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>
-                                        {{ Number(feet.toFixed(2)) }} (  {{ heigth }}  <span v-if="heigth !='User has not entered height'">cm)</span> </b> </p>
+                                        {{ Number(feet.toFixed(2)) }} ( {{ heigth }} <span
+                                            v-if="heigth != 'User has not entered height'">cm)</span> </b> </p>
                             </div>
                         </div>
 
@@ -107,7 +122,9 @@
                             </div>
                             <div class="col-span-8">
                                 <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
-                                    <b ><span v-if="weight !='User has not entered weight'">{{ Number(pounds.toFixed(1)) }} lb(</span> {{ weight }} <span v-if="weight !='User has not entered weight'">kg )</span></b>
+                                    <b><span v-if="weight != 'User has not entered weight'">{{ Number(pounds.toFixed(1))
+                                            }} lb(</span> {{ weight }} <span
+                                            v-if="weight != 'User has not entered weight'">kg )</span></b>
                                 </p>
                             </div>
                         </div>
@@ -162,7 +179,8 @@
                             </div>
                             <div class="col-span-8">
                                 <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ birthday }}
-                                       <span v-if="birthday!='User has not entered birthday' ">Years Old</span>  </b></p>
+                                        <span v-if="birthday != 'User has not entered birthday'">Years Old</span> </b>
+                                </p>
                             </div>
                         </div>
                         <!-- <div  v-if="userRole !='coach'|| userRole!='admin'" class="grid grid-cols-10">
@@ -183,6 +201,8 @@
                         </div> -->
                     </div>
 
+
+                    <!-- ADDRESS SECTION  -->
                     <div style="height: 70px;"
                         class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
                         <div class="grid grid-cols-5 gap-4">
@@ -190,12 +210,14 @@
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl " src="@/assets/images/pin.png" alt="">
                             </div>
                             <div class="col-span-3 ...">
-                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3"><span v-if="userRole =='coach'|| userRole=='admin'" > {{  addressLine01 }}  {{  addressLine02 }} {{  stateProvince }}</span> {{ city }} , {{
-                                    country }}
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3"><span
+                                        v-if="userRole == 'coach' || userRole == 'admin'"> {{ addressLine01 }} {{
+                                addressLine02 }} {{ stateProvince }}</span> {{ city }} , {{
+                                country }}
                                 </p>
 
                             </div>
-                            <div class="col-span-1 ...">
+                            <div class="col-span-1 ..." @click="toggleModal('address')">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-4">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -205,9 +227,10 @@
                         </div>
 
                     </div>
-                    <div v-if="userRole =='coach'|| userRole=='admin'" style="height: 70px;"
+
+                    <div v-if="userRole == 'coach' || userRole == 'admin'" style="height: 70px;"
                         class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
-                        <div class="grid grid-cols-5 gap-4">
+                        <div class="grid grid-cols-5 gap-4" @click="toggleModal('budget')">
                             <div class="col-span-1...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl "
                                     src="@/assets/user/images/Group 179.png" alt="">
@@ -574,8 +597,8 @@
                                 </button>
                             </div>
 
-                            <div v-if="buttonHide== false">
-                                <button  @click="connectAcceptOrConnect"
+                            <div v-if="buttonHide == false">
+                                <button @click="connectAcceptOrConnect"
                                     class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                     {{ connectionButtonName }}
                                 </button>
@@ -597,7 +620,7 @@
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                                    <div class="cursor-pointer mr-[20px]">
+                                    <div class="cursor-pointer mr-[20px]" @click="toggleModal('utr')">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
                                             class="size-4 bg-white rounded-sm m-2">
@@ -617,23 +640,31 @@
                                 <h2 class="text-lg font-semibold mb-4">{{ utr }}</h2>
                             </div>
                             <div class="">
-                                <p v-if="userRole =='coach'|| userRole=='admin'"  class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
-                                <p v-if="userRole =='coach'|| userRole=='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
-                                <p v-if="userRole =='coach'|| userRole=='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ATP Ranking</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ITF Ranking</p>
                                 <!-- <p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">WTN</p> -->
-                                <p v-if="userRole =='coach'|| userRole=='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">National Ranking</p>
                             </div>
                             <div class="">
-                                <p v-if="userRole =='coach'|| userRole=='admin'"  class="text-lg font-semibold mb-4 text-sm text-normal">{{ gpa }}</p>
-                                <p v-if="userRole =='coach'|| userRole=='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ sat }}</p>
-                                <p v-if="userRole =='coach'|| userRole=='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ toefl }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ gpa }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ sat }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ toefl }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ atp }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ itf }}</p>
                                 <!-- <p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ wtn }}</p> -->
-                                <p v-if="userRole =='coach'|| userRole=='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ act }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ act }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ nationalRanking }}</p>
 
                             </div>
@@ -653,554 +684,31 @@
     </main>
 
 
-    <!-- Name change modal -->
-    <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <div
-                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                        <div class="sm:items-start">
-                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">User Name
-                                    change</h3>
-                                <div class="mt-2">
-                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want todeactivate</p>
-                                    <div class="">
-                                        <label class="block mb-1 text-gray-700 font-sans">Name
-                                            <span aria-hidden="true" class="text-red-600"
-                                                title="This field is required">*</span></label>
-                                        <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                            <input id="first_name" v-model="first_name" autocomplete="given-name" class="block px-5 py-3 w-full border-0 focus:border-lightAzure
-                                                         focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50
-                                                         disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                placeholder="" required>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button type="button"
-                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
-                            changes</button>
-                        <button type="button"
-                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bio change modal -->
-    <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-
-        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-
-                <div
-                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                        <div class="sm:flex sm:items-start">
-                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
-                                    Bio</h3>
-                                <div class="mt-2">
-                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want to
-                                        deactivate
-                                        your account? All of your data will be permanently removed.
-                                    </p>
-
-                                    <div>
-                                        <div class="">
-                                            <div class="">
-                                                <label class="block mb-1 text-gray-700 font-sans">Bio
-                                                    <span aria-hidden="true" class="text-red-600"
-                                                        title="This field is required">*</span></label>
-                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <textarea id="first_name" v-model="first_name"
-                                                        autocomplete="given-name"
-                                                        class="w-full block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                        placeholder="" required>
-                                            </textarea>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button type="button"
-                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
-                            changes</button>
-                        <button type="button"
-                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Info change modal -->
-    <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <div
-                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                        <div class="sm:flex sm:items-start">
-                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
-                                    Info</h3>
-                                <div class="mt-2">
-                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want to
-                                        deactivate
-                                        your account? All of your data will be permanently removed.
-                                    </p>
-
-                                    <div>
-                                        <div class="">
-                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
-                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Height
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span></label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <input id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Weight
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span></label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <input id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
-                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Handness
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span></label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <Select id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                            <option value="">gg</option>
-                                                        </Select>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Gender
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span></label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <Select id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                            <option value="">gg</option>
-                                                        </Select>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-                                            <div class="mb-2">
-                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Graduation
-                                                    month
-                                                    <span aria-hidden="true" class="text-red-600"
-                                                        title="This field is required">*</span></label>
-                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <input id="first_name" v-model="first_name"
-                                                        autocomplete="given-name"
-                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                        placeholder="" required>
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-2">
-                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Email
-                                                    <span aria-hidden="true" class="text-red-600"
-                                                        title="This field is required">*</span></label>
-                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <input id="first_name" v-model="first_name"
-                                                        autocomplete="given-name"
-                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                        placeholder="" required>
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-2 grid grid-cols-10 gap-4">
-                                                <div class="col-span-3">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Code
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span></label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <input id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-span-7">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Number
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span>
-                                                    </label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <input id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-2">
-                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Age
-                                                    <span aria-hidden="true" class="text-red-600"
-                                                        title="This field is required">*</span></label>
-                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <input id="first_name" v-model="first_name"
-                                                        autocomplete="given-name"
-                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                        placeholder="" required>
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-2">
-                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Budget
-                                                    <span aria-hidden="true" class="text-red-600"
-                                                        title="This field is required">*</span></label>
-                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <select id="first_name" v-model="first_name"
-                                                        autocomplete="given-name"
-                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                        placeholder="" required>
-                                                        <option value="">ggg</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button type="button"
-                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
-                            changes</button>
-                        <button type="button"
-                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- UTR change modal -->
-    <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <div
-                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                        <div class="sm:flex sm:items-start">
-                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
-                                    Info</h3>
-                                <div class="mt-2">
-                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want to
-                                        deactivate
-                                        your account? All of your data will be permanently removed.
-                                    </p>
-
-                                    <div>
-                                        <div class="">
-                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
-                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">UTR
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span></label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <input id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">WTN
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span></label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <input id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
-                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">SAT Score
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span></label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <input id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">ACT Score
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span></label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <input id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
-                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">SAT Score
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span></label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <input id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">TOEFL
-                                                        Score
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span></label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <input id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
-                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">ATP
-                                                        Ranking
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span></label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <input id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">National
-                                                        Ranking
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span></label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <input id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button type="button"
-                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
-                            changes</button>
-                        <button type="button"
-                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Address change modal -->
-    <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <div
-                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                        <div class="sm:flex sm:items-start">
-                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
-                                    Address</h3>
-                                <div class="mt-2">
-                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want to
-                                        deactivate
-                                        your account? All of your data will be permanently removed.
-                                    </p>
-
-                                    <div>
-                                        <div class="">
-                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
-                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Address
-                                                        line 1
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span></label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <input id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Address
-                                                        line 2
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span></label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <input id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
-                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">City
-                                                        <span aria-hidden="true" class="text-red-600"
-                                                            title="This field is required">*</span></label>
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                        <input id="first_name" v-model="first_name"
-                                                            autocomplete="given-name"
-                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                            placeholder="" required>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button type="button"
-                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
-                            changes</button>
-                        <button type="button"
-                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Budget change modal -->
-    <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <div
-                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                        <div class="sm:items-start">
-                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Budget
-                                    change</h3>
-                                <div class="mt-2">
-                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want todeactivate</p>
-                                    <div class="">
-                                        <label class="block mb-1 text-gray-700 font-sans">Budget
-                                            <span aria-hidden="true" class="text-red-600"
-                                                title="This field is required">*</span></label>
-                                        <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                            <select id="first_name" v-model="first_name" autocomplete="given-name"
-                                                class="block px-5 py-3 w-full border-0 focus:border-lightAzure
-                                                         focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50
-                                                         disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                placeholder="" required>
-                                                <option>dsd</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button type="button"
-                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
-                            changes</button>
-                        <button type="button"
-                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> 
-
-
+    <!-- Modal Components with Standardized Props -->
+    <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
+    <BioModal :visible="modals.bio" @close="handleModalClose" :slug="slug" />
+    <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" />
+    <BudgetModal :visible="modals.budget" @close="handleModalClose" :slug="slug" />
+    <UTRModal :visible="modals.utr" @close="handleModalClose" :slug="slug" />
+    <AddressModal :visible="modals.address" @close="handleModalClose" :slug="slug" />
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, reactive } from 'vue';
 import { useNuxtApp } from '#app';
+import { useRoute } from 'vue-router';
 import Connection from '~/components/user/profile/connection.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
 import { useUserStore } from '~/stores/userStore';
 import PlayerTabNavigation from '~/components/profiles/navigation/PlayerTabNavigation.vue';
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
-
+import NameModal from '~/components/profiles/player/modals/nameModal.vue';
+import BioModal from '~/components/profiles/player/modals/bioModal.vue';
+import InfoModal from '~/components/profiles/player/modals/infoModal.vue';
+import BudgetModal from '~/components/profiles/player/modals/budgetModal.vue';
+import UTRModal from '~/components/profiles/player/modals/utrModal.vue';
+import AddressModal from '~/components/profiles/player/modals/addressModal.vue';
 
 
 // Access authService from the context
@@ -1208,7 +716,8 @@ const nuxtApp = useNuxtApp();
 const $publicService = nuxtApp.$publicService;
 const $userService = nuxtApp.$userService;
 const $feedService = nuxtApp.$feedService;
-const userStore = useUserStore()
+const userStore = useUserStore();
+const route = useRoute();
 
 const bio = ref('');
 const country = ref('');
@@ -1235,24 +744,27 @@ const connectionStatus = ref(false)
 const connectionType = ref(null)
 const connectionButtonName = ref('Connect')
 const userId = ref('')
-const plyerSlug = ref('')
-const plyerId = ref('')
-const sportName =ref('')
+const playerID = ref('')
+const sportName = ref('')
 const email = ref('')
 const phone = ref('')
-const wtn =ref('')
+const wtn = ref('')
 const act = ref('')
 const nationalRanking = ref('')
-const gender =ref('')
+const gender = ref('')
 const nationality = ref('')
 const handness = ref('')
-const preferredSurface=ref('')
-const phoneCode =ref('')
+const preferredSurface = ref('')
+const phoneCode = ref('')
 const userRole = ref(null)
-const addressLine01 = ref('')
-const addressLine02 = ref('')
-const stateProvince = ref('')
-const buttonHide = ref(true)
+const addressLine01 = ref('');
+const addressLine02 = ref('');
+const stateProvince = ref('');
+const buttonHide = ref(true);
+const isEdit = ref('');
+const slug = ref('');
+
+
 const props = defineProps({
     user: {
         type: Object,
@@ -1275,30 +787,54 @@ const handleTab = (selectedTab) => {
     tab.value = selectedTab;
 };
 
+// Define reactive state for all modals
+const modals = reactive({
+    name: false,
+    bio: false,
+    info: false,
+    budget: false,
+    utr: false,
+    address: false,
+});
+
+// Generic toggle function
+const toggleModal = (modalName) => {
+    if (modals.hasOwnProperty(modalName)) {
+        modals[modalName] = !modals[modalName];
+    } else {
+        console.warn(`Modal "${modalName}" does not exist.`);
+    }
+};
+
 
 onMounted(() => {
-    userId.value = userStore.user.user_id
-    plyerSlug.value = props.user.user_basic_info.slug
-    plyerId.value = props.user.user_basic_info.id
-    userRole.value = userStore.user.role || null;
-    fetchUserDatils();
-    fetchConnections();
-    fetchPost();
-    fetchCheckConnection();
-    fetchMediaGallery();
+    slug.value = route.params.slug;
 
+    if (slug) {
+        fetchUserDetails(slug);
+    }
+    userId.value = userStore.user?.user_id || null;
+    playerID.value = props.user?.user_basic_info?.id || null;
+    userRole.value = userStore.user?.role || null;
 
+    if (playerID.value != null) {
+        fetchConnections();
+        fetchPost();
+        fetchCheckConnection();
+        fetchMediaGallery();
+    }
 });
 
 
 
-const fetchUserDatils = async () => {
+const fetchUserDetails = async (slug) => {
     try {
-       const dataSets = await $publicService.get_player(plyerSlug.value);
-       if(dataSets.user_basic_info){
-            bio.value =dataSets.user_basic_info.bio??"User has not entered bio"
-            name.value =dataSets.user_basic_info.display_name??"User has not entered name"
-            
+        const dataSets = await $publicService.get_player(route.params.slug);
+        if (dataSets.user_basic_info) {
+            bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"
+            name.value = dataSets.user_basic_info.display_name ?? "User has not entered name";
+           
+
             const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
             const today = new Date();
             let age = today.getFullYear() - birthDate.getFullYear();
@@ -1306,68 +842,68 @@ const fetchUserDatils = async () => {
             if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
                 age--;
             }
-             birthday.value = age??'User has not entered birthday'
+            birthday.value = age ?? 'User has not entered birthday'
 
             const date = new Date(dataSets.user_basic_info.joined_at);
             const monthNames = [
                 'January', 'February', 'March', 'April', 'May', 'June',
                 'July', 'August', 'September', 'October', 'November', 'December'
-           ];
-           const year = date.getFullYear();
-           const month = monthNames[date.getMonth()];
-           const day = date.getDate();
-           joinDate.value = `${year} ${month} ${day}`
+            ];
+            const year = date.getFullYear();
+            const month = monthNames[date.getMonth()];
+            const day = date.getDate();
+            joinDate.value = `${year} ${month} ${day}`
 
-            nationality.value =dataSets.user_basic_info.nationality??"User has not entered nationality"
-            email.value =dataSets.user_basic_info.email??"User has not entered email"
-            gender.value =dataSets.user_basic_info.gender??"User has not entered gender"
+            nationality.value = dataSets.user_basic_info.nationality ?? "User has not entered nationality"
+            email.value = dataSets.user_basic_info.email ?? "User has not entered email"
+            gender.value = dataSets.user_basic_info.gender ?? "User has not entered gender"
 
 
         }
 
-        if(dataSets.user_address_info){
-            country.value =dataSets.user_address_info.country??'User has not entered country'
-            city.value =dataSets.user_address_info.city??'User has not entered city'
-            addressLine01.value =dataSets.user_address_info.address_line_1??'User has not entered address line 01'
-            addressLine02.value =dataSets.user_address_info.address_line_2??'User has not entered address line 02'
-            stateProvince.value =dataSets.user_address_info.state_province??'User has not entered stare provice'
-        }
-        
-        if(dataSets.user_phone_info){
-            phone.value =dataSets.user_phone_info.phone_number??'User has not entered phone number'
-            phoneCode.value =dataSets.user_phone_info.phone_code??''
+        if (dataSets.user_address_info) {
+            country.value = dataSets.user_address_info.country ?? 'User has not entered country'
+            city.value = dataSets.user_address_info.city ?? 'User has not entered city'
+            addressLine01.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
+            addressLine02.value = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
+            stateProvince.value = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
         }
 
-        if(dataSets.player_info){
-            heigth.value =dataSets.player_info.height??'User has not entered height'
-            weight.value =dataSets.player_info.weight??'User has not entered weight'
-            utr.value =dataSets.player_info.other_data.utr??0
-            gpa.value =dataSets.player_info.gpa??"Unknown"
-            sportName.value =dataSets.player_info.sport_name??'User has not entered sport'
+        if (dataSets.user_phone_info) {
+            phone.value = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number'
+            phoneCode.value = dataSets.user_phone_info.phone_code ?? ''
+        }
 
-            if(dataSets.player_info.other_data){
-                budgetMin.value =dataSets.player_info.other_data.budget_max??'User has not entered budget min value'
-                budgetMax.value =dataSets.player_info.other_data.budget_min??'User has not entered budget max value'
-                sat.value =dataSets.player_info ?dataSets.player_info.other_data.sat_score : "Unknown"
-                toefl.value =dataSets.player_info ?dataSets.player_info.other_data.toefl_score: "Unknown"
-                atp.value =dataSets.player_info.other_data.atp_ranking ?? "Unknown"
-                itf.value =dataSets.player_info.other_data.itf_ranking ?? "Unknown"
-                act.value =dataSets.player_info.other_data.act_score ?? "Unknown"
-                wtn.value =dataSets.player_info.other_data.wtn_score_manual ?? "Unknown"
-                nationalRanking.value =dataSets.player_info.other_data.national_ranking ?? "Unknown"
-                handness.value =dataSets.player_info.other_data.handedness ?? "User has not entered handness"
-                preferredSurface.value =dataSets.player_info.other_data.preferred_surface ?? "User has not entered preferred surface"
+        if (dataSets.player_info) {
+            heigth.value = dataSets.player_info.height ?? 'User has not entered height'
+            weight.value = dataSets.player_info.weight ?? 'User has not entered weight'
+            utr.value = dataSets.player_info.other_data.utr ?? 0
+            gpa.value = dataSets.player_info.gpa ?? "Unknown"
+            sportName.value = dataSets.player_info.sport_name ?? 'User has not entered sport'
+
+            if (dataSets.player_info.other_data) {
+                budgetMin.value = dataSets.player_info.other_data.budget_max ?? 'User has not entered budget min value'
+                budgetMax.value = dataSets.player_info.other_data.budget_min ?? 'User has not entered budget max value'
+                sat.value = dataSets.player_info ? dataSets.player_info.other_data.sat_score : "Unknown"
+                toefl.value = dataSets.player_info ? dataSets.player_info.other_data.toefl_score : "Unknown"
+                atp.value = dataSets.player_info.other_data.atp_ranking ?? "Unknown"
+                itf.value = dataSets.player_info.other_data.itf_ranking ?? "Unknown"
+                act.value = dataSets.player_info.other_data.act_score ?? "Unknown"
+                wtn.value = dataSets.player_info.other_data.wtn_score_manual ?? "Unknown"
+                nationalRanking.value = dataSets.player_info.other_data.national_ranking ?? "Unknown"
+                handness.value = dataSets.player_info.other_data.handedness ?? "User has not entered handness"
+                preferredSurface.value = dataSets.player_info.other_data.preferred_surface ?? "User has not entered preferred surface"
 
             }
 
             const parsedDate = new Date(dataSets.player_info.graduation_month_year);
             const options = { year: 'numeric', month: 'long' };
-            graduationDate.value = parsedDate.toLocaleDateString('en-US', options)??'User has not entered graduation date'
+            graduationDate.value = parsedDate.toLocaleDateString('en-US', options) ?? 'User has not entered graduation date'
 
             feet.value = dataSets.player_info.height / 30.48;
             pounds.value = 2.20462 * dataSets.player_info.weight
         }
-         
+
     } catch (error) {
         console.log(error)
         console.error('Error fetching data:', error.message);
@@ -1376,32 +912,34 @@ const fetchUserDatils = async () => {
 
 const fetchCheckConnection = async () => {
     try {
-        const dataSets = await $userService.get_check_connection_type(plyerId.value);
-        connectionStatus.value = dataSets.connection
-        if (connectionStatus.value) {
-            connectionType.value = dataSets.type
+        if (playerID.value != null) {
+            const dataSets = await $userService.get_check_connection_type(playerID.value);
+            connectionStatus.value = dataSets.connection
+            if (connectionStatus.value) {
+                connectionType.value = dataSets.type
 
-            if ((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)) {
+                if ((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)) {
+                    buttonHide.value = false
+
+                    connectionButtonName.value = "Invite sent"
+                }
+
+                if ((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)) {
+                    buttonHide.value = false
+
+                    connectionButtonName.value = "Accept connection"
+                }
+
+                if (dataSets.type.connection_status == 'accepted') {
+                    buttonHide.value = true
+
+                    connectionButtonName.value = "Connected"
+                }
+            } else {
                 buttonHide.value = false
-
-                connectionButtonName.value = "Invite sent"
             }
 
-            if ((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)) {
-                buttonHide.value = false
-
-                connectionButtonName.value = "Accept connection"
-            }
-
-            if (dataSets.type.connection_status == 'accepted') {
-                buttonHide.value = true
-
-                connectionButtonName.value = "Connected"
-            }
-        }else{
-            buttonHide.value = false
         }
-       
     } catch (error) {
         console.error('Error fetching data:', error.message);
     }
@@ -1409,9 +947,11 @@ const fetchCheckConnection = async () => {
 
 const fetchConnections = async () => {
     try {
-        const dataSets = await $userService.get_connection(plyerId.value);
-        console.log(dataSets.connection)
-        connections.value = dataSets.connection
+        if (playerID.value != null) {
+            const dataSets = await $userService.get_connection(playerID.value);
+            connections.value = dataSets.connection
+        }
+
     } catch (error) {
         console.log(error)
         console.error('Error fetching data:', error.message);
@@ -1428,6 +968,7 @@ const fetchPost = async () => {
 }
 
 const connectAcceptOrConnect = async () => {
+
     try {
         if (connectionButtonName.value == "Accepted") {
             await $userService.connection_accept(connectionType.value.id, {
@@ -1436,18 +977,22 @@ const connectAcceptOrConnect = async () => {
         }
 
         if (connectionButtonName.value == "Connect") {
-            await $userService.connection_request({
-                receiver_id: plyerId.value
-            });
+            if (playerID.value != null) {
+                const response = await $userService.connection_request({
+                    receiver_id: playerID.value
+                });
+
+                nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+            }
+
         }
 
-        fetchCheckConnection()
+        // fetchCheckConnection();
 
     } catch (error) {
-        console.error('Failed to load posts:', error.message);
+        console.error('Failed to Connect :', error.message);
     }
 }
-
 
 const fetchMediaGallery = async () => {
     try {
@@ -1514,6 +1059,16 @@ const galleryItems = ref([
     },
 ]);
 
+// Generic function to close the modal and fetch user details
+const handleModalClose = (modalName) => {
+    // Defensive check to make sure modalName exists
+    if (modals[modalName] !== undefined) {
+        modals[modalName] = false;  // Close the modal
+        fetchUserDetails();         // Fetch updated user details after closing
+    } else {
+        console.error(`Invalid modal name: ${modalName}`);
+    }
+};
 
 </script>
 
