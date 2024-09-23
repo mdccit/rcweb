@@ -61,6 +61,21 @@ const createApiService = (config) => {
   };
 
 
+  const postMedia = async (url, body) => {
+    try {
+      const response = await fetch(`${apiUrl}${url}`, {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: body,
+      });
+
+      // Handle the response (check for errors)
+      return await handleResponse(response);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const putRequest = async (url, body) => {
 
     try {
@@ -111,6 +126,7 @@ const createApiService = (config) => {
     putRequest,
     deleteRequest,
     patchRequest,
+    postMedia
   };
 };
 
