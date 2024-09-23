@@ -511,12 +511,15 @@ import PopupModal from '~/pages/user/search/saveSearchModal.vue';
 import { ref, computed, watch, onMounted ,inject  } from 'vue';
 import { useNuxtApp } from '#app';
 import { useUserStore } from '~/stores/userStore';
+import { useSearchStore } from '~/stores/searchStore';
+
 import { useRouter } from 'vue-router';
 import SaveSearch from '~/components/user/search/saveSearch.vue';
 import ViewSaveSearch from '~/components/user/search/viewSaveSearch.vue';
 const nuxtApp = useNuxtApp();
 const userStore = useUserStore();
 const router = useRouter();
+const searchStore = useSearchStore();
 
 const $userService = nuxtApp.$userService;
 const search = ref([])
@@ -529,34 +532,73 @@ onMounted(() => {
 
   });
  
+  
+watch(
+  () => searchStore.searchButton,
+  () => {
+    fetchData() 
+  }
+);
   const fetchData = async () =>{
+    console.log(1)
+    if(searchStore.searchButton){
+        console.log(searchStore.searchKey)
+    const data ={
+        user_role:5,
+
+        // search_key:searchStore.searchKey??null,
+        // state:searchStore.state??null,
+        // city:searchStore.city??null,
+        // tuition_in_state_min:searchStore.tuitionInStateMin??null,
+        // tuition_in_state_max:searchStore.tuitionInStateMax??null,
+        // tuition_out_state_min:searchStore.tuitionOutStateMin??null,
+        // tuition_out_state_max:searchStore.tuitionOutStateMax??null,
+        // gender:searchStore.gender??null,
+        // graduation_month:searchStore.graduationMonth??null,
+        // graduation_year:searchStore.graduationYear??null,
+        // country_id:searchStore.countryId??null,
+        // handedness:searchStore.handedness??null,
+        // utr_min:searchStore.utrMin??null,
+        // utr_max:searchStore.utrMax??null,
+        // wtn_min:searchStore.wtnMin??null,
+        // wtn_max:searchStore.wtnMax??null,
+        // atp_ranking:searchStore.atpRanking??null,
+        // itf_ranking:searchStore.itfRanking??null,
+        // national_ranking:searchStore.nationalRanking??null
+    }
+    const raw = JSON.stringify({
+  "user_role": 5,
+  "search_key": null,
+  "state": null,
+  "city": null,
+  "tuition_in_state_min": null,
+  "tuition_in_state_max": null,
+  "tuition_out_state_min": null,
+  "tuition_out_state_max": null,
+  "gender": null,
+  "graduation_month": null,
+  "graduation_year": null,
+  "country_id": null,
+  "handedness": null,
+  "utr_min": null,
+  "utr_max": null,
+  "wtn_min": null,
+  "wtn_max": null,
+  "atp_ranking": null,
+  "itf_ranking": null,
+  "national_ranking": null
+});
     try {
-    const response = await $userService.search_user({
-        user_role:'',
-        search_key:null,
-        state:null,
-        city:null,
-        tuition_in_state_min:null,
-        tuition_in_state_max:null,
-        tuition_out_state_min:null,
-        tuition_out_state_max:null,
-        gender:null,
-        graduation_month:null,
-        graduation_year:null,
-        country_id:null,
-        handedness:null,
-        utr_min:null,
-        utr_max:null,
-        wtn_min:null,
-        wtn_max:null,
-        atp_ranking:null,
-        itf_ranking:null,
-        national_ranking:null
-    });
+    const response = await $userService.search_user(raw);
+    console.log(response)
+
      search.value = response.data.dataSets.users || [];
+     searchStore.setSearchButton(false)
+
   } catch (error) {
     console.error('Failed to load posts:', error.message);
   }
+}
   }
 // export default {
 //   components: {

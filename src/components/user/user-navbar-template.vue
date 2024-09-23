@@ -318,9 +318,13 @@
 
 <script setup>
 import {ref, defineProps, defineEmits, defineExpose} from 'vue';
+import { useSearchStore } from '~/stores/searchStore';
+
+const searchStore = useSearchStore();
+
 const emit = defineEmits(['search']);
 
   const search1 = () =>{
-     emit('search');
+    searchStore.setSearchButton(true)
   }
 </script>

@@ -101,9 +101,9 @@ const createUserService = (apiService) => {
  const search_user = async ( request_body) => {
   const url = `/user/search`;
   const body = request_body;
-
   try {
     const response = await apiService.getRequest(url, body);
+    console.log(response)
     return response;
   } catch (error) {
     throw new Error(error.message || 'Failed to update post');
