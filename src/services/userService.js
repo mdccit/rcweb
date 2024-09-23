@@ -56,6 +56,42 @@ const createUserService = (apiService) => {
         throw new Error(error.message || 'Failed to update');
       }
     };
+
+    const connection_cancelle = async (connection_id,request_body) => {
+      const url = `/user/connections-cancelle/${connection_id}`;
+      const body = request_body;
+
+      try {
+        const response = await apiService.putRequest(url, body);
+         return response;
+      } catch (error) {
+        throw new Error(error.message || 'Failed to update');
+      }
+    };
+
+    const connection_reject = async (connection_id,request_body) => {
+      const url = `/user/connections-reject/${connection_id}`;
+      const body = request_body;
+
+      try {
+        const response = await apiService.putRequest(url, body);
+         return response;
+      } catch (error) {
+        throw new Error(error.message || 'Failed to update');
+      }
+    };
+
+    const connection_remove = async (connection_id,request_body) => {
+      const url = `/user/connections-remove/${connection_id}`;
+      const body = request_body;
+
+      try {
+        const response = await apiService.putRequest(url, body);
+         return response;
+      } catch (error) {
+        throw new Error(error.message || 'Failed to update');
+      }
+    };
   
     const save_search = async ( request_body) => {
       const url = `/user/save-search`;
@@ -118,7 +154,10 @@ const createUserService = (apiService) => {
         save_search,
         get_save_search,
         delete_save,
-        search_user
+        search_user,
+        connection_reject,
+        connection_cancelle,
+        connection_remove
 
 
     };

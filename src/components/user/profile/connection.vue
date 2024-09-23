@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <div class="flex-1 text-right">
-                            <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                            <button  class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor"
                                     class="size-5 text-blue-500 m-auto">
@@ -184,15 +184,90 @@
 
 <script setup>
 import { defineProps, ref, onMounted} from 'vue';
+import { useNuxtApp } from '#app';
+
+const nuxtApp = useNuxtApp();
+const $userService = nuxtApp.$userService;
 
 const props = defineProps({
-    connections: Array
+    playerId: String
 });
 
 const connections = ref([])
 
 onMounted(() => {
-    connections.value = props.connections
+    fetchConnections();
+
 
 });
+
+const fetchConnections = async () => {
+    try {
+        const dataSets = await $userService.get_connection( props.playerId);
+        console.log(dataSets.connection)
+        connections.value = dataSets.connection
+    } catch (error) {
+        console.log(error)
+        console.error('Error fetching data:', error.message);
+    }
+}
+
+const connectAccept = async () => {
+    try {
+        await $userService.connection_accept(connectionType.value.id, {
+            connection_status: "accepted"
+        });
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
+}
+
+const connectRequestSend = async (userId) => {
+    try {
+        await $userService.connection_request({
+            receiver_id: userId
+        });
+
+        fetchConnections();
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
+}
+
+const connectReject = async (id) => {
+    try {
+        const response = await $userService.connection_reject(id,{
+            connection_status: "rejected"
+        });
+        fetchConnections();
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
+}
+
+const connectRemove = async (id) => {
+    try {
+        const response = await $userService.connection_remove(id,{
+            connection_status: "removed"
+        });
+        fetchConnections();
+
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
+}
+
+const connectCancelle = async (id) => {
+    try {
+        const response =await $userService.connection_cancelle(id,{
+            connection_status: "cancelled"
+        });
+
+        fetchConnections();
+
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
+}
+
 </script>
