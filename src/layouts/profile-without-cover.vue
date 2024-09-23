@@ -11,7 +11,7 @@
         <playerProfileLeft :data="leftData" @changeTab="chnageTab(value)" />
       </div>
       <div class="col-start-2 col-span-5 ">
-        <playerProfileHedarer  @changeTab="setSelectedTab" />
+        <playerProfileHedarer @changeTab="setSelectedTab" :playerId="playerID" />
       </div>
       <div class="col-start-2 col-span-4 bg-brown-500">
         <!-- Content changes based on the selected tab -->
@@ -19,8 +19,10 @@
         <Connection v-if="tab === 'connection'" :playerId="playerID" />
         <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" />
 
-
+        <playerProfileLeft :data="leftData" @changeTab="changeTab(value)" />
       </div>
+
+
       <div class="p-2">
         <playerProfileRight :data="utrData" />
       </div>
@@ -44,6 +46,7 @@ import { useUserStore } from '~/stores/userStore';
 import UserFeed from '~/components/user/profile/userFeed.vue';
 // import Connection from '~/components/user/profile/connection.vue';
 import mediaTab from '~/components/profiles/player/tabs/mediaTab.vue';
+import Connection from '~/components/user/profile/connection.vue';
 
 const nuxtApp = useNuxtApp();
 
@@ -100,9 +103,7 @@ const feet = ref(0)
 const pounds = ref(0)
 const connections = ref([])
 const posts = ref([])
-const connectionStatus = ref(false)
-const connectionType = ref(null)
-const connectionButtonName = ref('Connect')
+
 const userId = ref('')
 const playerID = ref('')
 const sportName = ref('')
@@ -144,6 +145,14 @@ onMounted(() => {
   //  playerID.value = props.user?.user_basic_info?.id || null;
   //userRole.value = userStore.user?.role || null;
 
+  if (slug) {
+    fetchUserDetails(slug);
+  }
+  userId.value = userStore.user?.user_id || null;
+  // console.log(props.user?.user_basic_info?.id)
+  //  playerID.value = props.user?.user_basic_info?.id || null;
+  //userRole.value = userStore.user?.role || null;
+
   if (playerID.value != null) {
     // fetchConnections();
     fetchPost();
@@ -152,14 +161,15 @@ onMounted(() => {
   }
 });
 
-const chnageTab = (value) => {
+const changeTab = (value) => {
+  console.log(value)
+
   tab.value = value
 }
 const fetchUserDetails = async (slug) => {
   try {
     const dataSets = await $publicService.get_player(route.params.slug);
     playerID.value = dataSets.user_basic_info.id || null;
-    fetchCheckConnection();
     if (dataSets.user_basic_info) {
       bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"
       name.value = dataSets.user_basic_info.display_name ?? "User has not entered name";
@@ -188,8 +198,8 @@ const fetchUserDetails = async (slug) => {
       email.value = dataSets.user_basic_info.email ?? "User has not entered email"
       gender.value = dataSets.user_basic_info.gender ?? "User has not entered gender"
 
-
     }
+
 
     if (dataSets.user_address_info) {
       country.value = dataSets.user_address_info.country ?? 'User has not entered country'
@@ -269,46 +279,28 @@ const fetchUserDetails = async (slug) => {
 
     }
 
+
+    const date = new Date(dataSets.user_basic_info.joined_at);
+    const monthNames = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    const year = date.getFullYear();
+    const month = monthNames[date.getMonth()];
+    const day = date.getDate();
+    joinDate.value = `${year} ${month} ${day}`
+
+    nationality.value = dataSets.user_basic_info.nationality ?? "User has not entered nationality"
+    email.value = dataSets.user_basic_info.email ?? "User has not entered email"
+    gender.value = dataSets.user_basic_info.gender ?? "User has not entered gender"
+
   } catch (error) {
-    console.log(error)
-    console.error('Error fetching data:', error.message);
-  }
+  console.log(error)
+  console.error('Error fetching data:', error.message);
 }
 
-const fetchCheckConnection = async () => {
-  try {
-    if (playerID.value != null) {
-      const dataSets = await $userService.get_check_connection_type(playerID.value);
-      connectionStatus.value = dataSets.connection
-      if (connectionStatus.value) {
-        connectionType.value = dataSets.type
-
-        if ((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)) {
-          buttonHide.value = false
-
-          connectionButtonName.value = "Invite sent"
-        }
-
-        if ((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)) {
-          buttonHide.value = false
-
-          connectionButtonName.value = "Accept connection"
-        }
-
-        if (dataSets.type.connection_status == 'accepted') {
-          buttonHide.value = true
-
-          connectionButtonName.value = "Connected"
-        }
-      } else {
-        buttonHide.value = false
-      }
-
-    }
-  } catch (error) {
-    console.error('Error fetching data:', error.message);
-  }
 }
+
 
 const fetchPost = async () => {
   try {
