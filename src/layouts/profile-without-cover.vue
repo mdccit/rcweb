@@ -19,7 +19,6 @@
         <Connection v-if="tab === 'connection'" :playerId="playerID" />
         <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" />
 
-        <playerProfileLeft :data="leftData" @changeTab="changeTab(value)" />
       </div>
 
 
