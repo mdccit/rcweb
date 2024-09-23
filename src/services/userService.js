@@ -143,6 +143,24 @@ const createUserService = (apiService) => {
   };
 
 
+  const update_player_info = async (request_body) => {
+
+    const url = `/public/players/update-other-info/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to login');
+      }
+    }
+  };
+
+
   return {
     get_connection,
     connection_request,
@@ -153,7 +171,8 @@ const createUserService = (apiService) => {
     delete_save,
     search_user,
     update_player_bio,
-    update_player_name
+    update_player_name,
+    update_player_info
 
 
   };

@@ -37,7 +37,7 @@
                     </div>
 
 
-
+                    <!-- BIO SECTION  -->
                     <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
@@ -59,12 +59,14 @@
                         </p>
                     </div>
 
+
+                    <!-- INFO SECTION  -->
                     <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                                    <div class="cursor-pointer" @click="toggleModal('bio')">
+                                    <div class="cursor-pointer" @click="toggleModal('info')">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-4">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -199,6 +201,8 @@
                         </div> -->
                     </div>
 
+
+                    <!-- ADDRESS SECTION  -->
                     <div style="height: 70px;"
                         class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
                         <div class="grid grid-cols-5 gap-4">
@@ -223,6 +227,7 @@
                         </div>
 
                     </div>
+                    
                     <div v-if="userRole == 'coach' || userRole == 'admin'" style="height: 70px;"
                         class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
                         <div class="grid grid-cols-5 gap-4" @click="toggleModal('budget')">
