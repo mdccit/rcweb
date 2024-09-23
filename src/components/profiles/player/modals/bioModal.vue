@@ -102,7 +102,6 @@ const updatePlayerBio = async (bio) => {
     try {
         const request_body = { user_slug: props.slug, bio: bio };  // Construct request body with bio
         const response = await $userService.update_player_bio(request_body);  // Pass slug and request body
-        console.log(response);
         if (response.status == '200') {
             // Trigger success notification
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
