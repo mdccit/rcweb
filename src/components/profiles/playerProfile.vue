@@ -553,7 +553,7 @@
                     </div> -->
 
                     <!--end card 02 -->
-                    <Connection v-if="tab == 'connection'" :playerId="plyerId" />
+                    <Connection v-if="tab == 'connection'" :playerId="playerID" />
                     <!--start card 03 -->
 
                     <!-- Media Gallery Section -->
@@ -856,14 +856,6 @@ const toggleModal = (modalName) => {
 
 
 onMounted(() => {
-    userId.value = userStore.user.user_id
-    plyerSlug.value = props.user.user_basic_info.slug
-    plyerId.value = props.user.user_basic_info.id
-    userRole.value = userStore.user.role || null;
-    fetchUserDatils();
-    fetchPost();
-    fetchCheckConnection();
-    fetchMediaGallery();
     slug.value = route.params.slug;
 
     if (slug) {
@@ -874,7 +866,7 @@ onMounted(() => {
     userRole.value = userStore.user?.role || null;
 
     if (playerID.value != null) {
-        fetchConnections();
+        // fetchConnections();
         fetchPost();
         fetchCheckConnection();
         fetchMediaGallery();
@@ -1001,6 +993,18 @@ const fetchCheckConnection = async () => {
     }
 }
 
+// const fetchConnections = async () => {
+//     try {
+//         if (playerID.value != null) {
+//             const dataSets = await $userService.get_connection(playerID.value);
+//             connections.value = dataSets.connection
+//         }
+
+//     } catch (error) {
+//         console.log(error)
+//         console.error('Error fetching data:', error.message);
+//     }
+// }
 const fetchPost = async () => {
     try {
         const response = await $feedService.list_posts({});
