@@ -1,8 +1,7 @@
 <template>
   <div>
     <!-- Upload Media Section -->
-    <!-- Upload Media Section with Icon and Highlighted Style -->
-    <form @submit.prevent="uploadMedia" enctype="multipart/form-data" class="upload-form">
+    <form @submit.prevent="uploadMedia" class="upload-form">
       <div
         class="upload-section mb-4 border-2 border-dashed border-blue-500 rounded-lg p-4 bg-blue-50 hover:bg-blue-100">
         <label for="media-upload" class="cursor-pointer flex flex-col items-center justify-center">
@@ -16,14 +15,12 @@
           <span class="text-gray-500 text-sm">or drag and drop files here</span>
         </label>
         <!-- Input for file selection -->
-        <!-- Input for file selection -->
         <input id="media-upload" type="file" accept="image/*,video/mp4" multiple @change="handleFileUpload"
           class="hidden" />
       </div>
 
       <!-- Cropping Section for Images -->
       <vue-cropper v-if="isImageCropping" ref="cropper" :src="cropperImage" @crop="onCrop" />
-
 
       <!-- File List -->
       <ul class="mt-4">
@@ -44,16 +41,6 @@
       </div>
     </form>
 
-    <!-- Media List Temporarily Before Upload with Remove Button
-    <ul class="mt-4">
-      <li v-for="(file, index) in files" :key="index" class="mb-2 flex justify-between items-center">
-        <span>{{ file.name }} ({{ file.type }})</span>
-        <button @click="removeFile(index)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700">
-          Remove
-        </button>
-      </li>
-    </ul> -->
-
     <!-- Media Gallery -->
     <div class="media-gallery grid">
       <a v-for="(item, index) in galleryItems" :key="index" data-fancybox="gallery" :href="item.href"
@@ -68,11 +55,9 @@
         </button>
       </a>
     </div>
-
-
-
   </div>
 </template>
+
 
 <script setup>
 import { ref, onMounted } from 'vue';
@@ -86,8 +71,7 @@ import '@fancyapps/ui/dist/fancybox/fancybox.css';
 const nuxtApp = useNuxtApp();
 const $publicService = nuxtApp.$publicService;
 const $userService = nuxtApp.$userService;
-const selectedFiles = ref([]);
-
+const files = ref([]); // To hold the uploaded files
 // Props
 const props = defineProps({
   galleryItems: {
@@ -103,7 +87,6 @@ const props = defineProps({
 // Reactive data
 const isImageCropping = ref(false); // Toggle for image cropping
 const cropperImage = ref(null); // Image to be cropped
-const files = ref([]); // To hold the uploaded files
 
 // Create a local copy of galleryItems to modify
 const localGalleryItems = ref([...props.galleryItems]);
@@ -111,12 +94,11 @@ const localGalleryItems = ref([...props.galleryItems]);
 
 // Handle file selection
 const handleFileUpload = (event) => {
-  const selectedFiles = Array.from(event.target.files); // Get the selected files from the input
-  // Push each selected file to the reactive array `files`
-  selectedFiles.forEach((file) => {
-    files.value.push(file);  // Push new files to the reactive `files` array
+  const selected = Array.from(event.target.files);
+  selected.forEach((file) => {
+    files.value.push(file);
   });
-  console.log('Selected files:', files.value);  // Debugging log
+  console.log('Selected files:', files.value);
 };
 
 // Function to remove file from the files array
@@ -136,8 +118,8 @@ const uploadMedia = async () => {
   formData.append('user_slug', props.userSlug);
 
   // Append each file in files[] to FormData
-  Array.from(selectedFiles.value).forEach((file) => {
-    formData.append('files[]', file);
+  files.value.forEach((file) => {
+    formData.append('files[]', file); // Use 'files[]' to indicate an array
   });
 
   // Log formData contents for debugging (log the file names for visibility)
@@ -153,6 +135,7 @@ const uploadMedia = async () => {
     console.error('Error uploading media:', error);
   }
 };
+
 
 
 
