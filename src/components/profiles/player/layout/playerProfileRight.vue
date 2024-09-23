@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="m-2">
         <div class="flex">
-            <div class="">
+            <!-- <div class=""> -->
                 <!-- <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
@@ -9,8 +9,8 @@
                                             d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                     </svg>
                                 </button> -->
-            </div>
-            <div class="">
+            <!-- </div> -->
+            <!-- <div class="">
                 <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-5 text-blue-500 m-auto">
@@ -19,26 +19,26 @@
                     </svg>
 
                 </button>
-            </div>
+            </div> -->
 
-            <div v-if="buttonHide == false">
+            <!-- <div v-if="buttonHide == false">
                 <button @click="connectAcceptOrConnect"
                     class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                     {{ connectionButtonName }}
                 </button>
-            </div>
-            <div>
+            </div> -->
+            <!-- <div>
                 <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                     Accept
                 </button>
-            </div>
+            </div> -->
             <!-- <div>
                                 <button  
                                     class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                     Regect
                                 </button>
                             </div> -->
-            <div class="">
+            <!-- <div class="">
                 <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
                     class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -60,13 +60,13 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
 
 
 
         </div>
     </div>
-    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-blue-500 p-3 mt-2">
+    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-blue-500 p-3 mt-2 text-white">
         <div class="flex items-center justify-between">
             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
@@ -90,31 +90,23 @@
                 <h2 class="text-lg font-semibold mb-4">{{ utr }}</h2>
             </div>
             <div class="">
-                <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
-                <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
-                <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
+                <p class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
+                <p class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
+                <p class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ATP Ranking</p>
                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ITF Ranking</p>
                 <!-- <p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">WTN</p> -->
-                <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
+                <p class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
                 <p class="text-lg font-semibold mb-4 text-sm text-normal">National Ranking</p>
             </div>
             <div class="">
-                <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ gpa }}</p>
-                <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ sat }}</p>
-                <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ toefl }}</p>
+                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ gpa }}</p>
+                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ sat }}</p>
+                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ toefl }}</p>
                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ atp }}</p>
                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ itf }}</p>
                 <!-- <p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ wtn }}</p> -->
-                <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ act }}</p>
+                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ act }}</p>
                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ nationalRanking }}</p>
 
             </div>
