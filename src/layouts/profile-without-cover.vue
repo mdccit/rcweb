@@ -4,23 +4,27 @@
     <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType"
       :visible="showNotification" @close="closeNotification" :key="notificationKey" />
   </div>
-  <main >
+  <main>
     <NavBarPublic></NavBarPublic>
-    <div class="grid grid-cols-6 gap-4 temp-row grid-rows-[90px_auto] mt-16" >
+    <div class="grid grid-cols-6 gap-4 temp-row grid-rows-[90px_auto] mt-16">
       <div class="row-span-2 col-span-1 ">
-        <playerProfileLeft :data="leftData" @changeTab="changeTab(value)"/>
+        <playerProfileLeft :data="leftData" @changeTab="chnageTab(value)" />
       </div>
       <div class="col-start-2 col-span-5 ">
-        <playerProfileHedarer :playerId="playerID"/>
+        <playerProfileHedarer @changeTab="setSelectedTab" :playerId="playerID" />
       </div>
       <div class="col-start-2 col-span-4 bg-brown-500">
-        <!-- <playerProfileFeed/> -->
-        <UserFeed v-if="tab == 'feed'" :posts="posts" />
-        <Connection  v-if="tab == 'connection'" :playerId="playerID" />
+        <!-- Content changes based on the selected tab -->
+        <UserFeed v-if="tab === 'feed'" :posts="posts" />
+        <Connection v-if="tab === 'connection'" :playerId="playerID" />
+        <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" />
 
+        <playerProfileLeft :data="leftData" @changeTab="changeTab(value)" />
       </div>
-      <div class="p-2"> 
-        <playerProfileRight :data="utrData"/>
+
+
+      <div class="p-2">
+        <playerProfileRight :data="utrData" />
       </div>
     </div>
   </main>
@@ -34,12 +38,14 @@ import playerProfileHedarer from '~/components/profiles/player/layout/playerProf
 import playerProfileFeed from '~/components/profiles/player/layout/playerProfileFeed.vue';
 import NavBarPublic from '~/components/user/navbar.vue';
 import FooterPublic from '~/components/user/user-footer.vue';
-import { ref, watchEffect , onMounted } from 'vue';
+import { ref, watchEffect, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue'; // <-- Ensure this path is correct!
 import { useRoute } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import UserFeed from '~/components/user/profile/userFeed.vue';
+// import Connection from '~/components/user/profile/connection.vue';
+import mediaTab from '~/components/profiles/player/tabs/mediaTab.vue';
 import Connection from '~/components/user/profile/connection.vue';
 
 const nuxtApp = useNuxtApp();
@@ -61,6 +67,14 @@ watchEffect(() => {
 const closeNotification = () => {
   showNotification.value = false; // Hide the notification
 };
+
+const tab = ref('feed'); // Default tab is 'feed'
+
+// Function to update the selected tab
+const setSelectedTab = (selectedTab) => {
+  tab.value = selectedTab;
+};
+
 
 const $publicService = nuxtApp.$publicService;
 const $userService = nuxtApp.$userService;
@@ -110,170 +124,218 @@ const stateProvince = ref('');
 const buttonHide = ref(true);
 const isEdit = ref('');
 const slug = ref('');
-const utrData =ref({})
-const leftData =ref({})
+const utrData = ref({})
+const leftData = ref({})
 const props = defineProps({
-    user: {
-        type: Object,
-        required: true,
-    },
+  user: {
+    type: Object,
+    required: true,
+  },
 });
 
-const tab = ref('feed')
 
 onMounted(() => {
-    slug.value = route.params.slug;
+  slug.value = route.params.slug;
 
-    if (slug) {
-        fetchUserDetails(slug);
-    }
-    userId.value = userStore.user?.user_id || null;
-    // console.log(props.user?.user_basic_info?.id)
+  if (slug) {
+    fetchUserDetails(slug);
+  }
+  userId.value = userStore.user?.user_id || null;
+  // console.log(props.user?.user_basic_info?.id)
   //  playerID.value = props.user?.user_basic_info?.id || null;
-    //userRole.value = userStore.user?.role || null;
+  //userRole.value = userStore.user?.role || null;
 
-    if (playerID.value != null) {
-        // fetchConnections();
-         fetchPost();
-       //  fetchCheckConnection();
-        // fetchMediaGallery();
-    }
+  if (slug) {
+    fetchUserDetails(slug);
+  }
+  userId.value = userStore.user?.user_id || null;
+  // console.log(props.user?.user_basic_info?.id)
+  //  playerID.value = props.user?.user_basic_info?.id || null;
+  //userRole.value = userStore.user?.role || null;
+
+  if (playerID.value != null) {
+    // fetchConnections();
+    fetchPost();
+    //  fetchCheckConnection();
+    // fetchMediaGallery();
+  }
 });
 
-const changeTab = (value)=>{
+const changeTab = (value) => {
   console.log(value)
 
-    tab.value =value
+  tab.value = value
 }
 const fetchUserDetails = async (slug) => {
-    try {
-        const dataSets = await $publicService.get_player(route.params.slug);
-        playerID.value =dataSets.user_basic_info.id || null;
-        if (dataSets.user_basic_info) {
-            bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"
-            name.value = dataSets.user_basic_info.display_name ?? "User has not entered name";
-           
+  try {
+    const dataSets = await $publicService.get_player(route.params.slug);
+    playerID.value = dataSets.user_basic_info.id || null;
+    if (dataSets.user_basic_info) {
+      bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"
+      name.value = dataSets.user_basic_info.display_name ?? "User has not entered name";
 
-            const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
-            const today = new Date();
-            let age = today.getFullYear() - birthDate.getFullYear();
-            const monthDifference = today.getMonth() - birthDate.getMonth();
-            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-                age--;
-            }
-            birthday.value = age ?? 'User has not entered birthday'
 
-            const date = new Date(dataSets.user_basic_info.joined_at);
-            const monthNames = [
-                'January', 'February', 'March', 'April', 'May', 'June',
-                'July', 'August', 'September', 'October', 'November', 'December'
-            ];
-            const year = date.getFullYear();
-            const month = monthNames[date.getMonth()];
-            const day = date.getDate();
-            joinDate.value = `${year} ${month} ${day}`
+      const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDifference = today.getMonth() - birthDate.getMonth();
+      if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      birthday.value = age ?? 'User has not entered birthday'
 
-            nationality.value = dataSets.user_basic_info.nationality ?? "User has not entered nationality"
-            email.value = dataSets.user_basic_info.email ?? "User has not entered email"
-            gender.value = dataSets.user_basic_info.gender ?? "User has not entered gender"
+      const date = new Date(dataSets.user_basic_info.joined_at);
+      const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ];
+      const year = date.getFullYear();
+      const month = monthNames[date.getMonth()];
+      const day = date.getDate();
+      joinDate.value = `${year} ${month} ${day}`
 
-        }
+      nationality.value = dataSets.user_basic_info.nationality ?? "User has not entered nationality"
+      email.value = dataSets.user_basic_info.email ?? "User has not entered email"
+      gender.value = dataSets.user_basic_info.gender ?? "User has not entered gender"
 
-        if (dataSets.user_address_info) {
-            country.value = dataSets.user_address_info.country ?? 'User has not entered country'
-            city.value = dataSets.user_address_info.city ?? 'User has not entered city'
-            addressLine01.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
-            addressLine02.value = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
-            stateProvince.value = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
-        }
-
-        if (dataSets.user_phone_info) {
-            phone.value = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number'
-            phoneCode.value = dataSets.user_phone_info.phone_code ?? ''
-        }
-
-        if (dataSets.player_info) {
-            heigth.value = dataSets.player_info.height ?? 'User has not entered height'
-            weight.value = dataSets.player_info.weight ?? 'User has not entered weight'
-            utr.value = dataSets.player_info.other_data.utr ?? 0
-            gpa.value = dataSets.player_info.gpa ?? "Unknown"
-            sportName.value = dataSets.player_info.sport_name ?? 'User has not entered sport'
-
-            if (dataSets.player_info.other_data) {
-                budgetMin.value = dataSets.player_info.other_data.budget_max ?? 'User has not entered budget min value'
-                budgetMax.value = dataSets.player_info.other_data.budget_min ?? 'User has not entered budget max value'
-                sat.value = dataSets.player_info ? dataSets.player_info.other_data.sat_score : "Unknown"
-                toefl.value = dataSets.player_info ? dataSets.player_info.other_data.toefl_score : "Unknown"
-                atp.value = dataSets.player_info.other_data.atp_ranking ?? "Unknown"
-                itf.value = dataSets.player_info.other_data.itf_ranking ?? "Unknown"
-                act.value = dataSets.player_info.other_data.act_score ?? "Unknown"
-                wtn.value = dataSets.player_info.other_data.wtn_score_manual ?? "Unknown"
-                nationalRanking.value = dataSets.player_info.other_data.national_ranking ?? "Unknown"
-                handness.value = dataSets.player_info.other_data.handedness ?? "User has not entered handness"
-                preferredSurface.value = dataSets.player_info.other_data.preferred_surface ?? "User has not entered preferred surface"
-
-                utrData.value={
-                  sat:sat.value,
-                  toefl:toefl.value,
-                  atp:atp.value,
-                  itf:itf.value,
-                  act:act.value,
-                  wtn:wtn.value,
-                  nationalRanking:nationalRanking.value,
-                  utr:utr.value,
-                  gpa:gpa.value,
-        
-                }
-
-            }
-
-            const parsedDate = new Date(dataSets.player_info.graduation_month_year);
-            const options = { year: 'numeric', month: 'long' };
-            graduationDate.value = parsedDate.toLocaleDateString('en-US', options) ?? 'User has not entered graduation date'
-
-            feet.value = dataSets.player_info.height / 30.48;
-            pounds.value = 2.20462 * dataSets.player_info.weight
-        }
-        leftData.value = {
-          bio:bio.value,
-          nationality:nationality.value ,
-          heigth:heigth.value,
-          weight:weight.value,
-          graduationDate:graduationDate.value,
-          feet :feet.value ,
-          pounds:pounds.value,
-          handness:handness.value,
-          birthday:birthday.value,
-          country: country.value,
-          city: city.value,
-          addressLine01:addressLine01.value,
-          addressLine02:addressLine02.value,
-          stateProvince:stateProvince.value,
-          joinDate : joinDate.value ,
-          budgetMin:budgetMin.value,
-          budgetMax:budgetMax.value,
-          name: name.value,
-          sportName:sportName.value
-
-        }
-
-    } catch (error) {
-        console.log(error)
-        console.error('Error fetching data:', error.message);
     }
+
+
+    if (dataSets.user_address_info) {
+      country.value = dataSets.user_address_info.country ?? 'User has not entered country'
+      city.value = dataSets.user_address_info.city ?? 'User has not entered city'
+      addressLine01.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
+      addressLine02.value = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
+      stateProvince.value = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
+    }
+
+    if (dataSets.user_phone_info) {
+      phone.value = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number'
+      phoneCode.value = dataSets.user_phone_info.phone_code ?? ''
+    }
+
+    if (dataSets.player_info) {
+      heigth.value = dataSets.player_info.height ?? 'User has not entered height'
+      weight.value = dataSets.player_info.weight ?? 'User has not entered weight'
+      utr.value = dataSets.player_info.other_data.utr ?? 0
+      gpa.value = dataSets.player_info.gpa ?? "Unknown"
+      sportName.value = dataSets.player_info.sport_name ?? 'User has not entered sport'
+
+      if (dataSets.player_info.other_data) {
+        budgetMin.value = dataSets.player_info.other_data.budget_max ?? 'User has not entered budget min value'
+        budgetMax.value = dataSets.player_info.other_data.budget_min ?? 'User has not entered budget max value'
+        sat.value = dataSets.player_info ? dataSets.player_info.other_data.sat_score : "Unknown"
+        toefl.value = dataSets.player_info ? dataSets.player_info.other_data.toefl_score : "Unknown"
+        atp.value = dataSets.player_info.other_data.atp_ranking ?? "Unknown"
+        itf.value = dataSets.player_info.other_data.itf_ranking ?? "Unknown"
+        act.value = dataSets.player_info.other_data.act_score ?? "Unknown"
+        wtn.value = dataSets.player_info.other_data.wtn_score_manual ?? "Unknown"
+        nationalRanking.value = dataSets.player_info.other_data.national_ranking ?? "Unknown"
+        handness.value = dataSets.player_info.other_data.handedness ?? "User has not entered handness"
+        preferredSurface.value = dataSets.player_info.other_data.preferred_surface ?? "User has not entered preferred surface"
+
+        utrData.value = {
+          sat: sat.value,
+          toefl: toefl.value,
+          atp: atp.value,
+          itf: itf.value,
+          act: act.value,
+          wtn: wtn.value,
+          nationalRanking: nationalRanking.value,
+          utr: utr.value,
+          gpa: gpa.value,
+
+        }
+
+      }
+
+      const parsedDate = new Date(dataSets.player_info.graduation_month_year);
+      const options = { year: 'numeric', month: 'long' };
+      graduationDate.value = parsedDate.toLocaleDateString('en-US', options) ?? 'User has not entered graduation date'
+
+      feet.value = dataSets.player_info.height / 30.48;
+      pounds.value = 2.20462 * dataSets.player_info.weight
+    }
+    leftData.value = {
+      bio: bio.value,
+      nationality: nationality.value,
+      heigth: heigth.value,
+      weight: weight.value,
+      graduationDate: graduationDate.value,
+      feet: feet.value,
+      pounds: pounds.value,
+      handness: handness.value,
+      birthday: birthday.value,
+      country: country.value,
+      city: city.value,
+      addressLine01: addressLine01.value,
+      addressLine02: addressLine02.value,
+      stateProvince: stateProvince.value,
+      joinDate: joinDate.value,
+      budgetMin: budgetMin.value,
+      budgetMax: budgetMax.value,
+      name: name.value,
+      sportName: sportName.value
+
+    }
+
+
+    const date = new Date(dataSets.user_basic_info.joined_at);
+    const monthNames = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    const year = date.getFullYear();
+    const month = monthNames[date.getMonth()];
+    const day = date.getDate();
+    joinDate.value = `${year} ${month} ${day}`
+
+    nationality.value = dataSets.user_basic_info.nationality ?? "User has not entered nationality"
+    email.value = dataSets.user_basic_info.email ?? "User has not entered email"
+    gender.value = dataSets.user_basic_info.gender ?? "User has not entered gender"
+
+  } catch (error) {
+  console.log(error)
+  console.error('Error fetching data:', error.message);
 }
 
+}
 
 
 const fetchPost = async () => {
-    try {
-        const response = await $feedService.list_posts({});
-        posts.value = response || [];
+  try {
+    const response = await $feedService.list_posts({});
+    posts.value = response || [];
 
-    } catch (error) {
-        console.error('Failed to load posts:', error.message);
-    }
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
+  }
 }
+
+// Array of gallery items (images and video)
+const galleryItems = ref([
+  {
+    type: 'image',
+    href: 'https://lipsum.app/id/46/1600x1200',
+    src: 'https://lipsum.app/id/46/200x150',
+  },
+  {
+    type: 'image',
+    href: 'https://lipsum.app/id/47/1600x1200',
+    src: 'https://lipsum.app/id/47/200x150',
+  },
+  {
+    type: 'image',
+    href: 'https://lipsum.app/id/51/1600x1200',
+    src: 'https://lipsum.app/id/51/200x150',
+  },
+  {
+    type: 'video',
+    href: 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
+    src: 'https://www.w3schools.com/html/mov_bbb.mp4',
+  },
+]);
+
 
 </script>
 
@@ -282,5 +344,4 @@ const fetchPost = async () => {
 temp-row {
   grid-template-rows: 90px auto !important;
 }
-
 </style>
