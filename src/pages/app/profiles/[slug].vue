@@ -24,8 +24,9 @@ const fetchUserData = async () => {
     loading.value = true; // Start loading
     if (slug) {
       const response = await $userService.get_user_profile(slug);
+
       user.value = response;
-      console.log(user.value)
+      console.log(response)
     }
 
     if (!user.value) {
