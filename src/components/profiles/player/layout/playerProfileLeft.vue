@@ -46,12 +46,14 @@
             </p>
         </div>
 
+
+         <!-- INFO SECTION  -->
         <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                        <div class="cursor-pointer">
+                        <div class="cursor-pointer" v-if="userId.value == playerID.value"  @click="toggleModal('info')">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -76,28 +78,27 @@
                 </div>
             </div> -->
             <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
-                            <div class="col-span-2 mx-auto" @click="toggleModal('info')">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                    stroke="currentColor" class="size-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
-                                </svg>
-                            </div>
-                            <div class="col-span-8">
-                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ props.data.phoneCode }} {{
-                                phone }}</b> </p>
-                            </div>
-             </div>
+                <div class="col-span-2 mx-auto" @click="toggleModal('info')">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" class="size-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
+                    </svg>
+                </div>
+                <div class="col-span-8">
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ props.data.phoneCode }} {{
+                    phone }}</b> </p>
+                </div>
+            </div>
 
             <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
                     <img class="mx-auto  rounded-xl w-[27px]" src="@/assets/images/ruler.png" alt="">
                 </div>
                 <div class="col-span-8">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b> 
-                        {{ Number(props.data.feet) }} ( {{ props.data.heigth }} 
-                        <span
-                         v-if="props.data.heigth != 'User has not entered height'">cm)</span> </b> </p>
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>
+                            {{ Number(props.data.feet) }} ( {{ props.data.heigth }}
+                            <span v-if="props.data.heigth != 'User has not entered height'">cm)</span> </b> </p>
                 </div>
             </div>
 
@@ -108,10 +109,10 @@
                 <div class="col-span-8">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
                         <b><span v-if="props.data.weight != 'User has not entered weight'">
-                            {{ Number(props.data.pounds)
-                            }} 
-                            lb(</span> {{ props.data.weight }} <span
-                             v-if="props.data.weight != 'User has not entered weight'">kg )</span></b>
+                                {{ Number(props.data.pounds)
+                                }}
+                                lb(</span> {{ props.data.weight }} <span
+                                v-if="props.data.weight != 'User has not entered weight'">kg )</span></b>
                     </p>
                 </div>
             </div>
@@ -166,7 +167,8 @@
                 </div>
                 <div class="col-span-8">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ props.data.birthday }}
-                        <span v-if=" props.data.birthday != 'User has not entered birthday'">Years Old</span> </b></p>
+                            <span v-if="props.data.birthday != 'User has not entered birthday'">Years Old</span> </b>
+                    </p>
                 </div>
             </div>
         </div>
@@ -180,8 +182,8 @@
                 </div>
                 <div class="col-span-6 ml-2">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Has {{ props.data.budgetMin }} -
-                                    {{ props.data.budgetMax }}
-                                </p>
+                        {{ props.data.budgetMax }}
+                    </p>
                 </div>
                 <div class="col-span-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -202,11 +204,11 @@
                 </div>
                 <div class="col-span-6 ml-2">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3"><span
-                                        v-if="userRole == 'coach' || userRole == 'admin'"> {{ props.data.addressLine01 }} {{
-                                 props.data.addressLine02 }} {{  props.data.stateProvince }}</span> 
-                                 {{  props.data.city }} , {{
-                                    props.data.country }}
-                                </p>
+                            v-if="userRole == 'coach' || userRole == 'admin'"> {{ props.data.addressLine01 }} {{
+                    props.data.addressLine02 }} {{ props.data.stateProvince }}</span>
+                        {{ props.data.city }} , {{
+                    props.data.country }}
+                    </p>
 
                 </div>
                 <div class="col-span-1">
@@ -228,8 +230,8 @@
                 </div>
                 <div class="col-span-6 ml-2">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Signed up
-                         {{ props.data.joinDate
-                                    }}
+                        {{ props.data.joinDate
+                        }}
                     </p>
 
                 </div>
@@ -246,23 +248,18 @@
     </div>
     <!-- End Profile pic section  -->
 
-        <!-- Modal Components with Standardized Props -->
-        <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
-        <BioModal :visible="modals.bio" @close="handleModalClose" :slug="slug" />
-        <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" />
-        <BudgetModal :visible="modals.budget" @close="handleModalClose" :slug="slug" />
-        <UTRModal :visible="modals.utr" @close="handleModalClose" :slug="slug" />
-        <AddressModal :visible="modals.address" @close="handleModalClose" :slug="slug" />
+    <!-- Modal Components with Standardized Props -->
+    <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
+    <BioModal :visible="modals.bio" @close="handleModalClose" :slug="slug" />
+    <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" />
+    <BudgetModal :visible="modals.budget" @close="handleModalClose" :slug="slug" />
+    <AddressModal :visible="modals.address" @close="handleModalClose" :slug="slug" />
 
 </template>
 
 <script setup>
-import { ref ,onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import SocialHubNavbar from '~/components/user/navbar.vue';
-import Filter from '~/components/user/feed/filter.vue';
-import FooterBar from '~/components/user/user-footer.vue';
-import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
 import { useUserStore } from '~/stores/userStore';
@@ -408,7 +405,7 @@ const fetchUserDetails = async (slug) => {
         if (dataSets.user_basic_info) {
             bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"
             name.value = dataSets.user_basic_info.display_name ?? "User has not entered name";
-           
+
 
             const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
             const today = new Date();
@@ -486,7 +483,7 @@ const fetchUserDetails = async (slug) => {
 }
 
 
-onMounted(() => {    
+onMounted(() => {
     userRole.value = userStore.user?.role || null;
     slug.value = props.userSlug;
 });

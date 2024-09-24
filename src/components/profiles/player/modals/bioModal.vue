@@ -57,7 +57,7 @@
 
 <script setup>
 
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useNuxtApp } from '#app';
 import { handleError } from '@/utils/handleError';
 import InputError from '@/components/common/input/InputError.vue';
@@ -85,13 +85,20 @@ onMounted(() => {
     }
 });
 
+watch(() => props.visible, (newVal) => {
+  if (newVal && props.slug) {
+    fetchPlayerBio(props.slug);
+  }
+});
+
 const fetchPlayerBio = async (slug) => {
     try {
-        const dataSets = await $publicService.get_player(slug);
+        console.log(slug);
+        const dataSets = await $publicService.get_player(props.slug);
 
         if (dataSets.user_basic_info) {
             console.log(dataSets.user_basic_info);
-            user_bio.value = dataSets.user_basic_info.bio ?? "";
+            user_bio.value = dataSets.user_basic_info.bio ?? "N/A";
 
         }
     } catch (error) {
