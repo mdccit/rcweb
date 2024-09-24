@@ -88,8 +88,10 @@ onMounted(() => {
 const fetchPlayerBio = async (slug) => {
     try {
         const dataSets = await $publicService.get_player(slug);
+
         if (dataSets.user_basic_info) {
-            user_bio.value = dataSets.user_basic_info.bio ?? ""
+            console.log(dataSets.user_basic_info);
+            user_bio.value = dataSets.user_basic_info.bio ?? "";
 
         }
     } catch (error) {
@@ -103,6 +105,7 @@ const updatePlayerBio = async (bio) => {
         const request_body = { user_slug: props.slug, bio: bio };  // Construct request body with bio
         const response = await $userService.update_player_bio(request_body);  // Pass slug and request body
         if (response.status == '200') {
+            clearUserBio();
             // Trigger success notification
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
             // Emit close event to parent to close the modal
@@ -121,5 +124,9 @@ const updatePlayerBio = async (bio) => {
 const saveBio = () => {
     updatePlayerBio(user_bio.value);
 }
+
+const clearUserBio = () => {
+  user_bio.value = '';
+};
 
 </script>

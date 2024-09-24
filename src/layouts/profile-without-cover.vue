@@ -8,7 +8,7 @@
     <NavBarPublic></NavBarPublic>
     <div class="grid grid-cols-6 gap-4 temp-row grid-rows-[90px_auto] mt-16">
       <div class="row-span-2 col-span-1 ">
-        <playerProfileLeft :data="leftData" @changeTab="chnageTab(value)" />
+        <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  />
       </div>
       <div class="col-start-2 col-span-5 ">
         <playerProfileHedarer @changeTab="setSelectedTab" :playerId="playerID" />
@@ -17,7 +17,7 @@
         <!-- Content changes based on the selected tab -->
         <UserFeed v-if="tab === 'feed'" :posts="posts" />
         <Connection v-if="tab === 'connection'" :playerId="playerID" />
-        <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" />
+        <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
 
       </div>
 
@@ -138,14 +138,7 @@ onMounted(() => {
 
   if (slug) {
     fetchUserDetails(slug);
-  }
-  userId.value = userStore.user?.user_id || null;
-  // console.log(props.user?.user_basic_info?.id)
-  //  playerID.value = props.user?.user_basic_info?.id || null;
-  //userRole.value = userStore.user?.role || null;
-
-  if (slug) {
-    fetchUserDetails(slug);
+    fetchUserDetailsBySlug();
   }
   userId.value = userStore.user?.user_id || null;
   // console.log(props.user?.user_basic_info?.id)
@@ -165,6 +158,7 @@ const changeTab = (value) => {
 
   tab.value = value
 }
+
 const fetchUserDetails = async (slug) => {
   try {
     const dataSets = await $publicService.get_player(route.params.slug);
@@ -255,6 +249,15 @@ const fetchUserDetails = async (slug) => {
       feet.value = dataSets.player_info.height / 30.48;
       pounds.value = 2.20462 * dataSets.player_info.weight
     }
+
+    if(dataSets.media_info){
+      console.log('fetching media');
+      console.log('Media Info:', dataSets.media_info); 
+      setGalleryItems(dataSets.media_info);
+    }else {
+      console.log('No media info available');
+    }
+
     leftData.value = {
       bio: bio.value,
       nationality: nationality.value,
@@ -301,6 +304,47 @@ const fetchUserDetails = async (slug) => {
 }
 
 
+const fetchUserDetailsBySlug = async () => {
+  try {
+    const dataSets = await $publicService.get_user_profile(route.params.slug);
+    if (dataSets.media_info) {
+      console.log('fetching media');
+      console.log('Media Info:', dataSets.media_info);
+      setGalleryItems(dataSets.media_info);
+    } else {
+      console.log('No media info available');
+    }
+  } catch (error) {
+    console.log(error)
+    console.error('Error fetching data:', error.message);
+  }
+}
+
+
+// Array of gallery items (images and video)
+const galleryItems = ref([]);
+
+
+const setGalleryItems = (mediaInfo) => {
+  galleryItems.value = mediaInfo.media_urls.map(media => {
+    if (media.media_type === 'image') {
+      return {
+        type: 'image',
+        href: media.url,
+        src: media.url, // Replace with thumbnail URL if available
+      };
+    } else if (media.media_type === 'video') {
+      return {
+        type: 'video',
+        href: media.url,
+        src: media.url || 'https://via.placeholder.com/200x150.png?text=Video', // Use server-provided thumbnail or placeholder
+      };
+    }
+  });
+};
+
+
+
 const fetchPost = async () => {
   try {
     const response = await $feedService.list_posts({});
@@ -311,29 +355,8 @@ const fetchPost = async () => {
   }
 }
 
-// Array of gallery items (images and video)
-const galleryItems = ref([
-  {
-    type: 'image',
-    href: 'https://lipsum.app/id/46/1600x1200',
-    src: 'https://lipsum.app/id/46/200x150',
-  },
-  {
-    type: 'image',
-    href: 'https://lipsum.app/id/47/1600x1200',
-    src: 'https://lipsum.app/id/47/200x150',
-  },
-  {
-    type: 'image',
-    href: 'https://lipsum.app/id/51/1600x1200',
-    src: 'https://lipsum.app/id/51/200x150',
-  },
-  {
-    type: 'video',
-    href: 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
-    src: 'https://www.w3schools.com/html/mov_bbb.mp4',
-  },
-]);
+
+
 
 
 </script>
