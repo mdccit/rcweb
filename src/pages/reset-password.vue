@@ -72,7 +72,7 @@
                     name="password_confirmation" type="password" v-model="password_confirmation"
                     id="password_confirmation" required>
                 </div>
-                <p v-if="errors.password_confirmation" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.password_confirmation.join(', ')}}</p>
+                <InputError :error="errors.password_confirmation ? errors.password_confirmation.join(', ') : ''" />
               </label>
             </div>
 
@@ -100,7 +100,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useNuxtApp, useRouter } from '#app';
-
+import InputError from '@/components/common/input/InputError.vue';
 import { handleError } from '@/utils/handleError';
 
 const nuxtApp = useNuxtApp();

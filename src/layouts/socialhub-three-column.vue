@@ -7,8 +7,9 @@
       <div class="container-compressed">
         <div class="grid grid-cols-6 gap-4 mt-16">
           <!-- Left pane -->
-          <div>
-            <!-- <Filter /> -->
+          <div >
+            <Filter v-if="route.meta.showFilterLeft" />
+            <resources-left-bar />
           </div>
 
           <!-- Middle pane -->
@@ -43,7 +44,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute  } from 'vue-router';
 import SocialHubNavbar from '~/components/user/navbar.vue';
 import Filter from '~/components/user/feed/filter.vue';
 import FooterBar from '~/components/user/user-footer.vue';
@@ -51,11 +52,16 @@ import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
+import ResourcesLeftBar from '~/components/user/resourcesLeftBar.vue';
+
 
 defineNuxtRouteMiddleware(checkSession);
 const nuxtApp = useNuxtApp();
 const loading = ref(false);
 const router = useRouter();
+const route = useRoute();  
+
+const showFilterLeft = ref(false); 
 
 router.beforeEach((to, from, next) => {
   loading.value = true;

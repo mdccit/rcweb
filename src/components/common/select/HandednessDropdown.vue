@@ -24,6 +24,7 @@ const props = defineProps({
   }
 });
 
+console.log(props.handedness);
 const emits = defineEmits(['update:modelValue']);
 
 const selected = ref(props.modelValue);
