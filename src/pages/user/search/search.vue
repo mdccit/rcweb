@@ -544,54 +544,31 @@ watch(
   const fetchData = async () =>{
     console.log(1)
     if(searchStore.searchButton){
-        console.log(searchStore.searchKey)
     const data ={
-        user_role:5,
-
-        // search_key:searchStore.searchKey??null,
-        // state:searchStore.state??null,
-        // city:searchStore.city??null,
-        // tuition_in_state_min:searchStore.tuitionInStateMin??null,
-        // tuition_in_state_max:searchStore.tuitionInStateMax??null,
-        // tuition_out_state_min:searchStore.tuitionOutStateMin??null,
-        // tuition_out_state_max:searchStore.tuitionOutStateMax??null,
-        // gender:searchStore.gender??null,
-        // graduation_month:searchStore.graduationMonth??null,
-        // graduation_year:searchStore.graduationYear??null,
-        // country_id:searchStore.countryId??null,
-        // handedness:searchStore.handedness??null,
-        // utr_min:searchStore.utrMin??null,
-        // utr_max:searchStore.utrMax??null,
-        // wtn_min:searchStore.wtnMin??null,
-        // wtn_max:searchStore.wtnMax??null,
-        // atp_ranking:searchStore.atpRanking??null,
-        // itf_ranking:searchStore.itfRanking??null,
-        // national_ranking:searchStore.nationalRanking??null
+        user_role:searchStore.userRole??'',
+        search_key:searchStore.searchKey??'',
+        state:searchStore.stateName??'',
+        city:searchStore.Name??'',
+        tuition_in_state_min:searchStore.tuitionInStateMin??'',
+        tuition_in_state_max:searchStore.tuitionInStateMax??'',
+        tuition_out_state_min:searchStore.tuitionOutStateMin??'',
+        tuition_out_state_max:searchStore.tuitionOutStateMax??'',
+        gender:searchStore.genderType??'',
+        graduation_month:searchStore.graduationMonth??'',
+        graduation_year:searchStore.graduationYear??'',
+        country_id:searchStore.countryId??'',
+        handedness:searchStore.handednessType??'',
+        utr_min:searchStore.utrMin??'',
+        utr_max:searchStore.utrMax??'',
+        wtn_min:searchStore.wtnMin??'',
+        wtn_max:searchStore.wtnMax??'',
+        atp_ranking:searchStore.atpRanking??'',
+        itf_ranking:searchStore.itfRanking??'',
+        national_ranking:searchStore.nationalRanking??'',
     }
-    const raw = JSON.stringify({
-  "user_role": 5,
-  "search_key": null,
-  "state": null,
-  "city": null,
-  "tuition_in_state_min": null,
-  "tuition_in_state_max": null,
-  "tuition_out_state_min": null,
-  "tuition_out_state_max": null,
-  "gender": null,
-  "graduation_month": null,
-  "graduation_year": null,
-  "country_id": null,
-  "handedness": null,
-  "utr_min": null,
-  "utr_max": null,
-  "wtn_min": null,
-  "wtn_max": null,
-  "atp_ranking": null,
-  "itf_ranking": null,
-  "national_ranking": null
-});
+    
     try {
-    const response = await $userService.search_user(raw);
+    const response = await $userService.search_user(data);
     console.log(response)
 
      search.value = response.data.dataSets.users || [];

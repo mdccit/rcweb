@@ -95,7 +95,7 @@ import { useSearchStore } from '~/stores/searchStore';
 
 const searchStore = useSearchStore();
 
-const role =ref(null)
+const role =ref('')
 
 const changeRole = (id) =>{
     role.value = id;
@@ -103,7 +103,7 @@ const changeRole = (id) =>{
 }
 
 const clear = ()=>{
-    role.value = null;
-    searchStore.setUserRole(null)
+    role.value = '';
+    searchStore.setUserRole('')
 }
 </script>

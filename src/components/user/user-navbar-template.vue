@@ -127,7 +127,7 @@
                     <div class="flex justify-around pt-2 md:space-x-8">
                         <div class="relative hidden sm:hidden md:block">
 
-                            <input  type="text" id="search-navbar"
+                            <input @change="searchkey" v-model="key" type="text" id="search-navbar"
                                 class="block w-96 p-2 ps-10 text-sm rounded-full border bg-ceil"
                                 style="background-color:#F4F6F9; color:#8CA4CE; border-color: aliceblue;" placeholder="Search...">
                             
@@ -321,10 +321,14 @@ import {ref, defineProps, defineEmits, defineExpose} from 'vue';
 import { useSearchStore } from '~/stores/searchStore';
 
 const searchStore = useSearchStore();
-
+const key = ref('')
 const emit = defineEmits(['search']);
 
   const search1 = () =>{
     searchStore.setSearchButton(true)
+  }
+
+  const searchkey= () =>{
+    searchStore.setSearchKey(key.value)
   }
 </script>
