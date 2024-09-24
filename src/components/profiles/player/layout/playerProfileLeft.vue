@@ -246,6 +246,13 @@
     </div>
     <!-- End Profile pic section  -->
 
+        <!-- Modal Components with Standardized Props -->
+        <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
+        <BioModal :visible="modals.bio" @close="handleModalClose" :slug="slug" />
+        <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" />
+        <BudgetModal :visible="modals.budget" @close="handleModalClose" :slug="slug" />
+        <UTRModal :visible="modals.utr" @close="handleModalClose" :slug="slug" />
+        <AddressModal :visible="modals.address" @close="handleModalClose" :slug="slug" />
 
 </template>
 
@@ -258,8 +265,14 @@ import FooterBar from '~/components/user/user-footer.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
-import Notification from '~/components/common/Notification.vue';
 import { useUserStore } from '~/stores/userStore';
+
+import NameModal from '~/components/profiles/player/modals/nameModal.vue';
+import BioModal from '~/components/profiles/player/modals/bioModal.vue';
+import InfoModal from '~/components/profiles/player/modals/infoModal.vue';
+import BudgetModal from '~/components/profiles/player/modals/budgetModal.vue';
+import UTRModal from '~/components/profiles/player/modals/utrModal.vue';
+import AddressModal from '~/components/profiles/player/modals/addressModal.vue';
 
 const userStore = useUserStore();
 
@@ -307,6 +320,28 @@ const props = defineProps({
         required: true,
     },
 });
+
+
+// Define reactive state for all modals
+const modals = reactive({
+    name: false,
+    bio: false,
+    info: false,
+    budget: false,
+    utr: false,
+    address: false,
+});
+
+// Generic toggle function
+const toggleModal = (modalName) => {
+    if (modals.hasOwnProperty(modalName)) {
+        modals[modalName] = !modals[modalName];
+    } else {
+        console.warn(`Modal "${modalName}" does not exist.`);
+    }
+};
+
+
 
 onMounted(() => {
     
