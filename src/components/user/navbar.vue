@@ -230,17 +230,18 @@
                 <div class="flex justify-end">
 
                     <div class="flex space-x-3">
+                        <NuxtLink :to="`/app/profile/${userSlug}`">
                         <div class="flex space-x-2 items-center">
                             <div class="hidden sm:hidden md:hidden lg:block">
                                 <img class="w-10 h-10 rounded-lg border border-white shadow-lg"
                                     src="@/assets/user/images/Rectangle_117.png" alt="">
                             </div>
                             <div class="hidden sm:hidden md:hidden lg:block">
-                                <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserMail }}</h6>
+                                <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
                                 <p class="text-xs text-limegreen">Online</p>
                             </div>
                         </div>
-
+                        </NuxtLink>
                         <button data-dropdown-toggle="dropdownUser" data-dropdown-placement="bottom-end" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor" class="size-5 text-black stroke-1.5">
@@ -283,6 +284,7 @@ import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 
 const nuxtApp = useNuxtApp();
+const nprogress = nuxtApp.$nprogress; 
 const $authService = nuxtApp.$authService;
 
 const router = useRouter();
@@ -290,15 +292,17 @@ const router = useRouter();
 const userRole = userStore.getRole();
 
 const loggedUserMail = computed(() => userStore.loggedUserEmail);
-
+const loggedUserName = computed(() => userStore.loggedUserName);
+const userSlug = ref(null)
 const logout = async (event) => {
     event.preventDefault();
 
     try {
-
+nprogress.start();
         const token = localStorage.getItem('token');  // Retrieve the token from local storage
 
         if (!token) {
+            nprogress.done();
             // userStore.clearUser();  // Clear user data if no token is found
             //nuxtApp.$notification.triggerNotification('You have been logged out.', 'success');
             // Use a timeout to display the notification before redirecting to login
@@ -313,15 +317,16 @@ const logout = async (event) => {
                 bearer_token: token
             });
 
-            console.log(response);
             if (response.status === 200) {
-                //nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+                nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+               
                 userStore.clearUser(); 
+                nprogress.done();
                 setTimeout(() => {
                     router.push('/login');
                 }, 2000);
             } else {
-              
+                nprogress.done();
                 // nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
                 setTimeout(() => {
                     router.push('/login');
@@ -329,6 +334,7 @@ const logout = async (event) => {
             }
         }
         } catch (err) {
+            nprogress.done();
         if (err.response && err.response.status === 401) {
             // Handle 401 error and redirect to login
             nuxtApp.$notification.triggerNotification('Session expired. Please log in again.', 'failure');
@@ -358,7 +364,7 @@ const gotoAdminDashboard = async (event) => {
 
 // initialize components based on data attribute selectors
 onMounted(() => {
-
+    userSlug.value = userStore.userSlug??null
     useFlowbite(() => {
         initFlowbite();
     })
