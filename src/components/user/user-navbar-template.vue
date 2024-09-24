@@ -116,7 +116,7 @@
             <section class=" grid grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 px-4 h-14">
                 <!-- start logo section -->
                 <div class="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1">
-                    <a href="https://flowbite.com/" class="flex items-center">
+                    <a href="https://flowbite.com/" class="flex items-center mt-4">
                         <img class="w-96 md:w-32" src="@/assets/user/images/logo-recruited.png" alt="">
                     </a>
                 </div>
@@ -127,7 +127,7 @@
                     <div class="flex justify-around pt-2 md:space-x-8">
                         <div class="relative hidden sm:hidden md:block">
 
-                            <input  type="text" id="search-navbar"
+                            <input @change="searchkey" v-model="key" type="text" id="search-navbar"
                                 class="block w-96 p-2 ps-10 text-sm rounded-full border bg-ceil"
                                 style="background-color:#F4F6F9; color:#8CA4CE; border-color: aliceblue;" placeholder="Search...">
                             
@@ -318,9 +318,17 @@
 
 <script setup>
 import {ref, defineProps, defineEmits, defineExpose} from 'vue';
+import { useSearchStore } from '~/stores/searchStore';
+
+const searchStore = useSearchStore();
+const key = ref('')
 const emit = defineEmits(['search']);
 
   const search1 = () =>{
-     emit('search');
+    searchStore.setSearchButton(true)
+  }
+
+  const searchkey= () =>{
+    searchStore.setSearchKey(key.value)
   }
 </script>

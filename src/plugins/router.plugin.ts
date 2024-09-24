@@ -17,4 +17,27 @@ export default defineNuxtPlugin((nuxtApp) => {
     });
   });
 
+  // New route for profile page with dynamic slug
+  router.addRoute({
+    name: 'profile-slug', // Name the route
+    path: '/app/profile/:slug', // Dynamic route for slug
+    meta: {
+      layout: 'user' // You can specify the layout if necessary
+    },
+    component: () => import('~/pages/app/profile/[slug].vue') // Dynamic import for the profile page
+  });
+
+  
+  // New route for profile page with dynamic slug
+  router.addRoute({
+    name: 'profiles-slug', // Name the route
+    path: '/app/profiles/:slug', // Dynamic route for slug
+    meta: {
+      layout: 'user' // You can specify the layout if necessary
+    },
+    component: () => import('~/pages/app/profiles/[slug].vue') // Dynamic import for the profile page
+  });
+
+  
+
 });

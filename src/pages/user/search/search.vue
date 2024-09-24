@@ -42,7 +42,8 @@
 
                 <!-- card 01 -->
                  <div v-for="user in search" class="flex-1 p-2"> 
-                    <button @click="profileView(user)" class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+                    <NuxtLink :to="`/app/profile/${user.slug}`">
+                    <button  class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
                         <div class=" grid grid-cols-12 gap-4">
                             <div class="col-span-4">
                                 <img class=" rounded-2xl w-[160px] h-[160px]"
@@ -175,6 +176,7 @@
 
                         </div>
                     </button>
+                </NuxtLink>
                 </div> 
                 <!--/ card 01 -->
                 <!-- card 02 -->
@@ -511,12 +513,15 @@ import PopupModal from '~/pages/user/search/saveSearchModal.vue';
 import { ref, computed, watch, onMounted ,inject  } from 'vue';
 import { useNuxtApp } from '#app';
 import { useUserStore } from '~/stores/userStore';
+import { useSearchStore } from '~/stores/searchStore';
+
 import { useRouter } from 'vue-router';
 import SaveSearch from '~/components/user/search/saveSearch.vue';
 import ViewSaveSearch from '~/components/user/search/viewSaveSearch.vue';
 const nuxtApp = useNuxtApp();
 const userStore = useUserStore();
 const router = useRouter();
+const searchStore = useSearchStore();
 
 const $userService = nuxtApp.$userService;
 const search = ref([])
@@ -529,63 +534,51 @@ onMounted(() => {
 
   });
  
+  
+watch(
+  () => searchStore.searchButton,
+  () => {
+    fetchData() 
+  }
+);
   const fetchData = async () =>{
+    console.log(1)
+    if(searchStore.searchButton){
+    const data ={
+        user_role:searchStore.userRole??'',
+        search_key:searchStore.searchKey??'',
+        state:searchStore.stateName??'',
+        city:searchStore.Name??'',
+        tuition_in_state_min:searchStore.tuitionInStateMin??'',
+        tuition_in_state_max:searchStore.tuitionInStateMax??'',
+        tuition_out_state_min:searchStore.tuitionOutStateMin??'',
+        tuition_out_state_max:searchStore.tuitionOutStateMax??'',
+        gender:searchStore.genderType??'',
+        graduation_month:searchStore.graduationMonth??'',
+        graduation_year:searchStore.graduationYear??'',
+        country_id:searchStore.countryId??'',
+        handedness:searchStore.handednessType??'',
+        utr_min:searchStore.utrMin??'',
+        utr_max:searchStore.utrMax??'',
+        wtn_min:searchStore.wtnMin??'',
+        wtn_max:searchStore.wtnMax??'',
+        atp_ranking:searchStore.atpRanking??'',
+        itf_ranking:searchStore.itfRanking??'',
+        national_ranking:searchStore.nationalRanking??'',
+    }
+    
     try {
-    const response = await $userService.search_user({
-        user_role:'',
-        search_key:null,
-        state:null,
-        city:null,
-        tuition_in_state_min:null,
-        tuition_in_state_max:null,
-        tuition_out_state_min:null,
-        tuition_out_state_max:null,
-        gender:null,
-        graduation_month:null,
-        graduation_year:null,
-        country_id:null,
-        handedness:null,
-        utr_min:null,
-        utr_max:null,
-        wtn_min:null,
-        wtn_max:null,
-        atp_ranking:null,
-        itf_ranking:null,
-        national_ranking:null
-    });
+    const response = await $userService.search_user(data);
+    console.log(response)
+
      search.value = response.data.dataSets.users || [];
+     searchStore.setSearchButton(false)
+
   } catch (error) {
     console.error('Failed to load posts:', error.message);
   }
-  }
-// export default {
-//   components: {
-//     PopupModal
-//   },
-//   data() {
-//     return {
-//       showPopup: false
-//     };
-//   }
-// }
-
-const profileView = (user) =>{
-   console.log(user) 
-    if(user.user_role == 'Player'){
-      userStore.setPlayerId(user.user_id);
-      userStore.setPlayerSlug(user.slug);
-      router.push({
-        path: '/user/playerProfile',
-      });
-    }
-
-    if(user.user_role == 'Coach'){
-        userStore.setCoacheId(user.user_id);
-        userStore.setCoacheSlug(user.slug);
-        router.push({
-           path: '/user/coachProfile',
-        });
-    }
-   
 }
+  }
+
+
 </script>

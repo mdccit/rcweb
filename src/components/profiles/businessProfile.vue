@@ -5,57 +5,33 @@
             <section class="w-full mb-5">
 
                 <div class="w-full h-[400px] rounded-xl">
-                    <img class="w-full h-[400px] rounded-xl"
-                        src="../../assets/user/images/porter-raab-gnj9vj--FRY-unsplash.jpg " alt="">
+                    <img class="w-full h-[400px] rounded-xl" src="@/assets/images/covrss.jpg" alt="">
                 </div>
 
                 <span>
                     <div class="-mt-[144px]">
                         <div class="grid grid-cols-5 gap-4 flex">
-
-                            <div class="col-span-1">
-                                <div class="text-center flex">
-                                    <img class="mx-auto w-[150px] h-[150px] rounded-xl mt-[45px]"
-                                        src="../../assets/user/images/whittier.png" alt="">
-
-                                    <div class="text-left mt-[80px] ">
-                                        <h2 class="text-lg font-semibold  text-white text-3xl">{{  name }}</h2>
-                                        <h5 class=" text-md  text-white font-normal text-black text-primaryblue">
-                                        </h5>
+                            <div class="col-span-2">
+                                <div class="grid grid-cols-10">
+                                    <div class="col-span-3">
+                                        <img class="mx-auto w-[150px] h-[150px] rounded-xl mt-[45px]"
+                                            src="@/assets/user/images/businesspp.png" alt="">
+                                    </div>
+                                    <div class="col-span-7">
+                                        <div class="text-left mt-[80px] w-full">
+                                            <h2 class="text-lg font-semibold  text-white text-3xl">
+                                                {{  name }}
+                                            </h2>
+                                            <h5 class=" text-md  text-white font-normal text-black text-primaryblue">
+                                                Business
+                                            </h5>
+                                        </div>
                                     </div>
                                 </div>
-
+                                <div class="text-center flex"></div>
                             </div>
-
-                            <div class="col-span-3">
-                                <div
-                                    class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                                    <ul class="flex flex-wrap -mb-px">
-                                        <li class="me-2">
-                                            < <button @click="handleTab('feed')"
-                                                class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</button>
-                                        </li>
-                                        <li class="me-2">
-                                            <button @click="handleTab('member')"
-                                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                                aria-current="page">Members</button>
-                                        </li>
-                                        <li class="me-2">
-                                            <button @click="handleTab('team')"
-                                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Team</button>
-                                        </li>
-                                        <li class="me-2">
-                                            <a href="#"
-                                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</a>
-                                        </li>
-                                        <li class="me-2">
-                                            <button @click="handleTab('academic')"
-                                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Academics</button>
-                                        </li>
-
-
-                                    </ul>
-                                </div>
+                            <div class="col-span-2">
+                                
                             </div>
                             <div class="col-span-1 mt-[70px]">
                                 <div>
@@ -101,7 +77,44 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="grid grid-cols-10 gap-4 -mt-[50px]">
+                            <div class="col-span-2">
+                                <div></div>
+                            </div>
+                            <div class="col-span-6 ">
+                                <div
+                                    class=" text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
+                                    <ul class="flex flex-wrap -mb-px">
+                                        <li class="me-2">
+                                            <button @click="handleTab('feed')"
+                                                class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</button>
+                                        </li>
+                                        <li class="me-2">
+                                            <button @click="handleTab('member')"
+                                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
+                                                aria-current="page">Members</button>
+                                        </li>
+                                        <li class="me-2">
+                                            <a href="#"
+                                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Team</a>
+                                        </li>
+                                        <li class="me-2">
+                                            <a href="#"
+                                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</a>
+                                        </li>
+                                        <li class="me-2">
+                                            <a href="#"
+                                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Academics</a>
+                                        </li>
 
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-span-1">
+                                <div></div>
+                            </div>
                         </div>
                     </div>
                 </span>
@@ -119,40 +132,19 @@
                             </div>
                         </div>
                         <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
-                            {{  bio }}
+                            {{ bio }}
                         </p>
                     </div>
 
-                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-4 w-48 ">
-                                <h1 class="text-lg font-semibold mb-4 text-black ">Acedemics</h1>
-                            </div>
-                        </div>
-                        <p class="text-xs text-darkSlateBlue leading-loose mb-4 ">
-                            <span
-                                class="bg-blue-100 pb-1 font-light text-blue-800 text-xs  me-2 px-2.5 py-0.5 rounded rounded-full bg-blue-500 text-white ">
-                                Health
-                            </span>
-                            <span
-                                class="bg-blue-100 pb-1 font-light text-blue-800 text-xs  me-2 px-2.5 py-0.5 rounded rounded-full bg-blue-500 text-white ">
-                                Business Marketing
-                            </span>
-                            <br>
-                            <span
-                                class="bg-blue-100 pb-1 font-light text-blue-800 text-xs  me-2 px-2.5 py-0.5 rounded rounded-full bg-blue-500 text-white ">
-                                Computer engineering
-                            </span>
-                        </p>
-                    </div>
                 </div>
                 <!-- End Profile pic section  -->
 
                 <!-- Start post Section -->
                 <div class="col-span-5 sm:col-span-3 md:col-span-5 lg:col-span-2 xl:col-span-3">
+                    <!--start card 01 -->
                     <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6">
                         <div class="flex items-center">
-                            <img src="../../assets/user/images/Rectangle 193.png" alt=""
+                            <img src="@/assets/user/images/Rectangle 193.png" alt=""
                                 class="rounded-lg w-12 h-12 mr-4">
                             <input type="text" placeholder="Write your thoughts..."
                                 class="flex-grow text-ceil bg-culturedBlue  rounded-xl py-2 px-4 focus:outline-none focus:border-blue-500">
@@ -202,27 +194,15 @@
                     <!-- Posts section -->
                         <UserFeed v-if="tab == 'feed'" :posts="posts" />
                     <!-- Posts section End -->
-
- 
                     <!-- Members section -->
-                       <Member v-if="tab == 'member'"  :members="members" />
+                        <Member v-if="tab == 'member'" :members="members"/>
                     <!-- Member section End -->
-                    <!-- Team section -->
-                        <Team  v-if="tab == 'team'"/>
-                    <!--  Team section End-->
-
-                  
-                    <!-- Academics section  -->
-                        <Academic v-if="tab == 'academic'" :academic="academic" />
-                    <!-- Academics section end  -->
-
-                   
                 </div>
                 <!-- End post Section -->
 
                 <!-- Start UTR Section -->
                 <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
-                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-blue-500 p-3">
+                    <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-blue-500 p-3">
                         <div class="grid grid-cols-2 gap-4">
                             <div class="">
                                 <h2 class="text-lg font-semibold mb-4 pl-3">Tennis info</h2>
@@ -269,7 +249,7 @@
 
                             <p class="text-xs text-black leading-relaxed mb-4  ml-2 ">
                                 Location
-                                <br><span class="text-sm text-darkSlateBlue"> {{  address }}</span>
+                                <br><span class="text-sm text-darkSlateBlue"> New pura , Belgium</span>
 
                             </p>
                         </div>
@@ -286,7 +266,7 @@
 
                             <p class="text-xs text-black leading-relaxed mb-4  ml-2 ">
                                 Tuition (In-of-State)
-                                <br><span class="text-sm text-darkSlateBlue"> {{ tuitionInState }} </span>
+                                <br><span class="text-sm text-darkSlateBlue"> $45,000 per year</span>
 
                             </p>
                         </div>
@@ -303,7 +283,7 @@
 
                             <p class="text-xs text-black leading-relaxed mb-4  ml-2 ">
                                 Tuition (Out-of-State)
-                                <br><span class="text-sm text-darkSlateBlue"> {{ tuitionOutState }}</span>
+                                <br><span class="text-sm text-darkSlateBlue"> $55,000 per year</span>
 
                             </p>
                         </div>
@@ -317,7 +297,7 @@
                             </div>
                             <p class="text-xs text-black leading-relaxed mb-4  ml-2 ">
                                 Cost of Attendance
-                                <br><span class="text-sm text-darkSlateBlue"> {{  costOfAttendance }}</span>
+                                <br><span class="text-sm text-darkSlateBlue"> $25,000 per year</span>
 
                             </p>
                         </div>
@@ -332,12 +312,12 @@
                             </div>
                             <p class="text-xs text-black leading-relaxed mb-4  ml-2 ">
                                 Graduation Rate
-                                <br><span class="text-sm text-darkSlateBlue">{{ graduationRate }} %</span>
+                                <br><span class="text-sm text-darkSlateBlue">65%</span>
 
                             </p>
                         </div>
 
-                    </div>
+                    </div> -->
 
                 </div>
 
@@ -353,8 +333,6 @@
 import { ref, computed, watch, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import Member from '~/components/user/profile/member.vue';
-import Academic from '~/components/user/profile/academic.vue';
-import Team from '~/components/user/profile/team.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
 
 // Access authService from the context
@@ -366,36 +344,36 @@ const $feedService = nuxtApp.$feedService;
 const bio =ref('');
 const name =ref('')
 const members =ref([])
-const tuitionInState = ref('')
-const tuitionOutState = ref('')
-const costOfAttendance = ref('')
-const address = ref('')
-const graduationRate = ref('')
-const academic = ref({})
 const tab = ref('feed')
 const posts = ref([])
-
 onMounted(() => {
-    fetchSchooleDatils();
-   fetchPost();
+    fetchCoacheDatils();
+    fetchConnections();
+    fetchPost();
 
 });
 
-const fetchSchooleDatils = async () =>{
+const fetchCoacheDatils = async () =>{
     try {
-       const dataSets = await $publicService.get_scool('285006d4-6bfc-11ef-97c7-d8c49745e52b');
-        bio.value =dataSets.school_info.bio
-        name.value =dataSets.school_info.name
-        members.value =dataSets.school_users_info
-        tuitionInState.value =dataSets.school_info.other_data.tuition_in_state
-        tuitionOutState.value =dataSets.school_info.other_data.tuition_out_state
-        costOfAttendance.value =dataSets.school_info.other_data.cost_of_attendance
-        address.value =dataSets.school_info.other_data.address
-        graduationRate.value =dataSets.school_info.other_data.graduation_rate
-        academic.value =dataSets.school_info.other_data
-
+       const dataSets = await $publicService.get_business('33a70daf-6bfc-11ef-97c7-d8c49745e52b');
+        bio.value =dataSets.business_info.bio
+        name.value =dataSets.business_info.name
+        members.value =dataSets.business_users_info
+       
     } catch (error) {
+        console.log(error)
        console.error('Error fetching data:', error.message);
+    } 
+}
+
+const fetchConnections = async () =>{
+    try {
+       const dataSets = await $userService.get_connection('9cf182dd-aff5-43b7-a3ed-4c693b9530c3');
+       //connections.value =dataSets.connection   
+    } catch (error) {
+        console.log(error)
+       c
+       onsole.error('Error fetching data:', error.message);
     } 
 }
 
@@ -408,7 +386,6 @@ const fetchPost = async () =>{
     console.error('Failed to load posts:', error.message);
   }
 }
-
 
 const handleTab = (name) =>{
     tab.value = name
