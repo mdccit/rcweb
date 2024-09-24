@@ -8,7 +8,7 @@
     <NavBarPublic></NavBarPublic>
     <div class="grid grid-cols-6 gap-4 temp-row grid-rows-[90px_auto] mt-16">
       <div class="row-span-2 col-span-1 ">
-        <playerProfileLeft :data="leftData"  />
+        <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  />
       </div>
       <div class="col-start-2 col-span-5 ">
         <playerProfileHedarer @changeTab="setSelectedTab" :playerId="playerID" />
