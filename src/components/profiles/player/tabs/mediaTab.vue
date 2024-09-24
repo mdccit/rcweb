@@ -55,9 +55,9 @@
           <source :src="item.src" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <button @click="removeMediaItem(index)" class="bg-red-500 text-white px-2 py-1 mt-2 rounded hover:bg-red-700">
+        <!-- <button @click="removeMediaItem(index)" class="bg-red-500 text-white px-2 py-1 mt-2 rounded hover:bg-red-700">
           Remove
-        </button>
+        </button> -->
       </a>
     </div>
 
