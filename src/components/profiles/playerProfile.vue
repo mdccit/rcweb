@@ -9,7 +9,7 @@
                         <div class="text-center">
                             <div class="w-[200px] h-[200px] relative">
                                 <img class="mx-auto w-[180px] h-[180px] rounded-xl"
-                                    src="../../assets/user/images/Rectangle 193.png" alt="">
+                                    src="@/assets/user/images/Rectangle 193.png" alt="">
                                 <div
                                     class="absolute top-0 right-0 m-2 rounded-lg flex justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -43,8 +43,8 @@
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-2"
-                                    @click="toggleModal('bio')">
-                                    <div class="cursor-pointer">
+                                     @click="toggleModal('bio')">
+                                    <div v-if="userId.value == playerID.value" class="cursor-pointer">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-4">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -66,7 +66,7 @@
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                                    <div class="cursor-pointer" @click="toggleModal('info')">
+                                    <div v-if="userId.value == playerID.value" class="cursor-pointer" @click="toggleModal('info')">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-4">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -92,7 +92,7 @@
                         </div> -->
 
                         <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
-                            <div class="col-span-2 mx-auto" @click="toggleModal('info')">
+                            <div v-if="userId.value == playerID.value" class="col-span-2 mx-auto" @click="toggleModal('info')">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" class="size-5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -217,7 +217,7 @@
                                 </p>
 
                             </div>
-                            <div class="col-span-1 ..." @click="toggleModal('address')">
+                            <div v-if="userId.value == playerID.value" class="col-span-1 ..." @click="toggleModal('address')">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-4">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -553,12 +553,13 @@
                     </div> -->
 
                     <!--end card 02 -->
-                    <Connection v-if="tab == 'connection'" :connections="connections" />
+                    <Connection v-if="tab == 'connection'" :playerId="playerID" />
                     <!--start card 03 -->
 
                     <!-- Media Gallery Section -->
-                    <h1 class="mt-7">Media(10)</h1>
-                    <div v-if="tab === 'media'" class="media-gallery grid">
+
+                    <mediaTab v-if="tab == 'media'" :galleryItems="galleryItems" />
+                    <!-- <div v-if="tab === 'media'" class="media-gallery grid">
                         <a v-for="(item, index) in galleryItems" :key="index" data-fancybox="gallery" :href="item.href"
                             class="media-item">
                             <img v-if="item.type === 'image'" class="rounded w-full" :src="item.src" />
@@ -567,7 +568,7 @@
                                 Your browser does not support the video tag.
                             </video>
                         </a>
-                    </div>
+                    </div> -->
 
 
                     <!--end card 03 -->
@@ -651,7 +652,7 @@
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                                    <div class="cursor-pointer mr-[20px]" @click="toggleModal('utr')">
+                                    <div v-if="userId.value == playerID.value" class="cursor-pointer mr-[20px]" @click="toggleModal('utr')">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
                                             class="size-4 bg-white rounded-sm m-2">
@@ -750,13 +751,14 @@ import { useUserStore } from '~/stores/userStore';
 import PlayerTabNavigation from '~/components/profiles/navigation/PlayerTabNavigation.vue';
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
-import PlayerProfileLeft from './playerProfileLeft.vue';
+import PlayerProfileLeft from '~/components/profiles/player/layout/playerProfileLeft.vue';
 import NameModal from '~/components/profiles/player/modals/nameModal.vue';
 import BioModal from '~/components/profiles/player/modals/bioModal.vue';
 import InfoModal from '~/components/profiles/player/modals/infoModal.vue';
 import BudgetModal from '~/components/profiles/player/modals/budgetModal.vue';
 import UTRModal from '~/components/profiles/player/modals/utrModal.vue';
 import AddressModal from '~/components/profiles/player/modals/addressModal.vue';
+import mediaTab from '~/components/profiles/player/tabs/mediaTab.vue';
 
 
 // Access authService from the context
@@ -866,7 +868,7 @@ onMounted(() => {
     userRole.value = userStore.user?.role || null;
 
     if (playerID.value != null) {
-        fetchConnections();
+        // fetchConnections();
         fetchPost();
         fetchCheckConnection();
         fetchMediaGallery();
@@ -993,18 +995,18 @@ const fetchCheckConnection = async () => {
     }
 }
 
-const fetchConnections = async () => {
-    try {
-        if (playerID.value != null) {
-            const dataSets = await $userService.get_connection(playerID.value);
-            connections.value = dataSets.connection
-        }
+// const fetchConnections = async () => {
+//     try {
+//         if (playerID.value != null) {
+//             const dataSets = await $userService.get_connection(playerID.value);
+//             connections.value = dataSets.connection
+//         }
 
-    } catch (error) {
-        console.log(error)
-        console.error('Error fetching data:', error.message);
-    }
-}
+//     } catch (error) {
+//         console.log(error)
+//         console.error('Error fetching data:', error.message);
+//     }
+// }
 const fetchPost = async () => {
     try {
         const response = await $feedService.list_posts({});

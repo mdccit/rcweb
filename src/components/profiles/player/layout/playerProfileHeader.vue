@@ -5,23 +5,9 @@
 
                 <div
                     class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                    <ul class="flex flex-wrap -mb-px">
-                        <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</a>
-                        </li>
-                        <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                aria-current="page">Connections</a>
-                        </li>
-                        <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</a>
-                        </li>
+                  
+                    <PlayerTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
 
-
-                    </ul>
                 </div>
             </div>
         </div>
@@ -52,18 +38,12 @@
                         class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                         {{ connectionButtonName }}
                     </button>
+                    <div v-if="connectionButtonName ='Accept connection'" class="text-white">
+                        <button @click="connectReject" class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                            Reject
+                       </button>
+                </div> 
                 </div>
-                <div>
-                    <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px] text-white">
-                        Accept
-                    </button>
-                </div>
-                <!-- <div>
-                                <button  
-                                    class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                    Regect
-                                </button>
-                            </div> -->
                 <div class="">
                     <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
                         class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -95,7 +75,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref ,defineEmits ,onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import SocialHubNavbar from '~/components/user/navbar.vue';
 import Filter from '~/components/user/feed/filter.vue';
@@ -105,6 +85,9 @@ import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
 import PlayerTabNavigation from '~/components/profiles/navigation/PlayerTabNavigation.vue';
+import { useUserStore } from '~/stores/userStore';
+
+
 
 defineNuxtRouteMiddleware(checkSession);
 const nuxtApp = useNuxtApp();
@@ -114,6 +97,14 @@ const route = useRoute();
 const feet = ref(0)
 const pounds = ref(0)
 const showFilterLeft = ref(false);
+const $userService = nuxtApp.$userService;
+const $feedService = nuxtApp.$feedService;
+const $publicService = nuxtApp.$publicService;
+
+const connectionStatus = ref(false)
+const connectionType = ref(null)
+const connectionButtonName = ref('Connect')
+const buttonHide = ref(true);
 
 router.beforeEach((to, from, next) => {
     loading.value = true;
@@ -124,6 +115,7 @@ router.afterEach(() => {
     loading.value = false;
 });
 
+const emit = defineEmits(['changeTab']);
 
 const showNotification = ref(false);
 const notificationMessage = ref('');
@@ -141,6 +133,110 @@ watchEffect(() => {
 const closeNotification = () => {
     showNotification.value = false; // Hide the notification
 };
+
+const tabs = ref([
+    { name: 'feed', label: 'Post' },
+    { name: 'connection', label: 'Connections' },
+    { name: 'media', label: 'Media' }
+]);
+
+const tab = ref('feed');
+
+const props = defineProps({
+    playerId: {
+        type: String,
+        required: true,
+    },
+}); 
+
+onMounted(() => {
+    fetchCheckConnection()
+});
+
+// Function to handle tab change
+const handleTab = (selectedTab) => {
+    tab.value = selectedTab;
+    emit('changeTab',selectedTab)
+};
+
+const fetchCheckConnection = async () => {
+    try {
+      console.log(props.playerId)
+     
+        if (props.playerId != null) {
+            const dataSets = await $userService.get_check_connection_type(props.playerId);
+            console.log( dataSets)
+            connectionStatus.value = dataSets.connection
+            if (connectionStatus.value) {
+                connectionType.value = dataSets.type
+
+                if ((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)) {
+                    buttonHide.value = false
+
+                    connectionButtonName.value = "Invite sent"
+                }
+
+                if ((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)) {
+                    buttonHide.value = false
+
+                    connectionButtonName.value = "Accept connection"
+                }
+
+                if (dataSets.type.connection_status == 'accepted') {
+                    buttonHide.value = true
+
+                    connectionButtonName.value = "Connected"
+                }
+            } else {
+                buttonHide.value = false
+            }
+
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error.message);
+    }
+}
+
+const connectAcceptOrConnect = async () => {
+
+try {
+    if (connectionButtonName.value == "Accept connection") {
+        await $userService.connection_accept(connectionType.value.id, {
+            connection_status: "accepted"
+        });
+    }
+
+    if (connectionButtonName.value == "Connect") {
+        if (playerID.value != null) {
+            const response = await $userService.connection_request({
+                receiver_id: playerID.value
+            });
+
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+        }
+
+    }
+
+     fetchCheckConnection();
+
+} catch (error) {
+    console.error('Failed to Connect :', error.message);
+}
+}
+
+const connectReject = async () => {
+
+try {
+    await $userService.connection_accept(connectionType.value.id, {
+        connection_status: "rejected"
+    });
+    
+    fetchCheckConnection();
+
+} catch (error) {
+    console.error('Failed to Connect :', error.message);
+}
+}
 </script>
 
 <style scoped>

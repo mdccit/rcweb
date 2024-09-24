@@ -7,8 +7,11 @@
       <div class="container-compressed">
         <div class="grid grid-cols-6 gap-4 mt-16">
           <!-- Left pane -->
-          <div >
+          <div>
+            <!-- <Filter /> -->
+             <NetworkLeft />
             <Filter v-if="route.meta.showFilterLeft" />
+            <!-- <resources-left-bar /> -->
           </div>
 
           <!-- Middle pane -->
@@ -51,6 +54,8 @@ import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
+import NetworkLeft from '~/components/user/networkLeft.vue';
+import ResourcesLeftBar from '~/components/user/resourcesLeftBar.vue';
 
 
 defineNuxtRouteMiddleware(checkSession);
