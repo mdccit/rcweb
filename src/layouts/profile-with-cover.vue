@@ -6,14 +6,20 @@
     </div>
     <main>
         <NavBarPublic></NavBarPublic>
-        <div class="grid grid-cols-6 grid-rows-2 gap-0">
-            <div class="col-span-6 row-start-1 row-end-2 bg-red-500">
-                <h1>1232312123</h1>
+        <div class="grid grid-cols-6 grid-rows-2 gap-0 mt-16">
+            <div class="col-span-6 row-start-1 row-end-2s">
+                <CoachCover />
             </div>
-            <div class="col-start-1 col-end-2 row-start-2 row-end-3 bg-green-500">
-                 </div>
-            <div class="col-start-6 col-end-7 row-start-2 row-end-3 bg-blue-500"> </div>
-            <div class="col-start-2 col-end-6 row-start-2 row-end-3 bg-yellow-500"> </div>
+            <div class="col-start-1 col-end-2 row-start-2 row-end-3">
+                <CoachLeft />
+            </div>
+            <div class="col-start-6 col-end-7 row-start-2 row-end-3">
+                
+                <CoachRight />
+            </div>
+            <div class="col-start-2 col-end-6 row-start-2 row-end-3">
+                <CoachFeed />
+            </div>
         </div>
     </main>
     <FooterPublic></FooterPublic>
@@ -25,6 +31,10 @@ import FooterPublic from '~/components/user/user-footer.vue';
 import { ref, watchEffect } from 'vue';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue'; // <-- Ensure this path is correct!
+import CoachCover from '~/components/profiles/coach/coachCover.vue';
+import CoachLeft from '~/components/profiles/coach/coachLeft.vue';
+import CoachRight from '~/components/profiles/coach/coachRight.vue';
+import CoachFeed from '~/components/profiles/coach/coachFeed.vue';
 
 const nuxtApp = useNuxtApp();
 
