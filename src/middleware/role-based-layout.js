@@ -12,16 +12,19 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   const roleId = response.user_basic_info?.user_role_id || null; // Default roleId is 4
 
   // Determine the layout based on the user's roleId
-  let layout = 'profile-without-cover'; // Default layout
+  let layout = 'outer'; // Default layout
   switch (roleId) {
     case 4:
       layout = 'profile-without-cover';  // Layout for roleId 4
       break;
     case 5:
-      layout = 'profile-without-cover';  // Layout for roleId 5
+      layout = 'profile-with-cover';  // Layout for roleId 5
+      break;
+    case 6:
+      layout = 'profile-with-cover';  // Layout for roleId 5
       break;
     default:
-      layout = 'profile-without-cover';  // Default layout
+      layout = 'outer';  // Default layout
   }
 
   // Set the layout in the route's meta

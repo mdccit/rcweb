@@ -613,12 +613,12 @@
                                     Accept
                                 </button>
                             </div>
-                            <!-- <div>
+                            <div>
                                 <button  
                                     class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                     Regect
                                 </button>
-                            </div> -->
+                            </div>
                             <div class="">
                                 <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -642,9 +642,6 @@
                                 </ul>
                             </div>
                             </div>
-
-                          
-
                         </div>
                     </div>
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-blue-500 p-3 mt-2">
@@ -717,15 +714,8 @@
 
                             </div>
                         </div>
-
-
-
-
                     </div>
-
                 </div>
-
-
                 <!-- End Pending Req. Section -->
             </section>
         </div>

@@ -83,10 +83,11 @@ const get_scool= async (school_slug) => {
 
 const get_user_profile= async (slug) => {
   const url = `/public/users/${slug}`;
-  console.log(url)
+  
   try {
     const response = await apiService.getRequest(url);
     if (response && response.data) {
+      console.log(response.data);
       return response.data;
     } else {
       throw new Error('Unexpected API response structure');

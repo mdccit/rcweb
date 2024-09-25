@@ -44,6 +44,16 @@
                        </button>
                 </div> 
                 </div>
+                <div>
+                    <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px] text-white">
+                        Accept
+                    </button>
+                </div>
+                <div class="text-white">
+                    <button class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                        Reject
+                    </button>
+                </div>
                 <div class="">
                     <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
                         class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -86,6 +96,8 @@ import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
 import PlayerTabNavigation from '~/components/profiles/navigation/PlayerTabNavigation.vue';
 import { useUserStore } from '~/stores/userStore';
+
+
 
 
 
