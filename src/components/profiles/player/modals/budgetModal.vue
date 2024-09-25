@@ -36,7 +36,7 @@
                       <button type="button"
                           class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
                           changes</button>
-                      <button type="button" @click="$emit('close')"
+                      <button type="button" @click="$emit('close','budget')"
                           class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
                   </div>
               </div>
@@ -48,12 +48,83 @@
 
 <script setup>
 
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import { useNuxtApp } from '#app';
+import { handleError } from '@/utils/handleError';
+import InputError from '@/components/common/input/InputError.vue';
+
+const nuxtApp = useNuxtApp();
+const $userService = nuxtApp.$userService;
+const $publicService = nuxtApp.$publicService;
+
+const user_bio = ref('');
+const user_slug = ref('');
 
 const props = defineProps({
     visible: Boolean,
     slug: String
 });
 
+
+// Define emits to handle custom events like close
+const emit = defineEmits(['close']);
+
+onMounted(() => {
+    if (props.slug) {
+        user_slug.value = props.slug;
+        fetchPlayerBio(props.slug);
+    }
+});
+
+watch(() => props.visible, (newVal) => {
+  if (newVal && props.slug) {
+    fetchPlayerBio(props.slug);
+  }
+});
+
+const fetchPlayerBio = async (slug) => {
+    try {
+        console.log(slug);
+        const dataSets = await $publicService.get_player(props.slug);
+
+        if (dataSets.user_basic_info) {
+            console.log(dataSets.user_basic_info);
+            user_bio.value = dataSets.user_basic_info.bio ?? "N/A";
+
+        }
+    } catch (error) {
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    }
+}
+
+// Function to update player bio
+const updatePlayerBio = async (bio) => {
+    try {
+        const request_body = { user_slug: props.slug, bio: bio };  // Construct request body with bio
+        const response = await $userService.update_player_bio(request_body);  // Pass slug and request body
+        if (response.status == '200') {
+            clearUserBio();
+            // Trigger success notification
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+            // Emit close event to parent to close the modal
+            emit('close','bio');  // Close the modal after successfully updating the bio
+        }else{
+            nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
+        }
+
+    } catch (error) {
+        // Handle error
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    }
+};
+
+// Save bio when the user clicks "Save changes"
+const saveBio = () => {
+    updatePlayerBio(user_bio.value);
+}
+
+const clearUserBio = () => {
+  user_bio.value = '';
+};
 
 </script>
