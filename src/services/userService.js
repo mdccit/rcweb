@@ -17,8 +17,8 @@ const createUserService = (apiService) => {
     }
   };
 
-  const get_check_connection_type = async (user_id) => {
-    const url = `/user/connections-check/${user_id}`;
+  const get_check_connection_type = async (user_slug) => {
+    const url = `/user/connections-check/${user_slug}`;
     try {
       const response = await apiService.getRequest(url);
       if (response && response.data) {
