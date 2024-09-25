@@ -4,7 +4,7 @@
       <div>
           <!-- start cover photo section -->
           <section class="w-full mb-5">
-              <img class="w-full h-[400px] rounded-xl" src="../../assets/user/images/coach-cover.jpg " alt="">
+              <img class="w-full h-[400px] rounded-xl" src="@/assets/user/images/coach-cover.jpg " alt="">
               <span>
                   <div class="-mt-[144px]">
                       <div class="grid grid-cols-5 gap-4 flex">
@@ -12,7 +12,7 @@
                           <div class="col-span-1">
                               <div class="text-center flex">
                                   <img class="mx-auto w-[150px] h-[150px] rounded-xl mt-[45px]"
-                                      src="../../assets/user/images/coachProPic.png" alt="">
+                                      src="@/assets/user/images/coachProPic.png" alt="">
 
                                   <div class="text-left mt-[80px] ">
                                       <h2 class="text-lg font-semibold  text-white text-3xl">{{ name }}</h2>
@@ -123,7 +123,7 @@
 
                   <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
                       <div class="flex items-center">
-                          <img src="../../assets/user/images/Rectangle 193.png" alt=""
+                          <img src="@/assets/user/images/Rectangle 193.png" alt=""
                               class="rounded-lg w-12 h-12 mr-4">
                           <input type="text" placeholder="Write your thoughts..."
                               class="flex-grow text-ceil bg-culturedBlue  rounded-xl py-2 px-4 focus:outline-none focus:border-blue-500">
@@ -185,13 +185,13 @@
                               <div class="flex items-center justify-between">
 
                                   <div class="flex items-center space-x-4">
-                                      <img src="../../assets/user/images/Rectangle 193.png" alt=""
+                                      <img src="@/assets/user/images/Rectangle 193.png" alt=""
                                           class="rounded-lg w-12 h-12 mr-4">
                                       <div>
                                           <div class="text-lg font-semibold">Jane Cooper</div>
                                           <div class="flex items-center space-x-2">
                                               <div class="bg-mintGreen p-1 rounded">
-                                                  <img src="../../assets/user/images/man-medal.png" alt=""
+                                                  <img src="@/assets/user/images/man-medal.png" alt=""
                                                       class=" w-4 h-4">
                                               </div>
                                               <div class="text-sm ml-2">4 hour ago</div>
@@ -224,7 +224,7 @@
                                   document or a typeface without relying on meaningful content.
                               </p>
                               <div class="relative w-82 h-82 pt-4">
-                                  <img src="../../assets/user/images/Rectangle 128.png" alt=""
+                                  <img src="@/assets/user/images/Rectangle 128.png" alt=""
                                       class="rounded-lg mr-4 w-full h-full object-cover">
                                   <div class="absolute inset-0 flex items-center justify-center">
                                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -269,7 +269,7 @@
                                   </div>
                               </div>
                               <div class="flex items-center space-x-4 mt-3">
-                                  <img style="margin-bottom: 42px;" src="../../assets/user/images/Rectangle 117.png"
+                                  <img style="margin-bottom: 42px;" src="@/assets/user/images/Rectangle 117.png"
                                       alt="" class="rounded-lg w-12 h-12 mr-4">
                                   <div>
                                       <div class="text-lg font-semibold">Kristin Watson</div>
@@ -282,7 +282,7 @@
                                   </div>
                               </div>
                               <div class="flex items-center space-x-4 mt-4">
-                                  <img style="margin-bottom: 42px;" src="../../assets/user/images/Rectangle 117.png"
+                                  <img style="margin-bottom: 42px;" src="@/assets/user/images/Rectangle 117.png"
                                       alt="" class="rounded-lg w-12 h-12 mr-4">
                                   <div>
                                       <div class="text-lg font-semibold">Kristin Watson</div>
@@ -301,7 +301,7 @@
                       </div>
                       <hr class="mt-3 mb-3 text-pigeonBlue">
                       <div class="mt-4 flex items-start space-x-4">
-                          <img src="../../assets/user/images/Rectangle 117.pn" alt="User Image"
+                          <img src="@/assets/user/images/Rectangle 117.pn" alt="User Image"
                               class="w-12 h-12 rounded-lg">
                           <div class="relative  w-full ">
                               <input type="text" placeholder="Write your comment..."
@@ -338,7 +338,7 @@
                       <div class="grid grid-cols-3 gap-4">
                           <div class="... text-center">
                               <img class="mx-auto w-[60px] h-[60px] rounded-full "
-                                  src="../../assets/user/images/whitter collage.png" alt="">
+                                  src="@/assets/user/images/whitter collage.png" alt="">
                           </div>
                           <div class="col-span-2 ...">
                               <p class="text-black text-sm">Coach at {{ colleage }}</p>
@@ -356,7 +356,7 @@
                       <div class="grid grid-cols-3 gap-4">
                           <div class="...">
                               <img class="mx-auto w-[45px] h-[45px] rounded-xl "
-                                  src="../../assets/user/images/Group 348.png" alt="">
+                                  src="@/assets/user/images/Group 348.png" alt="">
                           </div>
                           <div class="col-span-2 ...">
                               <p class="text-xs text-black leading-relaxed mx-auto mt-3">{{ city }},  {{ country }}
