@@ -38,11 +38,11 @@
                         class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                         {{ connectionButtonName }}
                     </button>
-                    <div v-if="connectionButtonName ='Accept connection'" class="text-white">
+                    <div v-if="connectionButtonName =='Accept connection'" class="text-white">
                         <button @click="connectReject" class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                             Reject
                        </button>
-                </div> 
+                    </div> 
                 </div>
                 <div class="">
                     <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
@@ -121,7 +121,8 @@ const showNotification = ref(false);
 const notificationMessage = ref('');
 const notificationType = ref('');
 const notificationKey = ref(0);
-
+const userId = ref(null)
+const playerId = ref(null)
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
     showNotification.value = nuxtApp.$notification.showNotification.value;
@@ -143,16 +144,30 @@ const tabs = ref([
 const tab = ref('feed');
 
 const props = defineProps({
-    playerId: {
+    
+    userSlug: {
         type: String,
         required: true,
     },
 }); 
 
+const userStore = useUserStore();
+
+
 onMounted(() => {
+    userId.value = userStore.user?.user_id || null;
+    fetchUserDetails()
     fetchCheckConnection()
 });
 
+const fetchUserDetails = async (slug) => {
+  try {
+    const dataSets = await $publicService.get_user_profile(props.userSlug);
+    playerId.value = dataSets.user_basic_info.id || null;
+  }catch(error){
+    console.error('Error fetching data:', error.message);
+  }
+}
 // Function to handle tab change
 const handleTab = (selectedTab) => {
     tab.value = selectedTab;
@@ -161,15 +176,14 @@ const handleTab = (selectedTab) => {
 
 const fetchCheckConnection = async () => {
     try {
-      console.log(props.playerId)
      
-        if (props.playerId != null) {
-            const dataSets = await $userService.get_check_connection_type(props.playerId);
-            console.log( dataSets)
+       connectionButtonName.value = "Connect"
+        if (props.userSlug != null) {
+            const dataSets = await $userService.get_check_connection_type(props.userSlug);
+           
             connectionStatus.value = dataSets.connection
-            if (connectionStatus.value) {
+            if (connectionStatus.value == true) {
                 connectionType.value = dataSets.type
-
                 if ((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)) {
                     buttonHide.value = false
 
@@ -178,7 +192,6 @@ const fetchCheckConnection = async () => {
 
                 if ((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)) {
                     buttonHide.value = false
-
                     connectionButtonName.value = "Accept connection"
                 }
 
@@ -189,6 +202,7 @@ const fetchCheckConnection = async () => {
                 }
             } else {
                 buttonHide.value = false
+                connectionButtonName.value = "Connect"
             }
 
         }
@@ -207,9 +221,10 @@ try {
     }
 
     if (connectionButtonName.value == "Connect") {
-        if (playerID.value != null) {
+        console.log(playerId.value)
+        if (playerId.value != null) {
             const response = await $userService.connection_request({
-                receiver_id: playerID.value
+                receiver_id: playerId.value
             });
 
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
@@ -225,9 +240,10 @@ try {
 }
 
 const connectReject = async () => {
-
+  console.log(70)
+  console.log(connectionType.value.id)
 try {
-    await $userService.connection_accept(connectionType.value.id, {
+    await $userService.connection_reject(connectionType.value.id, {
         connection_status: "rejected"
     });
     
