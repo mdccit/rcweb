@@ -44,7 +44,7 @@
                        </button>
                     </div> 
                 </div>
-                <div>
+                <!-- <div>
                     <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px] text-white">
                         Accept
                     </button>
@@ -53,7 +53,7 @@
                     <button class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                         Reject
                     </button>
-                </div>
+                </div> -->
                 <div class="">
                     <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
                         class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -233,7 +233,6 @@ try {
     }
 
     if (connectionButtonName.value == "Connect") {
-        console.log(playerId.value)
         if (playerId.value != null) {
             const response = await $userService.connection_request({
                 receiver_id: playerId.value
@@ -252,8 +251,6 @@ try {
 }
 
 const connectReject = async () => {
-  console.log(70)
-  console.log(connectionType.value.id)
 try {
     await $userService.connection_reject(connectionType.value.id, {
         connection_status: "rejected"

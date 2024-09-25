@@ -7,7 +7,7 @@
                         <img class="mx-auto w-[60px] h-[60px] rounded-full " src="@/assets/user/images/whittier.png" alt="">
                     </div>
                     <div class="col-span-2 ...">
-                        <p class="text-black text-sm">Coach at Whittier College</p>
+                        <p class="text-black text-sm">{{ props.data.colleage }}</p>
                         <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">Lorem ipsum is a
                             placeholder
                         </p>
@@ -25,7 +25,15 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
 
+const props = defineProps({
+    
+    data: {
+        type: Object,
+        required: true,
+    },
+}); 
 </script>
 
 <style scoped>
