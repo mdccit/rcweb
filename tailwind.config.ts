@@ -58,7 +58,8 @@ module.exports = {
         royalBlue: '#0068c7', // Primary blue button active color // primary-600
         lightAzure: '#52acff', // Primary blue button focus border color // primary-300
         lightPastalBlue: '#7ac0ff80', // Primary blue button focus color // primary-200
-        tealGray:'#3b82f680'
+        tealGray:'#3b82f680',
+        softGray: '#C8C8C8'
       },
       testred: {
         lightest: '#efdfa4',

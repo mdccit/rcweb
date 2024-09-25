@@ -207,9 +207,109 @@
                 </div>
             </div>
 
-            <div class="col-span-3 my-6">
-                <div class="rounded-2xl bg-white p-6">
-                    ssss
+            <div class="col-span-3 my-6" :style="{ height: contentHeight + 'px' }">
+                <div class="rounded-2xl bg-white h-full">
+                    <div class="grid grid-rows-[130px_auto_110px] h-full">
+                        <div>
+                            <div class="px-6 pt-6">
+                                <div class="flex items-center space-x-4 border-b border-softGray pb-3">
+                                    <div>
+                                        <img class=" rounded-2xl w-[80px] h-[80px]" src="@/assets/user/images/Rectangle 193.png"
+                                            alt="Neil image">
+                                    </div>
+                                    <div>
+                                        <h4 class="text-black font-bold mb-1">Ronald Richards</h4>
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <div class="bg-lightCreamOrange p-1 rounded">
+                                                <img src="@/assets/user/images/manage-parent.png" alt="" class=" w-4 h-4">
+                                            </div>
+                                            <div class="text-xs ml-2 text-vividOrange">Manage by parent</div>
+                                        </div>
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <p class="text-xs text-limegreen">Online</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-full overflow-auto">
+                            <div class="px-6">
+                                <div class="">
+                                    <!-- Left-aligned message -->
+                                    <div class="flex justify-start mb-3">
+                                        <div class="bg-lighterGray p-3 lg rounded-b-lg rounded-tr-lg max-w-md">
+                                            <p class="text-sm text-black">Lorem ipsum dolor sit amet, consectetur adipiscing
+                                                elit, sed do eiusmod
+                                                tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Left-aligned message (Short) -->
+                                    <div class="flex justify-start mb-2">
+                                        <div class="bg-lighterGray p-3 rounded-b-lg rounded-tr-lg max-w-md">
+                                            <p class="text-sm text-black">Lorem ipsum dolor sit amet.</p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <p class="text-xs text-ceil">4 min ago</p>
+                                    </div>
+
+                                    <!-- Right-aligned message -->
+                                    <div class="flex justify-end mb-3">
+                                        <div class="bg-steelBlue text-white p-3 rounded-b-lg rounded-tl-lg max-w-md">
+                                            <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                                                do eiusmod
+                                                tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Right-aligned message (Short) -->
+                                    <div class="flex justify-end mb-3">
+                                        <div class="bg-steelBlue text-white p-3 rounded-b-lg rounded-tl-lg max-w-md">
+                                            <p class="text-sm">Lorem ipsum dolor sit amet.</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Right-aligned message (Repeated) -->
+                                    <div class="flex justify-end mb-3">
+                                        <div class="bg-steelBlue text-white p-3 rounded-b-lg rounded-tl-lg max-w-md">
+                                            <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                                                do eiusmod
+                                                tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Left-aligned message -->
+                                    <div class="flex justify-start mb-3">
+                                        <div class="bg-lighterGray p-3 lg rounded-b-lg rounded-tr-lg max-w-md">
+                                            <p class="text-sm text-black">Lorem ipsum dolor sit amet, consectetur adipiscing
+                                                elit, sed do eiusmod
+                                                tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Right-aligned message -->
+                                    <div class="flex justify-end">
+                                        <div class="bg-steelBlue text-white p-3 rounded-b-lg rounded-tl-lg max-w-md">
+                                            <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                                                do eiusmod
+                                                tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="px-6 pb-6 pt-4">
+                                <div class="border-t border-softGray flex pt-6">
+                                    <textarea id="message" rows="1"
+                                        class="grow text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4"
+                                        placeholder="Write your thoughts here..."></textarea>
+                                    <button class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-8 py-2 rounded-lg text-sm min-w-24 ml-2">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
