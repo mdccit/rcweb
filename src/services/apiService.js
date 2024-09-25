@@ -23,13 +23,23 @@ const createApiService = (config) => {
 
 
  const getAuthHeaders = () => {
+  if (process.client) {
     const token = localStorage.getItem('token');
+
     return {
       'Content-Type': 'application/json',
       'AccessKey': accessKey,
       'Lang': defaultLang,
       'Authorization': token ? `Bearer ${token}` : '', // Include the token if it exists
     };
+  }else{
+    
+    return {
+      'Content-Type': 'application/json',
+      'AccessKey': accessKey,
+      'Lang': defaultLang,
+    };
+  }
   };
 
   const getRequest = async (url) => {

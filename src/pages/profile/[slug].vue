@@ -13,5 +13,16 @@ definePageMeta({
 </script>
 
 <template>
+  <div v-if="pending">
+    <p>Loading...</p>
+  </div>
 
+  <div v-if="!pending && user">
+    <h1>{{ user.name }}'s Profile</h1>
+    <!-- Display user profile content here -->
+  </div>
+
+  <div v-if="error">
+    <p>{{ error }}</p>
+  </div>
 </template>
