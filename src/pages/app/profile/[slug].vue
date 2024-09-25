@@ -40,7 +40,7 @@ const fetchUserData = async () => {
         break;
       case 5:
         // Coach layout
-        definePageMeta({ layout: 'profile-without-cover' });
+        definePageMeta({ layout: 'profile-with-cover' });
         break;
       case 6:
         // Business User layout
@@ -69,7 +69,7 @@ const profileComponent = computed(() => {
   if (!user.value) return null;
 
   const roleId = user.value.user_basic_info?.user_role_id;
-
+  console.log(roleId);
   switch (roleId) {
     case 4:
       // Load PlayerProfile component lazily
@@ -85,7 +85,7 @@ const profileComponent = computed(() => {
 
     default:
       // You can return a default component for roles that don't match
-      return defineAsyncComponent(() => import('~/components/profiles/playerProfile.vue'));
+      return defineAsyncComponent(() => import('~/components/profiles/coachProfile.vue'));
   }
 });
 </script>
