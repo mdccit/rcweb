@@ -40,6 +40,7 @@ module.exports = {
         timberwolf: '#D9D9D9',
         graySnowDrift: '#F4F6F9', // Page background gray color
         lightGray: '#eeeeee',
+        lightGray1: '#ECECEC',
         pigeonBlue: '#BBCDEE',
         ceil: '#8CA4CE', // Placeholder color
         limegreen: '#4AC220',

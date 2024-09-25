@@ -2,7 +2,7 @@
     <!-- <div class="flex"> -->
         <div class="">
         <div v-for="connection in connections" class="flex-1 p-2">
-           
+            <NuxtLink :to="`/app/profile/${connection.slug}`">
             <div class="bg-white p-4 border rounded-2xl">
                 <div class=" grid grid-cols-12 gap-4">
                     <div class="col-span-3">
@@ -91,7 +91,12 @@
 
                     </div>
             </div>
-
+           </NuxtLink>
+           
+        </div>
+        <div v-if="connections.length == 0">
+            <h4 class="text-black font-normal"> No connections</h4>
+            <p>This user has not added anyone to their network.</p>
         </div>
       
 

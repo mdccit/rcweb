@@ -13,7 +13,7 @@
         <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  />
       </div>
       <div class="col-start-2 col-span-5 ">
-        <playerProfileHedarer @changeTab="setSelectedTab" :playerId="playerID" />
+        <playerProfileHedarer @changeTab="setSelectedTab" :playerId="playerID" :userSlug="route.params.slug" />
       </div>
       <div class="col-start-2 col-span-4 bg-brown-500">
         <!-- Content changes based on the selected tab -->
