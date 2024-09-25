@@ -7,7 +7,7 @@
                 <div class="w-[200px] h-[200px] relative">
                     <img class="mx-auto w-[200px] h-[200px] rounded-xl mt-3" src="@/assets/images/Rectangle 193.png"
                         alt="">
-                    <div
+                    <div @click="toggleModal('name')"
                         class="absolute top-0 right-0 m-2 rounded-lg flex justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6 bg-white p-[3px] rounded-md">
@@ -185,7 +185,7 @@
                         {{ props.data.budgetMax }}
                     </p>
                 </div>
-                <div class="col-span-1">
+                <div class="col-span-1" v-if="userId.value == playerID.value"  @click="toggleModal('budget')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"

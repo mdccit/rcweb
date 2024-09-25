@@ -113,6 +113,12 @@ onMounted(() => {
     }
 });
 
+watch(() => props.visible, (newVal) => {
+  if (newVal && props.slug) {
+    fetchPlayerNames(props.slug);
+  }
+});
+
 // Function to fetch the player names based on the slug
 const fetchPlayerNames = async (slug) => {
     try {
