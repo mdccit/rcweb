@@ -9,7 +9,7 @@
                         <div class="text-center">
                             <div class="w-[200px] h-[200px] relative">
                                 <img class="mx-auto w-[180px] h-[180px] rounded-xl"
-                                    src="../../assets/user/images/Rectangle 193.png" alt="">
+                                    src="@/assets/user/images/Rectangle 193.png" alt="">
                                 <div
                                     class="absolute top-0 right-0 m-2 rounded-lg flex justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -741,7 +741,7 @@ import { useUserStore } from '~/stores/userStore';
 import PlayerTabNavigation from '~/components/profiles/navigation/PlayerTabNavigation.vue';
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
-import PlayerProfileLeft from './playerProfileLeft.vue';
+import PlayerProfileLeft from '~/components/profiles/player/layout/playerProfileLeft.vue';
 import NameModal from '~/components/profiles/player/modals/nameModal.vue';
 import BioModal from '~/components/profiles/player/modals/bioModal.vue';
 import InfoModal from '~/components/profiles/player/modals/infoModal.vue';

@@ -4,26 +4,14 @@
         <div>
             <!-- start cover photo section -->
             <section class="w-full mb-5">
-                <div class="relative">
-                    <img class="w-full h-[400px] rounded-xl" src="../../assets/user/images/coach-cover.jpg" alt="">
-
-                    <!-- Wrapper for the SVG to position it absolutely -->
-                    <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-4">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                        </svg>
-                    </div>
-                </div>
-
+                <img class="w-full h-[400px] rounded-xl" src="@/assets/user/images/coach-cover.jpg " alt="">
                 <span>
                     <div class="-mt-[144px]">
                         <div class="grid grid-cols-5 gap-4 flex">
                             <div class="col-span-1">
-                                <div class="text-center flex relative">
-                                    <img class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
-                                        src="../../assets/user/images/coachProPic.png" alt="">
+                                <div class="text-center flex">
+                                    <img class="mx-auto w-[150px] h-[150px] rounded-xl mt-[45px]"
+                                        src="@/assets/user/images/coachProPic.png" alt="">
 
                                     <!-- Wrapper for the SVG to position it absolutely -->
                                     <div
@@ -128,7 +116,7 @@
 
                     <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
                       <div class="flex items-center">
-                          <img src="../../assets/user/images/Rectangle 193.png" alt=""
+                          <img src="@/assets/user/images/Rectangle 193.png" alt=""
                               class="rounded-lg w-12 h-12 mr-4">
                           <input type="text" placeholder="Write your thoughts..."
                               class="flex-grow text-ceil bg-culturedBlue  rounded-xl py-2 px-4 focus:outline-none focus:border-blue-500">
@@ -192,13 +180,13 @@
                               <div class="flex items-center justify-between">
 
                                   <div class="flex items-center space-x-4">
-                                      <img src="../../assets/user/images/Rectangle 193.png" alt=""
+                                      <img src="@/assets/user/images/Rectangle 193.png" alt=""
                                           class="rounded-lg w-12 h-12 mr-4">
                                       <div>
                                           <div class="text-lg font-semibold">Jane Cooper</div>
                                           <div class="flex items-center space-x-2">
                                               <div class="bg-mintGreen p-1 rounded">
-                                                  <img src="../../assets/user/images/man-medal.png" alt=""
+                                                  <img src="@/assets/user/images/man-medal.png" alt=""
                                                       class=" w-4 h-4">
                                               </div>
                                               <div class="text-sm ml-2">4 hour ago</div>
@@ -231,7 +219,7 @@
                                   document or a typeface without relying on meaningful content.
                               </p>
                               <div class="relative w-82 h-82 pt-4">
-                                  <img src="../../assets/user/images/Rectangle 128.png" alt=""
+                                  <img src="@/assets/user/images/Rectangle 128.png" alt=""
                                       class="rounded-lg mr-4 w-full h-full object-cover">
                                   <div class="absolute inset-0 flex items-center justify-center">
                                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -276,7 +264,7 @@
                                   </div>
                               </div>
                               <div class="flex items-center space-x-4 mt-3">
-                                  <img style="margin-bottom: 42px;" src="../../assets/user/images/Rectangle 117.png"
+                                  <img style="margin-bottom: 42px;" src="@/assets/user/images/Rectangle 117.png"
                                       alt="" class="rounded-lg w-12 h-12 mr-4">
                                   <div>
                                       <div class="text-lg font-semibold">Kristin Watson</div>
@@ -289,7 +277,7 @@
                                   </div>
                               </div>
                               <div class="flex items-center space-x-4 mt-4">
-                                  <img style="margin-bottom: 42px;" src="../../assets/user/images/Rectangle 117.png"
+                                  <img style="margin-bottom: 42px;" src="@/assets/user/images/Rectangle 117.png"
                                       alt="" class="rounded-lg w-12 h-12 mr-4">
                                   <div>
                                       <div class="text-lg font-semibold">Kristin Watson</div>
@@ -308,7 +296,7 @@
                       </div>
                       <hr class="mt-3 mb-3 text-pigeonBlue">
                       <div class="mt-4 flex items-start space-x-4">
-                          <img src="../../assets/user/images/Rectangle 117.pn" alt="User Image"
+                          <img src="@/assets/user/images/Rectangle 117.pn" alt="User Image"
                               class="w-12 h-12 rounded-lg">
                           <div class="relative  w-full ">
                               <input type="text" placeholder="Write your comment..."
@@ -345,7 +333,7 @@
                         <div class="grid grid-cols-3 gap-4">
                             <div class="... text-center">
                                 <img class="mx-auto w-[60px] h-[60px] rounded-full "
-                                    src="../../assets/user/images/whitter collage.png" alt="">
+                                    src="@/assets/user/images/whitter collage.png" alt="">
                             </div>
                             <div class="col-span-2 ...">
                                 <p class="text-black text-sm">Coach at {{ colleage }}</p>
@@ -363,7 +351,7 @@
                         <div class="grid grid-cols-3 gap-4">
                             <div class="...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl "
-                                    src="../../assets/user/images/Group 348.png" alt="">
+                                    src="@/assets/user/images/Group 348.png" alt="">
                             </div>
                             <div class="col-span-2 ...">
                                 <p class="text-xs text-black leading-relaxed mx-auto mt-3">{{ city }},  {{ country }}
