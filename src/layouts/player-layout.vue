@@ -4,32 +4,34 @@
     <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType"
       :visible="showNotification" @close="closeNotification" :key="notificationKey" />
   </div>
-  <main>
-    <NavBarPublic></NavBarPublic>
-
-
-    <div class="grid grid-cols-6 gap-4 temp-row grid-rows-[90px_auto] mt-16">
-      <div class="row-span-2 col-span-1 ">
-        <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  />
-      </div>
-      <div class="col-start-2 col-span-5 ">
-        <playerProfileHedarer @changeTab="setSelectedTab" :playerId="playerID" :userSlug="route.params.slug" />
-      </div>
-      <div class="col-start-2 col-span-4 bg-brown-500">
-        <!-- Content changes based on the selected tab -->
-        <UserFeed v-if="tab === 'feed'" :posts="posts" />
-        <Connection v-if="tab === 'connection'" :playerId="playerID" />
-        <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
-
-      </div>
-
-      <!-- <NuxtPage /> -->
+  <NavBarPublic></NavBarPublic>
+  <main class="bg-graySnowDrift">
     
+    <div class="container-compressed">
+      <div class="grid grid-cols-6 gap-4 temp-row grid-rows-[70px_auto] mt-16 pt-4">
+        <div class="row-span-2 col-span-1 ">
+          <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  />
+        </div>
+        <div class="col-start-2 col-span-5 mt-4">
+          <playerProfileHedarer @changeTab="setSelectedTab" :playerId="playerID" :userSlug="route.params.slug" />
+        </div>
+        <div class="col-start-2 col-span-4 bg-brown-500">
+          <!-- Content changes based on the selected tab -->
+          <UserFeed v-if="tab === 'feed'" :posts="posts" />
+          <Connection v-if="tab === 'connection'" :playerId="playerID" />
+          <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
 
-      <div class="p-2">
-        <playerProfileRight :data="utrData" />
+        </div>
+
+        <!-- <NuxtPage /> -->
+      
+
+        <div>
+          <playerProfileRight :data="utrData" />
+        </div>
       </div>
     </div>
+    
   </main>
   <FooterPublic></FooterPublic>
 </template>
