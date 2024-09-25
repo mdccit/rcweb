@@ -20,7 +20,7 @@
                                     </div>
                                     <div class="col-span-7">
                                         <div class="text-left mt-[80px] w-full">
-                                            <h2 class="text-lg font-semibold  text-white text-3xl">Jerome Bell</h2>
+                                            <h2 class="text-lg font-semibold  text-white text-3xl">{{ name }}</h2>
                                             <h5 class=" text-md  text-white font-normal text-black text-primaryblue">
                                                 Business user
                                             </h5>
@@ -82,27 +82,11 @@
                                 <div></div>
                             </div>
                             <div class="col-span-6 ">
-                                <div
-                                    class=" text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                                    <ul class="flex flex-wrap -mb-px">
-                                        <li class="me-2">
-                                            <a href="#"
-                                                class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</a>
-                                        </li>
-                                        <li class="me-2">
-                                            <a href="#"
-                                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                                aria-current="page">Members</a>
-                                        </li>
-                                        <li class="me-2">
-                                            <a href="#"
-                                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</a>
-                                        </li>
-                                        
 
 
-                                    </ul>
-                                </div>
+                                <!-- Tab Navigation Component -->
+                                <ProfileTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
+
                             </div>
                             <div class="col-span-1">
                                 <div></div>
@@ -125,12 +109,8 @@
                                 <h1 class="text-lg font-semibold mb-4 text-black">Bio</h1>
                             </div>
                         </div>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">Lorem ipsum dolor sit amet,
-                            consectetur
-                            adipiscing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
+                            {{ bio }}
                         </p>
                     </div>
                 </div>
@@ -138,8 +118,7 @@
 
                 <!-- Start post Section -->
                 <div class="col-span-5 sm:col-span-3 md:col-span-5 lg:col-span-2 xl:col-span-3">
-                    <!--start card 01 -->
-                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6">
+                    <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6">
                         <div class="flex items-center">
                             <img src="@/assets/user/images/businessuser.png" alt=""
                                 class="rounded-lg w-12 h-12 mr-4">
@@ -187,9 +166,6 @@
                             <button class="bg-steelBlue text-white px-8 py-2 rounded-lg text-sm">Post</button>
                         </div>
                     </div>
-                    <!--end card 01 -->
-
-                    <!--start card 02 -->
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
                         <div class="flex items-start space-x-4">
                             <div class="flex-1">
@@ -297,9 +273,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end card 02 -->
 
-                    <!--start card 03 -->
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
                         <div class="flex items-start space-x-4">
                             <div class="flex-1">
@@ -446,11 +420,17 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
-                    <!--end card 03 -->
+                    </div>-->
+                    <!-- Posts section -->
+                    <UserFeed v-if="tab == 'feed'" :posts="posts" />
+                    <!-- Posts section End -->
+                    <!-- Members section -->
+                    <Connection v-if="tab == 'connection'" :members="members" />
+                    <!-- Member section End -->
+                                        
+                     <!-- Media Gallery Section -->
+                     <mediaGalleryComponent v-if="tab === 'media'" :galleryItems="galleryItems" />        
 
-
-                    <!--end card 04 -->
                 </div>
                 <!-- End post Section -->
 
@@ -462,11 +442,13 @@
 
                             <div class="">
 
-                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto text-center mb-3">Associated with </p>
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto text-center mb-3">{{
+                                    position }} with </p>
                                 <div class="... text-center">
                                     <img class="mx-auto w-[85px] h-[85px] rounded-[20px] mb-3"
                                         src="@/assets/user/images/whitter collage.png" alt="">
-                                    <p class="text-black text-sm text-center font-normal mb-3 w-[200px] mx-auto"> <b>ICSA (Intercollegiate Soccer Association)</b></p>
+                                    <p class="text-black text-sm text-center font-normal mb-3 w-[200px] mx-auto">
+                                        <b>ICSA (Intercollegiate Soccer Association)</b></p>
                                     <p class="text-steelBlue text-sm text-center  mb-3">Business</p>
                                 </div>
                             </div>
@@ -482,6 +464,111 @@
     </main>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch, onMounted } from 'vue';
+import { useNuxtApp } from '#app';
+import Connection from '~/components/user/profile/connection.vue';
+import UserFeed from '~/components/user/profile/userFeed.vue';
+
+import ProfileTabNavigation from '~/components/profiles/navigation/ProfileTabNavigation.vue';
+import mediaGalleryComponent from '~/components/profiles/media/mediaGalleryComponent.vue';
+
+// Access authService from the context
+const nuxtApp = useNuxtApp();
+const $publicService = nuxtApp.$publicService;
+const $userService = nuxtApp.$userService;
+const $feedService = nuxtApp.$feedService;
+
+const bio = ref('');
+const country = ref('');
+const position = ref('');
+const name = ref('');
+const role = ref('');
+const business = ref('');
+const connections = ref([]);
+const posts = ref([]);
+
+// Tabs data
+const tabs = ref([
+    { name: 'feed', label: 'Post' },
+    { name: 'connection', label: 'Connections' },
+    { name: 'media', label: 'Media' }
+]);
+
+// The default active tab
+const tab = ref('feed');
+
+// Function to handle tab change
+const handleTab = (selectedTab) => {
+    tab.value = selectedTab;
+};
+
+// Array of gallery items (images and video)
+const galleryItems = ref([
+    {
+        type: 'image',
+        href: 'https://lipsum.app/id/46/1600x1200',
+        src: 'https://lipsum.app/id/46/200x150',
+    },
+    {
+        type: 'image',
+        href: 'https://lipsum.app/id/47/1600x1200',
+        src: 'https://lipsum.app/id/47/200x150',
+    },
+    {
+        type: 'image',
+        href: 'https://lipsum.app/id/51/1600x1200',
+        src: 'https://lipsum.app/id/51/200x150',
+    },
+    {
+        type: 'video',
+        href: 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
+        src: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    },
+]);
+
+onMounted(() => {
+    fetchCoacheDatils();
+    fetchConnections();
+    fetchPost();
+
+});
+
+const fetchCoacheDatils = async () => {
+    try {
+        const dataSets = await $publicService.get_business_user('ra');
+        bio.value = dataSets.user_basic_info.bio
+        //  country.value =dataSets.user_address_info.country
+        position.value = dataSets.business_manager_info.position
+        name.value = dataSets.user_basic_info.display_name
+        role.value = dataSets.user_basic_info.user_role
+        business.value = dataSets.business_manager_info.business_name
+
+    } catch (error) {
+        console.log(error)
+        console.error('Error fetching data:', error.message);
+    }
+}
+
+const fetchConnections = async () => {
+    try {
+        const dataSets = await $userService.get_connection('9cf182dd-aff5-43b7-a3ed-4c693b9530c3');
+        connections.value = dataSets.connection
+    } catch (error) {
+        console.log(error)
+        c
+        onsole.error('Error fetching data:', error.message);
+    }
+}
+
+const fetchPost = async () => {
+    try {
+        const response = await $feedService.list_posts({});
+        posts.value = response || [];
+
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
+}
 
 </script>
