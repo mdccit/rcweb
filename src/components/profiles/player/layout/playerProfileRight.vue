@@ -71,7 +71,7 @@
             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                 <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                    <div class="cursor-pointer mr-[20px]">
+                    <div class="cursor-pointer mr-[20px]" v-if="userId.value == playerID.value"  @click="toggleModal('utr')">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-4 bg-white rounded-sm m-2">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -137,11 +137,9 @@
 
             </div>
         </div>
-
-
-
-
     </div>
+
+    <UTRModal :visible="modals.utr" @close="handleModalClose" :slug="slug" />
 </template>
 
 <script setup>
@@ -152,6 +150,7 @@ import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
 import { useUserStore } from '~/stores/userStore';
+import UTRModal from '~/components/profiles/player/modals/utrModal.vue';
 
 const userStore = useUserStore();
 
@@ -169,24 +168,9 @@ router.afterEach(() => {
     loading.value = false;
 });
 
-
-const showNotification = ref(false);
-const notificationMessage = ref('');
-const notificationType = ref('');
-const notificationKey = ref(0);
-
-// Sync the state from the notification plugin to the layout
-watchEffect(() => {
-    showNotification.value = nuxtApp.$notification.showNotification.value;
-    notificationMessage.value = nuxtApp.$notification.notificationMessage.value;
-    notificationType.value = nuxtApp.$notification.notification_type.value;
-    notificationKey.value = nuxtApp.$notification.notificationKey.value;
-});
-
-const closeNotification = () => {
-    showNotification.value = false; // Hide the notification
-};
-
+const slug = ref('');
+const userId = ref('')
+const playerID = ref('')
 const userRole = ref(null)
 
 const props = defineProps({
@@ -194,13 +178,73 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    userSlug: {
+        type: String,
+        required: true,
+    },
 });
 
 onMounted(() => {
-    
-    userRole.value = userStore.user?.role || null;
-   
+    slug.value = props.userSlug;
+    userRole.value = userStore.user?.role || null;   
 });
+
+// Define reactive state for all modals
+const modals = reactive({
+    name: false,
+    bio: false,
+    info: false,
+    budget: false,
+    utr: false,
+    address: false,
+});
+
+// Generic toggle function
+const toggleModal = (modalName) => {
+    if (modals.hasOwnProperty(modalName)) {
+        modals[modalName] = !modals[modalName];
+    } else {
+        console.warn(`Modal "${modalName}" does not exist.`);
+    }
+};
+
+// Generic function to close the modal and fetch user details
+const handleModalClose = (modalName) => {
+    // Defensive check to make sure modalName exists
+    if (modals[modalName] !== undefined) {
+        modals[modalName] = false;  // Close the modal
+        fetchUserDetails();         // Fetch updated user details after closing
+    } else {
+        console.error(`Invalid modal name: ${modalName}`);
+    }
+};
+
+const fetchUserDetails = async (slug) => {
+    try {
+       
+        const dataSets = await $publicService.get_user_profile(route.params.slug);
+  
+        if (dataSets.player_info) {
+            props.data.utr = dataSets.player_info.other_data.utr ?? 0
+            props.data.gpa = dataSets.player_info.gpa ?? "Unknown"
+            if (dataSets.player_info.other_data) {
+                props.data.sat = dataSets.player_info ? dataSets.player_info.other_data.sat_score : "Unknown"
+                props.data.toefl = dataSets.player_info ? dataSets.player_info.other_data.toefl_score : "Unknown"
+                props.data.atp = dataSets.player_info.other_data.atp_ranking ?? "Unknown"
+                props.data.itf = dataSets.player_info.other_data.itf_ranking ?? "Unknown"
+                props.data.act = dataSets.player_info.other_data.act_score ?? "Unknown"
+                props.data.wtn = dataSets.player_info.other_data.wtn_score_manual ?? "Unknown"
+                props.data.nationalRanking = dataSets.player_info.other_data.national_ranking ?? "Unknown"
+            }
+        }
+
+    } catch (error) {
+        console.log(error)
+        console.error('Error fetching data:', error.message);
+    }
+}
+
+
 </script>
 
 <style scoped>

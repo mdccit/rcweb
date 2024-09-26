@@ -184,18 +184,11 @@ const props = defineProps({
 const emit = defineEmits(['close']);
 
 onMounted(async () => {
-
+    const results = await Promise.allSettled([loadCountryCodes(), loadCountries()]);
     if (props.slug) {
-        try {
-            nprogress.start();  // Start progress bar
-            // Use Promise.all to wait for all async operations to complete
-            const results = await Promise.allSettled([loadCountryCodes(), loadCountries()]);
-            await fetchPlayerContact();
-        } catch (error) {
-            console.error('Error loading player data:', error);
-        } finally {
-            nprogress.done();  // Ensure progress bar stops when all tasks are done
-        }
+        // Use Promise.all to wait for all async operations to complete
+        await fetchPlayerContact();
+
     } else {
         console.log('no slug');
     }
@@ -208,19 +201,16 @@ watch(() => props.visible, (newVal) => {
 });
 
 watch(countries, (newVal) => {
-  console.log('Watcher triggered for countries:', newVal.length);  // Log length of countries
-  if (newVal.length > 0 && country.value === null && dataSets.user_address_info) {
-    country.value = dataSets.user_address_info.country_id ?? null;
-    console.log('Country id set inside watcher:', country.value);
-  }
+    if (newVal.length > 0 && country.value === null && dataSets.user_address_info) {
+        country.value = dataSets.user_address_info.country_id ?? null;
+    }
 });
 
 watch(country_codes, (newVal) => {
-  console.log('Watcher triggered for country codes:', newVal.length);  // Log length of country codes
-  if (newVal.length > 0 && phone_code_country.value === null && dataSets.user_phone_info) {
-    phone_code_country.value = dataSets.user_phone_info.id ?? null;
-    console.log('Phone code country id set inside watcher:', phone_code_country.value);
-  }
+    console.log('Watcher triggered for country codes:', newVal.length);  // Log length of country codes
+    if (newVal.length > 0 && phone_code_country.value === null && dataSets.user_phone_info) {
+        phone_code_country.value = dataSets.user_phone_info.id ?? null;
+    }
 });
 
 
@@ -229,7 +219,6 @@ const fetchPlayerContact = async () => {
         const dataSets = await $publicService.get_user_profile(props.slug);
         if (dataSets.user_address_info) {
             country.value = dataSets.user_address_info.country_id ?? null;
-            console.log('Country id set:', country.value);
 
             city.value = dataSets.user_address_info.city ?? 'User has not entered city';
             address_line_1.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01';
@@ -241,7 +230,6 @@ const fetchPlayerContact = async () => {
         if (dataSets.user_phone_info) {
             phone_number.value = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number';
             phone_code_country.value = dataSets.user_phone_info.id ?? null;
-            console.log('Phone code country id set:', phone_code_country.value);
         }
 
         if (dataSets.user_basic_info) {
@@ -289,7 +277,6 @@ const saveAddress = () => {
 const loadCountryCodes = async () => {
     try {
         country_codes.value = await loadCountryList();
-        console.log('Country codes loaded:', country_codes.value);
     } catch (err) {
         console.error('Error loading country codes:', err);
     }
@@ -298,7 +285,6 @@ const loadCountryCodes = async () => {
 const loadCountries = async () => {
     try {
         countries.value = await loadCountryList();
-        console.log('Country  loaded:', countries.value);
     } catch (err) {
         console.error('Error loading countries:', err);
     }
