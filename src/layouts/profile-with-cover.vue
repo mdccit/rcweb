@@ -13,8 +13,7 @@
             <div class="col-start-1 col-end-2 row-start-2 row-end-3">
                 <CoachLeft />
             </div>
-            <div class="col-start-6 col-end-7 row-start-2 row-end-3">
-                
+            <div class="col-start-6 col-end-7 row-start-2 row-end-3"> 
                 <CoachRight />
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3">

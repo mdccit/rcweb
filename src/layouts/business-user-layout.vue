@@ -8,16 +8,16 @@
         <NavBarPublic></NavBarPublic>
         <div class="grid grid-cols-6 grid-rows-2 gap-0 mt-16">
             <div class="col-span-6 row-start-1 row-end-2s">
-                <BusinessCover/>
+                <BusinessUserCover/>
             </div>
             <div class="col-start-1 col-end-2 row-start-2 row-end-3">
-                <BusinessLeft />
+                <BusinessUserLeft />
             </div>
             <div class="col-start-6 col-end-7 row-start-2 row-end-3"> 
-                <BusinessRight />
+                <BusinessUserRight />
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3">
-                <BusinessFeed />
+                <BusinessUserFeed />
             </div>
         </div>
     </main>
@@ -38,6 +38,10 @@ import BusinessCover from '~/components/profiles/businessProfile/businessCover.v
 import BusinessLeft from '~/components/profiles/businessProfile/businessLeft.vue';
 import BusinessRight from '~/components/profiles/businessProfile/businessRight.vue';
 import BusinessFeed from '~/components/profiles/businessProfile/businessFeed.vue';
+import BusinessUserRight from '../components/profiles/businessUserProfile/businessUserRight.vue';
+import BusinessUserFeed from '../components/profiles/businessUserProfile/businessUserFeed.vue';
+import BusinessUserLeft from '../components/profiles/businessUserProfile/businessUserLeft.vue';
+import BusinessUserCover from '../components/profiles/businessUserProfile/businessUserCover.vue';
 
 const nuxtApp = useNuxtApp();
 
