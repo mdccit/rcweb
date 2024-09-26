@@ -122,7 +122,7 @@ watch(() => props.visible, (newVal) => {
 // Function to fetch the player names based on the slug
 const fetchPlayerNames = async (slug) => {
     try {
-        const dataSets = await $publicService.get_player(slug);
+        const dataSets = await $publicService.get_user_profile(slug);
         if (dataSets.user_basic_info) {
             first_name.value = dataSets.user_basic_info.first_name ?? "";
             last_name.value = dataSets.user_basic_info.last_name ?? "";

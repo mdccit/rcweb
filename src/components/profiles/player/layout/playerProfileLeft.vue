@@ -7,7 +7,7 @@
                 <div class="relative">
                     <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" src="@/assets/images/Rectangle 193.png"
                         alt="">
-                    <div @click="toggleModal('name')"
+                    <div v-if="userId == playerID"   @click="toggleModal('name')"
                         class="absolute bottom-4 right-8 w-8 h-8 bg-white rounded-full flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer text-steelBlue">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5">
@@ -211,7 +211,7 @@
                     </p>
 
                 </div>
-                <div class="col-span-1">
+                <div class="col-span-1" v-if="userId.value == playerID.value"  @click="toggleModal('address')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -281,8 +281,8 @@ const $userService = nuxtApp.$userService;
 const loading = ref(false);
 const router = useRouter();
 const route = useRoute();
-const feet = ref(0)
-const pounds = ref(0)
+const feet = ref(0);
+const pounds = ref(0);
 const showFilterLeft = ref(false);
 const slug = ref('');
 
@@ -327,16 +327,9 @@ const props = defineProps({
 });
 
 
-const bio = ref('');
-const country = ref('');
-const city = ref('');
 const heigth = ref('');
 const weight = ref('');
 const graduationDate = ref('');
-const birthday = ref('');
-const budgetMin = ref('')
-const budgetMax = ref('')
-const name = ref('')
 const joinDate = ref('')
 const utr = ref(0)
 const gpa = ref("Unknown")
@@ -352,20 +345,13 @@ const connectionButtonName = ref('Connect')
 const userId = ref('')
 const playerID = ref('')
 const sportName = ref('')
-const email = ref('')
 const phone = ref('')
 const wtn = ref('')
 const act = ref('')
 const nationalRanking = ref('')
-const gender = ref('')
-const nationality = ref('')
 const handness = ref('')
 const preferredSurface = ref('')
-const phoneCode = ref('')
-const addressLine01 = ref('');
-const addressLine02 = ref('');
-const stateProvince = ref('');
-const buttonHide = ref(true);
+
 const isEdit = ref('');
 
 
@@ -401,11 +387,12 @@ const handleModalClose = (modalName) => {
 
 const fetchUserDetails = async (slug) => {
     try {
-        const dataSets = await $publicService.get_player(route.params.slug);
+       
+        const dataSets = await $publicService.get_user_profile(route.params.slug);
         if (dataSets.user_basic_info) {
-            bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"
-            name.value = dataSets.user_basic_info.display_name ?? "User has not entered name";
 
+            props.data.bio = dataSets.user_basic_info.bio ?? "User has not entered bio"
+            props.data.name = dataSets.user_basic_info.display_name ?? "User has not entered name";
 
             const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
             const today = new Date();
@@ -414,7 +401,7 @@ const fetchUserDetails = async (slug) => {
             if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
                 age--;
             }
-            birthday.value = age ?? 'User has not entered birthday'
+            props.data.birthday = age ?? 'User has not entered birthday'
 
             const date = new Date(dataSets.user_basic_info.joined_at);
             const monthNames = [
@@ -426,24 +413,24 @@ const fetchUserDetails = async (slug) => {
             const day = date.getDate();
             joinDate.value = `${year} ${month} ${day}`
 
-            nationality.value = dataSets.user_basic_info.nationality ?? "User has not entered nationality"
-            email.value = dataSets.user_basic_info.email ?? "User has not entered email"
-            gender.value = dataSets.user_basic_info.gender ?? "User has not entered gender"
+            props.data.nationality = dataSets.user_basic_info.nationality ?? "User has not entered nationality"
+            props.data.email = dataSets.user_basic_info.email ?? "User has not entered email"
+            props.data.gender = dataSets.user_basic_info.gender ?? "User has not entered gender"
 
 
         }
 
         if (dataSets.user_address_info) {
-            country.value = dataSets.user_address_info.country ?? 'User has not entered country'
-            city.value = dataSets.user_address_info.city ?? 'User has not entered city'
-            addressLine01.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
-            addressLine02.value = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
-            stateProvince.value = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
+            props.data.country = dataSets.user_address_info.country ?? 'User has not entered country'
+            props.data.city = dataSets.user_address_info.city ?? 'User has not entered city'
+            props.data.addressLine01 = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
+            props.data.addressLine02 = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
+            props.data.stateProvince = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
         }
 
         if (dataSets.user_phone_info) {
-            phone.value = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number'
-            phoneCode.value = dataSets.user_phone_info.phone_code ?? ''
+            props.data.phone = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number'
+            props.data.phoneCode = dataSets.user_phone_info.phone_code ?? ''
         }
 
         if (dataSets.player_info) {
@@ -454,8 +441,8 @@ const fetchUserDetails = async (slug) => {
             sportName.value = dataSets.player_info.sport_name ?? 'User has not entered sport'
 
             if (dataSets.player_info.other_data) {
-                budgetMin.value = dataSets.player_info.other_data.budget_max ?? 'User has not entered budget min value'
-                budgetMax.value = dataSets.player_info.other_data.budget_min ?? 'User has not entered budget max value'
+                props.data.budgetMin = dataSets.player_info.other_data.budget_min ?? null
+                props.data.budgetMax = dataSets.player_info.other_data.budget_max ?? null
                 sat.value = dataSets.player_info ? dataSets.player_info.other_data.sat_score : "Unknown"
                 toefl.value = dataSets.player_info ? dataSets.player_info.other_data.toefl_score : "Unknown"
                 atp.value = dataSets.player_info.other_data.atp_ranking ?? "Unknown"

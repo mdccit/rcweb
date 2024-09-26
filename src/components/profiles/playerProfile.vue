@@ -869,7 +869,7 @@ onMounted(() => {
 
 const fetchUserDetails = async (slug) => {
     try {
-        const dataSets = await $publicService.get_player(route.params.slug);
+        const dataSets = await $publicService.get_user_profile(route.params.slug);
         if (dataSets.user_basic_info) {
             bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"
             name.value = dataSets.user_basic_info.display_name ?? "User has not entered name";

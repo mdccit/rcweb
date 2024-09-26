@@ -956,7 +956,6 @@ const loadCountryCodes = async () => {
 };
 
 const roleFields = computed(() => {
-  console.log(role.value);
   switch (role.value) {
     case 'player':
       return ['country', 'phone_code_country', 'phone_number', 'gender', 'handedness', 'height_ft', 'height_in', 'height_cm', 'utr', 'gpa', 'graduation', 'nationality', 'budget', 'height'];
