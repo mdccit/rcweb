@@ -277,8 +277,20 @@ const createUserService = (apiService) => {
     }
   };
 
+  const delete_player_media = async (media_id) => {
 
+    const url = `/public/players/remove-media/${media_id}`;
+    const body = {};
 
+    try {
+      const response = await apiService.deleteRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+  
+  
 
   return {
     get_connection,
@@ -298,7 +310,8 @@ const createUserService = (apiService) => {
     connection_reject,
     connection_cancelle,
     connection_remove,
-    upload_player_media
+    upload_player_media,
+    delete_player_media
   };
 
 
