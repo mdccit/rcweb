@@ -1,5 +1,5 @@
 <template>
-    <div class="m-2">
+    <div>
         <div class="flex">
             <!-- <div class=""> -->
                 <!-- <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -66,7 +66,7 @@
 
         </div>
     </div>
-    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-blue-500 p-3 mt-2 text-white">
+    <div class="card rounded-2xl overflow-hidden bg-steelBlue p-3 mt-2 text-white">
         <div class="flex items-center justify-between">
             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
@@ -82,56 +82,58 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
-            <div class="">
-                <h2 class="text-lg font-semibold mb-4">UTR score</h2>
+        <div class="grid grid-cols-3 gap-x-2 gap-y-4">
+            <div class="col-span-2">
+                <h2 class="text-lg font-semibold">UTR score</h2>
             </div>
-            <div class="">
-                <h2 class="text-lg font-semibold mb-4">{{ props.data.utr }}</h2>
+            <div>
+                <div class="bg-vividSkyBlue flex items-cenet justify-center rounded-lg py-1">
+                    <h2 class="text-lg font-semibold">{{ props.data.utr }}</h2>
+                </div>
             </div>
-            <div class="">
+            <div class="col-span-2">
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
+                    class="mb-4 text-sm">GPA</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
+                    class="mb-4 text-sm">SAT Score</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
+                    class="mb-4 text-sm">TOEFL Score</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
+                    class="mb-4 text-sm">GPA</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
+                    class="mb-4 text-sm">SAT Score</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">ATP Ranking</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">ITF Ranking</p>
+                    class="mb-4 text-sm">TOEFL Score</p>
+                <p class="mb-4 text-sm">ATP Ranking</p>
+                <p class="mb-4 text-sm">ITF Ranking</p>
                                 <!-- <<p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">WTN</p> -->
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
+                    class="mb-4 text-sm">ACT</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">National Ranking</p>
+                    class="mb-4 text-sm">ACT</p>
+                <p class="mb-4 text-sm">National Ranking</p>
             </div>
             <div class="">
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.gpa }}</p>
+                    class="mb-4 text-sm">{{  props.data.gpa }}</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.sat }}</p>
+                    class="mb-4 text-sm">{{  props.data.sat }}</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.toefl }}</p>
+                    class="mb-4 text-sm">{{  props.data.toefl }}</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.gpa }}</p>
+                    class="mb-4 text-sm">{{  props.data.gpa }}</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.sat }}</p>
+                    class="mb-4 text-sm">{{  props.data.sat }}</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.toefl }}</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.atp }}</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.itf }}</p>
+                    class="mb-4 text-sm">{{  props.data.toefl }}</p>
+                <p class="mb-4 text-sm">{{  props.data.atp }}</p>
+                <p class="mb-4 text-sm">{{  props.data.itf }}</p>
                                 <!-- <<p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ wtn }}</p> -->
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.act }}</p>
+                    class="mb-4 text-sm">{{  props.data.act }}</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.act }}</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.nationalRanking }}</p>
+                    class="mb-4 text-sm">{{  props.data.act }}</p>
+                <p class="mb-4 text-sm">{{  props.data.nationalRanking }}</p>
 
             </div>
         </div>
