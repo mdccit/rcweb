@@ -21,7 +21,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       layout = 'coach-layout';  // Layout for roleId 5
       break;
     case 6:
-      layout = 'business-layout';  // Layout for roleId 5
+      layout = 'business-user-layout';  // Layout for roleId 6
       break;
     default:
       layout = 'outer';  // Default layout

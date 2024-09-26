@@ -37,8 +37,8 @@
 
 
                             <div class="text-left mt-[80px] ml-5">
-                                <h2 class="text-lg font-semibold text-white text-3xl">{{props.data.name  }} </h2>
-                                <h5 class="text-md text-white font-normal text-black text-primaryblue">{{  props.data.sport }} {{ role }}
+                                <h2 class="text-lg font-semibold text-white text-3xl">{{ name }} coach</h2>
+                                <h5 class="text-md text-white font-normal text-black text-primaryblue">Tennis {{ role }}
                                 </h5>
                             </div>
                         </div>
@@ -50,17 +50,17 @@
                                 class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
                                 <ul class="flex flex-wrap -mb-px">
                                     <li class="me-2">
-                                        <button @click="handleTab('feed')"
-                                            class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</button>
+                                        <a href="#"
+                                            class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</a>
                                     </li>
                                     <li class="me-2">
-                                        <button @click="handleTab('connection')"
+                                        <a href="#"
                                             class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                            aria-current="page">Connections</button>
+                                            aria-current="page">Connections</a>
                                     </li>
                                     <li class="me-2">
-                                        <button @click="handleTab('media')"
-                                            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</button>
+                                        <a href="#"
+                                            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</a>
                                     </li>
                                 </ul>
                             </div>
@@ -80,7 +80,7 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div v-if="buttonHide == true" class="">
+                                <div class="">
                                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
@@ -92,16 +92,11 @@
                                     </button>
                                 </div>
 
-                                <div v-if="buttonHide == false">
+                                <div class="color-white">
                                     <button @click="connectAcceptOrConnect"
                                         class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                        {{ connectionButtonName }}
+                                        {{ connectionButtonName }} Connect
                                     </button>
-                                    <div v-if="connectionButtonName =='Accept connection'" class="text-white">
-                                        <button @click="connectReject" class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                            Reject
-                                        </button>
-                                    </div> 
                                 </div>
                                 <div class="">
                                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -124,139 +119,7 @@
 </template>
 
 <script setup>
-import { ref ,defineEmits ,onMounted } from 'vue';
-import { useNuxtApp } from '#app';
-import { useRouter, useRoute } from 'vue-router';
 
-const emit = defineEmits(['changeTab']);
-const nuxtApp = useNuxtApp();
-const router = useRouter();
-const $userService = nuxtApp.$userService;
-const connectionStatus = ref(false)
-const connectionType = ref(null)
-const connectionButtonName = ref('Connect')
-const buttonHide = ref(true);
-
-const props = defineProps({
-    
-    data: {
-        type: Object,
-        required: true,
-    },
-
-    coachId:{
-        type: String,
-        required: true,
-    },
-
-    userSlug:{
-        type: String,
-        required: true,
-    }
-}); 
-
-const tabs = ref([
-    { name: 'feed', label: 'Post' },
-    { name: 'connection', label: 'Connections' },
-    { name: 'media', label: 'Media' }
-]);
-
-const tab = ref('feed');
-
-const handleTab = (selectedTab) => {
-    tab.value = selectedTab;
-    emit('changeTab',selectedTab)
-};
-
-onMounted(()=>{
-    fetchCheckConnection()
-})
-
-const fetchCheckConnection = async () => {
-    try {
-     
-       connectionButtonName.value = "Connect"
-        if (props.userSlug != null) {
-            const dataSets = await $userService.get_check_connection_type(props.userSlug);
-           console.log(dataSets.value)
-            connectionStatus.value = dataSets.connection
-            if (connectionStatus.value == true) {
-                connectionType.value = dataSets.type
-                if ((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)) {
-                    buttonHide.value = false
-
-                    connectionButtonName.value = "Invite sent"
-                }
-
-                if ((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)) {
-                    buttonHide.value = false
-                    connectionButtonName.value = "Accept connection"
-                }
-
-                if (dataSets.type.connection_status == 'accepted') {
-                    buttonHide.value = true
-
-                    connectionButtonName.value = "Connected"
-                }
-            } else {
-                buttonHide.value = false
-                connectionButtonName.value = "Connect"
-            }
-
-        }
-    } catch (error) {
-        console.error('Error fetching data:', error.message);
-    }
-}
-
-const connectAcceptOrConnect = async () => {
-console.log(11)
-try {
-    if (connectionButtonName.value == "Accept connection") {
-        console.log(12)
-
-        await $userService.connection_accept(connectionType.value.id, {
-            connection_status: "accepted"
-        });
-    }
-    console.log(13)
-
-    if (connectionButtonName.value == "Connect") {
-        console.log(14)
-        console.log(props.coachId)
-        if (props.coachId != null) {
-            console.log(15)
-
-            const response = await $userService.connection_request({
-                receiver_id: props.coachId
-            });
-            console.log(response)
-
-
-            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
-        }
-
-    }
-
-     fetchCheckConnection();
-
-} catch (error) {
-    console.error('Failed to Connect :', error.message);
-}
-}
-
-const connectReject = async () => {
-try {
-    await $userService.connection_reject(connectionType.value.id, {
-        connection_status: "rejected"
-    });
-    
-    fetchCheckConnection();
-
-} catch (error) {
-    console.error('Failed to Connect :', error.message);
-}
-}
 </script>
 
 <style scoped>

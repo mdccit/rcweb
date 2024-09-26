@@ -8,16 +8,16 @@
         <NavBarPublic></NavBarPublic>
         <div class="grid grid-cols-6 grid-rows-2 gap-0 mt-16">
             <div class="col-span-6 row-start-1 row-end-2s">
-                <CoachCover />
+                <BusinessCover/>
             </div>
             <div class="col-start-1 col-end-2 row-start-2 row-end-3">
-                <CoachLeft />
+                <BusinessLeft />
             </div>
             <div class="col-start-6 col-end-7 row-start-2 row-end-3"> 
-                <CoachRight />
+                <BusinessRight />
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3">
-                <CoachFeed />
+                <BusinessFeed />
             </div>
         </div>
     </main>
@@ -34,6 +34,10 @@ import CoachCover from '~/components/profiles/coach/coachCover.vue';
 import CoachLeft from '~/components/profiles/coach/coachLeft.vue';
 import CoachRight from '~/components/profiles/coach/coachRight.vue';
 import CoachFeed from '~/components/profiles/coach/coachFeed.vue';
+import BusinessCover from '~/components/profiles/businessProfile/businessCover.vue';
+import BusinessLeft from '~/components/profiles/businessProfile/businessLeft.vue';
+import BusinessRight from '~/components/profiles/businessProfile/businessRight.vue';
+import BusinessFeed from '~/components/profiles/businessProfile/businessFeed.vue';
 
 const nuxtApp = useNuxtApp();
 
