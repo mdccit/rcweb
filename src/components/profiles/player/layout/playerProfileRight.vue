@@ -148,9 +148,6 @@
 import { ref ,onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import SocialHubNavbar from '~/components/user/navbar.vue';
-import Filter from '~/components/user/feed/filter.vue';
-import FooterBar from '~/components/user/user-footer.vue';
-import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
@@ -162,10 +159,6 @@ defineNuxtRouteMiddleware(checkSession);
 const nuxtApp = useNuxtApp();
 const loading = ref(false);
 const router = useRouter();
-const route = useRoute();
-const feet = ref(0)
-const pounds = ref(0)
-const showFilterLeft = ref(false);
 
 router.beforeEach((to, from, next) => {
     loading.value = true;

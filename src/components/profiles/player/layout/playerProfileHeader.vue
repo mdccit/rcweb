@@ -44,16 +44,6 @@
                        </button>
                     </div> 
                 </div>
-                <div>
-                    <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px] text-white">
-                        Accept
-                    </button>
-                </div>
-                <div class="text-white">
-                    <button class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                        Reject
-                    </button>
-                </div>
                 <div class="">
                     <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
                         class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -87,9 +77,6 @@
 <script setup>
 import { ref ,defineEmits ,onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import SocialHubNavbar from '~/components/user/navbar.vue';
-import Filter from '~/components/user/feed/filter.vue';
-import FooterBar from '~/components/user/user-footer.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
@@ -233,7 +220,6 @@ try {
     }
 
     if (connectionButtonName.value == "Connect") {
-        console.log(playerId.value)
         if (playerId.value != null) {
             const response = await $userService.connection_request({
                 receiver_id: playerId.value
@@ -252,8 +238,6 @@ try {
 }
 
 const connectReject = async () => {
-  console.log(70)
-  console.log(connectionType.value.id)
 try {
     await $userService.connection_reject(connectionType.value.id, {
         connection_status: "rejected"
