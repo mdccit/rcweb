@@ -30,10 +30,6 @@ import FooterPublic from '~/components/user/user-footer.vue';
 import { ref, watchEffect } from 'vue';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue'; // <-- Ensure this path is correct!
-import CoachCover from '~/components/profiles/coach/coachCover.vue';
-import CoachLeft from '~/components/profiles/coach/coachLeft.vue';
-import CoachRight from '~/components/profiles/coach/coachRight.vue';
-import CoachFeed from '~/components/profiles/coach/coachFeed.vue';
 import BusinessCover from '~/components/profiles/businessProfile/businessCover.vue';
 import BusinessLeft from '~/components/profiles/businessProfile/businessLeft.vue';
 import BusinessRight from '~/components/profiles/businessProfile/businessRight.vue';

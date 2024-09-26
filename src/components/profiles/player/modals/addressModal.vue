@@ -171,8 +171,8 @@ const phone_number = ref('');
 const phone_code_country = ref('');
 const email = ref('');
 
-const country_codes = ref([]);
-const countries = ref([]);
+const countries = ref([]);  // Reactive array to hold country data
+const country_codes = ref([]);  // Reactive array to hold phone country codes
 
 const props = defineProps({
     visible: Boolean,
@@ -189,9 +189,8 @@ onMounted(async () => {
         try {
             nprogress.start();  // Start progress bar
             // Use Promise.all to wait for all async operations to complete
-            loadCountryCodes();
-            loadCountries();
-            fetchPlayerContact();
+            const results = await Promise.allSettled([loadCountryCodes(), loadCountries()]);
+            await fetchPlayerContact();
         } catch (error) {
             console.error('Error loading player data:', error);
         } finally {
@@ -208,25 +207,45 @@ watch(() => props.visible, (newVal) => {
     }
 });
 
+watch(countries, (newVal) => {
+  console.log('Watcher triggered for countries:', newVal.length);  // Log length of countries
+  if (newVal.length > 0 && country.value === null && dataSets.user_address_info) {
+    country.value = dataSets.user_address_info.country_id ?? null;
+    console.log('Country id set inside watcher:', country.value);
+  }
+});
+
+watch(country_codes, (newVal) => {
+  console.log('Watcher triggered for country codes:', newVal.length);  // Log length of country codes
+  if (newVal.length > 0 && phone_code_country.value === null && dataSets.user_phone_info) {
+    phone_code_country.value = dataSets.user_phone_info.id ?? null;
+    console.log('Phone code country id set inside watcher:', phone_code_country.value);
+  }
+});
+
+
 const fetchPlayerContact = async () => {
     try {
         const dataSets = await $publicService.get_user_profile(props.slug);
         if (dataSets.user_address_info) {
             country.value = dataSets.user_address_info.country_id ?? null;
+            console.log('Country id set:', country.value);
+
             city.value = dataSets.user_address_info.city ?? 'User has not entered city';
             address_line_1.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01';
             address_line_2.value = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02';
             state_province.value = dataSets.user_address_info.state_province ?? 'User has not entered state provice';
-            postal_code.value = dataSets.user_address_info.postal_code ?? 'User has not entered  postal code';
+            postal_code.value = dataSets.user_address_info.postal_code ?? 'User has not entered postal code';
         }
 
-
-        if (dataSets.user_basic_info) {
-            email.value = dataSets.user_basic_info.email ?? 'User has not entered email';
-        }
         if (dataSets.user_phone_info) {
             phone_number.value = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number';
             phone_code_country.value = dataSets.user_phone_info.id ?? null;
+            console.log('Phone code country id set:', phone_code_country.value);
+        }
+
+        if (dataSets.user_basic_info) {
+            email.value = dataSets.user_basic_info.email ?? 'User has not entered email';
         }
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
@@ -270,6 +289,7 @@ const saveAddress = () => {
 const loadCountryCodes = async () => {
     try {
         country_codes.value = await loadCountryList();
+        console.log('Country codes loaded:', country_codes.value);
     } catch (err) {
         console.error('Error loading country codes:', err);
     }
@@ -278,14 +298,10 @@ const loadCountryCodes = async () => {
 const loadCountries = async () => {
     try {
         countries.value = await loadCountryList();
+        console.log('Country  loaded:', countries.value);
     } catch (err) {
         console.error('Error loading countries:', err);
     }
 };
-
-
-
-
-
 
 </script>
