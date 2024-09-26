@@ -235,6 +235,36 @@ const createUserService = (apiService) => {
     }
   };
 
+
+  const update_player_contact_info = async (request_body) => {
+
+    const url = `/public/players/update-contact-info/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+  
+
+  const update_player_core_values = async (request_body) => {
+
+    const url = `/public/players/update-core-values/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+  
   
 
   return {
@@ -250,6 +280,8 @@ const createUserService = (apiService) => {
     update_player_name,
     update_player_info,
     update_player_budget,
+    update_player_contact_info,
+    update_player_core_values,
     connection_reject,
     connection_cancelle,
     connection_remove,

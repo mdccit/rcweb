@@ -143,7 +143,7 @@ onMounted(() => {
   slug.value = route.params.slug;
 
   if (slug) {
-    fetchUserDetails(slug);
+    fetchUserDetails();
     fetchUserDetailsBySlug();
   }
   userId.value = userStore.user?.user_id || null;
@@ -158,12 +158,6 @@ onMounted(() => {
     // fetchMediaGallery();
   }
 });
-
-const changeTab = (value) => {
-  console.log(value)
-
-  tab.value = value
-}
 
 const fetchUserDetails = async () => {
   try {
@@ -313,12 +307,8 @@ const fetchUserDetails = async () => {
 const fetchUserDetailsBySlug = async () => {
   try {
     const dataSets = await $publicService.get_user_profile(route.params.slug);
-
-
-    
+   
     if (dataSets.media_info) {
-      console.log('fetching media');
-      console.log('Media Info:', dataSets.media_info);
       setGalleryItems(dataSets.media_info);
     } else {
       console.log('No media info available');
@@ -352,8 +342,6 @@ const setGalleryItems = (mediaInfo) => {
   });
 };
 
-
-
 const fetchPost = async () => {
   try {
     const response = await $feedService.list_posts({});
@@ -363,10 +351,6 @@ const fetchPost = async () => {
     console.error('Failed to load posts:', error.message);
   }
 }
-
-
-
-
 
 </script>
 
