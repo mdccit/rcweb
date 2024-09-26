@@ -8,7 +8,7 @@
         <NavBarPublic></NavBarPublic>
         <div class="grid grid-cols-6 grid-rows-2 gap-0 mt-16">
             <div class="col-span-6 row-start-1 row-end-2s">
-                <CoachCover :data="coachData"  @changeTab="setSelectedTab" :coachId="coachId" />
+                <CoachCover :data="coachData"  @changeTab="setSelectedTab" :coachId="coachId" :userSlug="route.params.slug"/>
             </div>
             <div class="col-start-1 col-end-2 row-start-2 row-end-3">
                 <CoachLeft :data="coachData" />
@@ -17,9 +17,9 @@
                 <CoachRight :data="coachData" />
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3">
-                <CoachFeed v-if="tab === 'feed'" :posts="posts" />
+                <UserFeed v-if="tab === 'feed'" :posts="posts" />
                 <Connection v-if="tab === 'connection'" :playerId="coachId" />
-        <!-- <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" /> -->
+                <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
             </div>
         </div>
     </main>
@@ -83,60 +83,89 @@ watchEffect(() => {
 
 onMounted(() => {
   slug.value = route.params.slug;
-  fetchCoacheDetailsFromProps();
-  
+  fetchUserDetailsBySlug()
   userId.value = userStore.user?.user_id || null;
   
 });
 
-const fetchCoacheDetailsFromProps = async () => {
-    try {
-        const dataSets = await $publicService.get_coache(slug.value);
-        if (dataSets.user_basic_info) {
-            bio.value = dataSets?.user_basic_info?.bio || 'User has not entered bio';
-            name.value = dataSets?.user_basic_info?.display_name || 'Anonymous';
-            role.value = dataSets?.user_basic_info?.user_role || '';  
-            coachId.value =dataSets?.user_basic_info?.id || ''; 
-            const date = new Date(dataSets.user_basic_info.joined_at);
-            const monthNames = [
-                'January', 'February', 'March', 'April', 'May', 'June',
-                'July', 'August', 'September', 'October', 'November', 'December'
-            ];
-            const year = date.getFullYear();
-            const month = monthNames[date.getMonth()];
-            const day = date.getDate();
-            joinAt.value = `${year} ${month} ${day}`
-            fetchPost();
 
-        }
 
-        if(dataSets.coach_info){
-            colleage.value = dataSets?.coach_info?.school_name || '';
-            sportName.value = dataSets?.coach_info?.sport_name || '';
-        }
+const fetchUserDetailsBySlug = async () => {
+  try {
+    const dataSets = await $publicService.get_user_profile(route.params.slug);
+    if (dataSets.user_basic_info) {
+        bio.value = dataSets?.user_basic_info?.bio || 'User has not entered bio';
+        name.value = dataSets?.user_basic_info?.display_name || 'Anonymous';
+        role.value = dataSets?.user_basic_info?.user_role || '';  
+        coachId.value =dataSets?.user_basic_info?.id || ''; 
+        console.log("coacheId  "+coachId.value)
+        const date = new Date(dataSets.user_basic_info.joined_at);
+        const monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        const year = date.getFullYear();
+        const month = monthNames[date.getMonth()];
+        const day = date.getDate();
+        joinAt.value = `${year} ${month} ${day}`
+        fetchPost();
 
-        if(dataSets.user_address_info){
-            city.value = dataSets?.user_address_info?.city || '';
-        }
-
-        if(dataSets.user_phone_info){
-            country.value = dataSets?.user_phone_info?.country || '';
-        }
-
-        coachData.value ={
-            bio: bio.value,
-            country:country.value,
-            city:city.value,
-            name:name.value,
-            role:role.value,
-            colleage:colleage.value,
-            sport:sportName.value,
-            joinAt:joinAt.value
-        }
-      
-    } catch (error) {
-        console.error('Error fetching coach details:', error);
     }
+
+    if(dataSets.profile_info){
+        colleage.value = dataSets?.profile_info?.school_name || '';
+        sportName.value = dataSets?.profile_info?.sport_name || '';
+    }
+
+    if(dataSets.user_address_info){
+        city.value = dataSets?.user_address_info?.city || '';
+    }
+
+    if(dataSets.user_phone_info){
+        country.value = dataSets?.user_phone_info?.country || '';
+    }
+
+    coachData.value ={
+        bio: bio.value,
+        country:country.value,
+        city:city.value,
+        name:name.value,
+        role:role.value,
+        colleage:colleage.value,
+        sport:sportName.value,
+        joinAt:joinAt.value
+    }
+    
+    if (dataSets.media_info) {
+      setGalleryItems(dataSets.media_info);
+    } else {
+      console.log('No media info available');
+    }
+  } catch (error) {
+    console.log(error)
+    console.error('Error fetching data:', error.message);
+  }
+}
+
+// Array of gallery items (images and video)
+const galleryItems = ref([]); 
+
+const setGalleryItems = (mediaInfo) => {
+  galleryItems.value = mediaInfo.media_urls.map(media => {
+    if (media.media_type === 'image') {
+      return {
+        type: 'image',
+        href: media.url,
+        src: media.url, // Replace with thumbnail URL if available
+      };
+    } else if (media.media_type === 'video') {
+      return {
+        type: 'video',
+        href: media.url,
+        src: media.url || 'https://via.placeholder.com/200x150.png?text=Video', // Use server-provided thumbnail or placeholder
+      };
+    }
+  });
 };
 
 const setSelectedTab = (selectedTab) => {

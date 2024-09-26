@@ -82,7 +82,7 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div class="">
+                                <div v-if="buttonHide == true" class="">
                                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
@@ -146,7 +146,12 @@ const props = defineProps({
         required: true,
     },
 
-    coacheId:{
+    coachId:{
+        type: String,
+        required: true,
+    },
+
+    userSlug:{
         type: String,
         required: true,
     }
@@ -165,13 +170,17 @@ const handleTab = (selectedTab) => {
     emit('changeTab',selectedTab)
 };
 
+onMounted(()=>{
+    fetchCheckConnection()
+})
+
 const fetchCheckConnection = async () => {
     try {
      
        connectionButtonName.value = "Connect"
         if (props.userSlug != null) {
             const dataSets = await $userService.get_check_connection_type(props.userSlug);
-           
+           console.log(dataSets.value)
             connectionStatus.value = dataSets.connection
             if (connectionStatus.value == true) {
                 connectionType.value = dataSets.type
@@ -203,19 +212,28 @@ const fetchCheckConnection = async () => {
 }
 
 const connectAcceptOrConnect = async () => {
-
+console.log(11)
 try {
     if (connectionButtonName.value == "Accept connection") {
+        console.log(12)
+
         await $userService.connection_accept(connectionType.value.id, {
             connection_status: "accepted"
         });
     }
+    console.log(13)
 
     if (connectionButtonName.value == "Connect") {
-        if (props.coacheId != null) {
+        console.log(14)
+        console.log(props.coachId)
+        if (props.coachId != null) {
+            console.log(15)
+
             const response = await $userService.connection_request({
-                receiver_id: props.coacheId
+                receiver_id: props.coachId
             });
+            console.log(response)
+
 
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
         }
