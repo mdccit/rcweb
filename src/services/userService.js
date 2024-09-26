@@ -159,37 +159,37 @@ const createUserService = (apiService) => {
       }
     }
   };
-  const connection_cancelle = async (connection_id,request_body) => {
+  const connection_cancelle = async (connection_id, request_body) => {
     const url = `/user/connections-cancelle/${connection_id}`;
     const body = request_body;
 
     try {
       const response = await apiService.putRequest(url, body);
-       return response;
+      return response;
     } catch (error) {
       throw new Error(error.message || 'Failed to update');
     }
   };
 
-  const connection_reject = async (connection_id,request_body) => {
+  const connection_reject = async (connection_id, request_body) => {
     const url = `/user/connections-reject/${connection_id}`;
     const body = request_body;
 
     try {
       const response = await apiService.putRequest(url, body);
-       return response;
+      return response;
     } catch (error) {
       throw new Error(error.message || 'Failed to update');
     }
   };
 
-  const connection_remove = async (connection_id,request_body) => {
+  const connection_remove = async (connection_id, request_body) => {
     const url = `/user/connections-remove/${connection_id}`;
     const body = request_body;
 
     try {
       const response = await apiService.putRequest(url, body);
-       return response;
+      return response;
     } catch (error) {
       throw new Error(error.message || 'Failed to update');
     }
@@ -198,18 +198,18 @@ const createUserService = (apiService) => {
   const upload_player_media = async (formData) => {
     // Extract user_slug from the formData to build the URL
     const userSlug = formData.get('user_slug');
-  
+
     // Ensure userSlug is present
     if (!userSlug) {
       throw new Error('User slug is missing from formData.');
     }
-  
+
     const url = `/public/players/upload-media/${userSlug}`;
-  
+
     try {
       // Send the FormData directly as the body
       const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
-  
+
       return response;
     } catch (error) {
       // Handle error response from the API
@@ -249,10 +249,9 @@ const createUserService = (apiService) => {
     }
   };
 
-  
+
 
   const update_player_core_values = async (request_body) => {
-
     const url = `/public/players/update-core-values/${request_body.user_slug}`;
     const body = request_body;
 
@@ -260,7 +259,21 @@ const createUserService = (apiService) => {
       const response = await apiService.putRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to update');
+      if (error.response) {
+        // The API returned an error response (status code outside the 2xx range)
+        console.error('Error Response:', error.response);
+        console.error('Status:', error.response.status);
+        console.error('Data:', error.response.data); // This will show the error object returned by the API
+        return error.response;
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('No Response:', error.request);
+        throw new Error('No response received from server');
+      } else {
+        // Other error, such as setting up the request
+        console.error('Error:', error.message);
+        throw new Error(error.message || 'Error in request setup');
+      }
     }
   };
 

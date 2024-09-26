@@ -23,7 +23,7 @@
 
         </div>
         <div>
-          <playerProfileRight :data="utrData" />
+          <playerProfileRight :data="utrData"  :userSlug="route.params.slug" />
         </div>
       </div>
     </div>
