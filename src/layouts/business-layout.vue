@@ -35,6 +35,7 @@ import BusinessLeft from '~/components/profiles/businessProfile/businessLeft.vue
 import BusinessRight from '~/components/profiles/businessProfile/businessRight.vue';
 import BusinessFeed from '~/components/profiles/businessProfile/businessFeed.vue';
 
+
 const nuxtApp = useNuxtApp();
 
 
