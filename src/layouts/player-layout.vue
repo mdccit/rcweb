@@ -22,10 +22,6 @@
           <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
 
         </div>
-
-        <!-- <NuxtPage /> -->
-      
-
         <div>
           <playerProfileRight :data="utrData" />
         </div>
@@ -254,8 +250,6 @@ const fetchUserDetails = async () => {
         }
 
         if (dataSets.media_info) {
-            console.log('fetching media');
-            console.log('Media Info:', dataSets.media_info);
             setGalleryItems(dataSets.media_info);
         } else {
             console.log('No media info available');
@@ -334,12 +328,14 @@ const setGalleryItems = (mediaInfo) => {
                 type: 'image',
                 href: media.url,
                 src: media.url, // Replace with thumbnail URL if available
+                media_id: media.media_id,
             };
         } else if (media.media_type === 'video') {
             return {
                 type: 'video',
                 href: media.url,
                 src: media.url || 'https://via.placeholder.com/200x150.png?text=Video', // Use server-provided thumbnail or placeholder
+                media_id: media.media_id,
             };
         }
     });
