@@ -106,7 +106,6 @@ const atp = ref("Unknown")
 const itf = ref("Unknown")
 const feet = ref(0)
 const pounds = ref(0)
-const connections = ref([])
 const posts = ref([])
 
 const userId = ref('')
@@ -126,8 +125,6 @@ const userRole = ref(null)
 const addressLine01 = ref('');
 const addressLine02 = ref('');
 const stateProvince = ref('');
-const buttonHide = ref(true);
-const isEdit = ref('');
 const slug = ref('');
 const utrData = ref({})
 const leftData = ref({})
@@ -144,7 +141,7 @@ onMounted(() => {
 
   if (slug) {
     fetchUserDetails();
-    fetchUserDetailsBySlug();
+   // fetchUserDetailsBySlug();
   }
   userId.value = userStore.user?.user_id || null;
   // console.log(props.user?.user_basic_info?.id)
@@ -304,20 +301,20 @@ const fetchUserDetails = async () => {
 }
 
 
-const fetchUserDetailsBySlug = async () => {
-  try {
-    const dataSets = await $publicService.get_user_profile(route.params.slug);
+// const fetchUserDetailsBySlug = async () => {
+//   try {
+//     const dataSets = await $publicService.get_user_profile(route.params.slug);
    
-    if (dataSets.media_info) {
-      setGalleryItems(dataSets.media_info);
-    } else {
-      console.log('No media info available');
-    }
-  } catch (error) {
-    console.log(error)
-    console.error('Error fetching data:', error.message);
-  }
-}
+//     if (dataSets.media_info) {
+//       setGalleryItems(dataSets.media_info);
+//     } else {
+//       console.log('No media info available');
+//     }
+//   } catch (error) {
+//     console.log(error)
+//     console.error('Error fetching data:', error.message);
+//   }
+// }
 
 
 // Array of gallery items (images and video)
