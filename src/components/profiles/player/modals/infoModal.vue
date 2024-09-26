@@ -272,9 +272,7 @@ watch(() => props.visible, (newVal) => {
 });
 
 const fetchPlayerInfo = async () => {
-  try {
-    console.log('Fetching player info for slug:', props.slug);  // Debug: log the slug being used
-    
+  try {    
     const dataSets = await $publicService.get_player(props.slug);
     
     console.log('Fetched player data:', dataSets);  // Debug: log the full response

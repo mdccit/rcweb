@@ -165,7 +165,7 @@ const changeTab = (value) => {
 
 const fetchUserDetails = async (slug) => {
   try {
-    const dataSets = await $publicService.get_player(route.params.slug);
+    const dataSets = await $publicService.get_user_profile(route.params.slug);
     playerID.value = dataSets.user_basic_info.id || null;
     if (dataSets.user_basic_info) {
       bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"

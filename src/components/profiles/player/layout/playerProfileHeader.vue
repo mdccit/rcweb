@@ -1,17 +1,17 @@
 <template>
-    <div class="grid grid-cols-5 mt-8">
-        <div class="col-span-4">
-            <div class="col-span-5 sm:col-span-3 md:col-span-5 lg:col-span-2 xl:col-span-3 mb-5">
+    <div class="flex justify-between">
+        <div class="grow">
+            <div class="col-span-5 sm:col-span-3 md:col-span-5 lg:col-span-2 xl:col-span-3">
 
                 <div
-                    class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
+                    class="text-sm font-medium text-center text-gray-500 text-gray-400 border-gray-400">
                   
                     <PlayerTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
 
                 </div>
             </div>
         </div>
-        <div class="ml-2">
+        <div class="border-b border-grayishSilver">
             <div class="flex">
                 <div class="">
                     <!-- <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">

@@ -1,33 +1,39 @@
 <template>
-    <div>
-        <!-- Notification component -->
-        <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType"
-            :visible="showNotification" @close="closeNotification" :key="notificationKey" />
-    </div>
-    <main>
-        <NavBarPublic></NavBarPublic>
-
-        <div class="grid grid-cols-6 gap-4 temp-row grid-rows-[90px_auto] mt-16">
-            <div class="row-span-2 col-span-1 ">
-                <playerProfileLeft :data="leftData" :userSlug="route.params.slug" />
-            </div>
-            <div class="col-start-2 col-span-5 ">
-                <playerProfileHedarer @changeTab="setSelectedTab" :playerId="playerID" :userSlug="route.params.slug" />
-            </div>
-            <div class="col-start-2 col-span-4 bg-brown-500">
-                <!-- Content changes based on the selected tab -->
-                <UserFeed v-if="tab === 'feed'" :posts="posts" />
-                <Connection v-if="tab === 'connection'" :playerId="playerID" />
-                <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug"
-                    @uploadMedia="fetchUserDetailsBySlug" />
-            </div>
-            <!-- <NuxtPage /> -->
-            <div class="p-2">
-                <playerProfileRight :data="utrData" />
-            </div>
+  <div>
+    <!-- Notification component -->
+    <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType"
+      :visible="showNotification" @close="closeNotification" :key="notificationKey" />
+  </div>
+  <NavBarPublic></NavBarPublic>
+  <main class="bg-graySnowDrift">
+    
+    <div class="container-compressed">
+      <div class="grid grid-cols-6 gap-4 temp-row grid-rows-[70px_auto] mt-16 pt-4">
+        <div class="row-span-2 col-span-1 ">
+          <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  />
         </div>
-    </main>
-    <FooterPublic></FooterPublic>
+        <div class="col-start-2 col-span-5 mt-4">
+          <playerProfileHedarer @changeTab="setSelectedTab" :playerId="playerID" :userSlug="route.params.slug" />
+        </div>
+        <div class="col-start-2 col-span-4 bg-brown-500">
+          <!-- Content changes based on the selected tab -->
+          <UserFeed v-if="tab === 'feed'" :posts="posts" />
+          <Connection v-if="tab === 'connection'" :playerId="playerID" />
+          <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
+
+        </div>
+
+        <!-- <NuxtPage /> -->
+      
+
+        <div>
+          <playerProfileRight :data="utrData" />
+        </div>
+      </div>
+    </div>
+    
+  </main>
+  <FooterPublic></FooterPublic>
 </template>
 
 <script setup>
@@ -136,14 +142,14 @@ const props = defineProps({
 onMounted(() => {
     slug.value = route.params.slug;
 
-    if (slug) {
-        fetchUserDetails(slug);
-        fetchUserDetailsBySlug();
-    }
-    userId.value = userStore.user?.user_id || null;
-    // console.log(props.user?.user_basic_info?.id)
-    //  playerID.value = props.user?.user_basic_info?.id || null;
-    //userRole.value = userStore.user?.role || null;
+  if (slug) {
+    fetchUserDetails(slug);
+    fetchUserDetailsBySlug();
+  }
+  userId.value = userStore.user?.user_id || null;
+  // console.log(props.user?.user_basic_info?.id)
+  //  playerID.value = props.user?.user_basic_info?.id || null;
+  //userRole.value = userStore.user?.role || null;
 
     if (playerID.value != null) {
         // fetchConnections();
@@ -154,9 +160,9 @@ onMounted(() => {
 });
 
 const changeTab = (value) => {
-    console.log(value)
+  console.log(value)
 
-    tab.value = value
+  tab.value = value
 }
 
 const fetchUserDetails = async () => {
@@ -214,18 +220,18 @@ const fetchUserDetails = async () => {
             gpa.value = dataSets.player_info.gpa ?? "Unknown"
             sportName.value = dataSets.player_info.sport_name ?? 'User has not entered sport'
 
-            if (dataSets.player_info.other_data) {
-                budgetMin.value = dataSets.player_info.other_data.budget_max ?? 'User has not entered budget min value'
-                budgetMax.value = dataSets.player_info.other_data.budget_min ?? 'User has not entered budget max value'
-                sat.value = dataSets.player_info ? dataSets.player_info.other_data.sat_score : "Unknown"
-                toefl.value = dataSets.player_info ? dataSets.player_info.other_data.toefl_score : "Unknown"
-                atp.value = dataSets.player_info.other_data.atp_ranking ?? "Unknown"
-                itf.value = dataSets.player_info.other_data.itf_ranking ?? "Unknown"
-                act.value = dataSets.player_info.other_data.act_score ?? "Unknown"
-                wtn.value = dataSets.player_info.other_data.wtn_score_manual ?? "Unknown"
-                nationalRanking.value = dataSets.player_info.other_data.national_ranking ?? "Unknown"
-                handness.value = dataSets.player_info.other_data.handedness ?? "User has not entered handness"
-                preferredSurface.value = dataSets.player_info.other_data.preferred_surface ?? "User has not entered preferred surface"
+      if (dataSets.player_info.other_data) {
+        budgetMin.value = dataSets.player_info.other_data.budget_max ?? 'User has not entered budget min value'
+        budgetMax.value = dataSets.player_info.other_data.budget_min ?? 'User has not entered budget max value'
+        sat.value = dataSets.player_info ? dataSets.player_info.other_data.sat_score : "Unknown"
+        toefl.value = dataSets.player_info ? dataSets.player_info.other_data.toefl_score : "Unknown"
+        atp.value = dataSets.player_info.other_data.atp_ranking ?? "Unknown"
+        itf.value = dataSets.player_info.other_data.itf_ranking ?? "Unknown"
+        act.value = dataSets.player_info.other_data.act_score ?? "Unknown"
+        wtn.value = dataSets.player_info.other_data.wtn_score_manual ?? "Unknown"
+        nationalRanking.value = dataSets.player_info.other_data.national_ranking ?? "Unknown"
+        handness.value = dataSets.player_info.other_data.handedness ?? "User has not entered handness"
+        preferredSurface.value = dataSets.player_info.other_data.preferred_surface ?? "User has not entered preferred surface"
 
                 utrData.value = {
                     sat: sat.value,
@@ -305,22 +311,22 @@ const fetchUserDetails = async () => {
 
 
 const fetchUserDetailsBySlug = async () => {
-    try {
-        const dataSets = await $publicService.get_user_profile(route.params.slug);
+  try {
+    const dataSets = await $publicService.get_user_profile(route.params.slug);
 
 
-
-        if (dataSets.media_info) {
-            console.log('fetching media');
-            console.log('Media Info:', dataSets.media_info);
-            setGalleryItems(dataSets.media_info);
-        } else {
-            console.log('No media info available');
-        }
-    } catch (error) {
-        console.log(error)
-        console.error('Error fetching data:', error.message);
+    
+    if (dataSets.media_info) {
+      console.log('fetching media');
+      console.log('Media Info:', dataSets.media_info);
+      setGalleryItems(dataSets.media_info);
+    } else {
+      console.log('No media info available');
     }
+  } catch (error) {
+    console.log(error)
+    console.error('Error fetching data:', error.message);
+  }
 }
 
 
@@ -346,8 +352,6 @@ const setGalleryItems = (mediaInfo) => {
     });
 };
 
-
-
 const fetchPost = async () => {
     try {
         const response = await $feedService.list_posts({});
@@ -357,10 +361,6 @@ const fetchPost = async () => {
         console.error('Failed to load posts:', error.message);
     }
 }
-
-
-
-
 
 </script>
 

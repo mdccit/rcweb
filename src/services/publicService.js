@@ -83,7 +83,6 @@ const get_scool= async (school_slug) => {
 
 const get_user_profile= async (slug) => {
   const url = `/public/users/${slug}`;
-  
   try {
     const response = await apiService.getRequest(url);
     if (response && response.data) {

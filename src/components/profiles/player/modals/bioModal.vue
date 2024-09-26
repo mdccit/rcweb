@@ -94,7 +94,7 @@ watch(() => props.visible, (newVal) => {
 const fetchPlayerBio = async (slug) => {
     try {
         console.log(slug);
-        const dataSets = await $publicService.get_player(props.slug);
+        const dataSets = await $publicService.get_user_profile(props.slug);
 
         if (dataSets.user_basic_info) {
             console.log(dataSets.user_basic_info);
