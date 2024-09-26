@@ -7,7 +7,7 @@ const route = useRoute();
 
 // Define the layout using `definePageMeta` based on the fetched roleId
 definePageMeta({
-  layout:'school-layout'
+  layout:'business-layout'
 });
 
 </script>

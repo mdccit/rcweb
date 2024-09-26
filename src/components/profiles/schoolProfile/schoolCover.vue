@@ -37,7 +37,7 @@
 
 
                             <div class="text-left mt-[80px] ml-5">
-                                <h2 class="text-lg font-semibold text-white text-3xl">{{ name }} Business </h2>
+                                <h2 class="text-lg font-semibold text-white text-3xl">{{ name }} Sachool</h2>
                                 <h5 class="text-md text-white font-normal text-black text-primaryblue">Tennis {{ role }}
                                 </h5>
                             </div>
