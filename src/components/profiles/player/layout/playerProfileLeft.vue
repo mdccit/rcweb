@@ -334,8 +334,6 @@ const heigth = ref('');
 const weight = ref('');
 const graduationDate = ref('');
 const birthday = ref('');
-const budgetMin = ref('')
-const budgetMax = ref('')
 const name = ref('')
 const joinDate = ref('')
 const utr = ref(0)
@@ -401,11 +399,12 @@ const handleModalClose = (modalName) => {
 
 const fetchUserDetails = async (slug) => {
     try {
+       
         const dataSets = await $publicService.get_player(route.params.slug);
         if (dataSets.user_basic_info) {
-            bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"
-            name.value = dataSets.user_basic_info.display_name ?? "User has not entered name";
 
+            props.data.bio = dataSets.user_basic_info.bio ?? "User has not entered bio"
+            props.data.name = dataSets.user_basic_info.display_name ?? "User has not entered name";
 
             const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
             const today = new Date();
@@ -414,7 +413,7 @@ const fetchUserDetails = async (slug) => {
             if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
                 age--;
             }
-            birthday.value = age ?? 'User has not entered birthday'
+            props.data.birthday = age ?? 'User has not entered birthday'
 
             const date = new Date(dataSets.user_basic_info.joined_at);
             const monthNames = [
@@ -454,8 +453,8 @@ const fetchUserDetails = async (slug) => {
             sportName.value = dataSets.player_info.sport_name ?? 'User has not entered sport'
 
             if (dataSets.player_info.other_data) {
-                budgetMin.value = dataSets.player_info.other_data.budget_max ?? 'User has not entered budget min value'
-                budgetMax.value = dataSets.player_info.other_data.budget_min ?? 'User has not entered budget max value'
+                props.data.budgetMin = dataSets.player_info.other_data.budget_min ?? null
+                props.data.budgetMax = dataSets.player_info.other_data.budget_max ?? null
                 sat.value = dataSets.player_info ? dataSets.player_info.other_data.sat_score : "Unknown"
                 toefl.value = dataSets.player_info ? dataSets.player_info.other_data.toefl_score : "Unknown"
                 atp.value = dataSets.player_info.other_data.atp_ranking ?? "Unknown"

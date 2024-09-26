@@ -219,8 +219,8 @@ const fetchUserDetails = async () => {
       sportName.value = dataSets.player_info.sport_name ?? 'User has not entered sport'
 
       if (dataSets.player_info.other_data) {
-        budgetMin.value = dataSets.player_info.other_data.budget_max ?? 'User has not entered budget min value'
-        budgetMax.value = dataSets.player_info.other_data.budget_min ?? 'User has not entered budget max value'
+        budgetMin.value = dataSets.player_info.other_data.budget_min ?? 'User has not entered budget min value'
+        budgetMax.value = dataSets.player_info.other_data.budget_max ?? 'User has not entered budget max value'
         sat.value = dataSets.player_info ? dataSets.player_info.other_data.sat_score : "Unknown"
         toefl.value = dataSets.player_info ? dataSets.player_info.other_data.toefl_score : "Unknown"
         atp.value = dataSets.player_info.other_data.atp_ranking ?? "Unknown"
