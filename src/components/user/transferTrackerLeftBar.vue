@@ -12,25 +12,36 @@
                 <span> Clear</span>
             </button>
         </div>
-        
-    <div class="flex justify-between items-center mb-4">
-
-<div class="space-y-2">
-        <label class="text-black text-sm">UTR</label>
-        <div class="mt-2">
-            <div>
-                <input type="text"
-                    class="w-full px-3 py-2 mb-3 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
-                    placeholder="Min">
-            </div>
-            <div>
-                <input type="text"
-                    class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
-                    placeholder="Max">
+        <div class="flex justify-between items-center mb-4">
+            <div class="space-y-2 w-full">
+                <label class="text-black text-sm">Gender</label>
+                <div class="mt-2 flex">
+                    <div class="flex-1">
+                        <button class="bg-steelBlue text-white px-4 py-2 rounded-lg text-sm w-full">Male</button>
+                    </div>
+                    <div class="flex-1 pl-2">
+                        <button class="bg-lightGray text-darkSlateBlue px-4 py-2 rounded-lg text-sm w-full">Female</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+        <div class="flex justify-between items-center mb-4">
+            <div class="space-y-2">
+                <label class="text-black text-sm">UTR</label>
+                <div class="mt-2">
+                    <div>
+                        <input type="text"
+                            class="w-full px-3 py-2 mb-3 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                            placeholder="Min">
+                    </div>
+                    <div>
+                        <input type="text"
+                            class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                            placeholder="Max">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
