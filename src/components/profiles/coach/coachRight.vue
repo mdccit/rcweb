@@ -8,8 +8,9 @@
                             alt="">
                     </div>
                     <div class="col-span-2 ...">
-                        <p class="text-black text-sm">Coach at Whittier College</p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">Lorem ipsum is a placeholder
+                        <p class="text-black text-sm">{{ props.data.colleage }}</p>
+                        <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">Lorem ipsum is a
+                            placeholder
                         </p>
                         <button type="button"
                             class="mt-3 btn-sm py-2.5 px-5 me-2 mb-2 text-xs text-blue-500 focus:outline-none bg-white rounded-full border border-blue-500 hover:bg-blue-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-blue-700 light:focus:ring-gray-700 light:bg-gray-800 light:text-gray-400 dark:border-blue-600 light:hover:text-white light:hover:bg-gray-700">
@@ -23,7 +24,15 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
 
+const props = defineProps({
+    
+    data: {
+        type: Object,
+        required: true,
+    },
+}); 
 </script>
 
 <style scoped>

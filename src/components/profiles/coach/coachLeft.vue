@@ -12,7 +12,7 @@
                 </div>
             </div>
             <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
-                hdhdhgsdgsdgsd
+                 {{ props.data.bio }}
             </p>
         </div>
 
@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-span-6 ml-2">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Signed up
-                        2021 1 21
+                       {{ props.data.joinAt }}
                     </p>
 
                 </div>
@@ -45,7 +45,7 @@
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl" src="@/assets/images/pin.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">location
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">{{  props.data.city }} {{  props.data.country }}
                     </p>
 
                 </div>
@@ -64,6 +64,15 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
+
+const props = defineProps({
+    
+    data: {
+        type: Object,
+        required: true,
+    },
+}); 
 
 </script>
 

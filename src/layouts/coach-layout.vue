@@ -8,16 +8,18 @@
         <NavBarPublic></NavBarPublic>
         <div class="grid grid-cols-6 grid-rows-2 gap-0 mt-16">
             <div class="col-span-6 row-start-1 row-end-2s">
-                <CoachCover />
+                <CoachCover :data="coachData"  @changeTab="setSelectedTab" :coachId="coachId" :userSlug="route.params.slug"/>
             </div>
             <div class="col-start-1 col-end-2 row-start-2 row-end-3">
-                <CoachLeft />
+                <CoachLeft :data="coachData" />
             </div>
             <div class="col-start-6 col-end-7 row-start-2 row-end-3"> 
-                <CoachRight />
+                <CoachRight :data="coachData" />
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3">
-                <CoachFeed />
+                <UserFeed v-if="tab === 'feed'" :posts="posts" />
+                <Connection v-if="tab === 'connection'" :playerId="coachId" />
+                <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
             </div>
         </div>
     </main>
@@ -27,21 +29,49 @@
 <script setup>
 import NavBarPublic from '~/components/user/navbar.vue';
 import FooterPublic from '~/components/user/user-footer.vue';
-import { ref, watchEffect } from 'vue';
+import { ref, watchEffect, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue'; // <-- Ensure this path is correct!
 import CoachCover from '~/components/profiles/coach/coachCover.vue';
 import CoachLeft from '~/components/profiles/coach/coachLeft.vue';
 import CoachRight from '~/components/profiles/coach/coachRight.vue';
 import CoachFeed from '~/components/profiles/coach/coachFeed.vue';
+import { useUserStore } from '~/stores/userStore';
+import mediaTab from '~/components/profiles/player/tabs/mediaTab.vue';
+import Connection from '~/components/user/profile/connection.vue';
+import UserFeed from '~/components/user/profile/userFeed.vue';
+import { useRoute } from 'vue-router'
+
+const route = useRoute();
 
 const nuxtApp = useNuxtApp();
-
+const $publicService = nuxtApp.$publicService;
+const $userService = nuxtApp.$userService;
+const $feedService = nuxtApp.$feedService;
+const userStore = useUserStore();
 
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const notificationType = ref('');
 const notificationKey = ref(0);
+const slug = ref('');
+const userId = ref('')
+const bio = ref('');
+const country = ref('');
+const city = ref('');
+const name = ref('')
+const role = ref('')
+const colleage = ref('')
+const connections = ref([])
+const posts = ref([])
+const connectionStatus = ref(false)
+const connectionType = ref(null)
+const connectionButtonName = ref('Connect')
+const coachData=ref({})
+const sportName = ref({})
+const joinAt = ref('')
+const tab = ref('feed');
+const coachId = ref('')
 
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
@@ -51,9 +81,109 @@ watchEffect(() => {
     notificationKey.value = nuxtApp.$notification.notificationKey.value;
 });
 
+onMounted(() => {
+  slug.value = route.params.slug;
+  fetchUserDetailsBySlug()
+  userId.value = userStore.user?.user_id || null;
+  
+});
+
+
+
+const fetchUserDetailsBySlug = async () => {
+  try {
+    const dataSets = await $publicService.get_user_profile(route.params.slug);
+    if (dataSets.user_basic_info) {
+        bio.value = dataSets?.user_basic_info?.bio || 'User has not entered bio';
+        name.value = dataSets?.user_basic_info?.display_name || 'Anonymous';
+        role.value = dataSets?.user_basic_info?.user_role || '';  
+        coachId.value =dataSets?.user_basic_info?.id || ''; 
+        console.log("coacheId  "+coachId.value)
+        const date = new Date(dataSets.user_basic_info.joined_at);
+        const monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        const year = date.getFullYear();
+        const month = monthNames[date.getMonth()];
+        const day = date.getDate();
+        joinAt.value = `${year} ${month} ${day}`
+        fetchPost();
+
+    }
+
+    if(dataSets.profile_info){
+        colleage.value = dataSets?.profile_info?.school_name || '';
+        sportName.value = dataSets?.profile_info?.sport_name || '';
+    }
+
+    if(dataSets.user_address_info){
+        city.value = dataSets?.user_address_info?.city || '';
+    }
+
+    if(dataSets.user_phone_info){
+        country.value = dataSets?.user_phone_info?.country || '';
+    }
+
+    coachData.value ={
+        bio: bio.value,
+        country:country.value,
+        city:city.value,
+        name:name.value,
+        role:role.value,
+        colleage:colleage.value,
+        sport:sportName.value,
+        joinAt:joinAt.value
+    }
+    
+    if (dataSets.media_info) {
+      setGalleryItems(dataSets.media_info);
+    } else {
+      console.log('No media info available');
+    }
+  } catch (error) {
+    console.log(error)
+    console.error('Error fetching data:', error.message);
+  }
+}
+
+// Array of gallery items (images and video)
+const galleryItems = ref([]); 
+
+const setGalleryItems = (mediaInfo) => {
+  galleryItems.value = mediaInfo.media_urls.map(media => {
+    if (media.media_type === 'image') {
+      return {
+        type: 'image',
+        href: media.url,
+        src: media.url, // Replace with thumbnail URL if available
+      };
+    } else if (media.media_type === 'video') {
+      return {
+        type: 'video',
+        href: media.url,
+        src: media.url || 'https://via.placeholder.com/200x150.png?text=Video', // Use server-provided thumbnail or placeholder
+      };
+    }
+  });
+};
+
+const setSelectedTab = (selectedTab) => {
+  tab.value = selectedTab;
+};
 const closeNotification = () => {
     showNotification.value = false; // Hide the notification
 };
+
+const fetchPost = async () => {
+  try {
+    const response = await $feedService.list_posts({});
+    posts.value = response || [];
+
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
+  }
+}
 </script>
 
 <style scoped>
