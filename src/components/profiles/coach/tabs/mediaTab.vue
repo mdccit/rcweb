@@ -166,7 +166,7 @@ const uploadMedia = async () => {
 
   try {
     // Send FormData directly in the POST request
-    const response = await $userService.upload_coach_media(formData);
+    const response = await $userService.upload_player_media(formData);
 
     if (response.status == 200) {
       // Clear files array
@@ -174,6 +174,7 @@ const uploadMedia = async () => {
       loading.value = false;
       fetchGalleryBySlug();
       nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+
 
       files.value.forEach((file, index) => removeMediaItem(index));
 
