@@ -23,6 +23,8 @@
   import FilterCard from '~/components/user/filter-card.vue';
   import FooterBar from '~/components/user/user-footer.vue';
   import LoadingSpinner from '~/components/LoadingSpinner.vue';
+  import TransferTrackerLeftBar from '~/components/user/transferTrackerLeftBar.vue';
+  import TransferTrackerRightBar from '~/components/user/transferTrackerRightBar.vue';
   // import checkSession from '~/middleware/checkSession';
   
   // defineNuxtRouteMiddleware(checkSession);

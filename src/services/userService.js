@@ -5,7 +5,6 @@ const createUserService = (apiService) => {
     const url = `/user/connections-list-with-compare/${user_id}`;
     try {
       const response = await apiService.getRequest(url);
-      console.log(response)
       if (response && response.data) {
         return response.data;
       } else {
@@ -30,6 +29,7 @@ const createUserService = (apiService) => {
       console.log(error)
       throw new Error(error.message || 'Failed to register');
     }
+
   };
 
 
@@ -100,11 +100,11 @@ const createUserService = (apiService) => {
   };
 
   const search_user = async (request_body) => {
-    const url = `/user/search`;
-    const body = request_body;
-
+    const { user_role, search_key, state, city, tuition_in_state_min, tuition_in_state_max, tuition_out_state_min, tuition_out_state_max, gender, graduation_month, graduation_year, country_id, handedness, utr_min, utr_max, wtn_min, wtn_max, atp_ranking, itf_ranking, national_ranking } = request_body;
+    const url = `/user/search?user_role=${user_role}&search_key=${search_key}&state=${state}&city=${city}&tuition_in_state_min=${tuition_in_state_min}&tuition_in_state_max=${tuition_in_state_max}&tuition_out_state_min=${tuition_out_state_min}&tuition_out_state_max=${tuition_out_state_max}&gender=${gender}&graduation_month=${graduation_month}&country_id=${country_id}&handedness=${handedness}&utr_min=${utr_min}&utr_max=${utr_max}&wtn_min=${wtn_min}&wtn_max=${wtn_max}&atp_ranking=${atp_ranking}&itf_ranking=${itf_ranking}&national_ranking=${national_ranking}`;
     try {
-      const response = await apiService.getRequest(url, body);
+      const response = await apiService.getRequest(url);
+      console.log(response)
       return response;
     } catch (error) {
       throw new Error(error.message || 'Failed to update post');
@@ -159,7 +159,6 @@ const createUserService = (apiService) => {
       }
     }
   };
-
   const connection_cancelle = async (connection_id, request_body) => {
     const url = `/user/connections-cancelle/${connection_id}`;
     const body = request_body;
@@ -453,6 +452,14 @@ const createUserService = (apiService) => {
 
 
   return {
+    get_connection,
+    connection_request,
+    connection_accept,
+    get_check_connection_type,
+    save_search,
+    get_save_search,
+    delete_save,
+    search_user,
     get_connection,
     connection_request,
     connection_accept,
