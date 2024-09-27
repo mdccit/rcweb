@@ -49,21 +49,8 @@
                         <div class="col-span-3">
                             <div
                                 class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                                <ul class="flex flex-wrap -mb-px">
-                                    <li class="me-2">
-                                        <button @click="handleTab('feed')"
-                                            class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</button>
-                                    </li>
-                                    <li class="me-2">
-                                        <button @click="handleTab('connection')"
-                                            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                            aria-current="page">Connections</button>
-                                    </li>
-                                    <li class="me-2">
-                                        <button @click="handleTab('media')"
-                                            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</button>
-                                    </li>
-                                </ul>
+                              
+                                <CoachTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
                             </div>
                         </div>
                     </div>
@@ -137,6 +124,7 @@ import { useRouter, useRoute } from 'vue-router';
 import NameModal from '~/components/profiles/coach/modals/NameModal.vue';
 import CoverModal from '~/components/profiles/coach/modals/coverModal.vue';
 import { useUserStore } from '~/stores/userStore';
+import CoachTabNavigation from '~/components/profiles/navigation/CoachTabNavigation.vue';
 
 const emit = defineEmits(['changeTab']);
 const nuxtApp = useNuxtApp();
@@ -183,6 +171,13 @@ const handleTab = (selectedTab) => {
     tab.value = selectedTab;
     emit('changeTab', selectedTab)
 };
+
+const tabs = ref([
+  { name: 'feed', label: 'Post' },
+  { name: 'connection', label: 'Connections' },
+  { name: 'media', label: 'Media' }
+]);
+
 
 
 const fetchCheckConnection = async () => {
