@@ -19,10 +19,10 @@
                         <div class="text-center flex relative">
                             <div class="relative ml-5">
                                 <img class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
-                                    src="@/assets/images/avtar.png" alt="">
+                                :src="profilePictureUrl" alt="">
 
                                 <!-- SVG Wrapper positioned at the bottom right of the image -->
-                                <div
+                                <div @click="toggleModal('name')"
                                     class="absolute bottom-0 right-0 mb-[10px] mr-[10px] cursor-pointer bg-white p-1 rounded-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -37,8 +37,9 @@
 
 
                             <div class="text-left mt-[80px] ml-5">
-                                <h2 class="text-lg font-semibold text-white text-3xl">{{props.data.name  }} </h2>
-                                <h5 class="text-md text-white font-normal text-black text-primaryblue">{{  props.data.sport }} {{ role }}
+                                <h2 class="text-lg font-semibold text-white text-3xl">{{ props.data.name }} </h2>
+                                <h5 class="text-md text-white font-normal text-black text-primaryblue">{{
+                                    props.data.sport }} {{ role }}
                                 </h5>
                             </div>
                         </div>
@@ -98,10 +99,11 @@
                                         {{ connectionButtonName }}
                                     </button>
                                     <div v-if="connectionButtonName =='Accept connection'" class="text-white">
-                                        <button @click="connectReject" class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                        <button @click="connectReject"
+                                            class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                             Reject
                                         </button>
-                                    </div> 
+                                    </div>
                                 </div>
                                 <div class="">
                                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -121,73 +123,67 @@
             </div>
         </span>
     </section>
+
+    
+    <!-- Modal Components with Standardized Props -->
+    <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
 </template>
 
 <script setup>
-import { ref ,defineEmits ,onMounted } from 'vue';
+import { ref, defineEmits, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { useRouter, useRoute } from 'vue-router';
+import NameModal from '~/components/profiles/coach/modals/NameModal.vue';
+import { useUserStore } from '~/stores/userStore';
 
 const emit = defineEmits(['changeTab']);
 const nuxtApp = useNuxtApp();
 const router = useRouter();
-const $userService = nuxtApp.$userService;
-const connectionStatus = ref(false)
-const connectionType = ref(null)
-const connectionButtonName = ref('Connect')
-const buttonHide = ref(true);
-import { useUserStore } from '~/stores/userStore';
-
 
 const userStore = useUserStore();
-
 const userId = ref(null)
+const $userService = nuxtApp.$userService;
+const $publicService = nuxtApp.$publicService;
+const slug = ref('');
 
 const props = defineProps({
-    
+
     data: {
         type: Object,
         required: true,
     },
-
-    coachId:{
+    coachId: {
         type: String,
         required: true,
     },
-
-    userSlug:{
+    userSlug: {
         type: String,
         required: true,
     }
-}); 
+});
 
-const tabs = ref([
-    { name: 'feed', label: 'Post' },
-    { name: 'connection', label: 'Connections' },
-    { name: 'media', label: 'Media' }
-]);
+const connectionStatus = ref(false)
+const connectionType = ref(null)
+const connectionButtonName = ref('Connect')
+const buttonHide = ref(true);
+const profile_picture = ref(null);
+// Import the default profile picture
+import defaultProfilePicture from '@/assets/images/avtar.png';
 
 const tab = ref('feed');
 
 const handleTab = (selectedTab) => {
     tab.value = selectedTab;
-    emit('changeTab',selectedTab)
+    emit('changeTab', selectedTab)
 };
 
-onMounted(()=>{
-    fetchCheckConnection()
-    userId.value = userStore.user?.user_id || null;
-
-})
 
 const fetchCheckConnection = async () => {
     try {
-     
-       connectionButtonName.value = "Connect";
-       console.log(props.userSlug)
+
+        connectionButtonName.value = "Connect";
         if (props.userSlug != null) {
             const dataSets = await $userService.get_check_connection_type(props.userSlug);
-           console.log(dataSets)
             connectionStatus.value = dataSets.connection
             if (connectionStatus.value == true) {
                 connectionType.value = dataSets.type
@@ -219,53 +215,137 @@ const fetchCheckConnection = async () => {
 }
 
 const connectAcceptOrConnect = async () => {
-console.log(11)
-try {
-    if (connectionButtonName.value == "Accept connection") {
-        console.log(12)
+    console.log(11)
+    try {
+        if (connectionButtonName.value == "Accept connection") {
+            console.log(12)
 
-        await $userService.connection_accept(connectionType.value.id, {
-            connection_status: "accepted"
-        });
-    }
-    console.log(13)
-
-    if (connectionButtonName.value == "Connect") {
-        console.log(14)
-        console.log(props.coachId)
-        if (props.coachId != null) {
-            console.log(15)
-
-            const response = await $userService.connection_request({
-                receiver_id: props.coachId
+            await $userService.connection_accept(connectionType.value.id, {
+                connection_status: "accepted"
             });
-            console.log(response)
+        }
+        console.log(13)
+
+        if (connectionButtonName.value == "Connect") {
+            console.log(14)
+            console.log(props.coachId)
+            if (props.coachId != null) {
+                console.log(15)
+
+                const response = await $userService.connection_request({
+                    receiver_id: props.coachId
+                });
+                console.log(response)
 
 
-            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+                nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+            }
+
         }
 
+        fetchCheckConnection();
+
+    } catch (error) {
+        console.error('Failed to Connect :', error.message);
     }
-
-     fetchCheckConnection();
-
-} catch (error) {
-    console.error('Failed to Connect :', error.message);
-}
 }
 
 const connectReject = async () => {
-try {
-    await $userService.connection_reject(connectionType.value.id, {
-        connection_status: "rejected"
-    });
-    
-    fetchCheckConnection();
+    try {
+        await $userService.connection_reject(connectionType.value.id, {
+            connection_status: "rejected"
+        });
 
-} catch (error) {
-    console.error('Failed to Connect :', error.message);
+        fetchCheckConnection();
+
+    } catch (error) {
+        console.error('Failed to Connect :', error.message);
+    }
 }
+
+
+const fetchUserDetails = async () => {
+    try {
+
+        const dataSets = await $publicService.get_user_profile(props.userSlug);
+        if (dataSets.user_basic_info) {
+            props.data.name = dataSets.user_basic_info.display_name ?? "User has not entered name";
+
+        }
+   
+        if (dataSets.media_info.profile_picture != null) {
+           profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+        }
+
+
+
+    } catch (error) {
+        console.log(error)
+        console.error('Error fetching data:', error.message);
+    }
 }
+
+
+// Define reactive state for all modals
+const modals = reactive({
+    name: false,
+    bio: false,
+    info: false,
+    budget: false,
+    utr: false,
+    address: false,
+});
+
+// Generic toggle function
+const toggleModal = (modalName) => {
+    if (modals.hasOwnProperty(modalName)) {
+        modals[modalName] = !modals[modalName];
+    } else {
+        console.warn(`Modal "${modalName}" does not exist.`);
+    }
+};
+
+// Generic function to close the modal and fetch user details
+const handleModalClose = (modalName) => {
+    // Defensive check to make sure modalName exists
+    if (modals[modalName] !== undefined) {
+        modals[modalName] = false;  // Close the modal
+        fetchUserDetails();         // Fetch updated user details after closing
+    } else {
+        console.error(`Invalid modal name: ${modalName}`);
+    }
+};
+
+// Computed profile picture URL
+const profilePictureUrl = computed(() => profile_picture.value);
+// Watch for changes in props.data
+watch(
+    () => props.data,
+    (newVal) => {
+        if (newVal && newVal.media_info) {
+            profile_picture.value = newVal.media_info.profile_picture?.url || defaultProfilePicture;
+        } else {
+            profile_picture.value = defaultProfilePicture; // Fallback to default if media_info is undefined
+        }
+    },
+    { immediate: true } // Execute immediately when component is mounted
+);
+
+onMounted(() => {
+    fetchCheckConnection()
+    userId.value = userStore.user?.user_id || null;
+    slug.value = props.userSlug;
+
+    // Set profile picture when props.data becomes available
+    if (props.data && props.data.media_info) {
+        console.log('media available');
+        profile_picture.value = props.data.media_info.profile_picture?.url || defaultProfilePicture;
+    } else {
+        console.log('media not available');
+        profile_picture.value = defaultProfilePicture;
+    }
+
+})
 </script>
 
 <style scoped>

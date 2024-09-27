@@ -136,7 +136,8 @@ const fetchUserDetailsBySlug = async () => {
         colleage:colleage.value,
         sport:sportName.value,
         joinAt:joinAt.value,
-        slug: loadedSlug
+        slug: loadedSlug,
+        media_info: dataSets.media_info
     }
     
     if (dataSets.media_info) {

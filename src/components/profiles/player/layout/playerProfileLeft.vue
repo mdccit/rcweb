@@ -478,7 +478,6 @@ const fetchUserDetails = async (slug) => {
 }
 
 
-// Reactive reference for the profile picture URL
 // Computed profile picture URL
 const profilePictureUrl = computed(() => profile_picture.value);
 // Watch for changes in props.data

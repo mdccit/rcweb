@@ -66,10 +66,11 @@
                                         </label>
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
                                             <input id="profile_picture" type="file" @change="handleFileChange"
-                                            accept="image/jpeg, image/png"
+                                                accept="image/jpeg, image/png"
                                                 class="w-full block px-5 py-3 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg">
                                         </div>
-                                        <span v-if="fileError" class="text-red-500">{{ fileError }}</span> <!-- Show validation error -->
+                                        <span v-if="fileError" class="text-red-500">{{ fileError }}</span>
+                                        <!-- Show validation error -->
                                     </div>
 
                                 </div>
@@ -126,43 +127,43 @@ const profile_picture = ref('');
 // On mounted, fetch the current user names using the slug
 onMounted(() => {
     if (props.slug) {
-        fetchPlayerNames(props.slug);
+        fetchCoachNames(props.slug);
     }
 });
 
 watch(() => props.visible, (newVal) => {
     if (newVal && props.slug) {
-        fetchPlayerNames(props.slug);
+        fetchCoachNames(props.slug);
     }
 });
 
 
 
 const handleFileChange = (event) => {
-  const file = event.target.files[0];
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-  const maxSize = 2 * 1024 * 1024; // 2MB
+    const file = event.target.files[0];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    const maxSize = 2 * 1024 * 1024; // 2MB
 
-  // Check if a file is selected
-  if (file) {
-    // Validate the file type
-    if (!allowedTypes.includes(file.type)) {
-      fileError.value = 'Only jpg, jpeg, and png files are allowed';
-      event.target.value = ''; // Clear the file input
-      return;
+    // Check if a file is selected
+    if (file) {
+        // Validate the file type
+        if (!allowedTypes.includes(file.type)) {
+            fileError.value = 'Only jpg, jpeg, and png files are allowed';
+            event.target.value = ''; // Clear the file input
+            return;
+        }
+
+        // Validate the file size
+        if (file.size > maxSize) {
+            fileError.value = 'File size must be less than 2MB';
+            event.target.value = ''; // Clear the file input
+            return;
+        }
+
+        // If all validations pass, set the file to the reactive variable
+        fileError.value = ''; // Clear any previous errors
+        profile_picture.value = file; // Store the selected file
     }
-
-    // Validate the file size
-    if (file.size > maxSize) {
-      fileError.value = 'File size must be less than 2MB';
-      event.target.value = ''; // Clear the file input
-      return;
-    }
-
-    // If all validations pass, set the file to the reactive variable
-    fileError.value = ''; // Clear any previous errors
-    profile_picture.value = file; // Store the selected file
-  }
 };
 
 
@@ -177,7 +178,7 @@ const saveProfilePicture = async () => {
     }
     try {
         const user_slug = props.slug; // Assuming you have user_slug available in props
-        const response = await $userService.upload_player_profile_picture(profile_picture.value, user_slug); // Call the upload function
+        const response = await $userService.upload_coach_profile_picture(profile_picture.value, user_slug); // Call the upload function
 
         if (response.status == '200') {
             loading.value = false;
@@ -191,7 +192,7 @@ const saveProfilePicture = async () => {
 };
 
 // Function to fetch the player names based on the slug
-const fetchPlayerNames = async (slug) => {
+const fetchCoachNames = async (slug) => {
     try {
         const dataSets = await $publicService.get_user_profile(slug);
         if (dataSets.user_basic_info) {
@@ -220,7 +221,7 @@ const updatePlayerNames = async (firstName, lastName, otherNames) => {
             last_name: lastName,
             other_names: otherNames,
         }; // Construct request body with all names
-        const response = await $userService.update_player_name(request_body); // Call the API to update the names
+        const response = await $userService.update_coach_name(request_body); // Call the API to update the names
 
         if (response.status == '200') {
             loading.value = false;
@@ -240,6 +241,6 @@ const updatePlayerNames = async (firstName, lastName, otherNames) => {
 // Save names when the user clicks "Save changes"
 const saveName = () => {
     saveProfilePicture();
-    // updatePlayerNames(first_name.value, last_name.value, other_names.value); // Call the API to update the player's names
+    updatePlayerNames(first_name.value, last_name.value, other_names.value); // Call the API to update the player's names
 };
 </script>
