@@ -126,6 +126,7 @@ const stateProvince = ref('');
 const slug = ref('');
 const utrData = ref({})
 const leftData = ref({})
+const media_info = ref();
 const props = defineProps({
     user: {
         type: Object,
@@ -153,12 +154,6 @@ onMounted(() => {
         // fetchMediaGallery();
     }
 });
-
-const changeTab = (value) => {
-  console.log(value)
-
-  tab.value = value
-}
 
 const fetchUserDetails = async () => {
     try {
@@ -276,7 +271,8 @@ const fetchUserDetails = async () => {
             budgetMin: budgetMin.value,
             budgetMax: budgetMax.value,
             name: name.value,
-            sportName: sportName.value
+            sportName: sportName.value,
+            media_info: dataSets.media_info,
 
         }
 
