@@ -22,7 +22,8 @@ export const useSearchStore = defineStore("search", {
     wtn_max:'',
     atp_ranking:'',
     itf_ranking:'',
-    national_ranking:''
+    national_ranking:'',
+    search_filter:[]
   }),
   getters: {
     searchKey: (state) => state.search_key || '',  
@@ -45,8 +46,8 @@ export const useSearchStore = defineStore("search", {
     wtnMax: (state) => state.wtn_max || '',  
     atpRanking: (state) => state.atp_ranking || '',  
     itfRanking: (state) => state.itf_ranking || '',  
-    nationalRanking: (state) => state.national_ranking || ''
-
+    nationalRanking: (state) => state.national_ranking || '',
+    searchFilter:(state) => state.search_filter || []
   },
   actions: {
     setSearchKey(key) {
@@ -129,6 +130,10 @@ export const useSearchStore = defineStore("search", {
     setNationalRanking(value) {
       this.national_ranking = value;
     },
+
+    setSearchFilter(value) {
+      this.search_filter = value;
+    }
     
   },
   },

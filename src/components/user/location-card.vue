@@ -14,7 +14,7 @@
         <div class="space-y-2">
             <input type="text" v-model="address" @change="addressChange"
                 class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
-                placeholder="Illinois">
+                placeholder="State">
             <input type="text" v-model="city" @change="cityChange"
                 class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
                 placeholder="City">
@@ -30,13 +30,43 @@ import { useSearchStore } from '~/stores/searchStore';
 const searchStore = useSearchStore();
 const city = ref('')
 const address = ref('')
+const filter = ref([])
 
 const cityChange = () =>{
     searchStore.setCity(city.value)
+    searchStore.setSearchButton(true)
+    filter.value =searchStore.searchFilter
+    const display_value ="City | "+city.value
+
+    const exists = filter.value.some(item => item.name == 'city');
+    if (exists) {
+        filter.value = filter.value.map(item => item.name === 'city' ? {...item, value: city.value,display_value:display_value} : item);
+    }else{
+        filter.value.push({name: 'city', value: city.value,display_value:display_value});
+    }
+
+    searchStore.setSearchFilter(filter.value)
+    searchStore.setSearchButton(true)
+
 }
 
 const addressChange = () =>{
     searchStore.setState(address.value)
+    searchStore.setSearchButton(true)
+    filter.value =searchStore.searchFilter
+
+    const exists = filter.value.some(item => item.name == 'state');
+    const display_value =" State | "+address.value
+
+    if (exists) {
+        filter.value = filter.value.map(item => item.name === 'state' ? {...item, value: address.value,display_value:display_value} : item);
+    }else{
+        filter.value.push({name: 'state', value: address.value,display_value:display_value});
+    }
+
+    searchStore.setSearchFilter(filter.value)
+    searchStore.setSearchButton(true)
+
 }
  
 const clear = ()=>{
@@ -45,6 +75,13 @@ const clear = ()=>{
    
     searchStore.setCity('')
     searchStore.setState('')
+    searchStore.setSearchButton(true)
+    filter.value =searchStore.searchFilter
+    filter.value = filter.value.filter(item => item.name !== 'state');
+    filter.value = filter.value.filter(item => item.name !== 'city');
+    searchStore.setSearchFilter(filter.value)
+    searchStore.setSearchButton(true)
+
   
 }
 

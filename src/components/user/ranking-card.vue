@@ -69,36 +69,130 @@ const wtnMax = ref('')
 const apt = ref('')
 const itf = ref('')
 const nationalRanking = ref('')
-
+const filter =ref([])
+const data  = ref({})
 const utrMinChange = () =>{
-    searchStore.setUtrMin(utrMax.value)
+    searchStore.setUtrMin(utrMin.value)
+    data.value = {
+        name:'utrMin',
+        value:utrMin.value,
+        display_name:"Utr Min | "+utrMin.value
+    }
+
+    dataFilter(data.value)
 }
 
 const utrMaxChange = () =>{
-    searchStore.setUtrMax(utrMin.value)
+    searchStore.setUtrMax(utrMax.value)
+    data.value = {
+        name:'utrMax',
+        value:utrMax.value,
+        display_name:"Utr Max | "+utrMax.value
+    }
+
+    dataFilter(data.value)
 }
 
 const wtnMinChange = () =>{
     searchStore.setWtnMin(wtnMin.value)
+    filter.value =searchStore.searchFilter
+     const display_value=''
+    const exists = filter.value.some(item => item.name == 'WTN');
+    const max=''
+    if (exists) {
+        const data = filter.value.find(item => item.name === 'WTN');
+        const maxValue =data.max??''
+        max =maxValue
+        display_value="WTN | "+wtnMin.value+" "+maxValue
+        // filter.value = filter.value.map(item => item.name === 'WTN' ? {...item, value: tutionInCostMax.value} : item);
+    }else{
+        //filter.value.push({name: 'In-state tuition-max', value: tutionInCostMax.value});
+        // display_value="WTN | "+wtnMin.value
+    }
+    data.value = {
+        name:'wtnMin',
+        value:wtnMin.value,
+        display_name:display_value,
+        min:wtnMin.value,
+        max:max
+    }
+
+    dataFilter(data.value)
 }
 
 const wtnMaxChange = () =>{
     searchStore.setWtnMax(wtnMax.value)
+    filter.value =searchStore.searchFilter
+     const display_value=''
+     const min=''
+    const exists = filter.value.some(item => item.name == 'WTN');
+    if (exists) {
+        const data = filter.value.find(item => item.name === 'WTN');
+        const minValue =data.min??''
+        min=minValue
+        display_value="WTN | "+minValue+" "+wtnMax.value
+        // filter.value = filter.value.map(item => item.name === 'WTN' ? {...item, value: tutionInCostMax.value} : item);
+    }else{
+        //filter.value.push({name: 'In-state tuition-max', value: tutionInCostMax.value});
+        display_value="WTN | "+wtnMax.value
+    }
+    data.value = {
+        name:'WTN',
+        value:wtnMax.value,
+        display_name:display_value,
+        min:min,
+        max:wtnMax.value
+    }
+
+    dataFilter(data.value)
 }
 
 const aptChange = () =>{
     searchStore.setAtpRanking(apt.value)
+    data.value = {
+        name:'apt',
+        value:apt.value,
+        display_name:" APT | "+apt.value
+    }
+
+    dataFilter(data.value)
 }
 
 const itfChange = () =>{
     searchStore.setItfRanking(itf.value)
+    data.value = {
+        name:'itf',
+        value:itf.value,
+        display_name:"ITF | "+itf.value
+    }
+
+    dataFilter(data.value)
 }
 
 const nationalRankingChange = () =>{
     searchStore.setNationalRanking(nationalRanking.value)
+    data.value = {
+        name:'national ranking',
+        value:nationalRanking.value,
+        display_name:"National Ranking | "+nationalRanking.value
+    }
+
+    dataFilter(data.value)
 }
 
-
+const dataFilter = (data) =>{
+    const min = data.min??''
+    const max =data.max??''
+    filter.value =searchStore.searchFilter
+    const exists = filter.value.some(item => item.name == data.name);
+    if (exists) {
+       filter.value = filter.value.map(item => item.name === data.name ? {...item, value:data.value,display_value:data.display_name,min:min,max:max} : item);
+    }else{
+        filter.value.push({name: data.name, value:data.value,display_value:data.display_name, min:min,max:max});
+    }
+    searchStore.setSearchFilter(filter.value)
+    searchStore.setSearchButton(true)
+}
 
 
 
@@ -120,6 +214,19 @@ const clear = ()=>{
     searchStore.setWtnMin('')
     searchStore.setUtrMax('')
     searchStore.setUtrMin('')
+
+    filter.value =searchStore.searchFilter
+    filter.value = filter.value.filter(item => item.name !== 'utrMin');
+    filter.value = filter.value.filter(item => item.name !== 'utrMax');
+    filter.value = filter.value.filter(item => item.name !== 'wtnMin');
+    filter.value = filter.value.filter(item => item.name !== 'wtnMax');
+    filter.value = filter.value.filter(item => item.name !== 'apt');
+    filter.value = filter.value.filter(item => item.name !== 'itf');
+    filter.value = filter.value.filter(item => item.name !== 'national ranking');
+
+
+    searchStore.setSearchFilter(filter.value)
+    searchStore.setSearchButton(true)
 }
 
 </script>

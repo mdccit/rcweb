@@ -3,14 +3,18 @@
         <!-- Start Content Section -->
         <div class="col-span-5 sm:col-span-4 md:col-span-5 lg:col-span-3 xl:col-span-4">
             <h2 class="text-lg font-semibold text-black">Search Result</h2>
-            <label class="text-sm mb-2  text-black">Lorem ipsum is a placeholder text commonly used to</label>
+            <!-- <label class="text-sm mb-2  text-black">Lorem ipsum is a placeholder text commonly used to</label> -->
 
             <div class="flex flex-wrap gap-2 my-4">
                 <div class="flex-1">
                     <div class="flex">
-                        <div class="flex items-center bg-steelBlue text-white px-3 py-1 rounded-md mr-2">
-                            <span class="text-sm">Location</span>
-                            <button class="ml-2 focus:outline-none hover:bg-brightSkyBlue" aria-label="Remove tag">
+                        <div v-for="filter in searchStore.searchFilter" class="flex items-center bg-steelBlue text-white px-3 py-1 rounded-md mr-2">
+                            <div >
+                                <span class="text-sm">{{ filter.display_value }}</span>
+
+                            </div>
+                            
+                            <button @click="filterRemove( filter.name)" class="ml-2 focus:outline-none hover:bg-brightSkyBlue" aria-label="Remove tag">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd"
                                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -18,7 +22,9 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="flex items-center bg-steelBlue text-white px-3 py-1 rounded-md">
+                        
+                        
+                        <!-- <div class="flex items-center bg-steelBlue text-white px-3 py-1 rounded-md">
                             <span class="text-sm">In-state tuition | $100-$500</span>
                             <button class="ml-2 focus:outline-none" aria-label="Remove tag">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -27,12 +33,12 @@
                                         clip-rule="evenodd"></path>
                                 </svg>
                             </button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="flex-3">
                     <div class="flex items-center border-lightSteelBlue bg-white rounded-full overflow-hidden px-3 py-4 divide-x h-10">
-                        <button @click="showPopupView = true" class="bg-blue-500 p-2 text-white rounded-full mr-2 text-xs" >Saved
+                        <button @click="getSaveData" class="bg-blue-500 p-2 text-white rounded-full mr-2 text-xs" >Saved
                             Search</button>
                         <button @click="showPopup = true"class="text-blue-500 p-2 text-xs" >New +</button>
                     </div>
@@ -42,8 +48,9 @@
 
                 <!-- card 01 -->
                  <div v-for="user in search" class="flex-1 p-2"> 
-                    <NuxtLink :to="`/app/profile/${user.slug}`">
+                    
                     <button  class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+                        <NuxtLink :to="`/app/profile/${user.slug}`">
                         <div class=" grid grid-cols-12 gap-4">
                             <div class="col-span-4">
                                 <img class=" rounded-2xl w-[160px] h-[160px]"
@@ -81,14 +88,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex items-center mt-2 text-sm text-black bg-muteGray rounded-md p-2">
+                                <div v-if="user.user_role=='Player'" class="flex items-center mt-2 text-sm text-black bg-muteGray rounded-md p-2">
                                     <div class="mr-4">
                                         <p class="text-xs">UTR Score</p>
-                                        <p class="text-base font-bold">50.00</p>
+                                        <p class="text-base font-bold">{{ JSON.parse(user.other_data).utr }}</p>
                                     </div>
-                                    <p class="text-xs mr-3">ATP Score : <span>538</span></p>
-                                    <p class="text-xs mr-3">GPA :<span>{{  user.gpa }}</span></p>
-                                    <p class="text-xs">SAT Score : <span>145</span></p>
+                                    <p class="text-xs mr-3">ATP Score : <span>{{ JSON.parse(user.other_data).atp_score }}</span></p>
+                                    <p class="text-xs mr-3">GPA :<span>{{ user.gpa }}</span></p>
+                                    <p class="text-xs">SAT Score : <span>{{ JSON.parse(user.other_data).sat_score }}</span></p>
                                 </div>
                                 <div class="flex items-center mt-2 text-sm text-gray-500">
                                     <p class="flex text-black">
@@ -100,9 +107,9 @@
                                                 d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                                         </svg>
 
-                                        <span class="text-xs ml-2"> New Pura, Belgium</span>
+                                        <span class="text-xs ml-2"> {{ user.city }}, {{  user.country }}</span>
                                     </p>
-                                    <p class="ml-4 flex text-black">
+                                    <!-- <p class="ml-4 flex text-black">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-4">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -110,8 +117,8 @@
                                         </svg>
 
                                         <span class="text-xs ml-2"> Coach at Whittier College</span>
-                                    </p>
-                                    <p class="ml-4 flex text-black">
+                                    </p> -->
+                                    <!-- <p class="ml-4 flex text-black">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-4">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -119,24 +126,19 @@
                                         </svg>
 
                                         <span class="text-xs ml-2"> 24 Years Old</span>
-                                    </p>
+                                    </p> -->
                                 </div>
                             </div>
                         </div>
-
+                        </NuxtLink>
                         <div>
                             <p class="mt-2 text-xs text-gray-500">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                irure
-                                dolor in.
+                               {{  user.bio }}
                             </p>
                         </div>
                         <div class="flex mt-2">
                             <div class="flex-1">
-                                <div class="flex items-center space-x-2 mb-2">
+                                <!-- <div class="flex items-center space-x-2 mb-2">
                                     <div class="bg-blue-100 p-1 rounded">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-4 text-blue-700">
@@ -148,7 +150,7 @@
                                     <div class="text-xs ml-2 text-gray-500"><span
                                             class="text-blue-700">Ralph,Cameron</span> 3 more mutual connections
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="flex-1 text-right">
@@ -164,11 +166,17 @@
                                         </button>
                                     </div>
 
-                                    <div>
-                                        <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                            Connect +
+                                    <div v-if="user.connection != null">
+                                        <button v-if="user.connection.connection_status =='pending'"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                             Invite Sent
                                         </button>
                                     </div>
+                                    <div v-if="user.connection == null">
+                                        <button @click="connect(user.userId)"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                             Connect
+                                        </button>
+                                    </div>
+                                   
                                 </div>
 
 
@@ -176,7 +184,7 @@
 
                         </div>
                     </button>
-                </NuxtLink>
+                
                 </div> 
                 <!--/ card 01 -->
                 <!-- card 02 -->
@@ -489,10 +497,10 @@
       :isOpen="showPopup"
       @close="showPopup = false"
     /> -->
-    <SaveSearch  :isOpen="showPopup"
+    <SaveSearch  :isOpen="showPopup" 
         @close="showPopup = false"/>
 
-    <ViewSaveSearch  :isOpen="showPopupView"
+    <ViewSaveSearch  :isOpen="showPopupView" :saveSearch="saveSearch" @getSaveData="getSaveData"
         @close="showPopupView = false"/>
 </template>
 
@@ -527,7 +535,13 @@ const $userService = nuxtApp.$userService;
 const search = ref([])
 const showPopup =ref(false)
 const showPopupView =ref(false)
-
+const filters = ref([])
+const saveSearch =ref([])
+const connections = ref([])
+const outState =ref(false)
+const outStateMin = ref('')
+const outStateMxn = ref('')
+const filterNewSet = ref([])
 onMounted(() => {
     fetchData();
   
@@ -539,16 +553,22 @@ watch(
   () => searchStore.searchButton,
   () => {
     fetchData() 
+  },
+  () => searchStore.searchFilter,
+  () => {
+    applyFilter() 
   }
 );
-  const fetchData = async () =>{
-    console.log(1)
+
+const fetchData = async () =>{
+
     if(searchStore.searchButton){
+    searchStore.setSearchButton(false)
     const data ={
         user_role:searchStore.userRole??'',
         search_key:searchStore.searchKey??'',
         state:searchStore.stateName??'',
-        city:searchStore.Name??'',
+        city:searchStore.cityName??'',
         tuition_in_state_min:searchStore.tuitionInStateMin??'',
         tuition_in_state_max:searchStore.tuitionInStateMax??'',
         tuition_out_state_min:searchStore.tuitionOutStateMin??'',
@@ -567,18 +587,122 @@ watch(
         national_ranking:searchStore.nationalRanking??'',
     }
     
+    console.log(data)
     try {
     const response = await $userService.search_user(data);
-    console.log(response)
 
      search.value = response.data.dataSets.users || [];
-     searchStore.setSearchButton(false)
+     connections.value = response.data.dataSets.connections || [];
+   
+    search.value = search.value.map(user => {
+    const connection =  connections.value.find(conn => conn.user_id === user.userId);
+    return { ...user, connection: connection || null }; // Add connection or null if not found
+});
+    console.log(search.value)
 
   } catch (error) {
     console.error('Failed to load posts:', error.message);
   }
 }
-  }
+  
+}
+
+const applyFilter = (data) =>{
+   filters.value =searchStore.searchFilter
+}
+
+const filterRemove = (data) =>{
+    filters.value =searchStore.searchFilter
+    filters.value = filters.value.filter(item => item.name !== data);
+    searchStore.setSearchFilter(filters.value)
+
+    if(data =='user filter'){
+        searchStore.setUserRole('')
+    }
+    if(data =='state'){
+        searchStore.setState('')  
+    }
+    if(data =='city'){
+        searchStore.setCity('')
+    }
+    if(data =='Out-of-state tuition-max'){
+        searchStore.setTuitionOutStateMax('')
+    }
+    if(data =='Out-of-state tuition-min'){
+        searchStore.setTuitionOutStateMin('')
+    }
+    if(data =='In-state tuition-max'){
+        searchStore.setTuitionInStateMax('')
+    }
+    if(data =='In-state tuition-min'){
+        searchStore.setTuitionInStateMin('')
+    }
+    if(data =='Out-of-state tuition-max'){
+        searchStore.setTuitionOutStateMax('')
+    }
+    if(data =='Out-of-state tuition-min'){
+        searchStore.setTuitionOutStateMin('')
+    }
+
+    if(data =='year'){
+        searchStore.setGraduationYear('')
+    }
+    if(data =='month'){
+        searchStore.setGraduationMonth('')
+    }
+    if(data =='gender'){
+        searchStore.setGenders('')
+    }
+    if(data =='handness'){
+        searchStore.setHandednesses('')
+    }
+    if(data =='country'){
+        searchStore.setCountryId('')
+    }
+
+    if(data =='utrMin'){
+        searchStore.setUtrMin('')
+    }
+    if(data =='utrMax'){
+        searchStore.setUtrMax('')
+    }
+    if(data =='wtnMin'){
+        searchStore.setWtnMin('')
+    }
+    if(data =='wtnMax'){
+        searchStore.setWtnMax('')
+    }
+    if(data =='apt'){
+        searchStore.setAtpRanking('')
+    }
+    if(data =='itf'){
+        searchStore.setItfRanking('')
+    }
+    if(data =='national ranking'){
+        searchStore.setNationalRanking('')
+    }
+
+
+    searchStore.setSearchButton(true)
+}
+
+const getSaveData = async() =>{
+    const response = await $userService.get_save_search()
+    saveSearch.value =response.dataSets
+    showPopupView.value = true
+}
+
+const connect = async (id) =>{
+    try {
+        await $userService.connection_request({
+            receiver_id: id
+        });
+
+        searchStore.setSearchButton(true)
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
+}
 
 
 </script>
