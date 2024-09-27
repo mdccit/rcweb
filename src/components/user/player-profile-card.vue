@@ -138,9 +138,9 @@
             </div> -->
         </div>
         <div class="space-y-2">
-            <label class="text-black text-sm">Country</label>
-            <CountryDropdown @change="changeCountry"  :countries="countries" v-model="country" id="player_country"
-                label="Player Country"  />
+            <!-- <label class="text-black text-sm">Country</label>
+            <CountryDropdown @change="changeCountry(data)"  :countries="countries" v-model="country" id="player_country"
+                label="Player Country"  /> -->
             <!-- <div class="flex flex-wrap mt-2">
 
                 <button
@@ -190,6 +190,8 @@ const gender = ref('');
 const graduation_month = ref('');
 const graduation_year = ref('');
 const handedness = ref('')
+const filter = ref([])
+const data  = ref({})
 
 onMounted(() => {
 //   loadCountryCodes();
@@ -224,24 +226,70 @@ const loadCountries = async () => {
   }
 };
 
-const changeCountry = () =>{
+const changeCountry = (changedata) =>{
     searchStore.setCountryId(country.value)
+    data.value = {
+        name:'country',
+        value:country.value,
+        display_value:"Country | "+country.value
+    }
+    dataFilter(data.value)
 }
 
 const changeGender = () =>{
     searchStore.setGenders(gender.value)
+    data.value = {
+        name:'gender',
+        value:gender.value,
+        display_value:"Gender | "+gender.value
+    }
+    dataFilter(data.value)
+
 }
 
 const changeHandness = () =>{
     searchStore.setHandednesses(handedness.value)
+    data.value = {
+        name:'handness',
+        value:handedness.value,
+        display_value:"Handness | "+handedness.value
+    }
+    dataFilter(data.value)
+
 }
 
 const changeGraduationMonth = () =>{
     searchStore.setGraduationMonth(graduation_month.value)
+    data.value = {
+        name:'month',
+        value:graduation_month.value,
+        display_value:"Month | "+graduation_month.value
+    }
+    dataFilter(data.value)
+
 }
 
 const changeGraduationYear = () =>{
     searchStore.setGraduationYear(graduation_year.value)
+    data.value = {
+        name:'year',
+        value:graduation_year.value,
+        display_value:"Year | "+graduation_month.value
+
+    }
+   // dataFilter(data.value)
+}
+
+const dataFilter = (data) =>{
+    filter.value =searchStore.searchFilter
+    const exists = filter.value.some(item => item.name == data.name);
+    if (exists) {
+       filter.value = filter.value.map(item => item.name === data.name ? {...item, value:data.value ,display_value:data.display_value} : item);
+    }else{
+        filter.value.push({name: data.name, value:data.value,display_value:data.display_value});
+    }
+    searchStore.setSearchFilter(filter.value)
+    searchStore.setSearchButton(true)
 }
 
 const clear = ()=>{
@@ -252,10 +300,19 @@ const clear = ()=>{
     graduation_year.value = '';
    
     searchStore.setCountryId('')
-    searchStore.setGender('')
-    searchStore.setHandedness('')
+    searchStore.setGenders('')
+    searchStore.setHandednesses('')
     searchStore.setGraduationMonth('')
     searchStore.setGraduationYear('')
+    filter.value =searchStore.searchFilter
+    filter.value = filter.value.filter(item => item.name !== 'year');
+    filter.value = filter.value.filter(item => item.name !== 'month');
+    filter.value = filter.value.filter(item => item.name !== 'gender');
+    filter.value = filter.value.filter(item => item.name !== 'handness');
+    filter.value = filter.value.filter(item => item.name !== 'country');
+
+    searchStore.setSearchFilter(filter.value)
+    searchStore.setSearchButton(true)
 
 }
 

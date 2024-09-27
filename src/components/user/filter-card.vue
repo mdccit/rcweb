@@ -8,7 +8,7 @@
     <!-- End Location Card -->
 
     <!-- Start Turion and Cost Card -->
-       <TutionCostCard/>
+       <!-- <TutionCostCard/> -->
     <!-- End Turion and Cost Card -->
 
     <!-- Start Athletics Card -->
@@ -222,7 +222,7 @@
     <!-- End Rankings & Ratings Card -->
 
     <!-- Start Physical Attributes Card -->
-       <PhysicalAttribute/>
+       <!-- <PhysicalAttribute/> -->
     <!-- End Physical Attributes Card -->
 
 </template>

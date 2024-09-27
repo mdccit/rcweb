@@ -12,16 +12,16 @@
             </button>
         </div>
         <ul>
-            <li class="flex justify-between items-center mb-2 border text-steelBlue rounded-xl hover:bg-lightGray">
-                <a href="#" class="flex items-center text-steelBlue p-2 rounded-md">
+            <li :class="['flex justify-between items-center hover:bg-lightGray', name==''|| name=='All'? 'mb-2 border text-steelBlue rounded-xl':'']">
+                <button @click="changeRole('')" class="flex items-center text-steelBlue p-2 rounded-md">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
                         <path fill-rule="evenodd"
                             d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM6.262 6.072a8.25 8.25 0 1 0 10.562-.766 4.5 4.5 0 0 1-1.318 1.357L14.25 7.5l.165.33a.809.809 0 0 1-1.086 1.085l-.604-.302a1.125 1.125 0 0 0-1.298.21l-.132.131c-.439.44-.439 1.152 0 1.591l.296.296c.256.257.622.374.98.314l1.17-.195c.323-.054.654.036.905.245l1.33 1.108c.32.267.46.694.358 1.1a8.7 8.7 0 0 1-2.288 4.04l-.723.724a1.125 1.125 0 0 1-1.298.21l-.153-.076a1.125 1.125 0 0 1-.622-1.006v-1.089c0-.298-.119-.585-.33-.796l-1.347-1.347a1.125 1.125 0 0 1-.21-1.298L9.75 12l-1.64-1.64a6 6 0 0 1-1.676-3.257l-.172-1.03Z"
                             clip-rule="evenodd" />
                     </svg>
                     <span class="pl-2.5">All</span>
-                </a>
-                <span class="ml-auto bg-steelBlue h-10 p-2 rounded-r-xl"></span>
+                </button>
+                <span v-if="name==''|| name=='All'"class="ml-auto bg-steelBlue h-10 p-2 rounded-r-xl"></span>
             </li>
             <!-- <li class="flex justify-between items-center mb-2 hover:bg-lightGray">
                 <a href="#" class="flex items-center text-black p-2 rounded-md">
@@ -54,7 +54,7 @@
                 <span class="text-steelBlue text-sm p-1 bg-steelBlueLight79 text-sm rounded-md">9+
                     new</span>
             </li> -->
-            <li class="flex justify-between items-center hover:bg-lightGray">
+            <!-- <li class="flex justify-between items-center hover:bg-lightGray">
                 <a href="#" class="flex items-center  text-black p-2 rounded-md">
                     <div class="bg-lightPink p-1 rounded">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -65,8 +65,8 @@
                     </div>
                     <span class="pl-2.5">Schools</span>
                 </a>
-            </li>
-            <li class="flex justify-between items-center hover:bg-lightGray">
+            </li> -->
+            <li :class="['flex justify-between items-center hover:bg-lightGray', name=='Coaches'? 'mb-2 border text-steelBlue rounded-xl':'']">
                 <button @click="changeRole(5)" class="flex items-center text-black p-2 rounded-md">
                     <div class="bg-mintGreen p-1 rounded">
                         <img src="@/assets/user/images/man-medal.png" alt="" class=" w-4 h-4">
@@ -74,8 +74,9 @@
 
                     <span class="pl-2.5">Coaches</span>
                 </button>
+                <span v-if="name=='Coaches'"class="ml-auto bg-steelBlue h-10 p-2 rounded-r-xl"></span>
             </li>
-            <li class="flex justify-between items-center hover:bg-lightGray">
+            <li :class="['flex justify-between items-center hover:bg-lightGray', name=='Players'? 'mb-2 border text-steelBlue rounded-xl':'']">
                 <button @click="changeRole(4)" class="flex items-center text-black p-2 rounded-md">
                     <div class="bg-lightPale p-1 rounded">
                         <img src="@/assets/user/images/playerIcon.png" alt="" class=" w-4 h-4">
@@ -83,6 +84,7 @@
 
                     <span class="pl-2.5">Players</span>
                 </button>
+                <span v-if="name=='Players'"class="ml-auto bg-steelBlue h-10 p-2 rounded-r-xl"></span>
             </li>
         </ul>
     </div>
@@ -96,14 +98,46 @@ import { useSearchStore } from '~/stores/searchStore';
 const searchStore = useSearchStore();
 
 const role =ref('')
-
+const name = ref('')
+const filter = ref([])
 const changeRole = (id) =>{
+    console.log(id)
     role.value = id;
+    if(id ==5){
+        name.value ="Coaches"
+    }
+ 
+    if(id ==4){
+        name.value ="Players"
+    }
+
+    if(id ==''){
+        name.value ="All"
+    }
+    const display_value =" User | "+name.value
     searchStore.setUserRole(id)
+    searchStore.setSearchButton(true)
+    filter.value =searchStore.searchFilter
+    const exists = filter.value.some(item => item.name == 'user filter');
+    if (exists) {
+        filter.value = filter.value.map(item => item.name === 'user filter' ? {...item, value: name.value,display_value:display_value} : item);
+
+    }else{
+        filter.value.push({name: 'user filter', value: name.value,display_value:display_value});
+
+    }
+    
+       
+    searchStore.setSearchFilter(filter.value)
 }
 
 const clear = ()=>{
     role.value = '';
+    name.value ="All"
     searchStore.setUserRole('')
+    searchStore.setSearchButton(true)
+    filter.value =searchStore.searchFilter
+    filter.value = filter.value.filter(item => item.name !== 'user filter');
+    searchStore.setSearchFilter(filter.value)
 }
 </script>

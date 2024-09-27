@@ -71,21 +71,83 @@ const tutionOutCostMin = ref('')
 const tutionOutCostMax = ref('')
 // const costOfAttendenceMin = ref('')
 // const costOfAttendenceMax = ref('')
+const filter = ref([])
 
 const tutionInCostMinChange = () =>{
     searchStore.setTuitionInStateMin(tutionInCostMin.value)
+    filter.value =searchStore.searchFilter
+
+    const exists = filter.value.some(item => item.name == 'In-state tuition');
+    if (exists) {
+        const data = filter.value.find(item => item.name === 'In-state tuition');
+        const maxValue =data.max??''
+        const value = "In-state tuition | "+tutionInCostMin.value+" "+maxValue
+        filter.value = filter.value.map(item => item.name === 'In-state tuition' ? {...item, value:value, min:tutionInCostMin.value,max:maxValue} : item);
+    }else{
+        const value = "In-state tuition | "+tutionInCostMin.value
+
+        filter.value.push({name: 'In-state tuition', value:value, min:tutionInCostMin.value});
+    }
+
+    searchStore.setSearchFilter(filter.value)
+    searchStore.setSearchButton(true)
+
 }
 
 const tutionInCostMaxChange = () =>{
     searchStore.setTuitionInStateMax(tutionInCostMax.value)
+    filter.value =searchStore.searchFilter
+
+    const exists = filter.value.some(item => item.name == 'In-state tuition-max');
+    if (exists) {
+        filter.value = filter.value.map(item => item.name === 'In-state tuition-max' ? {...item, value: tutionInCostMax.value} : item);
+    }else{
+        filter.value.push({name: 'In-state tuition-max', value: tutionInCostMax.value});
+    }
+
+    searchStore.setSearchFilter(filter.value)
+    searchStore.setSearchButton(true)
 }
 
 const tutionOutCostMinChange = () =>{
     searchStore.setTuitionOutStateMin(tutionOutCostMin.value)
+    filter.value =searchStore.searchFilter
+
+    const exists = filter.value.some(item => item.name == 'Out-of-state tuition');
+
+    if (exists) {
+        const data = filter.value.find(item => item.name === 'Out-of-state tuition');
+        const maxValue =data.max??''
+        const value = "Out-of-state tuition | "+tutionOutCostMin.value+" "+maxValue
+    
+        filter.value = filter.value.map(item => item.name === 'Out-of-state tuition' ? {...item, value: value, min: tutionOutCostMin.value, max:maxValue} : item,);
+    }else{
+        const value = "Out-of-state tuition | "+tutionOutCostMin.value
+
+        filter.value.push({name: 'Out-of-state tuition', value: value,min:tutionOutCostMin.value});
+    }
+
+    searchStore.setSearchFilter(filter.value)
+    searchStore.setSearchButton(true)
 }
 
 const tutionOutCostMaxChange = () =>{
     searchStore.setTuitionOutStateMax(tutionOutCostMax.value)
+    filter.value =searchStore.searchFilter
+
+    const exists = filter.value.some(item => item.name == 'Out-of-state tuition');
+    if (exists) {
+        const data = filter.value.find(item => item.name === 'Out-of-state tuition');
+        const minValue =data.min??''
+        const value = "Out-of-state tuition | "+tutionOutCostMax.value+" "+maxValue
+        filter.value = filter.value.map(item => item.name === 'Out-of-state tuition' ? {...item, value:value,min:minValue, max:tutionOutCostMax.value} : item);
+    }else{
+        const value = "Out-of-state tuition | "+tutionOutCostMax.value
+        filter.value.push({name: 'Out-of-state tuition', value: tutionOutCostMax.value});
+    }
+
+    searchStore.setSearchFilter(filter.value)
+    searchStore.setSearchButton(true)
 }
 
 // const costOfAttendenceMinChange = () =>{
@@ -97,23 +159,24 @@ const tutionOutCostMaxChange = () =>{
 // }
 
 
-
-
-
-
-
 const clear = ()=>{
     tutionInCostMin.value = '';
     tutionInCostMin.value = '';
     tutionInCostMax.value = '';
     tutionOutCostMin.value = '';
     tutionOutCostMax.value = '';
-    // costOfAttendenceMin.value = '';
-    // costOfAttendenceMax.value = '';
     searchStore.setTuitionInStateMin('')
     searchStore.setTuitionInStateMax('')
     searchStore.setTuitionOutStateMin('')
     searchStore.setTuitionOutStateMax('')
+    filter.value =searchStore.searchFilter
+    filter.value = filter.value.filter(item => item.name !== 'Out-of-state tuition-max');
+    filter.value = filter.value.filter(item => item.name !== 'Out-of-state tuition-min');
+    filter.value = filter.value.filter(item => item.name !== 'In-state tuition-max');
+    filter.value = filter.value.filter(item => item.name !== 'In-state tuition-min');
+    searchStore.setSearchFilter(filter.value)
+    searchStore.setSearchButton(true)
+
 }
 
 </script>
