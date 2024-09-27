@@ -8,8 +8,9 @@
         <div class="grid grid-cols-6 gap-4 mt-16">
           <!-- Left pane -->
           <div>
+            <user-setting-left />
             <!-- <Filter /> -->
-             <NetworkLeft />
+             <!-- <NetworkLeft /> -->
             <Filter v-if="route.meta.showFilterLeft" />
             <!-- <resources-left-bar /> -->
           </div>
@@ -56,6 +57,7 @@ import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
 import NetworkLeft from '~/components/user/networkLeft.vue';
 import ResourcesLeftBar from '~/components/user/resourcesLeftBar.vue';
+import userSettingLeftBar from '~/components/user/userSettingLeftBar.vue';
 
 
 defineNuxtRouteMiddleware(checkSession);
