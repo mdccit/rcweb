@@ -3,7 +3,7 @@
         <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
             <div class="flex items-center justify-between w-full">
                 <h1 class="text-lg font-semibold text-black">Bio</h1>
-                <div class="cursor-pointer" v-if="props.userSlug == props.data.slug" @click="toggleModal('bio')">
+                <div class="cursor-pointer" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('bio')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -24,7 +24,7 @@
                 <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                        <div class="cursor-pointer">
+                        <div class="cursor-pointer" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('info')">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4 ml-[22px]">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -134,7 +134,7 @@
                     </p>
 
                 </div>
-                <div class="col-span-1" @click="toggleModal('address')">
+                <div class="col-span-1" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -172,6 +172,7 @@ const nuxtApp = useNuxtApp();
 const $publicService = nuxtApp.$publicService;
 const $userService = nuxtApp.$userService;
 
+const loggedUserSlug = ref('');
 const loading = ref(false);
 const router = useRouter();
 const route = useRoute();
@@ -294,7 +295,9 @@ onMounted(() => {
     userRole.value = userStore.user?.role || null;
     slug.value = props.userSlug;
     loadedData.value = props.data;
-
+    if (process.client) {
+        loggedUserSlug.value = localStorage.getItem('user_slug')
+    }
 
 });
 </script>
