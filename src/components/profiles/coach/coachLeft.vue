@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-10">
+            <!-- <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                         stroke="currentColor" class="size-5">
@@ -46,9 +46,9 @@
                 <div class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4"> <b>phone</b> </p>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="grid grid-cols-10">
+            <!-- <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
                     <img class="mx-auto  rounded-xl w-[27px]" src="@/assets/images/ruler.png" alt="">
                 </div>
@@ -58,9 +58,9 @@
                         <span v-if="props.data.heigth != 'User has not entered height'">cm</span>
                     </p>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="grid grid-cols-10">
+            <!-- <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
                     <img class="mx-auto  rounded-xl w-[22px]" src="@/assets/images/weight.png" alt="">
                 </div>
@@ -71,9 +71,9 @@
                             >kg</span>
                     </p>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="grid grid-cols-10">
+            <!-- <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
                     <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/graduation.png" alt="">
                 </div>
@@ -82,15 +82,16 @@
                         Graduation 
                     </p>
                 </div>
-            </div>
+            </div> -->
 
             <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
                     <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/bday.png" alt="">
                 </div>
                 <div class="col-span-8">
-                    <p class="text-sm text-black leading-relaxed mb-4 "> 23
-                        <span>Years Old</span>
+                    <p class="text-sm text-black leading-relaxed mb-4 "> {{  props.birth_day }}
+                        <span v-if="props.data.birthday != 'User has not entered birthday'">Years Old</span>
+
                     </p>
                 </div>
             </div>

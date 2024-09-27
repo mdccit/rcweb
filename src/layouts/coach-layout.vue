@@ -17,7 +17,7 @@
                 <CoachRight :data="coachData"   :userSlug="route.params.slug"  />
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3">
-                <UserFeed v-if="tab === 'feed'" :posts="posts" />
+                <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage"  />
                 <Connection v-if="tab === 'connection'" :playerId="coachId" @profileView="redirectPage"/>
                 <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
             </div>
@@ -62,11 +62,7 @@ const city = ref('');
 const name = ref('')
 const role = ref('')
 const colleage = ref('')
-const connections = ref([])
 const posts = ref([])
-const connectionStatus = ref(false)
-const connectionType = ref(null)
-const connectionButtonName = ref('Connect')
 const coachData=ref({})
 const sportName = ref({})
 const joinAt = ref('')
@@ -74,6 +70,7 @@ const tab = ref('feed');
 const coachId = ref('')
 const router = useRouter();
 const loadedSlug = ref('');
+const birthDay = ref('');
 
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
@@ -93,6 +90,7 @@ onMounted(() => {
 const fetchUserDetailsBySlug = async () => {
   try {
     const dataSets = await $publicService.get_user_profile(route.params.slug);
+    console.log(dataSets)
     if (dataSets.user_basic_info) {
         bio.value = dataSets?.user_basic_info?.bio || 'User has not entered bio';
         name.value = dataSets?.user_basic_info?.display_name || 'Anonymous';
@@ -110,6 +108,17 @@ const fetchUserDetailsBySlug = async () => {
         const month = monthNames[date.getMonth()];
         const day = date.getDate();
         joinAt.value = `${year} ${month} ${day}`
+        const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDifference = today.getMonth() - birthDate.getMonth();
+        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+           age--;
+        }
+        birthDay.value = age ?? 'User has not entered birthday'
+        console.log("birthday")
+
+    console.log(birthDay.value)
         fetchPost();
 
     }
@@ -126,6 +135,7 @@ const fetchUserDetailsBySlug = async () => {
     if(dataSets.user_phone_info){
         country.value = dataSets?.user_phone_info?.country || '';
     }
+    
 
     coachData.value ={
         bio: bio.value,
@@ -138,7 +148,8 @@ const fetchUserDetailsBySlug = async () => {
         joinAt:joinAt.value,
         slug: loadedSlug,
         media_info: dataSets.media_info,
-        school_slug: dataSets.profile_info.school_slug
+        school_slug: dataSets.profile_info.school_slug,
+        birth_day :birthDay.value
     }
     
     if (dataSets.media_info) {
@@ -184,7 +195,9 @@ const fetchPost = async () => {
   try {
     const response = await $feedService.list_posts({});
     posts.value = response || [];
+    console.log("Post")
 
+    console.log(posts.value)
   } catch (error) {
     console.error('Failed to load posts:', error.message);
   }

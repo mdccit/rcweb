@@ -34,7 +34,7 @@
                                                 class="block mb-1 text-sm font-normal text-gray-900">Date of Birth <span
                                                     class="text-red-600">*</span></label>
                                             <input type="date" v-model="date_of_birth" required
-                                                class="w-full border border-gray-300 rounded-lg shadow-sm" />
+                                                class="w-full border border-gray-300 rounded-lg shadow-sm h-12" />
                                             <InputError
                                                 :error="errors.date_of_birth ? errors.date_of_birth.join(', ') : ''" />
 
@@ -55,7 +55,7 @@
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                             <button type="submit" :disabled="loading"
-                                class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
+                                class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
                                 changes
                                 <svg v-if="loading" aria-hidden="true" role="status"
                                     class="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101"
