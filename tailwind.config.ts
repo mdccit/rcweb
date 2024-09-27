@@ -97,7 +97,8 @@ module.exports = {
         '1.75': '1.75px',
       },
       backgroundImage: {
-        'generic': "url('@/assets/images/bg-generic.svg')"
+        'generic': "url('@/assets/images/bg-generic.svg')",
+        'transferTrackerBlur': "url('@/assets/user/images/blur-bg-transfer.png')"
       }
     },
   },
