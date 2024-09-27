@@ -37,7 +37,7 @@ import CoachLeft from '~/components/profiles/coach/coachLeft.vue';
 import CoachRight from '~/components/profiles/coach/coachRight.vue';
 import CoachFeed from '~/components/profiles/coach/coachFeed.vue';
 import { useUserStore } from '~/stores/userStore';
-import mediaTab from '~/components/profiles/player/tabs/mediaTab.vue';
+import mediaTab from '~/components/profiles/coach/tabs/mediaTab.vue';
 import Connection from '~/components/user/profile/connection.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
 import { useRoute } from 'vue-router'
