@@ -344,6 +344,20 @@ const createUserService = (apiService) => {
     }
   };
 
+  const update_coach_other_info = async (request_body) => {
+
+    const url = `/public/coaches/update-other-info/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+
 
   return {
     get_connection,
@@ -367,7 +381,8 @@ const createUserService = (apiService) => {
     delete_player_media,
     upload_player_profile_picture,
     update_coach_bio,
-    update_coach_contact_info
+    update_coach_contact_info,
+    update_coach_other_info
   };
 
 

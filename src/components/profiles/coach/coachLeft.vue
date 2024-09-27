@@ -28,7 +28,7 @@
                     </p>
 
                 </div>
-                <div class="col-span-1">
+                <div class="col-span-1" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -92,9 +92,6 @@ const $userService = nuxtApp.$userService;
 const loading = ref(false);
 const router = useRouter();
 const route = useRoute();
-const feet = ref(0);
-const pounds = ref(0);
-const showFilterLeft = ref(false);
 const slug = ref('');
 const profile_picture = ref(null);
 
@@ -119,9 +116,7 @@ const props = defineProps({
     },
 }); 
 
-
 const userRole = ref('');
-const loadedSlug = ref('');
 const loadedData = ref('');
 
 // Define reactive state for all modals

@@ -40,52 +40,6 @@
 
                                         </div>
 
-                                        <!-- Weight -->
-                                        <div class="col-span-2">
-                                            <div class="mb-1 flex items-center justify-between">
-                                                <label for="weight"
-                                                    class="block text-sm font-normal text-gray-900">Weight <span
-                                                        class="text-red-600">*</span></label>
-                                                <div class="flex items-center space-x-3">
-                                                    <label class="flex items-center">
-                                                        <input type="radio" v-model="weight_in_kg" :value="true"
-                                                            class="mr-1" />
-                                                        <span class="text-sm text-gray-900">Kilograms</span>
-                                                    </label>
-                                                    <label class="flex items-center">
-                                                        <input type="radio" v-model="weight_in_kg" :value="false"
-                                                            class="mr-1" />
-                                                        <span class="text-sm text-gray-900">Pounds</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <!-- Weight in Kilograms -->
-                                            <div v-if="weight_in_kg">
-                                                <input type="number" required v-model="weight_kg"
-                                                    class="block w-full rounded-lg border-gray-300 shadow-sm"
-                                                    placeholder="Weight in kg" />
-                                            </div>
-                                            <!-- Weight in Pounds -->
-                                            <div v-else>
-                                                <input type="number" required v-model="weight_lb"
-                                                    class="block w-full rounded-lg border-gray-300 shadow-sm"
-                                                    placeholder="Weight in lb" />
-                                            </div>
-                                        </div>
-
-
-                                        <!-- Handedness -->
-                                        <div>
-
-                                            <label for="handedness"
-                                                class="block mb-1 text-sm font-normal text-gray-900">Handedness <span
-                                                    class="text-red-600">*</span></label>
-                                            <HandednessDropdown :handedness="handednesses" v-model="handedness"
-                                                id="handedness" />
-                                            <InputError
-                                                :error="errors.handedness ? errors.handedness.join(', ') : ''" />
-                                        </div>
-
                                         <!-- Gender -->
                                         <div>
                                             <label for="gender"
@@ -95,83 +49,6 @@
                                             <InputError :error="errors.gender ? errors.gender.join(', ') : ''" />
                                         </div>
 
-                                        <!-- Height Section -->
-                                        <div class="col-span-2">
-                                            <div class="mb-1 flex items-center justify-between">
-                                                <label for="height"
-                                                    class="block text-sm font-normal text-gray-900">Height
-                                                    <span class="text-red-600">*</span></label>
-
-                                                <!-- Toggle between Feet/Inches and Centimeters -->
-                                                <div class="flex items-center space-x-3">
-                                                    <label class="flex items-center">
-                                                        <input type="radio" id="player_height_in_cm"
-                                                            v-model="height_in_cm" :value="true" class="mr-1" />
-                                                        <span class="text-sm text-gray-900">Centimeters</span>
-                                                    </label>
-                                                    <label class="flex items-center">
-                                                        <input type="radio" id="height_ft_in" v-model="height_in_cm"
-                                                            :value="false" class="mr-1" />
-                                                        <span class="text-sm text-gray-900">Feet/Inches</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <!-- Height in Centimeters -->
-                                            <div v-if="height_in_cm">
-                                                <div class="relative">
-                                                    <input type="text" id="player_height_cm" v-model="height_cm"
-                                                        class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 sm:text-sm"
-                                                        placeholder="Height in cm" />
-                                                    <span v-if="errors.height_cm" class="text-red-500 text-sm">{{
-        errors.player_height_cm.join(', ') }}</span>
-                                                </div>
-                                            </div>
-
-                                            <!-- Height in Feet/Inches -->
-                                            <div v-else class="grid grid-cols-2 gap-3">
-                                                <div class="relative">
-                                                    <input type="number" id="player_height_ft" v-model="height_ft"
-                                                        class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 sm:text-sm"
-                                                        placeholder="Feet" />
-                                                    <span v-if="errors.player_height_ft" class="text-red-500 text-sm">{{
-        errors.player_height_ft.join(',') }}</span>
-                                                </div>
-                                                <div class="relative">
-                                                    <input type="number" id="player_height_in" v-model="height_in"
-                                                        class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 sm:text-sm"
-                                                        placeholder="Inches" />
-                                                    <span v-if="errors.player_height_in" class="text-red-500 text-sm">{{
-        errors.height_in.join(',') }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <!-- Preferred Surface -->
-                                        <div>
-                                            <label for="preferred_surface"
-                                                class="block mb-1 text-sm font-normal text-gray-900">Preferred
-                                                Surface</label>
-                                            <select v-model="preferred_surface" required
-                                                class="w-full border border-gray-300 rounded-lg shadow-sm">
-                                                <option value="hard">Hard</option>
-                                                <option value="clay">Clay</option>
-                                                <option value="grass">Grass</option>
-                                                <option value="artificial">Artificial</option>
-                                            </select>
-                                        </div>
-
-                                        <!-- Graduation Month/Year -->
-                                        <div>
-                                            <label for="graduation_month_year"
-                                                class="block mb-1 text-sm font-normal text-gray-900">Graduation
-                                                Month/Year</label>
-                                            <input type="month" v-model="graduation_month_year" required
-                                                class="w-full border border-gray-300 rounded-lg shadow-sm" />
-                                            <InputError
-                                                :error="errors.graduation_month_year ? errors.graduation_month_year.join(', ') : ''" />
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -206,9 +83,7 @@
 import { ref } from 'vue';
 import { useNuxtApp } from '#app';
 import { loadCountryList, loadNationalityList, loadGenderList, loadHandnessList } from '~/services/commonService';
-import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
 import NationalityDropdown from '@/components/common/select/NationalityDropdown.vue';
-import HandednessDropdown from '@/components/common/select/HandednessDropdown.vue';
 import GenderDropDown from '@/components/common/select/GenderDropDown.vue';
 import { handleError } from '@/utils/handleError';
 import InputError from '@/components/common/input/InputError.vue';
@@ -228,21 +103,12 @@ const notification_type = ref(0);
 // Form state
 const date_of_birth = ref('');
 const nationality = ref('');
-const handedness = ref('');
 const gender = ref('');
-const weight_in_kg = ref(true);  // true = kilograms, false = pounds
-const weight_kg = ref('');
-const weight_lb = ref('');
-const preferred_surface = ref('');
-const graduation_month_year = ref('');
-const height_in_cm = ref(false);  // true = centimeters, false = feet/inches
-const height_ft = ref('');
-const height_in = ref('');
-const height_cm = ref('');
+const position = ref('coach');
+const preferred_gender_type = ref('male');
 
 // Load dropdown data
 const nationalities = ref([]);
-const handednesses = ref([]);
 const genders = ref([]);
 
 // Props and Emit definition
@@ -259,7 +125,6 @@ onMounted(async () => {
     await Promise.all([
         loadNationalities(),
         loadGenders(),
-        loadHandness(),
         fetchPlayerInfo(),
 
     ]);
@@ -272,66 +137,24 @@ watch(() => props.visible, (newVal) => {
 });
 
 const fetchPlayerInfo = async () => {
-  try {    
-    const dataSets = await $publicService.get_player(props.slug);
-    
-    console.log('Fetched player data:', dataSets);  // Debug: log the full response
+    try {
+        const dataSets = await $publicService.get_coache(props.slug);
 
-    if (dataSets.user_basic_info) {
-      // Set Nationality, Gender, and Date of Birth
-      nationality.value = dataSets.user_basic_info.nationality_id ?? null;
-      gender.value = dataSets.user_basic_info.gender ?? null;
+        if (dataSets.user_basic_info) {
+            // Set Nationality, Gender, and Date of Birth
+            nationality.value = dataSets.user_basic_info.nationality_id ?? null;
+            gender.value = dataSets.user_basic_info.gender ?? null;
 
-      // Set Date of Birth
-      if (dataSets.user_basic_info.date_of_birth) {
-        const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
-        date_of_birth.value = birthDate.toISOString().split('T')[0];  // Format as 'YYYY-MM-DD'
-      }
-
-      console.log('User basic info:', {
-        nationality: nationality.value,
-        gender: gender.value,
-        date_of_birth: date_of_birth.value,
-      });  // Debug: log user basic info
-
-      // Set Graduation Month/Year
-      if (dataSets.player_info?.graduation_month_year) {
-        // Extract year and month from the YYYY-MM-DD format
-        const fullDate = dataSets.player_info.graduation_month_year;
-        graduation_month_year.value = fullDate.slice(0, 7);  // Get only the year and month (YYYY-MM)
-      }
+            // Set Date of Birth
+            if (dataSets.user_basic_info.date_of_birth) {
+                const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
+                date_of_birth.value = birthDate.toISOString().split('T')[0];  // Format as 'YYYY-MM-DD'
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching coach info:', error);  // Debug: log the error
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     }
-
-    if (dataSets.player_info) {
-      // Set Height
-      if (dataSets.player_info.height) {
-        height_in_cm.value = true; // Assuming height is stored in cm
-        height_cm.value = parseFloat(dataSets.player_info.height); // Convert height to cm if available
-      }
-
-      // Set Weight
-      if (dataSets.player_info.weight) {
-        weight_in_kg.value = true; // Assuming weight is in kg
-        weight_kg.value = parseFloat(dataSets.player_info.weight); // Convert weight to kg if available
-      }
-
-      // Set Handedness
-      handedness.value = dataSets.player_info.other_data.handedness ?? null;
-
-      // Set Preferred Surface
-      preferred_surface.value = dataSets.player_info.other_data.preferred_surface ?? null;
-
-      console.log('Player info:', {
-        height_cm: height_cm.value,
-        weight_kg: weight_kg.value,
-        handedness: handedness.value,
-        preferred_surface: preferred_surface.value,
-      });  // Debug: log player info
-    }
-  } catch (error) {
-    console.error('Error fetching player info:', error);  // Debug: log the error
-    nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
-  }
 };
 
 
@@ -348,21 +171,13 @@ const saveInfo = async () => {
         const request_body = {
             user_slug: props.slug,
             nationality: nationality.value,
-            handedness: handedness.value,
             gender: gender.value,
             date_of_birth: date_of_birth.value,
-            height_in_cm: height_in_cm.value,
-            height_cm: height_cm.value,
-            height_ft: height_ft.value,
-            height_in: height_in.value,
-            weight_in_kg: weight_in_kg.value,
-            weight_kg: weight_kg.value,
-            weight_lb: weight_lb.value,
-            preferred_surface: preferred_surface.value,
-            graduation_month_year: graduation_month_year.value
+            position: position.value,
+            preferred_gender_type: preferred_gender_type.value
         };
 
-        const response = await $userService.update_player_info(request_body);
+        const response = await $userService.update_coach_other_info(request_body);
 
         if (response.status == '200') {
             loading.value = false;
@@ -380,22 +195,18 @@ const saveInfo = async () => {
     }
 };
 
-
 const clearUserInfo = () => {
-    date_of_birth.value = '';
     nationality.value = '';
-    handedness.value = '';
     gender.value = '';
-    weight_in_kg.value = true;  // Default to kilograms
-    weight_kg.value = '';
-    weight_lb.value = '';
-    preferred_surface.value = '';
-    graduation_month_year.value = '';
-    height_in_cm.value = false;  // Default to feet/inches
-    height_ft.value = '';
-    height_in.value = '';
-    height_cm.value = '';
+    date_of_birth.value = '';
+    error.value = '';
+    errors.value = {};
+    notification_type.value = '';
+    notificationMessage.value = '';
+    showNotification.value = false;
+    loading.value = false;
 };
+
 
 const loadCountries = async () => {
     try {
