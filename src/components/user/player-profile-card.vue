@@ -1,5 +1,5 @@
 <template>
-        <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
+        <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-semibold text-black">Player Profile </h2>
             <button @click="clear" class="flex text-ceil text-sm">
@@ -37,7 +37,7 @@
                         </li>
                     </select>
                 </div> -->
-                <GenderDropDown @change="changeGender" :genders="genders" v-model="gender" id="gender" label="Gender *" />
+                <GenderDropDown @change="changeGender" :genders="genders" v-model="gender" id="gender" label="Gender *" class="text-black bg-white border border-timberwolf rounded text-sm text-center"/>
 
             </div>
         </div>
@@ -47,7 +47,7 @@
                     <label class="text-black text-sm">Grad Month</label>
                     <div class="flex flex-wrap mt-2">
                         <input type="month" @change="changeGraduationMonth" v-model="graduation_month"
-                class="pl-2 text-black bg-white border border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
+                class="pl-2 text-black bg-white border border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
                 placeholder="Player Graduation Month/Year"
                  />
                         <!-- <button
@@ -77,7 +77,7 @@
                     <label class="text-black text-sm">Grad Year</label>
                     <div class="flex flex-wrap mt-2">
                         <input type="month" @change="changeGraduationYear" v-model="graduation_year"
-                class="pl-2 text-black bg-white border border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
+                class="pl-2 text-black bg-white border border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
                 placeholder="Player Graduation Month/Year"
                  />
 
@@ -110,7 +110,7 @@
         </div>
         <div class="space-y-2">
             <label class="text-black text-sm">Handedness</label>
-            <HandednessDropdown @change="changeHandness" :handedness="handednesses" v-model="handedness" id="handedness"
+            <HandednessDropdown @change="changeHandness" :handedness="handednesses" v-model="handedness" id="handedness"  class="text-black bg-white border border-timberwolf rounded text-sm text-center"
                 label="Handedness *" />
             <!-- <div class="flex flex-wrap mt-2">
 
