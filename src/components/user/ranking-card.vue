@@ -95,26 +95,11 @@ const utrMaxChange = () =>{
 
 const wtnMinChange = () =>{
     searchStore.setWtnMin(wtnMin.value)
-    filter.value =searchStore.searchFilter
-     const display_value=''
-    const exists = filter.value.some(item => item.name == 'WTN');
-    const max=''
-    if (exists) {
-        const data = filter.value.find(item => item.name === 'WTN');
-        const maxValue =data.max??''
-        max =maxValue
-        display_value="WTN | "+wtnMin.value+" "+maxValue
-        // filter.value = filter.value.map(item => item.name === 'WTN' ? {...item, value: tutionInCostMax.value} : item);
-    }else{
-        //filter.value.push({name: 'In-state tuition-max', value: tutionInCostMax.value});
-        // display_value="WTN | "+wtnMin.value
-    }
     data.value = {
         name:'wtnMin',
         value:wtnMin.value,
-        display_name:display_value,
-        min:wtnMin.value,
-        max:max
+        display_name:"WTN Min |"+wtnMin.value
+       
     }
 
     dataFilter(data.value)
@@ -122,28 +107,12 @@ const wtnMinChange = () =>{
 
 const wtnMaxChange = () =>{
     searchStore.setWtnMax(wtnMax.value)
-    filter.value =searchStore.searchFilter
-     const display_value=''
-     const min=''
-    const exists = filter.value.some(item => item.name == 'WTN');
-    if (exists) {
-        const data = filter.value.find(item => item.name === 'WTN');
-        const minValue =data.min??''
-        min=minValue
-        display_value="WTN | "+minValue+" "+wtnMax.value
-        // filter.value = filter.value.map(item => item.name === 'WTN' ? {...item, value: tutionInCostMax.value} : item);
-    }else{
-        //filter.value.push({name: 'In-state tuition-max', value: tutionInCostMax.value});
-        display_value="WTN | "+wtnMax.value
-    }
     data.value = {
-        name:'WTN',
-        value:wtnMax.value,
-        display_name:display_value,
-        min:min,
-        max:wtnMax.value
+        name:'wtnMax',
+        value:wtnMin.value,
+        display_name:"WTN Max |"+wtnMax.value
+       
     }
-
     dataFilter(data.value)
 }
 
