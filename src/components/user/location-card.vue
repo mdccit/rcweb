@@ -1,5 +1,5 @@
 <template>
-    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
+    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-semibold text-black">Location</h2>
             <button @click="clear" class="flex text-ceil text-sm">
@@ -13,10 +13,10 @@
         </div>
         <div class="space-y-2">
             <input type="text" v-model="address" @change="addressChange"
-                class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                class="w-full px-3 py-2 border border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowedt"
                 placeholder="State">
             <input type="text" v-model="city" @change="cityChange"
-                class="w-full px-3 py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift"
+                class="w-full px-3 py-2 border border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
                 placeholder="City">
         </div>
     </div>
