@@ -141,7 +141,7 @@ watch(() => props.visible, (newVal) => {
 const handleFileChange = (event) => {
   const file = event.target.files[0];
   const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-  const maxSize = 30 * 1024 * 1024; // 30MB
+  const maxSize = 2 * 1024 * 1024; // 2MB
 
   // Check if a file is selected
   if (file) {
@@ -154,7 +154,7 @@ const handleFileChange = (event) => {
 
     // Validate the file size
     if (file.size > maxSize) {
-      fileError.value = 'File size must be less than 30MB';
+      fileError.value = 'File size must be less than 2MB';
       event.target.value = ''; // Clear the file input
       return;
     }
@@ -240,6 +240,6 @@ const updatePlayerNames = async (firstName, lastName, otherNames) => {
 // Save names when the user clicks "Save changes"
 const saveName = () => {
     saveProfilePicture();
-    updatePlayerNames(first_name.value, last_name.value, other_names.value); // Call the API to update the player's names
+    // updatePlayerNames(first_name.value, last_name.value, other_names.value); // Call the API to update the player's names
 };
 </script>

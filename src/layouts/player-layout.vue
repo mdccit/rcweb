@@ -124,6 +124,7 @@ const stateProvince = ref('');
 const slug = ref('');
 const utrData = ref({})
 const leftData = ref({})
+const media_info = ref();
 const props = defineProps({
     user: {
         type: Object,
@@ -274,7 +275,8 @@ const fetchUserDetails = async () => {
             budgetMin: budgetMin.value,
             budgetMax: budgetMax.value,
             name: name.value,
-            sportName: sportName.value
+            sportName: sportName.value,
+            media_info: dataSets.media_info,
 
         }
 

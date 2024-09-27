@@ -159,6 +159,7 @@ const createUserService = (apiService) => {
       }
     }
   };
+
   const connection_cancelle = async (connection_id, request_body) => {
     const url = `/user/connections-cancelle/${connection_id}`;
     const body = request_body;
@@ -289,8 +290,32 @@ const createUserService = (apiService) => {
       throw new Error(error.message || 'Failed to update');
     }
   };
-  
-  
+
+
+  const upload_player_profile_picture = async (file, user_slug) => {
+
+    const url = `/public/players/upload-profile-picture/${user_slug}`;
+    // Create a new FormData object
+    const formData = new FormData();
+
+    // Ensure the file is appended correctly
+    if (file) {
+      formData.append('file', file); // The field name must match what the backend expects
+    } else {
+      throw new Error('No file selected'); // Handle if no file is selected
+    }
+    try {
+      const response = await apiService.postMedia(url, formData);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to login');
+      }
+    }
+  };
+
 
   return {
     get_connection,
@@ -311,7 +336,8 @@ const createUserService = (apiService) => {
     connection_cancelle,
     connection_remove,
     upload_player_media,
-    delete_player_media
+    delete_player_media,
+    upload_player_profile_picture
   };
 
 
