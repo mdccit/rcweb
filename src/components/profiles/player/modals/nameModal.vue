@@ -57,6 +57,21 @@
                                         </div>
                                         <InputError :error="errors.other_names ? errors.other_names.join(', ') : ''" />
                                     </div>
+
+                                    <!-- Profile Picture Upload -->
+                                    <div class="w-full mt-3">
+                                        <label class="block mb-1 text-gray-700 font-sans">Profile Picture
+                                            <span aria-hidden="true" class="text-red-600"
+                                                title="This field is optional"></span>
+                                        </label>
+                                        <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
+                                            <input id="profile_picture" type="file" @change="handleFileChange"
+                                            accept="image/jpeg, image/png"
+                                                class="w-full block px-5 py-3 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg">
+                                        </div>
+                                        <span v-if="fileError" class="text-red-500">{{ fileError }}</span> <!-- Show validation error -->
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -64,7 +79,7 @@
 
                     <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                         <button type="button" @click="saveName"
-                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
+                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
                             changes</button>
                         <button type="button" @click="$emit('close', 'name')"
                             class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
@@ -74,6 +89,7 @@
         </div>
     </div>
 </template>
+
 
 <script setup>
 import { ref, onMounted } from 'vue';
@@ -104,7 +120,8 @@ const loading = ref(false);
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const notification_type = ref(0);
-
+const fileError = ref('');
+const profile_picture = ref('');
 
 // On mounted, fetch the current user names using the slug
 onMounted(() => {
@@ -113,10 +130,70 @@ onMounted(() => {
     }
 });
 
+watch(() => props.visible, (newVal) => {
+    if (newVal && props.slug) {
+        fetchPlayerNames(props.slug);
+    }
+});
+
+
+
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+  const maxSize = 30 * 1024 * 1024; // 30MB
+
+  // Check if a file is selected
+  if (file) {
+    // Validate the file type
+    if (!allowedTypes.includes(file.type)) {
+      fileError.value = 'Only jpg, jpeg, and png files are allowed';
+      event.target.value = ''; // Clear the file input
+      return;
+    }
+
+    // Validate the file size
+    if (file.size > maxSize) {
+      fileError.value = 'File size must be less than 30MB';
+      event.target.value = ''; // Clear the file input
+      return;
+    }
+
+    // If all validations pass, set the file to the reactive variable
+    fileError.value = ''; // Clear any previous errors
+    profile_picture.value = file; // Store the selected file
+  }
+};
+
+
+
+// Function to handle the profile picture upload
+const saveProfilePicture = async () => {
+
+    if (!profile_picture.value) {
+        // Handle case where no file is selected
+        console.log('no profile picture found');
+        return;
+    }
+    try {
+        const user_slug = props.slug; // Assuming you have user_slug available in props
+        const response = await $userService.upload_player_profile_picture(profile_picture.value, user_slug); // Call the upload function
+
+        if (response.status == '200') {
+            loading.value = false;
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+        } else {
+            nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
+        }
+    } catch (error) {
+        console.error('Error uploading profile picture', error);
+    }
+};
+
 // Function to fetch the player names based on the slug
 const fetchPlayerNames = async (slug) => {
     try {
-        const dataSets = await $publicService.get_player(slug);
+        const dataSets = await $publicService.get_user_profile(slug);
         if (dataSets.user_basic_info) {
             first_name.value = dataSets.user_basic_info.first_name ?? "";
             last_name.value = dataSets.user_basic_info.last_name ?? "";
@@ -162,6 +239,7 @@ const updatePlayerNames = async (firstName, lastName, otherNames) => {
 
 // Save names when the user clicks "Save changes"
 const saveName = () => {
+    saveProfilePicture();
     updatePlayerNames(first_name.value, last_name.value, other_names.value); // Call the API to update the player's names
 };
 </script>

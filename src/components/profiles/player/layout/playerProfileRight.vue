@@ -1,5 +1,5 @@
 <template>
-    <div class="m-2">
+    <div>
         <div class="flex">
             <!-- <div class=""> -->
                 <!-- <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -66,12 +66,12 @@
 
         </div>
     </div>
-    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-blue-500 p-3 mt-2 text-white">
+    <div class="card rounded-2xl overflow-hidden bg-steelBlue p-3 mt-2 text-white">
         <div class="flex items-center justify-between">
             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                 <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                    <div class="cursor-pointer mr-[20px]">
+                    <div class="cursor-pointer mr-[20px]"  v-if="loggedUserSlug == props.userSlug"  @click="toggleModal('utr')">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-4 bg-white rounded-sm m-2">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -82,88 +82,84 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
-            <div class="">
-                <h2 class="text-lg font-semibold mb-4">UTR score</h2>
+        <div class="grid grid-cols-3 gap-x-2 gap-y-4">
+            <div class="col-span-2">
+                <h2 class="text-lg font-semibold">UTR score</h2>
             </div>
-            <div class="">
-                <h2 class="text-lg font-semibold mb-4">{{ props.data.utr }}</h2>
+            <div>
+                <div class="bg-vividSkyBlue flex items-cenet justify-center rounded-lg py-1">
+                    <h2 class="text-lg font-semibold">{{ props.data.utr }}</h2>
+                </div>
             </div>
-            <div class="">
+            <div class="col-span-2">
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
+                    class="mb-4 text-sm">GPA</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
+                    class="mb-4 text-sm">SAT Score</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
+                    class="mb-4 text-sm">TOEFL Score</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
+                    class="mb-4 text-sm">GPA</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
+                    class="mb-4 text-sm">SAT Score</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">ATP Ranking</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">ITF Ranking</p>
+                    class="mb-4 text-sm">TOEFL Score</p>
+                <p class="mb-4 text-sm">ATP Ranking</p>
+                <p class="mb-4 text-sm">ITF Ranking</p>
                                 <!-- <<p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">WTN</p> -->
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
+                    class="mb-4 text-sm">ACT</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">National Ranking</p>
+                    class="mb-4 text-sm">ACT</p>
+                <p class="mb-4 text-sm">National Ranking</p>
             </div>
             <div class="">
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.gpa }}</p>
+                    class="mb-4 text-sm">{{  props.data.gpa }}</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.sat }}</p>
+                    class="mb-4 text-sm">{{  props.data.sat }}</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.toefl }}</p>
+                    class="mb-4 text-sm">{{  props.data.toefl }}</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.gpa }}</p>
+                    class="mb-4 text-sm">{{  props.data.gpa }}</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.sat }}</p>
+                    class="mb-4 text-sm">{{  props.data.sat }}</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.toefl }}</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.atp }}</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.itf }}</p>
+                    class="mb-4 text-sm">{{  props.data.toefl }}</p>
+                <p class="mb-4 text-sm">{{  props.data.atp }}</p>
+                <p class="mb-4 text-sm">{{  props.data.itf }}</p>
                                 <!-- <<p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ wtn }}</p> -->
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.act }}</p>
+                    class="mb-4 text-sm">{{  props.data.act }}</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.act }}</p>
-                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.nationalRanking }}</p>
+                    class="mb-4 text-sm">{{  props.data.act }}</p>
+                <p class="mb-4 text-sm">{{  props.data.nationalRanking }}</p>
 
             </div>
         </div>
-
-
-
-
     </div>
+
+    <UTRModal :visible="modals.utr" @close="handleModalClose" :slug="slug" />
 </template>
 
 <script setup>
 import { ref ,onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import SocialHubNavbar from '~/components/user/navbar.vue';
-import Filter from '~/components/user/feed/filter.vue';
-import FooterBar from '~/components/user/user-footer.vue';
-import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
 import { useUserStore } from '~/stores/userStore';
+import UTRModal from '~/components/profiles/player/modals/utrModal.vue';
 
 const userStore = useUserStore();
+const loggedUserSlug = ref('');
+
 
 defineNuxtRouteMiddleware(checkSession);
 const nuxtApp = useNuxtApp();
 const loading = ref(false);
 const router = useRouter();
-const route = useRoute();
-const feet = ref(0)
-const pounds = ref(0)
-const showFilterLeft = ref(false);
 
 router.beforeEach((to, from, next) => {
     loading.value = true;
@@ -174,24 +170,9 @@ router.afterEach(() => {
     loading.value = false;
 });
 
-
-const showNotification = ref(false);
-const notificationMessage = ref('');
-const notificationType = ref('');
-const notificationKey = ref(0);
-
-// Sync the state from the notification plugin to the layout
-watchEffect(() => {
-    showNotification.value = nuxtApp.$notification.showNotification.value;
-    notificationMessage.value = nuxtApp.$notification.notificationMessage.value;
-    notificationType.value = nuxtApp.$notification.notification_type.value;
-    notificationKey.value = nuxtApp.$notification.notificationKey.value;
-});
-
-const closeNotification = () => {
-    showNotification.value = false; // Hide the notification
-};
-
+const slug = ref('');
+const userId = ref('')
+const playerID = ref('')
 const userRole = ref(null)
 
 const props = defineProps({
@@ -199,13 +180,78 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    userSlug: {
+        type: String,
+        required: true,
+    },
 });
 
 onMounted(() => {
-    
-    userRole.value = userStore.user?.role || null;
-   
+    slug.value = props.userSlug;
+    userRole.value = userStore.user?.role || null;   
+
+    if (process.client) {
+        loggedUserSlug.value = localStorage.getItem('user_slug')
+    }
+
 });
+
+// Define reactive state for all modals
+const modals = reactive({
+    name: false,
+    bio: false,
+    info: false,
+    budget: false,
+    utr: false,
+    address: false,
+});
+
+// Generic toggle function
+const toggleModal = (modalName) => {
+    if (modals.hasOwnProperty(modalName)) {
+        modals[modalName] = !modals[modalName];
+    } else {
+        console.warn(`Modal "${modalName}" does not exist.`);
+    }
+};
+
+// Generic function to close the modal and fetch user details
+const handleModalClose = (modalName) => {
+    // Defensive check to make sure modalName exists
+    if (modals[modalName] !== undefined) {
+        modals[modalName] = false;  // Close the modal
+        fetchUserDetails();         // Fetch updated user details after closing
+    } else {
+        console.error(`Invalid modal name: ${modalName}`);
+    }
+};
+
+const fetchUserDetails = async (slug) => {
+    try {
+       
+        const dataSets = await $publicService.get_user_profile(route.params.slug);
+  
+        if (dataSets.player_info) {
+            props.data.utr = dataSets.player_info.other_data.utr ?? 0
+            props.data.gpa = dataSets.player_info.gpa ?? "Unknown"
+            if (dataSets.player_info.other_data) {
+                props.data.sat = dataSets.player_info ? dataSets.player_info.other_data.sat_score : "Unknown"
+                props.data.toefl = dataSets.player_info ? dataSets.player_info.other_data.toefl_score : "Unknown"
+                props.data.atp = dataSets.player_info.other_data.atp_ranking ?? "Unknown"
+                props.data.itf = dataSets.player_info.other_data.itf_ranking ?? "Unknown"
+                props.data.act = dataSets.player_info.other_data.act_score ?? "Unknown"
+                props.data.wtn = dataSets.player_info.other_data.wtn_score_manual ?? "Unknown"
+                props.data.nationalRanking = dataSets.player_info.other_data.national_ranking ?? "Unknown"
+            }
+        }
+
+    } catch (error) {
+        console.log(error)
+        console.error('Error fetching data:', error.message);
+    }
+}
+
+
 </script>
 
 <style scoped>

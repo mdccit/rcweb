@@ -6,6 +6,8 @@
   </div>
   <main>
     <NavBarPublic></NavBarPublic>
+
+
     <div class="grid grid-cols-6 gap-4 temp-row grid-rows-[90px_auto] mt-16">
       <div class="row-span-2 col-span-1 ">
         <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  />
@@ -21,6 +23,8 @@
 
       </div>
 
+      <!-- <NuxtPage /> -->
+    
 
       <div class="p-2">
         <playerProfileRight :data="utrData" />
@@ -137,8 +141,8 @@ onMounted(() => {
   slug.value = route.params.slug;
 
   if (slug) {
-    fetchUserDetails(slug);
-    fetchUserDetailsBySlug();
+    // fetchUserDetails(slug);
+    // fetchUserDetailsBySlug();
   }
   userId.value = userStore.user?.user_id || null;
   // console.log(props.user?.user_basic_info?.id)
@@ -147,7 +151,7 @@ onMounted(() => {
 
   if (playerID.value != null) {
     // fetchConnections();
-    fetchPost();
+    // fetchPost();
     //  fetchCheckConnection();
     // fetchMediaGallery();
   }
@@ -161,7 +165,7 @@ const changeTab = (value) => {
 
 const fetchUserDetails = async (slug) => {
   try {
-    const dataSets = await $publicService.get_player(route.params.slug);
+    const dataSets = await $publicService.get_user_profile(route.params.slug);
     playerID.value = dataSets.user_basic_info.id || null;
     if (dataSets.user_basic_info) {
       bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"

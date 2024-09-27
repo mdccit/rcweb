@@ -44,7 +44,7 @@
                     </div>
                     <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                         <button type="button" @click="saveBio"
-                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
+                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
                             changes</button>
                         <button type="button" @click="$emit('close', 'bio')"
                             class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
@@ -57,7 +57,7 @@
 
 <script setup>
 
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useNuxtApp } from '#app';
 import { handleError } from '@/utils/handleError';
 import InputError from '@/components/common/input/InputError.vue';
@@ -85,13 +85,20 @@ onMounted(() => {
     }
 });
 
+watch(() => props.visible, (newVal) => {
+  if (newVal && props.slug) {
+    fetchPlayerBio(props.slug);
+  }
+});
+
 const fetchPlayerBio = async (slug) => {
     try {
-        const dataSets = await $publicService.get_player(slug);
+        console.log(slug);
+        const dataSets = await $publicService.get_user_profile(props.slug);
 
         if (dataSets.user_basic_info) {
             console.log(dataSets.user_basic_info);
-            user_bio.value = dataSets.user_basic_info.bio ?? "";
+            user_bio.value = dataSets.user_basic_info.bio ?? "N/A";
 
         }
     } catch (error) {

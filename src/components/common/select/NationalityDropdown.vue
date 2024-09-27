@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <select v-model="selected" @change="updateValue" placeholder="Nationality"
-      class=" h-10 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+      class=" h-12 w-full border border-gray-300 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
       id="nationality" required>
       <option v-for="nationality in nationalities" :key="nationality.value" :value="nationality.value">
         {{ nationality.label }}

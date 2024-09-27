@@ -222,6 +222,234 @@ const createUserService = (apiService) => {
   };
 
 
+  const update_player_budget = async (request_body) => {
+
+    const url = `/public/players/update-budget/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+
+  const update_player_contact_info = async (request_body) => {
+
+    const url = `/public/players/update-contact-info/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+
+
+  const update_player_core_values = async (request_body) => {
+    const url = `/public/players/update-core-values/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        // The API returned an error response (status code outside the 2xx range)
+        console.error('Error Response:', error.response);
+        console.error('Status:', error.response.status);
+        console.error('Data:', error.response.data); // This will show the error object returned by the API
+        return error.response;
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('No Response:', error.request);
+        throw new Error('No response received from server');
+      } else {
+        // Other error, such as setting up the request
+        console.error('Error:', error.message);
+        throw new Error(error.message || 'Error in request setup');
+      }
+    }
+  };
+
+  const delete_player_media = async (media_id) => {
+
+    const url = `/public/players/remove-media/${media_id}`;
+    const body = {};
+
+    try {
+      const response = await apiService.deleteRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+
+  const upload_player_profile_picture = async (file, user_slug) => {
+
+    const url = `/public/players/upload-profile-picture/${user_slug}`;
+    // Create a new FormData object
+    const formData = new FormData();
+
+    // Ensure the file is appended correctly
+    if (file) {
+      formData.append('file', file); // The field name must match what the backend expects
+    } else {
+      throw new Error('No file selected'); // Handle if no file is selected
+    }
+    try {
+      const response = await apiService.postMedia(url, formData);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to login');
+      }
+    }
+  };
+
+  const update_coach_bio = async (request_body) => {
+
+    const url = `/public/coaches/update-bio/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+
+  
+  const update_coach_contact_info = async (request_body) => {
+
+    const url = `/public/coaches/update-contact-info/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+  const update_coach_other_info = async (request_body) => {
+
+    const url = `/public/coaches/update-other-info/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+  const update_coach_name = async (request_body) => {
+
+    const url = `/public/coaches/update-basic-info/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to login');
+      }
+    }
+  };
+
+
+  const upload_coach_profile_picture = async (file, user_slug) => {
+
+    const url = `/public/coaches/upload-profile-picture/${user_slug}`;
+    // Create a new FormData object
+    const formData = new FormData();
+
+    // Ensure the file is appended correctly
+    if (file) {
+      formData.append('file', file); // The field name must match what the backend expects
+    } else {
+      throw new Error('No file selected'); // Handle if no file is selected
+    }
+    try {
+      const response = await apiService.postMedia(url, formData);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to login');
+      }
+    }
+  };
+
+
+  const upload_coach_media = async (formData) => {
+    // Extract user_slug from the formData to build the URL
+    const userSlug = formData.get('user_slug');
+
+    // Ensure userSlug is present
+    if (!userSlug) {
+      throw new Error('User slug is missing from formData.');
+    }
+
+    const url = `/public/coaches/upload-media/${userSlug}`;
+
+    try {
+      // Send the FormData directly as the body
+      const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
+
+      return response;
+    } catch (error) {
+      // Handle error response from the API
+      if (error.response) {
+        throw error.response; // Pass the full response for further handling
+      } else {
+        throw new Error(error.message || 'Failed to upload media');
+      }
+    }
+  };
+
+  const upload_coach_cover_photo = async (file, user_slug) => {
+
+    const url = `/public/coaches/upload-cover-picture/${user_slug}`;
+    // Create a new FormData object
+    const formData = new FormData();
+
+    // Ensure the file is appended correctly
+    if (file) {
+      formData.append('file', file); // The field name must match what the backend expects
+    } else {
+      throw new Error('No file selected'); // Handle if no file is selected
+    }
+    try {
+      const response = await apiService.postMedia(url, formData);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to login');
+      }
+    }
+  };
+
+
 
   return {
     get_connection,
@@ -243,10 +471,23 @@ const createUserService = (apiService) => {
     update_player_bio,
     update_player_name,
     update_player_info,
+    update_player_budget,
+    update_player_contact_info,
+    update_player_core_values,
     connection_reject,
     connection_cancelle,
     connection_remove,
-    upload_player_media
+    upload_player_media,
+    delete_player_media,
+    upload_player_profile_picture,
+    update_coach_bio,
+    update_coach_contact_info,
+    update_coach_other_info,
+    update_coach_name,
+    upload_coach_profile_picture,
+    upload_coach_media,
+    upload_coach_cover_photo
+
   };
 
 
