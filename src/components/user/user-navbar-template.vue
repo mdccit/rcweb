@@ -130,8 +130,7 @@
                             <input @change="searchkey" v-model="key" type="text" id="search-navbar"
                                 class="block w-96 p-2 ps-10 text-sm rounded-full border bg-ceil"
                                 style="background-color:#F4F6F9; color:#8CA4CE; border-color: aliceblue;" placeholder="Search...">
-                            
-                        </div>
+                                
                         <button  type="button" class=" absolute inset-y-2.5 end-5 flex ps-3 pointer-events-none cursor-pointer">
                                 <span class="mr-2"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="steelBlue" class="size-4">
@@ -144,6 +143,8 @@
                                             stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                     </svg></span>
                             </button>
+                            
+                        </div>
                             
                         <ul
                             class="font-medium hidden p-4 md:p-0 mt-4 border sm:hidden  md:hidden lg:flex md:space-x-8  md:mt-0 md:border-0 border-poloBlue">

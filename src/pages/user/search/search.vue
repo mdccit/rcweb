@@ -40,14 +40,14 @@
                     <div class="flex items-center border-lightSteelBlue bg-white rounded-full overflow-hidden px-3 py-4 divide-x h-10">
                         <button @click="getSaveData" class="bg-blue-500 p-2 text-white rounded-full mr-2 text-xs" >Saved
                             Search</button>
-                        <button @click="showPopup = true"class="text-blue-500 p-2 text-xs" >New +</button>
+                        <button @click="showPopup = true" class="text-blue-500 p-2 text-xs" >New +</button>
                     </div>
                 </div>
             </div>
-            <div class="flex">
+            <div class="grid gap-4 grid-cols-6">
 
                 <!-- card 01 -->
-                 <div v-for="user in search" class="flex-1 p-2"> 
+                 <div v-for="user in search" class="col-span-3 p-2"> 
                     
                     <button  class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
                         <NuxtLink :to="`/app/profile/${user.slug}`">
@@ -59,7 +59,7 @@
                             <div class="col-span-8">
                                 <div class="flex justify-between items-center">
                                     <div class="flex-1">
-                                        <h4 class="text-black font-bold">{{ user.display_name }}</h4>
+                                        <h4 class="text-black text-left font-bold">{{ user.display_name }}</h4>
                                     </div>
                                     <div class="flex-3">
 
@@ -107,7 +107,7 @@
                                                 d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                                         </svg>
 
-                                        <span class="text-xs ml-2"> {{ user.city }}, {{  user.country }}</span>
+                                        <span class="text-xs ml-2 text-black"> {{ user.city }}, {{  user.country }}</span>
                                     </p>
                                     <!-- <p class="ml-4 flex text-black">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -132,7 +132,7 @@
                         </div>
                         </NuxtLink>
                         <div>
-                            <p class="mt-2 text-xs text-gray-500">
+                            <p class="mt-2 text-xs text-black">
                                {{  user.bio }}
                             </p>
                         </div>
