@@ -78,7 +78,7 @@
                                             <div class="text-xs ml-2 text-steelBlue">Tennis {{ user.user_role }}</div>
                                         </div>
                                     </div>
-                                    <div class="flex-1">
+                                    <!-- <div class="flex-1">
                                         <div class="flex items-center space-x-2 mb-2">
                                             <div class="bg-lightCreamOrange p-1 rounded">
                                                 <img src="@/assets/user/images/manage-parent.png" alt=""
@@ -86,7 +86,7 @@
                                             </div>
                                             <div class="text-xs ml-2 text-vividOrange">Manage by parent</div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div v-if="user.user_role=='Player'" class="flex items-center mt-2 text-sm text-black bg-muteGray rounded-md p-2">
                                     <div class="mr-4">
@@ -138,7 +138,7 @@
                         </div>
                         <div class="flex mt-2">
                             <div class="flex-1">
-                                <!-- <div class="flex items-center space-x-2 mb-2">
+                                <div v-if="user.has_parent" class="flex items-center space-x-2 mb-2">
                                     <div class="bg-blue-100 p-1 rounded">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-4 text-blue-700">
@@ -150,7 +150,7 @@
                                     <div class="text-xs ml-2 text-gray-500"><span
                                             class="text-blue-700">Ralph,Cameron</span> 3 more mutual connections
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
 
                             <div class="flex-1 text-right">
