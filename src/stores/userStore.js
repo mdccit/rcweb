@@ -124,6 +124,7 @@ export const useUserStore = defineStore('user', {
         localStorage.removeItem('user_id');
         localStorage.removeItem('email');
         localStorage.removeItem('user_name');
+        localStorage.removeItem('user_slug');
       }
     },
 

@@ -155,12 +155,6 @@ onMounted(() => {
     }
 });
 
-const changeTab = (value) => {
-  console.log(value)
-
-  tab.value = value
-}
-
 const fetchUserDetails = async () => {
     try {
         const dataSets = await $publicService.get_player(route.params.slug);

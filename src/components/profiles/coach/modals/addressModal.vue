@@ -4,6 +4,7 @@
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <form @submit.prevent="updatePlayerAddress">
                 <div
                     class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                     <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
@@ -132,13 +133,14 @@
                         </div>
                     </div>
                     <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button type="button" @click="saveAddress"
+                        <button type="submit"
                             class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
                             changes</button>
                         <button type="button" @click="$emit('close', 'address')"
                             class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -187,7 +189,7 @@ onMounted(async () => {
     const results = await Promise.allSettled([loadCountryCodes(), loadCountries()]);
     if (props.slug) {
         // Use Promise.all to wait for all async operations to complete
-        await fetchPlayerContact();
+        await fetchCoachContact();
 
     } else {
         console.log('no slug');
@@ -196,7 +198,7 @@ onMounted(async () => {
 
 watch(() => props.visible, (newVal) => {
     if (newVal && props.slug) {
-        fetchPlayerContact();
+        fetchCoachContact();
     }
 });
 
@@ -214,7 +216,7 @@ watch(country_codes, (newVal) => {
 });
 
 
-const fetchPlayerContact = async () => {
+const fetchCoachContact = async () => {
     try {
         const dataSets = await $publicService.get_user_profile(props.slug);
         if (dataSets.user_address_info) {
@@ -254,7 +256,7 @@ const updatePlayerAddress = async () => {
             phone_code_country: phone_code_country.value,
             email: email.value
         };
-        const response = await $userService.update_player_contact_info(request_body);  // Pass slug and request body
+        const response = await $userService.update_coach_contact_info(request_body);  // Pass slug and request body
         if (response.status == '200') {
             // Trigger success notification
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');

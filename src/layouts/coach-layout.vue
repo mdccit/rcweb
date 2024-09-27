@@ -11,10 +11,10 @@
                 <CoachCover :data="coachData"  @changeTab="setSelectedTab" :coachId="coachId" :userSlug="route.params.slug"/>
             </div>
             <div class="col-start-1 col-end-2 row-start-2 row-end-3">
-                <CoachLeft :data="coachData" />
+                <CoachLeft :data="coachData"  :userSlug="route.params.slug"  />
             </div>
             <div class="col-start-6 col-end-7 row-start-2 row-end-3"> 
-                <CoachRight :data="coachData" />
+                <CoachRight :data="coachData"   :userSlug="route.params.slug"  />
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3">
                 <UserFeed v-if="tab === 'feed'" :posts="posts" />
@@ -73,6 +73,7 @@ const joinAt = ref('')
 const tab = ref('feed');
 const coachId = ref('')
 const router = useRouter();
+const loadedSlug = ref('');
 
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
@@ -89,8 +90,6 @@ onMounted(() => {
   
 });
 
-
-
 const fetchUserDetailsBySlug = async () => {
   try {
     const dataSets = await $publicService.get_user_profile(route.params.slug);
@@ -98,7 +97,9 @@ const fetchUserDetailsBySlug = async () => {
         bio.value = dataSets?.user_basic_info?.bio || 'User has not entered bio';
         name.value = dataSets?.user_basic_info?.display_name || 'Anonymous';
         role.value = dataSets?.user_basic_info?.user_role || '';  
-        coachId.value =dataSets?.user_basic_info?.id || ''; 
+        coachId.value = dataSets?.user_basic_info?.id || ''; 
+        loadedSlug.value = dataSets?.user_basic_info?.slug || ''; 
+
         console.log("coacheId  "+coachId.value)
         const date = new Date(dataSets.user_basic_info.joined_at);
         const monthNames = [
@@ -134,7 +135,8 @@ const fetchUserDetailsBySlug = async () => {
         role:role.value,
         colleage:colleage.value,
         sport:sportName.value,
-        joinAt:joinAt.value
+        joinAt:joinAt.value,
+        slug: loadedSlug
     }
     
     if (dataSets.media_info) {

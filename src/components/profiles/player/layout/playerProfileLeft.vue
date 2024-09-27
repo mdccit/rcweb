@@ -270,7 +270,6 @@ import NameModal from '~/components/profiles/player/modals/nameModal.vue';
 import BioModal from '~/components/profiles/player/modals/bioModal.vue';
 import InfoModal from '~/components/profiles/player/modals/infoModal.vue';
 import BudgetModal from '~/components/profiles/player/modals/budgetModal.vue';
-import UTRModal from '~/components/profiles/player/modals/utrModal.vue';
 import AddressModal from '~/components/profiles/player/modals/addressModal.vue';
 // Import the default profile picture
 import defaultProfilePicture from '@/assets/images/avtar.png';
@@ -314,10 +313,6 @@ watchEffect(() => {
     notificationKey.value = nuxtApp.$notification.notificationKey.value;
 });
 
-const closeNotification = () => {
-    showNotification.value = false; // Hide the notification
-};
-
 const userRole = ref(null)
 
 const props = defineProps({
@@ -326,6 +321,10 @@ const props = defineProps({
         required: true,
     },
     userSlug: {
+        type: String,
+        required: true,
+    },
+    loadedSlug: {
         type: String,
         required: true,
     },
@@ -355,8 +354,8 @@ const wtn = ref('')
 const act = ref('')
 const nationalRanking = ref('')
 const handness = ref('')
-const preferredSurface = ref('')
-
+const preferredSurface = ref('');
+const loadedSlug = ref('')
 const isEdit = ref('');
 
 

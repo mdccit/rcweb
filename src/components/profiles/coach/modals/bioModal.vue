@@ -16,11 +16,7 @@
                                 <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
                                     Bio</h3>
                                 <div class="mt-2">
-                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want to
-                                        deactivate
-                                        your account? All of your data will be permanently removed.
-                                    </p>
-
+                                 
                                     <div>
                                         <div class="">
                                             <div class="">
@@ -110,7 +106,7 @@ const fetchPlayerBio = async (slug) => {
 const updatePlayerBio = async (bio) => {
     try {
         const request_body = { user_slug: props.slug, bio: bio };  // Construct request body with bio
-        const response = await $userService.update_player_bio(request_body);  // Pass slug and request body
+        const response = await $userService.update_coach_bio(request_body);  // Pass slug and request body
         if (response.status == '200') {
             clearUserBio();
             // Trigger success notification
