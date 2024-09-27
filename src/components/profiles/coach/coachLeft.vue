@@ -89,8 +89,9 @@
                     <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/bday.png" alt="">
                 </div>
                 <div class="col-span-8">
-                    <p class="text-sm text-black leading-relaxed mb-4 "> 23
-                        <span>Years Old</span>
+                    <p class="text-sm text-black leading-relaxed mb-4 "> {{  props.birth_day }}
+                        <span v-if="props.data.birthday != 'User has not entered birthday'">Years Old</span>
+
                     </p>
                 </div>
             </div>

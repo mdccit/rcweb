@@ -70,6 +70,7 @@ const tab = ref('feed');
 const coachId = ref('')
 const router = useRouter();
 const loadedSlug = ref('');
+const birthDay = ref('');
 
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
@@ -89,6 +90,7 @@ onMounted(() => {
 const fetchUserDetailsBySlug = async () => {
   try {
     const dataSets = await $publicService.get_user_profile(route.params.slug);
+    console.log(dataSets)
     if (dataSets.user_basic_info) {
         bio.value = dataSets?.user_basic_info?.bio || 'User has not entered bio';
         name.value = dataSets?.user_basic_info?.display_name || 'Anonymous';
@@ -106,6 +108,17 @@ const fetchUserDetailsBySlug = async () => {
         const month = monthNames[date.getMonth()];
         const day = date.getDate();
         joinAt.value = `${year} ${month} ${day}`
+        const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDifference = today.getMonth() - birthDate.getMonth();
+        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+           age--;
+        }
+        birthDay.value = age ?? 'User has not entered birthday'
+        console.log("birthday")
+
+    console.log(birthDay.value)
         fetchPost();
 
     }
@@ -122,6 +135,7 @@ const fetchUserDetailsBySlug = async () => {
     if(dataSets.user_phone_info){
         country.value = dataSets?.user_phone_info?.country || '';
     }
+    
 
     coachData.value ={
         bio: bio.value,
@@ -133,7 +147,8 @@ const fetchUserDetailsBySlug = async () => {
         sport:sportName.value,
         joinAt:joinAt.value,
         slug: loadedSlug,
-        media_info: dataSets.media_info
+        media_info: dataSets.media_info,
+        birth_day :birthDay.value
     }
     
     if (dataSets.media_info) {
