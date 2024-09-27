@@ -6,7 +6,7 @@
             <div class="text-center">
                 <div class="relative">
                     <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profilePictureUrl" alt="">
-                    <div v-if="userId == playerID" @click="toggleModal('name')"
+                    <div v-if="loggedUserSlug == props.userSlug" @click="toggleModal('name')"
                         class="absolute bottom-4 right-8 w-8 h-8 bg-white rounded-full flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer text-steelBlue">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5">
@@ -20,7 +20,7 @@
                 </div>
                 <h3 class="text-xl font-medium text-center text-black mt-2">{{ props.data.name }}
                 </h3>
-                <h5 class="text-sm text-center text-black">{{ props.data.sportName }} player</h5>
+                <h5 class="text-sm text-center text-black">{{ props.data.sportName }} player </h5>
             </div>
         </div>
 
@@ -30,7 +30,7 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
-                    <h1 class="text-lg font-semibold mb-4 text-black col-span-2" @click="toggleModal('bio')">
+                    <h1 class="text-lg font-semibold mb-4 text-black col-span-2" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('bio')">
                         <div class="cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4">
@@ -54,7 +54,7 @@
                 <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                        <div class="cursor-pointer" v-if="userId.value == playerID.value" @click="toggleModal('info')">
+                        <div class="cursor-pointer" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('info')">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -78,7 +78,7 @@
                     <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>gmail</b> </p>
                 </div>
             </div> -->
-            <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
+            <div v-if="loggedUserSlug == props.userSlug" class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                         stroke="currentColor" class="size-5">
@@ -187,7 +187,7 @@
                         {{ props.data.budgetMax }}
                     </p>
                 </div>
-                <div class="col-span-1" v-if="userId.value == playerID.value" @click="toggleModal('budget')">
+                <div class="col-span-1" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('budget')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -213,7 +213,7 @@
                     </p>
 
                 </div>
-                <div class="col-span-1" v-if="userId.value == playerID.value" @click="toggleModal('address')">
+                <div class="col-span-1"  v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -281,6 +281,8 @@ const nuxtApp = useNuxtApp();
 const $publicService = nuxtApp.$publicService;
 const $userService = nuxtApp.$userService;
 
+// const loggedUserSlug = userStore.getSlug();
+const loggedUserSlug = ref('');
 const loading = ref(false);
 const router = useRouter();
 const route = useRoute();
@@ -496,6 +498,10 @@ watch(
 onMounted(() => {
     userRole.value = userStore.user?.role || null;
     slug.value = props.userSlug;
+
+    if (process.client) {
+        loggedUserSlug.value = localStorage.getItem('user_slug')
+    }
 
      // Set profile picture when props.data becomes available
   if (props.data && props.data.media_info) {

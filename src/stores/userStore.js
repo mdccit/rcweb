@@ -51,8 +51,17 @@ export const useUserStore = defineStore('user', {
     },
     setUserSlug(slug) {
       this.user_slug = slug;
+      if (process.client) {
+        localStorage.setItem('user_slug', slug);
+      }
     },
-    setUserId(name) {
+    setUserId(id) {
+      this.user_id = id;
+      if (process.client) {
+        localStorage.setItem('user_id', id);
+      }
+    },
+    setUserName(name) {
       this.user_name = name;
       if (process.client) {
         localStorage.setItem('user_name', name);
@@ -69,13 +78,15 @@ export const useUserStore = defineStore('user', {
       this.permissions = user.permissions || []; // Set user permissions
       this.user_id = user.user_id || ''; 
       this.user_name = user.user_name || ''; 
+      this.user_slug = user.user_slug || '';
 
       // Set the token and role
       this.setToken(user.token);
       this.setRole(user.role);
       this.setEmail(user.email);
       this.setUserId(user.id);
-      this.setUserId(user.user_name);
+      this.setUserName(user.user_name);
+      this.setUserSlug(user.user_slug);
       if (process.client) {
         // Remove session cookie by setting it to an expired date
         document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -85,11 +96,6 @@ export const useUserStore = defineStore('user', {
       }
     },
     setPlayerId(id) {
-      this.user_id = id;
-      if (process.client) {
-        localStorage.setItem('user_id', id);
-      }
-    }, setUserId(id) {
       this.user_id = id;
       if (process.client) {
         localStorage.setItem('user_id', id);
@@ -125,6 +131,8 @@ export const useUserStore = defineStore('user', {
         localStorage.removeItem('email');
         localStorage.removeItem('user_name');
         localStorage.removeItem('user_slug');
+        localStorage.removeItem('authType');
+        localStorage.removeItem('password_reset_id');
       }
     },
 
@@ -147,6 +155,13 @@ export const useUserStore = defineStore('user', {
     getEmail() {
       if (this.user) {
         return this.email;
+       
+      }
+      return null;
+    },
+    getSlug() {
+      if (this.user_slug) {
+        return this.user_slug;
        
       }
       return null;
