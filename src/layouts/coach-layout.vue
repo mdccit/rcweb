@@ -148,6 +148,7 @@ const fetchUserDetailsBySlug = async () => {
         joinAt:joinAt.value,
         slug: loadedSlug,
         media_info: dataSets.media_info,
+        school_slug: dataSets.profile_info.school_slug,
         birth_day :birthDay.value
     }
     
