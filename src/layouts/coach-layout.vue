@@ -6,7 +6,7 @@
     </div>
     <main>
         <NavBarPublic></NavBarPublic>
-        <div class="grid grid-cols-6 grid-rows-2 gap-0 mt-16">
+        <div class="grid grid-cols-6 grid-rows-1 gap-0 mt-16">
             <div class="col-span-6 row-start-1 row-end-2s">
                 <CoachCover :data="coachData"  @changeTab="setSelectedTab" :coachId="coachId" :userSlug="route.params.slug"/>
             </div>
@@ -37,7 +37,7 @@ import CoachLeft from '~/components/profiles/coach/coachLeft.vue';
 import CoachRight from '~/components/profiles/coach/coachRight.vue';
 import CoachFeed from '~/components/profiles/coach/coachFeed.vue';
 import { useUserStore } from '~/stores/userStore';
-import mediaTab from '~/components/profiles/player/tabs/mediaTab.vue';
+import mediaTab from '~/components/profiles/coach/tabs/mediaTab.vue';
 import Connection from '~/components/user/profile/connection.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
 import { useRoute } from 'vue-router'

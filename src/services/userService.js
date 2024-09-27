@@ -400,6 +400,57 @@ const createUserService = (apiService) => {
   };
 
 
+  const upload_coach_media = async (formData) => {
+    // Extract user_slug from the formData to build the URL
+    const userSlug = formData.get('user_slug');
+
+    // Ensure userSlug is present
+    if (!userSlug) {
+      throw new Error('User slug is missing from formData.');
+    }
+
+    const url = `/public/coaches/upload-media/${userSlug}`;
+
+    try {
+      // Send the FormData directly as the body
+      const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
+
+      return response;
+    } catch (error) {
+      // Handle error response from the API
+      if (error.response) {
+        throw error.response; // Pass the full response for further handling
+      } else {
+        throw new Error(error.message || 'Failed to upload media');
+      }
+    }
+  };
+
+  const upload_coach_cover_photo = async (file, user_slug) => {
+
+    const url = `/public/coaches/upload-cover-picture/${user_slug}`;
+    // Create a new FormData object
+    const formData = new FormData();
+
+    // Ensure the file is appended correctly
+    if (file) {
+      formData.append('file', file); // The field name must match what the backend expects
+    } else {
+      throw new Error('No file selected'); // Handle if no file is selected
+    }
+    try {
+      const response = await apiService.postMedia(url, formData);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to login');
+      }
+    }
+  };
+
+
 
   return {
     get_connection,
@@ -427,6 +478,8 @@ const createUserService = (apiService) => {
     update_coach_other_info,
     update_coach_name,
     upload_coach_profile_picture,
+    upload_coach_media,
+    upload_coach_cover_photo
 
   };
 

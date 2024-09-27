@@ -80,7 +80,7 @@
 
                     <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                         <button type="button" @click="saveName"
-                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
+                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
                             changes</button>
                         <button type="button" @click="$emit('close', 'name')"
                             class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
@@ -205,15 +205,15 @@ const fetchCoachNames = async (slug) => {
     }
 };
 
-// Function to update player names
+// // Function to update player names
 const updatePlayerNames = async (firstName, lastName, otherNames) => {
-
     error.value = '';
     errors.value = {};
     loading.value = true;
     notification_type.value = '';
     notificationMessage.value = '';
     showNotification.value = false;
+
     try {
         const request_body = {
             user_slug: props.slug,
@@ -221,26 +221,36 @@ const updatePlayerNames = async (firstName, lastName, otherNames) => {
             last_name: lastName,
             other_names: otherNames,
         }; // Construct request body with all names
+
         const response = await $userService.update_coach_name(request_body); // Call the API to update the names
 
         if (response.status == '200') {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
-            emit('close', 'name'); // Emit close event after successfully updating the names
+            return true; // Return success status
         } else {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
+            return false; // Return failure status
         }
     } catch (error) {
         loading.value = false;
-        //   nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
+        return false; // Return failure status
     }
 };
 
+
 // Save names when the user clicks "Save changes"
-const saveName = () => {
-    saveProfilePicture();
-    updatePlayerNames(first_name.value, last_name.value, other_names.value); // Call the API to update the player's names
+const saveName = async () => {
+    // First, call updatePlayerNames and store the result
+    await updatePlayerNames(first_name.value, last_name.value, other_names.value);
+
+  await saveProfilePicture(); // Save profile picture if available
+
+    // Emit close event regardless of whether profile picture save was successful
+    emit('close', 'name');
+
 };
+
 </script>
