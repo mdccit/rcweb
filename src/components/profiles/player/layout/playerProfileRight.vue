@@ -71,7 +71,7 @@
             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                 <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                    <div class="cursor-pointer mr-[20px]" v-if="userId == playerID"  @click="toggleModal('utr')">
+                    <div class="cursor-pointer mr-[20px]"  v-if="loggedUserSlug == props.userSlug"  @click="toggleModal('utr')">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-4 bg-white rounded-sm m-2">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -153,6 +153,8 @@ import { useUserStore } from '~/stores/userStore';
 import UTRModal from '~/components/profiles/player/modals/utrModal.vue';
 
 const userStore = useUserStore();
+const loggedUserSlug = ref('');
+
 
 defineNuxtRouteMiddleware(checkSession);
 const nuxtApp = useNuxtApp();
@@ -187,6 +189,11 @@ const props = defineProps({
 onMounted(() => {
     slug.value = props.userSlug;
     userRole.value = userStore.user?.role || null;   
+
+    if (process.client) {
+        loggedUserSlug.value = localStorage.getItem('user_slug')
+    }
+
 });
 
 // Define reactive state for all modals

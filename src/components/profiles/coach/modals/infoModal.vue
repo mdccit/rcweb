@@ -153,7 +153,6 @@ const fetchPlayerInfo = async () => {
         }
     } catch (error) {
         console.error('Error fetching coach info:', error);  // Debug: log the error
-        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     }
 };
 

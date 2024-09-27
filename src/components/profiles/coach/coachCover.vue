@@ -18,11 +18,11 @@
                     <div class="col-span-1">
                         <div class="text-center flex relative">
                             <div class="relative ml-5">
-                                <img class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
-                                :src="profilePictureUrl" alt="">
+                                <img class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]" :src="profilePictureUrl"
+                                    alt="">
 
                                 <!-- SVG Wrapper positioned at the bottom right of the image -->
-                                <div @click="toggleModal('name')"
+                                <div v-if="loggedUserSlug == props.userSlug" @click="toggleModal('name')"
                                     class="absolute bottom-0 right-0 mb-[10px] mr-[10px] cursor-pointer bg-white p-1 rounded-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -98,7 +98,7 @@
                                         class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                         {{ connectionButtonName }}
                                     </button>
-                                    <div v-if="connectionButtonName =='Accept connection'" class="text-white">
+                                    <div v-if="connectionButtonName == 'Accept connection'" class="text-white">
                                         <button @click="connectReject"
                                             class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                             Reject
@@ -124,7 +124,7 @@
         </span>
     </section>
 
-    
+
     <!-- Modal Components with Standardized Props -->
     <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
 </template>
@@ -145,6 +145,7 @@ const userId = ref(null)
 const $userService = nuxtApp.$userService;
 const $publicService = nuxtApp.$publicService;
 const slug = ref('');
+const loggedUserSlug = ref('');
 
 const props = defineProps({
 
@@ -171,6 +172,7 @@ const profile_picture = ref(null);
 import defaultProfilePicture from '@/assets/images/avtar.png';
 
 const tab = ref('feed');
+
 
 const handleTab = (selectedTab) => {
     tab.value = selectedTab;
@@ -272,9 +274,9 @@ const fetchUserDetails = async () => {
             props.data.name = dataSets.user_basic_info.display_name ?? "User has not entered name";
 
         }
-   
+
         if (dataSets.media_info.profile_picture != null) {
-           profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+            profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
         }
 
 
@@ -335,6 +337,9 @@ onMounted(() => {
     fetchCheckConnection()
     userId.value = userStore.user?.user_id || null;
     slug.value = props.userSlug;
+    if (process.client) {
+        loggedUserSlug.value = localStorage.getItem('user_slug')
+    }
 
     // Set profile picture when props.data becomes available
     if (props.data && props.data.media_info) {
