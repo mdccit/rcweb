@@ -136,6 +136,12 @@ const connectionStatus = ref(false)
 const connectionType = ref(null)
 const connectionButtonName = ref('Connect')
 const buttonHide = ref(true);
+import { useUserStore } from '~/stores/userStore';
+
+
+const userStore = useUserStore();
+
+const userId = ref(null)
 
 const props = defineProps({
     
@@ -170,15 +176,18 @@ const handleTab = (selectedTab) => {
 
 onMounted(()=>{
     fetchCheckConnection()
+    userId.value = userStore.user?.user_id || null;
+
 })
 
 const fetchCheckConnection = async () => {
     try {
      
-       connectionButtonName.value = "Connect"
+       connectionButtonName.value = "Connect";
+       console.log(props.userSlug)
         if (props.userSlug != null) {
             const dataSets = await $userService.get_check_connection_type(props.userSlug);
-           console.log(dataSets.value)
+           console.log(dataSets)
             connectionStatus.value = dataSets.connection
             if (connectionStatus.value == true) {
                 connectionType.value = dataSets.type

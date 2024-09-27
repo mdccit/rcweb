@@ -2,7 +2,7 @@
     <!-- <div class="flex"> -->
         <div class="">
         <div v-for="connection in connections" class="flex-1 p-2">
-            <NuxtLink :to="`/app/profile/${connection.slug}`">
+            <button @click="redirect(`/app/profile/${connection.slug}`)" >
             <div class="bg-white p-4 border rounded-2xl">
                 <div class=" grid grid-cols-12 gap-4">
                     <div class="col-span-3">
@@ -91,7 +91,7 @@
 
                     </div>
             </div>
-           </NuxtLink>
+            </button>
            
         </div>
         <div v-if="connections.length == 0">
@@ -105,8 +105,10 @@
 </template>
 
 <script setup>
-import { defineProps, ref, onMounted} from 'vue';
+import { defineProps, ref, onMounted ,defineEmits} from 'vue';
 import { useNuxtApp } from '#app';
+
+const emit = defineEmits(['profileView']);
 
 const nuxtApp = useNuxtApp();
 const $userService = nuxtApp.$userService;
@@ -190,6 +192,11 @@ const connectCancelle = async (id) => {
     } catch (error) {
         console.error('Failed to load posts:', error.message);
     }
+}
+
+const redirect = (url) =>{
+    emit('profileView',url)
+
 }
 
 </script>
