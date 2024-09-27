@@ -68,6 +68,7 @@
                                         </svg>
                                     </button>
                                 </div>
+                                <div v-if="sameUser ==false">
                                 <div v-if="buttonHide == true" class="">
                                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -91,6 +92,7 @@
                                             Reject
                                         </button>
                                     </div>
+                                </div>
                                 </div>
                                 <div class="">
                                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -158,6 +160,8 @@ const connectionType = ref(null)
 const connectionButtonName = ref('Connect')
 const buttonHide = ref(true);
 const profile_picture = ref(null);
+const userSlug = ref('')
+const sameUser = ref(false)
 const cover_picture = ref(null);
 // Import the default profile picture
 import defaultCoverPicture from '@/assets/images/covrss.jpg';
@@ -183,6 +187,7 @@ const fetchCheckConnection = async () => {
     try {
 
         connectionButtonName.value = "Connect";
+
         if (props.userSlug != null) {
             const dataSets = await $userService.get_check_connection_type(props.userSlug);
             connectionStatus.value = dataSets.connection
@@ -216,27 +221,20 @@ const fetchCheckConnection = async () => {
 }
 
 const connectAcceptOrConnect = async () => {
-    console.log(11)
     try {
         if (connectionButtonName.value == "Accept connection") {
-            console.log(12)
 
             await $userService.connection_accept(connectionType.value.id, {
                 connection_status: "accepted"
             });
         }
-        console.log(13)
 
         if (connectionButtonName.value == "Connect") {
-            console.log(14)
-            console.log(props.coachId)
             if (props.coachId != null) {
-                console.log(15)
 
                 const response = await $userService.connection_request({
                     receiver_id: props.coachId
                 });
-                console.log(response)
 
 
                 nuxtApp.$notification.triggerNotification(response.display_message, 'success');
@@ -348,9 +346,15 @@ watch(
 );
 
 onMounted(() => {
-    fetchCheckConnection()
+    
     userId.value = userStore.user?.user_id || null;
     slug.value = props.userSlug;
+    userSlug.value =userStore.userSlug??null
+    if(userSlug.value != slug.value){
+        fetchCheckConnection()
+    }else{
+        sameUser.value = true
+    }
     if (process.client) {
         loggedUserSlug.value = localStorage.getItem('user_slug')
     }
