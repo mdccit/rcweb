@@ -315,17 +315,31 @@
 </template>
 
 <script setup>
-import {ref, defineProps, defineEmits, defineExpose} from 'vue';
+import {ref, defineProps, defineEmits, defineExpose, onMounted,watch} from 'vue';
 import { useSearchStore } from '~/stores/searchStore';
 
 const searchStore = useSearchStore();
 const key = ref('')
 const emit = defineEmits(['search']);
 
+onMounted (()=>{
+    key.value =searchStore.searchKey
+})
+
+watch(
+  () => searchStore.searchKey,
+  () => {
+    setKey() 
+  }
+)
 
   const searchkey= () =>{
     searchStore.setSearchKey(key.value)
     searchStore.setSearchButton(true)
 
+  }
+
+  const setKey = () =>{
+    key.value =searchStore.searchKey
   }
 </script>

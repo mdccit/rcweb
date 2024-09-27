@@ -377,5 +377,11 @@ const searchkey= () =>{
     searchStore.setSearchKey(key.value)
     searchStore.setSearchButton(true)
     router.push('/user/search/search');
+    router.push({
+    path: '/user/search/search',
+    query: {
+      searchKey: key.value
+    }
+  });
   }
 </script>

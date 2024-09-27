@@ -523,7 +523,7 @@ import { useNuxtApp } from '#app';
 import { useUserStore } from '~/stores/userStore';
 import { useSearchStore } from '~/stores/searchStore';
 
-import { useRouter } from 'vue-router';
+import { useRouter,useRoute } from 'vue-router';
 import SaveSearch from '~/components/user/search/saveSearch.vue';
 import ViewSaveSearch from '~/components/user/search/viewSaveSearch.vue';
 const nuxtApp = useNuxtApp();
@@ -542,9 +542,12 @@ const outState =ref(false)
 const outStateMin = ref('')
 const outStateMxn = ref('')
 const filterNewSet = ref([])
+const route = useRoute();
+
 onMounted(() => {
     fetchData();
   
+    window.addEventListener('beforeunload', refresh());
 
   });
  
@@ -702,6 +705,13 @@ const connect = async (id) =>{
     } catch (error) {
         console.error('Failed to load posts:', error.message);
     }
+}
+
+const refresh = () =>{
+    searchStore.setSearchKey(route.query.searchKey)
+    searchStore.setSearchButton(true)
+
+
 }
 
 
