@@ -132,7 +132,7 @@
                         </div>
                         </NuxtLink>
                         <div>
-                            <p class="mt-2 text-xs text-black">
+                            <p class="mt-2 text-xs text-black text-left line-clamp-2 h-8">
                                {{  user.bio }}
                             </p>
                         </div>
