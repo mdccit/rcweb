@@ -123,7 +123,7 @@
 import { ref, defineEmits, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { useRouter, useRoute } from 'vue-router';
-import NameModal from '~/components/profiles/coach/modals/NameModal.vue';
+import NameModal from '~/components/profiles/coach/modals/nameModal.vue';
 import CoverModal from '~/components/profiles/coach/modals/coverModal.vue';
 import { useUserStore } from '~/stores/userStore';
 import CoachTabNavigation from '~/components/profiles/navigation/CoachTabNavigation.vue';
