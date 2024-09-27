@@ -1,9 +1,9 @@
 <template>
     <section class="w-full mb-5 p-3">
         <div class="relative">
-            <img class="w-full h-[400px] rounded-xl" src="@/assets/images/covrss.jpg" alt="">
+            <img class="w-full h-[400px] rounded-xl" :src="coverPictureUrl" alt="">
             <!-- Wrapper for the SVG to position it absolutely -->
-            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md">
+            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md"  @click="toggleModal('cover')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
                     stroke="currentColor" class="size-3">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -22,7 +22,7 @@
                                     alt="">
 
                                 <!-- SVG Wrapper positioned at the bottom right of the image -->
-                                <div v-if="loggedUserSlug == props.userSlug" @click="toggleModal('name')"
+                                <div v-if="loggedUserSlug == props.userSlug" 
                                     class="absolute bottom-0 right-0 mb-[10px] mr-[10px] cursor-pointer bg-white p-1 rounded-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -49,21 +49,8 @@
                         <div class="col-span-3">
                             <div
                                 class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                                <ul class="flex flex-wrap -mb-px">
-                                    <li class="me-2">
-                                        <button @click="handleTab('feed')"
-                                            class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</button>
-                                    </li>
-                                    <li class="me-2">
-                                        <button @click="handleTab('connection')"
-                                            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                            aria-current="page">Connections</button>
-                                    </li>
-                                    <li class="me-2">
-                                        <button @click="handleTab('media')"
-                                            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</button>
-                                    </li>
-                                </ul>
+                              
+                                <CoachTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
                             </div>
                         </div>
                     </div>
@@ -127,6 +114,7 @@
 
     <!-- Modal Components with Standardized Props -->
     <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
+    <CoverModal :visible="modals.cover" @close="handleModalClose" :slug="slug" />
 </template>
 
 <script setup>
@@ -134,7 +122,9 @@ import { ref, defineEmits, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { useRouter, useRoute } from 'vue-router';
 import NameModal from '~/components/profiles/coach/modals/NameModal.vue';
+import CoverModal from '~/components/profiles/coach/modals/coverModal.vue';
 import { useUserStore } from '~/stores/userStore';
+import CoachTabNavigation from '~/components/profiles/navigation/CoachTabNavigation.vue';
 
 const emit = defineEmits(['changeTab']);
 const nuxtApp = useNuxtApp();
@@ -168,7 +158,9 @@ const connectionType = ref(null)
 const connectionButtonName = ref('Connect')
 const buttonHide = ref(true);
 const profile_picture = ref(null);
+const cover_picture = ref(null);
 // Import the default profile picture
+import defaultCoverPicture from '@/assets/images/covrss.jpg';
 import defaultProfilePicture from '@/assets/images/user.png';
 
 const tab = ref('feed');
@@ -178,6 +170,13 @@ const handleTab = (selectedTab) => {
     tab.value = selectedTab;
     emit('changeTab', selectedTab)
 };
+
+const tabs = ref([
+  { name: 'feed', label: 'Post' },
+  { name: 'connection', label: 'Connections' },
+  { name: 'media', label: 'Media' }
+]);
+
 
 
 const fetchCheckConnection = async () => {
@@ -279,6 +278,11 @@ const fetchUserDetails = async () => {
             profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
         }
 
+        if (dataSets.media_info.cover_picture != null) {
+            cover_picture.value = dataSets.media_info.cover_picture.url || defaultProfilePicture;
+        }
+
+
 
 
     } catch (error) {
@@ -291,11 +295,7 @@ const fetchUserDetails = async () => {
 // Define reactive state for all modals
 const modals = reactive({
     name: false,
-    bio: false,
-    info: false,
-    budget: false,
-    utr: false,
-    address: false,
+    cover: false
 });
 
 // Generic toggle function
@@ -320,6 +320,8 @@ const handleModalClose = (modalName) => {
 
 // Computed profile picture URL
 const profilePictureUrl = computed(() => profile_picture.value);
+const coverPictureUrl = computed(() => cover_picture.value);
+
 // Watch for changes in props.data
 watch(
     () => props.data,
@@ -328,6 +330,18 @@ watch(
             profile_picture.value = newVal.media_info.profile_picture?.url || defaultProfilePicture;
         } else {
             profile_picture.value = defaultProfilePicture; // Fallback to default if media_info is undefined
+        }
+    },
+    { immediate: true } // Execute immediately when component is mounted
+);
+
+watch(
+    () => props.data,
+    (newVal) => {
+        if (newVal && newVal.media_info) {
+            cover_picture.value = newVal.media_info.cover_picture?.url || defaultCoverPicture;
+        } else {
+            cover_picture.value = defaultCoverPicture; // Fallback to default if media_info is undefined
         }
     },
     { immediate: true } // Execute immediately when component is mounted
@@ -345,9 +359,11 @@ onMounted(() => {
     if (props.data && props.data.media_info) {
         console.log('media available');
         profile_picture.value = props.data.media_info.profile_picture?.url || defaultProfilePicture;
+        cover_picture.value = props.data.media_info.cover_picture?.url || defaultProfilePicture;
     } else {
         console.log('media not available');
         profile_picture.value = defaultProfilePicture;
+        cover_picture.value = defaultCoverPicture;
     }
 
 })
