@@ -272,7 +272,7 @@ import InfoModal from '~/components/profiles/player/modals/infoModal.vue';
 import BudgetModal from '~/components/profiles/player/modals/budgetModal.vue';
 import AddressModal from '~/components/profiles/player/modals/addressModal.vue';
 // Import the default profile picture
-import defaultProfilePicture from '@/assets/images/avtar.png';
+import defaultProfilePicture from '@/assets/images/user.png';
 
 const userStore = useUserStore();
 
