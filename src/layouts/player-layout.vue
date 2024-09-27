@@ -18,7 +18,7 @@
         <div class="col-start-2 col-span-4 bg-brown-500">
           <!-- Content changes based on the selected tab -->
           <UserFeed v-if="tab === 'feed'" :posts="posts" />
-          <Connection v-if="tab === 'connection'" :playerId="playerID" />
+          <Connection v-if="tab === 'connection'" :playerId="playerID" @profileView="redirectPage" />
           <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
 
         </div>
@@ -48,6 +48,8 @@ import UserFeed from '~/components/user/profile/userFeed.vue';
 // import Connection from '~/components/user/profile/connection.vue';
 import mediaTab from '~/components/profiles/player/tabs/mediaTab.vue';
 import Connection from '~/components/user/profile/connection.vue';
+
+const router = useRouter();
 
 const nuxtApp = useNuxtApp();
 
@@ -351,6 +353,13 @@ const fetchPost = async () => {
     } catch (error) {
         console.error('Failed to load posts:', error.message);
     }
+}
+
+const redirectPage = (url) =>{
+    router.push({
+      path: url,
+
+    });
 }
 
 </script>

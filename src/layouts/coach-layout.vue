@@ -18,7 +18,7 @@
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3">
                 <UserFeed v-if="tab === 'feed'" :posts="posts" />
-                <Connection v-if="tab === 'connection'" :playerId="coachId" />
+                <Connection v-if="tab === 'connection'" :playerId="coachId" @profileView="redirectPage"/>
                 <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
             </div>
         </div>
@@ -72,6 +72,7 @@ const sportName = ref({})
 const joinAt = ref('')
 const tab = ref('feed');
 const coachId = ref('')
+const router = useRouter();
 
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
@@ -183,6 +184,13 @@ const fetchPost = async () => {
   } catch (error) {
     console.error('Failed to load posts:', error.message);
   }
+}
+
+const redirectPage = (url) =>{
+    router.push({
+      path: url,
+
+    });
 }
 </script>
 
