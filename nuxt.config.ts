@@ -21,7 +21,7 @@ export default defineNuxtConfig({
     '@/assets/css/main.css', // Ensure this is the first CSS file
     'element-plus/dist/index.css',
     // 'flowbite/dist/flowbite.css',
-    '@/assets/css/custom.css'
+    '@/assets/css/custom.css',
   ],
   modules: [
     '@vueuse/nuxt',
@@ -71,7 +71,8 @@ export default defineNuxtConfig({
     '~/plugins/element-plus.ts',
     '~/plugins/flowbite.client.ts',
     '~/plugins/notification.ts',
-    '~/plugins/i18n.js'
+    '~/plugins/i18n.js',
+    '~/plugins/nprogress.client.ts'
   ],
   alias: {
     '@': resolve(__dirname, './src'),

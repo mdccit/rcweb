@@ -1,50 +1,34 @@
 <template>
-    <div>
-      <!-- Top Navigation Bar -->
-      <SocialHubNavbar />
+    <div class="flex flex-col min-h-screen">
+      <Navbar /> <!-- Top Navigation Bar -->
+      
+      <div class="flex flex-grow">
   
-      <main class="bg-graySnowDrift min-h-screen">
-        <div class="container-compressed">
-   
-            <div class="col-span-12">
-              <LoadingSpinner v-if="loading" />
-              <NuxtPage v-else />
-            </div>
-       
-        </div>
-      </main>
-  
-      <!-- Footer -->
+        <!-- Main Content Area -->
+        <main class="w-full flex-grow bg-gray-100 p-4"> <!-- Set the main content to take the remaining space -->
+          <LoadingSpinner v-if="loading" />
+          <NuxtPage v-else />
+        </main>
+      </div>
+      
+      <!-- Footer at the Bottom -->
       <FooterBar />
-  
-                <!-- Notification component -->
-                <Notification 
-                v-if="showNotification" 
-                :message="notificationMessage" 
-                :type="notificationType" 
-                :visible="showNotification" 
-                @close="closeNotification" 
-                :key="notificationKey"
-              />
-  
     </div>
   </template>
   
   <script setup>
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
-  import SocialHubNavbar from '~/components/user/navbar.vue';
-  import Filter from '~/components/user/feed/filter.vue';
+  import Navbar from '~/components/user/user-navbar-template.vue';
+  import FilterCard from '~/components/user/filter-card.vue';
   import FooterBar from '~/components/user/user-footer.vue';
   import LoadingSpinner from '~/components/LoadingSpinner.vue';
-  import checkSession from '~/middleware/checkSession';
-  import { useNuxtApp } from '#app';
-  import Notification from '~/components/common/Notification.vue';
   import TransferTrackerLeftBar from '~/components/user/transferTrackerLeftBar.vue';
   import TransferTrackerRightBar from '~/components/user/transferTrackerRightBar.vue';
+  // import checkSession from '~/middleware/checkSession';
   
-  defineNuxtRouteMiddleware(checkSession);
-  const nuxtApp = useNuxtApp();
+  // defineNuxtRouteMiddleware(checkSession);
+  
   const loading = ref(false);
   const router = useRouter();
   
@@ -56,24 +40,6 @@
   router.afterEach(() => {
     loading.value = false;
   });
-  
-  
-  const showNotification = ref(false);
-  const notificationMessage = ref('');
-  const notificationType = ref('');
-  const notificationKey = ref(0);
-  
-  // Sync the state from the notification plugin to the layout
-  watchEffect(() => {
-    showNotification.value = nuxtApp.$notification.showNotification.value;
-    notificationMessage.value = nuxtApp.$notification.notificationMessage.value;
-    notificationType.value = nuxtApp.$notification.notification_type.value;
-    notificationKey.value = nuxtApp.$notification.notificationKey.value;
-  });
-  
-  const closeNotification = () => {
-    showNotification.value = false; // Hide the notification
-  };
   </script>
   
   <style scoped>
@@ -83,3 +49,4 @@
   
   /* Adjust padding or other styles as needed */
   </style>
+  

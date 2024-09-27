@@ -40,13 +40,17 @@ module.exports = {
         timberwolf: '#D9D9D9',
         graySnowDrift: '#F4F6F9', // Page background gray color
         lightGray: '#eeeeee',
+        lightGray1: '#ECECEC',
         pigeonBlue: '#BBCDEE',
         ceil: '#8CA4CE', // Placeholder color
         limegreen: '#4AC220',
         lightred: '#F9697A',
         mintGreen: '#A4FFA2',
         orangeRed: '#FF0000',
+        vividOrange: '#FF6C00',
+        lightCreamOrange: '#FFF2C3',
         lightPink: '#FFA9A9',
+        muteGray:'#F9F9F9',
         lighterGray: '#DFE4EE',
         teelGray:'#e2e5e7',
         darkAzureBlue: '#004a8f', // Primary blue button hover color // primary-500

@@ -18,7 +18,7 @@
               class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
               name="email" type="email" data-validation-key="email" id="email" required autofocus>
           </div>
-          <p v-if="errors.email" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.email.join(', ') }}</p>
+          <InputError :error="errors.email ? errors.email.join(', ') : ''" />
           <!-- Email Validation Error -->
 
         </label>
@@ -33,7 +33,7 @@
               name="password" type="password" data-validation-key="password" id="password" required autofocus
               autocomplete="current-password">
           </div>
-          <p v-if="errors.password" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.password.join(', ') }}</p>
+          <InputError :error="errors.password ? errors.password.join(', ') : ''" />
           <!-- Password Validation Error -->
 
         </label>
@@ -84,18 +84,20 @@ import { useNuxtApp } from '#app';
 import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
 import { handleError } from '@/utils/handleError';
+import InputError from '@/components/common/input/InputError.vue';
 
 const email = ref('');
 const rememberMe = ref(false);
 const password = ref('');
 const error = ref('');
-const notification_type = ref('');
-const successMessage = ref('');
+
 const router = useRouter();
 const userStore = useUserStore();
 
 const errors = ref({});
 const authType = ref('');
+const notification_type = ref('');
+const successMessage = ref('');
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const loading = ref(false);
@@ -106,12 +108,14 @@ const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 
 const handleSubmit = () => {
+
   userLogin(false);  // Manually submitting, so autoLogin is false
 };
 
 // Function to handle user login
 const userLogin = async (autoLogin = false) => {
   try {
+    nuxtApp.$nprogress.start(); 
     errors.value = {};  // Reset errors before submitting
     loading.value = true;  // Set loading state
 
@@ -119,24 +123,26 @@ const userLogin = async (autoLogin = false) => {
     const response = await $authService.login(email.value, password.value);
 
     if (response.status === 200) {
-      successMessage.value = response.display_message;
+      nuxtApp.$nprogress.done(); 
 
       // Save credentials if rememberMe is checked and it's not autoLogin
       if (!autoLogin && rememberMe.value) {
         const credentials = {
           username: email.value,  // Corrected from 'username' to 'email'
           password: password.value,
-        };
+        };     
         saveEncryptedCredentials(credentials);  // Save the credentials
       }
-
+      //set user Slug
+      userStore.setUserSlug(response.data.user_slug??null)
       // Set the user in the Pinia store
       userStore.setUser({
         email: email.value,
         role: response.data.user_role,
         token: response.data.token,
         user_permission_type: response.data.user_permission_type,
-        user_id:response.data.user_id
+        user_id:response.data.user_id,
+        user_name:response.data.user_name
       });
 
       // Set success notification
@@ -165,9 +171,11 @@ const userLogin = async (autoLogin = false) => {
         }
       }, 1000);
     }else{
+      nuxtApp.$nprogress.done(); 
       nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
     }
   } catch (error) {
+    nuxtApp.$nprogress.done(); 
     nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
   } finally {
