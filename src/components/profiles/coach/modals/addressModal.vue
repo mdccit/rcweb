@@ -260,6 +260,7 @@ const updatePlayerAddress = async () => {
         if (response.status == '200') {
             // Trigger success notification
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+            clearForm();
             // Emit close event to parent to close the modal
             emit('close', 'address');
         } else {
@@ -290,6 +291,18 @@ const loadCountries = async () => {
     } catch (err) {
         console.error('Error loading countries:', err);
     }
+};
+
+const clearForm = () => {
+    country.value = '';
+    city.value = '';
+    address_line_1.value = '';
+    address_line_2.value = '';
+    state_province.value = '';
+    postal_code.value = '';
+    phone_number.value = '';
+    phone_code_country.value = '';
+    email.value = '';
 };
 
 </script>

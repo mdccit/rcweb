@@ -12,7 +12,7 @@
                 </div>
             </div>
             <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
-                 {{ props.data.bio }}
+                {{ props.data.bio }}
             </p>
         </div>
 
@@ -24,11 +24,11 @@
                 </div>
                 <div class="col-span-6 ml-2">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Signed up
-                       {{ props.data.joinAt }}
+                        {{ props.data.joinAt }}
                     </p>
 
                 </div>
-                <div class="col-span-1">
+                <div class="col-span-1" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -45,7 +45,8 @@
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl" src="@/assets/images/pin.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">{{  props.data.city }} {{  props.data.country }}
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">{{ props.data.city }} {{
+                    props.data.country }}
                     </p>
 
                 </div>
@@ -62,11 +63,10 @@
 
     </div>
 
-        <!-- Modal Components with Standardized Props -->
-        <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
-        <BioModal :visible="modals.bio" @close="handleModalClose" :slug="slug" />
-        <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" /> 
-        <AddressModal :visible="modals.address" @close="handleModalClose" :slug="slug" />
+    <!-- Modal Components with Standardized Props -->
+    <BioModal :visible="modals.bio" @close="handleModalClose" :slug="slug" />
+    <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" />
+    <AddressModal :visible="modals.address" @close="handleModalClose" :slug="slug" />
 </template>
 
 <script setup>
@@ -77,7 +77,6 @@ import { useNuxtApp } from '#app';
 import { useUserStore } from '~/stores/userStore';
 
 
-import NameModal from '~/components/profiles/coach/modals/nameModal.vue';
 import BioModal from '~/components/profiles/coach/modals/bioModal.vue';
 import InfoModal from '~/components/profiles/coach/modals/infoModal.vue';
 import AddressModal from '~/components/profiles/coach/modals/addressModal.vue';
@@ -92,11 +91,7 @@ const $userService = nuxtApp.$userService;
 const loading = ref(false);
 const router = useRouter();
 const route = useRoute();
-const feet = ref(0);
-const pounds = ref(0);
-const showFilterLeft = ref(false);
 const slug = ref('');
-const profile_picture = ref(null);
 
 router.beforeEach((to, from, next) => {
     loading.value = true;
@@ -117,11 +112,9 @@ const props = defineProps({
         type: String,
         required: true,
     },
-}); 
-
+});
 
 const userRole = ref('');
-const loadedSlug = ref('');
 const loadedData = ref('');
 
 // Define reactive state for all modals
@@ -154,7 +147,7 @@ const handleModalClose = (modalName) => {
     }
 };
 
-const fetchUserDetails = async (slug) => {
+const fetchUserDetails = async () => {
     try {
 
         const dataSets = await $publicService.get_user_profile(route.params.slug);
@@ -201,11 +194,11 @@ const fetchUserDetails = async (slug) => {
             props.data.phone = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number'
             props.data.phoneCode = dataSets.user_phone_info.phone_code ?? ''
         }
-
-
         if (dataSets.media_info.profile_picture != null) {
            profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
         }
+
+
 
     } catch (error) {
         console.log(error)
@@ -213,20 +206,12 @@ const fetchUserDetails = async (slug) => {
     }
 }
 
-
 onMounted(() => {
     userRole.value = userStore.user?.role || null;
     slug.value = props.userSlug;
     loadedData.value = props.data;
 
-     // Set profile picture when props.data becomes available
-//   if (props.data && props.data.media_info) {
-//     console.log('media available');
-//     profile_picture.value = props.data.media_info.profile_picture?.url || defaultProfilePicture;
-//   } else {
-//     console.log('media not available');
-//     profile_picture.value = defaultProfilePicture;
-//   }
+
 });
 </script>
 

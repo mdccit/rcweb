@@ -344,6 +344,62 @@ const createUserService = (apiService) => {
     }
   };
 
+  const update_coach_other_info = async (request_body) => {
+
+    const url = `/public/coaches/update-other-info/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+  const update_coach_name = async (request_body) => {
+
+    const url = `/public/coaches/update-basic-info/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to login');
+      }
+    }
+  };
+
+
+  const upload_coach_profile_picture = async (file, user_slug) => {
+
+    const url = `/public/coaches/upload-profile-picture/${user_slug}`;
+    // Create a new FormData object
+    const formData = new FormData();
+
+    // Ensure the file is appended correctly
+    if (file) {
+      formData.append('file', file); // The field name must match what the backend expects
+    } else {
+      throw new Error('No file selected'); // Handle if no file is selected
+    }
+    try {
+      const response = await apiService.postMedia(url, formData);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to login');
+      }
+    }
+  };
+
+
 
   return {
     get_connection,
@@ -367,7 +423,11 @@ const createUserService = (apiService) => {
     delete_player_media,
     upload_player_profile_picture,
     update_coach_bio,
-    update_coach_contact_info
+    update_coach_contact_info,
+    update_coach_other_info,
+    update_coach_name,
+    upload_coach_profile_picture,
+
   };
 
 
