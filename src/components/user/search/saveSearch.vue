@@ -14,9 +14,10 @@
             <div>
                 <label class="text-black text-sm">Name</label>
                 <div class="flex">
-                    <input type="text" v-model="name"
+                    <input type="text" v-model="name" required
                         class="w-full py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift text-black text-sm"
                         placeholder="Type here">
+                        <span v-if="error" class="text-center text-red-600">Name is required</span>
                     <button @click="save" class="bg-primaryblue p-3 text-white rounded-md ml-2 text-xs">Save</button>
                 </div>
             </div>
@@ -49,6 +50,7 @@ const nuxtApp = useNuxtApp();
 const router = useRouter();
 const name =ref('')
 const $userService = nuxtApp.$userService;
+const error = ref(false)
 const props = defineProps({
     isOpen: Boolean,
     // action: String,
@@ -57,11 +59,13 @@ const props = defineProps({
 const emit = defineEmits(['close']);
 
 const closePopup = ()=>{
+    error.value =false
     emit('close');
 }
 
 const save = async() =>{
     if (name.value.trim() === '') {
+        error.value =true
         return;
     }
     const response = await $userService.save_search({
@@ -91,6 +95,8 @@ const save = async() =>{
         }
     })
      name.value ='';
+     error.value =false
+
      emit('close');
     
    
