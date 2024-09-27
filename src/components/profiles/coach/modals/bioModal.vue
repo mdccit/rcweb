@@ -11,12 +11,12 @@
                 <div
                     class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                     <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                        <div class="sm:flex sm:items-start">
+                        <div class="sm:items-start">
                             <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                                 <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
                                     Bio</h3>
                                 <div class="mt-2">
-                                 
+
                                     <div>
                                         <div class="">
                                             <div class="">
@@ -27,7 +27,7 @@
                                                     <textarea id="user_bio" v-model="user_bio" autocomplete="user_bio"
                                                         class="w-full block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                         placeholder="" required>
-                                        </textarea>
+                                                    </textarea>
                                                 </div>
                                             </div>
 
@@ -82,9 +82,9 @@ onMounted(() => {
 });
 
 watch(() => props.visible, (newVal) => {
-  if (newVal && props.slug) {
-    fetchPlayerBio(props.slug);
-  }
+    if (newVal && props.slug) {
+        fetchPlayerBio(props.slug);
+    }
 });
 
 const fetchPlayerBio = async (slug) => {
@@ -112,8 +112,8 @@ const updatePlayerBio = async (bio) => {
             // Trigger success notification
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
             // Emit close event to parent to close the modal
-            emit('close','bio');  // Close the modal after successfully updating the bio
-        }else{
+            emit('close', 'bio');  // Close the modal after successfully updating the bio
+        } else {
             nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
         }
 
@@ -129,7 +129,7 @@ const saveBio = () => {
 }
 
 const clearUserBio = () => {
-  user_bio.value = '';
+    user_bio.value = '';
 };
 
 </script>

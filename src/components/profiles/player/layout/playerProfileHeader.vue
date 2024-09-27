@@ -33,9 +33,9 @@
                     </button>
                 </div>
 
-                <div v-if="buttonHide == false">
+                <div class="flex" v-if="buttonHide == false">
                     <button @click="connectAcceptOrConnect"
-                        class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                        class="bg-blue-500 rounded-full  p-2 m-1 text-white text-xs h-[35px] w-[85px]">
                         {{ connectionButtonName }}
                     </button>
                     <div v-if="connectionButtonName =='Accept connection'" class="text-white">

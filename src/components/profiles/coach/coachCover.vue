@@ -37,8 +37,8 @@
 
 
                             <div class="text-left mt-[80px] ml-5">
-                                <h2 class="text-lg font-semibold text-white text-3xl">{{ props.data.name }} </h2>
-                                <h5 class="text-md text-white font-normal text-black text-primaryblue">{{
+                                <h2 class="text-lg font-semibold text-white text-3xl absolute w-[300px]">{{ props.data.name }} </h2>
+                                <h5 class="text-md text-white font-normal text-black text-primaryblue mt-7">{{
                                     props.data.sport }} {{ role }}
                                 </h5>
                             </div>
@@ -80,7 +80,7 @@
                                     </button>
                                 </div>
 
-                                <div v-if="buttonHide == false">
+                                <div class="flex text-white" v-if="buttonHide == false">
                                     <button @click="connectAcceptOrConnect"
                                         class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                         {{ connectionButtonName }}
@@ -160,9 +160,8 @@ const buttonHide = ref(true);
 const profile_picture = ref(null);
 const cover_picture = ref(null);
 // Import the default profile picture
-import defaultProfilePicture from '@/assets/images/avtar.png';
 import defaultCoverPicture from '@/assets/images/covrss.jpg';
-
+import defaultProfilePicture from '@/assets/images/user.png';
 
 const tab = ref('feed');
 
