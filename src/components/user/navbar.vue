@@ -122,9 +122,9 @@
                     <div class="flex justify-between items-center space-x-3">
 
                         <div class="relative hidden sm:hidden md:block basis-1/2">
-                            <input type="text"
+                            <input type="text" @change="searchkey" v-model="key"
                                 class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-full border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 ps-4 pe-12"
-                                placeholder="Search...">
+                                placeholder="Search..."/>
                             <div class="absolute right-0 top-0 bottom-0 flex items-center pe-4 space-x-2">
                                 <!-- <span> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="steelBlue" class="size-4">
@@ -276,7 +276,8 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import {ref, onMounted,defineProps, defineEmits, defineExpose} from 'vue';
+import { useSearchStore } from '~/stores/searchStore';
 import { useFlowbite } from '~/composables/useFlowbite';
 import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore();
@@ -286,6 +287,7 @@ import { useNuxtApp } from '#app';
 const nuxtApp = useNuxtApp();
 const nprogress = nuxtApp.$nprogress; 
 const $authService = nuxtApp.$authService;
+const searchStore = useSearchStore();
 
 const router = useRouter();
 // Get the user's role from the store
@@ -294,6 +296,7 @@ const userRole = userStore.getRole();
 const loggedUserMail = computed(() => userStore.loggedUserEmail);
 const loggedUserName = computed(() => userStore.loggedUserName);
 const userSlug = ref(null)
+const key = ref('')
 const logout = async (event) => {
     event.preventDefault();
 
@@ -369,4 +372,16 @@ onMounted(() => {
         initFlowbite();
     })
 })
+
+const searchkey= () =>{
+    searchStore.setSearchKey(key.value)
+    searchStore.setSearchButton(true)
+    router.push('/user/search/search');
+    router.push({
+    path: '/user/search/search',
+    query: {
+      searchKey: key.value
+    }
+  });
+  }
 </script>
