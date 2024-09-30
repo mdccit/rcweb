@@ -281,6 +281,7 @@ const likePost = async (post_id, post) => {
 
   const toggleCommentSection = (postId) => {
     isHidddenComment.value[postId] = !isHidddenComment.value[postId]
+    console.log( isHidddenComment.value[postId])
   }
 
   const addComment = async (postId) => {

@@ -342,7 +342,8 @@ const setGalleryItems = (mediaInfo) => {
 const fetchPost = async () => {
     try {
         const response = await $feedService.list_posts({});
-        posts.value = response || [];
+        const filteredData = response.filter(item => item.user_id === playerID.value);
+        posts.value = filteredData || [];
 
     } catch (error) {
         console.error('Failed to load posts:', error.message);
