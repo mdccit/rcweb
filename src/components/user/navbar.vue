@@ -35,7 +35,7 @@
                         <ul
                             class="font-medium hidden p-4 md:p-0 mt-4 border sm:hidden  md:hidden lg:flex items-center md:space-x-8  md:mt-0 md:border-0 border-poloBlue">
                             <li>
-                                <NuxtLink to="/"
+                                <NuxtLink to="/app"
                                     class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 dark:text-white group"
                                     aria-current="page">
                                     <div class="flex items-center justify-center">
