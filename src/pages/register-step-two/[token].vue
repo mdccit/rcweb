@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter, onBeforeRouteLeave } from 'vue-router';
 import RegisterStepTwo from '~/components/RegisterStepTwo.vue';
 definePageMeta({
   colorMode: 'light',
@@ -14,6 +14,12 @@ definePageMeta({
 // Capture the dynamic token from the route
 const route = useRoute();
 const token = route.params.token;  // Access the token parameter from the route
+
+// Prevent the back button by intercepting the route change
+onBeforeRouteLeave((to, from, next) => {
+  next(false); // Prevent navigation
+});
+
 </script>
 
 <style scoped>
