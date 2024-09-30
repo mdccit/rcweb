@@ -231,7 +231,7 @@
             data-popper-placement="bottom"
           >
             <div class="py-3 px-4 text-sm text-gray-900">
-              <div class="font-medium">Admin</div>
+              <div class="font-medium">{{ loggedUserName }}</div>
               <div class="text-sm text-gray-500">{{ loggedUserMail }}</div>
             </div>
             <ul class="py-1 text-gray-700">
@@ -281,6 +281,8 @@ const $authService = nuxtApp.$authService;
 const isAuthenticated = computed(() => userStore.isAuthenticated);
 const loggedUserMail = computed(() => userStore.loggedUserEmail);
 const router = useRouter();
+
+const loggedUserName = computed(() => userStore.loggedUserName);
 
 const closeDropdown = (event) => {
   if (!event.target.closest('.relative')) {
@@ -350,6 +352,19 @@ console.log(err);
     }, 2000);  // 2-second delay
   }
 };
+
+onMounted(() => {
+  if (process.client) {  // Ensure this runs only on the client-side
+    const storedUserName = localStorage.getItem('user_name');  // Get value from localStorage
+    
+    if (storedUserName) {
+      // Set the loggedUserName in the store with the value from localStorage
+      userStore.loggedUserName = storedUserName;
+    } else {
+      console.log('No user_name found in localStorage.');
+    }
+  }
+});
 
 onMounted(() => {
   window.removeEventListener('click', closeDropdown);
