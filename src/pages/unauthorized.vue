@@ -11,12 +11,13 @@
     </p>
     
     <!-- Conditionally Display User Role -->
-    <p v-if="user && userRole" class="text-md text-gray-600 mb-6">
+    <!-- <p v-if="user && userRole && userRole.trim()" class="text-md text-gray-600 mb-6">
       Your user role: {{ userRole }}
     </p>
-    <p v-else class="text-md text-gray-600 mb-6">
+     -->
+    <!-- <p v-else class="text-md text-gray-600 mb-6">
       You are not logged in or your role is not defined.
-    </p>
+    </p> -->
 
     <!-- Back to Home Button -->
     <NuxtLink to="/">
