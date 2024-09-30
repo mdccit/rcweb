@@ -124,7 +124,7 @@
                         <div class="relative hidden sm:hidden md:block basis-1/2">
                             <input type="text" @change="searchkey" v-model="key"
                                 class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-full border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 ps-4 pe-12"
-                                placeholder="Search..."/>
+                                placeholder="Search..." />
                             <div class="absolute right-0 top-0 bottom-0 flex items-center pe-4 space-x-2">
                                 <!-- <span> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="steelBlue" class="size-4">
@@ -230,17 +230,29 @@
                 <div class="flex justify-end">
 
                     <div class="flex space-x-3">
-                        <NuxtLink :to="`/app/profile/${userSlug}`">
-                        <div class="flex space-x-2 items-center">
-                            <div class="hidden sm:hidden md:hidden lg:block">
-                                <img class="w-10 h-10 rounded-lg border border-white shadow-lg"
-                                    src="@/assets/user/images/Rectangle_117.png" alt="">
+                        <NuxtLink v-if="userRole != 'admin'">
+                            <div class="flex space-x-2 items-center">
+                                <div class="hidden sm:hidden md:hidden lg:block">
+                                    <img class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                        src="@/assets/user/images/Rectangle_117.png" alt="">
+                                </div>
+                                <div class="hidden sm:hidden md:hidden lg:block">
+                                    <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
+                                    <p class="text-xs text-limegreen">Online</p>
+                                </div>
                             </div>
-                            <div class="hidden sm:hidden md:hidden lg:block">
-                                <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
-                                <p class="text-xs text-limegreen">Online</p>
+                        </NuxtLink>
+                        <NuxtLink v-else :to="`/app/profile/${userSlug}`">
+                            <div class="flex space-x-2 items-center">
+                                <div class="hidden sm:hidden md:hidden lg:block">
+                                    <img class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                        src="@/assets/user/images/Rectangle_117.png" alt="">
+                                </div>
+                                <div class="hidden sm:hidden md:hidden lg:block">
+                                    <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
+                                    <p class="text-xs text-limegreen">Online</p>
+                                </div>
                             </div>
-                        </div>
                         </NuxtLink>
                         <button data-dropdown-toggle="dropdownUser" data-dropdown-placement="bottom-end" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -261,7 +273,7 @@
                                 </li>
                             </ul>
                             <div class="py-2">
-                                <NuxtLink  @click="logout"
+                                <NuxtLink @click="logout"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                     Sign out</NuxtLink>
                             </div>
@@ -276,7 +288,7 @@
 </template>
 
 <script setup>
-import {ref, onMounted,defineProps, defineEmits, defineExpose} from 'vue';
+import { ref, onMounted, defineProps, defineEmits, defineExpose } from 'vue';
 import { useSearchStore } from '~/stores/searchStore';
 import { useFlowbite } from '~/composables/useFlowbite';
 import { useUserStore } from '~/stores/userStore';
@@ -285,7 +297,7 @@ import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 
 const nuxtApp = useNuxtApp();
-const nprogress = nuxtApp.$nprogress; 
+const nprogress = nuxtApp.$nprogress;
 const $authService = nuxtApp.$authService;
 const searchStore = useSearchStore();
 
@@ -301,7 +313,7 @@ const logout = async (event) => {
     event.preventDefault();
 
     try {
-nprogress.start();
+        nprogress.start();
         const token = localStorage.getItem('token');  // Retrieve the token from local storage
 
         if (!token) {
@@ -322,8 +334,8 @@ nprogress.start();
 
             if (response.status === 200) {
                 nuxtApp.$notification.triggerNotification(response.display_message, 'success');
-               
-                userStore.clearUser(); 
+
+                userStore.clearUser();
                 nprogress.done();
                 setTimeout(() => {
                     router.push('/login');
@@ -336,8 +348,8 @@ nprogress.start();
                 }, 2000);
             }
         }
-        } catch (err) {
-            nprogress.done();
+    } catch (err) {
+        nprogress.done();
         if (err.response && err.response.status === 401) {
             // Handle 401 error and redirect to login
             nuxtApp.$notification.triggerNotification('Session expired. Please log in again.', 'failure');
@@ -367,21 +379,21 @@ const gotoAdminDashboard = async (event) => {
 
 // initialize components based on data attribute selectors
 onMounted(() => {
-    userSlug.value = userStore.userSlug??null
+    userSlug.value = userStore.userSlug ?? null
     useFlowbite(() => {
         initFlowbite();
     })
 })
 
-const searchkey= () =>{
+const searchkey = () => {
     searchStore.setSearchKey(key.value)
     searchStore.setSearchButton(true)
     router.push('/user/search/search');
     router.push({
-    path: '/user/search/search',
-    query: {
-      searchKey: key.value
-    }
-  });
-  }
+        path: '/user/search/search',
+        query: {
+            searchKey: key.value
+        }
+    });
+}
 </script>
