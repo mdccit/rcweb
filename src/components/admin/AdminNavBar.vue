@@ -84,7 +84,7 @@
                 </div>
               </div>
             </NuxtLink>
-   
+
             <!-- <NuxtLink to="/admin/transcripts"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Transcripts </div>
@@ -97,20 +97,13 @@
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Register </div>
             </NuxtLink>
-            <NuxtLink @click="logout" v-if="isLoggedIn"
-              class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              <div class="flex items-center"> Logout </div>
-            </NuxtLink>
-            <NuxtLink @click="profile" v-if="isLoggedIn"
-            class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-            <div class="flex items-center"> Profile </div>
-          </NuxtLink>
+
           </div>
           <div class="hidden sm:flex sm:items-center sm:ml-6">
             <div class="ml-3 relative">
               <div style="position: relative;">
                 <div>
-                  <button type="button" aria-haspopup="true"
+                  <button type="button" aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdown"
                     class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                     <img class="h-8 w-8 rounded-full object-cover"
                       src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin">
@@ -130,14 +123,36 @@
                 <path class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M6 18L18 6M6 6l12 12"></path>
               </svg></button></div>
+
+
+
+          <!-- Dropdown menu -->
+          <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 dark:divide-gray-600">
+
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+              <li>
+                <NuxtLink @click="profile" v-if="isLoggedIn"
+                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                  <div class="flex items-center"> Profile </div>
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink @click="logout" v-if="isLoggedIn"
+                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                  <div class="flex items-center"> Logout </div>
+                </NuxtLink>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
       <div class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-          <NuxtLink to="/admin"
+          <!-- <NuxtLink to="/admin"
             class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
             Dashboard
-          </NuxtLink>
+          </NuxtLink> -->
           <div class="pl-8">
             <NuxtLink to="/admin/users"
               class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
@@ -193,71 +208,42 @@
         </div>
         <div class="relative inline-block">
           <!-- Dropdown toggle button -->
-          
+
           <NuxtLink to="/app">
-          <button
-            id="dropdownUserButton"
-            data-dropdown-toggle="dropdownUser"
-            class="flex items-center text-sm font-medium text-gray-800 hover:text-gray-900"
-            type="button"
-          >
-            <img
-              class="h-10 w-10 rounded-full object-cover mr-3"
-              src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF"
-              alt="Admin"
-            />
-            <span>Admin</span>
-            <svg
-              class="ml-2 w-4 h-4"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </NuxtLink>
-      
+            <button id="dropdownUserButton" data-dropdown-toggle="dropdownUser"
+              class="flex items-center text-sm font-medium text-gray-800 hover:text-gray-900" type="button">
+              <img class="h-10 w-10 rounded-full object-cover mr-3"
+                src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin" />
+              <span>Admin</span>
+              <svg class="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </NuxtLink>
+
           <!-- Dropdown menu -->
-          <div
-            id="dropdownUser"
-            class="hidden z-10 w-48 bg-white rounded divide-y divide-gray-100 shadow"
-            data-popper-placement="bottom"
-          >
+          <div id="dropdownUser" class="hidden z-10 w-48 bg-white rounded divide-y divide-gray-100 shadow"
+            data-popper-placement="bottom">
             <div class="py-3 px-4 text-sm text-gray-900">
               <div class="font-medium">Admin</div>
               <div class="text-sm text-gray-500">{{ loggedUserMail }}</div>
             </div>
             <ul class="py-1 text-gray-700">
               <li>
-                <NuxtLink
-                  to="/app"
-                  class="block py-2 px-4 text-sm hover:bg-gray-100"
-                >
+                <NuxtLink to="/app" class="block py-2 px-4 text-sm hover:bg-gray-100">
                   Go to Members Area
                 </NuxtLink>
               </li>
               <li>
-                <NuxtLink
-                  to="/user/profile"
-                  class="block py-2 px-4 text-sm hover:bg-gray-100"
-                >
+                <NuxtLink to="/user/profile" class="block py-2 px-4 text-sm hover:bg-gray-100">
                   Profile
                 </NuxtLink>
               </li>
             </ul>
             <div class="py-1">
               <form>
-                <button
-                  type="submit"
-                  class="block w-full py-2 px-4 text-sm text-left hover:bg-gray-100"
-                >
+                <button type="submit" class="block w-full py-2 px-4 text-sm text-left hover:bg-gray-100">
                   Log Out
                 </button>
               </form>
@@ -293,10 +279,10 @@ const logout = async () => {
   try {
 
     const token = localStorage.getItem('token');  // Retrieve the token from local storage
-    
+
     if (!token) {
       userStore.clearUser();  // Clear user data if no token is found
-      nuxtApp.$notification.triggerNotification( 'You have been logged out.', 'success');
+      nuxtApp.$notification.triggerNotification('You have been logged out.', 'success');
       // Use a timeout to display the notification before redirecting to login
       setTimeout(() => {
         router.push('/login');  // Redirect to login
@@ -315,21 +301,21 @@ const logout = async () => {
     if (response.status === 200) {
       userStore.clearUser();  // Clear user data from Pinia store
       console.log('user cleared');
-      nuxtApp.$notification.triggerNotification( response.display_message, 'success');
-      
+      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+
       setTimeout(() => {
         router.push('/login');  // Redirect to login after 2 seconds
       }, 2000);  // 2-second delay
     } else {
-      nuxtApp.$notification.triggerNotification( response.display_message, 'failure');
-      
+      nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+
       setTimeout(() => {
         router.push('/login');
       }, 2000);
     }
   } catch (err) {
 
-console.log(err);
+    console.log(err);
     if (err.response && err.response.status === 401) {
       // Handle 401 error and redirect to login
       nuxtApp.$notification.triggerNotification('Session expired. Please log in again.', 'failure');
@@ -344,7 +330,7 @@ console.log(err);
         router.push('/login');  // Ensure redirection to login even on other errors
       }, 2000);  // 2-second delay
     }
-    nuxtApp.$notification.triggerNotification( err.display_message, 'failure');
+    nuxtApp.$notification.triggerNotification(err.display_message, 'failure');
     setTimeout(() => {
       router.push('/login');  // Ensure redirection to login even on error
     }, 2000);  // 2-second delay

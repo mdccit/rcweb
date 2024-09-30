@@ -1,3 +1,15 @@
+
+::selection {
+  background-color: #15a2fa !important; /* Customize the background color */
+  color: white;              /* Customize the text color */
+}
+
+/* Firefox-specific */
+::-moz-selection {
+  background-color: #15a2fa !important;
+  color: white;
+}
+
 .radio-input {
   width: 150px !important;
 }
