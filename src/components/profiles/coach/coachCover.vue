@@ -34,12 +34,10 @@
 
 
                             <!-- Wrapper for the SVG to position it absolutely at the bottom right corner -->
-
-
                             <div class="text-left mt-[80px] ml-5">
                                 <h2 class="text-lg font-semibold text-white text-3xl absolute w-[300px]">{{ props.data.name }} </h2>
                                 <h5 class="text-md text-white font-normal text-black text-primaryblue mt-7">{{
-                                    props.data.sport }} {{ role }}
+                                    props.data.sport }} {{ props.data.role }}
                                 </h5>
                             </div>
                         </div>

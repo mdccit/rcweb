@@ -90,7 +90,6 @@ onMounted(() => {
 const fetchUserDetailsBySlug = async () => {
   try {
     const dataSets = await $publicService.get_user_profile(route.params.slug);
-    console.log(dataSets)
     if (dataSets.user_basic_info) {
         bio.value = dataSets?.user_basic_info?.bio || 'User has not entered bio';
         name.value = dataSets?.user_basic_info?.display_name || 'Anonymous';
@@ -98,7 +97,6 @@ const fetchUserDetailsBySlug = async () => {
         coachId.value = dataSets?.user_basic_info?.id || ''; 
         loadedSlug.value = dataSets?.user_basic_info?.slug || ''; 
 
-        console.log("coacheId  "+coachId.value)
         const date = new Date(dataSets.user_basic_info.joined_at);
         const monthNames = [
             'January', 'February', 'March', 'April', 'May', 'June',
@@ -116,9 +114,6 @@ const fetchUserDetailsBySlug = async () => {
            age--;
         }
         birthDay.value = age ?? 'User has not entered birthday'
-        console.log("birthday")
-
-    console.log(birthDay.value)
         fetchPost();
 
     }
@@ -195,9 +190,6 @@ const fetchPost = async () => {
   try {
     const response = await $feedService.list_posts({});
     posts.value = response || [];
-    console.log("Post")
-
-    console.log(posts.value)
   } catch (error) {
     console.error('Failed to load posts:', error.message);
   }

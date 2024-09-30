@@ -166,7 +166,7 @@ const uploadMedia = async () => {
 
   try {
     // Send FormData directly in the POST request
-    const response = await $userService.upload_coach_media(formData);
+    const response = await $userService.upload_player_media(formData);
 
     if (response.status == 200) {
       // Clear files array
