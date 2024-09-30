@@ -275,8 +275,6 @@ const fetchPlayerInfo = async () => {
   try {    
     const dataSets = await $publicService.get_player(props.slug);
     
-    console.log('Fetched player data:', dataSets);  // Debug: log the full response
-
     if (dataSets.user_basic_info) {
       // Set Nationality, Gender, and Date of Birth
       nationality.value = dataSets.user_basic_info.nationality_id ?? null;
@@ -287,12 +285,6 @@ const fetchPlayerInfo = async () => {
         const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
         date_of_birth.value = birthDate.toISOString().split('T')[0];  // Format as 'YYYY-MM-DD'
       }
-
-      console.log('User basic info:', {
-        nationality: nationality.value,
-        gender: gender.value,
-        date_of_birth: date_of_birth.value,
-      });  // Debug: log user basic info
 
       // Set Graduation Month/Year
       if (dataSets.player_info?.graduation_month_year) {
@@ -320,16 +312,8 @@ const fetchPlayerInfo = async () => {
 
       // Set Preferred Surface
       preferred_surface.value = dataSets.player_info.other_data.preferred_surface ?? null;
-
-      console.log('Player info:', {
-        height_cm: height_cm.value,
-        weight_kg: weight_kg.value,
-        handedness: handedness.value,
-        preferred_surface: preferred_surface.value,
-      });  // Debug: log player info
     }
   } catch (error) {
-    console.error('Error fetching player info:', error);  // Debug: log the error
     nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
   }
 };
