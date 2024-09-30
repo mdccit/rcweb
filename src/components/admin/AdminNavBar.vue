@@ -274,6 +274,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 import { useUserStore } from '@/stores/userStore';
+import { useModerationStore } from '~/stores/moderation';
 
 const userStore = useUserStore();
 const nuxtApp = useNuxtApp();
@@ -283,6 +284,8 @@ const loggedUserMail = computed(() => userStore.loggedUserEmail);
 const router = useRouter();
 const $adminService = nuxtApp.$adminService;
 const morderationCount = ref(0);
+const moderationStore = useModerationStore();
+
 const closeDropdown = (event) => {
   if (!event.target.closest('.relative')) {
     dropdownVisible.value = false
@@ -356,6 +359,18 @@ onMounted(() => {
   window.removeEventListener('click', closeDropdown);
   fetchMorderationCount()
 });
+
+watch(
+  () => moderationStore.moderationClose,
+  () => {
+    if(moderationStore.moderationClose == true){
+      fetchMorderationCount() 
+      moderationStore.setModerationClose(false)
+    }
+    
+  },
+)
+
 
 const login = () => {
   console.log('login push');

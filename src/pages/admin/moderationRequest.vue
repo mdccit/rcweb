@@ -269,11 +269,10 @@ const fetchModerationLogs = async (morderationId) => {
 
 
 const closeOrReopen = async () => {
-   console.log(4)
     try {
         if(closeBy.value ===null){
            await $adminService.morderation_close(moderationStore.moderation_id,{});
-           
+           moderationStore.setModerationClose(true)
         }else{
              await $adminService.morderation_reopen(moderationStore.moderation_id,{});
         }
