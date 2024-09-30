@@ -18,14 +18,10 @@
         <div class="col-start-2 col-span-4 bg-brown-500">
           <!-- Content changes based on the selected tab -->
           <UserFeed v-if="tab === 'feed'" :posts="posts" />
-          <Connection v-if="tab === 'connection'" :playerId="playerID" />
+          <Connection v-if="tab === 'connection'" :playerId="playerID" @profileView="redirectPage" />
           <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
 
         </div>
-
-        <!-- <NuxtPage /> -->
-      
-
         <div>
           <playerProfileRight :data="utrData"  :userSlug="route.params.slug" />
         </div>
@@ -52,6 +48,8 @@ import UserFeed from '~/components/user/profile/userFeed.vue';
 // import Connection from '~/components/user/profile/connection.vue';
 import mediaTab from '~/components/profiles/player/tabs/mediaTab.vue';
 import Connection from '~/components/user/profile/connection.vue';
+
+const router = useRouter();
 
 const nuxtApp = useNuxtApp();
 
@@ -128,6 +126,7 @@ const stateProvince = ref('');
 const slug = ref('');
 const utrData = ref({})
 const leftData = ref({})
+const media_info = ref();
 const props = defineProps({
     user: {
         type: Object,
@@ -155,12 +154,6 @@ onMounted(() => {
         // fetchMediaGallery();
     }
 });
-
-const changeTab = (value) => {
-  console.log(value)
-
-  tab.value = value
-}
 
 const fetchUserDetails = async () => {
     try {
@@ -254,8 +247,6 @@ const fetchUserDetails = async () => {
         }
 
         if (dataSets.media_info) {
-            console.log('fetching media');
-            console.log('Media Info:', dataSets.media_info);
             setGalleryItems(dataSets.media_info);
         } else {
             console.log('No media info available');
@@ -280,7 +271,8 @@ const fetchUserDetails = async () => {
             budgetMin: budgetMin.value,
             budgetMax: budgetMax.value,
             name: name.value,
-            sportName: sportName.value
+            sportName: sportName.value,
+            media_info: dataSets.media_info,
 
         }
 
@@ -334,12 +326,14 @@ const setGalleryItems = (mediaInfo) => {
                 type: 'image',
                 href: media.url,
                 src: media.url, // Replace with thumbnail URL if available
+                media_id: media.media_id,
             };
         } else if (media.media_type === 'video') {
             return {
                 type: 'video',
                 href: media.url,
                 src: media.url || 'https://via.placeholder.com/200x150.png?text=Video', // Use server-provided thumbnail or placeholder
+                media_id: media.media_id,
             };
         }
     });
@@ -353,6 +347,13 @@ const fetchPost = async () => {
     } catch (error) {
         console.error('Failed to load posts:', error.message);
     }
+}
+
+const redirectPage = (url) =>{
+    router.push({
+      path: url,
+
+    });
 }
 
 </script>

@@ -1,9 +1,9 @@
 <template>
     <section class="w-full mb-5 p-3">
         <div class="relative">
-            <img class="w-full h-[400px] rounded-xl" src="@/assets/images/covrss.jpg" alt="">
+            <img class="w-full h-[400px] rounded-xl" :src="coverPictureUrl" alt="">
             <!-- Wrapper for the SVG to position it absolutely -->
-            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md">
+            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md" v-if="loggedUserSlug == props.userSlug"   @click="toggleModal('cover')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
                     stroke="currentColor" class="size-3">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -18,11 +18,11 @@
                     <div class="col-span-1">
                         <div class="text-center flex relative">
                             <div class="relative ml-5">
-                                <img class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
-                                    src="@/assets/images/avtar.png" alt="">
+                                <img class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]" :src="profilePictureUrl"
+                                    alt="">
 
                                 <!-- SVG Wrapper positioned at the bottom right of the image -->
-                                <div
+                                <div v-if="loggedUserSlug == props.userSlug" @click="toggleModal('name')"
                                     class="absolute bottom-0 right-0 mb-[10px] mr-[10px] cursor-pointer bg-white p-1 rounded-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -37,8 +37,9 @@
 
 
                             <div class="text-left mt-[80px] ml-5">
-                                <h2 class="text-lg font-semibold text-white text-3xl">{{props.data.name  }} </h2>
-                                <h5 class="text-md text-white font-normal text-black text-primaryblue">{{  props.data.sport }} {{ role }}
+                                <h2 class="text-lg font-semibold text-white text-3xl absolute w-[300px]">{{ props.data.name }} </h2>
+                                <h5 class="text-md text-white font-normal text-black text-primaryblue mt-7">{{
+                                    props.data.sport }} {{ role }}
                                 </h5>
                             </div>
                         </div>
@@ -48,21 +49,8 @@
                         <div class="col-span-3">
                             <div
                                 class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                                <ul class="flex flex-wrap -mb-px">
-                                    <li class="me-2">
-                                        <button @click="handleTab('feed')"
-                                            class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</button>
-                                    </li>
-                                    <li class="me-2">
-                                        <button @click="handleTab('connection')"
-                                            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                            aria-current="page">Connections</button>
-                                    </li>
-                                    <li class="me-2">
-                                        <button @click="handleTab('media')"
-                                            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</button>
-                                    </li>
-                                </ul>
+                              
+                                <CoachTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
                             </div>
                         </div>
                     </div>
@@ -80,6 +68,7 @@
                                         </svg>
                                     </button>
                                 </div>
+                                <div v-if="sameUser ==false">
                                 <div v-if="buttonHide == true" class="">
                                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -92,16 +81,18 @@
                                     </button>
                                 </div>
 
-                                <div v-if="buttonHide == false">
+                                <div class="flex text-white" v-if="buttonHide == false">
                                     <button @click="connectAcceptOrConnect"
                                         class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                         {{ connectionButtonName }}
                                     </button>
-                                    <div v-if="connectionButtonName =='Accept connection'" class="text-white">
-                                        <button @click="connectReject" class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    <div v-if="connectionButtonName == 'Accept connection'" class="text-white">
+                                        <button @click="connectReject"
+                                            class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                             Reject
                                         </button>
-                                    </div> 
+                                    </div>
+                                </div>
                                 </div>
                                 <div class="">
                                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -121,64 +112,84 @@
             </div>
         </span>
     </section>
+
+
+    <!-- Modal Components with Standardized Props -->
+    <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
+    <CoverModal :visible="modals.cover" @close="handleModalClose" :slug="slug" />
 </template>
 
 <script setup>
-import { ref ,defineEmits ,onMounted } from 'vue';
+import { ref, defineEmits, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { useRouter, useRoute } from 'vue-router';
+import NameModal from '~/components/profiles/coach/modals/nameModal.vue';
+import CoverModal from '~/components/profiles/coach/modals/coverModal.vue';
+import { useUserStore } from '~/stores/userStore';
+import CoachTabNavigation from '~/components/profiles/navigation/CoachTabNavigation.vue';
 
 const emit = defineEmits(['changeTab']);
 const nuxtApp = useNuxtApp();
 const router = useRouter();
+
+const userStore = useUserStore();
+const userId = ref(null)
 const $userService = nuxtApp.$userService;
-const connectionStatus = ref(false)
-const connectionType = ref(null)
-const connectionButtonName = ref('Connect')
-const buttonHide = ref(true);
+const $publicService = nuxtApp.$publicService;
+const slug = ref('');
+const loggedUserSlug = ref('');
 
 const props = defineProps({
-    
+
     data: {
         type: Object,
         required: true,
     },
-
-    coachId:{
+    coachId: {
         type: String,
         required: true,
     },
-
-    userSlug:{
+    userSlug: {
         type: String,
         required: true,
     }
-}); 
+});
 
-const tabs = ref([
-    { name: 'feed', label: 'Post' },
-    { name: 'connection', label: 'Connections' },
-    { name: 'media', label: 'Media' }
-]);
+const connectionStatus = ref(false)
+const connectionType = ref(null)
+const connectionButtonName = ref('Connect')
+const buttonHide = ref(true);
+const profile_picture = ref(null);
+const userSlug = ref('')
+const sameUser = ref(false)
+const cover_picture = ref(null);
+// Import the default profile picture
+import defaultCoverPicture from '@/assets/images/covrss.jpg';
+import defaultProfilePicture from '@/assets/images/user.png';
 
 const tab = ref('feed');
 
+
 const handleTab = (selectedTab) => {
     tab.value = selectedTab;
-    emit('changeTab',selectedTab)
+    emit('changeTab', selectedTab)
 };
 
-onMounted(()=>{
-    fetchCheckConnection()
-})
+const tabs = ref([
+  { name: 'feed', label: 'Post' },
+  { name: 'connection', label: 'Connections' },
+  { name: 'media', label: 'Media' }
+]);
+
+
 
 const fetchCheckConnection = async () => {
     try {
-     
-       connectionButtonName.value = "Connect"
+
+        connectionButtonName.value = "Connect";
+
         if (props.userSlug != null) {
             const dataSets = await $userService.get_check_connection_type(props.userSlug);
-           console.log(dataSets.value)
             connectionStatus.value = dataSets.connection
             if (connectionStatus.value == true) {
                 connectionType.value = dataSets.type
@@ -210,53 +221,156 @@ const fetchCheckConnection = async () => {
 }
 
 const connectAcceptOrConnect = async () => {
-console.log(11)
-try {
-    if (connectionButtonName.value == "Accept connection") {
-        console.log(12)
+    try {
+        if (connectionButtonName.value == "Accept connection") {
 
-        await $userService.connection_accept(connectionType.value.id, {
-            connection_status: "accepted"
-        });
-    }
-    console.log(13)
-
-    if (connectionButtonName.value == "Connect") {
-        console.log(14)
-        console.log(props.coachId)
-        if (props.coachId != null) {
-            console.log(15)
-
-            const response = await $userService.connection_request({
-                receiver_id: props.coachId
+            await $userService.connection_accept(connectionType.value.id, {
+                connection_status: "accepted"
             });
-            console.log(response)
-
-
-            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
         }
 
+        if (connectionButtonName.value == "Connect") {
+            if (props.coachId != null) {
+
+                const response = await $userService.connection_request({
+                    receiver_id: props.coachId
+                });
+
+
+                nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+            }
+
+        }
+
+        fetchCheckConnection();
+
+    } catch (error) {
+        console.error('Failed to Connect :', error.message);
     }
-
-     fetchCheckConnection();
-
-} catch (error) {
-    console.error('Failed to Connect :', error.message);
-}
 }
 
 const connectReject = async () => {
-try {
-    await $userService.connection_reject(connectionType.value.id, {
-        connection_status: "rejected"
-    });
-    
-    fetchCheckConnection();
+    try {
+        await $userService.connection_reject(connectionType.value.id, {
+            connection_status: "rejected"
+        });
 
-} catch (error) {
-    console.error('Failed to Connect :', error.message);
+        fetchCheckConnection();
+
+    } catch (error) {
+        console.error('Failed to Connect :', error.message);
+    }
 }
+
+
+const fetchUserDetails = async () => {
+    try {
+
+        const dataSets = await $publicService.get_user_profile(props.userSlug);
+        if (dataSets.user_basic_info) {
+            props.data.name = dataSets.user_basic_info.display_name ?? "User has not entered name";
+
+        }
+
+        if (dataSets.media_info.profile_picture != null) {
+            profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+        }
+
+        if (dataSets.media_info.cover_picture != null) {
+            cover_picture.value = dataSets.media_info.cover_picture.url || defaultProfilePicture;
+        }
+
+
+
+
+    } catch (error) {
+        console.log(error)
+        console.error('Error fetching data:', error.message);
+    }
 }
+
+
+// Define reactive state for all modals
+const modals = reactive({
+    name: false,
+    cover: false
+});
+
+// Generic toggle function
+const toggleModal = (modalName) => {
+    if (modals.hasOwnProperty(modalName)) {
+        modals[modalName] = !modals[modalName];
+    } else {
+        console.warn(`Modal "${modalName}" does not exist.`);
+    }
+};
+
+// Generic function to close the modal and fetch user details
+const handleModalClose = (modalName) => {
+    // Defensive check to make sure modalName exists
+    if (modals[modalName] !== undefined) {
+        modals[modalName] = false;  // Close the modal
+        fetchUserDetails();         // Fetch updated user details after closing
+    } else {
+        console.error(`Invalid modal name: ${modalName}`);
+    }
+};
+
+// Computed profile picture URL
+const profilePictureUrl = computed(() => profile_picture.value);
+const coverPictureUrl = computed(() => cover_picture.value);
+
+// Watch for changes in props.data
+watch(
+    () => props.data,
+    (newVal) => {
+        if (newVal && newVal.media_info) {
+            profile_picture.value = newVal.media_info.profile_picture?.url || defaultProfilePicture;
+        } else {
+            profile_picture.value = defaultProfilePicture; // Fallback to default if media_info is undefined
+        }
+    },
+    { immediate: true } // Execute immediately when component is mounted
+);
+
+watch(
+    () => props.data,
+    (newVal) => {
+        if (newVal && newVal.media_info) {
+            cover_picture.value = newVal.media_info.cover_picture?.url || defaultCoverPicture;
+        } else {
+            cover_picture.value = defaultCoverPicture; // Fallback to default if media_info is undefined
+        }
+    },
+    { immediate: true } // Execute immediately when component is mounted
+);
+
+onMounted(() => {
+    
+    userId.value = userStore.user?.user_id || null;
+    slug.value = props.userSlug;
+    userSlug.value =userStore.userSlug??null
+    if(userSlug.value != slug.value){
+        fetchCheckConnection()
+    }else{
+        sameUser.value = true
+    }
+    if (process.client) {
+        loggedUserSlug.value = localStorage.getItem('user_slug')
+    }
+
+    // Set profile picture when props.data becomes available
+    if (props.data && props.data.media_info) {
+        console.log('media available');
+        profile_picture.value = props.data.media_info.profile_picture?.url || defaultProfilePicture;
+        cover_picture.value = props.data.media_info.cover_picture?.url || defaultProfilePicture;
+    } else {
+        console.log('media not available');
+        profile_picture.value = defaultProfilePicture;
+        cover_picture.value = defaultCoverPicture;
+    }
+
+})
 </script>
 
 <style scoped>
