@@ -246,14 +246,13 @@ const getTimeAgo = (date) => {
 };
 
 const schoolProfile = (data) =>{
-  const url =`/app/school/${data}`
-  console.log(url)
-  emit('schoolProfile',url)
+ 
+  router.push(`/app/profile/school/${data}`);
+
 }
 
 const userProfile = (data) =>{
-  const url =`/app/profile/${data}`
-  emit('schoolProfile',url)
+  router.push(`/app/profile/${data}`);
 }
 
 const likePost = async (post_id, post) => {
