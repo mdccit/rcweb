@@ -309,25 +309,19 @@ onMounted(() => {
     if (process.client) {
         loggedUserSlug.value = localStorage.getItem('user_slug')
     }
-     console.log("boi length  ")
-     const fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
-
-      bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
-     
-      seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
-      isBioExpanded.value = false
+    const fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
+    bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
+    seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
+    isBioExpanded.value = false
 
 });
 
 const toggleText = () =>{
      isBioExpanded.value = !isBioExpanded.value;
-     console.log( isBioExpanded.value)
      if(isBioExpanded.value){
-        console.log(1)
         bio.value = props.data.bio;
         expandBtnName.value ='See Less'
     }else{
-        console.log(2)
         bio.value = props.data.bio.substring(0, 100) + '...';
         expandBtnName.value ='See More'
     }

@@ -42,8 +42,12 @@
                 </div>
             </div>
             <p class="text-sm text-darkSlateBlue leading-relaxed">
-                {{ props.data.bio }}
+                {{ bio }}
             </p>
+            <div v-if="seeMoreBtnHide">
+                <button id="seeMoreBtn" @click="toggleText" >{{ expandBtnName }}</button>
+
+            </div>
         </div>
 
 
@@ -361,7 +365,10 @@ const handness = ref('')
 const preferredSurface = ref('');
 const loadedSlug = ref('')
 const isEdit = ref('');
-
+const  isBioExpanded = ref(false); 
+const seeMoreBtnHide =  ref(false);
+const bio = ref('')
+const expandBtnName = ref('See More')
 
 // Define reactive state for all modals
 const modals = reactive({
@@ -513,7 +520,26 @@ onMounted(() => {
     console.log('media not available');
     profile_picture.value = defaultProfilePicture;
   }
+  const fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
+  console.log(fullBio)
+  bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
+  console.log(bio.value)
+  seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
+  isBioExpanded.value = false
 });
+
+
+const toggleText = () =>{
+     isBioExpanded.value = !isBioExpanded.value;
+     if(isBioExpanded.value){
+        bio.value = props.data.bio;
+        expandBtnName.value ='See Less'
+    }else{
+        bio.value = props.data.bio.substring(0, 100) + '...';
+        expandBtnName.value ='See More'
+    }
+
+}
 </script>
 
 <style scoped>
