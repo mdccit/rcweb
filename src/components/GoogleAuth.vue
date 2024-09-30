@@ -71,7 +71,8 @@ const handleGoogleAuthCallback = async () => {
         token: token,
         user_permission_type: response.data.user_permission_type,
         user_id: response.data.user_id,
-        user_name:response.data.user_name
+        user_name:response.data.user_name,
+        user_slug:response.data.user_slug
       });
 
       if(type === 'login'){

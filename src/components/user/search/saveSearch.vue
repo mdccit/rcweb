@@ -14,40 +14,27 @@
             <div>
                 <label class="text-black text-sm">Name</label>
                 <div class="flex">
-                    <input type="text" v-model="name"
+                    <input type="text" v-model="name" required
                         class="w-full py-2 border border-timberwolf rounded focus:outline-none focus:ring focus:border-graySnowDrift text-black text-sm"
                         placeholder="Type here">
+                        <span v-if="error" class="text-center text-red-600">Name is required</span>
                     <button @click="save" class="bg-primaryblue p-3 text-white rounded-md ml-2 text-xs">Save</button>
                 </div>
             </div>
             <div class="mt-2">
                 <label class="text-black text-sm font-bold">Filters</label>
                 <div class="flex h-8 mt-2">
-                      <span class="bg-steelBlue text-white px-2.5 py-0.5 rounded-md mr-2">
-                        <span class="text-xs">School</span>
+                    <span v-if="searchStore.searchKey !=''" class="items-center bg-steelBlue text-white px-2.5 py-0.5 rounded-md mr-2">
+                        <span class="text-xs">{{searchStore.searchKey}}</span>
                     </span>
-                    <span class="items-center bg-steelBlue text-white px-2.5 py-0.5 rounded-md mr-2">
-                        <span class="text-xs">Player</span>
-                    </span>
-                    <span class="items-center bg-steelBlue text-white px-2.5 py-0.5 rounded-md mr-2">
-                        <span class="text-xs">Coach</span>
-                    </span>
+                    <span v-for="filter in searchStore.searchFilter" class="bg-steelBlue text-white px-2.5 py-0.5 rounded-md mr-2">
+                        <span class="text-xs">{{ filter.display_value }}</span>
+                    </span> 
+                   
+                     
                 </div>
             </div>
-            <div class="mt-2">
-                <label class="text-black text-sm font-bold">Search Result</label>
-                <div class="flex h-8 mt-2">
-                    <span class="bg-pigeonBlue text-white px-2.5 py-0.5 rounded-md mr-2">
-                        <span class="text-xs">Athletics</span>
-                    </span>
-                    <span class="bg-pigeonBlue text-white px-2.5 py-0.5 rounded-md mr-2">
-                        <span class="text-xs">Location</span>
-                    </span>
-                    <span class="bg-pigeonBlue text-white px-2.5 py-0.5 rounded-md mr-2">
-                        <span class="text-xs">Turionand Cost</span>
-                    </span>
-                </div>
-            </div>
+            
         </div>
     </div>
 </template>
@@ -56,11 +43,14 @@
 import { ref,defineProps, defineEmits, defineExpose} from 'vue';
 import { useNuxtApp } from '#app';
 import { useRouter } from 'vue-router';
+import { useSearchStore } from '~/stores/searchStore';
+const searchStore = useSearchStore();
 
 const nuxtApp = useNuxtApp();
 const router = useRouter();
 const name =ref('')
 const $userService = nuxtApp.$userService;
+const error = ref(false)
 const props = defineProps({
     isOpen: Boolean,
     // action: String,
@@ -69,40 +59,44 @@ const props = defineProps({
 const emit = defineEmits(['close']);
 
 const closePopup = ()=>{
+    error.value =false
     emit('close');
 }
 
 const save = async() =>{
     if (name.value.trim() === '') {
+        error.value =true
         return;
     }
     const response = await $userService.save_search({
         name:name.value,
         search_data:{
-            // user_role:4,
-            search_key:'',
-            state:null,
-            city:null,
-            tuition_in_state_min:null,
-            tuition_in_state_max:null,
-            tuition_out_state_min:null,
-            tuition_out_state_max:null,
-            gender:null,
-            graduation_month:null,
-            graduation_year:null,
-            country_id:null,
-            handedness:null,
-            utr_min:null,
-            utr_max:null,
-            wtn_min:null,
-            wtn_max:null,
-            atp_ranking:null,
-            itf_ranking:null,
-            national_ranking:null,
+            user_role:searchStore.userRole??'',
+            search_key:searchStore.searchKey??'',
+            state:searchStore.stateName??'',
+            city:searchStore.cityName??'',
+            tuition_in_state_min:searchStore.tuitionInStateMin??'',
+            tuition_in_state_max:searchStore.tuitionInStateMax??'',
+            tuition_out_state_min:searchStore.tuitionOutStateMin??'',
+            tuition_out_state_max:searchStore.tuitionOutStateMax??'',
+            gender:searchStore.genderType??'',
+            graduation_month:searchStore.graduationMonth??'',
+            graduation_year:searchStore.graduationYear??'',
+            country_id:searchStore.countryId??'',
+            handedness:searchStore.handednessType??'',
+            utr_min:searchStore.utrMin??'',
+            utr_max:searchStore.utrMax??'',
+            wtn_min:searchStore.wtnMin??'',
+            wtn_max:searchStore.wtnMax??'',
+            atp_ranking:searchStore.atpRanking??'',
+            itf_ranking:searchStore.itfRanking??'',
+            national_ranking:searchStore.nationalRanking??'',
             type:null
         }
     })
      name.value ='';
+     error.value =false
+
      emit('close');
     
    

@@ -23,13 +23,23 @@ const createApiService = (config) => {
 
 
  const getAuthHeaders = () => {
+  if (process.client) {
     const token = localStorage.getItem('token');
+
     return {
       'Content-Type': 'application/json',
       'AccessKey': accessKey,
       'Lang': defaultLang,
       'Authorization': token ? `Bearer ${token}` : '', // Include the token if it exists
     };
+  }else{
+    
+    return {
+      'Content-Type': 'application/json',
+      'AccessKey': accessKey,
+      'Lang': defaultLang,
+    };
+  }
   };
 
   const getRequest = async (url) => {
@@ -61,6 +71,28 @@ const createApiService = (config) => {
   };
 
 
+  const postMedia = async (url, body) => {
+    try {
+      const headers = getAuthHeaders();
+  
+      // If body is FormData, remove 'Content-Type' to let the browser set it
+      if (body instanceof FormData) {
+        delete headers['Content-Type'];
+      }
+  
+      const response = await fetch(`${apiUrl}${url}`, {
+        method: 'POST',
+        headers: headers,
+        body: body,
+      });
+  
+      // Handle the response (check for errors)
+      return await handleResponse(response);
+    } catch (error) {
+      throw error;
+    }
+  };
+  
   const putRequest = async (url, body) => {
 
     try {
@@ -111,6 +143,7 @@ const createApiService = (config) => {
     putRequest,
     deleteRequest,
     patchRequest,
+    postMedia
   };
 };
 

@@ -5,55 +5,249 @@
                 <!-- Start Profile pic section  -->
                 <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
 
-                    <div>
+                    <div class="group">
                         <div class="text-center">
-                            <img class="mx-auto w-[200px] h-[200px] rounded-xl"
-                                src="../../assets/user/images/Rectangle 193.png" alt="">
+                            <div class="w-[200px] h-[200px] relative">
+                                <img class="mx-auto w-[180px] h-[180px] rounded-xl"
+                                    src="@/assets/user/images/Rectangle 193.png" alt="">
+                                <div
+                                    class="absolute top-0 right-0 m-2 rounded-lg flex justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor"
+                                        class="w-6 h-6 bg-white p-[3px] rounded-md">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                    </svg>
+                                </div>
+                            </div>
+
                             <h3 class="text-lg font-semibold text-center text-black">{{ name }}</h3>
-                            <h5 class="text-normal text-md text-center text-black text-primaryblue">Tennis player</h5>
+                            <button @click="toggleModal('name')">
+                                <div class="cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                    </svg>
+                                </div>
+                            </button>
+                            <h5 class="text-normal text-md text-center text-black text-primaryblue">{{ sportName }}
+                                player</h5>
                         </div>
                     </div>
 
 
-
+                    <!-- BIO SECTION  -->
                     <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
-
-                            <div class="flex items-center space-x-4 w-48">
-
-                                <h1 class="text-lg font-semibold mb-4 text-black">Bio</h1>
+                            <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
+                                <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
+                                <h1 class="text-lg font-semibold mb-4 text-black col-span-2"
+                                     @click="toggleModal('bio')">
+                                    <div v-if="userId.value == playerID.value" class="cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                        </svg>
+                                    </div>
+                                </h1>
                             </div>
                         </div>
                         <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
-                            {{  bio }}
+                            {{ bio }}
                         </p>
                     </div>
 
+
+                    <!-- INFO SECTION  -->
                     <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
-
-                            <div class="flex items-center space-x-4 w-48">
-
-                                <h1 class="text-lg font-semibold mb-4 text-black">Info</h1>
+                            <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
+                                <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
+                                <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
+                                    <div v-if="userId.value == playerID.value" class="cursor-pointer" @click="toggleModal('info')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                        </svg>
+                                    </div>
+                                </h1>
                             </div>
                         </div>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ city }} , {{ country }}</b> </p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{Number(feet.toFixed(2))}} ( {{ heigth }} cm)</b> </p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{Number(pounds.toFixed(1))}}lb ({{ weight }} kg)</b> </p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>Graduation {{ graduationDate }}</b> </p>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ birthday }} Years Old </b> </p>
+
+
+                        <!-- <div v-if="userRole !='coach'|| userRole!='admin'||userRole !='player'|| userRole!='parent'|| " class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
+                                </svg>
+                            </div>
+                            <div  class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ email }}</b> </p>
+                            </div>
+                        </div> -->
+
+                        <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
+                            <div v-if="userId.value == playerID.value" class="col-span-2 mx-auto" @click="toggleModal('info')">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
+                                </svg>
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ phoneCode }} {{
+                                phone }}</b> </p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto">
+                                <img class="mx-auto  rounded-xl w-[30px]" src="@/assets/images/ruler.png" alt="">
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>
+                                        {{ Number(feet.toFixed(2)) }} ( {{ heigth }} <span
+                                            v-if="heigth != 'User has not entered height'">cm)</span> </b> </p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto">
+                                <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/weight.png" alt="">
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
+                                    <b><span v-if="weight != 'User has not entered weight'">{{ Number(pounds.toFixed(1))
+                                            }} lb(</span> {{ weight }} <span
+                                            v-if="weight != 'User has not entered weight'">kg )</span></b>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto">
+                                <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/graduation.png" alt="">
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
+                                    <b>Graduation {{ graduationDate }}</b>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- <div  v-if="userRole !='coach'|| userRole!='admin'"  class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M10.05 4.575a1.575 1.575 0 1 0-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 0 1 3.15 0v1.5m-3.15 0 .075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 0 1 3.15 0V15M6.9 7.575a1.575 1.575 0 1 0-3.15 0v8.175a6.75 6.75 0 0 0 6.75 6.75h2.018a5.25 5.25 0 0 0 3.712-1.538l1.732-1.732a5.25 5.25 0 0 0 1.538-3.712l.003-2.024a.668.668 0 0 1 .198-.471 1.575 1.575 0 1 0-2.228-2.228 3.818 3.818 0 0 0-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0 1 16.35 15m.002 0h-.002" />
+                                </svg>
+
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
+                                    <b >{{  handness }}</b>
+                                </p>
+                            </div>
+                        </div> -->
+
+                        <!-- <div  v-if="userRole !='coach'|| userRole!='admin'"  class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m6.115 5.19.319 1.913A6 6 0 0 0 8.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 0 0 2.288-4.042 1.087 1.087 0 0 0-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 0 1-.98-.314l-.295-.295a1.125 1.125 0 0 1 0-1.591l.13-.132a1.125 1.125 0 0 1 1.3-.21l.603.302a.809.809 0 0 0 1.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 0 0 1.528-1.732l.146-.292M6.115 5.19A9 9 0 1 0 17.18 4.64M6.115 5.19A8.965 8.965 0 0 1 12 3c1.929 0 3.716.607 5.18 1.64" />
+                                </svg>
+
+
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2">
+                                    <b> {{  nationality }}</b>
+                                </p>
+                            </div>
+                        </div> -->
+
+                        <div class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto">
+                                <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/bday.png" alt="">
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ birthday }}
+                                        <span v-if="birthday != 'User has not entered birthday'">Years Old</span> </b>
+                                </p>                             
+                            </div>
+                        </div>
+                        <!-- <div  v-if="userRole !='coach'|| userRole!='admin'" class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto">
+                                <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/bday.png" alt="">
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{  preferredSurface }}</b></p>
+                            </div>
+                        </div> -->
+                        <!-- <div  v-if="userRole !='coach'|| userRole!='admin'" class="grid grid-cols-10">
+                            <div class="col-span-2 mx-auto">
+                                <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/bday.png" alt="">
+                            </div>
+                            <div class="col-span-8">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{  gender }}</b></p>
+                            </div>
+                        </div> -->
                     </div>
 
+
+                    <!-- ADDRESS SECTION  -->
                     <div style="height: 70px;"
                         class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
-                        <div class="grid grid-cols-3 gap-4">
-                            <div class="...">
+                        <div class="grid grid-cols-5 gap-4">
+                            <div class="col-span-1...">
+                                <img class="mx-auto w-[45px] h-[45px] rounded-xl " src="@/assets/images/pin.png" alt="">
+                            </div>
+                            <div class="col-span-3 ...">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3"><span
+                                        v-if="userRole == 'coach' || userRole == 'admin'"> {{ addressLine01 }} {{
+                                addressLine02 }} {{ stateProvince }}</span> {{ city }} , {{
+                                country }}
+                                </p>
+
+                            </div>
+                            <div v-if="userId.value == playerID.value" class="col-span-1 ..." @click="toggleModal('address')">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                </svg>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div v-if="userRole == 'coach' || userRole == 'admin'" style="height: 70px;"
+                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                        <div class="grid grid-cols-5 gap-4" @click="toggleModal('budget')">
+                            <div class="col-span-1...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl "
                                     src="@/assets/user/images/Group 179.png" alt="">
                             </div>
-                            <div class="col-span-2 ...">
-                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Has {{  budgetMin }} - {{ budgetMax }}
+                            <div class="col-span-3 ...">
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Has {{ budgetMin }} -
+                                    {{ budgetMax }}
                                 </p>
+
+                            </div>
+                            <div class="col-span-1 ...">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                </svg>
+
 
                             </div>
                         </div>
@@ -68,7 +262,8 @@
                                     src="@/assets/user/images/Group 79.png" alt="">
                             </div>
                             <div class="col-span-2 ...">
-                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Signed up {{ joinDate }}
+                                <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Signed up {{ joinDate
+                                    }}
                                 </p>
 
                             </div>
@@ -76,32 +271,17 @@
 
                     </div>
                 </div>
+            
+                <!-- <PlayerProfileLeft/> -->
+
                 <!-- End Profile pic section  -->
 
                 <!-- Start post Section -->
 
                 <div class="col-span-5 sm:col-span-3 md:col-span-5 lg:col-span-2 xl:col-span-3 mb-5">
 
-                    <div
-                        class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                        <ul class="flex flex-wrap -mb-px">
-                            <li class="me-2">
-                                <button @click="handleTab('feed')"
-                                    class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</button>
-                            </li>
-                            <li class="me-2">
-                                <button @click="handleTab('connection')"
-                                    class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                    aria-current="page">Connections</button>
-                            </li>
-                            <li class="me-2">
-                                <a href="#"
-                                    class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</a>
-                            </li>
-
-
-                        </ul>
-                    </div>
+                    <!-- Tab Navigation Component -->
+                    <PlayerTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
 
                     <!--start card 01 -->
                     <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
@@ -153,8 +333,8 @@
                         </div>
                     </div> -->
                     <!--end card 01 -->
-                     <!-- Posts section -->
-                     <UserFeed v-if="tab == 'feed'" :posts="posts" />
+                    <!-- Posts section -->
+                    <UserFeed v-if="tab == 'feed'" :posts="posts" />
                     <!-- Posts section End -->
 
                     <!--start card 02 -->
@@ -373,8 +553,23 @@
                     </div> -->
 
                     <!--end card 02 -->
-                    <Connection   v-if="tab == 'connection'":connections="connections"  />
+                    <Connection v-if="tab == 'connection'" :playerId="playerID" />
                     <!--start card 03 -->
+
+                    <!-- Media Gallery Section -->
+
+                    <mediaTab v-if="tab == 'media'" :galleryItems="galleryItems" />
+                    <!-- <div v-if="tab === 'media'" class="media-gallery grid">
+                        <a v-for="(item, index) in galleryItems" :key="index" data-fancybox="gallery" :href="item.href"
+                            class="media-item">
+                            <img v-if="item.type === 'image'" class="rounded w-full" :src="item.src" />
+                            <video v-if="item.type === 'video'" class="rounded w-full" controls>
+                                <source :src="item.src" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                        </a>
+                    </div> -->
+
 
                     <!--end card 03 -->
 
@@ -384,17 +579,17 @@
                 <!-- End post Section -->
 
                 <!-- Start UTR Section -->
-                <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1 mt-4">
+                <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1 mt-4 text-white">
                     <div>
                         <div class="flex">
                             <div class="">
-                                <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                <!-- <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                     </svg>
-                                </button>
+                                </button> -->
                             </div>
                             <div class="">
                                 <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -406,25 +601,66 @@
 
                                 </button>
                             </div>
-
+                       
+                            <div v-if="buttonHide == false">
+                                <button @click="connectAcceptOrConnect"
+                                    class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    {{ connectionButtonName }}
+                                </button>
+                            </div>
                             <div>
-                                <button @click="connectAcceptOrConnect" class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                     {{  connectionButtonName }}
+                                <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    Accept
+                                </button>
+                            </div>
+                            <div>
+                                <button  
+                                    class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    Regect
                                 </button>
                             </div>
                             <div class="">
-                                <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
-
                                 </button>
+                                <div id="dropdown"
+                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                    aria-labelledby="dropdownDefaultButton">
+                                    <li>
+                                        <a href="#"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">More</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
+                                    </li>
+                                </ul>
+                            </div>
                             </div>
                         </div>
                     </div>
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-blue-500 p-3 mt-2">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
+                                <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
+                                <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
+                                    <div v-if="userId.value == playerID.value" class="cursor-pointer mr-[20px]" @click="toggleModal('utr')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor"
+                                            class="size-4 bg-white rounded-sm m-2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                        </svg>
+                                    </div>
+                                </h1>
+                            </div>
+                        </div>
+
                         <div class="grid grid-cols-2 gap-4">
                             <div class="">
                                 <h2 class="text-lg font-semibold mb-4">UTR score</h2>
@@ -433,211 +669,513 @@
                                 <h2 class="text-lg font-semibold mb-4">{{ utr }}</h2>
                             </div>
                             <div class="">
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">GPA</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">SAT Score</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ATP Ranking</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ITF Ranking</p>
+                                <!-- <p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">WTN</p> -->
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
+                                <p class="text-lg font-semibold mb-4 text-sm text-normal">National Ranking</p>
                             </div>
                             <div class="">
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ gpa }}</p>
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ sat }}</p>
-                                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ toefl }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ gpa }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ sat }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ toefl }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ gpa }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ sat }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ toefl }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ atp }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ itf }}</p>
+                                <!-- <p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ wtn }}</p> -->
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ act }}</p>
+                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                                    class="text-lg font-semibold mb-4 text-sm text-normal">{{ act }}</p>
+                                <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ nationalRanking }}</p>
+
                             </div>
                         </div>
-
-
-
-
                     </div>
-
                 </div>
                 <!-- End Pending Req. Section -->
             </section>
         </div>
     </main>
+
+
+    <!-- Modal Components with Standardized Props -->
+    <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
+    <BioModal :visible="modals.bio" @close="handleModalClose" :slug="slug" />
+    <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" />
+    <BudgetModal :visible="modals.budget" @close="handleModalClose" :slug="slug" />
+    <UTRModal :visible="modals.utr" @close="handleModalClose" :slug="slug" />
+    <AddressModal :visible="modals.address" @close="handleModalClose" :slug="slug" />
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, reactive } from 'vue';
 import { useNuxtApp } from '#app';
+import { useRoute } from 'vue-router';
 import Connection from '~/components/user/profile/connection.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
-import { useUserStore } from '~/stores/userStore'
+import { useUserStore } from '~/stores/userStore';
+import PlayerTabNavigation from '~/components/profiles/navigation/PlayerTabNavigation.vue';
+import { Fancybox } from '@fancyapps/ui';
+import '@fancyapps/ui/dist/fancybox/fancybox.css';
+import PlayerProfileLeft from '~/components/profiles/player/layout/playerProfileLeft.vue';
+import NameModal from '~/components/profiles/player/modals/nameModal.vue';
+import BioModal from '~/components/profiles/player/modals/bioModal.vue';
+import InfoModal from '~/components/profiles/player/modals/infoModal.vue';
+import BudgetModal from '~/components/profiles/player/modals/budgetModal.vue';
+import UTRModal from '~/components/profiles/player/modals/utrModal.vue';
+import AddressModal from '~/components/profiles/player/modals/addressModal.vue';
+import mediaTab from '~/components/profiles/player/tabs/mediaTab.vue';
+
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $publicService = nuxtApp.$publicService;
 const $userService = nuxtApp.$userService;
 const $feedService = nuxtApp.$feedService;
-const userStore = useUserStore()
+const userStore = useUserStore();
+const route = useRoute();
 
-const bio =ref('');
-const country =ref('');
-const city =ref('');
-const heigth =ref('');
-const weight =ref('');
-const graduationDate =ref('');
-const birthday =ref('');
-const budgetMin =ref('')
-const budgetMax =ref('')
-const name =ref('')
-const joinDate =ref('')
-const utr =ref(0)
-const gpa =ref("Unknown")
-const sat =ref("Unknown")
-const toefl =ref("Unknown")
-const atp =ref("Unknown")
-const itf =ref("Unknown")
-const feet =ref(0)
-const pounds =ref(0)
+const bio = ref('');
+const country = ref('');
+const city = ref('');
+const heigth = ref('');
+const weight = ref('');
+const graduationDate = ref('');
+const birthday = ref('');
+const budgetMin = ref('')
+const budgetMax = ref('')
+const name = ref('')
+const joinDate = ref('')
+const utr = ref(0)
+const gpa = ref("Unknown")
+const sat = ref("Unknown")
+const toefl = ref("Unknown")
+const atp = ref("Unknown")
+const itf = ref("Unknown")
+const feet = ref(0)
+const pounds = ref(0)
 const connections = ref([])
-const tab = ref('feed')
 const posts = ref([])
 const connectionStatus = ref(false)
 const connectionType = ref(null)
-const connectionButtonName =ref('Connect')
+const connectionButtonName = ref('Connect')
 const userId = ref('')
-const plyerSlug = ref('')
-const plyerId = ref('')
+const playerID = ref('')
+const sportName = ref('')
+const email = ref('')
+const phone = ref('')
+const wtn = ref('')
+const act = ref('')
+const nationalRanking = ref('')
+const gender = ref('')
+const nationality = ref('')
+const handness = ref('')
+const preferredSurface = ref('')
+const phoneCode = ref('')
+const userRole = ref(null)
+const addressLine01 = ref('');
+const addressLine02 = ref('');
+const stateProvince = ref('');
+const buttonHide = ref(true);
+const isEdit = ref('');
+const slug = ref('');
 
-onMounted(() => {
-    userId.value = userStore.user.user_id
-    plyerSlug.value = userStore.player_slug
-    plyerId.value = userStore.player_id
-    fetchUserDatils();
-    fetchConnections();
-    fetchPost();
-    fetchCheckConnection();
-    
 
+const props = defineProps({
+    user: {
+        type: Object,
+        required: true,
+    },
 });
 
-const fetchUserDatils = async () =>{
+// Tabs data
+const tabs = ref([
+    { name: 'feed', label: 'Post' },
+    { name: 'connection', label: 'Connections' },
+    { name: 'media', label: 'Media' }
+]);
+
+// The default active tab
+const tab = ref('feed');
+
+// Function to handle tab change
+const handleTab = (selectedTab) => {
+    tab.value = selectedTab;
+};
+
+// Define reactive state for all modals
+const modals = reactive({
+    name: false,
+    bio: false,
+    info: false,
+    budget: false,
+    utr: false,
+    address: false,
+});
+
+// Generic toggle function
+const toggleModal = (modalName) => {
+    if (modals.hasOwnProperty(modalName)) {
+        modals[modalName] = !modals[modalName];
+    } else {
+        console.warn(`Modal "${modalName}" does not exist.`);
+    }
+};
+
+
+onMounted(() => {
+    slug.value = route.params.slug;
+
+    if (slug) {
+        fetchUserDetails(slug);
+    }
+    userId.value = userStore.user?.user_id || null;
+    playerID.value = props.user?.user_basic_info?.id || null;
+    userRole.value = userStore.user?.role || null;
+
+    if (playerID.value != null) {
+        // fetchConnections();
+        fetchPost();
+        fetchCheckConnection();
+        fetchMediaGallery();
+    }
+});
+
+
+
+const fetchUserDetails = async (slug) => {
     try {
-       const dataSets = await $publicService.get_player(plyerSlug.value);
-        bio.value =dataSets.player_info.other_data.bio
-        country.value =dataSets.user_address_info.country
-        city.value =dataSets.user_address_info.city
-        heigth.value =dataSets.player_info.height
-        weight.value =dataSets.player_info.weight
-        budgetMin.value =dataSets.player_info.other_data.budget_max
-        budgetMax.value =dataSets.player_info.other_data.budget_min
-        name.value =dataSets.user_basic_info.display_name
-        utr.value =dataSets.player_info.other_data.utr
-        gpa.value =dataSets.player_info.gpa??"Unknown"
-        sat.value =dataSets.player_info.other_data.sat_score ?? "Unknown"
-        toefl.value =dataSets.player_info.other_data.toefl_score ?? "Unknown"
-        atp.value =dataSets.player_info.other_data.atp_ranking ?? "Unknown"
-        itf.value =dataSets.player_info.other_data.itf_ranking ?? "Unknown"
+        const dataSets = await $publicService.get_user_profile(route.params.slug);
+        if (dataSets.user_basic_info) {
+            bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"
+            name.value = dataSets.user_basic_info.display_name ?? "User has not entered name";
+           
 
-        const parsedDate = new Date(dataSets.player_info.graduation_month_year);
-        const options = { year: 'numeric', month: 'long' };
-        graduationDate.value = parsedDate.toLocaleDateString('en-US', options);
+            const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDifference = today.getMonth() - birthDate.getMonth();
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            birthday.value = age ?? 'User has not entered birthday'
 
-        const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
-        const today = new Date();
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const monthDifference = today.getMonth() - birthDate.getMonth();
-        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
+            const date = new Date(dataSets.user_basic_info.joined_at);
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            const year = date.getFullYear();
+            const month = monthNames[date.getMonth()];
+            const day = date.getDate();
+            joinDate.value = `${year} ${month} ${day}`
+
+            nationality.value = dataSets.user_basic_info.nationality ?? "User has not entered nationality"
+            email.value = dataSets.user_basic_info.email ?? "User has not entered email"
+            gender.value = dataSets.user_basic_info.gender ?? "User has not entered gender"
+
+
         }
-        birthday.value =age
 
-        feet.value = dataSets.player_info.height/30.48;
+        if (dataSets.user_address_info) {
+            country.value = dataSets.user_address_info.country ?? 'User has not entered country'
+            city.value = dataSets.user_address_info.city ?? 'User has not entered city'
+            addressLine01.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
+            addressLine02.value = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
+            stateProvince.value = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
+        }
 
-        pounds.value =2.20462*dataSets.player_info.weight
+        if (dataSets.user_phone_info) {
+            phone.value = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number'
+            phoneCode.value = dataSets.user_phone_info.phone_code ?? ''
+        }
 
-        const date = new Date(dataSets.user_basic_info.joined_at);
-        const monthNames = [
-            'January', 'February', 'March', 'April', 'May', 'June',
-             'July', 'August', 'September', 'October', 'November', 'December'
-        ];
-       const year = date.getFullYear();
-       const month = monthNames[date.getMonth()]; 
-       const day = date.getDate();
-       joinDate.value =`${year} ${month} ${day}`
-    
+        if (dataSets.player_info) {
+            heigth.value = dataSets.player_info.height ?? 'User has not entered height'
+            weight.value = dataSets.player_info.weight ?? 'User has not entered weight'
+            utr.value = dataSets.player_info.other_data.utr ?? 0
+            gpa.value = dataSets.player_info.gpa ?? "Unknown"
+            sportName.value = dataSets.player_info.sport_name ?? 'User has not entered sport'
+
+            if (dataSets.player_info.other_data) {
+                budgetMin.value = dataSets.player_info.other_data.budget_max ?? 'User has not entered budget min value'
+                budgetMax.value = dataSets.player_info.other_data.budget_min ?? 'User has not entered budget max value'
+                sat.value = dataSets.player_info ? dataSets.player_info.other_data.sat_score : "Unknown"
+                toefl.value = dataSets.player_info ? dataSets.player_info.other_data.toefl_score : "Unknown"
+                atp.value = dataSets.player_info.other_data.atp_ranking ?? "Unknown"
+                itf.value = dataSets.player_info.other_data.itf_ranking ?? "Unknown"
+                act.value = dataSets.player_info.other_data.act_score ?? "Unknown"
+                wtn.value = dataSets.player_info.other_data.wtn_score_manual ?? "Unknown"
+                nationalRanking.value = dataSets.player_info.other_data.national_ranking ?? "Unknown"
+                handness.value = dataSets.player_info.other_data.handedness ?? "User has not entered handness"
+                preferredSurface.value = dataSets.player_info.other_data.preferred_surface ?? "User has not entered preferred surface"
+
+            }
+
+            const parsedDate = new Date(dataSets.player_info.graduation_month_year);
+            const options = { year: 'numeric', month: 'long' };
+            graduationDate.value = parsedDate.toLocaleDateString('en-US', options) ?? 'User has not entered graduation date'
+
+            feet.value = dataSets.player_info.height / 30.48;
+            pounds.value = 2.20462 * dataSets.player_info.weight
+        }
 
     } catch (error) {
         console.log(error)
-       console.error('Error fetching data:', error.message);
-    } 
+        console.error('Error fetching data:', error.message);
+    }
 }
 
-const fetchCheckConnection = async () =>{
+const fetchCheckConnection = async () => {
     try {
-       const dataSets = await $userService.get_check_connection_type(playerId.value);
-       connectionStatus.value =dataSets.connection
+        if (playerID.value != null) {
+            const dataSets = await $userService.get_check_connection_type(playerID.value);
+            connectionStatus.value = dataSets.connection
+            if (connectionStatus.value) {
+                connectionType.value = dataSets.type
 
-       if(connectionStatus.value){
-          connectionType.value = dataSets.type
-          
-          if((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)){
-              connectionButtonName.value = " Invite "
-          }
+                if ((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)) {
+                    buttonHide.value = false
 
-          if((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)){
-            connectionButtonName.value = " Accepted "
-          }
+                    connectionButtonName.value = "Invite sent"
+                }
 
-          if(dataSets.type.connection_status == 'accepted'){
-            connectionButtonName.value = " Connected "
-          }
+                if ((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)) {
+                    buttonHide.value = false
 
-       }
-       
+                    connectionButtonName.value = "Accept connection"
+                }
+
+                if (dataSets.type.connection_status == 'accepted') {
+                    buttonHide.value = true
+
+                    connectionButtonName.value = "Connected"
+                }
+            } else {
+                buttonHide.value = false
+            }
+
+        }
     } catch (error) {
-       console.error('Error fetching data:', error.message);
-    } 
+        console.error('Error fetching data:', error.message);
+    }
 }
 
-const fetchConnections = async () =>{
+// const fetchConnections = async () => {
+//     try {
+//         if (playerID.value != null) {
+//             const dataSets = await $userService.get_connection(playerID.value);
+//             connections.value = dataSets.connection
+//         }
+
+//     } catch (error) {
+//         console.log(error)
+//         console.error('Error fetching data:', error.message);
+//     }
+// }
+const fetchPost = async () => {
     try {
-       const dataSets = await $userService.get_connection(playerId);
-       console.log(dataSets.connection)
-       connections.value =dataSets.connection   
-    } catch (error) {
-        console.log(error)
-       console.error('Error fetching data:', error.message);
-    } 
-}
-const fetchPost = async () =>{
-      try {
-       const response = await $feedService.list_posts({});
+        const response = await $feedService.list_posts({});
         posts.value = response || [];
-  
-  } catch (error) {
-    console.error('Failed to load posts:', error.message);
-  }
+
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
 }
 
+const connectAcceptOrConnect = async () => {
 
-const handleTab = (name) =>{
-    tab.value = name
-}
-
-const connectAcceptOrConnect = async () =>{
-      try {
-        if(connectionButtonName.value == "Accepted"){
-            await $userService.connection_accept(connectionType.value.id,{
-                connection_status:"accepted"
+    try {
+        if (connectionButtonName.value == "Accepted") {
+            await $userService.connection_accept(connectionType.value.id, {
+                connection_status: "accepted"
             });
         }
 
-        if(connectionButtonName.value == "Connect"){
-            await $userService.connection_request({
-                receiver_id:playerId.value
-            });
+        if (connectionButtonName.value == "Connect") {
+            if (playerID.value != null) {
+                const response = await $userService.connection_request({
+                    receiver_id: playerID.value
+                });
+
+                nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+            }
+
         }
 
-        fetchCheckConnection()
-  
-  } catch (error) {
-    console.error('Failed to load posts:', error.message);
-  }
+        // fetchCheckConnection();
+
+    } catch (error) {
+        console.error('Failed to Connect :', error.message);
+    }
 }
+
+const fetchMediaGallery = async () => {
+    try {
+        Fancybox.bind('[data-fancybox="gallery"]', {
+            dragToClose: false,
+
+            Toolbar: {
+                display: {
+                    left: ['close'],
+                    middle: [],
+                    right: [],
+                },
+            },
+
+            Images: {
+                zoom: false,
+            },
+
+            Thumbs: {
+                type: 'classic',
+            },
+
+            Carousel: {
+                transition: false,
+                friction: 0,
+            },
+
+            on: {
+                'Carousel.ready Carousel.change': (fancybox) => {
+                    fancybox.container.style.setProperty(
+                        '--bg-image',
+                        `url("${fancybox.getSlide().thumbSrc}")`
+                    );
+                },
+            },
+        });
+    } catch (error) {
+        console.error('Error fetching media:', error);
+    }
+};
+
+
+// Array of gallery items (images and video)
+const galleryItems = ref([
+    {
+        type: 'image',
+        href: 'https://lipsum.app/id/46/1600x1200',
+        src: 'https://lipsum.app/id/46/200x150',
+    },
+    {
+        type: 'image',
+        href: 'https://lipsum.app/id/47/1600x1200',
+        src: 'https://lipsum.app/id/47/200x150',
+    },
+    {
+        type: 'image',
+        href: 'https://lipsum.app/id/51/1600x1200',
+        src: 'https://lipsum.app/id/51/200x150',
+    },
+    {
+        type: 'video',
+        href: 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
+        src: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    },
+]);
+
+// Generic function to close the modal and fetch user details
+const handleModalClose = (modalName) => {
+    // Defensive check to make sure modalName exists
+    if (modals[modalName] !== undefined) {
+        modals[modalName] = false;  // Close the modal
+        fetchUserDetails();         // Fetch updated user details after closing
+    } else {
+        console.error(`Invalid modal name: ${modalName}`);
+    }
+};
 
 </script>
+
+
+<style scoped>
+.fancybox__backdrop::after {
+    content: '';
+    position: absolute;
+    width: 10%;
+    height: 10%;
+    filter: blur(2px);
+    left: 50%;
+    top: 50%;
+    transform: scale(11);
+    opacity: 0.3;
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.fancybox__toolbar {
+    padding: 16px;
+}
+
+.fancybox__toolbar,
+.fancybox__nav {
+    --f-button-border-radius: 50%;
+    --f-button-bg: rgb(91 78 76 / 64%);
+    --f-button-hover-bg: rgb(91 78 76 / 74%);
+    --f-button-active-bg: rgb(91 78 76 / 84%);
+}
+
+.fancybox__nav {
+    --f-button-svg-width: 22px;
+    --f-button-svg-height: 22px;
+}
+
+.fancybox__thumbs.is-classic {
+    --f-thumb-width: 48px;
+    --f-thumb-height: 48px;
+    --f-thumb-gap: 16px;
+
+    --f-thumb-border-radius: 6px;
+    --f-thumb-outline: 0;
+}
+
+
+.media-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 items per row */
+    gap: 16px;
+    /* Add some spacing between items */
+    margin-top: 24px;
+}
+
+.media-item {
+    position: relative;
+}
+
+.media-item img,
+.media-item video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+</style>

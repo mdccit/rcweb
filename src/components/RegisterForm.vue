@@ -187,8 +187,10 @@ const handleSubmit = async () => {
           token: response.data.token,
           user_permission_type: response.data.user_permission_type? response.data.user_permission_type:'none',
           user_id:response.data.user_id,
-          user_name:response.data.user_name
+          user_name:response.data.user_name,
+          user_slug:response.data.user_slug
          });
+         userStore.setUserSlug(response.data.user_slug??null)
 
         // Use named route navigation
         router.push({ name: 'register-step-two-token', params: { token: token } });

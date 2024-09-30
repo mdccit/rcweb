@@ -90,13 +90,14 @@ const email = ref('');
 const rememberMe = ref(false);
 const password = ref('');
 const error = ref('');
-const notification_type = ref('');
-const successMessage = ref('');
+
 const router = useRouter();
 const userStore = useUserStore();
 
 const errors = ref({});
 const authType = ref('');
+const notification_type = ref('');
+const successMessage = ref('');
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const loading = ref(false);
@@ -132,7 +133,8 @@ const userLogin = async (autoLogin = false) => {
         };     
         saveEncryptedCredentials(credentials);  // Save the credentials
       }
-
+      //set user Slug
+      userStore.setUserSlug(response.data.user_slug??null)
       // Set the user in the Pinia store
       userStore.setUser({
         email: email.value,
@@ -140,7 +142,8 @@ const userLogin = async (autoLogin = false) => {
         token: response.data.token,
         user_permission_type: response.data.user_permission_type,
         user_id:response.data.user_id,
-        user_name:response.data.user_name
+        user_name:response.data.user_name,
+        user_slug:response.data.user_slug
       });
 
       // Set success notification

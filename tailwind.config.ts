@@ -40,6 +40,7 @@ module.exports = {
         timberwolf: '#D9D9D9',
         graySnowDrift: '#F4F6F9', // Page background gray color
         lightGray: '#eeeeee',
+        lightGray1: '#ECECEC',
         pigeonBlue: '#BBCDEE',
         ceil: '#8CA4CE', // Placeholder color
         limegreen: '#4AC220',
@@ -59,7 +60,10 @@ module.exports = {
         royalBlue: '#0068c7', // Primary blue button active color // primary-600
         lightAzure: '#52acff', // Primary blue button focus border color // primary-300
         lightPastalBlue: '#7ac0ff80', // Primary blue button focus color // primary-200
-        tealGray:'#3b82f680'
+        tealGray:'#3b82f680',
+        grayishSilver:'#C0C0C0',
+        vividSkyBlue: '#2B9AFF',
+        softGray: '#C8C8C8'
       },
       testred: {
         lightest: '#efdfa4',
@@ -96,7 +100,8 @@ module.exports = {
         '1.75': '1.75px',
       },
       backgroundImage: {
-        'generic': "url('@/assets/images/bg-generic.svg')"
+        'generic': "url('@/assets/images/bg-generic.svg')",
+        'transferTrackerBlur': "url('@/assets/user/images/blur-bg-transfer.png')"
       }
     },
   },

@@ -13,10 +13,7 @@ export const useUserStore = defineStore('user', {
     roles: [],
     permissions: [],
     user_id :'',
-    player_id:'',
-    player_slug:'',
-    coache_id:'',
-    coache_slug:''
+    user_slug:null
   }),
   getters: {
     isAuthenticated: (state) => !!state.user && !!state.token,
@@ -25,10 +22,7 @@ export const useUserStore = defineStore('user', {
     userId: (state) => state.user_id || '',  
     loggedUserEmail: (state) => state.email || '',  // Default role if not set
     loggedUserName: (state) => state.user_name,
-    playerId:(state) => state.player_id || '',
-    playerSlug:(state) => state.player_slug || '',
-    coacheId:(state) => state.coache_id || '',
-    coacheSlug:(state) => state.coache_slug || ''
+    userSlug:(state) => state.user_slug||null,
   },
   actions: {
     setToken(token) {
@@ -55,19 +49,19 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem('user_permission_type', type);
       }
     },
-    setPlayerId(id) {
-      this.player_id = id;
+    setUserSlug(slug) {
+      this.user_slug = slug;
+      if (process.client) {
+        localStorage.setItem('user_slug', slug);
+      }
     },
-    setPlayerSlug(slug) {
-      this.player_slug = slug;
+    setUserId(id) {
+      this.user_id = id;
+      if (process.client) {
+        localStorage.setItem('user_id', id);
+      }
     },
-    setCoacheId(id) {
-      this.coache_id = id;
-    },
-    setCoacheSlug(slug) {
-      this.coache_slug = slug;
-    },
-    setUserId(name) {
+    setUserName(name) {
       this.user_name = name;
       if (process.client) {
         localStorage.setItem('user_name', name);
@@ -84,14 +78,15 @@ export const useUserStore = defineStore('user', {
       this.permissions = user.permissions || []; // Set user permissions
       this.user_id = user.user_id || ''; 
       this.user_name = user.user_name || ''; 
-
+      this.user_slug = user.user_slug || '';
 
       // Set the token and role
       this.setToken(user.token);
       this.setRole(user.role);
       this.setEmail(user.email);
       this.setUserId(user.id);
-      this.setUserId(user.user_name);
+      this.setUserName(user.user_name);
+      this.setUserSlug(user.user_slug);
       if (process.client) {
         // Remove session cookie by setting it to an expired date
         document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -101,11 +96,6 @@ export const useUserStore = defineStore('user', {
       }
     },
     setPlayerId(id) {
-      this.user_id = id;
-      if (process.client) {
-        localStorage.setItem('user_id', id);
-      }
-    }, setUserId(id) {
       this.user_id = id;
       if (process.client) {
         localStorage.setItem('user_id', id);
@@ -128,6 +118,7 @@ export const useUserStore = defineStore('user', {
       this.permissions = [];
       this.user_id = ''; 
       this.user_id = null; 
+      this.user_slug=null;
        // Remove session cookie
        Cookies.remove('session', { path: '/' });
 
@@ -139,6 +130,9 @@ export const useUserStore = defineStore('user', {
         localStorage.removeItem('user_id');
         localStorage.removeItem('email');
         localStorage.removeItem('user_name');
+        localStorage.removeItem('user_slug');
+        localStorage.removeItem('authType');
+        localStorage.removeItem('password_reset_id');
       }
     },
 
@@ -161,6 +155,13 @@ export const useUserStore = defineStore('user', {
     getEmail() {
       if (this.user) {
         return this.email;
+       
+      }
+      return null;
+    },
+    getSlug() {
+      if (this.user_slug) {
+        return this.user_slug;
        
       }
       return null;

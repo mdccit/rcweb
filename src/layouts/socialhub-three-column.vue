@@ -7,8 +7,12 @@
       <div class="container-compressed">
         <div class="grid grid-cols-6 gap-4 mt-16">
           <!-- Left pane -->
-          <div >
+          <div>
+            <!-- <Filter /> -->
+             <transfer-tracker-left-bar />
+             <!-- <NetworkLeft /> -->
             <Filter v-if="route.meta.showFilterLeft" />
+            <!-- <resources-left-bar /> -->
           </div>
 
           <!-- Middle pane -->
@@ -20,6 +24,7 @@
           <!-- Right pane -->
           <div>
             <!-- <Filter /> -->
+             <transfer-tracker-right-bar />
           </div>
         </div>
       </div>
@@ -51,6 +56,10 @@ import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
+import TransferTrackerLeftBar from '~/components/user/transferTrackerLeftBar.vue';
+import TransferTrackerRightBar from '~/components/user/transferTrackerRightBar.vue';
+import NetworkLeft from '~/components/user/networkLeft.vue';
+import ResourcesLeftBar from '~/components/user/resourcesLeftBar.vue';
 
 
 defineNuxtRouteMiddleware(checkSession);

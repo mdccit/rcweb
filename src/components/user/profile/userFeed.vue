@@ -7,9 +7,14 @@
               <div>
                 <div class="flex items-center justify-between">
                   <div v-if="post.school_id != null" class="flex items-center space-x-3">
-                    <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12">
+                    
+                      <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12">
+                  
+                    
                     <div>
-                      <div class="text-md font-bold text-black">{{ post.school.name }}</div>
+                      <button @click="schoolProfile(post.school.slug)">
+                          <div class="text-md font-bold text-black">{{ post.school.name }}</div>
+                      </button>
                       <div class="flex space-x-2 items-center">
                         <!-- Display only for the coach - start -->
                         <!-- <div class="bg-mintGreen p-1 rounded-md flex items-center justify-center">
@@ -35,9 +40,14 @@
                 <hr  v-if="post.school" class="mt-5 mb-3 text-pigeonBlue">
                  <div class="flex items-center justify-between">
                 <div class="flex space-x-3 items-center">
-                  <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
+                  
+                    <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-[35px] h-[35px]">
+                 
+                 
                   <div>
-                    <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
+                    <button @click="userProfile(post.user.slug)">
+                       <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
+                    </button>
                     <div v-if="post.school_id != null" class="text-darkSlateBlue text-xs">Coach at {{ post.school_id != null ? post.school.name : '' }}</div>
                     <div v-if="post.school_id == null"  class="text-darkSlateBlue text-xs">{{  getTimeAgo(post.updated_at) }}</div>
 
@@ -184,6 +194,8 @@ const userStore = useUserStore()
 const userId = ref('')
 const userRole = ref('')
 const router = useRouter();
+const emit = defineEmits(['profileView']);
+
   const props = defineProps({
       posts: Array
    });
@@ -218,4 +230,15 @@ const getTimeAgo = (date) => {
 
   return secondsAgo === 1 ? '1 second ago' : `${secondsAgo} seconds ago`;
 };
+
+const schoolProfile = (data) =>{
+  const url =`/app/school/${data}`
+  console.log(url)
+  emit('schoolProfile',url)
+}
+
+const userProfile = (data) =>{
+  const url =`/app/profile/${data}`
+  emit('schoolProfile',url)
+}
   </script>
