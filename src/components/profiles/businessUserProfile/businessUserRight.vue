@@ -8,11 +8,11 @@
 
                                 <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto text-center mb-3">{{
                                     position }} with </p>
-                                <div class="... text-center">
+                                <div  class="... text-center">
                                     <img class="mx-auto w-[85px] h-[85px] rounded-[20px] mb-3"
                                         src="@/assets/user/images/whitter collage.png" alt="">
                                     <p class="text-black text-sm text-center font-normal mb-3 w-[200px] mx-auto">
-                                        <b>ICSA (Intercollegiate Soccer Association)</b></p>
+                                        <b>{{  props.data.business }}</b></p>
                                     <p class="text-steelBlue text-sm text-center  mb-3">Business</p>
                                 </div>
                             </div>
@@ -23,7 +23,28 @@
 </template>
 
 <script setup>
+import { ref, onMounted, reactive } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
+const props = defineProps({
+    data: {
+        type: Object,
+        required: true,
+    },
+    userSlug: {
+        type: String,
+        required: true,
+    },
+});
+
+// const redirectToBusiness = (schoolSlug) => {
+//     if (schoolSlug) {
+//         router.push(`/app/profile/school/${schoolSlug}`);
+//     } else {
+//         // Handle the case when slug is not available
+//         console.warn('School slug not available');
+//     }
+// };
 </script>
 
 <style scoped>

@@ -37,8 +37,8 @@
 
 
                             <div class="text-left mt-[80px] ml-5">
-                                <h2 class="text-lg font-semibold text-white text-3xl">{{ name }} coach</h2>
-                                <h5 class="text-md text-white font-normal text-black text-primaryblue">Tennis {{ role }}
+                                <h2 class="text-lg font-semibold text-white text-3xl">{{ props.data.name }} </h2>
+                                <h5 class="text-md text-white font-normal text-black text-primaryblue"> {{ props.data.role }}
                                 </h5>
                             </div>
                         </div>
@@ -48,21 +48,7 @@
                         <div class="col-span-3">
                             <div
                                 class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                                <ul class="flex flex-wrap -mb-px">
-                                    <li class="me-2">
-                                        <a href="#"
-                                            class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</a>
-                                    </li>
-                                    <li class="me-2">
-                                        <a href="#"
-                                            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                            aria-current="page">Connections</a>
-                                    </li>
-                                    <li class="me-2">
-                                        <a href="#"
-                                            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</a>
-                                    </li>
-                                </ul>
+                                 <BusinessUserTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
                             </div>
                         </div>
                     </div>
@@ -80,7 +66,8 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div class="">
+                                <div v-if="sameUser ==false">
+                                <div v-if="buttonHide == true" class="">
                                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
@@ -92,11 +79,18 @@
                                     </button>
                                 </div>
 
-                                <div class="color-white">
+                                <div class="color-white" v-if="buttonHide == false">
                                     <button @click="connectAcceptOrConnect"
                                         class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                        {{ connectionButtonName }} Connect
+                                        {{ connectionButtonName }} 
                                     </button>
+                                    <div v-if="connectionButtonName == 'Accept connection'" class="text-white">
+                                        <button @click="connectReject"
+                                            class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                            Reject
+                                        </button>
+                                    </div>
+                                </div>
                                 </div>
                                 <div class="">
                                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -119,6 +113,193 @@
 </template>
 
 <script setup>
+import { ref, defineEmits, onMounted } from 'vue';
+import { useNuxtApp } from '#app';
+import { useRouter, useRoute } from 'vue-router'
+import { useUserStore } from '~/stores/userStore';
+import BusinessUserTabNavigation from '~/components/profiles/navigation/BusinessUserTabNavigation.vue';
+
+const emit = defineEmits(['changeTab']);
+
+
+const userStore = useUserStore();
+const nuxtApp = useNuxtApp();
+
+const $userService = nuxtApp.$userService;
+
+const props = defineProps({
+
+data: {
+    type: Object,
+    required: true,
+},
+businessUserId: {
+    type: String,
+    required: true,
+},
+userSlug: {
+    type: String,
+    required: true,
+}
+});
+
+const connectionStatus = ref(false)
+const connectionType = ref(null)
+const connectionButtonName = ref('Connect')
+const buttonHide = ref(true);
+const profile_picture = ref(null);
+const userSlug = ref('')
+const sameUser = ref(false)
+const cover_picture = ref(null);
+const slug = ref('');
+const userId = ref(null)
+
+const tab = ref('feed');
+
+const tabs = ref([
+  { name: 'feed', label: 'Post' },
+  { name: 'connection', label: 'Connections' },
+  { name: 'media', label: 'Media' }
+]);
+
+const handleTab = (selectedTab) => {
+    tab.value = selectedTab;
+    emit('changeTab', selectedTab)
+};
+onMounted(() => {
+    
+    userId.value = userStore.user?.user_id || null;
+    slug.value = props.userSlug;
+    userSlug.value =userStore.userSlug??null
+    console.log(userSlug.value)
+    console.log(slug.value)
+    if(userSlug.value != slug.value){
+        fetchCheckConnection()
+    }else{
+        sameUser.value = true
+    }
+    // if (process.client) {
+    //     loggedUserSlug.value = localStorage.getItem('user_slug')
+    // }
+
+    // Set profile picture when props.data becomes available
+    // if (props.data && props.data.media_info) {
+    //     console.log('media available');
+    //     profile_picture.value = props.data.media_info.profile_picture?.url || defaultProfilePicture;
+    //     cover_picture.value = props.data.media_info.cover_picture?.url || defaultProfilePicture;
+    // } else {
+    //     console.log('media not available');
+    //     profile_picture.value = defaultProfilePicture;
+    //     cover_picture.value = defaultCoverPicture;
+    // }
+
+})
+
+const fetchCheckConnection = async () => {
+    try {
+
+        connectionButtonName.value = "Connect";
+
+        if (props.userSlug != null) {
+            const dataSets = await $userService.get_check_connection_type(props.userSlug);
+            connectionStatus.value = dataSets.connection
+            if (connectionStatus.value == true) {
+                connectionType.value = dataSets.type
+                if ((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)) {
+                    buttonHide.value = false
+
+                    connectionButtonName.value = "Invite sent"
+                }
+
+                if ((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)) {
+                    buttonHide.value = false
+                    connectionButtonName.value = "Accept connection"
+                }
+
+                if (dataSets.type.connection_status == 'accepted') {
+                    buttonHide.value = true
+
+                    connectionButtonName.value = "Connected"
+                }
+            } else {
+                buttonHide.value = false
+                connectionButtonName.value = "Connect"
+            }
+
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error.message);
+    }
+}
+
+const connectAcceptOrConnect = async () => {
+    try {
+        if (connectionButtonName.value == "Accept connection") {
+
+            await $userService.connection_accept(connectionType.value.id, {
+                connection_status: "accepted"
+            });
+        }
+
+        if (connectionButtonName.value == "Connect") {
+            if (props.businessUserId != null) {
+
+                const response = await $userService.connection_request({
+                    receiver_id: props.businessUserId
+                });
+
+
+                nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+            }
+
+        }
+
+        fetchCheckConnection();
+
+    } catch (error) {
+        console.error('Failed to Connect :', error.message);
+    }
+}
+
+const connectReject = async () => {
+    try {
+        await $userService.connection_reject(connectionType.value.id, {
+            connection_status: "rejected"
+        });
+
+        fetchCheckConnection();
+
+    } catch (error) {
+        console.error('Failed to Connect :', error.message);
+    }
+}
+
+
+const fetchUserDetails = async () => {
+    try {
+
+        const dataSets = await $publicService.get_user_profile(props.userSlug);
+        if (dataSets.user_basic_info) {
+            props.data.name = dataSets.user_basic_info.display_name ?? "User has not entered name";
+
+        }
+
+        if (dataSets.media_info.profile_picture != null) {
+            profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+        }
+
+        if (dataSets.media_info.cover_picture != null) {
+            cover_picture.value = dataSets.media_info.cover_picture.url || defaultProfilePicture;
+        }
+
+
+
+
+    } catch (error) {
+        console.log(error)
+        console.error('Error fetching data:', error.message);
+    }
+}
 
 </script>
 

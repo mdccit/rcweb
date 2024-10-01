@@ -120,7 +120,7 @@
                 <div class="flex justify-end" v-if="isAuthenticated">
 
                     <div class="flex space-x-3">
-                        <NuxtLink v-if="userRole != 'admin'">
+                        <NuxtLink v-if="userRole != 'admin'" :to="`/app/profile/${userSlug}`">
                             <div class="flex space-x-2 items-center">
                                 <div class="hidden sm:hidden md:hidden lg:block">
                                     <img class="w-10 h-10 rounded-lg border border-white shadow-lg"
