@@ -33,6 +33,7 @@ const userStore = useUserStore();
 const router = useRouter();
 definePageMeta({ 
  colorMode: 'light', 
+ middleware: 'auth'
 });
 
 const nuxtApp = useNuxtApp();

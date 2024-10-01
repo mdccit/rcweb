@@ -449,6 +449,19 @@ const createUserService = (apiService) => {
     }
   };
 
+  const delete_coach_media = async (media_id) => {
+
+    const url = `/public/coaches/remove-media/${media_id}`;
+    const body = {};
+
+    try {
+      const response = await apiService.deleteRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
 
 
   return {
@@ -486,7 +499,8 @@ const createUserService = (apiService) => {
     update_coach_name,
     upload_coach_profile_picture,
     upload_coach_media,
-    upload_coach_cover_photo
+    upload_coach_cover_photo,
+    delete_coach_media
 
   };
 

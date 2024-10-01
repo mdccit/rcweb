@@ -114,9 +114,6 @@ const fetchUserDetailsBySlug = async () => {
            age--;
         }
         birthDay.value = age ?? 'User has not entered birthday'
-        console.log("birthday")
-
-    console.log(birthDay.value)
         fetchPost();
 
     }

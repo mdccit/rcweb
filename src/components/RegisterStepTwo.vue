@@ -1061,12 +1061,13 @@ label input {
 /* Tooltip text */
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 200px;
+  width: 250px;
   background-color: black;
   color: #fff;
   text-align: center;
   padding: 10px;
   border-radius: 6px;
+  font-size: 13px;
 
   /* Position the tooltip text - see examples below! */
   position: absolute;

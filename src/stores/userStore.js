@@ -1,6 +1,7 @@
 // stores/userStore.js
 import { defineStore } from 'pinia';
 import Cookies from 'js-cookie';
+import { useRouter } from 'vue-router';  // Import useRouter
 
 
 export const useUserStore = defineStore('user', {
@@ -177,6 +178,7 @@ export const useUserStore = defineStore('user', {
 
     initializeUser() {
       if (process.client) {
+        const router = useRouter(); 
         const userData = localStorage.getItem('user');
         const token = localStorage.getItem('token');
         const user_role = localStorage.getItem('user_role');

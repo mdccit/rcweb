@@ -3,6 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* assets/css/global.css */
+
 
 @layer base {
     @font-face {
@@ -15,19 +17,24 @@
         font-style: italic;
         src: url(@/assets/fonts/Figtree-Italic-VariableFont_wght.woff2) format('woff2');
     }
+  
 }
+
+
 
 #nprogress .bar {
   display: block !important;
-  background: #9e2da8 !important; /* Customize the color */
+  background: #000000 !important; /* Customize the color */
   height: 6px  !important;         /* Customize the height */
   z-index: 9999 !important; 
 }
 
 #nprogress .peg {
-  box-shadow: 0 0 10px #660947, 0 0 5px #be094f; /* Customize the shadow */
+  box-shadow: 0 0 10px #4c0fc7, 0 0 5px #6a59ff; /* Customize the shadow */
 }
 
 #nprogress .spinner {
   display: block; /* Hide spinner if not needed */
 }
+
+

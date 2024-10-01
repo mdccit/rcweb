@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="min-h-screen w-full bg-generic bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4">
+    <div
+      class="min-h-screen w-full bg-generic bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4">
       <div>
         <NuxtLink to="/login"><svg viewBox="0 0 206 45" class="w-auto h-10" fill="none"
             xmlns="http://www.w3.org/2000/svg">
@@ -30,64 +31,67 @@
         <div class="m-12"></div>
 
         <!-- Password Reset Form -->
-        <form @submit.prevent="resetPassword">       
-            <!-- Recovery Code -->
-            <div class="py-2">
-              <label class="block">
-                <span class="block mb-1 text-gray-700 font-sans">Recovery Code <span class="text-red-600"
-                    title="This field is required">*</span></span>
-                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                  <input
-                    class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                    name="recovery_code" type="text" v-model="recovery_code" id="recovery_code" required autofocus>
-                </div>
-                <p v-if="errors.recovery_code" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.recovery_code.join(', ')
-                }}</p>
-              </label>
-            </div>
+        <form @submit.prevent="resetPassword">
+          <!-- Recovery Code -->
+          <div class="py-2">
+            <label class="block">
+              <span class="block mb-1 text-gray-700 font-sans">Recovery Code <span class="text-red-600"
+                  title="This field is required">*</span></span>
+              <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                <input
+                  class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                  name="recovery_code" type="text" v-model="recovery_code" id="recovery_code" required autofocus>
+              </div>
+              <InputError :error="errors.recovery_code ? errors.recovery_code.join(', ') : ''" />
+            </label>
+          </div>
 
-            <!-- Password -->
-            <div  class="py-2">
-              <label class="block">
-                <span class="block mb-1 text-gray-700 font-sans">Password <span class="text-red-600"
-                    title="This field is required">*</span></span>
-                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                  <input
-                    class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                    name="password" type="password" v-model="password" id="password" required>
-                </div>
-                <p v-if="errors.password" class="mt-2 text-sm text-red-600 dark:text-red-500">{{ errors.password.join(', ')
-                }}</p>
-              </label>
-            </div>
+          <!-- Password -->
+          <div class="py-2">
+            <label class="block">
+              <span class="block mb-1 text-gray-700 font-sans">Password <span class="text-red-600"
+                  title="This field is required">*</span></span>
+              <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                <input
+                  class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                  name="password" type="password" v-model="password" id="password" required>
+              </div>
+              <InputError :error="errors.password ? errors.password.join(', ') : ''" />
+            </label>
+          </div>
 
-            <!-- Password Confirmation -->
-            <div  class="py-2">
-              <label class="block">
-                <span class="block mb-1 text-gray-700 font-sans">Password Confirmation <span class="text-red-600"
-                    title="This field is required">*</span></span>
-                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                  <input
-                    class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                    name="password_confirmation" type="password" v-model="password_confirmation"
-                    id="password_confirmation" required>
-                </div>
-                <InputError :error="errors.password_confirmation ? errors.password_confirmation.join(', ') : ''" />
-              </label>
-            </div>
+          <!-- Password Confirmation -->
+          <div class="py-2">
+            <label class="block">
+              <span class="block mb-1 text-gray-700 font-sans">Password Confirmation <span class="text-red-600"
+                  title="This field is required">*</span></span>
+              <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                <input
+                  class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                  name="password_confirmation" type="password" v-model="password_confirmation"
+                  id="password_confirmation" required>
+              </div>
+              <InputError :error="errors.password_confirmation ? errors.password_confirmation.join(', ') : ''" />
+            </label>
+          </div>
 
-            <!-- Submit Button -->
-            <div class="flex items-center justify-end mt-4 py-2">
-              <button type="submit"
-                  class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-brightSkyBlue active:bg-royalBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue min-w-48"
+          <!-- Submit Button -->
+          <div class="flex items-center justify-end mt-4 py-2">
+            <button type="submit"
+              class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-brightSkyBlue active:bg-royalBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue min-w-48"
               :disabled="loading">
-              <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/>
-                  <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"/>
+              <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 text-white animate-spin"
+                viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                  fill="#E5E7EB" />
+                <path
+                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                  fill="currentColor" />
               </svg>
               <span v-if="!loading">Reset Password</span>
-              </button>
-            </div>
+            </button>
+          </div>
         </form>
       </div>
 
@@ -123,38 +127,54 @@ const notification_type = ref('');
 // Function to handle password reset form submission
 const resetPassword = async () => {
 
-try {
-  loading.value = true;
-  const password_reset_id = localStorage.getItem('password_reset_id') || '';
-  // Use the resetPassword function from authService
-  const result = await nuxtApp.$authService.resetPassword(
-    password_reset_id,
-    recovery_code.value,
-    password.value,
-    password_confirmation.value
-  );
-  // Handle the response
-  if (result.status === 200) {
-    loading.value = false;
-    nuxtApp.$notification.triggerNotification(result.display_message, 'success');
-  } else if (result.status === 422) {
-    loading.value = false;
-    nuxtApp.$notification.triggerNotification(result.display_message, 'failure');
-  }
-  else {
-    loading.value = false;
-    nuxtApp.$notification.triggerNotification(result.display_message, 'warning');
-  }
+  errors.value = {};  // Reset errors before submitting
+  loading.value = true;  // Set loading state
+  notification_type.value = '';
+  notificationMessage.value = '';
+  showNotification.value = false; // Reset the notification state
+  try {
+    loading.value = true;
+    const password_reset_id = localStorage.getItem('password_reset_id') || '';
+    // Use the resetPassword function from authService
+    const result = await nuxtApp.$authService.resetPassword(
+      password_reset_id,
+      recovery_code.value,
+      password.value,
+      password_confirmation.value
+    );
 
-  loading.value = false;
-  // Redirect after a delay
-  setTimeout(() => {
-    router.push('/login'); // Redirect to login page after password reset
-  }, 2000);
-} catch (error) {
-  loading.value = false;
-  handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
-}
+    console.log(result);
+    // Handle the response
+    if (result.status === 200) {
+      nuxtApp.$notification.triggerNotification(result.display_message, 'success');
+      // Redirect after a delay
+      setTimeout(() => {
+        router.push('/login'); // Redirect to login page after password reset
+      }, 2000);
+    } else if (result.status === 422) {
+      handleError(result.message, errors, notificationMessage, notification_type, showNotification, loading);
+    }
+    else {
+      nuxtApp.$notification.triggerNotification(result.display_message, 'warning');
+    }
+
+
+  } catch (error) {
+    if (error.status === 422) {
+      if (typeof error.message === 'string') {
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+      } else {
+        handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
+      }
+
+    } else {
+
+      nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    }
+  } finally {
+
+    loading.value = false;
+  }
 };
 
 </script>

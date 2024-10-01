@@ -295,12 +295,12 @@
   import { ref, onMounted } from 'vue';
   import { useNuxtApp } from '#app';
   
-  
+  const nuxtApp = useNuxtApp();
   import CommentSection from '~/components/user/feed/CommentSection.vue';
   import { useRouter } from 'vue-router';
   import { useUserStore } from '~/stores/userStore';
   import postGalleryComponent from '~/components/user/feed/postGalleryComponent.vue';
-  
+  const nprogress = nuxtApp.$nprogress;
   
   const userStore = useUserStore()
   
@@ -324,7 +324,6 @@
   const commentAdd = ref(false)
   const isHidddenComment = ref([])
   // Access feedService from the context
-  const nuxtApp = useNuxtApp();
   const $feedService = nuxtApp.$feedService;
   const likeButton = ref(false)
   const likeButtonDisable = ref([])
@@ -379,7 +378,7 @@
   // Function to create a new post
   const writePost = async () => {
     try {
-  
+      nprogress.start();
       postAdd.value = true
       let htmlText = newPost.value.description.replace(/\n/g, '<br>');
       let newValue = {
@@ -413,11 +412,14 @@
       }
       postAdd.value = false
       console.error('Failed to create post:', error.message);
+    }finally{
+      nprogress.done();
     }
   };
   
   const likePost = async (post_id, post) => {
     try {
+      nprogress.start();
       likeButtonDisable.value.push(post_id)
       if (post.user_has_liked) {
         await $feedService.unlike_post(post_id);
@@ -432,16 +434,21 @@
   
     } catch (error) {
       console.error('Failed to like post:', error.message);
+    }finally{
+      nprogress.done();
     }
   };
   
   const loadPosts = async () => {
     try {
+      nprogress.start();
       const response = await $feedService.list_posts({});
       console.log(response)
       posts.value = response;
     } catch (error) {
       console.error('Failed to load posts:', error.message);
+    }finally{
+      nprogress.done();
     }
   };
   
@@ -453,11 +460,14 @@
     commentAdd.value = true;
   
     try {
+      nprogress.start();
       await $feedService.create_comment(postId, { content: newComment.value });
       newComment.value = ''; // Clear the comment input after submission
       loadPosts(); // Reload posts to update the comments section
     } catch (error) {
       console.error('Failed to add comment:', error.message);
+    }finally{
+      nprogress.done();
     }
     commentAdd.value = false;
   };
@@ -473,9 +483,10 @@
   
   const refreshComments = async () => {
     // await fetchComments();
+    nprogress.start();
     const response = await $feedService.list_posts({});
     posts.value = response;
-    console.log('refreshed comments');
+    nprogress.done();
   };
   
   const formatDate = (dateString) => {
@@ -498,11 +509,14 @@
   
   const postDelete = async (post_id) => {
     try {
+      nprogress.start();
       model_id.value = ""
       const response = await nuxtApp.$feedService.delete_post(post_id);
       loadPosts();
     } catch (error) {
       console.error('Failed to fetch comments:', error.message);
+    }finally{
+      nprogress.done();
     }
   }
   
@@ -517,6 +531,7 @@
   const startEditPost = async (post_id) => {
     editingPostId.value = null
     try {
+      nprogress.start();
       model_id.value = ""
       let htmlText = editPost.value.replace(/\n/g, '<br>');
       let newValue = {
@@ -529,6 +544,8 @@
       loadPosts();
     } catch (error) {
       console.error('Failed to fetch comments:', error.message);
+    }finally{
+      nprogress.done();
     }
   }
   
@@ -538,19 +555,7 @@
     });
   }
   
-  const triggerNotification = (message, type) => {
-    notificationMessage.value = message;
-    notification_type.value = type;
-    showNotification.value = true;
-  
-    notificationKey.value += 1; // Force re-render
-  
-    // Auto-hide after 3 seconds
-    setTimeout(() => {
-      showNotification.value = false;
-    }, 3000);
-  };
-  
+ 
   const getTimeAgo = (date) => {
     const secondsAgo = Math.floor((new Date() - new Date(date)) / 1000);
   

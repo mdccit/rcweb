@@ -8,36 +8,25 @@
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
 
-                <div
-                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 w-full"> <!-- Ensure full width -->
                         <div class="sm:flex sm:items-start">
-                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
-                                    Bio</h3>
-                                <div class="mt-2">
-                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want to
-                                        deactivate
-                                        your account? All of your data will be permanently removed.
-                                    </p>
-
-                                    <div>
-                                        <div class="">
-                                            <div class="">
-                                                <label class="block mb-1 text-gray-700 font-sans">Bio
-                                                    <span aria-hidden="true" class="text-red-600"
-                                                        title="This field is required">*</span></label>
-                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <textarea id="user_bio" v-model="user_bio" autocomplete="user_bio"
-                                                        class="w-full block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                        placeholder="" required>
-                                        </textarea>
-                                                </div>
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full"> <!-- Added w-full to parent div -->
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your Bio</h3>
+                                <div class="mt-2 w-full">
+                                    <div class="w-full">
+                                        <div class="w-full">
+                                            <label class="block mb-1 text-gray-700 font-sans">Bio
+                                                <span aria-hidden="true" class="text-red-600" title="This field is required">*</span>
+                                            </label>
+                                            <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                <textarea id="user_bio" v-model="user_bio" autocomplete="user_bio"
+                                                    class="w-full block px-5 py-3 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    placeholder="" required>
+                                                </textarea>
                                             </div>
-
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -68,6 +57,7 @@ const $publicService = nuxtApp.$publicService;
 
 const user_bio = ref('');
 const user_slug = ref('');
+const loading = ref(false);
 
 const props = defineProps({
     visible: Boolean,
@@ -93,11 +83,9 @@ watch(() => props.visible, (newVal) => {
 
 const fetchPlayerBio = async (slug) => {
     try {
-        console.log(slug);
         const dataSets = await $publicService.get_user_profile(props.slug);
 
         if (dataSets.user_basic_info) {
-            console.log(dataSets.user_basic_info);
             user_bio.value = dataSets.user_basic_info.bio ?? "N/A";
 
         }
@@ -109,6 +97,7 @@ const fetchPlayerBio = async (slug) => {
 // Function to update player bio
 const updatePlayerBio = async (bio) => {
     try {
+       loading.value = true;
         const request_body = { user_slug: props.slug, bio: bio };  // Construct request body with bio
         const response = await $userService.update_player_bio(request_body);  // Pass slug and request body
         if (response.status == '200') {
@@ -124,6 +113,8 @@ const updatePlayerBio = async (bio) => {
     } catch (error) {
         // Handle error
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    } finally{
+       loading.value = false;
     }
 };
 

@@ -6,6 +6,14 @@ dotenv.config();
 
 export default defineNuxtConfig({
   // devtools: { enabled: true },
+  head: {
+    title: 'Recruited', // Change this to your website title
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+
+      
+    ],
+  },
   srcDir: 'src/',
   ssr: true,
   target: 'server',

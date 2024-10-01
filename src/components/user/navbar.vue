@@ -120,7 +120,19 @@
                 <div class="flex justify-end" v-if="isAuthenticated">
 
                     <div class="flex space-x-3">
-                        <NuxtLink :to="`/app/profile/${userSlug}`">
+                        <NuxtLink v-if="userRole != 'admin'">
+                            <div class="flex space-x-2 items-center">
+                                <div class="hidden sm:hidden md:hidden lg:block">
+                                    <img class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                        src="@/assets/user/images/Rectangle_117.png" alt="">
+                                </div>
+                                <div class="hidden sm:hidden md:hidden lg:block">
+                                    <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
+                                    <p class="text-xs text-limegreen">Online</p>
+                                </div>
+                            </div>
+                        </NuxtLink>
+                        <NuxtLink v-else :to="`/app/profile/${userSlug}`">
                             <div class="flex space-x-2 items-center">
                                 <div class="hidden sm:hidden md:hidden lg:block">
                                     <img class="w-10 h-10 rounded-lg border border-white shadow-lg"

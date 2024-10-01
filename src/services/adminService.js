@@ -205,14 +205,14 @@ const createAdminService = (apiService) => {
     }
   };
   
-  const search_business_users = async (business_id,page , per_page_items, search_key = '') => {
-
-    const url = `/admin/businesses/search-users/${business_id}?page=${page}&per_page_items=${per_page_items}`;
-  
-        // Add search_key to URL only if it's not an empty string
-        if (search_key) {
-          url += `&search_key=${encodeURIComponent(search_key)}`;
-      }
+  const search_business_users = async (business_id, page, per_page_items, search_key = '') => {
+    // Use 'let' to allow modification of the URL string
+    let url = `/admin/businesses/search-users/${business_id}?page=${page}&per_page_items=${per_page_items}`;
+    
+    // Add search_key to URL only if it's not an empty string
+    if (search_key) {
+      url += `&search_key=${encodeURIComponent(search_key)}`;
+    }
   
     try {
       const response = await apiService.getRequest(url);
