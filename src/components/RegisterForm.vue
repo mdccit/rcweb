@@ -167,6 +167,7 @@ const handleSubmit = async () => {
     return;
   }
   try {
+    loading.value = true;
     const response = await $authService.register({
       first_name: first_name.value,
       last_name: last_name.value,

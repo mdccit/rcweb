@@ -1,6 +1,7 @@
 // stores/userStore.js
 import { defineStore } from 'pinia';
 import Cookies from 'js-cookie';
+import { useRouter } from 'vue-router';  // Import useRouter
 
 
 export const useUserStore = defineStore('user', {
@@ -12,17 +13,17 @@ export const useUserStore = defineStore('user', {
     user_permission_type: null,
     roles: [],
     permissions: [],
-    user_id :'',
-    user_slug:null
+    user_id: '',
+    user_slug: null
   }),
   getters: {
     isAuthenticated: (state) => !!state.user && !!state.token,
     isLoggedIn: (state) => !!state.token,  // Check if token exists
     role: (state) => state.user_role || 'default',  // Default role if not set
-    userId: (state) => state.user_id || '',  
+    userId: (state) => state.user_id || '',
     loggedUserEmail: (state) => state.email || '',  // Default role if not set
     loggedUserName: (state) => state.user_name,
-    userSlug:(state) => state.user_slug||null,
+    userSlug: (state) => state.user_slug || null,
   },
   actions: {
     setToken(token) {
@@ -76,8 +77,8 @@ export const useUserStore = defineStore('user', {
       this.user_permission_type = user.user_permission_type || 'none';
       this.roles = user.roles ? [...user.roles, user.role] : [user.role];
       this.permissions = user.permissions || []; // Set user permissions
-      this.user_id = user.user_id || ''; 
-      this.user_name = user.user_name || ''; 
+      this.user_id = user.user_id || '';
+      this.user_name = user.user_name || '';
       this.user_slug = user.user_slug || '';
 
       // Set the token and role
@@ -101,7 +102,7 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem('user_id', id);
       }
     },
-    setTempUser(role,token) {
+    setTempUser(role, token) {
       this.token = token;
       this.user_role = role || 'default';
     },
@@ -116,11 +117,11 @@ export const useUserStore = defineStore('user', {
       this.user_role = null;
       this.roles = [];
       this.permissions = [];
-      this.user_id = ''; 
-      this.user_id = null; 
-      this.user_slug=null;
-       // Remove session cookie
-       Cookies.remove('session', { path: '/' });
+      this.user_id = '';
+      this.user_id = null;
+      this.user_slug = null;
+      // Remove session cookie
+      Cookies.remove('session', { path: '/' });
 
       if (process.client) {
         localStorage.removeItem('user');
@@ -148,31 +149,33 @@ export const useUserStore = defineStore('user', {
     getRole() {
       if (this.user) {
         return this.user_role;
-       
+
       }
       return null;
     },
     getEmail() {
       if (this.user) {
         return this.email;
-       
+
       }
       return null;
     },
     getSlug() {
       if (this.user_slug) {
         return this.user_slug;
-       
+
       }
       return null;
     },
-  
+
     initializeUser() {
       if (process.client) {
+        const router = useRouter(); 
         const userData = localStorage.getItem('user');
         const token = localStorage.getItem('token');
         const user_role = localStorage.getItem('user_role');
-    
+        const user_slug = localStorage.getItem('user_slug');
+
         // Handle non-logged-in users gracefully
         if (userData) {
           this.user = JSON.parse(userData);
@@ -182,13 +185,19 @@ export const useUserStore = defineStore('user', {
         }
         if (user_role) {
           this.user_role = user_role;
-    
+
           // Set the roles array as well
           this.roles = [user_role];  // Add the user_role to roles array
-     
+
+        }
+        // Check if required fields like user_slug are missing
+        if (!this.user || !this.token || !user_slug) {
+          this.clearUser();  // Trigger logout if any required field is missing
+          router.push('/login');
+          return false; // Can redirect or handle post-logout behavior here
         }
       }
     },
-    
+
   },
 });
