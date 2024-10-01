@@ -80,7 +80,8 @@
             <NuxtLink to="/admin/moderation?filter%5Bis_closed%5D=0"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Moderation <div
-                  class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full">{{ morderationCount }}
+                  class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full">{{
+                    morderationCount }}
                 </div>
               </div>
             </NuxtLink>
@@ -96,6 +97,14 @@
             <NuxtLink @click="register" v-if="!isLoggedIn"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Register </div>
+            </NuxtLink>
+            <NuxtLink  to="/app"
+              class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+              <div class="flex items-center"> Profile </div>
+            </NuxtLink>
+            <NuxtLink @click="logout" v-if="isLoggedIn"
+              class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+              <div class="flex items-center"> Logout </div>
             </NuxtLink>
 
           </div>
@@ -127,7 +136,8 @@
 
 
           <!-- Dropdown menu -->
-          <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 dark:divide-gray-600">
+          <div id="dropdown"
+            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 dark:divide-gray-600">
 
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
               <li>
@@ -199,12 +209,9 @@
           </div>
           <NuxtLink to="/admin/moderation?filter%5Bis_closed%5D=0"
             class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-            <span class="flex items-center">
-              Moderation
-              <span
-                class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full"</span>
-            </span>
+            <span class="flex items-center"> Moderation </span>
           </NuxtLink>
+
         </div>
         <div class="relative inline-block">
           <!-- Dropdown toggle button -->
@@ -346,7 +353,7 @@ const logout = async () => {
 onMounted(() => {
   if (process.client) {  // Ensure this runs only on the client-side
     const storedUserName = localStorage.getItem('user_name');  // Get value from localStorage
-    
+
     if (storedUserName) {
       // Set the loggedUserName in the store with the value from localStorage
       loggedUserName.value = storedUserName;
@@ -364,11 +371,11 @@ onMounted(() => {
 watch(
   () => moderationStore.moderationClose,
   () => {
-    if(moderationStore.moderationClose == true){
-      fetchMorderationCount() 
+    if (moderationStore.moderationClose == true) {
+      fetchMorderationCount()
       moderationStore.setModerationClose(false)
     }
-    
+
   },
 )
 
@@ -389,9 +396,9 @@ const profile = () => {
 const isLoggedIn = computed(() => userStore.isLoggedIn);
 const userRole = computed(() => userStore.userRole);
 
-const fetchMorderationCount = async() =>{
+const fetchMorderationCount = async () => {
   try {
-    if(isAuthenticated.value && (userStore.role =='admin')){
+    if (isAuthenticated.value && (userStore.role == 'admin')) {
       const response = await $adminService.morderation_all_open_count();
       morderationCount.value = response.dataSets
     }
