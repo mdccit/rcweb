@@ -41,12 +41,15 @@ module.exports = {
         graySnowDrift: '#F4F6F9', // Page background gray color
         lightGray: '#eeeeee',
         lightGray1: '#ECECEC',
+        gainsboroGray: '#DEDEDE',
         pigeonBlue: '#BBCDEE',
         ceil: '#8CA4CE', // Placeholder color
         limegreen: '#4AC220',
         lightred: '#F9697A',
         mintGreen: '#A4FFA2',
         orangeRed: '#FF0000',
+        red: '#E60000',
+        redOrange:'#FF3B30',
         vividOrange: '#FF6C00',
         lightCreamOrange: '#FFF2C3',
         lightPink: '#FFA9A9',
