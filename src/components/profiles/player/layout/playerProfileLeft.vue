@@ -5,9 +5,8 @@
         <div class="group">
             <div class="text-center">
                 <div class="relative">
-                    <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" src="@/assets/images/Rectangle 193.png"
-                        alt="">
-                    <div v-if="userId == playerID"   @click="toggleModal('name')"
+                    <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profilePictureUrl" alt="">
+                    <div v-if="loggedUserSlug == props.userSlug" @click="toggleModal('name')"
                         class="absolute bottom-4 right-8 w-8 h-8 bg-white rounded-full flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer text-steelBlue">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5">
@@ -21,16 +20,17 @@
                 </div>
                 <h3 class="text-xl font-medium text-center text-black mt-2">{{ props.data.name }}
                 </h3>
-                <h5 class="text-sm text-center text-black">{{ props.data.sportName }} player</h5>
+                <h5 class="text-sm text-center text-black">{{ props.data.sportName }} player </h5>
             </div>
         </div>
 
 
-        <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white py-6 px-4 mt-3">
+        <div
+            class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white py-6 px-4 mt-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
-                    <h1 class="text-lg font-semibold mb-4 text-black col-span-2" @click="toggleModal('bio')">
+                    <h1 class="text-lg font-semibold mb-4 text-black col-span-2" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('bio')">
                         <div class="cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4">
@@ -42,18 +42,23 @@
                 </div>
             </div>
             <p class="text-sm text-darkSlateBlue leading-relaxed">
-                {{ props.data.bio }}
+                {{ bio }}
             </p>
+            <div v-if="seeMoreBtnHide">
+                <button id="seeMoreBtn" @click="toggleText" >{{ expandBtnName }}</button>
+
+            </div>
         </div>
 
 
-         <!-- INFO SECTION  -->
-        <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white py-6 px-4 mt-3">
+        <!-- INFO SECTION  -->
+        <div
+            class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white py-6 px-4 mt-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                        <div class="cursor-pointer" v-if="userId.value == playerID.value"  @click="toggleModal('info')">
+                        <div class="cursor-pointer" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('info')">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -65,7 +70,7 @@
             </div>
 
 
-            <!-- <div class="grid grid-cols-10">
+            <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                         stroke="currentColor" class="size-5">
@@ -74,10 +79,12 @@
                     </svg>
                 </div>
                 <div class="col-span-8">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>gmail</b> </p>
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{props.data.email}}</b> </p>
                 </div>
-            </div> -->
+            </div>
             <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
+            </div> 
+            <div v-if="loggedUserSlug == props.userSlug" class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                         stroke="currentColor" class="size-5">
@@ -87,7 +94,7 @@
                 </div>
                 <div class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4"> <b>{{ props.data.phoneCode }} {{
-                    phone }}</b> </p>
+                        phone }}</b> </p>
                 </div>
             </div>
 
@@ -96,9 +103,10 @@
                     <img class="mx-auto  rounded-xl w-[27px]" src="@/assets/images/ruler.png" alt="">
                 </div>
                 <div class="col-span-8">
-                    <p class="text-sm text-black leading-relaxed mb-4 "> 
-                            {{ Number(props.data.feet) }} ( {{ props.data.heigth }}
-                            <span v-if="props.data.heigth != 'User has not entered height'">cm)</span> </p>
+                    <p class="text-sm text-black leading-relaxed mb-4 ">
+                        {{ Number(props.data.feet) }} ( {{ props.data.heigth }}
+                        <span v-if="props.data.heigth != 'User has not entered height'">cm)</span>
+                    </p>
                 </div>
             </div>
 
@@ -109,10 +117,10 @@
                 <div class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4 ">
                         <span v-if="props.data.weight != 'User has not entered weight'">
-                                {{ Number(props.data.pounds)
-                                }}
-                                lb(</span> {{ props.data.weight }} <span
-                                v-if="props.data.weight != 'User has not entered weight'">kg )</span>
+                            {{ Number(props.data.pounds)
+                            }}
+                            lb(</span> {{ props.data.weight }} <span
+                            v-if="props.data.weight != 'User has not entered weight'">kg )</span>
                     </p>
                 </div>
             </div>
@@ -123,7 +131,7 @@
                 </div>
                 <div class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4">
-                     Graduation {{ props.data.graduationDate }}
+                        Graduation {{ props.data.graduationDate }}
                     </p>
                 </div>
             </div>
@@ -167,25 +175,25 @@
                 </div>
                 <div class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4 "> {{ props.data.birthday }}
-                            <span v-if="props.data.birthday != 'User has not entered birthday'">Years Old</span> 
+                        <span v-if="props.data.birthday != 'User has not entered birthday'">Years Old</span>
                     </p>
                 </div>
             </div>
         </div>
 
 
-        <div style="height: 60px;"
+        <div style="height: auto;"
             class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
             <div class="grid grid-cols-10 gap-2">
-                <div class="col-span-3">
+                <div class="col-span-3 mx-auto mt-[10px]">
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/user/images/Group 179.png" alt="">
                 </div>
-                <div class="col-span-6 ml-2">
+                <div class="col-span-6 ml-2 mx-auto">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Has {{ props.data.budgetMin }} -
                         {{ props.data.budgetMax }}
                     </p>
                 </div>
-                <div class="col-span-1" v-if="userId.value == playerID.value"  @click="toggleModal('budget')">
+                <div class="col-span-1" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('budget')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -196,22 +204,22 @@
 
         </div>
 
-        <div style="height: 60px;"
+        <div style="height: auto;"
             class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
             <div class="grid grid-cols-10 gap-2">
-                <div class="col-span-3">
+                <div class="col-span-3 mx-auto">
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/images/pin.png" alt="">
                 </div>
-                <div class="col-span-6 ml-2">
+                <div class="col-span-6 ml-2 mx-auto">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3"><span
                             v-if="userRole == 'coach' || userRole == 'admin'"> {{ props.data.addressLine01 }} {{
-                    props.data.addressLine02 }} {{ props.data.stateProvince }}</span>
+                        props.data.addressLine02 }} {{ props.data.stateProvince }}</span>
                         {{ props.data.city }} , {{
-                    props.data.country }}
+                        props.data.country }}
                     </p>
 
                 </div>
-                <div class="col-span-1" v-if="userId.value == playerID.value"  @click="toggleModal('address')">
+                <div class="col-span-1"  v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -222,10 +230,10 @@
 
         </div>
 
-        <div style="height: 60px;"
+        <div style="height: auto;"
             class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
-            <div class="grid grid-cols-10 gap-2">
-                <div class="col-span-3">
+            <div class="grid grid-cols-10 gap-2 mx-auto">
+                <div class="col-span-3 m-auto">
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl" src="@/assets/user/images/Group 79.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2">
@@ -236,11 +244,11 @@
 
                 </div>
                 <div class="col-span-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                    </svg>
+                    </svg> -->
                 </div>
             </div>
 
@@ -268,8 +276,9 @@ import NameModal from '~/components/profiles/player/modals/nameModal.vue';
 import BioModal from '~/components/profiles/player/modals/bioModal.vue';
 import InfoModal from '~/components/profiles/player/modals/infoModal.vue';
 import BudgetModal from '~/components/profiles/player/modals/budgetModal.vue';
-import UTRModal from '~/components/profiles/player/modals/utrModal.vue';
 import AddressModal from '~/components/profiles/player/modals/addressModal.vue';
+// Import the default profile picture
+import defaultProfilePicture from '@/assets/images/user.png';
 
 const userStore = useUserStore();
 
@@ -278,6 +287,8 @@ const nuxtApp = useNuxtApp();
 const $publicService = nuxtApp.$publicService;
 const $userService = nuxtApp.$userService;
 
+// const loggedUserSlug = userStore.getSlug();
+const loggedUserSlug = ref('');
 const loading = ref(false);
 const router = useRouter();
 const route = useRoute();
@@ -285,6 +296,7 @@ const feet = ref(0);
 const pounds = ref(0);
 const showFilterLeft = ref(false);
 const slug = ref('');
+const profile_picture = ref(null);
 
 router.beforeEach((to, from, next) => {
     loading.value = true;
@@ -309,10 +321,6 @@ watchEffect(() => {
     notificationKey.value = nuxtApp.$notification.notificationKey.value;
 });
 
-const closeNotification = () => {
-    showNotification.value = false; // Hide the notification
-};
-
 const userRole = ref(null)
 
 const props = defineProps({
@@ -321,6 +329,10 @@ const props = defineProps({
         required: true,
     },
     userSlug: {
+        type: String,
+        required: true,
+    },
+    loadedSlug: {
         type: String,
         required: true,
     },
@@ -350,10 +362,13 @@ const wtn = ref('')
 const act = ref('')
 const nationalRanking = ref('')
 const handness = ref('')
-const preferredSurface = ref('')
-
+const preferredSurface = ref('');
+const loadedSlug = ref('')
 const isEdit = ref('');
-
+const  isBioExpanded = ref(false); 
+const seeMoreBtnHide =  ref(false);
+const bio = ref('')
+const expandBtnName = ref('See More')
 
 // Define reactive state for all modals
 const modals = reactive({
@@ -387,7 +402,7 @@ const handleModalClose = (modalName) => {
 
 const fetchUserDetails = async (slug) => {
     try {
-       
+
         const dataSets = await $publicService.get_user_profile(route.params.slug);
         if (dataSets.user_basic_info) {
 
@@ -463,6 +478,10 @@ const fetchUserDetails = async (slug) => {
             pounds.value = 2.20462 * dataSets.player_info.weight
         }
 
+        if (dataSets.media_info.profile_picture != null) {
+           profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+        }
+
     } catch (error) {
         console.log(error)
         console.error('Error fetching data:', error.message);
@@ -470,10 +489,57 @@ const fetchUserDetails = async (slug) => {
 }
 
 
+// Computed profile picture URL
+const profilePictureUrl = computed(() => profile_picture.value);
+// Watch for changes in props.data
+watch(
+    () => props.data,
+    (newVal) => {
+        if (newVal && newVal.media_info) {
+            profile_picture.value = newVal.media_info.profile_picture?.url || defaultProfilePicture;
+        } else {
+            profile_picture.value = defaultProfilePicture; // Fallback to default if media_info is undefined
+        }
+    },
+    { immediate: true } // Execute immediately when component is mounted
+);
+
 onMounted(() => {
     userRole.value = userStore.user?.role || null;
     slug.value = props.userSlug;
+
+    if (process.client) {
+        loggedUserSlug.value = localStorage.getItem('user_slug')
+    }
+
+     // Set profile picture when props.data becomes available
+  if (props.data && props.data.media_info) {
+    console.log('media available');
+    profile_picture.value = props.data.media_info.profile_picture?.url || defaultProfilePicture;
+  } else {
+    console.log('media not available');
+    profile_picture.value = defaultProfilePicture;
+  }
+  const fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
+  console.log(fullBio)
+  bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
+  console.log(bio.value)
+  seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
+  isBioExpanded.value = false
 });
+
+
+const toggleText = () =>{
+     isBioExpanded.value = !isBioExpanded.value;
+     if(isBioExpanded.value){
+        bio.value = props.data.bio;
+        expandBtnName.value ='See Less'
+    }else{
+        bio.value = props.data.bio.substring(0, 100) + '...';
+        expandBtnName.value ='See More'
+    }
+
+}
 </script>
 
 <style scoped>

@@ -7,9 +7,14 @@
               <div>
                 <div class="flex items-center justify-between">
                   <div v-if="post.school_id != null" class="flex items-center space-x-3">
-                    <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12">
+                    
+                      <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12">
+                  
+                    
                     <div>
-                      <div class="text-md font-bold text-black">{{ post.school.name }}</div>
+                      <button @click="schoolProfile(post.school.slug)">
+                          <div class="text-md font-bold text-black">{{ post.school.name }}</div>
+                      </button>
                       <div class="flex space-x-2 items-center">
                         <!-- Display only for the coach - start -->
                         <!-- <div class="bg-mintGreen p-1 rounded-md flex items-center justify-center">
@@ -35,9 +40,14 @@
                 <hr  v-if="post.school" class="mt-5 mb-3 text-pigeonBlue">
                  <div class="flex items-center justify-between">
                 <div class="flex space-x-3 items-center">
-                  <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-[35px] h-[35px]">
+                  
+                    <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-[35px] h-[35px]">
+                 
+                 
                   <div>
-                    <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
+                    <button @click="userProfile(post.user.slug)">
+                       <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
+                    </button>
                     <div v-if="post.school_id != null" class="text-darkSlateBlue text-xs">Coach at {{ post.school_id != null ? post.school.name : '' }}</div>
                     <div v-if="post.school_id == null"  class="text-darkSlateBlue text-xs">{{  getTimeAgo(post.updated_at) }}</div>
 
@@ -118,7 +128,7 @@
             </div>
           </div>
 
-          <!-- <div class="flex items-center justify-between mt-3">
+           <div class="flex items-center justify-between mt-3">
             <div class="flex items-center space-x-4">
               <button  :class="likeButtonDisable.includes(post.id)?'cursor-default opacity-50 ':'flex items-center space-x-1' "  :disabled="likeButtonDisable.includes(post.id)" @click="likePost(post.id,post), post.user_has_liked== true? post.user_has_liked=false : post.user_has_liked = true">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -130,7 +140,7 @@
               </button>
               <div>
                 <h2>
-                  <button type="button" 
+                  <button type="button"  @click="toggleCommentSection(post.id)"
                     class="flex items-center space-x-1 text-darkSlateBlue dark:bg-white dark:text-darkSlateBlue"
                     data-accordion-target="#accordion-collapse-comment-2-body" aria-expanded="false"
                     aria-controls="accordion-collapse-comment-2-body">
@@ -151,15 +161,14 @@
                 </svg>
               </button>
             </div>
-          </div> -->
-
-          <!-- <div :id="post.id" :class="{hide:isHiddden(post.id)}" > -->
+          </div> 
+          <div :id="post.id" :class="{hide:isHiddden(post.id)}" >
             <!-- Comment Section Component -->
-            <!-- <CommentSection  :comments="post.comments" :postId="post.id"  @refreshComments="refreshComments"/> -->
-            <!-- <div class="mt-4">
-              <div class="flex space-x-3">
+            <CommentSection  :comments="post.comments" :postId="post.id"  @refreshComments="refreshComments"/>
+              <div class="mt-4">
+               <div class="flex space-x-3">
                  <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
-                 <div class="grow">
+                  <div class="grow">
                     <textarea v-model="newComment" type="text" placeholder="Write your comment..." class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4"></textarea>
                     <div class="flex justify-end mt-2">
                       <button @click="addComment(post.id)" :disabled="commentAdd" class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-4 py-2 rounded-lg text-sm">
@@ -170,7 +179,7 @@
                   </div>
                 </div>
               </div>
-          </div>                 -->
+          </div>                
         </div>
     </div>
   </template>
@@ -179,19 +188,36 @@
   import { defineProps, defineEmits, defineExpose,ref, onMounted} from 'vue';
   import { useRouter } from 'vue-router';
   import { useUserStore } from '~/stores/userStore'
+  import { useNuxtApp } from '#app';
+  import CommentSection from '~/components/user/feed/CommentSection.vue';
 
-const userStore = useUserStore()
-const userId = ref('')
-const userRole = ref('')
-const router = useRouter();
+  const commentAdd = ref(false)
+  const isHidddenComment = ref([])
+  const nuxtApp = useNuxtApp();
+  const $feedService = nuxtApp.$feedService;
+  const userStore = useUserStore()
+  const userId = ref('')
+  const userRole = ref('')
+  const router = useRouter();
+  const likeButtonDisable = ref([])
+  const likeButton = ref(false)
+  const emit = defineEmits(['profileView','listpost']);
+  const newComment = ref('');
+
   const props = defineProps({
       posts: Array
    });
 onMounted(async () => {
   userId.value = userStore.user.user_id
   userRole.value = userStore.user.role
-  
+  const idsArray = [];
 
+     for (const post of props.posts) {
+        idsArray[post.id] = false
+      }
+      isHidddenComment.value = idsArray
+      console.log(7458)
+      console.log( isHidddenComment.value)
 
 });
 
@@ -218,4 +244,77 @@ const getTimeAgo = (date) => {
 
   return secondsAgo === 1 ? '1 second ago' : `${secondsAgo} seconds ago`;
 };
+
+const schoolProfile = (data) =>{
+ 
+  router.push(`/app/profile/school/${data}`);
+
+}
+
+const userProfile = (data) =>{
+  router.push(`/app/profile/${data}`);
+}
+
+const likePost = async (post_id, post) => {
+    try {
+      likeButtonDisable.value.push(post_id)
+      if (post.user_has_liked) {
+        await $feedService.unlike_post(post_id);
+  
+      } else {
+        await $feedService.like_post(post_id);
+      }
+      emit('listpost')
+  
+      likeButtonDisable.value = likeButtonDisable.value.filter(item => item !== post_id);
+  
+  
+    } catch (error) {
+      console.error('Failed to like post:', error.message);
+    }
+  };
+
+  const isHiddden = (id) => {
+    return isHidddenComment.value[id] == false
+  }
+
+  const toggleCommentSection = (postId) => {
+    isHidddenComment.value[postId] = !isHidddenComment.value[postId]
+    console.log( isHidddenComment.value[postId])
+  }
+
+  const addComment = async (postId) => {
+  
+  if (newComment.value.trim() === '') {
+    return;
+  }
+  commentAdd.value = true;
+
+  try {
+    await $feedService.create_comment(postId, { content: newComment.value });
+    newComment.value = ''; // Clear the comment input after submission
+    emit('listpost')
+  } catch (error) {
+    console.error('Failed to add comment:', error.message);
+  }
+  commentAdd.value = false;
+};
+
+  const refreshComments = async () => {
+    emit('listpost')
+
+  };
+
+  const viewPost = (post_id) => {
+    router.push({
+      path: '/user/post/' + post_id,
+    });
+  }
+
   </script>
+
+<style scoped>
+.hide {
+  display: none;
+}
+</style>

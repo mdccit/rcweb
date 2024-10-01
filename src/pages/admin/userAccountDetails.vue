@@ -55,8 +55,10 @@
             <div class="w-full">
                 <label class="block">
                     <span class="block mb-1 text-gray-700 font-sans">First Name {{ first_name }}</span>
-                    <input v-model="first_name" type="text" :disabled="action === 'view'"
-                        class="block text-black w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300" />
+                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                        <input v-model="first_name" type="text" :disabled="action === 'view'"
+                        class="lock text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50" />
+                    </div>
                 </label>
                 <p v-if="errors.first_name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
                         errors.first_name.join(', ') }}</p>
@@ -70,7 +72,7 @@
                     <span class="block mb-1 text-gray-700 font-sans">Last Name</span>
                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
                         <input
-                            class="block text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
+                            class="lock text-black px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
                             v-model="last_name" name="name" type="text" data-validation-key="name"
                             :disabled="action === 'view'" />
                     </div>
@@ -257,7 +259,7 @@
 
             <!-- Submit Button -->
             <button type="submit" @click="updateUserDetails" v-if="action !== 'view'"
-                class="border bg-blue-500 rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
+                class="border bg-blue-500 hover:bg-blue-700 rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50  text-white border-transparent ">
                 <div class="flex flex-row items-center justify-center">
                     <span>Save changes </span>
                 </div>

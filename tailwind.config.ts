@@ -21,7 +21,8 @@ module.exports = {
         sans: ['Figtree', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        // primary: '#3D7FFF',
+        highlight: '#0085FF',
+        primary: '#3D7FFF',
         primaryblue: '#3D7FFF',
         secondary:'#DFE4EE',
         black: '#000000',
@@ -65,7 +66,8 @@ module.exports = {
         lightPastalBlue: '#7ac0ff80', // Primary blue button focus color // primary-200
         tealGray:'#3b82f680',
         grayishSilver:'#C0C0C0',
-        vividSkyBlue: '#2B9AFF'
+        vividSkyBlue: '#2B9AFF',
+        softGray: '#C8C8C8'
       },
       testred: {
         lightest: '#efdfa4',
@@ -102,7 +104,8 @@ module.exports = {
         '1.75': '1.75px',
       },
       backgroundImage: {
-        'generic': "url('@/assets/images/bg-generic.svg')"
+        'generic': "url('@/assets/images/bg-generic.svg')",
+        'transferTrackerBlur': "url('@/assets/user/images/blur-bg-transfer.png')"
       }
     },
   },

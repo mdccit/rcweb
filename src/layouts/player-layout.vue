@@ -17,7 +17,7 @@
         </div>
         <div class="col-start-2 col-span-4 bg-brown-500">
           <!-- Content changes based on the selected tab -->
-          <UserFeed v-if="tab === 'feed'" :posts="posts" />
+          <UserFeed v-if="tab === 'feed'" :posts="posts" @listpost="fetchPost"/>
           <Connection v-if="tab === 'connection'" :playerId="playerID" @profileView="redirectPage" />
           <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
 
@@ -126,6 +126,7 @@ const stateProvince = ref('');
 const slug = ref('');
 const utrData = ref({})
 const leftData = ref({})
+const media_info = ref();
 const props = defineProps({
     user: {
         type: Object,
@@ -153,12 +154,6 @@ onMounted(() => {
         // fetchMediaGallery();
     }
 });
-
-const changeTab = (value) => {
-  console.log(value)
-
-  tab.value = value
-}
 
 const fetchUserDetails = async () => {
     try {
@@ -247,8 +242,8 @@ const fetchUserDetails = async () => {
             const options = { year: 'numeric', month: 'long' };
             graduationDate.value = parsedDate.toLocaleDateString('en-US', options) ?? 'User has not entered graduation date'
 
-            feet.value = dataSets.player_info.height / 30.48;
-            pounds.value = 2.20462 * dataSets.player_info.weight
+            feet.value = (dataSets.player_info.height / 30.48).toFixed(2);
+            pounds.value = (2.20462 * dataSets.player_info.weight).toFixed(2)
         }
 
         if (dataSets.media_info) {
@@ -276,7 +271,8 @@ const fetchUserDetails = async () => {
             budgetMin: budgetMin.value,
             budgetMax: budgetMax.value,
             name: name.value,
-            sportName: sportName.value
+            sportName: sportName.value,
+            media_info: dataSets.media_info,
 
         }
 
@@ -346,7 +342,8 @@ const setGalleryItems = (mediaInfo) => {
 const fetchPost = async () => {
     try {
         const response = await $feedService.list_posts({});
-        posts.value = response || [];
+        const filteredData = response.filter(item => item.user_id === playerID.value);
+        posts.value = filteredData || [];
 
     } catch (error) {
         console.error('Failed to load posts:', error.message);

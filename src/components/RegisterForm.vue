@@ -167,6 +167,7 @@ const handleSubmit = async () => {
     return;
   }
   try {
+    loading.value = true;
     const response = await $authService.register({
       first_name: first_name.value,
       last_name: last_name.value,
@@ -187,7 +188,8 @@ const handleSubmit = async () => {
           token: response.data.token,
           user_permission_type: response.data.user_permission_type? response.data.user_permission_type:'none',
           user_id:response.data.user_id,
-          user_name:response.data.user_name
+          user_name:response.data.user_name,
+          user_slug:response.data.user_slug
          });
          userStore.setUserSlug(response.data.user_slug??null)
 
@@ -230,6 +232,8 @@ const checkUserStatus = () => {
 
   if (token && userRole === 'default') {
     // If token exists and user_role is 'default', redirect to register step two
+    router.push({ name: 'register-step-two-token', params: { token: token } });
+  }else if(token){
     router.push({ name: 'register-step-two-token', params: { token: token } });
   }
 };

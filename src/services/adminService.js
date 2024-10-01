@@ -205,14 +205,14 @@ const createAdminService = (apiService) => {
     }
   };
   
-  const search_business_users = async (business_id,page , per_page_items, search_key = '') => {
-
-    const url = `/admin/businesses/search-users/${business_id}?page=${page}&per_page_items=${per_page_items}`;
-  
-        // Add search_key to URL only if it's not an empty string
-        if (search_key) {
-          url += `&search_key=${encodeURIComponent(search_key)}`;
-      }
+  const search_business_users = async (business_id, page, per_page_items, search_key = '') => {
+    // Use 'let' to allow modification of the URL string
+    let url = `/admin/businesses/search-users/${business_id}?page=${page}&per_page_items=${per_page_items}`;
+    
+    // Add search_key to URL only if it's not an empty string
+    if (search_key) {
+      url += `&search_key=${encodeURIComponent(search_key)}`;
+    }
   
     try {
       const response = await apiService.getRequest(url);
@@ -479,6 +479,21 @@ const createAdminService = (apiService) => {
     }
 };
 
+const morderation_all_open_count =async () => {
+  const url = `/admin/morderation-open-count`;
+
+  try {
+    const response = await apiService.getRequest(url);
+    if (response && response.data) {
+      return response.data;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
   return {
     new_user_register,
     list_users,
@@ -512,7 +527,8 @@ const createAdminService = (apiService) => {
     morderation_delete,
     morderation_comment_add,
     morderation_approve,
-    morderation_logs
+    morderation_logs,
+    morderation_all_open_count
   };
 };
 

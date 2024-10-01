@@ -142,11 +142,12 @@ const userLogin = async (autoLogin = false) => {
         token: response.data.token,
         user_permission_type: response.data.user_permission_type,
         user_id:response.data.user_id,
-        user_name:response.data.user_name
+        user_name:response.data.user_name,
+        user_slug:response.data.user_slug
       });
 
       // Set success notification
-      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+      // nuxtApp.$notification.triggerNotification(response.display_message, 'success');
 
       // Set session cookie (conditionally for remember me)
       if (rememberMe.value) {
