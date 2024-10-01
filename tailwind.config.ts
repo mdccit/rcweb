@@ -51,6 +51,7 @@ module.exports = {
         orangeRed: '#FF0000',
         red: '#E60000',
         redOrange:'#FF3B30',
+        veryPaleRed: '#FFDDDD',
         vividOrange: '#FF6C00',
         lightCreamOrange: '#FFF2C3',
         lightPink: '#FFA9A9',

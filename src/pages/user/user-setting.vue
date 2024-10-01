@@ -11,29 +11,22 @@
           secure.</p>
 
         <div class="space-y-4">
-          <!-- Current Password -->
           <div>
             <label class="block text-sm font-medium  text-black">Current Password</label>
             <input type="password" placeholder="Password"
               class="w-full mt-1 p-3 border border-secondary rounded-lg focus:ring-blue-500 focus:border-blue-500" />
           </div>
-
-          <!-- New Password -->
           <div>
             <label class="block text-sm font-medium  text-black">New Password</label>
             <input type="password" placeholder="Password"
               class="w-full h-12 mt-1 p-3 border border-secondary rounded-lg focus:ring-blue-500 focus:border-blue-500" />
           </div>
-
-          <!-- Confirm Password -->
           <div>
             <label class="block text-sm font-medium  text-black">Confirm Password</label>
             <input type="password" placeholder="Password"
               class="w-full h-12 mt-1 p-3 border border-secondary rounded-lg focus:ring-blue-500 focus:border-blue-500" />
           </div>
         </div>
-
-        <!-- Save Changes Button -->
         <div class="mt-6">
           <button
             class="w-60 py-3 px-4 bg-steelBlue text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Save
@@ -49,7 +42,7 @@
         </p>
 
         <div class="space-y-4">
-          <div class="mb-4 bg-red-100 border border-red-400 text-red-600 px-4 py-3 rounded">
+          <div class="mb-4 bg-veryPaleRed text-red px-4 py-3 rounded w-fit">
             <p>You have not enabled two factor authentication.</p>
           </div>
 
@@ -59,7 +52,7 @@
         </div>
         <div class="mt-6">
           <button
-            class="w-60 py-3 px-4 bg-steelBlue text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Enable</button>
+            class="w-60 py-3 px-4 bg-steelBlue text-white text-sm font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Enable</button>
         </div>
       </div>
 
@@ -77,7 +70,7 @@
         </div>
         <div class="mt-6">
           <button
-            class="w-60 py-3 px-4 bg-steelBlue text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Log
+            class="w-60 py-3 px-4 bg-steelBlue text-white text-sm  font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Log
             Out Other Browser</button>
         </div>
       </div>
@@ -95,11 +88,12 @@
         </div>
         <div class="mt-6">
           <button
-            class="w-60 py-3 px-4 bg-red text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Log
-            Out Other Browser</button>
+            class="w-60 py-3 px-4 bg-red text-white text-sm font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Delet
+            Account</button>
         </div>
       </div>
     </div>
+    <!-- / Security Card -->
 
     <!-- Subscription & Billing Card -->
     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-8 mt-3">
@@ -107,46 +101,48 @@
       <hr class="mt-5 mb-3 text-pigeonBlue">
       <div>
 
-        <h3 class="font-semibold text-xl mb-4 text-black">Subscription</h3>
-        <p class="text-sm text-darkSlateBlue mb-4"> Lorem ipsum is a placeholder text commonly used to demonstrate the
-          visual form of a document or a typeface without relying on meaningful content.</p>
+        <!-- Subscription Section -->
+        <div class="mt-6">
+          <h3 class="font-semibold text-xl mb-4 text-black">Subscription</h3>
+          <p class="text-sm text-darkSlateBlue mb-4"> Lorem ipsum is a placeholder text commonly used to demonstrate the
+            visual form of a document or a typeface without relying on meaningful content.</p>
 
-        <div class="flex gap-4 bg-white p-6">
-          <!-- Current Subscription Plan -->
-          <div class="border border-gainsboroGray rounded-lg p-6 flex-1 text-center">
-            <p class="text-black mb-2 text-md font-semibold">Current Subscription plan</p>
-            <p class="text-4xl font-bold text-steelBlue mb-4 mt-2">$100</p>
-            <p class="text-xl font-semibold text-black">PREMIUM</p>
-            <p class="text-darkSlateBlue mt-4 text-sm">
-              Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface
-              without relying on meaningful content.
-            </p>
-            <p class="text-steelBlue font-semibold mt-4 text-xl">Activated</p>
-          </div>
-
-          <!-- Subscription Details and Change Plan -->
-          <div class="flex-1">
-            <div class="border border-gainsboroGray rounded-lg p-4 flex justify-between mb-10">
-              <div>
-                <p class="text-darkSlateBlue text-sm font-semibold mb-2">Last subscribed date</p>
-                <p class="font-semibold text-lg text-black">2024 08 01</p>
-              </div>
-              <div class="border-l border-gainsboroGray px-4">
-                <p class="text-darkSlateBlue text-sm font-semibold mb-2">Next renewal date</p>
-                <p class="font-semibold text-lg text-black">2024 09 01</p>
-              </div>
+          <div class="flex gap-4 bg-white p-6">
+            <div class="border border-gainsboroGray rounded-lg p-6 flex-1 text-center">
+              <p class="text-black mb-2 text-md font-semibold">Current Subscription plan</p>
+              <p class="text-4xl font-bold text-steelBlue mb-4 mt-2">$100</p>
+              <p class="text-xl font-semibold text-black">PREMIUM</p>
+              <p class="text-darkSlateBlue mt-4 text-sm">
+                Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a
+                typeface
+                without relying on meaningful content.
+              </p>
+              <p class="text-steelBlue font-semibold mt-4 text-xl">Activated</p>
             </div>
 
-            <div class="border border-gainsboroGray rounded-lg p-4">
-              <p class="font-semibold text-black mb-2">Change plan</p>
-              <p class="text-darkSlateBlue mb-4 text-sm">
-                Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document.
-              </p>
-              <button class="bg-steelBlue text-white px-4 py-2 rounded-lg text-sm">change plan</button>
+
+            <div class="flex-1">
+              <div class="border border-gainsboroGray rounded-lg p-4 flex justify-between mb-10">
+                <div>
+                  <p class="text-darkSlateBlue text-sm font-semibold mb-2">Last subscribed date</p>
+                  <p class="font-semibold text-lg text-black">2024 08 01</p>
+                </div>
+                <div class="border-l border-gainsboroGray px-4">
+                  <p class="text-darkSlateBlue text-sm font-semibold mb-2">Next renewal date</p>
+                  <p class="font-semibold text-lg text-black">2024 09 01</p>
+                </div>
+              </div>
+
+              <div class="border border-gainsboroGray rounded-lg p-4">
+                <p class="font-semibold text-black mb-2">Change plan</p>
+                <p class="text-darkSlateBlue mb-4 text-sm">
+                  Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document.
+                </p>
+                <button class="bg-steelBlue text-white px-4 py-2 rounded-lg text-sm">change plan</button>
+              </div>
             </div>
           </div>
         </div>
-
       </div>
 
       <!-- Card Details Section -->
@@ -158,7 +154,6 @@
 
         <div class="flex space-x-4">
           <div class="flex-1">
-            <!-- Main large card -->
             <div
               class="bg-gradient-to-r from-blue-900 to-gray-800 text-white p-6 rounded-lg w-85 shadow-lg h-60 flex flex-col justify-end">
               <div class="text-right">
@@ -185,7 +180,6 @@
           </div>
 
           <div class="flex-1">
-            <!-- Smaller card options -->
             <div class="space-y-4 w-full">
               <div class="relative flex items-center justify-between p-4 bg-white rounded-lg shadow border">
                 <div>
@@ -280,6 +274,7 @@
             </tbody>
           </table>
         </div>
+      </div>
 
         <!-- Cancel subscription -->
         <div class="mt-6">
@@ -299,14 +294,14 @@
               <div class="mt-6">
                 <button
                   class="w-50 py-3 px-2 bg-redOrange text-white  text-xs font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Cancel
-                  subscription</button>
+                  Subscription</button>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
     </div>
+    <!-- / Subscription & Billing Card -->
 
     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-8 mt-3">
       <h2 class="text-2xl font-bold mb-6 text-black">Subscription & Billing</h2>
@@ -381,6 +376,7 @@
         </table>
       </div>
     </div>
+
   </div>
 </template>
 

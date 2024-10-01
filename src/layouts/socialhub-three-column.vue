@@ -10,10 +10,11 @@
           <div>
             <user-setting-left />
             <!-- <Filter /> -->
-             <transfer-tracker-left-bar />
+             <!-- <transfer-tracker-left-bar /> -->
              <!-- <NetworkLeft /> -->
             <Filter v-if="route.meta.showFilterLeft" />
             <!-- <resources-left-bar /> -->
+             <userSettingLeftBar />
           </div>
 
           <!-- Middle pane -->
@@ -25,7 +26,7 @@
           <!-- Right pane -->
           <div>
             <!-- <Filter /> -->
-             <transfer-tracker-right-bar />
+             <!-- <transfer-tracker-right-bar /> -->
           </div>
         </div>
       </div>
