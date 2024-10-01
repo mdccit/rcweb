@@ -130,6 +130,7 @@ const fetchBusinessUserDatils = async () => {
             joinAt:joinAt.value,
             slug: route.params.slug,
         }
+        console.log( businessUserData.value.bio)
       //  fetchPost()
 
     } catch (error) {

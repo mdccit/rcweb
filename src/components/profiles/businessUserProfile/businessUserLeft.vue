@@ -107,7 +107,7 @@ onMounted(() => {
     // if (process.client) {
     //     loggedUserSlug.value = localStorage.getItem('user_slug')
     // }
-    console.log(props.data.bio)
+    console.log(props.data)
     const fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
     console.log(fullBio)
     bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
