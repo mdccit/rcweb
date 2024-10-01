@@ -147,7 +147,7 @@ const userLogin = async (autoLogin = false) => {
       });
 
       // Set success notification
-      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+      // nuxtApp.$notification.triggerNotification(response.display_message, 'success');
 
       // Set session cookie (conditionally for remember me)
       if (rememberMe.value) {

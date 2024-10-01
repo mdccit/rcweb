@@ -80,7 +80,7 @@
             <NuxtLink to="/admin/moderation?filter%5Bis_closed%5D=0"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Moderation <div
-                  class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full">60
+                  class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full">{{ morderationCount }}
                 </div>
               </div>
             </NuxtLink>
@@ -202,7 +202,7 @@
             <span class="flex items-center">
               Moderation
               <span
-                class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full">60</span>
+                class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full"</span>
             </span>
           </NuxtLink>
         </div>
@@ -226,7 +226,7 @@
           <div id="dropdownUser" class="hidden z-10 w-48 bg-white rounded divide-y divide-gray-100 shadow"
             data-popper-placement="bottom">
             <div class="py-3 px-4 text-sm text-gray-900">
-              <div class="font-medium">Admin</div>
+              <div class="font-medium">{{ loggedUserName }}</div>
               <div class="text-sm text-gray-500">{{ loggedUserMail }}</div>
             </div>
             <ul class="py-1 text-gray-700">
@@ -260,6 +260,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 import { useUserStore } from '@/stores/userStore';
+import { useModerationStore } from '~/stores/moderation';
 
 const userStore = useUserStore();
 const nuxtApp = useNuxtApp();
@@ -267,6 +268,11 @@ const $authService = nuxtApp.$authService;
 const isAuthenticated = computed(() => userStore.isAuthenticated);
 const loggedUserMail = computed(() => userStore.loggedUserEmail);
 const router = useRouter();
+const $adminService = nuxtApp.$adminService;
+const morderationCount = ref(0);
+const moderationStore = useModerationStore();
+
+const loggedUserName = computed(() => userStore.loggedUserName);
 
 const closeDropdown = (event) => {
   if (!event.target.closest('.relative')) {
@@ -338,8 +344,34 @@ const logout = async () => {
 };
 
 onMounted(() => {
-  window.removeEventListener('click', closeDropdown);
+  if (process.client) {  // Ensure this runs only on the client-side
+    const storedUserName = localStorage.getItem('user_name');  // Get value from localStorage
+    
+    if (storedUserName) {
+      // Set the loggedUserName in the store with the value from localStorage
+      userStore.loggedUserName = storedUserName;
+    } else {
+      console.log('No user_name found in localStorage.');
+    }
+  }
 });
+
+onMounted(() => {
+  window.removeEventListener('click', closeDropdown);
+  fetchMorderationCount()
+});
+
+watch(
+  () => moderationStore.moderationClose,
+  () => {
+    if(moderationStore.moderationClose == true){
+      fetchMorderationCount() 
+      moderationStore.setModerationClose(false)
+    }
+    
+  },
+)
+
 
 const login = () => {
   console.log('login push');
@@ -357,6 +389,16 @@ const profile = () => {
 const isLoggedIn = computed(() => userStore.isLoggedIn);
 const userRole = computed(() => userStore.userRole);
 
+const fetchMorderationCount = async() =>{
+  try {
+    if(isAuthenticated.value && (userStore.role =='admin')){
+      const response = await $adminService.morderation_all_open_count();
+      morderationCount.value = response.dataSets
+    }
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
+  }
+}
 
 </script>
 

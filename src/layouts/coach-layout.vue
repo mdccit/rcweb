@@ -17,7 +17,7 @@
                 <CoachRight :data="coachData"   :userSlug="route.params.slug"  />
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3">
-                <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage"  />
+                <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="fetchPost" />
                 <Connection v-if="tab === 'connection'" :playerId="coachId" @profileView="redirectPage"/>
                 <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
             </div>
@@ -189,7 +189,9 @@ const closeNotification = () => {
 const fetchPost = async () => {
   try {
     const response = await $feedService.list_posts({});
-    posts.value = response || [];
+    const filteredData = response.filter(item => item.user_id === coachId.value);
+    posts.value = filteredData || [];
+   
   } catch (error) {
     console.error('Failed to load posts:', error.message);
   }

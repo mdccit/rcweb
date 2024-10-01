@@ -233,6 +233,8 @@ const checkUserStatus = () => {
   if (token && userRole === 'default') {
     // If token exists and user_role is 'default', redirect to register step two
     router.push({ name: 'register-step-two-token', params: { token: token } });
+  }else if(token){
+    router.push({ name: 'register-step-two-token', params: { token: token } });
   }
 };
 

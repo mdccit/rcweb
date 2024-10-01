@@ -14,6 +14,7 @@ export const useUserStore = defineStore('user', {
     roles: [],
     permissions: [],
     user_id: '',
+    user_name: null,
     user_slug: null
   }),
   getters: {
@@ -167,6 +168,13 @@ export const useUserStore = defineStore('user', {
       }
       return null;
     },
+    getUserName() {
+      if (this.user_name) {
+        return this.user_name;
+
+      }
+      return null;
+    },
 
     initializeUser() {
       if (process.client) {
@@ -174,7 +182,7 @@ export const useUserStore = defineStore('user', {
         const userData = localStorage.getItem('user');
         const token = localStorage.getItem('token');
         const user_role = localStorage.getItem('user_role');
-        const user_slug = localStorage.getItem('user_slug');
+        const user_name = localStorage.getItem('user_name'); 
 
         // Handle non-logged-in users gracefully
         if (userData) {
@@ -190,11 +198,9 @@ export const useUserStore = defineStore('user', {
           this.roles = [user_role];  // Add the user_role to roles array
 
         }
-        // Check if required fields like user_slug are missing
-        if (!this.user || !this.token || !user_slug) {
-          this.clearUser();  // Trigger logout if any required field is missing
-          router.push('/login');
-          return false; // Can redirect or handle post-logout behavior here
+        // Set user_name from localStorage
+        if (user_name) {
+          this.user_name = user_name;  // Set user_name in the store
         }
       }
     },

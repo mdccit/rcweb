@@ -12,8 +12,13 @@
                 </div>
             </div>
             <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
-                {{ props.data.bio }}
+                {{ bio }}
             </p>
+            <div v-if="seeMoreBtnHide">
+                <button id="seeMoreBtn" @click="toggleText" >{{ expandBtnName }}</button>
+
+            </div>
+
         </div>
 
 
@@ -167,7 +172,10 @@ import InfoModal from '~/components/profiles/coach/modals/infoModal.vue';
 import AddressModal from '~/components/profiles/coach/modals/addressModal.vue';
 
 const userStore = useUserStore();
-
+const  isBioExpanded = ref(false); 
+const seeMoreBtnHide =  ref(false);
+const bio = ref('')
+const expandBtnName = ref('See More')
 defineNuxtRouteMiddleware(checkSession);
 const nuxtApp = useNuxtApp();
 const $publicService = nuxtApp.$publicService;
@@ -300,8 +308,24 @@ onMounted(() => {
     if (process.client) {
         loggedUserSlug.value = localStorage.getItem('user_slug')
     }
+    const fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
+    bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
+    seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
+    isBioExpanded.value = false
 
 });
+
+const toggleText = () =>{
+     isBioExpanded.value = !isBioExpanded.value;
+     if(isBioExpanded.value){
+        bio.value = props.data.bio;
+        expandBtnName.value ='See Less'
+    }else{
+        bio.value = props.data.bio.substring(0, 100) + '...';
+        expandBtnName.value ='See More'
+    }
+
+}
 </script>
 
 <style scoped>

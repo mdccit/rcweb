@@ -65,8 +65,10 @@
   
   
         <section>
+          <div id="dataContainer" class="infinite-scroll-container" @scroll="onScroll">
+
           <!-- Iterate over posts and display them -->
-          <div v-for="post in posts" :key="post.id"
+          <div v-for="post in displayedItems" :key="post.id"
             class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-5 mt-3">
             <div class="flex items-start space-x-4">
               <div class="flex-1">
@@ -268,6 +270,9 @@
               </div>
             </div>
           </div>
+          <div v-if="isLoading" class="loading">Loading more...</div>
+
+         </div>
         </section>
   
   
@@ -329,29 +334,40 @@
   const userRole = ref('')
   const notificationKey = ref(0);
   const meesge = ref('')
-  
+  const displayedItems = ref([])
+  const itemsPerPage = ref(10)
+  const isLoading = ref(false)
+  const totalItems = ref(0)
+
   onMounted(async () => {
     if (process.client) {
       // Check or fetch user role
-      if (!userStore.role) {
+      if (!userStore.user_role) {
         console.warn('User role is not defined yet.');
       } else {
-        // Perform any redirection or logic based on user role
+       console.log('user' + userStore.user_role);
       }
     }
   
     window.addEventListener('scroll', handleScroll);
     userId.value = userStore.user.user_id || null;
     userRole.value = userStore.user.role || null;
-  
+    // const container = document.getElementById('dataContainer');
+    // container.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll);
     try {
       const response = await $feedService.list_posts({});
       posts.value = response || [];
+      console.log(response)
       const idsArray = [];
       for (const post of posts.value) {
         idsArray[post.id] = false
       }
       isHidddenComment.value = idsArray
+      const nextItems = posts.value.slice(totalItems.value, totalItems.value + itemsPerPage.value);
+        displayedItems.value = [...displayedItems.value, ...nextItems];
+        totalItems.value += nextItems.length;
+        console.log("totel item "+ nextItems)
     } catch (error) {
       console.error('Failed to load posts:', error.message);
     }
@@ -427,6 +443,7 @@
     try {
       nprogress.start();
       const response = await $feedService.list_posts({});
+      console.log(response)
       posts.value = response;
     } catch (error) {
       console.error('Failed to load posts:', error.message);
@@ -562,6 +579,27 @@
   
     return secondsAgo === 1 ? '1 second ago' : `${secondsAgo} seconds ago`;
   };
+
+  const onScroll =(event) => {
+      
+      const container = document.getElementById('dataContainer');
+       if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+          if(posts.value.length != displayedItems.value.length){
+            loadItems();
+          }
+       }
+    }
+  const loadItems =() => {
+
+      isLoading.value = true;
+      setTimeout(() => {
+        // Load more items into displayedItems
+        const nextItems = posts.value.slice(totalItems.value, totalItems.value + itemsPerPage.value);
+        displayedItems.value = [...displayedItems.value, ...nextItems];
+        totalItems.value += nextItems.length;
+        isLoading.value = false;
+      }, 500); // Simulate loading time
+    }
   </script>
   
   <style scoped>
