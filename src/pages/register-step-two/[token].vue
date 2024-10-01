@@ -9,7 +9,7 @@ definePageMeta({
   colorMode: 'light',
   layout: 'outer',
   middleware: ['role'],
-  requiredRole: ['default'],
+  requiredRole: ['default','undefined'],
 });
 // Capture the dynamic token from the route
 const route = useRoute();

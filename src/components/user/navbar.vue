@@ -117,7 +117,7 @@
                     </div>
                 </div>
 
-                <div class="flex justify-end">
+                <div class="flex justify-end" v-if="isAuthenticated">
 
                     <div class="flex space-x-3">
                         <NuxtLink :to="`/app/profile/${userSlug}`">
@@ -140,7 +140,7 @@
                         </button>
 
                         <!-- Dropdown menu -->
-                        <div id="dropdownUser"
+                        <div id="dropdownUser"  
                             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                             <ul v-if="userRole === 'admin'" class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                 aria-labelledby="dropdownUserAvatarButton">
@@ -178,29 +178,18 @@ const nuxtApp = useNuxtApp();
 const nprogress = nuxtApp.$nprogress;
 const $authService = nuxtApp.$authService;
 const searchStore = useSearchStore();
+const isLoggedIn = computed(() => userStore.isLoggedIn);
+const isAuthenticated = computed(() => userStore.isAuthenticated);
 
 const router = useRouter();
 // Get the user's role from the store
 const userRole = userStore.getRole();
 
 const loggedUserMail = computed(() => userStore.loggedUserEmail);
-const loggedUserName = computed(() => userStore.loggedUserName);
-const userSlug = ref(null)
+const loggedUserName = ref('');
+const userSlug = ref('');
 const key = ref('');
 
-
-onMounted(() => {
-  if (process.client) {  // Ensure this runs only on the client-side
-    const storedUserName = localStorage.getItem('user_name');  // Get value from localStorage
-    
-    if (storedUserName) {
-      // Set the loggedUserName in the store with the value from localStorage
-      userStore.loggedUserName = storedUserName;
-    } else {
-      console.log('No user_name found in localStorage.');
-    }
-  }
-});
 
 const logout = async (event) => {
     event.preventDefault();
@@ -272,7 +261,28 @@ const gotoAdminDashboard = async (event) => {
 
 // initialize components based on data attribute selectors
 onMounted(() => {
-    userSlug.value = userStore.userSlug ?? null
+
+    if (process.client) {  // Ensure this runs only on the client-side
+        const storedUserName = localStorage.getItem('user_name');  // Get value from localStorage
+        const storedSlug = localStorage.getItem('user_slug');
+
+        if (storedUserName) {
+            // Set the loggedUserName in the store with the value from localStorage
+            loggedUserName.value = storedUserName;
+        } else {
+            console.log('No user_name found in localStorage.');
+        }
+
+        if (storedSlug) {
+            userSlug.value = storedSlug;
+        } else {
+            userSlug.value = null; // Handle the absence of user_slug
+        }
+
+
+    }
+
+
     useFlowbite(() => {
         initFlowbite();
     })

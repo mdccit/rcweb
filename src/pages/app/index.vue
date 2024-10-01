@@ -334,10 +334,10 @@
   onMounted(async () => {
     if (process.client) {
       // Check or fetch user role
-      if (!userStore.role) {
+      if (!userStore.user_role) {
         console.warn('User role is not defined yet.');
       } else {
-        // Perform any redirection or logic based on user role
+       console.log('user' + userStore.user_role);
       }
     }
   
