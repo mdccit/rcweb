@@ -3,11 +3,11 @@
                         <div class="grid grid-cols-4 mb-4">
                             <div class=" col-span-3">
                                 <h1 class="text-lg font-semibold mb-1 text-black">Members</h1>
-                                <p class="text-gray-500 text-xs">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                    elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                <!-- <p class="text-gray-500 text-xs">Lorem ipsum dolor sit amet, consectetur adipiscing
+                                    elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p> -->
                             </div>
                             <div class="col-span-1 text-right">
-                                <button>
+                                <button @click="memberAdd">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6 text-blue-500">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -32,9 +32,9 @@
                                                     <img src="@assets/user/images/man-medal.png" alt=""
                                                         class=" w-4 h-4">
                                                 </div>
-                                                <div class="text-sm ml-2 text-green">Tennis Coach</div>
+                                                <div class="text-sm ml-2 text-green">Tennis {{ member.user_role }}</div>
                                             </div>
-                                            <div class="flex items-center space-x-2">
+                                            <!-- <div class="flex items-center space-x-2">
                                                 <div class=" rounded">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -47,16 +47,16 @@
 
                                                 </div>
                                                 <div class="text-sm ml-2 text-black">New Pura, Belgium</div>
-                                            </div>
+                                            </div> -->
                                         </div>
-                                        <div class="col-span-3">
+                                        <!-- <div class="col-span-3">
                                             <h4 class="text-black">UTR <span class="text-blue-500">30.01</span></h4>
-                                        </div>
+                                        </div> -->
                                     </div>
 
 
                                     <div class="flex mt-2">
-                                        <div class="flex-1">
+                                        <!-- <div class="flex-1">
                                             <div class="flex items-center space-x-2 mb-2">
                                                 <div class="bg-blue-100 p-1 rounded">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -72,7 +72,7 @@
                                                     connections
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="flex-1 text-right">
                                             <div>
                                                 <button class="bg-red rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
@@ -154,13 +154,22 @@
                             </div> -->
                         </div>
                     </div>
+                    <MemberAdd :isVisible="showModal" @close="showModal = false"   />
+
 </template>
 
 <script setup>
 import { defineProps, defineEmits, defineExpose,ref, onMounted} from 'vue';
+import MemberAdd from '~/components/user/profile/memberAdd.vue';
+
+const showModal = ref(false)
+
 
 const props = defineProps({
     members: Array
 });
 
+const memberAdd = () =>{
+    showModal.value =true;
+}
 </script>

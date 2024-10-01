@@ -12,10 +12,14 @@
                 </div>
             </div>
             <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
-                hdhdhgsdgsdgsd
+                {{ bio }}
             </p>
-        </div>
+            <div v-if="seeMoreBtnHide">
+                <button id="seeMoreBtn" @click="toggleText" >{{ expandBtnName }}</button>
 
+            </div>
+        </div>
+<!-- 
         <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 ">
@@ -37,7 +41,7 @@
                                 Computer engineering
                             </span>
                         </p>
-                    </div>
+                    </div> -->
 
         <div style="height: 60px;"
             class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
@@ -47,7 +51,7 @@
                 </div>
                 <div class="col-span-6 ml-2">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Signed up
-                        2021 1 21
+                        {{ props.data.joinAt }}
                     </p>
 
                 </div>
@@ -69,6 +73,7 @@
                 </div>
                 <div class="col-span-6 ml-2">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">location
+                        {{ props.data.address }}
                     </p>
 
                 </div>
@@ -87,7 +92,47 @@
 </template>
 
 <script setup>
+import { ref, onMounted, reactive } from 'vue';
 
+const  isBioExpanded = ref(false); 
+const seeMoreBtnHide =  ref(false);
+const bio = ref('')
+const expandBtnName = ref('See More')
+
+const props = defineProps({
+
+data: {
+    type: Object,
+    required: true,
+},
+
+schoolSlug: {
+    type: String,
+    required: true,
+}
+});
+
+onMounted(() => {
+
+    const fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
+    console.log(fullBio)
+    bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
+    seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
+    isBioExpanded.value = false
+
+});
+
+const toggleText = () =>{
+     isBioExpanded.value = !isBioExpanded.value;
+     if(isBioExpanded.value){
+        bio.value = props.data.bio;
+        expandBtnName.value ='See Less'
+    }else{
+        bio.value = props.data.bio.substring(0, 100) + '...';
+        expandBtnName.value ='See More'
+    }
+
+}
 </script>
 
 <style scoped>

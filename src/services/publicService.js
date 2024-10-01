@@ -97,13 +97,29 @@ const get_user_profile= async (slug) => {
   }
 };
 
+const get_school_team= async (id) => {
+  const url = `/public/school-team-get/${id}`;
+  try {
+    const response = await apiService.getRequest(url);
+    if (response && response.data) {
+      console.log(response.data);
+      return response.data;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    console.log(error)
+    throw new Error(error.message || 'Failed to register');
+  }
+};
   return {
     get_player,
     get_coache,
     get_business_user,
     get_business,
     get_scool,
-    get_user_profile
+    get_user_profile,
+    get_school_team
   };
 
 

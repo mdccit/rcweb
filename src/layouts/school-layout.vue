@@ -8,16 +8,21 @@
         <NavBarPublic></NavBarPublic>
         <div class="grid grid-cols-6 grid-rows-2 gap-0 mt-16">
             <div class="col-span-6 row-start-1 row-end-2s">
-                <SchoolCover/>
+                <SchoolCover :data="schoolData"  :schoolSlug="route.params.slug"  @changeTab="setSelectedTab"  />
             </div>
             <div class="col-start-1 col-end-2 row-start-2 row-end-3">
-                <SchoolLeft />
+                <SchoolLeft :data="schoolData"  :schoolSlug="route.params.slug"  />
             </div>
             <div class="col-start-6 col-end-7 row-start-2 row-end-3"> 
-                <SchoolRight />
+                <SchoolRight :data="schoolData"  :schoolSlug="route.params.slug"  />
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3">
-                <SchoolFeed />
+                <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="fetchPost"  />
+                <Member v-if="tab == 'member'"  :members="members" />
+                <Team  v-if="tab == 'team'" :team="team"/>
+                <Academic v-if="tab == 'academic'" :academic="academic" />
+
+
             </div>
         </div>
     </main>
@@ -27,17 +32,19 @@
 <script setup>
 import NavBarPublic from '~/components/user/navbar.vue';
 import FooterPublic from '~/components/user/user-footer.vue';
-import { ref, watchEffect } from 'vue';
+import { ref, watchEffect ,computed, watch, onMounted} from 'vue';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue'; // <-- Ensure this path is correct!
-import BusinessCover from '~/components/profiles/businessProfile/businessCover.vue';
-import BusinessLeft from '~/components/profiles/businessProfile/businessLeft.vue';
-import BusinessRight from '~/components/profiles/businessProfile/businessRight.vue';
-import BusinessFeed from '~/components/profiles/businessProfile/businessFeed.vue';
+
 import SchoolCover from '~/components/profiles/schoolProfile/schoolCover.vue';
 import SchoolLeft from '~/components/profiles/schoolProfile/schoolLeft.vue';
 import SchoolRight from '~/components/profiles/schoolProfile/schoolRight.vue';
 import SchoolFeed from '~/components/profiles/schoolProfile/schoolFeed.vue';
+import Member from '~/components/user/profile/member.vue';
+import Academic from '~/components/user/profile/academic.vue';
+import Team from '~/components/user/profile/team.vue';
+import UserFeed from '~/components/user/profile/userFeed.vue';
+import { useRoute } from 'vue-router'
 
 const nuxtApp = useNuxtApp();
 
@@ -58,6 +65,118 @@ watchEffect(() => {
 const closeNotification = () => {
     showNotification.value = false; // Hide the notification
 };
+
+const $publicService = nuxtApp.$publicService;
+const $userService = nuxtApp.$userService;
+const $feedService = nuxtApp.$feedService; 
+
+const bio =ref('');
+const name =ref('')
+const members =ref([])
+const tuitionInState = ref('')
+const tuitionOutState = ref('')
+const costOfAttendance = ref('')
+const address = ref('')
+const graduationRate = ref('')
+const academic = ref({})
+const tab = ref('feed')
+const posts = ref([])
+const schoolData = ref({})
+const joinAt = ref('')
+const route = useRoute();
+const conferenceId = ref('Unknown')
+const divitionId = ref('Unknown')
+const schoolId = ref('')
+const team = ref([])
+onMounted(() => {
+    fetchSchooleDatils();
+   //fetchPost();
+
+});
+
+const fetchSchooleDatils = async () =>{
+    try {
+       const dataSets = await $publicService.get_scool(route.params.slug);
+        if(dataSets.school_info){
+            schoolId.value =dataSets.school_info.id || '';
+
+            bio.value =dataSets.school_info.bio || 'School has not entered bio';
+            name.value =dataSets.school_info.name
+            const date = new Date(dataSets.school_info.joined_at);
+            const monthNames = [
+               'January', 'February', 'March', 'April', 'May', 'June',
+               'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            const year = date.getFullYear();
+            const month = monthNames[date.getMonth()];
+           const day = date.getDate();
+           joinAt.value = `${year} ${month} ${day}`
+            divitionId.value = dataSets.school_info.division_id || 'Unknown';
+            conferenceId.value = dataSets.school_info.conference_id || 'Unknown';
+        }
+
+        if(dataSets.school_info.other_data){
+            tuitionInState.value =dataSets.school_info.other_data.tuition_in_state
+            tuitionOutState.value =dataSets.school_info.other_data.tuition_out_state
+            costOfAttendance.value =dataSets.school_info.other_data.cost_of_attendance
+            address.value =dataSets.school_info.other_data.address
+            graduationRate.value =dataSets.school_info.other_data.graduation_rate
+            academic.value =dataSets.school_info.other_data
+        }
+
+        if(dataSets.school_users_info){
+            members.value =dataSets.school_users_info
+        }
+        schoolData.value ={
+            bio: bio.value,
+            name:name.value,
+            tuitionInState:tuitionInState.value,
+            tuitionOutState:tuitionOutState.value,
+            costOfAttendance:costOfAttendance.value,
+            address:address.value,
+            graduationRate:graduationRate.value,
+            academic:academic.value,
+            members: members.value,
+            joinAt:joinAt.value,
+            divisionId :divitionId.value,
+            conferenceId:conferenceId.value
+        }
+        fetchPost()
+        getSchoolTeam()
+    } catch (error) {
+       console.error('Error fetching data:', error.message);
+    } 
+}
+
+const fetchPost = async () =>{
+      try {
+        const response = await $feedService.list_posts({});
+        const filteredData = response.filter(item => item.user_id === schoolId.value);
+        posts.value = filteredData || [];
+    } catch (error) {
+       console.error('Failed to load posts:', error.message);
+    }
+}
+
+const setSelectedTab = (selectedTab) => {
+  tab.value = selectedTab;
+};
+
+const redirectPage = (url) =>{
+    router.push({
+      path: url,
+
+    });
+}
+
+const getSchoolTeam = async() =>{
+    try {
+        const response = await $publicService.get_school_team(schoolId.value);
+        team.value = response.team || [];
+    } catch (error) {
+       console.error('Failed to load posts:', error.message);
+    }
+}
 </script>
 
 <style scoped>
