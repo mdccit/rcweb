@@ -80,7 +80,7 @@
             <NuxtLink to="/admin/moderation?filter%5Bis_closed%5D=0"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Moderation <div
-                  class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full">60
+                  class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full">{{ morderationCount }}
                 </div>
               </div>
             </NuxtLink>
@@ -187,7 +187,7 @@
             <span class="flex items-center">
               Moderation
               <span
-                class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full">60</span>
+                class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full"</span>
             </span>
           </NuxtLink>
         </div>
@@ -274,6 +274,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 import { useUserStore } from '@/stores/userStore';
+import { useModerationStore } from '~/stores/moderation';
 
 const userStore = useUserStore();
 const nuxtApp = useNuxtApp();
@@ -281,6 +282,9 @@ const $authService = nuxtApp.$authService;
 const isAuthenticated = computed(() => userStore.isAuthenticated);
 const loggedUserMail = computed(() => userStore.loggedUserEmail);
 const router = useRouter();
+const $adminService = nuxtApp.$adminService;
+const morderationCount = ref(0);
+const moderationStore = useModerationStore();
 
 const loggedUserName = computed(() => userStore.loggedUserName);
 
@@ -368,7 +372,20 @@ onMounted(() => {
 
 onMounted(() => {
   window.removeEventListener('click', closeDropdown);
+  fetchMorderationCount()
 });
+
+watch(
+  () => moderationStore.moderationClose,
+  () => {
+    if(moderationStore.moderationClose == true){
+      fetchMorderationCount() 
+      moderationStore.setModerationClose(false)
+    }
+    
+  },
+)
+
 
 const login = () => {
   console.log('login push');
@@ -386,6 +403,16 @@ const profile = () => {
 const isLoggedIn = computed(() => userStore.isLoggedIn);
 const userRole = computed(() => userStore.userRole);
 
+const fetchMorderationCount = async() =>{
+  try {
+    if(isAuthenticated.value && (userStore.role =='admin')){
+      const response = await $adminService.morderation_all_open_count();
+      morderationCount.value = response.dataSets
+    }
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
+  }
+}
 
 </script>
 
