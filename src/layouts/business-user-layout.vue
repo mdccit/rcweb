@@ -65,8 +65,9 @@ const joinAt = ref('')
 const businessUserData = ref({})
 const businessUserId = ref('')
 const tab = ref('feed');
-
-
+const profilePicture= ref(null)
+const coverPicture= ref(null)
+const businessSlug = ref('')
 const setSelectedTab = (selectedTab) => {
   tab.value = selectedTab;
 };
@@ -114,12 +115,17 @@ const fetchBusinessUserDatils = async () => {
         if(dataSets.business_manager_info){
             position.value = dataSets.business_manager_info.position
             business.value = dataSets.business_manager_info.business_name
+            businessSlug.value =dataSets.business_manager_info.slug 
         }
 
         if(dataSets.user_phone_info){
             country.value = dataSets.user_phone_info.country
         }   
         
+        if(dataSets.media_info){
+          profilePicture.value = dataSets.media_info.profile_picture 
+          coverPicture.value =dataSets.media_info.cover_picture
+        }
         businessUserData.value ={
             bio: bio.value,
             country:country.value,
@@ -129,8 +135,11 @@ const fetchBusinessUserDatils = async () => {
             position:position.value,
             joinAt:joinAt.value,
             slug: route.params.slug,
+            profile: profilePicture.value,
+            cover:coverPicture.value,
+            businessSlug:businessSlug.value
+
         }
-        console.log( businessUserData.value.bio)
       //  fetchPost()
 
     } catch (error) {

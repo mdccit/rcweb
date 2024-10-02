@@ -13,7 +13,7 @@
                                         src="@/assets/user/images/whitter collage.png" alt="">
                                     <p class="text-black text-sm text-center font-normal mb-3 w-[200px] mx-auto">
                                         <b>{{  props.data.business }}</b></p>
-                                    <p class="text-steelBlue text-sm text-center  mb-3">Business</p>
+                                    <button @click="redirectToBusiness" class="text-steelBlue text-sm text-center  mb-3">Business</button>
                                 </div>
                             </div>
                         </div>
@@ -26,6 +26,9 @@
 import { ref, onMounted, reactive } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
+
+const router = useRouter();
+
 const props = defineProps({
     data: {
         type: Object,
@@ -37,14 +40,11 @@ const props = defineProps({
     },
 });
 
-// const redirectToBusiness = (schoolSlug) => {
-//     if (schoolSlug) {
-//         router.push(`/app/profile/school/${schoolSlug}`);
-//     } else {
-//         // Handle the case when slug is not available
-//         console.warn('School slug not available');
-//     }
-// };
+const redirectToBusiness = () => {
+    
+        router.push(`/app/profile/business/${props.data.businessSlug}`);
+     
+};
 </script>
 
 <style scoped>

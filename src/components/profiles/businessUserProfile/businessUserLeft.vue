@@ -68,7 +68,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from 'vue';
+import { ref, onMounted, reactive ,watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
@@ -107,16 +107,26 @@ onMounted(() => {
     // if (process.client) {
     //     loggedUserSlug.value = localStorage.getItem('user_slug')
     // }
-    console.log(props.data)
-    const fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
-    console.log(fullBio)
+    
+
+});
+
+watch(
+  () => props.data,
+  () => {
+    setBio() 
+  }
+);
+
+const setBio = () =>{
+    console.log(117)
+    console.log(props.data.bio)
+    let fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
     bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
     seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
     isBioExpanded.value = false
     console.log(bio.value)
-
-});
-
+}
 const toggleText = () =>{
      isBioExpanded.value = !isBioExpanded.value;
      if(isBioExpanded.value){
