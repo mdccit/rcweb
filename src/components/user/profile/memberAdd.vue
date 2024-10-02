@@ -1,7 +1,7 @@
 <template>
     <div v-if="isVisible" id="crud-modal" tabindex="-1" 
     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-     <!-- Create team modal -->
+    
 
     <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -15,8 +15,7 @@
                                 <h1 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Create Team
                                 </h1>
                                 <div class="mt-2">
-                                    <p class="text-sm text-gray-500 mb-3">Here you can manage the requests that have
-                                        been made to your school.</p>
+                                    
                                     <div class="flex bp-1">
                                         <div class="flex-1 p-1">
                                             <div class="">
@@ -24,7 +23,7 @@
                                                     <span aria-hidden="true" class="text-red-600"
                                                         title="This field is required">*</span></label>
                                                 <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <input id="first_name" 
+                                                    <input  v-model="teamName"
                                                         autocomplete="given-name" class="block px-5 py-3 w-full border-0 focus:border-lightAzure
                                                          focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50
                                                          disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
@@ -39,12 +38,12 @@
                                                     <span aria-hidden="true" class="text-red-600"
                                                         title="This field is required">*</span></label>
                                                 <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <input id="first_name" 
+                                                    <input  v-model="searchKey"
                                                         autocomplete="given-name" class="block px-5 py-3 w-full border-0 focus:border-lightAzure
                                                          focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50
                                                          disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                         placeholder="" required>
-                                                    <button type="button"
+                                                    <button @click="search" type="button"
                                                         class="inline-flex w-full justify-center rounded-full text-steelBlue px-3 py-2 active:bg-blue-100 transition-all text-sm font-normal text-white shadow-sm  sm:ml-3 sm:w-auto">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -60,7 +59,66 @@
                                         </div>
                                     </div>
 
-                                    
+                                    <div>
+                                        <div class="w-[full] grid grid-cols-2">
+
+                                            <div v-for="result in result" class="col-span-1 p-2 w-[450px]">
+                                                <div class="bg-white p-4 border rounded-2xl">
+                                                    <div class=" grid grid-cols-12 gap-4 w-[400px]">
+                                                        <div class="col-span-3">
+                                                            <img class=" rounded-2xl w-[85px] h-[85px]"
+                                                                src="@/assets/user/images/Rectangle 193.png"
+                                                                alt="Neil image">
+                                                        </div>
+                                                        <div class="col-span-6">
+                                                            <h4 class="text-black font-normal">{{  result.display_name }}</h4>
+                                                            <div class="flex items-center space-x-2 mb-2">
+                                                                <div class="bg-blue-200 p-1 rounded">
+                                                                    <img src="@/assets/images/player-blue.png" alt=""
+                                                                        class=" w-4 h-4">
+                                                                </div>
+                                                                <div class="text-sm ml-2 text-blue-500">Tennis {{ result.user_role }}
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                    </div>
+
+
+                                                    <div class="flex mt-2">
+                                                        
+
+                                                        <div class="flex-1 text-right">
+                                                            <div class="flex">
+                                                                <div class="flex-1 text-right">
+
+                                                                </div>
+
+                                                                <div>
+                                                                    <button  @click="selectOruUnselect(result)"
+                                                                    :class=" result.select?'bg-blue-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]':'bg-blue-100 rounded-full text-blue-500 p-2 m-1 text-xs h-[35px] w-[85px]'"
+                                                                        >
+                                                                         {{ result.select ? 'Selected':'select' }}
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="mx-auto text-center">
+                                                <div v-if="result.length == 0">
+                                                     <h4 class="text-black font-normal"> No Match Result</h4>
+                                                </div>
+                                           </div>
+                                            
+                                        </div>
+                                    </div>
 
 
                                 </div>
@@ -68,7 +126,7 @@
                         </div>
                     </div>
                     <div class=" px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button type="button"
+                        <button @click="teamAdd" type="button"
                             class="inline-flex w-full justify-center rounded-full bg-steelBlue px-3 py-2 text-sm font-normal text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">
                             Create Team</button>
 
@@ -84,10 +142,86 @@
 </template>
 
 <script setup>
+  import { defineProps, defineEmits, defineExpose,ref, onMounted} from 'vue';
+  import { useNuxtApp } from '#app';
+  const nuxtApp = useNuxtApp();
+  const $publicService = nuxtApp.$publicService;
+  const emit = defineEmits(['close','getTeam']);
 
 const props = defineProps({
+
     isVisible: Boolean,
-    action: String,
-    moderationId: String,
+    members: Array,
+    schoolId:String
+
 });
+const members = ref([])
+onMounted(()=>{
+    result.value =[];
+    members.value =props.members.map(member => {
+        return { ...member, select: false };
+    });
+})
+const searchKey = ref('')
+const teamName = ref('')
+const result = ref([])
+const selectValue = ref([])
+
+const search = () =>{
+    result.value =  members.value.filter(member => member.display_name == searchKey.value);
+}
+
+const selectOruUnselect = (data) => {
+    console.log(data)
+    result.value = result.value.map(result => {
+        if (result.id === data.id) {
+            return {
+                ...result,
+                select:!data.select
+           }
+        }
+        return result  
+    });
+
+    members.value = members.value.map(result => {
+        if (result.user_id === data.user_id) {
+            return {
+                ...result,
+                select:!data.select
+           }
+        }
+        return result  
+    });
+
+
+ if(data.select){
+    selectValue.value = selectValue.value.filter(data => !data.user_id);
+    
+ }else{
+    selectValue.value.push({
+        user_id:data.user_id,
+        status:data.user_role=='Coach'?'coache':'player',
+        player_id:data.user_role=='Player'?data.player_id:null,
+        coache_id:data.user_role=='Coach'?data.coach_id:null
+    });
+ }
+}
+
+const teamAdd = async() =>{
+    try {
+
+        const response = await $publicService.add_school_team({
+            name:teamName.value,
+            school_id:props.schoolId,
+            team_user:selectValue.value
+        });
+        emit('getTeam')
+
+        emit('close')
+        } catch (error) {
+       console.error('Failed to load posts:', error.message);
+    }
+}
+
+
 </script>

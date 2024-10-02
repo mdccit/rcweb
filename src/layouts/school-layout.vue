@@ -19,7 +19,7 @@
             <div class="col-start-2 col-end-6 row-start-2 row-end-3">
                 <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="fetchPost"  />
                 <Member v-if="tab == 'member'"  :members="members" />
-                <Team  v-if="tab == 'team'" :team="team"/>
+                <Team  v-if="tab == 'team'" :team="team" :members="members" :schoolId="schoolId"  @getSchoolTeam="getSchoolTeam"/>
                 <Academic v-if="tab == 'academic'" :academic="academic" />
 
 
@@ -171,6 +171,8 @@ const redirectPage = (url) =>{
 
 const getSchoolTeam = async() =>{
     try {
+        console.log(72)
+
         const response = await $publicService.get_school_team(schoolId.value);
         team.value = response.team || [];
     } catch (error) {

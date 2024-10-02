@@ -8,7 +8,7 @@
             <div class="flex-1  text-right">
                 <div class=" text-right">
                     <div>
-                        <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[100px]">
+                        <button @click="memberAdd" class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[100px]">
                             Create Team +
                         </button>
                     </div>
@@ -22,15 +22,11 @@
                     <!-- <p class="text-gray-500 text-xs">Lorem ipsum dolor sit amet, consectetur adipiscing
                         elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p> -->
                 </div>
-                <!-- <div class="col-span-1 text-right">
-                    <button>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="size-6 text-blue-500">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
+                <div class="col-span-1 text-right">
+                    <button @click="deleteTeam(team)">
+                         Delete
                     </button>
-                </div> -->
+                </div>
             </div>
             <div class="flex">
                 <div class="flex-1 p-1">
@@ -51,9 +47,9 @@
                                         <div class="text-sm ml-2 text-green">Tennis {{ user.role_id==4?'Player':'Coache' }}</div>
                                     </div>
                                 </div>
-                                <div class="col-span-3">
-                                    <!-- <h4 class="text-black">UTR <span class="text-blue-500">30.01</span></h4> -->
-                                </div>
+                                <!-- <div class="col-span-3">
+                                    <button> Delete</button>
+                                </div> -->
                             </div>
                             
                         </div>
@@ -62,19 +58,44 @@
                 </div>
             </div>
         <!--  Team section End-->
+        <MemberAdd :isVisible="showModal" @close="showModal = false" :members="props.members"  :schoolId="props.schoolId" @getTeam="getTeam" />
+        <TeamDeleteModel :isVisible="showDeleteModal" @close="showDeleteModal = false" @getTeam="getTeam" :teamId="teamId"/>
     </div>
   </template>
   
   <script setup>
   import { defineProps, defineEmits, defineExpose,ref, onMounted} from 'vue';
-  
-  const props = defineProps({
-    team: Array
-});
+  import MemberAdd from '~/components/user/profile/memberAdd.vue';
+  import TeamDeleteModel from '~/components/user/profile/teamDeleteModel.vue';
 
-console.log(props.team)
-//   const props = defineProps({
-//       academic: Object
-//   });
-  
+  import { useNuxtApp } from '#app';
+  const nuxtApp = useNuxtApp();
+  const $publicService = nuxtApp.$publicService;
+
+  const emit = defineEmits(['getSchoolTeam']);
+
+  const props = defineProps({
+    team: Array,
+    members:Array,
+    schoolId:String
+  });
+  const showModal = ref(false)
+const showDeleteModal= ref(false)
+const teamId= ref('')
+
+   const memberAdd = () =>{
+    showModal.value =true;
+   }
+
+   const getTeam = () =>{
+    teamId.value=''
+    emit('getSchoolTeam')
+  }
+
+  const deleteTeam = async(team) =>{
+    teamId.value=team.team_id
+    showDeleteModal.value =true
+   
+
+  }
   </script>
