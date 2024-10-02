@@ -1,7 +1,6 @@
 <template>
 
   <el-card>
-
     <!-- Search Input and Buttons -->
     <div class="flex justify-between items-center mb-4">
       <!-- Search Input for Filtering -->
@@ -40,7 +39,7 @@
       <el-table-column class="tealGaray" prop="name" label="DISPLAY NAME" sortable></el-table-column>
 
       <!-- Bio Column -->
-      <el-table-column class="tealGaray" prop="bio" label="BIO" sortable></el-table-column>
+      <el-table-column  class="tealGaray truncate" prop="bio" label="BIO" sortable></el-table-column>
 
       <!-- Is Verified Column -->
       <el-table-column prop="is_verified" label="IS VERIFIED" sortable>

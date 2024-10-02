@@ -5,7 +5,7 @@
     <!-- Search Input and Buttons -->
     <div class="flex justify-between items-center mb-4">
       <!-- Search Input for Filtering -->
-      <el-input v-model="search" class="h-[40px] mr-2" placeholder="Search..." clearable></el-input>
+      <el-input v-model="search" class="h-[40px] mr-2 focus:border-none" placeholder="Search..." clearable></el-input>
 
       <!--  Search Button -->
       <button id="searchButton" @click="applySearch"
