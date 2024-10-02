@@ -13,6 +13,7 @@
                                         src="@/assets/user/images/whitter collage.png" alt="">
                                     <p class="text-black text-sm text-center font-normal mb-3 w-[200px] mx-auto">
                                         <b>ICSA (Intercollegiate Soccer Association)</b></p>
+                                         <!-- <b> {{ props.data.colleage }}</b></p> -->
                                     <p class="text-steelBlue text-sm text-center  mb-3">Business</p>
                                 </div>
                             </div>
@@ -23,7 +24,32 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '~/stores/userStore';
+const userStore = useUserStore();
+const loggedUserSlug = ref('');
 
+// Use the router for programmatic navigation
+const router = useRouter();
+const props = defineProps({
+
+    data: {
+        type: Object,
+        required: true,
+    },
+    userSlug: {
+        type: String,
+        required: true,
+    },
+});
+
+
+onMounted(() => {
+if (process.client) {
+    loggedUserSlug.value = localStorage.getItem('user_slug');
+  }
+});
 </script>
 
 <style scoped>
