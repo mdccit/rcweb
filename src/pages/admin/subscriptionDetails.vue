@@ -7,86 +7,100 @@
         </div>
         <el-card>
 
-<!-- Search Input and Buttons -->
-<div class="flex justify-between items-center mb-4">
-    <!-- Search Input for Filtering -->
-    <el-input v-model="search" class="h-[40px] mr-2" placeholder="Search..." clearable></el-input>
+            <!-- Search Input and Buttons -->
+            <div class="flex justify-between items-center mb-4">
+                <!-- Search Input for Filtering -->
+                <el-input v-model="search" class="h-[40px] mr-2" placeholder="Search..." clearable></el-input>
 
-    <!--  Search Button -->
-    <button id="searchButton" @click="applySearch"
-        class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 p-2 border rounded h-[40px] mr-1 mx-auto"
-        type="button">
-        <span class=" mx-auto">Search</span>
-    </button>
-
-    <button
-        class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
-            fill="currentColor">
-            <path fill-rule="evenodd"
-                d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                clip-rule="evenodd"></path>
-        </svg>
-    </button>
-    <button
-        class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 mx-auto">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
-            fill="currentColor">
-            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-            <path fill-rule="evenodd"
-                d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-                clip-rule="evenodd"></path>
-        </svg>
-    </button>
-
-</div>
-
-<!-- Data Table -->
-<el-table :default-sort="{ prop: 'joined_at', order: 'descending' }">
-    <!-- Display Name Column -->
-    <el-table-column prop="display_name" label="DISPLAY NAME" sortable></el-table-column>
-
-    <!-- Email Column -->
-    <el-table-column prop="email" label="EMAIL" sortable class="truncate-text" show-overflow-tooltip>
-        <template v-slot="scope">
-            <span class="truncate-text show-overflow-tooltip">email</span>
-        </template>
-
-    </el-table-column>
-
-    <!-- User Role Column -->
-    <el-table-column prop="user_role" label="USER ROLE" sortable>
-        <template v-slot="scope">
-            <span class="">
-                role</span>
-        </template>
-    </el-table-column>
-
-    <!-- Joined At Column -->
-    <el-table-column prop="joined_at" label="JOINED DATE" sortable>
-        <template v-slot="scope">
-            <span>date</span>
-        </template>
-    </el-table-column>
-
-    <!-- Last Seen At Column -->
-    <el-table-column prop="last_seen_at" label="LAST PAYMENT" sortable>
-        <template v-slot="scope">
-            <span>date</span>
-        </template>
-    </el-table-column>
-
-    <!-- END TABLE  -->
-</el-table>
+                <!--  Search Button -->
+                <button id="searchButton" @click="applySearch"
+                    class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 p-2 border rounded h-[40px] mr-1 mx-auto"
+                    type="button">
+                    <span class=" mx-auto">Search</span>
+                </button>
 
 
-<!-- Pagination -->
-<el-pagination
-    layout="prev, pager, next">
-</el-pagination>
-</el-card>
+                <div class="relative max-w-sm mr-1">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                        </svg>
+                    </div>
+                    <input datepicker id="default-datepicker" type="text"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Select date">
+                </div>
+
+
+                <button
+                    class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <button
+                    class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 mx-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                        <path fill-rule="evenodd"
+                            d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+
+            </div>
+
+            <!-- Data Table -->
+            <el-table :default-sort="{ prop: 'joined_at', order: 'descending' }">
+                <!-- Display Name Column -->
+                <el-table-column prop="display_name" label="DISPLAY NAME" sortable></el-table-column>
+
+                <!-- Email Column -->
+                <el-table-column prop="email" label="EMAIL" sortable class="truncate-text" show-overflow-tooltip>
+                    <template v-slot="scope">
+                        <span class="truncate-text show-overflow-tooltip">email</span>
+                    </template>
+
+                </el-table-column>
+
+                <!-- User Role Column -->
+                <el-table-column prop="user_role" label="USER ROLE" sortable>
+                    <template v-slot="scope">
+                        <span class="">
+                            role</span>
+                    </template>
+                </el-table-column>
+
+                <!-- Joined At Column -->
+                <el-table-column prop="joined_at" label="JOINED DATE" sortable>
+                    <template v-slot="scope">
+                        <span>date</span>
+                    </template>
+                </el-table-column>
+
+                <!-- Last Seen At Column -->
+                <el-table-column prop="last_seen_at" label="LAST PAYMENT" sortable>
+                    <template v-slot="scope">
+                        <span>date</span>
+                    </template>
+                </el-table-column>
+
+                <!-- END TABLE  -->
+            </el-table>
+
+
+            <!-- Pagination -->
+            <el-pagination layout="prev, pager, next">
+            </el-pagination>
+        </el-card>
     </div>
-    
+
 </template>
 
 <style scoped>
