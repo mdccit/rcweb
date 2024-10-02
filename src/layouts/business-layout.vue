@@ -8,16 +8,17 @@
         <NavBarPublic></NavBarPublic>
         <div class="grid grid-cols-6 grid-rows-2 gap-0 mt-16">
             <div class="col-span-6 row-start-1 row-end-2s">
-                <BusinessCover/>
+                <BusinessCover :data="businessData" @changeTab="setSelectedTab"  :businessSlug="route.params.slug"/>
             </div>
             <div class="col-start-1 col-end-2 row-start-2 row-end-3">
-                <BusinessLeft />
+                <BusinessLeft :data="businessData" :businessSlug="route.params.slug"/>
             </div>
             <div class="col-start-6 col-end-7 row-start-2 row-end-3"> 
-                <BusinessRight />
+                <BusinessRight :data="businessData" :businessSlug="route.params.slug" />
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3">
-                <BusinessFeed />
+                <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="fetchPost" />
+                <Member v-if="tab == 'member'" :members="members"/>
             </div>
         </div>
     </main>
@@ -27,23 +28,33 @@
 <script setup>
 import NavBarPublic from '~/components/user/navbar.vue';
 import FooterPublic from '~/components/user/user-footer.vue';
-import { ref, watchEffect } from 'vue';
+import { ref, watchEffect ,onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue'; // <-- Ensure this path is correct!
 import BusinessCover from '~/components/profiles/businessProfile/businessCover.vue';
 import BusinessLeft from '~/components/profiles/businessProfile/businessLeft.vue';
 import BusinessRight from '~/components/profiles/businessProfile/businessRight.vue';
-import BusinessFeed from '~/components/profiles/businessProfile/businessFeed.vue';
-
+import { useRoute } from 'vue-router'
+import Member from '~/components/user/profile/member.vue';
+import UserFeed from '~/components/user/profile/userFeed.vue';
+const route = useRoute();
 
 const nuxtApp = useNuxtApp();
-
+const $publicService = nuxtApp.$publicService;
+const $userService = nuxtApp.$userService;
+const $feedService = nuxtApp.$feedService;
 
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const notificationType = ref('');
 const notificationKey = ref(0);
-
+const bio =ref('');
+const name =ref('')
+const members =ref([])
+const tab = ref('feed')
+const posts = ref([])
+const joinAt = ref('')
+const businessData =ref({})
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
     showNotification.value = nuxtApp.$notification.showNotification.value;
@@ -55,6 +66,70 @@ watchEffect(() => {
 const closeNotification = () => {
     showNotification.value = false; // Hide the notification
 };
+
+onMounted(() => {
+    fetchbusinessDetatils();
+   fetchPost();
+
+});
+
+const fetchbusinessDetatils = async () =>{
+    try {
+       const dataSets = await $publicService.get_business(route.params.slug);
+       console.log(dataSets.business_info.joined_at)
+        if(dataSets.business_info){
+            bio.value =dataSets.business_info.bio
+            name.value =dataSets.business_info.name
+            const date = new Date(dataSets.business_info.joined_at);
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            const year = date.getFullYear();
+            const month = monthNames[date.getMonth()];
+            const day = date.getDate();
+            joinAt.value = `${year} ${month} ${day}`
+        }
+
+        if(dataSets.business_users_info){
+            members.value =dataSets.business_users_info
+        }
+        
+        businessData.value ={
+            name:name.value,
+            bio:bio.value,
+            joinAt:joinAt.value
+        }
+        
+        console.log(dataSets)
+    } catch (error) {
+        console.log(error)
+       console.error('Error fetching data:', error.message);
+    } 
+}
+
+const setSelectedTab = (selectedTab) => {
+  tab.value = selectedTab;
+};
+
+const redirectPage = (url) =>{
+    router.push({
+      path: url,
+
+    });
+}
+
+const fetchPost = async () => {
+  try {
+    const response = await $feedService.list_posts({});
+    //console.log(response)
+    //const filteredData = response.filter(item => item.user_id === coachId.value);
+    // posts.value = response
+   
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
+  }
+}
 </script>
 
 <style scoped>

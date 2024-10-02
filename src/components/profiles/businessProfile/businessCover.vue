@@ -37,9 +37,7 @@
 
 
                             <div class="text-left mt-[80px] ml-5">
-                                <h2 class="text-lg font-semibold text-white text-3xl">{{ name }} Business </h2>
-                                <h5 class="text-md text-white font-normal text-black text-primaryblue">Tennis {{ role }}
-                                </h5>
+                                <h2 class="text-lg font-semibold text-white text-3xl">{{  props.data.name }} </h2>
                             </div>
                         </div>
                     </div>
@@ -48,21 +46,8 @@
                         <div class="col-span-3">
                             <div
                                 class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                                <ul class="flex flex-wrap -mb-px">
-                                    <li class="me-2">
-                                        <a href="#"
-                                            class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</a>
-                                    </li>
-                                    <li class="me-2">
-                                        <a href="#"
-                                            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                            aria-current="page">Connections</a>
-                                    </li>
-                                    <li class="me-2">
-                                        <a href="#"
-                                            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</a>
-                                    </li>
-                                </ul>
+                                <BusinessTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
+
                             </div>
                         </div>
                     </div>
@@ -97,6 +82,37 @@
 </template>
 
 <script setup>
+import { ref, defineEmits, onMounted } from 'vue';
+import BusinessTabNavigation from '~/components/profiles/navigation/BusinessTabNavigation.vue';
+
+const emit = defineEmits(['changeTab']);
+
+const props = defineProps({
+
+data: {
+    type: Object,
+    required: true,
+},
+
+businessSlug: {
+    type: String,
+    required: true,
+}
+});
+
+const tab = ref('feed');
+
+
+const handleTab = (selectedTab) => {
+    tab.value = selectedTab;
+    emit('changeTab', selectedTab)
+};
+
+const tabs = ref([
+  { name: 'feed', label: 'Post' },
+  { name: 'member', label: 'Member' },
+  { name: 'media', label: 'Media' }
+]);
 
 </script>
 
