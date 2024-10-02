@@ -1,27 +1,34 @@
 <template>
-    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <div class="flex w-full justify-between gap-8">
-            <div class="flex items-center gap-4">
-                <NuxtLink to="/admin/business">
-                    <svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M15 6l-6 6l6 6"></path>
-                    </svg>
-                </NuxtLink>
-                <h2 class="font-bold text-lg self-center text-black"> Editing </h2>
-            </div>
-            <div>
-                <a href="https://qa1.recruited.qualitapps.com/app/business/9c7d0c22-c388-4383-8da0-4d83319cf4ba">
-                    <button type="submit" class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
-                        View
-                        <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 7l-10 10"></path>
-                            <path d="M8 7l9 0l0 9"></path>
+    <header class="bg-gray-200">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div class="flex w-full justify-between gap-8">
+                <div class="flex items-center gap-4">
+                    <NuxtLink to="/admin/business">
+                        <svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 6l-6 6l6 6"></path>
                         </svg>
-                    </button>
-                </a>
+                    </NuxtLink>
+                    <h2 class="font-bold text-lg self-center text-black"> Editing </h2>
+                </div>
+                <div>
+                    <a href="https://qa1.recruited.qualitapps.com/app/business/9c7d0c22-c388-4383-8da0-4d83319cf4ba">
+                        <button type="submit"
+                            class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
+                            View
+                            <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 7l-10 10"></path>
+                                <path d="M8 7l9 0l0 9"></path>
+                            </svg>
+                        </button>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
+    </header>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -33,109 +40,129 @@
             <!-- Start of Business Update Form -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
                 <form @submit.prevent="updateBusinessDetails">
-                        <div class="flex flex-row gap-16">
-                            <!-- Icon Section -->
-                            <div>
-                                <span class="block mb-1 text-gray-700 font-sans">Icon</span>
-                                <div class="mt-2"><img src="/assets/images/business.png" alt="Business profile picture" class="h-20 w-20 rounded-xl"></div>
-                                <div class="flex mt-2 space-x-2">
-                                    <div>
-                                        <label class="block">
-                                            <a class="font-semibold border border-border rounded py-4 px-4 w-full block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center">
-                                                <svg class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
-                                                    <path d="M7 9l5 -5l5 5"></path>
-                                                    <path d="M12 4l0 12"></path>
-                                                </svg>
-                                                Select A New Photo
-                                                <input name="icon" type="file" class="invisible absolute inset-0 w-full h-full disabled:opacity-50">
-                                            </a>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Cover Section -->
-                            <div>
-                                <span class="block mb-1 text-gray-700 font-sans">Cover</span>
-                                <div class="mt-2"><img src="/assets/images/image.svg" alt="placeholder page background" class="h-20 w-20 rounded-xl"></div>
-                                <div class="flex mt-2 space-x-2">
-                                    <div>
-                                        <label class="block">
-                                            <a class="font-semibold border border-border rounded py-4 px-4 w-full block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center">
-                                                <svg class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
-                                                    <path d="M7 9l5 -5l5 5"></path>
-                                                    <path d="M12 4l0 12"></path>
-                                                </svg>
-                                                Select A New Photo
-                                                <input name="cover" type="file" class="invisible absolute inset-0 w-full h-full disabled:opacity-50">
-                                            </a>
-                                        </label>
-                                    </div>
+                    <div class="flex flex-row gap-16">
+                        <!-- Icon Section -->
+                        <div>
+                            <span class="block mb-1 text-gray-700 font-sans">Icon</span>
+                            <div class="mt-2"><img src="/assets/images/business.png" alt="Business profile picture"
+                                    class="h-20 w-20 rounded-xl"></div>
+                            <div class="flex mt-2 space-x-2">
+                                <div>
+                                    <label class="block">
+                                        <a
+                                            class="font-semibold border border-border rounded py-4 px-4 w-full block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center">
+                                            <svg class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                stroke="currentColor" fill="none" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
+                                                <path d="M7 9l5 -5l5 5"></path>
+                                                <path d="M12 4l0 12"></path>
+                                            </svg>
+                                            Select A New Photo
+                                            <input name="icon" type="file"
+                                                class="invisible absolute inset-0 w-full h-full disabled:opacity-50">
+                                        </a>
+                                    </label>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Name Field -->
-                        <div class="my-8">
+                        <!-- Cover Section -->
+                        <div>
+                            <span class="block mb-1 text-gray-700 font-sans">Cover</span>
+                            <div class="mt-2"><img src="/assets/images/image.svg" alt="placeholder page background"
+                                    class="h-20 w-20 rounded-xl"></div>
+                            <div class="flex mt-2 space-x-2">
+                                <div>
+                                    <label class="block">
+                                        <a
+                                            class="font-semibold border border-border rounded py-4 px-4 w-full block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center">
+                                            <svg class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                stroke="currentColor" fill="none" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
+                                                <path d="M7 9l5 -5l5 5"></path>
+                                                <path d="M12 4l0 12"></path>
+                                            </svg>
+                                            Select A New Photo
+                                            <input name="cover" type="file"
+                                                class="invisible absolute inset-0 w-full h-full disabled:opacity-50">
+                                        </a>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Name Field -->
+                    <div class="my-8">
+                        <label class="block">
+                            <span class="block mb-1 text-gray-700 font-sans">Name</span>
+                            <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                <input v-model="name" class="block px-5 py-3 w-full border-0 rounded-lg text-black"
+                                    name="name" type="text" placeholder="Enter business name" required>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Bio Field -->
+                    <div class="my-8">
+                        <label class="block">
+                            <span class="block mb-1 text-gray-700 font-sans">Bio</span>
+                            <textarea v-model="bio" name="bio"
+                                class="block w-full rounded-md border-gray-300 shadow-sm text-black"
+                                placeholder="Enter business bio"></textarea>
+                        </label>
+                    </div>
+
+                    <!-- Approved and Verified Fields -->
+                    <div class="flex justify-between gap-x-2 mb-2">
+                        <div class="w-full">
                             <label class="block">
-                                <span class="block mb-1 text-gray-700 font-sans">Name</span>
-                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                    <input v-model="name" class="block px-5 py-3 w-full border-0 rounded-lg text-black" name="name" type="text" placeholder="Enter business name" required>
+                                <span class="block mb-1 text-gray-700 font-sans">Approved</span>
+                                <div class="relative">
+                                    <select v-model="is_approved" name="is_approved"
+                                        class="block w-full text-black rounded-md border-gray-300 shadow-sm px-5 py-3"
+                                        required>
+                                        <option :value="true">Yes</option>
+                                        <option :value="false">No</option>
+                                    </select>
                                 </div>
                             </label>
                         </div>
 
-                        <!-- Bio Field -->
-                        <div class="my-8">
+                        <div class="w-full">
                             <label class="block">
-                                <span class="block mb-1 text-gray-700 font-sans">Bio</span>
-                                <textarea v-model="bio" name="bio" class="block w-full rounded-md border-gray-300 shadow-sm text-black" placeholder="Enter business bio"></textarea>
+                                <span class="block mb-1 text-gray-700 font-sans">Verified</span>
+                                <div class="relative">
+                                    <select v-model="is_verified" name="is_verified"
+                                        class="block w-full text-black rounded-md border-gray-300 shadow-sm px-5 py-3"
+                                        required>
+                                        <option :value="true">Yes</option>
+                                        <option :value="false">No</option>
+                                    </select>
+                                </div>
                             </label>
                         </div>
+                    </div>
 
-                        <!-- Approved and Verified Fields -->
-                        <div class="flex justify-between gap-x-2 mb-2">
-                            <div class="w-full">
-                                <label class="block">
-                                    <span class="block mb-1 text-gray-700 font-sans">Approved</span>
-                                    <div class="relative">
-                                        <select v-model="is_approved" name="is_approved" class="block w-full text-black rounded-md border-gray-300 shadow-sm px-5 py-3" required>
-                                            <option :value="true">Yes</option>
-                                            <option :value="false">No</option>
-                                        </select>
-                                    </div>
-                                </label>
-                            </div>
-
-                            <div class="w-full">
-                                <label class="block">
-                                    <span class="block mb-1 text-gray-700 font-sans">Verified</span>
-                                    <div class="relative">
-                                        <select v-model="is_verified" name="is_verified" class="block w-full text-black rounded-md border-gray-300 shadow-sm px-5 py-3" required>
-                                            <option :value="true">Yes</option>
-                                            <option :value="false">No</option>
-                                        </select>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="my-4">
-                            <button type="submit" class="border rounded-full shadow-sm font-bold py-2.5 px-8 bg-blue-500 hover:bg-blue-700 text-white">
-                                Save Changes
-                            </button>
-                        </div>
+                    <!-- Submit Button -->
+                    <div class="my-4">
+                        <button type="submit"
+                            class="border rounded-full shadow-sm font-bold py-2.5 px-8 bg-blue-500 hover:bg-blue-700 text-white">
+                            Save Changes
+                        </button>
+                    </div>
                 </form>
             </div>
             <!-- End of Business Update Form -->
 
             <div class="my-16"></div>
         </div>
-         <!-- Notification Component -->
-    <Notification v-if="showNotification" :message="notificationMessage" :duration="3000" />
+        <!-- Notification Component -->
+        <Notification v-if="showNotification" :message="notificationMessage" :duration="3000" />
     </div>
 </template>
 
