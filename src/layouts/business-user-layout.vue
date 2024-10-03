@@ -17,7 +17,7 @@
                 <BusinessUserRight :data="businessUserData" :userSlug="route.params.slug" />
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3">
-                <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="fetchPost" />
+                <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="loadInitfintePost" :commentHidden="isHidddenComment" />
                 <Connection v-if="tab === 'connection'" :playerId="businessUserId" @profileView="redirectPage"/>
                 <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
             </div>
@@ -71,7 +71,9 @@ const businessSlug = ref('')
 const setSelectedTab = (selectedTab) => {
   tab.value = selectedTab;
 };
-
+const currentPage = ref(1)
+const lastPage  =ref('')
+const isHidddenComment = ref([])
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
     showNotification.value = nuxtApp.$notification.showNotification.value;
@@ -88,7 +90,7 @@ onMounted(() => {
 
     fetchBusinessUserDatils();
     fetchConnections();
-    fetchPost();
+   // fetchPost();
     fetchUserDetailsBySlug()
 
 });
@@ -140,7 +142,7 @@ const fetchBusinessUserDatils = async () => {
             businessSlug:businessSlug.value
 
         }
-      //  fetchPost()
+        loadInitfintePost()
 
     } catch (error) {
         console.log(error)
@@ -196,16 +198,37 @@ const fetchConnections = async () => {
     // }
 }
 
-const fetchPost = async () => {
-  try {
-    const response = await $feedService.list_posts({});
-    const filteredData = response.filter(item => item.user_id === businessUserId.value);
-    posts.value = filteredData || [];
+// const fetchPost = async () => {
+//   try {
+//     const response = await $feedService.list_posts({});
+//     const filteredData = response.filter(item => item.user_id === businessUserId.value);
+//     posts.value = filteredData || [];
    
-  } catch (error) {
-    console.error('Failed to load posts:', error.message);
+//   } catch (error) {
+//     console.error('Failed to load posts:', error.message);
+//   }
+// }
+
+const loadInitfintePost = async () =>{
+    try {
+      //  isLoading.value = true;
+      const response = await $feedService.list_posts(currentPage.value);
+      //const filteredData = response.filter(item => item.user_id === businessUserId.value);
+       posts.value.push(...response.data);
+
+      lastPage.value =response.last_page
+      currentPage.value =response.current_page +1
+      const idsArray = [];
+      for (const post of posts.value) {
+        idsArray[post.id] = false
+      }
+      isHidddenComment.value = idsArray
+      //  isLoading.value = false;
+    } catch (error) {
+       //isLoading.value = false;
+      console.error('Failed to load posts:', error.message);
+    }
   }
-}
 
 </script>
 
