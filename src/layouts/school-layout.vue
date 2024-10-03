@@ -17,9 +17,9 @@
                 <SchoolRight :data="schoolData"  :schoolSlug="route.params.slug"  />
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3">
-                <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="fetchPost"  />
-                <Member v-if="tab == 'member'"  :members="members" />
-                <Team  v-if="tab == 'team'" :team="team" :members="members" :schoolId="schoolId"  @getSchoolTeam="getSchoolTeam"/>
+                <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="loadInitfintePost" :commentHidden="isHidddenComment" />
+                <Member v-if="tab == 'member'"  :members="members" :logUserInTheSchool="logUserInTheSchool" @getMember="fetchSchooleDatils" />
+                <Team  v-if="tab == 'team'" :team="team" :members="members" :schoolId="schoolId"  @getSchoolTeam="getSchoolTeam" :logUserInTheSchool="logUserInTheSchool"/>
                 <Academic v-if="tab == 'academic'" :academic="academic" />
                 <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug"  />
 
@@ -46,7 +46,10 @@ import Team from '~/components/user/profile/team.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
 import { useRoute } from 'vue-router'
 import mediaTab from '~/components/profiles/schoolProfile/mediaTab.vue';
+import { useUserStore } from '~/stores/userStore'
 
+
+const userStore = useUserStore()
 const nuxtApp = useNuxtApp();
 
 
@@ -91,10 +94,13 @@ const schoolId = ref('')
 const team = ref([])
 const profilePicture= ref(null)
 const coverPicture= ref(null)
+const currentPage = ref(1)
+const lastPage  =ref('')
+const isHidddenComment = ref([])
+const logUserInTheSchool =ref(false)
 onMounted(() => {
     fetchSchooleDatils();
    //fetchPost();
-
 });
 
 const fetchSchooleDatils = async () =>{
@@ -129,6 +135,7 @@ const fetchSchooleDatils = async () =>{
 
         if(dataSets.school_users_info){
             members.value =dataSets.school_users_info
+            // logUserInTheSchool.value =dataSets.school_users_info.some(user => user.slug == userStore.userSlug);
         }
 
         if(dataSets.media_info){
@@ -152,22 +159,45 @@ const fetchSchooleDatils = async () =>{
             profile: profilePicture.value,
             cover:coverPicture.value,
         }
-        fetchPost()
+        loadInitfintePost
+        //fetchPost()
         getSchoolTeam()
     } catch (error) {
        console.error('Error fetching data:', error.message);
     } 
 }
 
-const fetchPost = async () =>{
-      try {
-        const response = await $feedService.list_posts({});
-        const filteredData = response.filter(item => item.user_id === schoolId.value);
-        posts.value = filteredData || [];
+// const fetchPost = async () =>{
+//       try {
+//         const response = await $feedService.list_posts({});
+//         const filteredData = response.filter(item => item.user_id === schoolId.value);
+//         posts.value = filteredData || [];
+//     } catch (error) {
+//        console.error('Failed to load posts:', error.message);
+//     }
+// }
+
+const loadInitfintePost = async () =>{
+    try {
+      //  isLoading.value = true;
+      const response = await $feedService.list_posts(currentPage.value);
+      //const filteredData = response.filter(item => item.user_id === businessUserId.value);
+       posts.value.push(...response.data);
+
+      lastPage.value =response.last_page
+      currentPage.value =response.current_page +1
+      const idsArray = [];
+      for (const post of posts.value) {
+        idsArray[post.id] = false
+      }
+      isHidddenComment.value = idsArray
+      //  isLoading.value = false;
     } catch (error) {
-       console.error('Failed to load posts:', error.message);
+       //isLoading.value = false;
+      console.error('Failed to load posts:', error.message);
     }
-}
+  }
+
 
 const setSelectedTab = (selectedTab) => {
     console.log(selectedTab)

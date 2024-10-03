@@ -74,8 +74,8 @@
                                             </div>
                                         </div> -->
                                         <div class="flex-1 text-right">
-                                            <div>
-                                                <button class="bg-red rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                            <div v-if="userStore.userId !=member.user_id">
+                                                <button @click="deleteUser(member)" class="bg-red rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                     Remove
                                                 </button>
                                             </div>
@@ -154,16 +154,22 @@
                             </div> -->
                         </div>
                     </div>
-                    <MemberAdd :isVisible="showModal" @close="showModal = false"   />
+                    <TeamDeleteModel :isVisible="showDeleteModal" @close="showDeleteModal = false" @getMember="getMember" :schooUserId="schooUserId"/>
 
 </template>
 
 <script setup>
 import { defineProps, defineEmits, defineExpose,ref, onMounted} from 'vue';
-import MemberAdd from '~/components/user/profile/memberAdd.vue';
+import { useUserStore } from '~/stores/userStore'
+import TeamDeleteModel from '~/components/user/profile/memberDeleteModel.vue';
 
+const emit = defineEmits(['getMember']);
+
+const userStore = useUserStore()
 const showModal = ref(false)
+const schooUserId= ref('')
 
+const showDeleteModal= ref(false)
 
 const props = defineProps({
     members: Array
@@ -172,4 +178,16 @@ const props = defineProps({
 const memberAdd = () =>{
     showModal.value =true;
 }
+
+const getMember = () =>{
+    schooUserId.value =''
+     emit('getMember')
+  }
+
+  const deleteUser = async(member) =>{
+    schooUserId.value =member.id
+     showDeleteModal.value =true
+   
+
+  }
 </script>

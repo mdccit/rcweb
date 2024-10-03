@@ -135,6 +135,17 @@ const add_school_team= async (request_body) => {
     throw new Error(error.response.display_message || 'Failed to register');
   }
 };
+
+const delete_school_user= async (id) => {
+  const url = `/public/schools-user-delete/${id}`;
+  try {
+    const response = await apiService.deleteRequest(url);
+    return response;
+  } catch (error) {
+    console.log(error)
+    throw new Error(error.message || 'Failed to register');
+  }
+};
   return {
     get_player,
     get_coache,
@@ -144,7 +155,8 @@ const add_school_team= async (request_body) => {
     get_user_profile,
     get_school_team,
     add_school_team,
-    delete_school_team
+    delete_school_team,
+    delete_school_user
   };
 
 

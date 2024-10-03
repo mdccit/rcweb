@@ -25,6 +25,9 @@ export const useUserStore = defineStore('user', {
     loggedUserEmail: (state) => state.email || '',  // Default role if not set
     loggedUserName: (state) => state.user_name,
     userSlug: (state) => state.user_slug || null,
+    userPermissionType:(state) => state.user_permission_type || null,
+    // user: (state) => state.user || null
+
   },
   actions: {
     setToken(token) {
@@ -46,6 +49,7 @@ export const useUserStore = defineStore('user', {
       }
     },
     setPermissionType(type) {
+      this.user_permission_type = type
       this.type = type;
       if (process.client) {
         localStorage.setItem('user_permission_type', type);
@@ -69,6 +73,8 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem('user_name', name);
       }
     },
+
+    
     setUser(user) {
       if (!user) return;
       this.email = user.email || '';

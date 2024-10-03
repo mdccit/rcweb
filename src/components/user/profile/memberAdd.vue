@@ -4,7 +4,9 @@
     
 
     <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"> 
+            
+        </div>
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                 <div
@@ -14,6 +16,7 @@
                             <div class="mt-3 text-center  sm:mt-0 sm:text-left">
                                 <h1 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Create Team
                                 </h1>
+                                <button @click="$emit('close')">Close</button>
                                 <div class="mt-2">
                                     
                                     <div class="flex bp-1">
@@ -56,6 +59,66 @@
                                                 </div>
 
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="w-[full] grid grid-cols-2">
+
+                                            <!-- <div v-for="result in selectValue" class="col-span-1 p-2 w-[450px]">
+                                                <div class="bg-white p-4 border rounded-2xl">
+                                                    <div class=" grid grid-cols-12 gap-4 w-[400px]">
+                                                        <div class="col-span-3">
+                                                            <img class=" rounded-2xl w-[85px] h-[85px]"
+                                                                src="@/assets/user/images/Rectangle 193.png"
+                                                                alt="Neil image">
+                                                        </div>
+                                                        <div class="col-span-6">
+                                                            <h4 class="text-black font-normal">{{  result }}</h4>
+                                                            <div class="flex items-center space-x-2 mb-2">
+                                                                <div class="bg-blue-200 p-1 rounded">
+                                                                    <img src="@/assets/images/player-blue.png" alt=""
+                                                                        class=" w-4 h-4">
+                                                                </div>
+                                                                <div class="text-sm ml-2 text-blue-500">Tennis {{ result.user_role }}
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                    </div>
+
+
+                                                    <div class="flex mt-2">
+                                                        
+
+                                                        <div class="flex-1 text-right">
+                                                            <div class="flex">
+                                                                <div class="flex-1 text-right">
+
+                                                                </div>
+
+                                                                <div>
+                                                                    <button  @click="selectOruUnselect(result)"
+                                                                    :class=" result.select?'bg-blue-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]':'bg-blue-100 rounded-full text-blue-500 p-2 m-1 text-xs h-[35px] w-[85px]'"
+                                                                        >
+                                                                         {{ result.select ? 'Selected':'select' }}
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div> -->
+                                            <div class="mx-auto text-center">
+                                                <div v-if="result.length == 0">
+                                                     <h4 class="text-black font-normal"> No Select User </h4>
+                                                </div>
+                                           </div>
+                                            
                                         </div>
                                     </div>
 

@@ -7,7 +7,7 @@
             </div>
             <div class="flex-1  text-right">
                 <div class=" text-right">
-                    <div>
+                    <div >
                         <button @click="memberAdd" class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[100px]">
                             Create Team +
                         </button>
@@ -64,23 +64,29 @@
   </template>
   
   <script setup>
-  import { defineProps, defineEmits, defineExpose,ref, onMounted} from 'vue';
+  import { defineProps, defineEmits, defineExpose,ref, onMounted ,watch} from 'vue';
   import MemberAdd from '~/components/user/profile/memberAdd.vue';
   import TeamDeleteModel from '~/components/user/profile/teamDeleteModel.vue';
+  import { useUserStore } from '~/stores/userStore'
 
+
+  const userStore = useUserStore()
   import { useNuxtApp } from '#app';
+import useStore from 'element-plus/es/components/table/src/store';
   const nuxtApp = useNuxtApp();
   const $publicService = nuxtApp.$publicService;
-
+  const editAccess = ref(false)
   const emit = defineEmits(['getSchoolTeam']);
 
   const props = defineProps({
     team: Array,
     members:Array,
-    schoolId:String
+    schoolId:String,
+    logUserInTheSchool:Boolean
   });
   const showModal = ref(false)
 const showDeleteModal= ref(false)
+const permission =ref(false)
 const teamId= ref('')
 
    const memberAdd = () =>{
@@ -98,4 +104,22 @@ const teamId= ref('')
    
 
   }
+//   watch(
+//   () => props.logUserInTheSchool,
+//   () => {
+//     setPermission() 
+//   }
+// );
+onMounted(()=>{
+    setPermission() 
+})
+
+const setPermission = () =>{
+   
+    if(userStore.userPermissionType =="editor"&& userStore.role =="coach"){
+        permission.value =true
+    }
+    console.log(permission.value)
+}
+  
   </script>
