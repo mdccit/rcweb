@@ -21,6 +21,7 @@
                 <Member v-if="tab == 'member'"  :members="members" />
                 <Team  v-if="tab == 'team'" :team="team" :members="members" :schoolId="schoolId"  @getSchoolTeam="getSchoolTeam"/>
                 <Academic v-if="tab == 'academic'" :academic="academic" />
+                <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug"  />
 
 
             </div>
@@ -39,12 +40,12 @@ import Notification from '~/components/common/Notification.vue'; // <-- Ensure t
 import SchoolCover from '~/components/profiles/schoolProfile/schoolCover.vue';
 import SchoolLeft from '~/components/profiles/schoolProfile/schoolLeft.vue';
 import SchoolRight from '~/components/profiles/schoolProfile/schoolRight.vue';
-import SchoolFeed from '~/components/profiles/schoolProfile/schoolFeed.vue';
 import Member from '~/components/user/profile/member.vue';
 import Academic from '~/components/user/profile/academic.vue';
 import Team from '~/components/user/profile/team.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
 import { useRoute } from 'vue-router'
+import mediaTab from '~/components/profiles/schoolProfile/mediaTab.vue';
 
 const nuxtApp = useNuxtApp();
 
@@ -88,6 +89,8 @@ const conferenceId = ref('Unknown')
 const divitionId = ref('Unknown')
 const schoolId = ref('')
 const team = ref([])
+const profilePicture= ref(null)
+const coverPicture= ref(null)
 onMounted(() => {
     fetchSchooleDatils();
    //fetchPost();
@@ -127,6 +130,12 @@ const fetchSchooleDatils = async () =>{
         if(dataSets.school_users_info){
             members.value =dataSets.school_users_info
         }
+
+        if(dataSets.media_info){
+            profilePicture.value = dataSets.media_info.profile_picture
+            coverPicture.value = dataSets.media_info.cover_picture 
+            setGalleryItems(dataSets.media_info);
+        }
         schoolData.value ={
             bio: bio.value,
             name:name.value,
@@ -139,7 +148,9 @@ const fetchSchooleDatils = async () =>{
             members: members.value,
             joinAt:joinAt.value,
             divisionId :divitionId.value,
-            conferenceId:conferenceId.value
+            conferenceId:conferenceId.value,
+            profile: profilePicture.value,
+            cover:coverPicture.value,
         }
         fetchPost()
         getSchoolTeam()
@@ -159,6 +170,7 @@ const fetchPost = async () =>{
 }
 
 const setSelectedTab = (selectedTab) => {
+    console.log(selectedTab)
   tab.value = selectedTab;
 };
 
@@ -179,6 +191,29 @@ const getSchoolTeam = async() =>{
        console.error('Failed to load posts:', error.message);
     }
 }
+
+const galleryItems = ref([]); 
+
+const setGalleryItems = (mediaInfo) => {
+    console.log( galleryItems.value)
+  galleryItems.value = mediaInfo.media_urls.map(media => {
+    if (media.media_type === 'image') {
+      return {
+        type: 'image',
+        href: media.url,
+        src: media.url, // Replace with thumbnail URL if available
+      };
+    } else if (media.media_type === 'video') {
+      return {
+        type: 'video',
+        href: media.url,
+        src: media.url || 'https://via.placeholder.com/200x150.png?text=Video', // Use server-provided thumbnail or placeholder
+      };
+    }
+  });
+  console.log( galleryItems.value)
+
+};
 </script>
 
 <style scoped>

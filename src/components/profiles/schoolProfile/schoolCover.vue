@@ -1,7 +1,9 @@
 <template>
     <section class="w-full mb-5 p-3">
         <div class="relative">
-            <img class="w-full h-[400px] rounded-xl" src="@/assets/images/covrss.jpg" alt="">
+            <img v-if="props.data.cover == null" class="w-full h-[400px] rounded-xl" src="@/assets/images/covrss.jpg" alt="">
+            <img v-if="props.data.cover != null" class="w-full h-[400px] rounded-xl" :src= "props.data.cover.url" alt="">
+
             <!-- Wrapper for the SVG to position it absolutely -->
             <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
@@ -18,8 +20,10 @@
                     <div class="col-span-1">
                         <div class="text-center flex relative">
                             <div class="relative ml-5">
-                                <img class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
-                                    src="@/assets/images/avtar.png" alt="">
+                                <img v-if="props.data.profile == null" class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
+                                    src="@/assets/images/user.png" alt="">
+                                <img v-if="props.data.profile != null" class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
+                                    :src="props.data.profile.url" alt="">
 
                                 <!-- SVG Wrapper positioned at the bottom right of the image -->
                                 <div
@@ -57,10 +61,10 @@
                         <div class="w-full flex justify-end">
                             <div class="flex space-x-2">
                                 <div class="text-white">
-                                    <button @click="connectAcceptOrConnect"
+                                    <!-- <button @click="connectAcceptOrConnect"
                                         class="bg-blue-500 rounded-full p-2 m-1 text-xs h-[35px] w-[85px]">
                                         {{ connectionButtonName }} Follow
-                                    </button>
+                                    </button> -->
                                 </div>
                                 <div class="">
                                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
