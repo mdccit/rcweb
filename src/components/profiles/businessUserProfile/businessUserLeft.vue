@@ -12,7 +12,7 @@
                 </div>
             </div>
             <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
-                {{ bio }}
+                {{ props.data.bio }}
             </p>
             <div v-if="seeMoreBtnHide">
                 <button id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
@@ -31,7 +31,7 @@
                     </p>
 
                 </div>
-                <div class="col-span-1"  v-if="loggedUserSlug == props.userSlug" @click="toggleModal('info')">
+                <div class="col-span-1" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -52,7 +52,7 @@
                     </p>
 
                 </div>
-                <div class="col-span-1"  v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
+                <div class="col-span-1" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -114,16 +114,8 @@ onMounted(() => {
     if (process.client) {
         loggedUserSlug.value = localStorage.getItem('user_slug')
     }
-
-
 });
 
-watch(
-    () => props.data,
-    () => {
-        setBio()
-    }
-);
 
 const setBio = () => {
     let fullBio = props.data.bio || ''; // This ensures fullBio is at least an empty string
@@ -140,7 +132,6 @@ const toggleText = () => {
         bio.value = props.data.bio.substring(0, 100) + '...';
         expandBtnName.value = 'See More'
     }
-
 }
 
 
@@ -163,6 +154,7 @@ const toggleModal = (modalName) => {
 
 // Generic function to close the modal and fetch user details
 const handleModalClose = (modalName) => {
+    console.log('Modal Name received:', modalName);
     // Defensive check to make sure modalName exists
     if (modals[modalName] !== undefined) {
         modals[modalName] = false;  // Close the modal
@@ -171,6 +163,62 @@ const handleModalClose = (modalName) => {
         console.error(`Invalid modal name: ${modalName}`);
     }
 };
+
+
+const fetchUserDetails = async () => {
+    try {
+
+        const dataSets = await $publicService.get_user_profile(route.params.slug);
+        if (dataSets.user_basic_info) {
+
+            props.data.bio = dataSets.user_basic_info.bio ?? "User has not entered bio"
+            props.data.name = dataSets.user_basic_info.display_name ?? "User has not entered name";
+
+            const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDifference = today.getMonth() - birthDate.getMonth();
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            props.data.birthday = age ?? 'User has not entered birthday'
+
+            const date = new Date(dataSets.user_basic_info.joined_at);
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            const year = date.getFullYear();
+            const month = monthNames[date.getMonth()];
+            const day = date.getDate();
+            joinDate.value = `${year} ${month} ${day}`
+
+            props.data.nationality = dataSets.user_basic_info.nationality ?? "User has not entered nationality"
+            props.data.email = dataSets.user_basic_info.email ?? "User has not entered email"
+            props.data.gender = dataSets.user_basic_info.gender ?? "User has not entered gender"
+
+
+        }
+
+        if (dataSets.user_address_info) {
+            props.data.country = dataSets.user_address_info.country ?? 'User has not entered country'
+            props.data.city = dataSets.user_address_info.city ?? 'User has not entered city'
+            props.data.addressLine01 = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
+            props.data.addressLine02 = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
+            props.data.stateProvince = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
+        }
+
+        if (dataSets.user_phone_info) {
+            props.data.phone = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number'
+            props.data.phoneCode = dataSets.user_phone_info.phone_code ?? ''
+        }
+        if (dataSets.media_info.profile_picture != null) {
+            profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 </script>
 
 <style scoped>

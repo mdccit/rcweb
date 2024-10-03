@@ -130,7 +130,7 @@
 
                                 </div>
                             </div>
-                        </div>s
+                        </div>
                     </div>
                     <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                         <button type="submit"
@@ -203,17 +203,17 @@ watch(() => props.visible, (newVal) => {
 });
 
 watch(countries, (newVal) => {
-    if (newVal.length > 0 && country.value === null && dataSets.user_address_info) {
+    if (newVal.length > 0 && !country.value && dataSets?.user_address_info) {
         country.value = dataSets.user_address_info.country_id ?? null;
     }
 });
 
 watch(country_codes, (newVal) => {
-    console.log('Watcher triggered for country codes:', newVal.length);  // Log length of country codes
-    if (newVal.length > 0 && phone_code_country.value === null && dataSets.user_phone_info) {
+    if (newVal.length > 0 && !phone_code_country.value && dataSets?.user_phone_info) {
         phone_code_country.value = dataSets.user_phone_info.id ?? null;
     }
 });
+
 
 
 const fetchBusinessUserContact = async () => {
@@ -221,7 +221,6 @@ const fetchBusinessUserContact = async () => {
         const dataSets = await $publicService.get_user_profile(props.slug);
         if (dataSets.user_address_info) {
             country.value = dataSets.user_address_info.country_id ?? null;
-
             city.value = dataSets.user_address_info.city ?? 'User has not entered city';
             address_line_1.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01';
             address_line_2.value = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02';

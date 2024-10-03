@@ -30,15 +30,17 @@
 
                                         <!-- Date of Birth -->
                                         <div>
-                                            <label for="date_of_birth"
-                                                class="block mb-1 text-sm font-normal text-gray-900">Date of Birth <span
-                                                    class="text-red-600">*</span></label>
-                                            <input type="date" v-model="date_of_birth" required
-                                                class="w-full border border-gray-300 rounded-lg shadow-sm h-12" />
-                                            <InputError
-                                                :error="errors.date_of_birth ? errors.date_of_birth.join(', ') : ''" />
-
-                                        </div>
+                                            <label for="date_of_birth" class="block mb-1 text-sm font-normal text-gray-900">
+                                              Date of Birth <span class="text-red-600">*</span>
+                                            </label>
+                                            <input
+                                              type="date"
+                                              v-model="date_of_birth"
+                                              required
+                                              class="w-full border border-gray-300 rounded-lg shadow-sm h-12"
+                                            />
+                                            <InputError :error="errors.date_of_birth ? errors.date_of_birth.join(', ') : ''" />
+                                          </div>
 
                                         <!-- Gender -->
                                         <div>
@@ -104,8 +106,9 @@ const notification_type = ref(0);
 const date_of_birth = ref('');
 const nationality = ref('');
 const gender = ref('');
-const position = ref('business-user');
-const preferred_gender_type = ref('male');
+const position = ref('none');
+
+
 
 // Load dropdown data
 const nationalities = ref([]);
@@ -172,8 +175,7 @@ const saveInfo = async () => {
             nationality: nationality.value,
             gender: gender.value,
             date_of_birth: date_of_birth.value,
-            position: position.value,
-            preferred_gender_type: preferred_gender_type.value
+            position: position.value
         };
 
         const response = await $userService.update_business_user_other_info(request_body);
