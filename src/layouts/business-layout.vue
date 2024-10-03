@@ -55,6 +55,9 @@ const tab = ref('feed')
 const posts = ref([])
 const joinAt = ref('')
 const businessData =ref({})
+const profile = ref(null)
+const cover = ref(null)
+
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
     showNotification.value = nuxtApp.$notification.showNotification.value;
@@ -90,15 +93,23 @@ const fetchbusinessDetatils = async () =>{
             const day = date.getDate();
             joinAt.value = `${year} ${month} ${day}`
         }
+        console.log(dataSets)
 
-        if(dataSets.business_users_info){
-            members.value =dataSets.business_users_info
+        if(dataSets.business_managers_info){
+            members.value =dataSets.business_managers_info
+        }
+
+        if(dataSets.media_info){
+            profile.value =dataSets.media_info.profile_picture
+            cover.value =dataSets.media_info.cover_picture
         }
         
         businessData.value ={
             name:name.value,
             bio:bio.value,
-            joinAt:joinAt.value
+            joinAt:joinAt.value,
+            profile:profile.value,
+            cover:cover.value
         }
         
         console.log(dataSets)
