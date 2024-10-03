@@ -219,4 +219,8 @@ export default {
   width: 300px;
   margin-bottom: 20px;
 }
+
+.container {
+    max-width: 600px;
+}
 </style>
