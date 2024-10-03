@@ -1,8 +1,30 @@
 <template>
-    <div>
-        <!-- Notification component -->
-        <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType"
-            :visible="showNotification" @close="closeNotification" :key="notificationKey" />
+  <div>
+    <!-- Notification component -->
+    <Notification
+      v-if="showNotification"
+      :message="notificationMessage"
+      :type="notificationType"
+      :visible="showNotification"
+      @close="closeNotification"
+      :key="notificationKey"
+    />
+  </div>
+  <main>
+    <NavBarPublic></NavBarPublic>
+    <div class="grid grid-cols-6 grid-rows-2 gap-0 mt-16">
+      <div class="col-span-6 row-start-1 row-end-2s">
+        <BusinessUserCover />
+      </div>
+      <div class="col-start-1 col-end-2 row-start-2 row-end-3">
+        <BusinessUserLeft />
+      </div>
+      <div class="col-start-6 col-end-7 row-start-2 row-end-3">
+        <BusinessUserRight />
+      </div>
+      <div class="col-start-2 col-end-6 row-start-2 row-end-3">
+        <BusinessUserFeed />
+      </div>
     </div>
     <main>
         <NavBarPublic></NavBarPublic>
@@ -48,8 +70,8 @@ const $userService = nuxtApp.$userService;
 const $feedService = nuxtApp.$feedService;
 
 const showNotification = ref(false);
-const notificationMessage = ref('');
-const notificationType = ref('');
+const notificationMessage = ref("");
+const notificationType = ref("");
 const notificationKey = ref(0);
 
 const bio = ref('');
@@ -74,14 +96,14 @@ const setSelectedTab = (selectedTab) => {
 
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
-    showNotification.value = nuxtApp.$notification.showNotification.value;
-    notificationMessage.value = nuxtApp.$notification.notificationMessage.value;
-    notificationType.value = nuxtApp.$notification.notification_type.value;
-    notificationKey.value = nuxtApp.$notification.notificationKey.value;
+  showNotification.value = nuxtApp.$notification.showNotification.value;
+  notificationMessage.value = nuxtApp.$notification.notificationMessage.value;
+  notificationType.value = nuxtApp.$notification.notification_type.value;
+  notificationKey.value = nuxtApp.$notification.notificationKey.value;
 });
 
 const closeNotification = () => {
-    showNotification.value = false; // Hide the notification
+  showNotification.value = false; // Hide the notification
 };
 
 onMounted(() => {
@@ -212,6 +234,6 @@ const fetchPost = async () => {
 <style scoped>
 /* Add any styles here if needed */
 temp-row {
-    grid-template-rows: 90px auto !important;
+  grid-template-rows: 90px auto !important;
 }
 </style>

@@ -3,7 +3,7 @@
         <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
             <div class="flex items-center justify-between w-full">
                 <h1 class="text-lg font-semibold text-black">Bio</h1>
-                <div class="cursor-pointer">
+                <div class="cursor-pointer" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('bio')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -65,6 +65,9 @@
         </div>
 
     </div>
+<BioModal :visible="modals.bio" @close="handleModalClose" :slug="slug" />
+<InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" />
+<AddressModal :visible="modals.address" @close="handleModalClose" :slug="slug" />
 </template>
 
 <script setup>
@@ -79,7 +82,6 @@ const  isBioExpanded = ref(false);
 const seeMoreBtnHide =  ref(false);
 const bio = ref('')
 const expandBtnName = ref('See More')
-
 const nuxtApp = useNuxtApp();
 const $publicService = nuxtApp.$publicService;
 const $userService = nuxtApp.$userService;

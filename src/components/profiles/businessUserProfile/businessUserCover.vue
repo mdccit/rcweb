@@ -4,7 +4,7 @@
             <img v-if="props.data.cover == null" class="w-full h-[400px] rounded-xl" src="@/assets/images/covrss.jpg" alt="">
             <img v-if="props.data.cover != null" class="w-full h-[400px] rounded-xl" :src="props.data.cover.url" alt="">
             <!-- Wrapper for the SVG to position it absolutely -->
-            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md">
+            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md" v-if="loggedUserSlug == props.userSlug"   @click="toggleModal('cover')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
                     stroke="currentColor" class="size-3">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -25,7 +25,7 @@
                                     :src="props.data.profile.url" alt="">
 
                                 <!-- SVG Wrapper positioned at the bottom right of the image -->
-                                <div
+                                <div v-if="loggedUserSlug == props.userSlug" @click="toggleModal('name')"
                                     class="absolute bottom-0 right-0 mb-[10px] mr-[10px] cursor-pointer bg-white p-1 rounded-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -113,6 +113,8 @@
             </div>
         </span>
     </section>
+    <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
+    <CoverModal :visible="modals.cover" @close="handleModalClose" :slug="slug" />
 </template>
 
 <script setup>
@@ -304,6 +306,249 @@ const fetchUserDetails = async () => {
     }
 }
 
+const emit = defineEmits(['changeTab']);
+const nuxtApp = useNuxtApp();
+const router = useRouter();
+
+const userStore = useUserStore();
+const userId = ref(null)
+const $userService = nuxtApp.$userService;
+const $publicService = nuxtApp.$publicService;
+const slug = ref('');
+const loggedUserSlug = ref('');
+
+const props = defineProps({
+
+    data: {
+        type: Object,
+        required: true,
+    },
+    businessUserId: {
+        type: String,
+        required: true,
+    },
+    userSlug: {
+        type: String,
+        required: true,
+    }
+});
+
+const connectionStatus = ref(false)
+const connectionType = ref(null)
+const connectionButtonName = ref('Connect')
+const buttonHide = ref(true);
+const profile_picture = ref(null);
+const userSlug = ref('')
+const sameUser = ref(false)
+const cover_picture = ref(null);
+// Import the default profile picture
+import defaultCoverPicture from '@/assets/images/covrss.jpg';
+import defaultProfilePicture from '@/assets/images/user.png';
+
+const tab = ref('feed');
+
+
+const handleTab = (selectedTab) => {
+    tab.value = selectedTab;
+    emit('changeTab', selectedTab)
+};
+
+const tabs = ref([
+  { name: 'feed', label: 'Post' },
+  { name: 'connection', label: 'Connections' },
+  { name: 'media', label: 'Media' }
+]);
+
+
+
+const fetchCheckConnection = async () => {
+    try {
+
+        connectionButtonName.value = "Connect";
+
+        if (props.userSlug != null) {
+            const dataSets = await $userService.get_check_connection_type(props.userSlug);
+            connectionStatus.value = dataSets.connection
+            if (connectionStatus.value == true) {
+                connectionType.value = dataSets.type
+                if ((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)) {
+                    buttonHide.value = false
+
+                    connectionButtonName.value = "Invite sent"
+                }
+
+                if ((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)) {
+                    buttonHide.value = false
+                    connectionButtonName.value = "Accept connection"
+                }
+
+                if (dataSets.type.connection_status == 'accepted') {
+                    buttonHide.value = true
+
+                    connectionButtonName.value = "Connected"
+                }
+            } else {
+                buttonHide.value = false
+                connectionButtonName.value = "Connect"
+            }
+
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error.message);
+    }
+}
+
+const connectAcceptOrConnect = async () => {
+    try {
+        if (connectionButtonName.value == "Accept connection") {
+
+            await $userService.connection_accept(connectionType.value.id, {
+                connection_status: "accepted"
+            });
+        }
+
+        if (connectionButtonName.value == "Connect") {
+            if (props.businessUserId != null) {
+
+                const response = await $userService.connection_request({
+                    receiver_id: props.businessUserId
+                });
+
+
+                nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+            }
+
+        }
+
+        fetchCheckConnection();
+
+    } catch (error) {
+        console.error('Failed to Connect :', error.message);
+    }
+}
+
+const connectReject = async () => {
+    try {
+        await $userService.connection_reject(connectionType.value.id, {
+            connection_status: "rejected"
+        });
+
+        fetchCheckConnection();
+
+    } catch (error) {
+        console.error('Failed to Connect :', error.message);
+    }
+}
+
+
+const fetchUserDetails = async () => {
+    try {
+
+        const dataSets = await $publicService.get_user_profile(props.userSlug);
+        if (dataSets.user_basic_info) {
+            console.log('props.data');
+            // props.data.name = dataSets.user_basic_info.display_name ?? "Business Manager has not entered name";
+        }
+
+        if (dataSets.media_info.profile_picture != null) {
+            profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+        }
+
+        if (dataSets.media_info.cover_picture != null) {
+            cover_picture.value = dataSets.media_info.cover_picture.url || defaultProfilePicture;
+        }
+
+
+
+
+    } catch (error) {
+        console.log(error)
+        console.error('Error fetching data:', error.message);
+    }
+}
+
+
+// Define reactive state for all modals
+const modals = reactive({
+    name: false,
+    cover: false
+});
+
+// Generic toggle function
+const toggleModal = (modalName) => {
+    if (modals.hasOwnProperty(modalName)) {
+        modals[modalName] = !modals[modalName];
+    } else {
+        console.warn(`Modal "${modalName}" does not exist.`);
+    }
+};
+
+// Generic function to close the modal and fetch user details
+const handleModalClose = (modalName) => {
+    // Defensive check to make sure modalName exists
+    if (modals[modalName] !== undefined) {
+        modals[modalName] = false;  // Close the modal
+        fetchUserDetails();         // Fetch updated user details after closing
+    } else {
+        console.error(`Invalid modal name: ${modalName}`);
+    }
+};
+
+// Computed profile picture URL
+const profilePictureUrl = computed(() => profile_picture.value);
+const coverPictureUrl = computed(() => cover_picture.value);
+
+// Watch for changes in props.data
+watch(
+    () => props.data,
+    (newVal) => {
+        if (newVal && newVal.media_info) {
+            profile_picture.value = newVal.media_info.profile_picture?.url || defaultProfilePicture;
+        } else {
+            profile_picture.value = defaultProfilePicture; // Fallback to default if media_info is undefined
+        }
+    },
+    { immediate: true } // Execute immediately when component is mounted
+);
+
+watch(
+    () => props.data,
+    (newVal) => {
+        if (newVal && newVal.media_info) {
+            cover_picture.value = newVal.media_info.cover_picture?.url || defaultCoverPicture;
+        } else {
+            cover_picture.value = defaultCoverPicture; // Fallback to default if media_info is undefined
+        }
+    },
+    { immediate: true } // Execute immediately when component is mounted
+);
+
+onMounted(() => {
+    
+    userId.value = userStore.user?.user_id || null;
+    slug.value = props.userSlug;
+    userSlug.value =userStore.userSlug??null
+    if(userSlug.value != slug.value){
+        fetchCheckConnection()
+    }else{
+        sameUser.value = true
+    }
+    if (process.client) {
+        loggedUserSlug.value = localStorage.getItem('user_slug')
+    }
+
+    // Set profile picture when props.data becomes available
+    if (props.data && props.data.media_info) {
+        console.log('media available');
+        profile_picture.value = props.data.media_info.profile_picture?.url || defaultProfilePicture;
+        cover_picture.value = props.data.media_info.cover_picture?.url || defaultProfilePicture;
+    } else {
+        console.log('media not available');
+        profile_picture.value = defaultProfilePicture;
+        cover_picture.value = defaultCoverPicture;
+    }
+
+})
 </script>
 
 <style scoped>
