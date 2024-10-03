@@ -20,7 +20,7 @@
                         <div class="text-center flex relative">
                             <div class="relative ml-5">
                                 <img v-if="props.data.profile == null" class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
-                                    src="@/assets/images/avtar.png" alt="">
+                                    src="@/assets/images/user.png" alt="">
                                 <img v-if="props.data.profile != null" class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
                                     :src="props.data.profile.url" alt="">
 

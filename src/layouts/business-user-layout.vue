@@ -115,7 +115,7 @@ const fetchBusinessUserDatils = async () => {
         if(dataSets.business_manager_info){
             position.value = dataSets.business_manager_info.position
             business.value = dataSets.business_manager_info.business_name
-            businessSlug.value =dataSets.business_manager_info.slug 
+            businessSlug.value =dataSets.business_manager_info.business_slug 
         }
 
         if(dataSets.user_phone_info){

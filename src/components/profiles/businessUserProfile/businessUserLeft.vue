@@ -119,13 +119,10 @@ watch(
 );
 
 const setBio = () =>{
-    console.log(117)
-    console.log(props.data.bio)
     let fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
     bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
     seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
     isBioExpanded.value = false
-    console.log(bio.value)
 }
 const toggleText = () =>{
      isBioExpanded.value = !isBioExpanded.value;
