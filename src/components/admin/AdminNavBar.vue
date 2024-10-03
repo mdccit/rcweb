@@ -52,7 +52,7 @@
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               Businesses
             </NuxtLink>
-            <div
+            <!-- <div
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
               style="position: relative;">
               <div>
@@ -76,7 +76,7 @@
                   style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(4px, 71.2px, 0px);">
                 </div>
               </div>
-            </div>
+            </div> -->
             <NuxtLink to="/admin/moderation?filter%5Bis_closed%5D=0"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Moderation <div
@@ -177,10 +177,10 @@
               Schools
             </NuxtLink>
           </div>
-          <NuxtLink to="/admin"
+          <!-- <NuxtLink to="/admin"
             class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
             Marketing
-          </NuxtLink>
+          </NuxtLink> -->
           <div class="pl-8">
             <NuxtLink to="/admin/newsletter"
               class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">

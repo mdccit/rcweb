@@ -100,8 +100,8 @@
                     <div class="my-8">
                         <label class="block">
                             <span class="block mb-1 text-gray-700 font-sans">Name</span>
-                            <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                <input v-model="name" class="block px-5 py-3 w-full border-0 rounded-lg text-black"
+                            <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">              
+                                <input v-model="name" class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg "
                                     name="name" type="text" placeholder="Enter business name" required>
                             </div>
                         </label>
@@ -111,9 +111,12 @@
                     <div class="my-8">
                         <label class="block">
                             <span class="block mb-1 text-gray-700 font-sans">Bio</span>
-                            <textarea v-model="bio" name="bio"
-                                class="block w-full rounded-md border-gray-300 shadow-sm text-black"
+                            <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+                                <textarea v-model="bio" name="bio"
+                                class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
                                 placeholder="Enter business bio"></textarea>
+                            </div>
+                            
                         </label>
                     </div>
 
@@ -123,12 +126,15 @@
                             <label class="block">
                                 <span class="block mb-1 text-gray-700 font-sans">Approved</span>
                                 <div class="relative">
-                                    <select v-model="is_approved" name="is_approved"
-                                        class="block w-full text-black rounded-md border-gray-300 shadow-sm px-5 py-3"
+                                    <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+                                        <select v-model="is_approved" name="is_approved"
+                                        class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
                                         required>
                                         <option :value="true">Yes</option>
                                         <option :value="false">No</option>
                                     </select>
+                                    </div>
+                                   
                                 </div>
                             </label>
                         </div>
@@ -137,12 +143,14 @@
                             <label class="block">
                                 <span class="block mb-1 text-gray-700 font-sans">Verified</span>
                                 <div class="relative">
-                                    <select v-model="is_verified" name="is_verified"
-                                        class="block w-full text-black rounded-md border-gray-300 shadow-sm px-5 py-3"
+                                    <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+                                        <select v-model="is_verified" name="is_verified"
+                                        class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
                                         required>
                                         <option :value="true">Yes</option>
                                         <option :value="false">No</option>
                                     </select>
+                                    </div>    
                                 </div>
                             </label>
                         </div>
