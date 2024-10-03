@@ -68,7 +68,7 @@
           <div id="dataContainer" class="infinite-scroll-container" @scroll="onScroll">
 
           <!-- Iterate over posts and display them -->
-          <div v-for="post in displayedItems" :key="post.id"
+          <div v-for="post in posts" :key="post.id"
             class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-5 mt-3">
             <div class="flex items-start space-x-4">
               <div class="flex-1">
@@ -338,6 +338,8 @@
   const itemsPerPage = ref(10)
   const isLoading = ref(false)
   const totalItems = ref(0)
+  const currentPage = ref(1)
+  const lastPage  =ref('')
 
   onMounted(async () => {
     if (process.client) {
@@ -348,30 +350,41 @@
        console.log('user' + userStore.user_role);
       }
     }
-  
+    loadInitfintePost();
+
     window.addEventListener('scroll', handleScroll);
     userId.value = userStore.user.user_id || null;
     userRole.value = userStore.user.role || null;
     // const container = document.getElementById('dataContainer');
     // container.addEventListener('scroll', onScroll);
     window.addEventListener('scroll', onScroll);
+    
+  });
+  
+  const loadInitfintePost = async () =>{
     try {
-      const response = await $feedService.list_posts({});
-      posts.value = response || [];
-      console.log(response)
+       isLoading.value = true;
+      const response = await $feedService.list_posts(currentPage.value);
+      console.log(response.data)
+       posts.value.push(...response.data);
+      console.log("post value")
+
+      console.log(posts.value)
+      lastPage.value =response.last_page
+      currentPage.value =response.current_page +1
       const idsArray = [];
       for (const post of posts.value) {
         idsArray[post.id] = false
       }
       isHidddenComment.value = idsArray
-      const nextItems = posts.value.slice(totalItems.value, totalItems.value + itemsPerPage.value);
-        displayedItems.value = [...displayedItems.value, ...nextItems];
-        totalItems.value += nextItems.length;
-        console.log("totel item "+ nextItems)
+      console.log( isHidddenComment.value)
+       isLoading.value = false;
     } catch (error) {
+       isLoading.value = false;
       console.error('Failed to load posts:', error.message);
     }
-  });
+  }
+
   const handleScroll = () => {
     model_id.value = ""
   }
@@ -398,7 +411,7 @@
       postAdd.value = false
   
       nuxtApp.$notification.triggerNotification(response.display_message, 'success');
-      loadPosts();
+      loadPost();
   
     } catch (error) {
       meesge.value = "Input validation failed"
@@ -585,21 +598,24 @@
       const container = document.getElementById('dataContainer');
        if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
           if(posts.value.length != displayedItems.value.length){
-            loadItems();
+            if(currentPage.value <= lastPage.value){
+              loadInitfintePost();
+            }
+           
           }
        }
     }
-  const loadItems =() => {
+  // const loadItems =() => {
 
-      isLoading.value = true;
-      setTimeout(() => {
-        // Load more items into displayedItems
-        const nextItems = posts.value.slice(totalItems.value, totalItems.value + itemsPerPage.value);
-        displayedItems.value = [...displayedItems.value, ...nextItems];
-        totalItems.value += nextItems.length;
-        isLoading.value = false;
-      }, 500); // Simulate loading time
-    }
+  //     isLoading.value = true;
+  //     setTimeout(() => {
+  //       // Load more items into displayedItems
+  //       const nextItems = posts.value.slice(totalItems.value, totalItems.value + itemsPerPage.value);
+  //       displayedItems.value = [...displayedItems.value, ...nextItems];
+  //       totalItems.value += nextItems.length;
+  //       isLoading.value = false;
+  //     }, 500); // Simulate loading time
+  //   }
   </script>
   
   <style scoped>
