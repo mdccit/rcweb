@@ -29,7 +29,7 @@
                                     alt="User profile picture" class="h-12 w-12 rounded-full">
                                  <div class="self-center flex-1">
                                     <strong class="capitalize">{{ userName }}</strong>
-                                    <p class="opacity-75 line-clamp-1">{{ userEmail }}</p>
+                                    <p class="opacity-75 line-clamp-1 break-words break-all">{{ userEmail }}</p>
                                  </div>
                               </NuxtLink>
                            </NuxtLink>
@@ -108,7 +108,7 @@
                      </div>
                   </main>
                   <aside class="flex-1 ">
-                     <div class=" border-2 border-gray-200 bg-white rounded-xl p-12 text-black ">
+                     <div class=" border-2 border-gray-200 bg-white rounded-xl p-12 text-black w-full">
                         <h2 class="font-bold text-2xl"> Activity Log and Comments </h2>
                         <div class="px-5 py-2.5 my-4 font-bold rounded-lg bg-blue-100">
                            <p class="text-sm text-blue-800">
@@ -137,7 +137,7 @@
                               </div>
                            </div>
                            <div class="markdown ml-14">
-                              <p>{{ comment.comment }}</p>
+                              <p class=" break-words break-all">{{ comment.comment }}</p>
                            </div>
                         </div>
                         <div v-if="commentList.length === 0" class="p-20 text-center opacity-50">No comments yet</div>
