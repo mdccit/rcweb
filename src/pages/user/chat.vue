@@ -26,7 +26,7 @@
                             
                             <div class="text-center basis-[55px] shrink-0 grow-0 self-stretch">
                                 <div class="flex flex-col items-center">
-                                    <p class="text-xs text-black">1 min ago</p>
+                                    <p class="text-xs text-black font-semibold">1 min ago</p>
                                     <div
                                         class="bg-orangeRed text-white text-xs rounded-lg p-1 mt-3 w-7 h-7 flex items-center justify-center">
                                         <span>02</span>
@@ -34,6 +34,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <hr class="mt-3 mb-3 text-pigeonBlue">
 
                         <div class="flex items-center px-3 py-2 rounded-xl space-x-4 hover:bg-white transition cursor-pointer">
                             <div class="basis-[56px] shrink-0 grow-0">
@@ -50,7 +52,7 @@
                             
                             <div class="text-center basis-[55px] shrink-0 grow-0 self-stretch">
                                 <div class="flex flex-col items-center">
-                                    <p class="text-xs text-black">1 min ago</p>
+                                    <p class="text-xs text-black font-semibold">1 min ago</p>
                                     <div
                                         class="bg-orangeRed text-white text-xs rounded-lg p-1 mt-3 w-7 h-7 flex items-center justify-center">
                                         <span>02</span>
@@ -58,6 +60,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <hr class="mt-3 mb-3 text-pigeonBlue">
                         
                         <div class="flex items-center px-3 py-2 rounded-xl space-x-4 hover:bg-white transition cursor-pointer">
                             <div class="basis-[56px] shrink-0 grow-0">
@@ -74,7 +78,7 @@
                             
                             <div class="text-center basis-[55px] shrink-0 grow-0 self-stretch">
                                 <div class="flex flex-col items-center">
-                                    <p class="text-xs text-black">1 min ago</p>
+                                    <p class="text-xs text-black font-semibold">1 min ago</p>
                                     <div
                                         class="bg-orangeRed text-white text-xs rounded-lg p-1 mt-3 w-7 h-7 flex items-center justify-center">
                                         <span>02</span>
@@ -82,6 +86,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <hr class="mt-3 mb-3 text-pigeonBlue">
 
                         <div class="flex items-center px-3 py-2 rounded-xl space-x-4 hover:bg-white transition cursor-pointer">
                             <div class="basis-[56px] shrink-0 grow-0">
@@ -98,7 +104,7 @@
                             
                             <div class="text-center basis-[55px] shrink-0 grow-0 self-stretch">
                                 <div class="flex flex-col items-center">
-                                    <p class="text-xs text-black">1 min ago</p>
+                                    <p class="text-xs text-black font-semibold">1 min ago</p>
                                     <div
                                         class="bg-orangeRed text-white text-xs rounded-lg p-1 mt-3 w-7 h-7 flex items-center justify-center">
                                         <span>02</span>
@@ -106,6 +112,8 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <hr class="mt-3 mb-3 text-pigeonBlue">
 
                         <div class="flex items-center px-3 py-2 rounded-xl space-x-4 hover:bg-white transition cursor-pointer">
                             <div class="basis-[56px] shrink-0 grow-0">
@@ -122,7 +130,7 @@
                             
                             <div class="text-center basis-[55px] shrink-0 grow-0 self-stretch">
                                 <div class="flex flex-col items-center">
-                                    <p class="text-xs text-black">1 min ago</p>
+                                    <p class="text-xs text-black font-semibold">1 min ago</p>
                                     <div
                                         class="bg-orangeRed text-white text-xs rounded-lg p-1 mt-3 w-7 h-7 flex items-center justify-center">
                                         <span>02</span>
@@ -130,6 +138,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <hr class="mt-3 mb-3 text-pigeonBlue">
 
                         <div class="flex items-center px-3 py-2 rounded-xl space-x-4 hover:bg-white transition cursor-pointer">
                             <div class="basis-[56px] shrink-0 grow-0">
@@ -146,7 +156,7 @@
                             
                             <div class="text-center basis-[55px] shrink-0 grow-0 self-stretch">
                                 <div class="flex flex-col items-center">
-                                    <p class="text-xs text-black">1 min ago</p>
+                                    <p class="text-xs text-black font-semibold">1 min ago</p>
                                     <div
                                         class="bg-orangeRed text-white text-xs rounded-lg p-1 mt-3 w-7 h-7 flex items-center justify-center">
                                         <span>02</span>
@@ -154,6 +164,9 @@
                                 </div>
                             </div>
                         </div>
+
+                        
+                        <hr class="mt-3 mb-3 text-pigeonBlue">
 
                         <div class="flex items-center px-3 py-2 rounded-xl space-x-4 hover:bg-white transition cursor-pointer">
                             <div class="basis-[56px] shrink-0 grow-0">
@@ -170,7 +183,7 @@
                             
                             <div class="text-center basis-[55px] shrink-0 grow-0 self-stretch">
                                 <div class="flex flex-col items-center">
-                                    <p class="text-xs text-black">1 min ago</p>
+                                    <p class="text-xs text-black font-semibold">1 min ago</p>
                                     <div
                                         class="bg-orangeRed text-white text-xs rounded-lg p-1 mt-3 w-7 h-7 flex items-center justify-center">
                                         <span>02</span>
@@ -178,6 +191,9 @@
                                 </div>
                             </div>
                         </div>
+
+                        
+                        <hr class="mt-3 mb-3 text-pigeonBlue">
 
                         <div class="flex items-center px-3 py-2 rounded-xl space-x-4 hover:bg-white transition cursor-pointer">
                             <div class="basis-[56px] shrink-0 grow-0">
@@ -194,7 +210,7 @@
                             
                             <div class="text-center basis-[55px] shrink-0 grow-0 self-stretch">
                                 <div class="flex flex-col items-center">
-                                    <p class="text-xs text-black">1 min ago</p>
+                                    <p class="text-xs text-black font-semibold">1 min ago</p>
                                     <div
                                         class="bg-orangeRed text-white text-xs rounded-lg p-1 mt-3 w-7 h-7 flex items-center justify-center">
                                         <span>02</span>
