@@ -272,7 +272,7 @@ const $adminService = nuxtApp.$adminService;
 const morderationCount = ref(0);
 const moderationStore = useModerationStore();
 
-const loggedUserName = computed(() => userStore.loggedUserName);
+const loggedUserName = ref('');
 
 const closeDropdown = (event) => {
   if (!event.target.closest('.relative')) {
@@ -349,7 +349,7 @@ onMounted(() => {
     
     if (storedUserName) {
       // Set the loggedUserName in the store with the value from localStorage
-      userStore.loggedUserName = storedUserName;
+      loggedUserName.value = storedUserName;
     } else {
       console.log('No user_name found in localStorage.');
     }
