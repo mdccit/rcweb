@@ -1,57 +1,38 @@
 <template>
   <div>
     <!-- Notification component -->
-    <Notification
-      v-if="showNotification"
-      :message="notificationMessage"
-      :type="notificationType"
-      :visible="showNotification"
-      @close="closeNotification"
-      :key="notificationKey"
-    />
+    <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType"
+      :visible="showNotification" @close="closeNotification" :key="notificationKey" />
   </div>
+
   <main>
     <NavBarPublic></NavBarPublic>
     <div class="grid grid-cols-6 grid-rows-2 gap-0 mt-16">
       <div class="col-span-6 row-start-1 row-end-2s">
-        <BusinessUserCover />
+        <BusinessUserCover :data="businessUserData" @changeTab="setSelectedTab" :businessUserId="businessUserId"
+          :userSlug="route.params.slug" />
       </div>
       <div class="col-start-1 col-end-2 row-start-2 row-end-3">
-        <BusinessUserLeft />
+        <BusinessUserLeft :data="businessUserData" :userSlug="route.params.slug" />
       </div>
       <div class="col-start-6 col-end-7 row-start-2 row-end-3">
-        <BusinessUserRight />
+        <BusinessUserRight :data="businessUserData" :userSlug="route.params.slug" />
       </div>
       <div class="col-start-2 col-end-6 row-start-2 row-end-3">
-        <BusinessUserFeed />
+        <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="fetchPost" />
+        <Connection v-if="tab === 'connection'" :playerId="businessUserId" @profileView="redirectPage" />
+        <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug"
+          @uploadMedia="fetchUserDetailsBySlug" />
       </div>
     </div>
-    <main>
-        <NavBarPublic></NavBarPublic>
-        <div class="grid grid-cols-6 grid-rows-2 gap-0 mt-16">
-            <div class="col-span-6 row-start-1 row-end-2s">
-                <BusinessUserCover :data="businessUserData"  @changeTab="setSelectedTab" :businessUserId="businessUserId" :userSlug="route.params.slug" />
-            </div>
-            <div class="col-start-1 col-end-2 row-start-2 row-end-3">
-                <BusinessUserLeft :data="businessUserData" :userSlug="route.params.slug" />
-            </div>
-            <div class="col-start-6 col-end-7 row-start-2 row-end-3"> 
-                <BusinessUserRight :data="businessUserData" :userSlug="route.params.slug" />
-            </div>
-            <div class="col-start-2 col-end-6 row-start-2 row-end-3">
-                <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="fetchPost" />
-                <Connection v-if="tab === 'connection'" :playerId="businessUserId" @profileView="redirectPage"/>
-                <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
-            </div>
-        </div>
-    </main>
-    <FooterPublic></FooterPublic>
+  </main>
+  <FooterPublic></FooterPublic>
 </template>
 
 <script setup>
 import NavBarPublic from '~/components/user/navbar.vue';
 import FooterPublic from '~/components/user/user-footer.vue';
-import { ref, watchEffect ,onMounted } from 'vue';
+import { ref, watchEffect, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue'; // <-- Ensure this path is correct!
 import BusinessUserRight from '../components/profiles/businessUserProfile/businessUserRight.vue';
@@ -65,6 +46,8 @@ import mediaTab from '~/components/profiles/coach/tabs/mediaTab.vue';
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
+import { useUserStore } from '~/stores/userStore';
+const userStore = useUserStore();
 const $publicService = nuxtApp.$publicService;
 const $userService = nuxtApp.$userService;
 const $feedService = nuxtApp.$feedService;
@@ -87,8 +70,8 @@ const joinAt = ref('')
 const businessUserData = ref({})
 const businessUserId = ref('')
 const tab = ref('feed');
-const profilePicture= ref(null)
-const coverPicture= ref(null)
+const profilePicture = ref(null)
+const coverPicture = ref(null)
 const businessSlug = ref('')
 const setSelectedTab = (selectedTab) => {
   tab.value = selectedTab;
@@ -108,66 +91,66 @@ const closeNotification = () => {
 
 onMounted(() => {
 
-    fetchBusinessUserDatils();
-    fetchConnections();
-    fetchPost();
-    fetchUserDetailsBySlug()
+  fetchBusinessUserDatils();
+  fetchConnections();
+  fetchPost();
+  fetchUserDetailsBySlug()
 
 });
 
 const fetchBusinessUserDatils = async () => {
-    try {
-        const dataSets = await $publicService.get_business_user(route.params.slug);
-        if (dataSets.user_basic_info) {
-            businessUserId.value = dataSets?.user_basic_info?.id || ''; 
-            bio.value = dataSets.user_basic_info.bio || 'User has not entered bio'
-            name.value = dataSets.user_basic_info.display_name
-            role.value = dataSets.user_basic_info.user_role
-            const date = new Date(dataSets.user_basic_info.joined_at);
-            const monthNames = [
-                'January', 'February', 'March', 'April', 'May', 'June',
-                'July', 'August', 'September', 'October', 'November', 'December'
-            ];
-            const year = date.getFullYear();
-            const month = monthNames[date.getMonth()];
-            const day = date.getDate();
-            joinAt.value = `${year} ${month} ${day}`
-        }
-
-        if(dataSets.business_manager_info){
-            position.value = dataSets.business_manager_info.position
-            business.value = dataSets.business_manager_info.business_name
-            businessSlug.value =dataSets.business_manager_info.business_slug 
-        }
-
-        if(dataSets.user_phone_info){
-            country.value = dataSets.user_phone_info.country
-        }   
-        
-        if(dataSets.media_info){
-          profilePicture.value = dataSets.media_info.profile_picture 
-          coverPicture.value =dataSets.media_info.cover_picture
-        }
-        businessUserData.value ={
-            bio: bio.value,
-            country:country.value,
-            name:name.value,
-            role:role.value,
-            business:business.value,
-            position:position.value,
-            joinAt:joinAt.value,
-            slug: route.params.slug,
-            profile: profilePicture.value,
-            cover:coverPicture.value,
-            businessSlug:businessSlug.value
-
-        }
-      //  fetchPost()
-
-    } catch (error) {
-        console.log(error)
-        console.error('Error fetching data:', error.message);
+  try {
+    const dataSets = await $publicService.get_business_user(route.params.slug);
+    if (dataSets.user_basic_info) {
+      businessUserId.value = dataSets?.user_basic_info?.id || '';
+      bio.value = dataSets.user_basic_info.bio || 'User has not entered bio'
+      name.value = dataSets.user_basic_info.display_name
+      role.value = dataSets.user_basic_info.user_role
+      const date = new Date(dataSets.user_basic_info.joined_at);
+      const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ];
+      const year = date.getFullYear();
+      const month = monthNames[date.getMonth()];
+      const day = date.getDate();
+      joinAt.value = `${year} ${month} ${day}`
     }
+
+    if (dataSets.business_manager_info) {
+      position.value = dataSets.business_manager_info.position
+      business.value = dataSets.business_manager_info.business_name
+      businessSlug.value = dataSets.business_manager_info.business_slug
+    }
+
+    if (dataSets.user_phone_info) {
+      country.value = dataSets.user_phone_info.country
+    }
+
+    if (dataSets.media_info) {
+      profilePicture.value = dataSets.media_info.profile_picture
+      coverPicture.value = dataSets.media_info.cover_picture
+    }
+    businessUserData.value = {
+      bio: bio.value,
+      country: country.value,
+      name: name.value,
+      role: role.value,
+      business: business.value,
+      position: position.value,
+      joinAt: joinAt.value,
+      slug: route.params.slug,
+      profile: profilePicture.value,
+      cover: coverPicture.value,
+      businessSlug: businessSlug.value
+
+    }
+    //  fetchPost()
+
+  } catch (error) {
+    console.log(error)
+    console.error('Error fetching data:', error.message);
+  }
 }
 
 const fetchUserDetailsBySlug = async () => {
@@ -185,7 +168,7 @@ const fetchUserDetailsBySlug = async () => {
 }
 
 // Array of gallery items (images and video)
-const galleryItems = ref([]); 
+const galleryItems = ref([]);
 
 const setGalleryItems = (mediaInfo) => {
   galleryItems.value = mediaInfo.media_urls.map(media => {
@@ -208,14 +191,14 @@ const setGalleryItems = (mediaInfo) => {
 
 
 const fetchConnections = async () => {
-    // try {
-    //     const dataSets = await $userService.get_connection('9cf182dd-aff5-43b7-a3ed-4c693b9530c3');
-    //     connections.value = dataSets.connection
-    // } catch (error) {
-    //     console.log(error)
-        
-    //     console.error('Error fetching data:', error.message);
-    // }
+  // try {
+  //     const dataSets = await $userService.get_connection('9cf182dd-aff5-43b7-a3ed-4c693b9530c3');
+  //     connections.value = dataSets.connection
+  // } catch (error) {
+  //     console.log(error)
+
+  //     console.error('Error fetching data:', error.message);
+  // }
 }
 
 const fetchPost = async () => {
@@ -223,7 +206,7 @@ const fetchPost = async () => {
     const response = await $feedService.list_posts({});
     const filteredData = response.filter(item => item.user_id === businessUserId.value);
     posts.value = filteredData || [];
-   
+
   } catch (error) {
     console.error('Failed to load posts:', error.message);
   }

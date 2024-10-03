@@ -15,8 +15,7 @@
                 {{ bio }}
             </p>
             <div v-if="seeMoreBtnHide">
-                <button id="seeMoreBtn" @click="toggleText" >{{ expandBtnName }}</button>
-
+                <button id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
             </div>
         </div>
 
@@ -32,7 +31,7 @@
                     </p>
 
                 </div>
-                <div class="col-span-1">
+                <div class="col-span-1"  v-if="loggedUserSlug == props.userSlug" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -53,7 +52,7 @@
                     </p>
 
                 </div>
-                <div class="col-span-1">
+                <div class="col-span-1"  v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -65,21 +64,26 @@
         </div>
 
     </div>
-<BioModal :visible="modals.bio" @close="handleModalClose" :slug="slug" />
-<InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" />
-<AddressModal :visible="modals.address" @close="handleModalClose" :slug="slug" />
+    <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
+    <BioModal :visible="modals.bio" @close="handleModalClose" :slug="slug" />
+    <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" />
+    <AddressModal :visible="modals.address" @close="handleModalClose" :slug="slug" />
 </template>
 
 <script setup>
-import { ref, onMounted, reactive ,watch } from 'vue';
+import { ref, onMounted, reactive, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
-import { useUserStore } from '~/stores/userStore'
+import { useUserStore } from '~/stores/userStore';
+import BioModal from '~/components/profiles/businessUserProfile/modals/bioModal.vue';
+import InfoModal from '~/components/profiles/businessUserProfile/modals/infoModal.vue';
+import AddressModal from '~/components/profiles/businessUserProfile/modals/addressModal.vue';
+import NameModal from '~/components/profiles/businessUserProfile/modals/nameModal.vue';
 
 const userStore = useUserStore();
-const  isBioExpanded = ref(false); 
-const seeMoreBtnHide =  ref(false);
+const isBioExpanded = ref(false);
+const seeMoreBtnHide = ref(false);
 const bio = ref('')
 const expandBtnName = ref('See More')
 const nuxtApp = useNuxtApp();
@@ -90,6 +94,7 @@ const router = useRouter();
 const route = useRoute();
 const slug = ref('');
 const userRole = ref('');
+const loggedUserSlug = ref('');
 
 const props = defineProps({
     data: {
@@ -106,37 +111,66 @@ onMounted(() => {
     userRole.value = userStore.user?.role || null;
     slug.value = props.userSlug;
     //loadedData.value = props.data;
-    // if (process.client) {
-    //     loggedUserSlug.value = localStorage.getItem('user_slug')
-    // }
-    
+    if (process.client) {
+        loggedUserSlug.value = localStorage.getItem('user_slug')
+    }
+
 
 });
 
 watch(
-  () => props.data,
-  () => {
-    setBio() 
-  }
+    () => props.data,
+    () => {
+        setBio()
+    }
 );
 
-const setBio = () =>{
-    let fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
+const setBio = () => {
+    let fullBio = props.data.bio || ''; // This ensures fullBio is at least an empty string
     bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
     seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
     isBioExpanded.value = false
 }
-const toggleText = () =>{
-     isBioExpanded.value = !isBioExpanded.value;
-     if(isBioExpanded.value){
+const toggleText = () => {
+    isBioExpanded.value = !isBioExpanded.value;
+    if (isBioExpanded.value) {
         bio.value = props.data.bio;
-        expandBtnName.value ='See Less'
-    }else{
+        expandBtnName.value = 'See Less'
+    } else {
         bio.value = props.data.bio.substring(0, 100) + '...';
-        expandBtnName.value ='See More'
+        expandBtnName.value = 'See More'
     }
 
 }
+
+
+// Define reactive state for all modals
+const modals = reactive({
+    name: false,
+    bio: false,
+    info: false,
+    address: false,
+});
+
+// Generic toggle function
+const toggleModal = (modalName) => {
+    if (modals.hasOwnProperty(modalName)) {
+        modals[modalName] = !modals[modalName];
+    } else {
+        console.warn(`Modal "${modalName}" does not exist.`);
+    }
+};
+
+// Generic function to close the modal and fetch user details
+const handleModalClose = (modalName) => {
+    // Defensive check to make sure modalName exists
+    if (modals[modalName] !== undefined) {
+        modals[modalName] = false;  // Close the modal
+        fetchUserDetails();         // Fetch updated user details after closing
+    } else {
+        console.error(`Invalid modal name: ${modalName}`);
+    }
+};
 </script>
 
 <style scoped>

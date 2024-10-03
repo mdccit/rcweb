@@ -35,7 +35,7 @@ const createPublicService = (apiService) => {
 
 const get_business_user = async (user_slug) => {
   const url = `/public/business-managers/${user_slug}`;
-  console.log(url)
+
   try {
     const response = await apiService.getRequest(url);
     if (response && response.data) {
