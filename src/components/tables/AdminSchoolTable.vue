@@ -14,7 +14,8 @@
         <span class="ml-1">Search</span>
       </button>
       <button class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20" fill="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
+          fill="currentColor">
           <path fill-rule="evenodd"
             d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
             clip-rule="evenodd"></path>
@@ -35,30 +36,43 @@
     </div>
 
     <!-- Data Table -->
-    <el-table :data="filteredItems" style="width: 100%" stripe  v-loading="loading"  @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
+    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick"
+      :default-sort="{ prop: 'joined_at', order: 'descending' }">
       <!-- Display Name Column -->
       <el-table-column class="tealGaray" prop="name" label="DISPLAY NAME" sortable></el-table-column>
 
-      <!-- Bio Column -->
-      <el-table-column class="tealGaray" prop="bio" label="BIO" sortable></el-table-column>
-
-      <!-- Is Verified Column -->
-      <el-table-column prop="is_verified" label="IS VERIFIED" sortable>
+      <!-- Teams Column -->
+      <el-table-column class="tealGaray" prop="teams_count" label="Teams" sortable>
         <template v-slot="scope">
-          <span class="tealGaray">{{ scope.row.is_verified ? 'Yes' : 'No' }}</span>
+          {{ scope.row.teams_count !== null ? scope.row.teams_count : 0 }}
         </template>
       </el-table-column>
 
-      <!-- Approved Column -->
-      <el-table-column prop="is_approved" label="APPROVED" sortable>
+      <!-- Total Members Column -->
+      <el-table-column class="tealGaray" prop="total_members" label="Total Members" sortable>
         <template v-slot="scope">
-          <span class="tealGaray">{{ scope.row.is_approved ? 'Yes' : 'No' }}</span>
+          {{ scope.row.total_members !== null ? scope.row.total_members : 0 }}
         </template>
       </el-table-column>
+
+      <!-- Editor Column -->
+      <el-table-column class="tealGaray" prop="editors" label="Admin Members" sortable>
+        <template v-slot="scope">
+          {{ scope.row.editors !== null ? scope.row.editors : 0 }}
+        </template>
+      </el-table-column>
+
+      <!-- Viewer Column -->
+      <el-table-column class="tealGaray" prop="viewers" label="NON Admin Members" sortable>
+        <template v-slot="scope">
+          {{ scope.row.viewers !== null ? scope.row.viewers : 0 }}
+        </template>
+      </el-table-column>
+
 
 
       <!-- Joined At Column -->
-      <el-table-column prop="joined_at" label="JOINED DATE" sortable>
+      <el-table-column prop="joined_at" label="JOINED" sortable>
         <template v-slot="scope">
           <span class="tealGaray">{{ formatDate(scope.row.joined_at) }}</span>
         </template>
