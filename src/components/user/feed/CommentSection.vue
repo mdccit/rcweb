@@ -2,11 +2,14 @@
   <div>
     <hr class="my-3 text-pigeonBlue">
     <div v-for="comment in comments" :key="comment.id" class="flex space-x-3 my-5">
-      <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
-
+      <button @click="userProfile(comment)">
+        <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
+      </button>
       <div class="flex-grow">
         <!-- Display the user's display name -->
-        <div class="text-black">{{ comment.user.display_name }}</div>
+        <button @click="userProfile(comment)">
+          <div class="text-black">{{ comment.user.display_name }}</div>
+        </button>
         <div class="flex items-center space-x-2">
           <!-- Use getTimeAgo function to show human-readable time -->
           <div class="text-darkSlateBlue text-xs">{{ getTimeAgo(comment.created_at) }}</div>
@@ -59,14 +62,16 @@
 
 <script setup>
 import { ref , onMounted} from 'vue';
-import { useNuxtApp, useRouter } from '#app';
+import { useNuxtApp } from '#app';
 import { defineProps , defineEmits} from 'vue';
 import { useUserStore } from '~/stores/userStore'
+import { useRouter } from 'vue-router';
 
 const userStore = useUserStore()
 
 const nuxtApp = useNuxtApp();
 const userId = ref('')
+const router = useRouter();
 
 const props = defineProps({
   comments: {
@@ -168,6 +173,11 @@ onMounted(() => {
   userId.value = userStore.user.user_id
 
 });
+
+const userProfile = (data) =>{
+  
+  router.push(`/app/profile/${data.user.slug}`);
+}
 </script>
 
 <style scoped>
