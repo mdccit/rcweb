@@ -17,13 +17,18 @@ definePageMeta({
 const route = useRoute();
 const token = route.params.token;  // Access the token parameter from the route
 
-// Prevent the back button by intercepting the route change
 onBeforeRouteLeave((to, from, next) => {
-  next(false); // Prevent navigation
+  if (from.name === 'somePreviousRouteName') {
+    // Prevent backward navigation
+    next(false);
+  } else {
+    // Allow forward navigation
+    next();
+  }
 });
 
 onMounted(() => {
-  // Add a new history entry
+  // Add a new history entry to prevent backward navigation
   history.pushState(null, null, location.href);
 
   // Listen for the popstate event

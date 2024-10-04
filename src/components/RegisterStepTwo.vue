@@ -921,8 +921,7 @@ const handleSubmitStep2 = async () => {
         nextTick(async () => {
           if (role.value == 'coach' || role.value == 'business_manager') {
             console.log('redirecting to approval pending');
-            // await router.push('/user/approval-pending');
-            router.push('/app');
+            await router.push('/user/approval-pending');
             return;
           } else if (role.value == 'player' || role.value == 'parent' || role.value == 'admin') {
             router.push('/app');
