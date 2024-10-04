@@ -211,12 +211,14 @@
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/images/pin.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2 mx-auto">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3"><span
-                            v-if="userRole == 'coach' || userRole == 'admin'"> {{ props.data.addressLine01 }} {{
-                        props.data.addressLine02 }} {{ props.data.stateProvince }}</span>
-                        {{ props.data.city }} , {{
-                        props.data.country }}
-                    </p>
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">
+                        <span v-if="userRole == 'coach' || userRole == 'admin'"> 
+                          {{ props.data.addressLine01 }} {{ props.data.addressLine02 }} {{ props.data.stateProvince }}
+                        </span>
+                        {{ props.data.city }} 
+                        <span v-if="props.data.country">, </span>{{ props.data.country }}
+                      </p>
+                      
 
                 </div>
                 <div class="col-span-1"  v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
@@ -441,6 +443,10 @@ const fetchUserDetails = async (slug) => {
             props.data.addressLine01 = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
             props.data.addressLine02 = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
             props.data.stateProvince = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
+        }else if(dataSets.user_address_info == null){
+            if (dataSets.user_basic_info) {
+                props.data.country = dataSets.user_basic_info.country_id;
+            }
         }
 
         if (dataSets.user_phone_info) {
