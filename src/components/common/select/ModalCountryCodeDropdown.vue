@@ -11,7 +11,7 @@
       required 
       :disabled="props.action === 'view'"
     >
-      <option v-for="code in country_codes" :key="code.phone_code" :value="code.phone_code">
+      <option v-for="code in country_codes" :key="code.value" :value="code.value">
         {{ '(' + code.phone_code + ') ' }} {{ code.label }}
       </option>
     </select>
