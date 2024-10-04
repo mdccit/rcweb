@@ -186,11 +186,11 @@
             class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
             <div class="grid grid-cols-10 gap-2">
                 <div class="col-span-3 mx-auto mt-[10px]">
-                    <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/user/images/Group 179.png" alt="">
+                    <img class="mx-auto w-[35px] h-[35px] rounded-xl" src="@/assets/user/images/Group 179.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2 mx-auto">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Has {{ props.data.budgetMin }} -
-                        {{ props.data.budgetMax }}
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Has ${{ props.data.budgetMin }} -
+                        ${{ props.data.budgetMax }}
                     </p>
                 </div>
                 <div class="col-span-1" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('budget')">

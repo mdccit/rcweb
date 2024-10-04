@@ -22,7 +22,7 @@
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
                                             <input id="first_name" v-model="first_name" type="text"
                                                 autocomplete="first_name"
-                                                class="w-full block px-5 py-3 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                class="w-full block px-5 py-3  text-black border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                 placeholder="Enter your first name" required>
                                         </div>
                                         <InputError :error="errors.first_name ? errors.first_name.join(', ') : ''" />
@@ -37,7 +37,7 @@
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
                                             <input id="last_name" v-model="last_name" type="text"
                                                 autocomplete="last_name"
-                                                class="w-full block px-5 py-3 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                class="w-full block px-5 py-3  text-black border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                 placeholder="Enter your last name" required>
                                         </div>
                                         <InputError :error="errors.last_name ? errors.last_name.join(', ') : ''" />
@@ -52,7 +52,7 @@
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
                                             <input id="other_names" v-model="other_names" type="text"
                                                 autocomplete="other_names"
-                                                class="w-full block px-5 py-3 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                class="w-full block px-5 py-3  text-black border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                 placeholder="Enter other names (optional)">
                                         </div>
                                         <InputError :error="errors.other_names ? errors.other_names.join(', ') : ''" />
@@ -67,7 +67,7 @@
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
                                             <input id="profile_picture" type="file" @change="handleFileChange"
                                             accept="image/jpeg, image/png"
-                                                class="w-full block px-5 py-3 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg">
+                                                class="w-full block px-5 py-3 border-0 text-black focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg">
                                         </div>
                                         <span v-if="fileError" class="text-red-500">{{ fileError }}</span> <!-- Show validation error -->
                                     </div>
