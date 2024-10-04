@@ -15,21 +15,22 @@
                 {{ bio }}
             </p>
             <div v-if="seeMoreBtnHide">
-                <button id="seeMoreBtn" @click="toggleText" >{{ expandBtnName }}</button>
+                <button id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
 
             </div>
 
         </div>
 
 
-  <!-- INFO SECTION  -->
-  <div
+        <!-- INFO SECTION  -->
+        <!-- <div
             class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white py-6 px-4 mt-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                        <div class="cursor-pointer" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('info')">
+                        <div class="cursor-pointer" v-if="loggedUserSlug == props.userSlug"
+                            @click="toggleModal('info')">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4 ml-[22px]">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -40,7 +41,7 @@
                 </div>
             </div>
 
-            <!-- <div class="grid grid-cols-10">
+            <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                         stroke="currentColor" class="size-5">
@@ -51,34 +52,33 @@
                 <div class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4"> <b>phone</b> </p>
                 </div>
-            </div> -->
+            </div>
 
-            <!-- <div class="grid grid-cols-10">
+            <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
                     <img class="mx-auto  rounded-xl w-[27px]" src="@/assets/images/ruler.png" alt="">
                 </div>
                 <div class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4 ">
-                       
+
                         <span v-if="props.data.heigth != 'User has not entered height'">cm</span>
                     </p>
                 </div>
-            </div> -->
+            </div>
 
-            <!-- <div class="grid grid-cols-10">
+            <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
                     <img class="mx-auto  rounded-xl w-[22px]" src="@/assets/images/weight.png" alt="">
                 </div>
                 <div class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4 ">
                         <span>
-                            lb</span> vs<span
-                            >kg</span>
+                            lb</span> vs<span>kg</span>
                     </p>
                 </div>
-            </div> -->
+            </div>
 
-            <!-- <div class="grid grid-cols-10">
+            <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
                     <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/graduation.png" alt="">
                 </div>
@@ -87,20 +87,20 @@
                         Graduation 
                     </p>
                 </div>
-            </div> -->
+            </div>
 
             <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
                     <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/bday.png" alt="">
                 </div>
                 <div class="col-span-8">
-                    <p class="text-sm text-black leading-relaxed mb-4 "> {{  props.birth_day }}
+                    <p class="text-sm text-black leading-relaxed mb-4 "> {{ props.birth_day }}
                         <span v-if="props.data.birthday != 'User has not entered birthday'">Years Old</span>
 
                     </p>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 
 
@@ -136,7 +136,7 @@
                 </div>
                 <div class="col-span-6 ml-2 mx-auto">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-2">{{ props.data.city }} {{
-                    props.data.country }}
+                        props.data.country }}
                     </p>
 
                 </div>
@@ -160,7 +160,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive,watch } from 'vue';
+import { ref, onMounted, reactive, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
@@ -172,8 +172,8 @@ import InfoModal from '~/components/profiles/coach/modals/infoModal.vue';
 import AddressModal from '~/components/profiles/coach/modals/addressModal.vue';
 
 const userStore = useUserStore();
-const  isBioExpanded = ref(false); 
-const seeMoreBtnHide =  ref(false);
+const isBioExpanded = ref(false);
+const seeMoreBtnHide = ref(false);
 const bio = ref('')
 const expandBtnName = ref('See More')
 defineNuxtRouteMiddleware(checkSession);
@@ -211,14 +211,14 @@ const props = defineProps({
 const userRole = ref('');
 const loadedData = ref('');
 watch(
-  () => props.data,
-  () => {
-    setBio() 
-  }
+    () => props.data,
+    () => {
+        setBio()
+    }
 );
 
-const setBio = () =>{
-    let fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
+const setBio = () => {
+    let fullBio = props.data.bio || ''; // This ensures fullBio is at least an empty string
     bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
     seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
     isBioExpanded.value = false
@@ -302,7 +302,7 @@ const fetchUserDetails = async () => {
             props.data.phoneCode = dataSets.user_phone_info.phone_code ?? ''
         }
         if (dataSets.media_info.profile_picture != null) {
-           profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+            profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
         }
 
 
@@ -328,14 +328,14 @@ onMounted(() => {
 
 });
 
-const toggleText = () =>{
-     isBioExpanded.value = !isBioExpanded.value;
-     if(isBioExpanded.value){
+const toggleText = () => {
+    isBioExpanded.value = !isBioExpanded.value;
+    if (isBioExpanded.value) {
         bio.value = props.data.bio;
-        expandBtnName.value ='See Less'
-    }else{
+        expandBtnName.value = 'See Less'
+    } else {
         bio.value = props.data.bio.substring(0, 100) + '...';
-        expandBtnName.value ='See More'
+        expandBtnName.value = 'See More'
     }
 
 }

@@ -13,10 +13,10 @@
         </div>
         <div class="space-y-2">
             <input type="text" v-model="address" @change="addressChange"
-                class="w-full px-3 py-2 border border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowedt"
+                class="w-full px-3 py-2 border rounded-lg border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowedt"
                 placeholder="State">
             <input type="text" v-model="city" @change="cityChange"
-                class="w-full px-3 py-2 border border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
+                class="w-full px-3 py-2 border rounded-lg border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
                 placeholder="City">
         </div>
     </div>

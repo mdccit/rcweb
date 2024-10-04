@@ -1,24 +1,46 @@
 <template>
   <el-card>
-    <!-- <el-input v-model="search" placeholder="Search" class="input-with-select" clearable></el-input> -->
     <div class="flex justify-between items-center mb-4">
       <!-- Search Input for Filtering -->
-      <el-input v-model="search" class="h-[40px] mr-2" placeholder="Search..." clearable></el-input>
+      <el-input v-model="search" class="h-[40px] mr-2 focus:border-none" placeholder="Search..." clearable></el-input>
 
       <!--  Search Button -->
-      <button id="searchButton"
+      <!-- <button id="searchButton" @click="applySearch"
         class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 p-2 border rounded h-[40px] mr-1 mx-auto"
         type="button">
         <span class=" mx-auto">Search</span>
-      </button>
+      </button> -->
+      <div class="relative inline-block text-left">
 
-      <button class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd"
-            d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-            clip-rule="evenodd"></path>
-        </svg>
-      </button>
+        <button type="button" aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdowntable"
+          class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
+            fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </button>
+        <!-- Dropdown Menu -->
+        <div id="dropdowntable"
+          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 hidden p-3">
+          <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+
+            <div class="mb-3">
+              <label for="">Role </label>
+              <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+                <select name="filter-role"
+                  class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
+                  <option value=""> - </option>
+                  <option value="admin"> Has Admin </option>
+                  <option value="coach"> No Admin </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <button
         class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 mx-auto">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
@@ -30,49 +52,10 @@
         </svg>
       </button>
 
-      <!-- Dropdown menu -->
-      <div id="dropdownToggle"
-        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-72 dark:bg-gray-700 dark:divide-gray-600">
-        <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownToggleButton">
-          <li>
-            <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-              <label class="inline-flex items-center w-full cursor-pointer">
-                <input type="checkbox" value="" class="sr-only peer">
-                <div
-                  class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600">
-                </div>
-                <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Enable notifications</span>
-              </label>
-            </div>
-          </li>
-          <li>
-            <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-              <label class="inline-flex items-center w-full cursor-pointer">
-                <input type="checkbox" value="" class="sr-only peer">
-                <div
-                  class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600">
-                </div>
-                <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Enable 2FA authentication</span>
-              </label>
-            </div>
-          </li>
-          <li>
-            <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-              <label class="inline-flex items-center w-full cursor-pointer">
-                <input type="checkbox" value="" class="sr-only peer">
-                <div
-                  class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600">
-                </div>
-                <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Subscribe to newsletter</span>
-              </label>
-            </div>
-          </li>
-        </ul>
-      </div>
     </div>
 
 
-    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
+    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" class="cursor-pointer" @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
       <el-table-column class="text-tealGray" prop="name" label="NAME" sortable></el-table-column>
       <el-table-column class="text-tealGray" prop="total_staff" label="TITAL STAFF" sortable></el-table-column>
       <el-table-column class="text-tealGray" prop="admin_staff" label="ADMIN STAFF" sortable></el-table-column>

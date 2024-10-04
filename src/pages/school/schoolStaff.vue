@@ -1,28 +1,30 @@
 <template>
-    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <div class="flex w-full justify-between gap-8">
-            <div class="flex items-center gap-4">
-                <NuxtLink to="/admin/schools"><svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg"
-                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M15 6l-6 6l6 6"></path>
-                    </svg></NuxtLink>
-                    <h2 class="font-bold text-lg self-center text-black"> Editing:  </h2>
+    <header class="bg-gray-200">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div class="flex w-full justify-between gap-8">
+                <div class="flex items-center gap-4">
+                    <NuxtLink to="/admin/schools"><svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 6l-6 6l6 6"></path>
+                        </svg></NuxtLink>
+                    <h2 class="font-bold text-lg self-center text-black"> Editing: </h2>
+                </div>
+                <div class=""><button type="submit"
+                        class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-blue-300 focus:ring-blue-200">
+                        View <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 7l-10 10"></path>
+                            <path d="M8 7l9 0l0 9"></path>
+                        </svg></button></div>
             </div>
-            <div class=""><button type="submit"
-                    class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
-                    View <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M17 7l-10 10"></path>
-                        <path d="M8 7l9 0l0 9"></path>
-                    </svg></button></div>
         </div>
-    </div>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      
-         <!-- Use the SchoolNavigation component -->
-         <SchoolNavigation :schoolId="school_id" />
+    </header>
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-7">
+
+        <!-- Use the SchoolNavigation component -->
+        <SchoolNavigation :schoolId="school_id" />
 
         <div class="my-8"></div>
         <div class="">
@@ -33,7 +35,7 @@
                     <div class="">
                         <NuxtLink :to="{ path: '/school/schoolAddUser', query: { school_id: school_id } }">
                             <button type="submit"
-                                class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
+                                class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-blue-600 text-white border-transparent focus:border-blue-300 focus:ring-blue-200">
                                 Add User
                             </button>
                         </NuxtLink>
@@ -57,7 +59,7 @@
                         <div class="self-center flex flex-wrap gap-2">
                             <NuxtLink to="/`/admin/schools/${school_id}/users/${member.id}/edit`">
                                 <button type="submit"
-                                    class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
+                                    class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-blue-300 focus:ring-blue-200">
                                     Manage
                                 </button>
                             </NuxtLink>
@@ -76,7 +78,7 @@
                     <div class="flex-1 text-2xl font-bold mb-4"> Team name </div>
                     <div class="">
                         <button type="submit"
-                            class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
+                            class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-blue-600 text-white border-transparent focus:border-blue-300 focus:ring-blue-200">
                             Create Team
                         </button>
 
@@ -93,7 +95,7 @@
                         <div class="self-center flex flex-wrap gap-2">
                             <a :href="`/admin/businesses/${business_id}/users/${member.id}/edit`">
                                 <button type="submit"
-                                    class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
+                                    class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-blue-300 focus:ring-blue-200">
                                     Manage
                                 </button>
                             </a>
@@ -142,7 +144,7 @@ onMounted(() => {
 
     // Fetch school staff data if action is 'manage'
     // if (action.value === 'manage') {
-        fetchSchoolStaff(school_id.value);
+    fetchSchoolStaff(school_id.value);
     // }
 });
 
@@ -161,10 +163,10 @@ const fetchSchoolStaff = async (schoolId) => {
 };
 
 definePageMeta({
-  ssr: false,
-  layout: 'admin',
-  middleware: ['role'],
-  requiredRole: ['admin'],
+    ssr: false,
+    layout: 'admin',
+    middleware: ['role'],
+    requiredRole: ['admin'],
 });
 
 </script>

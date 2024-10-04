@@ -12,9 +12,7 @@
                                 <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
                                     Info</h3>
                                 <div class="mt-2">
-                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want to
-                                        deactivate
-                                        your account? All of your data will be permanently removed.
+                                    <p class="text-sm text-gray-500 mb-3">
                                     </p>
 
                                     <div>

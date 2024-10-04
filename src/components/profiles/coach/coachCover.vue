@@ -3,7 +3,8 @@
         <div class="relative">
             <img class="w-full h-[400px] rounded-xl" :src="coverPictureUrl" alt="">
             <!-- Wrapper for the SVG to position it absolutely -->
-            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md" v-if="loggedUserSlug == props.userSlug"   @click="toggleModal('cover')">
+            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md"
+                v-if="loggedUserSlug == props.userSlug" @click="toggleModal('cover')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
                     stroke="currentColor" class="size-3">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -14,8 +15,8 @@
 
         <span>
             <div class="-mt-[144px]">
-                <div class="grid grid-cols-5 gap-4 flex">
-                    <div class="col-span-1">
+                <div class="grid grid-cols-10 gap-4 flex">
+                    <div class="col-span-3">
                         <div class="text-center flex relative">
                             <div class="relative ml-5">
                                 <img class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]" :src="profilePictureUrl"
@@ -35,28 +36,29 @@
 
                             <!-- Wrapper for the SVG to position it absolutely at the bottom right corner -->
                             <div class="text-left mt-[80px] ml-5">
-                                <h2 class="text-lg font-semibold text-white text-3xl absolute w-[300px]">{{ props.data.name }} </h2>
-                                <h5 class="text-md text-white font-normal text-black text-primaryblue mt-7">{{
+                                <h2 class="text-lg font-semibold text-white text-3xl absolute w-[300px]">{{
+                                    props.data.name }} </h2>
+                                <h5 class="text-sm text-white font-normal text-black text-primaryblue mt-7 ">{{
                                     props.data.sport }} {{ props.data.role }}
                                 </h5>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-span-3">
-                        <div class="col-span-3">
+                    <div class="col-span-5">
+                        <!-- <div class="col-span-3">
                             <div
                                 class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
                               
                                 <CoachTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
-                    <div class="col-span-1 mt-[70px] z-10">
+                    <div class="col-span-2 mt-[70px] z-10 text-right">
                         <div>
-                            <div class="flex">
-                                <div class="">
+                            <div class="flex justify-end pr-[20px]">
+                                <div class="text-right ml-30px">
                                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
@@ -66,15 +68,15 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div v-if="sameUser ==false">
-                                <div v-if="buttonHide == true" class="">
-                                    <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor"
-                                            class="size-5 text-blue-500 m-auto">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
-                                        </svg>
+                                <div v-if="sameUser == false">
+                                    <div v-if="buttonHide == true" class="">
+                                        <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor"
+                                                class="size-5 text-blue-500 m-auto">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
+                                            </svg>
 
                                     </button>
                                 </div>
@@ -84,16 +86,29 @@
                                         class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                         {{ connectionButtonName }}
                                     </button>
-                                    <div v-if="connectionButtonName == 'Accept connection'" class="text-white">
+                                    <div v-if="connectionButtonName == 'Accept'" class="text-white">
                                         <button @click="connectReject"
                                             class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                             Reject
                                         </button>
                                     </div>
-                                </div>
+
+                                    <div class="flex text-white" v-if="buttonHide == false">
+                                        <button @click="connectAcceptOrConnect"
+                                            class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                            {{ connectionButtonName }}
+                                        </button>
+                                        <div v-if="connectionButtonName == 'Accept connection'" class="text-white">
+                                            <button @click="connectReject"
+                                                class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                Reject
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="">
-                                    <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                    <button aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdown"
+                                        class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
                                             class="size-5 text-blue-500 m-auto">
@@ -102,11 +117,37 @@
                                         </svg>
                                     </button>
                                 </div>
+
+                                <div id="dropdown"
+                                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 dark:divide-gray-600">
+
+                                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                        aria-labelledby="dropdownDefaultButton">
+                                        <li>
+                                            <button href="#"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full">Edit Contact Details</button>
+                                        </li>
+                                    
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                 </div>
+                <div class="grid grid-cols-5 gap-4 flex -mt-[85px]">
+                    <div class="col-span-1">
+                    </div>
+                    <div class="col-span-4">
+                        <div class="">
+                            <div
+                                class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
+                                <CoachTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             </div>
         </span>
     </section>
@@ -174,9 +215,9 @@ const handleTab = (selectedTab) => {
 };
 
 const tabs = ref([
-  { name: 'feed', label: 'Post' },
-  { name: 'connection', label: 'Connections' },
-  { name: 'media', label: 'Media' }
+    { name: 'feed', label: 'Post' },
+    { name: 'connection', label: 'Connections' },
+    { name: 'media', label: 'Media' }
 ]);
 
 
@@ -199,7 +240,7 @@ const fetchCheckConnection = async () => {
 
                 if ((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)) {
                     buttonHide.value = false
-                    connectionButtonName.value = "Accept connection"
+                    connectionButtonName.value = "Accept"
                 }
 
                 if (dataSets.type.connection_status == 'accepted') {
@@ -220,7 +261,7 @@ const fetchCheckConnection = async () => {
 
 const connectAcceptOrConnect = async () => {
     try {
-        if (connectionButtonName.value == "Accept connection") {
+        if (connectionButtonName.value == "Accept") {
 
             await $userService.connection_accept(connectionType.value.id, {
                 connection_status: "accepted"
@@ -344,13 +385,13 @@ watch(
 );
 
 onMounted(() => {
-    
+
     userId.value = userStore.user?.user_id || null;
     slug.value = props.userSlug;
-    userSlug.value =userStore.userSlug??null
-    if(userSlug.value != slug.value){
+    userSlug.value = userStore.userSlug ?? null
+    if (userSlug.value != slug.value) {
         fetchCheckConnection()
-    }else{
+    } else {
         sameUser.value = true
     }
     if (process.client) {

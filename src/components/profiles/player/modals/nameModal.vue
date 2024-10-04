@@ -22,7 +22,7 @@
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
                                             <input id="first_name" v-model="first_name" type="text"
                                                 autocomplete="first_name"
-                                                class="w-full block px-5 py-3 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                class="w-full block px-5 py-3  text-black border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                 placeholder="Enter your first name" required>
                                         </div>
                                         <InputError :error="errors.first_name ? errors.first_name.join(', ') : ''" />
@@ -37,7 +37,7 @@
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
                                             <input id="last_name" v-model="last_name" type="text"
                                                 autocomplete="last_name"
-                                                class="w-full block px-5 py-3 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                class="w-full block px-5 py-3  text-black border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                 placeholder="Enter your last name" required>
                                         </div>
                                         <InputError :error="errors.last_name ? errors.last_name.join(', ') : ''" />
@@ -52,7 +52,7 @@
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
                                             <input id="other_names" v-model="other_names" type="text"
                                                 autocomplete="other_names"
-                                                class="w-full block px-5 py-3 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                class="w-full block px-5 py-3  text-black border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                 placeholder="Enter other names (optional)">
                                         </div>
                                         <InputError :error="errors.other_names ? errors.other_names.join(', ') : ''" />
@@ -64,10 +64,21 @@
                                             <span aria-hidden="true" class="text-red-600"
                                                 title="This field is optional"></span>
                                         </label>
+                                        <div  v-if="profile_picture_exit !=null">
+                                            <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profile_picture_exit.url" alt="">
+                                            <button @click="removeProfile">Remove</button>
+                                        </div>
+                                        
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
+                                        <div class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
+                                            <label for="profile_picture"
+                                                class=" img-inputblock w-1/3 px-4 py-2 text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input">
+                                                Choose file
+                                            </label>
                                             <input id="profile_picture" type="file" @change="handleFileChange"
                                                 accept="image/jpeg, image/png"
-                                                class="w-full block px-5 py-3 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg">
+                                                class="lock pt-1 text-black h-12 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
+
                                         </div>
                                         <span v-if="fileError" class="text-red-500">{{ fileError }}</span>
                                         <!-- Show validation error -->
@@ -89,14 +100,28 @@
             </div>
         </div>
     </div>
+    </div>
 </template>
 
+<style>
+.img-input {
+    position: absolute;
+    width: 110px;
+    height: 48px;
+    padding-top: 12px;
+    background: #ececec;
+
+}
+</style>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { handleError } from '@/utils/handleError';
 import InputError from '@/components/common/input/InputError.vue';
+import { useUserStore } from '~/stores/userStore';
+
+const userStore = useUserStore();
 
 const props = defineProps({
     visible: Boolean,
@@ -113,7 +138,7 @@ const $publicService = nuxtApp.$publicService;
 const first_name = ref('');
 const last_name = ref('');
 const other_names = ref('');
-
+const profile_picture_exit= ref(null)
 
 const error = ref('');
 const errors = ref('');
@@ -179,6 +204,12 @@ const saveProfilePicture = async () => {
     try {
         const user_slug = props.slug; // Assuming you have user_slug available in props
         const response = await $userService.upload_player_profile_picture(profile_picture.value, user_slug); // Call the upload function
+        const data ={
+            url:response.data.url,
+            media_type:response.data.media_type,
+            media_id:response.data.media_id
+        }
+        userStore.setProfilePicture(data)
 
         if (response.status == '200') {
             loading.value = false;
@@ -199,6 +230,10 @@ const fetchPlayerNames = async (slug) => {
             first_name.value = dataSets.user_basic_info.first_name ?? "";
             last_name.value = dataSets.user_basic_info.last_name ?? "";
             other_names.value = dataSets.user_basic_info.other_names ?? "";
+        }
+
+        if(dataSets.media_info){
+            profile_picture_exit.value =dataSets.media_info.profile_picture??null
         }
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
@@ -249,4 +284,14 @@ const saveName = async () => {
     }
 
 };
+
+const removeProfile =async() =>{
+    try {
+        const dataSets = await $publicService.delete_media_player(profile_picture_exit.value.media_id);
+        fetchPlayerNames(props.slug);
+    } catch (error) {
+        console.log(error)
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    }
+}
 </script>

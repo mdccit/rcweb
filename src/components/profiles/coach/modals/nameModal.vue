@@ -10,8 +10,8 @@
                     <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                         <div class="sm:flex sm:items-start">
                             <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
-                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
-                                    Name</h3>
+                                <h1 class="text-base font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Edit User Profile</h1>
+                              
                                 <div class="mt-2 w-full">
                                     <!-- First Name Input -->
                                     <div class="w-full">
@@ -64,6 +64,10 @@
                                             <span aria-hidden="true" class="text-red-600"
                                                 title="This field is optional"></span>
                                         </label>
+                                        <div  v-if="profile_picture_exit !=null">
+                                            <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profile_picture_exit.url" alt="">
+                                            <button @click="removeProfile">Remove</button>
+                                        </div>
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
                                             <input id="profile_picture" type="file" @change="handleFileChange"
                                                 accept="image/jpeg, image/png"
@@ -123,6 +127,7 @@ const notificationMessage = ref('');
 const notification_type = ref(0);
 const fileError = ref('');
 const profile_picture = ref('');
+const profile_picture_exit= ref(null)
 
 // On mounted, fetch the current user names using the slug
 onMounted(() => {
@@ -179,7 +184,13 @@ const saveProfilePicture = async () => {
     try {
         const user_slug = props.slug; // Assuming you have user_slug available in props
         const response = await $userService.upload_coach_profile_picture(profile_picture.value, user_slug); // Call the upload function
-
+        const data ={
+            url:response.data.url,
+            media_type:response.data.media_type,
+            media_id:response.data.media_id
+        }
+        userStore.setProfilePicture(data)
+        
         if (response.status == '200') {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
@@ -199,6 +210,10 @@ const fetchCoachNames = async (slug) => {
             first_name.value = dataSets.user_basic_info.first_name ?? "";
             last_name.value = dataSets.user_basic_info.last_name ?? "";
             other_names.value = dataSets.user_basic_info.other_names ?? "";
+        }
+
+        if(dataSets.media_info){
+            profile_picture_exit.value =dataSets.media_info.profile_picture??null
         }
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
@@ -253,4 +268,12 @@ const saveName = async () => {
 
 };
 
+const removeProfile =async() =>{
+    try {
+        const dataSets = await $publicService.delete_media_coache(profile_picture_exit.value.media_id);
+        fetchCoachNames(props.slug);
+    } catch (error) {
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    }
+}
 </script>
