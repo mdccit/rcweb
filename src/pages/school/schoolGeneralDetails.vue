@@ -281,13 +281,13 @@ const fetchSchoolDetails = async (school_id) => {
     errors.value = [];
     try {
         const data = await $adminService.get_school_details(school_id);
-        name.value = data.name || '';
-        bio.value = data.bio || '';
-        conference.value = data.conference || '';
-        division.value = data.division || '';
+        name.value = data.school_info.name || '';
+        bio.value = data.school_info.bio || '';
+        conference.value = data.school_info.conference || '';
+        division.value = data.school_info.division || '';
         // Convert 0/1 to boolean for form fields
-        is_verified.value = data.is_verified === 1;
-        is_approved.value = data.is_approved === 1;
+        is_verified.value = data.school_info.is_verified === 1;
+        is_approved.value = data.school_info.is_approved === 1;
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     }
