@@ -165,7 +165,7 @@ const fetchBusinessUserDetails = async () => {
       businessSlug: businessSlug.value
     };
 
-    loadInitfintePost();
+    loadInfinitePost();
 
   } catch (error) {
     console.log(error);

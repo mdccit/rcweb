@@ -95,6 +95,7 @@ const route = useRoute();
 const slug = ref('');
 const userRole = ref('');
 const loggedUserSlug = ref('');
+const joinDate = ref('');
 
 const props = defineProps({
     data: {
