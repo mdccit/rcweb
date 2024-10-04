@@ -30,17 +30,15 @@
 
                                         <!-- Date of Birth -->
                                         <div>
-                                            <label for="date_of_birth" class="block mb-1 text-sm font-normal text-gray-900">
-                                              Date of Birth <span class="text-red-600">*</span>
+                                            <label for="date_of_birth"
+                                                class="block mb-1 text-sm font-normal text-gray-900">
+                                                Date of Birth <span class="text-red-600">*</span>
                                             </label>
-                                            <input
-                                              type="date"
-                                              v-model="date_of_birth"
-                                              required
-                                              class="w-full border border-gray-300 rounded-lg shadow-sm h-12"
-                                            />
-                                            <InputError :error="errors.date_of_birth ? errors.date_of_birth.join(', ') : ''" />
-                                          </div>
+                                            <input type="date" v-model="date_of_birth" required
+                                                class="w-full border border-gray-300 rounded-lg shadow-sm h-12" />
+                                            <InputError
+                                                :error="errors.date_of_birth ? errors.date_of_birth.join(', ') : ''" />
+                                        </div>
 
                                         <!-- Gender -->
                                         <div>
@@ -128,9 +126,14 @@ onMounted(async () => {
     await Promise.all([
         loadNationalities(),
         loadGenders(),
-        fetchBusinessUserInfo(),
-
     ]);
+
+    // Fetch business user info only if slug is available
+    if (props.slug) {
+        await fetchBusinessUserInfo();
+    } else {
+        console.log('no slug info modal');
+    }
 });
 
 watch(() => props.visible, (newVal) => {

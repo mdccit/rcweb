@@ -202,44 +202,46 @@ watch(() => props.visible, (newVal) => {
     }
 });
 
-watch(countries, (newVal) => {
-    if (newVal.length > 0 && !country.value && dataSets?.user_address_info) {
-        country.value = dataSets.user_address_info.country_id ?? null;
-    }
-});
+// watch(countries, (newVal) => {
+//     if (newVal.length > 0 && !country.value && dataSets?.user_address_info) {
+//         country.value = dataSets.user_address_info.country_id ?? null;
+//     }
+// });
 
-watch(country_codes, (newVal) => {
-    if (newVal.length > 0 && !phone_code_country.value && dataSets?.user_phone_info) {
-        phone_code_country.value = dataSets.user_phone_info.id ?? null;
-    }
-});
+// watch(country_codes, (newVal) => {
+//     if (newVal.length > 0 && !phone_code_country.value && dataSets?.user_phone_info) {
+//         phone_code_country.value = dataSets.user_phone_info.id ?? null;
+//     }
+// });
 
 
 
 const fetchBusinessUserContact = async () => {
     try {
-        const dataSets = await $publicService.get_user_profile(props.slug);
-        if (dataSets.user_address_info) {
-            country.value = dataSets.user_address_info.country_id ?? null;
-            city.value = dataSets.user_address_info.city ?? 'User has not entered city';
-            address_line_1.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01';
-            address_line_2.value = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02';
-            state_province.value = dataSets.user_address_info.state_province ?? 'User has not entered state provice';
-            postal_code.value = dataSets.user_address_info.postal_code ?? 'User has not entered postal code';
+        const response = await $publicService.get_user_profile(props.slug); // Replaced 'dataSets' with 'response'
+
+        if (response.user_address_info) {
+            country.value = response.user_address_info.country_id ?? null;
+            city.value = response.user_address_info.city ?? 'User has not entered city';
+            address_line_1.value = response.user_address_info.address_line_1 ?? 'User has not entered address line 01';
+            address_line_2.value = response.user_address_info.address_line_2 ?? 'User has not entered address line 02';
+            state_province.value = response.user_address_info.state_province ?? 'User has not entered state province';
+            postal_code.value = response.user_address_info.postal_code ?? 'User has not entered postal code';
         }
 
-        if (dataSets.user_phone_info) {
-            phone_number.value = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number';
-            phone_code_country.value = dataSets.user_phone_info.id ?? null;
+        if (response.user_phone_info) {
+            phone_number.value = response.user_phone_info.phone_number ?? 'User has not entered phone number';
+            phone_code_country.value = response.user_phone_info.id ?? null;
         }
 
-        if (dataSets.user_basic_info) {
-            email.value = dataSets.user_basic_info.email ?? 'User has not entered email';
+        if (response.user_basic_info) {
+            email.value = response.user_basic_info.email ?? 'User has not entered email';
         }
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     }
-}
+};
+
 
 const updateBusinessUserAddress = async () => {
     try {
