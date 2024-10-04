@@ -70,19 +70,7 @@ const connections = ref([]);
 const posts = ref([]);
 const route = useRoute();
 const joinAt = ref('');
-const businessUserData = reactive({
-  bio: '',
-  country: '',
-  name: '',
-  role: '',
-  business: '',
-  position: '',
-  joinAt: '',
-  slug: '',
-  profile: null,
-  cover: null,
-  businessSlug: ''
-});
+const businessUserData = ref({});
 const businessUserId = ref('');
 const tab = ref('feed');
 const profilePicture = ref(null);
@@ -165,7 +153,7 @@ const fetchBusinessUserDetails = async () => {
       businessSlug: businessSlug.value
     };
 
-    loadInfinitePost();
+    // loadInfinitePost();
 
   } catch (error) {
     console.log(error);
