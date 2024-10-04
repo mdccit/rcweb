@@ -296,12 +296,10 @@ const updateSchoolProfile = async () => {
         return;
     }
     try {
-       console.log(profile_image.value)
         const response = await $adminService.school_profile(school_id.value,{
             file:profile_image.value
         });
 
-        console.log(response)
 
        
     } catch (error) {
@@ -320,7 +318,6 @@ const updateSchoolCover = async () => {
             file:cover_image.value
         });
 
-        console.log(response)
 
        
     } catch (error) {

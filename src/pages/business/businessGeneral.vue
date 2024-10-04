@@ -37,7 +37,14 @@
                             <!-- Icon Section -->
                             <div>
                                 <span class="block mb-1 text-gray-700 font-sans">Icon</span>
-                                <div class="mt-2"><img src="@assets/images/business.png" alt="Business profile picture" class="h-20 w-20 rounded-xl"></div>
+                                <div class="mt-2">
+                                    <img v-if="profile == null"
+                                src="@assets/images/business.png"
+                                alt="SchoolAdm1" class="rounded-full h-20 w-20 object-cover">
+                                <img v-if="profile != null"
+                                :src="profile.url"
+                                alt="SchoolAdm1" class="rounded-full h-20 w-20 object-cover">
+                                </div>
                                 <div class="flex mt-2 space-x-2">
                                     <div>
                                         <label class="block">
@@ -48,7 +55,7 @@
                                                     <path d="M12 4l0 12"></path>
                                                 </svg>
                                                 Select A New Photo
-                                                <input name="icon" type="file" class="invisible absolute inset-0 w-full h-full disabled:opacity-50">
+                                                <input name="icon"  @change="handleFileChange" type="file" class="invisible absolute inset-0 w-full h-full disabled:opacity-50">
                                             </a>
                                         </label>
                                     </div>
@@ -58,7 +65,14 @@
                             <!-- Cover Section -->
                             <div>
                                 <span class="block mb-1 text-gray-700 font-sans">Cover</span>
-                                <div class="mt-2"><img src="@assets/images/image.svg" alt="placeholder page background" class="h-20 w-20 rounded-xl"></div>
+                                <div class="mt-2">
+                                    <img v-if="cover == null"
+                                src="@assets/images/image.svg"
+                                alt="School page background" class="rounded-full h-20 w-20 object-cover">
+                                <img v-if="cover != null"
+                                :src="cover.url"
+                                alt="School page background" class="rounded-full h-20 w-20 object-cover">
+                                </div>
                                 <div class="flex mt-2 space-x-2">
                                     <div>
                                         <label class="block">
@@ -69,7 +83,7 @@
                                                     <path d="M12 4l0 12"></path>
                                                 </svg>
                                                 Select A New Photo
-                                                <input name="cover" type="file" class="invisible absolute inset-0 w-full h-full disabled:opacity-50">
+                                                <input name="cover" type="file"  @change="handleFileCoverChange" class="invisible absolute inset-0 w-full h-full disabled:opacity-50">
                                             </a>
                                         </label>
                                     </div>
@@ -177,6 +191,11 @@ const notificationMessage = ref('');
 const loading = ref(false);
 const notification_type = ref('');
 const notificationKey = ref(0);
+const profile =ref(null)
+const cover =ref(null)
+const profile_image = ref('')
+const cover_image = ref('')
+const fileError =ref('')
 
 // Fetch business details
 const fetchBusinessDetails = async () => {
@@ -187,6 +206,8 @@ const fetchBusinessDetails = async () => {
     bio.value = data.business_info.bio;
     is_verified.value = data.business_info.is_verified === 1;
     is_approved.value = data.business_info.is_approved === 1;
+    profile.value = data.media_info.profile_picture || null;
+    cover.value = data.media_info.cover_picture || null;
   } catch (error) {
     console.error('Error fetching business details:', error.message);
   }
@@ -202,6 +223,8 @@ const updateBusinessDetails = async () => {
       is_verified: is_verified.value ? 1 : 0,
       is_approved: is_approved.value ? 1 : 0,
     });
+    await updateBusinessProfile()
+    await updateBusinessCover()
     if (response.status === 200) {
 
         triggerNotification(response.display_message, 'success');
@@ -235,6 +258,92 @@ onMounted(() => {
 
   fetchBusinessDetails();
 });
+
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+  const maxSize = 30 * 1024 * 1024; // 30MB
+
+  // Check if a file is selected
+  if (file) {
+    // Validate the file type
+    if (!allowedTypes.includes(file.type)) {
+      fileError.value = 'Only jpg, jpeg, and png files are allowed';
+      event.target.value = ''; // Clear the file input
+      return;
+    }
+
+    // Validate the file size
+    if (file.size > maxSize) {
+      fileError.value = 'File size must be less than 30MB';
+      event.target.value = ''; // Clear the file input
+      return;
+    }
+
+    // If all validations pass, set the file to the reactive variable
+    fileError.value = ''; // Clear any previous errors
+    profile_image.value = file; // Store the selected file
+  }
+};
+
+const handleFileCoverChange = (event) => {
+  const file = event.target.files[0];
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+  const maxSize = 30 * 1024 * 1024; // 30MB
+
+  // Check if a file is selected
+  if (file) {
+    // Validate the file type
+    if (!allowedTypes.includes(file.type)) {
+      fileError.value = 'Only jpg, jpeg, and png files are allowed';
+      event.target.value = ''; // Clear the file input
+      return;
+    }
+
+    // Validate the file size
+    if (file.size > maxSize) {
+      fileError.value = 'File size must be less than 30MB';
+      event.target.value = ''; // Clear the file input
+      return;
+    }
+
+    // If all validations pass, set the file to the reactive variable
+    fileError.value = ''; // Clear any previous errors
+    cover_image.value = file; // Store the selected file
+  }
+};
+
+const updateBusinessProfile = async () => {
+    if (!profile_image.value) {
+        // Handle case where no file is selected
+        console.log('no profile picture found');
+        return;
+    }
+    try {
+        const response = await $adminService.business_profile(business_id.value,{
+            file:profile_image.value
+        });
+   
+    } catch (error) {
+        console.log(error) 
+    }
+};
+
+const updateBusinessCover = async () => {
+    if (!cover_image.value) {
+        // Handle case where no file is selected
+        console.log('no profile picture found');
+        return;
+    }
+    try {
+        const response = await $adminService.business_cover(business_id.value,{
+            file:cover_image.value
+        });
+
+    } catch (error) {
+        console.log(error) 
+    }
+};
 </script>
 
 
