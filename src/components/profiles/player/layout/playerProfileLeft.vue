@@ -30,7 +30,8 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
-                    <h1 class="text-lg font-semibold mb-4 text-black col-span-2" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('bio')">
+                    <h1 class="text-lg font-semibold mb-4 text-black col-span-2" v-if="loggedUserSlug == props.userSlug"
+                        @click="toggleModal('bio')">
                         <div class="cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4">
@@ -45,7 +46,7 @@
                 {{ bio }}
             </p>
             <div v-if="seeMoreBtnHide">
-                <button id="seeMoreBtn" @click="toggleText" >{{ expandBtnName }}</button>
+                <button id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
 
             </div>
         </div>
@@ -58,7 +59,8 @@
                 <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                        <div class="cursor-pointer" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('info')">
+                        <div class="cursor-pointer" v-if="loggedUserSlug == props.userSlug"
+                            @click="toggleModal('info')">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -79,11 +81,11 @@
                     </svg>
                 </div>
                 <div class="col-span-8">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{props.data.email}}</b> </p>
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ props.data.email }}</b> </p>
                 </div>
             </div>
             <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
-            </div> 
+            </div>
             <div v-if="loggedUserSlug == props.userSlug" class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -211,15 +213,17 @@
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/images/pin.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2 mx-auto">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3"><span
-                            v-if="userRole == 'coach' || userRole == 'admin'"> {{ props.data.addressLine01 }} {{
-                        props.data.addressLine02 }} {{ props.data.stateProvince }}</span>
-                        {{ props.data.city }} , {{
-                        props.data.country }}
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">
+                        <span v-if="userRole == 'coach' || userRole == 'admin'">
+                            {{ props.data.addressLine01 }} {{ props.data.addressLine02 }} {{ props.data.stateProvince }}
+                        </span>
+                        {{ props.data.city }}
+                        <span v-if="props.data.country">, </span>{{ props.data.country }}
                     </p>
 
+
                 </div>
-                <div class="col-span-1"  v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
+                <div class="col-span-1" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -277,6 +281,7 @@ import BioModal from '~/components/profiles/player/modals/bioModal.vue';
 import InfoModal from '~/components/profiles/player/modals/infoModal.vue';
 import BudgetModal from '~/components/profiles/player/modals/budgetModal.vue';
 import AddressModal from '~/components/profiles/player/modals/addressModal.vue';
+import { loadCountryList } from '~/services/commonService';
 // Import the default profile picture
 import defaultProfilePicture from '@/assets/images/user.png';
 
@@ -365,10 +370,12 @@ const handness = ref('')
 const preferredSurface = ref('');
 const loadedSlug = ref('')
 const isEdit = ref('');
-const  isBioExpanded = ref(false); 
-const seeMoreBtnHide =  ref(false);
+const isBioExpanded = ref(false);
+const seeMoreBtnHide = ref(false);
 const bio = ref('')
-const expandBtnName = ref('See More')
+const expandBtnName = ref('See More');
+const country_codes = ref([]);
+
 
 // Define reactive state for all modals
 const modals = reactive({
@@ -436,11 +443,21 @@ const fetchUserDetails = async (slug) => {
         }
 
         if (dataSets.user_address_info) {
-            props.data.country = dataSets.user_address_info.country ?? 'User has not entered country'
             props.data.city = dataSets.user_address_info.city ?? 'User has not entered city'
             props.data.addressLine01 = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
             props.data.addressLine02 = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
             props.data.stateProvince = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
+        }
+
+        // if (dataSets.user_basic_info) {
+        //         props.data.country = dataSets.user_basic_info.country_id
+        // }
+
+        if (dataSets.user_basic_info) {
+            const country = country_codes.value.find(c => c.value === dataSets.user_basic_info.country_id);
+            if (country) {
+                props.data.country = country.label;
+            }
         }
 
         if (dataSets.user_phone_info) {
@@ -479,7 +496,7 @@ const fetchUserDetails = async (slug) => {
         }
 
         if (dataSets.media_info.profile_picture != null) {
-           profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+            profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
         }
 
     } catch (error) {
@@ -508,38 +525,51 @@ onMounted(() => {
     userRole.value = userStore.user?.role || null;
     slug.value = props.userSlug;
 
+
+    loadCountries();
+
     if (process.client) {
         loggedUserSlug.value = localStorage.getItem('user_slug')
     }
 
-     // Set profile picture when props.data becomes available
-  if (props.data && props.data.media_info) {
-    console.log('media available');
-    profile_picture.value = props.data.media_info.profile_picture?.url || defaultProfilePicture;
-  } else {
-    console.log('media not available');
-    profile_picture.value = defaultProfilePicture;
-  }
-  const fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
-  console.log(fullBio)
-  bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
-  console.log(bio.value)
-  seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
-  isBioExpanded.value = false
+    // Set profile picture when props.data becomes available
+    if (props.data && props.data.media_info) {
+        console.log('media available');
+        profile_picture.value = props.data.media_info.profile_picture?.url || defaultProfilePicture;
+    } else {
+        console.log('media not available');
+        profile_picture.value = defaultProfilePicture;
+    }
+    const fullBio = props.data.bio || ''; // This ensures fullBio is at least an empty string
+    console.log(fullBio)
+    bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
+    console.log(bio.value)
+    seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
+    isBioExpanded.value = false
+
+
 });
 
 
-const toggleText = () =>{
-     isBioExpanded.value = !isBioExpanded.value;
-     if(isBioExpanded.value){
+const toggleText = () => {
+    isBioExpanded.value = !isBioExpanded.value;
+    if (isBioExpanded.value) {
         bio.value = props.data.bio;
-        expandBtnName.value ='See Less'
-    }else{
+        expandBtnName.value = 'See Less'
+    } else {
         bio.value = props.data.bio.substring(0, 100) + '...';
-        expandBtnName.value ='See More'
+        expandBtnName.value = 'See More'
     }
 
 }
+
+const loadCountries = async () => {
+    try {
+        country_codes.value = await loadCountryList();
+    } catch (err) {
+        console.error('Error loading country codes:', err);
+    }
+};
 </script>
 
 <style scoped>
