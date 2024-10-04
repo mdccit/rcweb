@@ -273,6 +273,8 @@ const fetchUserDetails = async () => {
             name: name.value,
             sportName: sportName.value,
             media_info: dataSets.media_info,
+            phone:phone.value,
+            phoneCode:phoneCode.value
 
         }
 
@@ -342,9 +344,9 @@ const setGalleryItems = (mediaInfo) => {
 const fetchPost = async () => {
     try {
         const response = await $feedService.list_posts({});
-        const filteredData = response.filter(item => item.user_id === playerID.value);
-        posts.value = filteredData || [];
-
+        const filteredData = response.data.filter(item => item.user_id === playerID.value);
+       // posts.value = filteredData || [];
+       posts.value = response.data || [];
     } catch (error) {
         console.error('Failed to load posts:', error.message);
     }

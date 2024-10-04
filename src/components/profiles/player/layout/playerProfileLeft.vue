@@ -82,9 +82,8 @@
                     <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{props.data.email}}</b> </p>
                 </div>
             </div>
-            <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
-            </div> 
-            <div v-if="loggedUserSlug == props.userSlug" class="grid grid-cols-10">
+           
+            <div v-if="userRole == 'coach' || loggedUserSlug == props.userSlug"  class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                         stroke="currentColor" class="size-5">
@@ -94,7 +93,7 @@
                 </div>
                 <div class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4"> <b>{{ props.data.phoneCode }} {{
-                        phone }}</b> </p>
+                        props.data.phone }}</b> </p>
                 </div>
             </div>
 
@@ -116,6 +115,7 @@
                 </div>
                 <div class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4 ">
+                        
                         <span v-if="props.data.weight != 'User has not entered weight'">
                             {{ Number(props.data.pounds)
                             }}

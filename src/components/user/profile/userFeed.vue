@@ -54,8 +54,8 @@
                   </div>
                   
                 </div>
-                <!-- <div>
-                  <button v-if="post.user_id == userId"
+                 <div>
+                  <button  v-if="post.user_id == userId"
                   :id="'post-button-' + post.id"
                   :aria-labelledby="'post-dropdown-' + post.id"
                   data-dropdown-toggle="'post-dropdown-' + post.id"
@@ -81,7 +81,7 @@
                     />
                   </svg>
                 </button>
-                <div  v-if="model_id ==post.id" id="post-dropdown" class="z-10  bg-white rounded-lg shadow w-30 absolute">
+               <div  v-if="model_id ==post.id" id="post-dropdown" class="z-10  bg-white rounded-lg shadow w-30 absolute">
                   <ul class="py-2 text-sm"    >
                     <li class="text-black">
                       <button type="buttton" @click="postEditingShow(post.id, post.description)" class="block px-4 py-2 hover:bg-lightGray flex">
@@ -103,9 +103,10 @@
                       Delete</button>
                     </li>
                   </ul>
-                </div>  -->
+                </div> 
                 </div>
-                
+                </div>
+
               </div>
                 
                 <!-- Display only for the school - end -->
@@ -114,15 +115,15 @@
                   {{ post.title }}
                 </h3>
                 <div class="basis-full flex flex-col  ">
-                <p  class="mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
-                <!-- <textarea v-else  type="text" placeholder="Write your thoughts..." v-model="editPost"
+                <p  v-if="!editingPostId || editingPostId !== post.id" class="mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
+                <textarea v-else  type="text" placeholder="Write your thoughts..." v-model="editPost"
                    class="mt-4 text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 ">
                     
                    </textarea>
-                  </div>
+                  <!-- </div> -->
                   <button v-if="editingPostId == post.id" @click="startEditPost(post.id)" class="mt-2 bg-steelBlue hover:bg-darkAzureBlue transition text-white px-8 py-2 rounded-lg text-sm">
                      Edit     
-                  </button> -->
+                  </button>
 
               </div>
             </div>
@@ -203,7 +204,9 @@
   const likeButton = ref(false)
   const emit = defineEmits(['profileView','listpost']);
   const newComment = ref('');
-
+  const editPost = ref('')
+  const model_id = ref('');
+  const editingPostId = ref(null)
   const props = defineProps({
       posts: Array
    });
@@ -309,6 +312,52 @@ const likePost = async (post_id, post) => {
     router.push({
       path: '/user/post/' + post_id,
     });
+  }
+
+  const postEditingShow = (post_id, description) => {
+    model_id.value = ""
+    editingPostId.value = post_id
+  
+    editPost.value = description.replace(/<br>/g, '\n');
+  
+  }
+  
+  const startEditPost = async (post_id) => {
+    editingPostId.value = null
+    try {
+      //nprogress.start();
+      model_id.value = ""
+      let htmlText = editPost.value.replace(/\n/g, '<br>');
+      let newValue = {
+        description: htmlText,
+        type: 'post',
+        publisher_type: 'user',
+        title: 'Post',
+      }
+      const response = await nuxtApp.$feedService.update_post(post_id, newValue);
+      emit('listpost')
+    } catch (error) {
+      console.error('Failed to fetch comments:', error.message);
+    }finally{
+      //nprogress.done();
+    }
+  }
+
+  const modelShow = (post_id) => {
+    model_id.value = post_id
+  }
+
+  const postDelete = async (post_id) => {
+    try {
+      //nprogress.start();
+      model_id.value = ""
+      const response = await nuxtApp.$feedService.delete_post(post_id);
+      loadPosts();
+    } catch (error) {
+      console.error('Failed to fetch comments:', error.message);
+    }finally{
+     // nprogress.done();
+    }
   }
 
   </script>
