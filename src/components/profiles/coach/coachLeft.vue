@@ -160,7 +160,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive } from 'vue';
+import { ref, onMounted, reactive,watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
@@ -210,6 +210,19 @@ const props = defineProps({
 
 const userRole = ref('');
 const loadedData = ref('');
+watch(
+  () => props.data,
+  () => {
+    setBio() 
+  }
+);
+
+const setBio = () =>{
+    let fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
+    bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
+    seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
+    isBioExpanded.value = false
+}
 
 // Define reactive state for all modals
 const modals = reactive({
@@ -308,10 +321,10 @@ onMounted(() => {
     if (process.client) {
         loggedUserSlug.value = localStorage.getItem('user_slug')
     }
-    const fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
-    bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
-    seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
-    isBioExpanded.value = false
+    // const fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
+    // bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
+    // seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
+    // isBioExpanded.value = false
 
 });
 
