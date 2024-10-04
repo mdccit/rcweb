@@ -87,21 +87,8 @@
            
             <div v-if="userRole == 'coach' || loggedUserSlug == props.userSlug"  class="grid grid-cols-10">
             </div> -->
-            <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
-            </div>
-            <div v-if="loggedUserSlug == props.userSlug" class="grid grid-cols-10">
-                <div class="col-span-2 mx-auto" @click="toggleModal('info')">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor" class="size-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
-                    </svg>
-                </div>
-                <div class="col-span-8">
-                    <p class="text-sm text-black leading-relaxed mb-4"> <b>{{ props.data.phoneCode }} {{
-                        props.data.phone }}</b> </p>
-                </div>
-            </div>
+            
+           
 
             <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
@@ -218,20 +205,18 @@
                     <p class="text-sm text-black leading-relaxed mb-4 break-all"> {{ props.data.email }} </p>
                 </div>
             </div>
-            <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
-            </div>
-            <div v-if="loggedUserSlug == props.userSlug" class="grid grid-cols-10">
+           
+            <div v-if="userRole == 'coach' || userRole == 'admin' || loggedUserSlug == props.userSlug" class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-5">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
                     </svg>
-
                 </div>
                 <div class="col-span-8">
-                    <p class="text-sm text-black leading-relaxed mb-4"> {{ props.data.phoneCode }} {{
-                        phone }} </p>
+                    <p class="text-sm text-black leading-relaxed mb-4"> <b>{{ props.data.phoneCode }} {{
+                        props.data.phone }}</b> </p>
                 </div>
             </div>
         </div>
@@ -604,6 +589,8 @@ onMounted(() => {
 
 
 });
+
+
 
 
 const toggleText = () => {
