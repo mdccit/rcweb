@@ -7,7 +7,7 @@
                         <path d="M15 6l-6 6l6 6"></path>
                     </svg>
                 </NuxtLink>
-                <h2 class="font-bold text-lg self-center text-black"> Editing </h2>
+                <h2 class="font-bold text-lg self-center text-black"> Editing    {{  name }}</h2>
             </div>
             <div>
                 <a href="https://qa1.recruited.qualitapps.com/app/business/9c7d0c22-c388-4383-8da0-4d83319cf4ba">
@@ -182,11 +182,11 @@ const notificationKey = ref(0);
 const fetchBusinessDetails = async () => {
   try {
     const data = await $adminService.get_business_details(business_id.value);
-    business_id.value = data.id;
-    name.value = data.name;
-    bio.value = data.bio;
-    is_verified.value = data.is_verified === 1;
-    is_approved.value = data.is_approved === 1;
+    business_id.value = data.business_info.id;
+    name.value = data.business_info.name;
+    bio.value = data.business_info.bio;
+    is_verified.value = data.business_info.is_verified === 1;
+    is_approved.value = data.business_info.is_approved === 1;
   } catch (error) {
     console.error('Error fetching business details:', error.message);
   }
