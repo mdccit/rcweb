@@ -95,7 +95,7 @@ const files = ref([]); // To hold the uploaded files
 const loggedUserSlug = ref('');
 const loadingStates = ref({});
 
-const emit = defineEmits(['uploadMedia']); // Define the event
+const emit = defineEmits(['uploadCompleted']); // Define the event
 
 const loading = ref(false);
 
@@ -137,6 +137,7 @@ const removeMediaItem = async (media_id, event) => {
       loading.value = false;
       nuxtApp.$notification.triggerNotification(response.display_message, 'success');
       fetchGalleryBySlug(); // Refresh gallery after deletion
+      emit('uploadCompleted');
     } else {
       loading.value = false;
       nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
@@ -263,7 +264,10 @@ onMounted(() => {
 
   if (process.client) {
     loggedUserSlug.value = localStorage.getItem('user_slug');
+
+    if(props.userSlug) {
     fetchGalleryBySlug();
+    }
   }
 });
 </script>
