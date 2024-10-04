@@ -231,6 +231,8 @@ const updateBusinessDetails = async () => {
     } else {
         triggerNotification(response.display_message, 'failure');
     }
+    fetchBusinessDetails();
+
   } catch (error) {
     console.error('Error updating business:', error.message);
   }
@@ -320,9 +322,7 @@ const updateBusinessProfile = async () => {
         return;
     }
     try {
-        const response = await $adminService.business_profile(business_id.value,{
-            file:profile_image.value
-        });
+        const response = await $adminService.business_profile(business_id.value,profile_image.value);
    
     } catch (error) {
         console.log(error) 
@@ -336,9 +336,7 @@ const updateBusinessCover = async () => {
         return;
     }
     try {
-        const response = await $adminService.business_cover(business_id.value,{
-            file:cover_image.value
-        });
+        const response = await $adminService.business_cover(business_id.value,cover_image.value);
 
     } catch (error) {
         console.log(error) 
