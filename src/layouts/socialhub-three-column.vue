@@ -9,10 +9,11 @@
           <!-- Left pane -->
           <div>
             <!-- <Filter /> -->
-             <transfer-tracker-left-bar />
+             <!-- <transfer-tracker-left-bar /> -->
              <!-- <NetworkLeft /> -->
             <Filter v-if="route.meta.showFilterLeft" />
             <!-- <resources-left-bar /> -->
+             <!-- <userSettingLeftBar /> -->
           </div>
 
           <!-- Middle pane -->
@@ -24,7 +25,7 @@
           <!-- Right pane -->
           <div>
             <!-- <Filter /> -->
-             <transfer-tracker-right-bar />
+             <!-- <transfer-tracker-right-bar /> -->
           </div>
         </div>
       </div>
@@ -60,6 +61,7 @@ import TransferTrackerLeftBar from '~/components/user/transferTrackerLeftBar.vue
 import TransferTrackerRightBar from '~/components/user/transferTrackerRightBar.vue';
 import NetworkLeft from '~/components/user/networkLeft.vue';
 import ResourcesLeftBar from '~/components/user/resourcesLeftBar.vue';
+import userSettingLeftBar from '~/components/user/userSettingLeftBar.vue';
 
 
 defineNuxtRouteMiddleware(checkSession);
