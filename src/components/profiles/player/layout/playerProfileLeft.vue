@@ -264,12 +264,14 @@
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/images/pin.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2 mx-auto">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3"><span
-                            v-if="userRole == 'coach' || userRole == 'admin'"> {{ props.data.addressLine01 }} {{
-                                props.data.addressLine02 }} {{ props.data.stateProvince }}</span>
-                        {{ props.data.city }} , {{
-                            props.data.country }}
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">
+                        <span v-if="userRole == 'coach' || userRole == 'admin'">
+                            {{ props.data.addressLine01 }} {{ props.data.addressLine02 }} {{ props.data.stateProvince }}
+                        </span>
+                        {{ props.data.city }}
+                        <span v-if="props.data.country">, </span>{{ props.data.country }}
                     </p>
+
 
                 </div>
                 <div class="col-span-1" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
@@ -330,6 +332,7 @@ import BioModal from '~/components/profiles/player/modals/bioModal.vue';
 import InfoModal from '~/components/profiles/player/modals/infoModal.vue';
 import BudgetModal from '~/components/profiles/player/modals/budgetModal.vue';
 import AddressModal from '~/components/profiles/player/modals/addressModal.vue';
+import { loadCountryList } from '~/services/commonService';
 // Import the default profile picture
 import defaultProfilePicture from '@/assets/images/user.png';
 
@@ -421,7 +424,9 @@ const isEdit = ref('');
 const isBioExpanded = ref(false);
 const seeMoreBtnHide = ref(false);
 const bio = ref('')
-const expandBtnName = ref('See More')
+const expandBtnName = ref('See More');
+const country_codes = ref([]);
+
 
 // Define reactive state for all modals
 const modals = reactive({
@@ -489,11 +494,21 @@ const fetchUserDetails = async (slug) => {
         }
 
         if (dataSets.user_address_info) {
-            props.data.country = dataSets.user_address_info.country ?? 'User has not entered country'
             props.data.city = dataSets.user_address_info.city ?? 'User has not entered city'
             props.data.addressLine01 = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
             props.data.addressLine02 = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
             props.data.stateProvince = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
+        }
+
+        // if (dataSets.user_basic_info) {
+        //         props.data.country = dataSets.user_basic_info.country_id
+        // }
+
+        if (dataSets.user_basic_info) {
+            const country = country_codes.value.find(c => c.value === dataSets.user_basic_info.country_id);
+            if (country) {
+                props.data.country = country.label;
+            }
         }
 
         if (dataSets.user_phone_info) {
@@ -561,6 +576,9 @@ onMounted(() => {
     userRole.value = userStore.user?.role || null;
     slug.value = props.userSlug;
 
+
+    loadCountries();
+
     if (process.client) {
         loggedUserSlug.value = localStorage.getItem('user_slug')
     }
@@ -579,6 +597,8 @@ onMounted(() => {
     console.log(bio.value)
     seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
     isBioExpanded.value = false
+
+
 });
 
 
@@ -593,6 +613,14 @@ const toggleText = () => {
     }
 
 }
+
+const loadCountries = async () => {
+    try {
+        country_codes.value = await loadCountryList();
+    } catch (err) {
+        console.error('Error loading country codes:', err);
+    }
+};
 </script>
 
 <style scoped>

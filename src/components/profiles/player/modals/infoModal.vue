@@ -304,7 +304,6 @@ onMounted(async () => {
         loadNationalities(),
         loadGenders(),
         loadHandness(),
-        fetchPlayerInfo(),
 
     ]);
 });
@@ -413,10 +412,11 @@ const saveInfo = async () => {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
         }
-    } catch (error) {
-        loading.value = false;
+    } catch (error) {       
         //   nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
+    } finally{
+        loading.value = false;
     }
 };
 
