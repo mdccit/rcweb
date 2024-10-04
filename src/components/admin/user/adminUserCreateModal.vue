@@ -22,16 +22,6 @@
                 <!-- Modal Body -->
                 <div class="p-6 space-y-6">
 
-                    <!-- Display error messages -->
-                    <div v-if="errors.length" class="error-messages">
-                        <p class="error-title">Validation Errors:</p>
-                        <ul class="error-list">
-                            <li v-for="(error, index) in splitErrors" :key="index" class="error-item">
-                                {{ error }}
-                            </li>
-                        </ul>
-                    </div>
-
                     <!-- Form Fields -->
                     <div class="flex">
                         <div class="w-1/2">
@@ -42,6 +32,7 @@
                                 <input type="text" id="first_name" v-model="first_name"
                                     class=" bg-transparent text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500 "
                                     placeholder="Enter Name" />
+                                <InputError :error="errors.first_name ? errors.first_name.join(', ') : ''" />
                             </div>
                         </div>
                         <div class="w-1/2">
@@ -52,6 +43,8 @@
                                 <input type="text" id="last_name" v-model="last_name"
                                     class="bg-transparent text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500"
                                     placeholder="Enter Name" />
+                                <InputError :error="errors.last_name ? errors.last_name.join(', ') : ''" />
+
                             </div>
                         </div>
                     </div>
@@ -61,6 +54,7 @@
                         <input type="email" id="email" v-model="email"
                             class="bg-transparent text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500"
                             placeholder="Enter Email" />
+                        <InputError :error="errors.email ? errors.email.join(', ') : ''" />
 
                         <div class="flex items-end text-right mt-2">
                             <input checked id="checked-checkbox" type="checkbox" value=""
@@ -69,6 +63,8 @@
                             <label for="checked-checkbox"
                                 class="ms-2 text-sm font-normal text-gray-600 light:text-gray-300">Set email
                                 verified</label>
+                            <InputError
+                                :error="errors.is_set_email_verified ? errors.is_set_email_verified.join(', ') : ''" />
                         </div>
                     </div>
 
@@ -81,6 +77,7 @@
                                 <input type="password" id="password" v-model="password"
                                     class="bg-transparent text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500"
                                     placeholder="Enter password" />
+                                <InputError :error="errors.password ? errors.password.join(', ') : ''" />
                             </div>
                         </div>
                         <div class="w-1/2">
@@ -91,6 +88,8 @@
                                 <input type="password" id="password_confirmation" v-model="password_confirmation"
                                     class="bg-transparent text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500"
                                     placeholder="Confirm password" />
+                                <InputError
+                                    :error="errors.password_confirmation ? errors.password_confirmation.join(', ') : ''" />
                             </div>
                         </div>
                     </div>
@@ -110,43 +109,39 @@
                             <option value="6">Business Manager</option>
                             <option value="7">Parent</option>
                         </select>
+                        <InputError :error="errors.user_role ? errors.user_role.join(', ') : ''" />
                     </div>
 
 
                     <div>
                         <div class="grid grid-cols-2 gap-3 items-center">
-                          <div>
-                            <!-- Label for Phone Number -->
-                            <label for="phone_code_country" class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">
-                              Phone Number
-                            </label>
-                    
-                            <!-- Country Code and Phone Number in One Column -->
-                            <div class="flex space-x-2">
-                              <!-- Country Code Dropdown -->
-                              <ModalCountryCodeDropdown 
-                                :country_codes="country_codes" 
-                                v-model="phone_code_country"
-                                name="phone_code_country" 
-                                data-validation-key="player_phone_code"
-                                class="w-1/3 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 light:bg-gray-600 light:border-gray-600 dark:placeholder-gray-600 light:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                :disabled="props.action === 'view'" 
-                              />
-                    
-                              <!-- Phone Number Input -->
-                              <input 
-                                type="text" 
-                                id="phone_number" 
-                                v-model="phone_number"
-                                class="w-2/3 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 light:bg-gray-600 light:border-gray-600 dark:placeholder-gray-600 light:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Number" 
-                                required 
-                                :disabled="props.action === 'view'" 
-                              />
+                            <div>
+                                <!-- Label for Phone Number -->
+                                <label for="phone_code_country"
+                                    class="block mb-2 text-sm font-normal text-gray-900 light:text-gray">
+                                    Phone Number
+                                </label>
+
+                                <!-- Country Code and Phone Number in One Column -->
+                                <div class="flex space-x-2">
+                                    <!-- Country Code Dropdown -->
+                                    <ModalCountryCodeDropdown :country_codes="country_codes"
+                                        v-model="phone_code_country" name="phone_code_country"
+                                        data-validation-key="player_phone_code"
+                                        class="w-1/3 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 light:bg-gray-600 light:border-gray-600 dark:placeholder-gray-600 light:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        :disabled="props.action === 'view'" />
+                                    <InputError
+                                        :error="errors.phone_code_country ? errors.phone_code_country.join(', ') : ''" />
+
+                                    <!-- Phone Number Input -->
+                                    <input type="text" id="phone_number" v-model="phone_number"
+                                        class="w-2/3 border h-12 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 light:bg-gray-600 light:border-gray-600 dark:placeholder-gray-600 light:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Number" required :disabled="props.action === 'view'" />
+                                    <InputError :error="errors.phpne_number ? errors.phone_number.join(', ') : ''" />
+                                </div>
                             </div>
-                          </div>
                         </div>
-                      </div>
+                    </div>
 
                 </div>
                 <!-- Modal Footer -->
@@ -178,6 +173,8 @@ import { loadCountryList } from '~/services/commonService';
 import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
 import ModalCountryCodeDropdown from '~/components/common/select/ModalCountryCodeDropdown.vue';
 
+import { handleError } from '@/utils/handleError';
+import InputError from '@/components/common/input/InputError.vue';
 
 const first_name = ref('');
 const last_name = ref('');
@@ -189,9 +186,16 @@ const password_confirmation = ref('');
 const phone_code_country = ref('');
 const phone_number = ref('');
 const error = ref('');
-const successMessage = ref('');
-const errors = ref([]);
 const country_codes = ref([]);
+
+const errors = ref({});
+const authType = ref('');
+const notification_type = ref('');
+const successMessage = ref('');
+const showNotification = ref(false);
+const notificationMessage = ref('');
+const loading = ref(false);
+
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -202,7 +206,6 @@ const modalRef = ref(null);
 const emit = defineEmits(['close']);
 defineExpose({ clearForm });
 
-
 // Function to open the modal
 const openModal = () => {
     modalRef.value.openModal();
@@ -211,10 +214,6 @@ const openModal = () => {
 onMounted(() => {
     loadCountryCodes();
 });
-
-
-// Computed property to split error messages by comma
-const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
 
 const modalTitle = computed(() => {
     if (props.action === 'edit') return 'Edit User';
@@ -236,11 +235,15 @@ function handleSubmit() {
 }
 
 const submitRegistration = async () => {
-    console.log('submitting');
-    errors.value = [];
+    error.value = '';
+    errors.value = {};
+    loading.value = true;
+    notification_type.value = '';
+    notificationMessage.value = '';
+    showNotification.value = false;
+
     if (password.value !== password_confirmation.value) {
-        errors.value.push('Passwords do not match');
-        console.log(error.value);
+        nuxtApp.$notification.triggerNotification('Passwords do not match', 'warning');
         return;
     }
     try {
@@ -257,20 +260,16 @@ const submitRegistration = async () => {
         });
 
         if (response.status === 200) {
-            successMessage.value = response.display_message;
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
         } else {
-            errors.value.push(response.data.display_message);
+            console.log('eerere');
+            nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
         }
-    } catch (err) {
-        if (err.response?.data?.message) {
-            if (Array.isArray(err.response.data.message)) {
-                errors.value = err.response.data.message;
-            } else {
-                errors.value = [err.response.data.message];
-            }
-        } else {
-            errors.value = [err.response?.data?.message || err.message];
-        }
+    } catch (error) {
+        console.log('emialdfakfalkjf');
+        handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
+    } finally {
+        loading.value = false;
     }
 };
 
@@ -301,9 +300,9 @@ function clearForm() {
     email.value = '';
     password.value = '';
     password_confirmation.value = '';
-    user_role.value = '';
+    user_role.value = null;
     phone_code_country.value = '';
-    phone_number.value = '';
+    phone_number.value = null;
     is_set_email_verified.value = false;
     errors.value = [];
 }
