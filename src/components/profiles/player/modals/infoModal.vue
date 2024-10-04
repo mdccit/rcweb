@@ -299,12 +299,22 @@ const fetchPlayerInfo = async () => {
       if (dataSets.player_info.height) {
         height_in_cm.value = true; // Assuming height is stored in cm
         height_cm.value = parseFloat(dataSets.player_info.height); // Convert height to cm if available
+        if(height_cm.value){
+            let totalFeet = (height_cm.value / 30.48).toFixed(2);
+             height_ft.value = Math.floor(totalFeet);
+             height_in.value = Math.floor((totalFeet - height_ft.value) * 12)
+        }
       }
 
       // Set Weight
       if (dataSets.player_info.weight) {
         weight_in_kg.value = true; // Assuming weight is in kg
         weight_kg.value = parseFloat(dataSets.player_info.weight); // Convert weight to kg if available
+        if(weight_kg.value){
+            weight_lb.value = (2.20462 * weight_kg.value).toFixed(2)
+        }
+       
+
       }
 
       // Set Handedness
