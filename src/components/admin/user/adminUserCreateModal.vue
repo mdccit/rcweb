@@ -4,7 +4,7 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
 
         <!-- Modal Content Wrapper -->
-        <div class="relative w-full max-w-md p-4 mx-auto">
+        <div class="relative w-full max-w-lg p-4 mx-auto">
             <!-- Modal Box -->
             <div class="relative bg-white rounded-lg shadow light:bg-gray-700">
                 <!-- Modal Header -->
@@ -20,7 +20,7 @@
                     </button>
                 </div>
                 <!-- Modal Body -->
-                <div class="p-6 space-y-6">
+                <div class="p-6 ">
 
                     <!-- Display error messages -->
                     <div v-if="errors.length" class="error-messages">
