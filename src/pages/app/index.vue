@@ -14,7 +14,7 @@
                 <textarea type="text" placeholder="Write your thoughts..." v-model="newPost.description"
                   class="text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 "> </textarea>
   
-                <p v-if="meesge != ''" class="mt-1 text-sm text-red-600 dark:text-red-500">{{ meesge }}</p>
+                <!-- <p v-if="meesge != ''" class="mt-1 text-sm text-red-600 dark:text-red-500">{{ meesge }}</p> -->
   
                 <div class="flex justify-between items-center mt-2">
                   <div class="flex space-x-2">
@@ -420,7 +420,7 @@
   
     } catch (error) {
       meesge.value = "Input validation failed"
-      nuxtApp.$notification.triggerNotification("Input validation failed", 'failure');
+      nuxtApp.$notification.triggerNotification("Post cannot be empty. Please add content before submitting.", 'failure');
   
       newPost.value = {
         description: '',
