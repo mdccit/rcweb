@@ -22,7 +22,7 @@
                                     </svg>
                                 </button> -->
                 </div>
-                <div v-if="playerId.value != userId.value" class="">
+                <div v-if="playerId != userId" >
                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5 text-blue-500 m-auto">
@@ -32,7 +32,7 @@
 
                     </button>
                 </div>
-                <div v-if="playerId.value != userId.value">
+                <div v-if="playerId != userId">
                     <div class="flex" v-if="buttonHide == false">
                         <button @click="connectAcceptOrConnect"
                            class="bg-blue-500 rounded-full  p-2 m-1 text-white text-xs h-[35px] w-[85px]">

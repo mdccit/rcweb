@@ -101,6 +101,9 @@ import { ref, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { handleError } from '@/utils/handleError';
 import InputError from '@/components/common/input/InputError.vue';
+import { useUserStore } from '~/stores/userStore';
+
+const userStore = useUserStore();
 
 const props = defineProps({
     visible: Boolean,
@@ -183,6 +186,12 @@ const saveProfilePicture = async () => {
     try {
         const user_slug = props.slug; // Assuming you have user_slug available in props
         const response = await $userService.upload_player_profile_picture(profile_picture.value, user_slug); // Call the upload function
+        const data ={
+            url:response.data.url,
+            media_type:response.data.media_type,
+            media_id:response.data.media_id
+        }
+        userStore.setProfilePicture(data)
 
         if (response.status == '200') {
             loading.value = false;

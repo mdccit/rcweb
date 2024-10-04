@@ -183,6 +183,7 @@ const handleSubmit = async () => {
         localStorage.setItem('token', token);
         localStorage.setItem('user_role', user_role);
          // Set the user in the Pinia store
+         userStore.setProfilePicture(response.data.media_info.profile_picture)
          userStore.setUser({
           email: email.value,
           token: response.data.token,

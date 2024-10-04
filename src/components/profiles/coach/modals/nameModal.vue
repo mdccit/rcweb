@@ -184,7 +184,13 @@ const saveProfilePicture = async () => {
     try {
         const user_slug = props.slug; // Assuming you have user_slug available in props
         const response = await $userService.upload_coach_profile_picture(profile_picture.value, user_slug); // Call the upload function
-
+        const data ={
+            url:response.data.url,
+            media_type:response.data.media_type,
+            media_id:response.data.media_id
+        }
+        userStore.setProfilePicture(data)
+        
         if (response.status == '200') {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
