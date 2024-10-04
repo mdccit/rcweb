@@ -37,7 +37,7 @@
                             <!-- Icon Section -->
                             <div>
                                 <span class="block mb-1 text-gray-700 font-sans">Icon</span>
-                                <div class="mt-2"><img src="/assets/images/business.png" alt="Business profile picture" class="h-20 w-20 rounded-xl"></div>
+                                <div class="mt-2"><img src="@assets/images/business.png" alt="Business profile picture" class="h-20 w-20 rounded-xl"></div>
                                 <div class="flex mt-2 space-x-2">
                                     <div>
                                         <label class="block">
@@ -58,7 +58,7 @@
                             <!-- Cover Section -->
                             <div>
                                 <span class="block mb-1 text-gray-700 font-sans">Cover</span>
-                                <div class="mt-2"><img src="/assets/images/image.svg" alt="placeholder page background" class="h-20 w-20 rounded-xl"></div>
+                                <div class="mt-2"><img src="@assets/images/image.svg" alt="placeholder page background" class="h-20 w-20 rounded-xl"></div>
                                 <div class="flex mt-2 space-x-2">
                                     <div>
                                         <label class="block">

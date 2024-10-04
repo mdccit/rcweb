@@ -37,21 +37,23 @@
                 <div class="flex flex-row gap-16">
                     <div><span class="block mb-1 text-gray-700 font-sans">Icon</span>
                         <div class="mt-2"><img
-                                src="https://qa1.recruited.qualitapps.com/storage/1268/Runway-2023-08-25T14_29_14.957Z-Infinite-Image-flowers.png"
+                                src="@assets/images/business.png"
                                 alt="SchoolAdm1" class="rounded-full h-20 w-20 object-cover"></div>
                         <div class="mt-2" style="display: none;"><span
                                 class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
                                 style="background-image: url(&quot;&quot;);"></span></div>
                         <div class="flex mt-2 space-x-2">
                             <div><label class="block"><a
-                                        class="font-semibold border border-border rounded py-4 px-4 w-full block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center"><svg
+                                        class="font-semibold border border-border rounded py-4 px-4 w-full block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center">
+                                        <svg
                                             class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24"
                                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
                                             <path d="M7 9l5 -5l5 5"></path>
                                             <path d="M12 4l0 12"></path>
-                                        </svg> Select A New Photo <input name="icon" type="file"
+                                        </svg>
+                                         Select A New Photo <input name="icon" type="file"
                                             data-validation-key="icon"
                                             class="invisible absolute inset-0 w-full h-full disabled:opacity-50"></a></label><!---->
                             </div>
@@ -59,7 +61,7 @@
                     </div>
                     <div><span class="block mb-1 text-gray-700 font-sans">Cover</span>
                         <div class="mt-2"><img
-                                src="https://qa1.recruited.qualitapps.com/storage/1269/_02efbcf9-8b15-4937-ba71-523f0e7fe566.jpeg"
+                                src="@assets/images/image.svg"
                                 alt="School page background" class="rounded-full h-20 w-20 object-cover"></div>
                         <div class="mt-2" style="display: none;"><span
                                 class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
@@ -281,10 +283,11 @@ const fetchSchoolDetails = async (school_id) => {
     errors.value = [];
     try {
         const data = await $adminService.get_school_details(school_id);
+        console.log(data)
         name.value = data.school_info.name || '';
         bio.value = data.school_info.bio || '';
-        conference.value = data.school_info.conference || '';
-        division.value = data.school_info.division || '';
+        conference.value = data.school_info.conference_id || '';
+        division.value = data.school_info.division_id || '';
         // Convert 0/1 to boolean for form fields
         is_verified.value = data.school_info.is_verified === 1;
         is_approved.value = data.school_info.is_approved === 1;
