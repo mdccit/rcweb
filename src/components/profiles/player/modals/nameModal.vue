@@ -66,10 +66,11 @@
                                         </label>
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
                                             <input id="profile_picture" type="file" @change="handleFileChange"
-                                            accept="image/jpeg, image/png"
+                                                accept="image/jpeg, image/png"
                                                 class="w-full block px-5 py-3 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg">
                                         </div>
-                                        <span v-if="fileError" class="text-red-500">{{ fileError }}</span> <!-- Show validation error -->
+                                        <span v-if="fileError" class="text-red-500">{{ fileError }}</span>
+                                        <!-- Show validation error -->
                                     </div>
 
                                 </div>
@@ -139,30 +140,30 @@ watch(() => props.visible, (newVal) => {
 
 
 const handleFileChange = (event) => {
-  const file = event.target.files[0];
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-  const maxSize = 30 * 1024 * 1024; // 30MB
+    const file = event.target.files[0];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    const maxSize = 30 * 1024 * 1024; // 30MB
 
-  // Check if a file is selected
-  if (file) {
-    // Validate the file type
-    if (!allowedTypes.includes(file.type)) {
-      fileError.value = 'Only jpg, jpeg, and png files are allowed';
-      event.target.value = ''; // Clear the file input
-      return;
+    // Check if a file is selected
+    if (file) {
+        // Validate the file type
+        if (!allowedTypes.includes(file.type)) {
+            fileError.value = 'Only jpg, jpeg, and png files are allowed';
+            event.target.value = ''; // Clear the file input
+            return;
+        }
+
+        // Validate the file size
+        if (file.size > maxSize) {
+            fileError.value = 'File size must be less than 30MB';
+            event.target.value = ''; // Clear the file input
+            return;
+        }
+
+        // If all validations pass, set the file to the reactive variable
+        fileError.value = ''; // Clear any previous errors
+        profile_picture.value = file; // Store the selected file
     }
-
-    // Validate the file size
-    if (file.size > maxSize) {
-      fileError.value = 'File size must be less than 30MB';
-      event.target.value = ''; // Clear the file input
-      return;
-    }
-
-    // If all validations pass, set the file to the reactive variable
-    fileError.value = ''; // Clear any previous errors
-    profile_picture.value = file; // Store the selected file
-  }
 };
 
 
@@ -225,7 +226,6 @@ const updatePlayerNames = async (firstName, lastName, otherNames) => {
         if (response.status == '200') {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
-            emit('close', 'name'); // Emit close event after successfully updating the names
         } else {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
@@ -238,8 +238,15 @@ const updatePlayerNames = async (firstName, lastName, otherNames) => {
 };
 
 // Save names when the user clicks "Save changes"
-const saveName = () => {
-    saveProfilePicture();
-    updatePlayerNames(first_name.value, last_name.value, other_names.value); // Call the API to update the player's names
+const saveName = async () => {
+
+    try {
+        await saveProfilePicture();
+        await updatePlayerNames(first_name.value, last_name.value, other_names.value); // Call the API to update the player's names
+        emit('close', 'name'); // Emit close event after successfully updating the names
+    } catch (error) {
+        console.error('Error during save process:', error);
+    }
+
 };
 </script>

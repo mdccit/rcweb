@@ -260,8 +260,6 @@ onMounted(async () => {
         loadNationalities(),
         loadGenders(),
         loadHandness(),
-        fetchPlayerInfo(),
-
     ]);
 });
 
