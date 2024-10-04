@@ -1,5 +1,7 @@
 <template>
     <div>
+      <div id="dataContainer" class="infinite-scroll-container" >
+
         <div v-for="post in props.posts" :key="post.id" 
           class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-5 mt-3">
           <div class="flex items-start space-x-4">
@@ -181,11 +183,14 @@
               </div>
           </div>                
         </div>
+        </div>
+        <div v-if="isLoading" class="loading">Loading more...</div>
+
     </div>
   </template>
   
   <script setup>
-  import { defineProps, defineEmits, defineExpose,ref, onMounted} from 'vue';
+  import { defineProps, defineEmits, defineExpose,ref, onMounted,watch} from 'vue';
   import { useRouter } from 'vue-router';
   import { useUserStore } from '~/stores/userStore'
   import { useNuxtApp } from '#app';
@@ -203,21 +208,33 @@
   const likeButton = ref(false)
   const emit = defineEmits(['profileView','listpost']);
   const newComment = ref('');
+  const isLoading = ref(false)
 
   const props = defineProps({
-      posts: Array
+      posts: Array,
+      commentHidden:Array
    });
+
+   watch(
+  () => props.commentHidden,
+  () => {
+    setCommentHiden() 
+  }
+);
+
+const setCommentHiden = () =>{
+  isHidddenComment.value = props.commentHidden
+}
 onMounted(async () => {
   userId.value = userStore.user.user_id
   userRole.value = userStore.user.role
-  const idsArray = [];
+  // const idsArray = [];
 
-     for (const post of props.posts) {
-        idsArray[post.id] = false
-      }
-      isHidddenComment.value = idsArray
-      console.log(7458)
-      console.log( isHidddenComment.value)
+    //  for (const post of props.posts) {
+    //     idsArray[post.id] = false
+    //   }
+    //   isHidddenComment.value = idsArray
+    window.addEventListener('scroll', onScroll);
 
 });
 
@@ -310,7 +327,16 @@ const likePost = async (post_id, post) => {
       path: '/user/post/' + post_id,
     });
   }
-
+  const onScroll = async(event) => {
+      isLoading.value = true
+      const container = document.getElementById('dataContainer');
+       if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+          
+            await emit('listpost')
+            
+       }
+       isLoading.value =false
+    }
   </script>
 
 <style scoped>

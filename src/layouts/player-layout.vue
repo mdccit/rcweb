@@ -17,7 +17,7 @@
         </div>
         <div class="col-start-2 col-span-4 bg-brown-500">
           <!-- Content changes based on the selected tab -->
-          <UserFeed v-if="tab === 'feed'" :posts="posts" @listpost="fetchPost"/>
+          <UserFeed v-if="tab === 'feed'" :posts="posts" @listpost="loadInitfintePost" :commentHidden="isHidddenComment"/>
           <Connection v-if="tab === 'connection'" :playerId="playerID" @profileView="redirectPage" />
           <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
 
@@ -133,7 +133,9 @@ const props = defineProps({
         required: true,
     },
 });
-
+const currentPage = ref(1)
+const lastPage  =ref('')
+const isHidddenComment = ref([])
 
 onMounted(() => {
     slug.value = route.params.slug;
@@ -149,9 +151,10 @@ onMounted(() => {
 
     if (playerID.value != null) {
         // fetchConnections();
-        fetchPost();
+       // fetchPost();
         //  fetchCheckConnection();
         // fetchMediaGallery();
+        loadInitfintePost()
     }
 });
 
@@ -339,16 +342,37 @@ const setGalleryItems = (mediaInfo) => {
     });
 };
 
-const fetchPost = async () => {
-    try {
-        const response = await $feedService.list_posts({});
-        const filteredData = response.filter(item => item.user_id === playerID.value);
-        posts.value = filteredData || [];
+// const fetchPost = async () => {
+//     try {
+//         const response = await $feedService.list_posts({});
+//         const filteredData = response.filter(item => item.user_id === playerID.value);
+//         posts.value = filteredData || [];
 
+//     } catch (error) {
+//         console.error('Failed to load posts:', error.message);
+//     }
+// }
+
+const loadInitfintePost = async () =>{
+    try {
+      //  isLoading.value = true;
+      const response = await $feedService.list_posts(currentPage.value);
+     // const filteredData = response.filter(item => item.user_id === playerID.value);
+       posts.value.push(...response.data);
+
+      lastPage.value =response.last_page
+      currentPage.value =response.current_page +1
+      const idsArray = [];
+      for (const post of posts.value) {
+        idsArray[post.id] = false
+      }
+      isHidddenComment.value = idsArray
+      //  isLoading.value = false;
     } catch (error) {
-        console.error('Failed to load posts:', error.message);
+      // isLoading.value = false;
+      console.error('Failed to load posts:', error.message);
     }
-}
+  }
 
 const redirectPage = (url) =>{
     router.push({

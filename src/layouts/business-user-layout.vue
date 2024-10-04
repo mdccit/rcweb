@@ -6,27 +6,25 @@
   </div>
 
   <main>
-    <NavBarPublic></NavBarPublic>
-    <div class="grid grid-cols-6 grid-rows-2 gap-0 mt-16">
-      <div class="col-span-6 row-start-1 row-end-2s">
-        <BusinessUserCover :data="businessUserData" @changeTab="setSelectedTab" :businessUserId="businessUserId"
-          :userSlug="route.params.slug" />
-      </div>
-      <div class="col-start-1 col-end-2 row-start-2 row-end-3">
-        <BusinessUserLeft :data="businessUserData" :userSlug="route.params.slug" />
-      </div>
-      <div class="col-start-6 col-end-7 row-start-2 row-end-3">
-        <BusinessUserRight :data="businessUserData" :userSlug="route.params.slug" />
-      </div>
-      <div class="col-start-2 col-end-6 row-start-2 row-end-3">
-        <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="fetchPost" />
-        <Connection v-if="tab === 'connection'" :playerId="businessUserId" @profileView="redirectPage" />
-        <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug"
-          @uploadMedia="fetchUserDetailsBySlug" />
-      </div>
-    </div>
-  </main>
-  <FooterPublic></FooterPublic>
+        <NavBarPublic></NavBarPublic>
+        <div class="grid grid-cols-6 grid-rows-2 gap-0 mt-16">
+            <div class="col-span-6 row-start-1 row-end-2s">
+                <BusinessUserCover :data="businessUserData"  @changeTab="setSelectedTab" :businessUserId="businessUserId" :userSlug="route.params.slug" />
+            </div>
+            <div class="col-start-1 col-end-2 row-start-2 row-end-3">
+                <BusinessUserLeft :data="businessUserData" :userSlug="route.params.slug" />
+            </div>
+            <div class="col-start-6 col-end-7 row-start-2 row-end-3"> 
+                <BusinessUserRight :data="businessUserData" :userSlug="route.params.slug" />
+            </div>
+            <div class="col-start-2 col-end-6 row-start-2 row-end-3">
+                <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="loadInitfintePost" :commentHidden="isHidddenComment" />
+                <Connection v-if="tab === 'connection'" :playerId="businessUserId" @profileView="redirectPage"/>
+                <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
+            </div>
+        </div>
+    </main>
+    <FooterPublic></FooterPublic>
 </template>
 
 <script setup>
@@ -76,7 +74,9 @@ const businessSlug = ref('')
 const setSelectedTab = (selectedTab) => {
   tab.value = selectedTab;
 };
-
+const currentPage = ref(1)
+const lastPage  =ref('')
+const isHidddenComment = ref([])
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
   showNotification.value = nuxtApp.$notification.showNotification.value;
@@ -91,30 +91,65 @@ const closeNotification = () => {
 
 onMounted(() => {
 
-  fetchBusinessUserDatils();
-  fetchConnections();
-  fetchPost();
-  fetchUserDetailsBySlug()
+    fetchBusinessUserDatils();
+    fetchConnections();
+   // fetchPost();
+    fetchUserDetailsBySlug()
 
 });
 
 const fetchBusinessUserDatils = async () => {
-  try {
-    const dataSets = await $publicService.get_business_user(route.params.slug);
-    if (dataSets.user_basic_info) {
-      businessUserId.value = dataSets?.user_basic_info?.id || '';
-      bio.value = dataSets.user_basic_info.bio || 'User has not entered bio'
-      name.value = dataSets.user_basic_info.display_name
-      role.value = dataSets.user_basic_info.user_role
-      const date = new Date(dataSets.user_basic_info.joined_at);
-      const monthNames = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
-      ];
-      const year = date.getFullYear();
-      const month = monthNames[date.getMonth()];
-      const day = date.getDate();
-      joinAt.value = `${year} ${month} ${day}`
+    try {
+        const dataSets = await $publicService.get_business_user(route.params.slug);
+        if (dataSets.user_basic_info) {
+            businessUserId.value = dataSets?.user_basic_info?.id || ''; 
+            bio.value = dataSets.user_basic_info.bio || 'User has not entered bio'
+            name.value = dataSets.user_basic_info.display_name
+            role.value = dataSets.user_basic_info.user_role
+            const date = new Date(dataSets.user_basic_info.joined_at);
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            const year = date.getFullYear();
+            const month = monthNames[date.getMonth()];
+            const day = date.getDate();
+            joinAt.value = `${year} ${month} ${day}`
+        }
+
+        if(dataSets.business_manager_info){
+            position.value = dataSets.business_manager_info.position
+            business.value = dataSets.business_manager_info.business_name
+            businessSlug.value =dataSets.business_manager_info.business_slug 
+        }
+
+        if(dataSets.user_phone_info){
+            country.value = dataSets.user_phone_info.country
+        }   
+        
+        if(dataSets.media_info){
+          profilePicture.value = dataSets.media_info.profile_picture 
+          coverPicture.value =dataSets.media_info.cover_picture
+        }
+        businessUserData.value ={
+            bio: bio.value,
+            country:country.value,
+            name:name.value,
+            role:role.value,
+            business:business.value,
+            position:position.value,
+            joinAt:joinAt.value,
+            slug: route.params.slug,
+            profile: profilePicture.value,
+            cover:coverPicture.value,
+            businessSlug:businessSlug.value
+
+        }
+        loadInitfintePost()
+
+    } catch (error) {
+        console.log(error)
+        console.error('Error fetching data:', error.message);
     }
 
     if (dataSets.business_manager_info) {
@@ -201,16 +236,37 @@ const fetchConnections = async () => {
   // }
 }
 
-const fetchPost = async () => {
-  try {
-    const response = await $feedService.list_posts({});
-    const filteredData = response.filter(item => item.user_id === businessUserId.value);
-    posts.value = filteredData || [];
+// const fetchPost = async () => {
+//   try {
+//     const response = await $feedService.list_posts({});
+//     const filteredData = response.filter(item => item.user_id === businessUserId.value);
+//     posts.value = filteredData || [];
+   
+//   } catch (error) {
+//     console.error('Failed to load posts:', error.message);
+//   }
+// }
 
-  } catch (error) {
-    console.error('Failed to load posts:', error.message);
+const loadInitfintePost = async () =>{
+    try {
+      //  isLoading.value = true;
+      const response = await $feedService.list_posts(currentPage.value);
+      //const filteredData = response.filter(item => item.user_id === businessUserId.value);
+       posts.value.push(...response.data);
+
+      lastPage.value =response.last_page
+      currentPage.value =response.current_page +1
+      const idsArray = [];
+      for (const post of posts.value) {
+        idsArray[post.id] = false
+      }
+      isHidddenComment.value = idsArray
+      //  isLoading.value = false;
+    } catch (error) {
+       //isLoading.value = false;
+      console.error('Failed to load posts:', error.message);
+    }
   }
-}
 
 </script>
 
