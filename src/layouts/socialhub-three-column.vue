@@ -8,10 +8,11 @@
         <div class="grid grid-cols-6 gap-4 mt-16">
           <!-- Left pane -->
           <div>
-            <!-- <Filter /> -->
+            <Filter />
+            <CallCard/>
              <!-- <transfer-tracker-left-bar /> -->
              <!-- <NetworkLeft /> -->
-            <Filter v-if="route.meta.showFilterLeft" />
+            <!-- <Filter v-if="route.meta.showFilterLeft" /> -->
             <!-- <resources-left-bar /> -->
              <!-- <userSettingLeftBar /> -->
           </div>
@@ -62,6 +63,7 @@ import TransferTrackerRightBar from '~/components/user/transferTrackerRightBar.v
 import NetworkLeft from '~/components/user/networkLeft.vue';
 import ResourcesLeftBar from '~/components/user/resourcesLeftBar.vue';
 import userSettingLeftBar from '~/components/user/userSettingLeftBar.vue';
+import CallCard from '~/components/user/feed/CallCard.vue';
 
 
 defineNuxtRouteMiddleware(checkSession);

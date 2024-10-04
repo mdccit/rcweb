@@ -19,9 +19,14 @@
                                         <div>
                                             <label for="nationality"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Nationality<span
-                                                    class="text-red-600">*</span></label>
-                                            <NationalityDropdown :nationalities="nationalities" v-model="nationality"
-                                                id="nationality" required />
+                                                    class="text-red-600">*</span>
+                                            </label>
+                                            <div
+                                                class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
+                                                <NationalityDropdown :nationalities="nationalities"
+                                                    v-model="nationality" id="nationality" required />
+                                            </div>
+
                                             <InputError
                                                 :error="errors.nationality ? errors.nationality.join(', ') : ''" />
 
@@ -33,8 +38,12 @@
                                             <label for="date_of_birth"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Date of Birth <span
                                                     class="text-red-600">*</span></label>
-                                            <input type="date" v-model="date_of_birth" required
-                                                class="w-full border border-gray-300 rounded-lg shadow-sm" />
+                                            <div
+                                                class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
+                                                <input type="date" v-model="date_of_birth" required :max="today"
+                                                    class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg" />
+                                            </div>
+
                                             <InputError
                                                 :error="errors.date_of_birth ? errors.date_of_birth.join(', ') : ''" />
 
@@ -61,9 +70,13 @@
                                             </div>
                                             <!-- Weight in Kilograms -->
                                             <div v-if="weight_in_kg">
-                                                <input type="number" required v-model="weight_kg"
-                                                    class="block w-full rounded-lg border-gray-300 shadow-sm"
-                                                    placeholder="Weight in kg" />
+                                                <div
+                                                    class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
+                                                    <input type="number" required v-model="weight_kg"
+                                                        class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
+                                                        placeholder="Weight in kg" />
+                                                </div>
+
                                             </div>
                                             <!-- Weight in Pounds -->
                                             <div v-else>
@@ -80,8 +93,13 @@
                                             <label for="handedness"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Handedness <span
                                                     class="text-red-600">*</span></label>
-                                            <HandednessDropdown :handedness="handednesses" v-model="handedness"
-                                                id="handedness" />
+                                            <div
+                                                class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
+                                                <HandednessDropdown :handedness="handednesses" v-model="handedness"
+                                                    id="handedness"
+                                                    class="block w-full rounded-lg border-gray-300 shadow-sm " />
+                                            </div>
+
                                             <InputError
                                                 :error="errors.handedness ? errors.handedness.join(', ') : ''" />
                                         </div>
@@ -90,8 +108,12 @@
                                         <div>
                                             <label for="gender"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Gender <span
-                                                    class="text-red-600">*</span></label>
+                                                    class="text-red-600">*</span>
+                                            </label>
+
                                             <GenderDropDown :genders="genders" v-model="gender" id="gender" />
+
+
                                             <InputError :error="errors.gender ? errors.gender.join(', ') : ''" />
                                         </div>
 
@@ -105,8 +127,10 @@
                                                 <!-- Toggle between Feet/Inches and Centimeters -->
                                                 <div class="flex items-center space-x-3">
                                                     <label class="flex items-center">
+
                                                         <input type="radio" id="player_height_in_cm"
                                                             v-model="height_in_cm" :value="true" class="mr-1" />
+
                                                         <span class="text-sm text-gray-900">Centimeters</span>
                                                     </label>
                                                     <label class="flex items-center">
@@ -120,29 +144,41 @@
                                             <!-- Height in Centimeters -->
                                             <div v-if="height_in_cm">
                                                 <div class="relative">
-                                                    <input type="text" id="player_height_cm" v-model="height_cm"
-                                                        class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 sm:text-sm"
-                                                        placeholder="Height in cm" />
+                                                    <div
+                                                        class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
+                                                        <input type="text" id="player_height_cm" v-model="height_cm"
+                                                            class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
+                                                            placeholder="Height in cm" />
+                                                    </div>
+
                                                     <span v-if="errors.height_cm" class="text-red-500 text-sm">{{
-        errors.player_height_cm.join(', ') }}</span>
+                                                        errors.player_height_cm.join(', ') }}</span>
                                                 </div>
                                             </div>
 
                                             <!-- Height in Feet/Inches -->
                                             <div v-else class="grid grid-cols-2 gap-3">
                                                 <div class="relative">
-                                                    <input type="number" id="player_height_ft" v-model="height_ft"
-                                                        class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 sm:text-sm"
-                                                        placeholder="Feet" />
+                                                    <div
+                                                        class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
+                                                        <input type="number" id="player_height_ft" v-model="height_ft"
+                                                            class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
+                                                            placeholder="Feet" />
+                                                    </div>
+
                                                     <span v-if="errors.player_height_ft" class="text-red-500 text-sm">{{
-        errors.player_height_ft.join(',') }}</span>
+                                                        errors.player_height_ft.join(',') }}</span>
                                                 </div>
                                                 <div class="relative">
-                                                    <input type="number" id="player_height_in" v-model="height_in"
-                                                        class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 sm:text-sm"
-                                                        placeholder="Inches" />
+                                                    <div
+                                                        class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
+                                                        <input type="number" id="player_height_in" v-model="height_in"
+                                                            class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
+                                                            placeholder="Inches" />
+                                                    </div>
+
                                                     <span v-if="errors.player_height_in" class="text-red-500 text-sm">{{
-        errors.height_in.join(',') }}</span>
+                                                        errors.height_in.join(',') }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -153,13 +189,17 @@
                                             <label for="preferred_surface"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Preferred
                                                 Surface</label>
-                                            <select v-model="preferred_surface" required
-                                                class="w-full border border-gray-300 rounded-lg shadow-sm">
-                                                <option value="hard">Hard</option>
-                                                <option value="clay">Clay</option>
-                                                <option value="grass">Grass</option>
-                                                <option value="artificial">Artificial</option>
-                                            </select>
+                                            <div
+                                                class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
+                                                <select v-model="preferred_surface" required
+                                                    class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
+                                                    <option value="hard">Hard</option>
+                                                    <option value="clay">Clay</option>
+                                                    <option value="grass">Grass</option>
+                                                    <option value="artificial">Artificial</option>
+                                                </select>
+                                            </div>
+
                                         </div>
 
                                         <!-- Graduation Month/Year -->
@@ -167,8 +207,12 @@
                                             <label for="graduation_month_year"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Graduation
                                                 Month/Year</label>
-                                            <input type="month" v-model="graduation_month_year" required
-                                                class="w-full border border-gray-300 rounded-lg shadow-sm" />
+                                            <div
+                                                class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
+                                                <input type="month" v-model="graduation_month_year" required
+                                                    class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg" />
+                                            </div>
+
                                             <InputError
                                                 :error="errors.graduation_month_year ? errors.graduation_month_year.join(', ') : ''" />
                                         </div>
@@ -181,8 +225,8 @@
                                 class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
                                 changes
                                 <svg v-if="loading" aria-hidden="true" role="status"
-                                    class="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101"
-                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    class="inline w-4 h-4 me-3 text-white animate-spin ml-2 mt-[3px]"
+                                    viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
                                         fill="#E5E7EB" />
@@ -263,6 +307,17 @@ onMounted(async () => {
 
     ]);
 });
+// Function to get today's date in 'YYYY-MM-DD' format
+const getTodayDate = () => {
+    const today = new Date()
+    const year = today.getFullYear()
+    const month = String(today.getMonth() + 1).padStart(2, '0')
+    const day = String(today.getDate()).padStart(2, '0')
+    return `${year}-${month}-${day}`
+}
+
+// Assign today's date to the max attribute
+const today = getTodayDate()
 
 watch(() => props.visible, (newVal) => {
     if (newVal && props.slug) {
@@ -271,51 +326,51 @@ watch(() => props.visible, (newVal) => {
 });
 
 const fetchPlayerInfo = async () => {
-  try {    
-    const dataSets = await $publicService.get_player(props.slug);
-    
-    if (dataSets.user_basic_info) {
-      // Set Nationality, Gender, and Date of Birth
-      nationality.value = dataSets.user_basic_info.nationality_id ?? null;
-      gender.value = dataSets.user_basic_info.gender ?? null;
+    try {
+        const dataSets = await $publicService.get_player(props.slug);
 
-      // Set Date of Birth
-      if (dataSets.user_basic_info.date_of_birth) {
-        const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
-        date_of_birth.value = birthDate.toISOString().split('T')[0];  // Format as 'YYYY-MM-DD'
-      }
+        if (dataSets.user_basic_info) {
+            // Set Nationality, Gender, and Date of Birth
+            nationality.value = dataSets.user_basic_info.nationality_id ?? null;
+            gender.value = dataSets.user_basic_info.gender ?? null;
 
-      // Set Graduation Month/Year
-      if (dataSets.player_info?.graduation_month_year) {
-        // Extract year and month from the YYYY-MM-DD format
-        const fullDate = dataSets.player_info.graduation_month_year;
-        graduation_month_year.value = fullDate.slice(0, 7);  // Get only the year and month (YYYY-MM)
-      }
+            // Set Date of Birth
+            if (dataSets.user_basic_info.date_of_birth) {
+                const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
+                date_of_birth.value = birthDate.toISOString().split('T')[0];  // Format as 'YYYY-MM-DD'
+            }
+
+            // Set Graduation Month/Year
+            if (dataSets.player_info?.graduation_month_year) {
+                // Extract year and month from the YYYY-MM-DD format
+                const fullDate = dataSets.player_info.graduation_month_year;
+                graduation_month_year.value = fullDate.slice(0, 7);  // Get only the year and month (YYYY-MM)
+            }
+        }
+
+        if (dataSets.player_info) {
+            // Set Height
+            if (dataSets.player_info.height) {
+                height_in_cm.value = true; // Assuming height is stored in cm
+                height_cm.value = parseFloat(dataSets.player_info.height); // Convert height to cm if available
+            }
+
+            // Set Weight
+            if (dataSets.player_info.weight) {
+                weight_in_kg.value = true; // Assuming weight is in kg
+                weight_kg.value = parseFloat(dataSets.player_info.weight); // Convert weight to kg if available
+            }
+
+            // Set Handedness
+            handedness.value = dataSets.player_info.other_data.handedness ?? null;
+
+            // Set Preferred Surface
+            preferred_surface.value = dataSets.player_info.other_data.preferred_surface ?? null;
+        }
+    } catch (error) {
+        console.error('Error fetching player info:', error);  // Debug: log the error
+
     }
-
-    if (dataSets.player_info) {
-      // Set Height
-      if (dataSets.player_info.height) {
-        height_in_cm.value = true; // Assuming height is stored in cm
-        height_cm.value = parseFloat(dataSets.player_info.height); // Convert height to cm if available
-      }
-
-      // Set Weight
-      if (dataSets.player_info.weight) {
-        weight_in_kg.value = true; // Assuming weight is in kg
-        weight_kg.value = parseFloat(dataSets.player_info.weight); // Convert weight to kg if available
-      }
-
-      // Set Handedness
-      handedness.value = dataSets.player_info.other_data.handedness ?? null;
-
-      // Set Preferred Surface
-      preferred_surface.value = dataSets.player_info.other_data.preferred_surface ?? null;
-    }
-  } catch (error) {
-    console.error('Error fetching player info:', error);  // Debug: log the error
-
-  }
 };
 
 

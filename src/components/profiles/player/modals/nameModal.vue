@@ -64,12 +64,18 @@
                                             <span aria-hidden="true" class="text-red-600"
                                                 title="This field is optional"></span>
                                         </label>
-                                        <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
+                                        <div class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
+                                            <label for="profile_picture"
+                                                class=" img-inputblock w-1/3 px-4 py-2 text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input">
+                                                Choose file
+                                            </label>
                                             <input id="profile_picture" type="file" @change="handleFileChange"
-                                            accept="image/jpeg, image/png"
-                                                class="w-full block px-5 py-3 border-0 text-black focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg">
+                                                accept="image/jpeg, image/png"
+                                                class="lock pt-1 text-black h-12 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
+
                                         </div>
-                                        <span v-if="fileError" class="text-red-500">{{ fileError }}</span> <!-- Show validation error -->
+                                        <span v-if="fileError" class="text-red-500">{{ fileError }}</span>
+                                        <!-- Show validation error -->
                                     </div>
 
                                 </div>
@@ -90,6 +96,16 @@
     </div>
 </template>
 
+<style>
+.img-input {
+    position: absolute;
+    width: 110px;
+    height: 48px;
+    padding-top: 12px;
+    background: #ececec;
+
+}
+</style>
 
 <script setup>
 import { ref, onMounted } from 'vue';
@@ -139,30 +155,30 @@ watch(() => props.visible, (newVal) => {
 
 
 const handleFileChange = (event) => {
-  const file = event.target.files[0];
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-  const maxSize = 30 * 1024 * 1024; // 30MB
+    const file = event.target.files[0];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    const maxSize = 30 * 1024 * 1024; // 30MB
 
-  // Check if a file is selected
-  if (file) {
-    // Validate the file type
-    if (!allowedTypes.includes(file.type)) {
-      fileError.value = 'Only jpg, jpeg, and png files are allowed';
-      event.target.value = ''; // Clear the file input
-      return;
+    // Check if a file is selected
+    if (file) {
+        // Validate the file type
+        if (!allowedTypes.includes(file.type)) {
+            fileError.value = 'Only jpg, jpeg, and png files are allowed';
+            event.target.value = ''; // Clear the file input
+            return;
+        }
+
+        // Validate the file size
+        if (file.size > maxSize) {
+            fileError.value = 'File size must be less than 30MB';
+            event.target.value = ''; // Clear the file input
+            return;
+        }
+
+        // If all validations pass, set the file to the reactive variable
+        fileError.value = ''; // Clear any previous errors
+        profile_picture.value = file; // Store the selected file
     }
-
-    // Validate the file size
-    if (file.size > maxSize) {
-      fileError.value = 'File size must be less than 30MB';
-      event.target.value = ''; // Clear the file input
-      return;
-    }
-
-    // If all validations pass, set the file to the reactive variable
-    fileError.value = ''; // Clear any previous errors
-    profile_picture.value = file; // Store the selected file
-  }
 };
 
 
