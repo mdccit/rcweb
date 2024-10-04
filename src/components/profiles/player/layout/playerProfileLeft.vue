@@ -512,18 +512,8 @@ onMounted(() => {
         loggedUserSlug.value = localStorage.getItem('user_slug')
     }
 
-     // Set profile picture when props.data becomes available
-  if (props.data && props.data.media_info) {
-    console.log('media available');
-    profile_picture.value = props.data.media_info.profile_picture?.url || defaultProfilePicture;
-  } else {
-    console.log('media not available');
-    profile_picture.value = defaultProfilePicture;
-  }
   const fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
-  console.log(fullBio)
   bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
-  console.log(bio.value)
   seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
   isBioExpanded.value = false
 });
