@@ -365,11 +365,8 @@
     try {
        isLoading.value = true;
       const response = await $feedService.list_posts(currentPage.value);
-      console.log(response.data)
        posts.value.push(...response.data);
-      console.log("post value")
 
-      console.log(posts.value)
       lastPage.value =response.last_page
       currentPage.value =response.current_page +1
       const idsArray = [];
@@ -377,7 +374,6 @@
         idsArray[post.id] = false
       }
       isHidddenComment.value = idsArray
-      console.log( isHidddenComment.value)
        isLoading.value = false;
     } catch (error) {
        isLoading.value = false;

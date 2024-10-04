@@ -17,9 +17,9 @@
                 <CoachRight :data="coachData"   :userSlug="route.params.slug"  />
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3">
-                <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="fetchPost" />
+                <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="loadInitfintePost" :commentHidden="isHidddenComment" />
                 <Connection v-if="tab === 'connection'" :playerId="coachId" @profileView="redirectPage"/>
-                <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
+                <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" :commentHidden="isHidddenComment" />
             </div>
         </div>
     </main>
@@ -71,6 +71,9 @@ const coachId = ref('')
 const router = useRouter();
 const loadedSlug = ref('');
 const birthDay = ref('');
+const currentPage = ref(1)
+const lastPage  =ref('')
+const isHidddenComment = ref([])
 
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
@@ -114,8 +117,8 @@ const fetchUserDetailsBySlug = async () => {
            age--;
         }
         birthDay.value = age ?? 'User has not entered birthday'
-        fetchPost();
-
+       // fetchPost();
+       loadInitfintePost()
     }
 
     if(dataSets.profile_info){
@@ -186,16 +189,37 @@ const closeNotification = () => {
     showNotification.value = false; // Hide the notification
 };
 
-const fetchPost = async () => {
-  try {
-    const response = await $feedService.list_posts({});
-    const filteredData = response.filter(item => item.user_id === coachId.value);
-    posts.value = filteredData || [];
+// const fetchPost = async () => {
+//   try {
+//     const response = await $feedService.list_posts({});
+//     //const filteredData = response.filter(item => item.user_id === coachId.value);
+//    // posts.value = filteredData || [];
    
-  } catch (error) {
-    console.error('Failed to load posts:', error.message);
+//   } catch (error) {
+//     console.error('Failed to load posts:', error.message);
+//   }
+// }
+
+const loadInitfintePost = async () =>{
+    try {
+      //  isLoading.value = true;
+      const response = await $feedService.list_posts(currentPage.value);
+      //const filteredData = response.filter(item => item.user_id === coachId.value);
+       posts.value.push(...response.data);
+
+      lastPage.value =response.last_page
+      currentPage.value =response.current_page +1
+      const idsArray = [];
+      for (const post of posts.value) {
+        idsArray[post.id] = false
+      }
+      isHidddenComment.value = idsArray
+      //  isLoading.value = false;
+    } catch (error) {
+       //isLoading.value = false;
+      console.error('Failed to load posts:', error.message);
+    }
   }
-}
 
 const redirectPage = (url) =>{
     router.push({
