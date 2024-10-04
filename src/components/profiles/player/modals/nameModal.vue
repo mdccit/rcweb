@@ -64,6 +64,11 @@
                                             <span aria-hidden="true" class="text-red-600"
                                                 title="This field is optional"></span>
                                         </label>
+                                        <div  v-if="profile_picture_exit !=null">
+                                            <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profile_picture_exit.url" alt="">
+                                            <button @click="removeProfile">Remove</button>
+                                        </div>
+                                        
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
                                             <input id="profile_picture" type="file" @change="handleFileChange"
                                             accept="image/jpeg, image/png"
@@ -112,7 +117,7 @@ const $publicService = nuxtApp.$publicService;
 const first_name = ref('');
 const last_name = ref('');
 const other_names = ref('');
-
+const profile_picture_exit= ref(null)
 
 const error = ref('');
 const errors = ref('');
@@ -199,6 +204,10 @@ const fetchPlayerNames = async (slug) => {
             last_name.value = dataSets.user_basic_info.last_name ?? "";
             other_names.value = dataSets.user_basic_info.other_names ?? "";
         }
+
+        if(dataSets.media_info){
+            profile_picture_exit.value =dataSets.media_info.profile_picture??null
+        }
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     }
@@ -242,4 +251,14 @@ const saveName = () => {
     saveProfilePicture();
     updatePlayerNames(first_name.value, last_name.value, other_names.value); // Call the API to update the player's names
 };
+
+const removeProfile =async() =>{
+    try {
+        const dataSets = await $publicService.delete_media_player(profile_picture_exit.value.media_id);
+        fetchPlayerNames(props.slug);
+    } catch (error) {
+        console.log(error)
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    }
+}
 </script>
