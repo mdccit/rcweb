@@ -537,6 +537,32 @@ const business_cover =async (business_id,request_body) => {
     throw new Error(error.message || 'Failed to register');
   }
 };
+
+const user_profile =async (user_id,request_body) => {
+  const url = `/admin/users/upload-profile-picture/${user_id}`;
+  const body = request_body;
+  try {
+    const response = await apiService.postRequest(url, body);
+    return response;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+const user_profile_delete = async (media_id) => {
+  const url = `/admin/users/remove-media/${media_id}`;
+  try {
+    const response = await apiService.deleteRequest(url);
+
+    if (response) {
+      return response;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
   return {
     new_user_register,
     list_users,
@@ -575,7 +601,9 @@ const business_cover =async (business_id,request_body) => {
     school_profile,
     school_cover,
     business_profile,
-    business_cover
+    business_cover,
+    user_profile,
+    user_profile_delete
   };
 };
 
