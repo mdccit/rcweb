@@ -37,8 +37,11 @@
             <div class="col-span-6 sm:col-span-4">
                 <span class="block mb-1 text-gray-700 font-sans">Photo</span>
                 <div class="mt-2">
-                    <img src="https://ui-avatars.com/api/?name=e+e&amp;color=7F9CF5&amp;background=EBF4FF"
+                    <img v-if="profile == null" src="https://ui-avatars.com/api/?name=e+e&amp;color=7F9CF5&amp;background=EBF4FF"
                         alt="User Photo" class="rounded-full h-20 w-20 object-cover" />
+                    <img v-if="profile != null"
+                                :src="profile.url"
+                                alt="SchoolAdm1" class="rounded-full h-20 w-20 object-cover">
                 </div>
                 <div class="flex mt-2 space-x-2">
                     <!-- Select a New Photo -->
@@ -54,14 +57,14 @@
                                     <path d="M12 4l0 12"></path>
                                 </svg>
                                 Select A New Photo
-                                <input name="photo" type="file" data-validation-key="photo"
+                                <input name="photo" type="file" data-validation-key="photo"  @change="handleFileChange"
                                     class="invisible absolute inset-0 w-full h-full disabled:opacity-50" />
                             </a>
                         </label>
                     </div>
 
                     <!-- Remove Photo -->
-                    <NuxtLink to="/user/profile-photo"
+                    <button  @click="deleyeUserProfilePicture"
                         class="font-semibold border border-border rounded py-4 px-4 inline-block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center">
                         <svg class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -73,7 +76,7 @@
                             <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
                         </svg>
                         Remove Photo
-                    </NuxtLink>
+                    </button>
                 </div>
             </div>
 
@@ -337,6 +340,9 @@ const showNotification = ref(false);
 const notificationMessage = ref('');
 const notification_type = ref('');
 const errors = ref([]);
+const profile =ref(null)
+const profile_image = ref('')
+const fileError =ref('')
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -397,7 +403,8 @@ const updateUserDetails = async () => {
             phone_code_country: phone_code_country.value,
             phone_number: phone_number.value,
         });
-
+         
+        await updateUserProfile()
         if (response.status === 200) {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
@@ -405,7 +412,7 @@ const updateUserDetails = async () => {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
         }
-
+        fetchUserDetails(user_id.value)
     } catch (error) {
         loading.value = false;
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
@@ -419,7 +426,8 @@ const fetchUserDetails = async (userId) => {
     try {
         const response = await $adminService.get_user_details(userId);
         const user = response.user_basic_info;
-        const contact_info = response.user_contact_info;
+        const contact_info = response.user_phone_info;
+        console.log(response)
         id.value = user.id,
             first_name.value = user.first_name || '';
         last_name.value = user.last_name || '';
@@ -430,6 +438,8 @@ const fetchUserDetails = async (userId) => {
         phone_code_country.value = contact_info.country_id || ''; // Adjust if needed
         phone_number.value = contact_info.phone_number || '';             // Adjust if needed
         is_set_email_verified.value = user.email_verified_at !== null;
+        profile.value = response.media_info.profile_picture || null;
+
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.message, 'failure');
     }
@@ -466,6 +476,70 @@ definePageMeta({
     middleware: ['role'],
     requiredRole: ['admin'],
 });
+
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+  const maxSize = 30 * 1024 * 1024; // 30MB
+
+  // Check if a file is selected
+  if (file) {
+    // Validate the file type
+    if (!allowedTypes.includes(file.type)) {
+      fileError.value = 'Only jpg, jpeg, and png files are allowed';
+      event.target.value = ''; // Clear the file input
+      return;
+    }
+
+    // Validate the file size
+    if (file.size > maxSize) {
+      fileError.value = 'File size must be less than 30MB';
+      event.target.value = ''; // Clear the file input
+      return;
+    }
+
+    // If all validations pass, set the file to the reactive variable
+    fileError.value = ''; // Clear any previous errors
+    profile_image.value = file; // Store the selected file
+  }
+};
+
+const updateUserProfile = async () => {
+    if (!profile_image.value) {
+        // Handle case where no file is selected
+        console.log('no profile picture found');
+        return;
+    }
+    try {
+        const response = await $adminService.user_profile(id.value,{
+            file:profile_image.value
+        });
+   
+    } catch (error) {
+        console.log(error) 
+    }
+};
+
+const deleyeUserProfilePicture = async () => {
+    if (profile.value == null) {
+        // Handle case where no file is selected
+        console.log('no profile picture found');
+        return;
+    }
+    try {
+        const response = await $adminService.user_profile_delete(profile.value.media_id);
+        if (response.status === 200) {
+            loading.value = false;
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+        } else {
+            loading.value = false;
+            nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+        }
+        fetchUserDetails(user_id.value)
+    } catch (error) {
+        console.log(error) 
+    }
+};
 </script>
 
 <style scoped>

@@ -86,8 +86,7 @@
     </div>
 
     <!-- Data Table -->
-    <el-table :data="filteredItems" stripe style="width: 100%" v-loading="loading" @row-click="handleRowClick"
-      :default-sort="{ prop: 'joined_at', order: 'descending' }">
+    <el-table :data="filteredItems" stripe style="width: 100%" v-loading="loading" class="cursor-pointer"  @row-click="handleRowClick"  :default-sort="{ prop: 'joined_at', order: 'descending' }">
       <!-- Display Name Column -->
       <el-table-column prop="display_name" label="DISPLAY NAME" sortable></el-table-column>
 

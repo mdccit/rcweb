@@ -121,7 +121,6 @@ const userLogin = async (autoLogin = false) => {
 
     // Make login request to backend
     const response = await $authService.login(email.value, password.value);
-
     if (response.status === 200) {
       nuxtApp.$nprogress.done(); 
 
@@ -145,6 +144,7 @@ const userLogin = async (autoLogin = false) => {
         user_name:response.data.user_name,
         user_slug:response.data.user_slug
       });
+      userStore.setProfilePicture(response.data.media_info.profile_picture)
 
       // Set success notification
       // nuxtApp.$notification.triggerNotification(response.display_message, 'success');

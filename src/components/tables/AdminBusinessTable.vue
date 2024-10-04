@@ -55,7 +55,7 @@
     </div>
 
 
-    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
+    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" class="cursor-pointer" @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
       <el-table-column class="text-tealGray" prop="name" label="NAME" sortable></el-table-column>
       <el-table-column class="text-tealGray" prop="total_staff" label="TITAL STAFF" sortable></el-table-column>
       <el-table-column class="text-tealGray" prop="admin_staff" label="ADMIN STAFF" sortable></el-table-column>
