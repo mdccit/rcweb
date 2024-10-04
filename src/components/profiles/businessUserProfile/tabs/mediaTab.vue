@@ -132,7 +132,7 @@ const removeMediaItem = async (media_id, event) => {
   event.stopPropagation();
   loadingStates.value[media_id] = true;
   try {
-    const response = await $userService.delete_coach_media(media_id);
+    const response = await $userService.delete_business_user_media(media_id);
     if (response.status === 200) {
       loading.value = false;
       nuxtApp.$notification.triggerNotification(response.display_message, 'success');
@@ -163,7 +163,7 @@ const uploadMedia = async () => {
 
   try {
     // Send FormData directly in the POST request
-    const response = await $userService.upload_coach_media(formData);
+    const response = await $userService.upload_business_user_media(formData);
 
     if (response.status == 200) {
       // Clear files array

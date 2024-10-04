@@ -1,8 +1,8 @@
 <template>
     <section class="w-full mb-5 p-3">
         <div class="relative">
-            <img v-if="data.cover == null" class="w-full h-[400px] rounded-xl" src="@/assets/images/covrss.jpg" alt="">
-            <img v-if="data.cover != null" class="w-full h-[400px] rounded-xl" :src="data.cover.url" alt="">
+            <img  class="w-full h-[400px] rounded-xl" :src="coverPictureUrl" alt="">
+            <!-- <img v-if="data.cover != null" class="w-full h-[400px] rounded-xl" :src="data.cover.url" alt=""> -->
             <!-- Wrapper for the SVG to position it absolutely -->
             <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md" v-if="loggedUserSlug == userSlug" @click="toggleModal('cover')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
@@ -85,6 +85,8 @@ import { useNuxtApp } from '#app';
 import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '~/stores/userStore';
 import BusinessUserTabNavigation from '~/components/profiles/navigation/BusinessUserTabNavigation.vue';
+import CoverModal from '~/components/profiles/businessUserProfile/modals/CoverModal.vue';
+import NameModal from '~/components/profiles/businessUserProfile/modals/nameModal.vue';
 // Import the default profile picture
 import defaultCoverPicture from '@/assets/images/covrss.jpg';
 import defaultProfilePicture from '@/assets/images/user.png';
@@ -139,40 +141,31 @@ const handleTab = (selectedTab) => {
     emit('changeTab', selectedTab)
 };
 
-// Define reactive state for all modals
-const modals = reactive({
-    name: false,
-    cover: false
-});
-
-
-
-
 onMounted(() => {
     
     userId.value = userStore.user?.user_id || null;
     slug.value = props.userSlug;
-    userSlug.value =userStore.userSlug??null;
+    userSlug.value = props.userSlug;
 
     if(userSlug.value != slug.value){
         fetchCheckConnection()
     }else{
         sameUser.value = true
     }
-    // if (process.client) {
-    //     loggedUserSlug.value = localStorage.getItem('user_slug')
-    // }
+    if (process.client) {
+        loggedUserSlug.value = localStorage.getItem('user_slug')
+    }
 
     // Set profile picture when props.data becomes available
-    // if (props.data && props.data.media_info) {
-    //     console.log('media available');
-    //     profile_picture.value = props.data.media_info.profile_picture?.url || defaultProfilePicture;
-    //     cover_picture.value = props.data.media_info.cover_picture?.url || defaultProfilePicture;
-    // } else {
-    //     console.log('media not available');
-    //     profile_picture.value = defaultProfilePicture;
-    //     cover_picture.value = defaultCoverPicture;
-    // }
+    if (props.data && props.data.media_info) {
+        console.log('media available');
+        profile_picture.value = props.data.media_info.profile_picture?.url || defaultProfilePicture;
+        cover_picture.value = props.data.media_info.cover_picture?.url || defaultProfilePicture;
+    } else {
+        console.log('media not available');
+        profile_picture.value = defaultProfilePicture;
+        cover_picture.value = defaultCoverPicture;
+    }
 
 })
 
@@ -188,6 +181,35 @@ watch(
     },
     { immediate: true } // Execute immediately when component is mounted
 );
+
+
+// Define reactive state for all modals
+const modals = reactive({
+    name: false,
+    cover: false,
+});
+
+// Generic toggle function
+const toggleModal = (modalName) => {
+    if (modals.hasOwnProperty(modalName)) {
+        modals[modalName] = !modals[modalName];
+    } else {
+        console.warn(`Modal "${modalName}" does not exist.`);
+    }
+};
+
+
+// Generic function to close the modal and fetch user details
+const handleModalClose = (modalName) => {
+    // Defensive check to make sure modalName exists
+    if (modals[modalName] !== undefined) {
+        modals[modalName] = false;  // Close the modal
+        fetchUserDetails();         // Fetch updated user details after closing
+    } else {
+        console.error(`Invalid modal name: ${modalName}`);
+    }
+};
+
 
 watch(
     () => props.data,

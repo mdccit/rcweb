@@ -42,7 +42,7 @@ import BusinessUserCover from '../components/profiles/businessUserProfile/busine
 import Connection from '~/components/user/profile/connection.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
 import { useRoute } from 'vue-router'
-import mediaTab from '~/components/profiles/coach/tabs/mediaTab.vue';
+import mediaTab from '~/components/profiles/businessUserProfile/tabs/mediaTab.vue';
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
