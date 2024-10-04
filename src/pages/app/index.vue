@@ -363,13 +363,17 @@
   
   const loadInitfintePost = async () =>{
     try {
-       isLoading.value = true;
+       if(!isLoading.value){
+        console.log(1)
+        isLoading.value = true;
       const response = await $feedService.list_posts(currentPage.value);
-      console.log(response.data)
-       posts.value.push(...response.data);
-      console.log("post value")
+      if(currentPage.value ==1){
+        posts.value = response.data
+      }else{
+        posts.value.push(...response.data);
+      }
+      
 
-      console.log(posts.value)
       lastPage.value =response.last_page
       currentPage.value =response.current_page +1
       const idsArray = [];
@@ -377,8 +381,9 @@
         idsArray[post.id] = false
       }
       isHidddenComment.value = idsArray
-      console.log( isHidddenComment.value)
        isLoading.value = false;
+       }
+      
     } catch (error) {
        isLoading.value = false;
       console.error('Failed to load posts:', error.message);
@@ -401,7 +406,6 @@
         title: ''
       }
       const response = await $feedService.create_post(newValue);
-  
       newPost.value = {
         description: '',
         type: 'post',
@@ -411,7 +415,8 @@
       postAdd.value = false
   
       nuxtApp.$notification.triggerNotification(response.display_message, 'success');
-      loadPost();
+      currentPage.value = 1
+      loadInitfintePost();
   
     } catch (error) {
       meesge.value = "Input validation failed"
@@ -440,7 +445,7 @@
       } else {
         await $feedService.like_post(post_id);
       }
-      loadPosts();
+      loadInitfintePost();
   
       likeButtonDisable.value = likeButtonDisable.value.filter(item => item !== post_id);
   
@@ -475,8 +480,9 @@
     try {
       nprogress.start();
       await $feedService.create_comment(postId, { content: newComment.value });
-      newComment.value = ''; // Clear the comment input after submission
-      loadPosts(); // Reload posts to update the comments section
+      newComment.value = '';
+      currentPage.value = 1
+      loadInitfintePost(); // Clear the comment input after submission
     } catch (error) {
       console.error('Failed to add comment:', error.message);
     }finally{
@@ -525,8 +531,9 @@
       nprogress.start();
       model_id.value = ""
       const response = await nuxtApp.$feedService.delete_post(post_id);
-      loadPosts();
-    } catch (error) {
+      currentPage.value = 1
+      loadInitfintePost();
+      } catch (error) {
       console.error('Failed to fetch comments:', error.message);
     }finally{
       nprogress.done();
@@ -554,8 +561,8 @@
         title: 'Post',
       }
       const response = await nuxtApp.$feedService.update_post(post_id, newValue);
-      loadPosts();
-    } catch (error) {
+      currentPage.value = 1
+      loadInitfintePost();    } catch (error) {
       console.error('Failed to fetch comments:', error.message);
     }finally{
       nprogress.done();
@@ -598,7 +605,7 @@
       const container = document.getElementById('dataContainer');
        if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
           if(posts.value.length != displayedItems.value.length){
-            if(currentPage.value <= lastPage.value){
+            if(currentPage.value <= lastPage.value && !isLoading.value){
               loadInitfintePost();
             }
            
