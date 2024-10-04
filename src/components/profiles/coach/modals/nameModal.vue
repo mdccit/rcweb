@@ -261,7 +261,7 @@ const saveName = async () => {
     // First, call updatePlayerNames and store the result
     await updatePlayerNames(first_name.value, last_name.value, other_names.value);
 
-  await saveProfilePicture(); // Save profile picture if available
+    await saveProfilePicture(); // Save profile picture if available
 
     // Emit close event regardless of whether profile picture save was successful
     emit('close', 'name');
