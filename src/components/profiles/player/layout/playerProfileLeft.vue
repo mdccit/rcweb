@@ -30,7 +30,8 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
-                    <h1 class="text-lg font-semibold mb-4 text-black col-span-2" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('bio')">
+                    <h1 class="text-lg font-semibold mb-4 text-black col-span-2" v-if="loggedUserSlug == props.userSlug"
+                        @click="toggleModal('bio')">
                         <div class="cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4">
@@ -45,7 +46,7 @@
                 {{ bio }}
             </p>
             <div v-if="seeMoreBtnHide">
-                <button id="seeMoreBtn" @click="toggleText" >{{ expandBtnName }}</button>
+                <button id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
 
             </div>
         </div>
@@ -58,7 +59,8 @@
                 <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                        <div class="cursor-pointer" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('info')">
+                        <div class="cursor-pointer" v-if="loggedUserSlug == props.userSlug"
+                            @click="toggleModal('info')">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -79,11 +81,11 @@
                     </svg>
                 </div>
                 <div class="col-span-8">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{props.data.email}}</b> </p>
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ props.data.email }}</b> </p>
                 </div>
             </div>
             <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
-            </div> 
+            </div>
             <div v-if="loggedUserSlug == props.userSlug" class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -219,7 +221,7 @@
                     </p>
 
                 </div>
-                <div class="col-span-1"  v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
+                <div class="col-span-1" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -365,10 +367,15 @@ const handness = ref('')
 const preferredSurface = ref('');
 const loadedSlug = ref('')
 const isEdit = ref('');
-const  isBioExpanded = ref(false); 
-const seeMoreBtnHide =  ref(false);
+const isBioExpanded = ref(false);
+const seeMoreBtnHide = ref(false);
 const bio = ref('')
-const expandBtnName = ref('See More')
+const expandBtnName = ref('See More');
+
+const triggerProfilePictureUpdate = (url) => {
+    profile_picture.value = url || defaultProfilePicture;
+};
+
 
 // Define reactive state for all modals
 const modals = reactive({
@@ -479,7 +486,11 @@ const fetchUserDetails = async (slug) => {
         }
 
         if (dataSets.media_info.profile_picture != null) {
-           profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+            triggerProfilePictureUpdate(dataSets.media_info.profile_picture.url);
+            // profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+        } else {
+            // Fallback to default
+            triggerProfilePictureUpdate(defaultProfilePicture);
         }
 
     } catch (error) {
@@ -504,6 +515,11 @@ watch(
     { immediate: true } // Execute immediately when component is mounted
 );
 
+watch(profile_picture, (newVal) => {
+    // profilePictureUrl.value = newVal;
+    console.log('Profile picture updated:', newVal);
+});
+
 onMounted(() => {
     userRole.value = userStore.user?.role || null;
     slug.value = props.userSlug;
@@ -512,21 +528,21 @@ onMounted(() => {
         loggedUserSlug.value = localStorage.getItem('user_slug')
     }
 
-  const fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
-  bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
-  seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
-  isBioExpanded.value = false
+    const fullBio = props.data.bio || ''; // This ensures fullBio is at least an empty string
+    bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
+    seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
+    isBioExpanded.value = false
 });
 
 
-const toggleText = () =>{
-     isBioExpanded.value = !isBioExpanded.value;
-     if(isBioExpanded.value){
+const toggleText = () => {
+    isBioExpanded.value = !isBioExpanded.value;
+    if (isBioExpanded.value) {
         bio.value = props.data.bio;
-        expandBtnName.value ='See Less'
-    }else{
+        expandBtnName.value = 'See Less'
+    } else {
         bio.value = props.data.bio.substring(0, 100) + '...';
-        expandBtnName.value ='See More'
+        expandBtnName.value = 'See More'
     }
 
 }
