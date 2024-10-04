@@ -97,7 +97,7 @@
                                         class="bg-blue-500 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                         Connect
                                     </button>
-                                    <div v-if="connectionButtonName =='Accept connection'" class="text-white">
+                                    <div v-if="connectionButtonName =='Accept'" class="text-white">
                                         <button @click="connectReject" class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                             Reject
                                         </button>
