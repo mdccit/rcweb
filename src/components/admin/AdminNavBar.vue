@@ -21,23 +21,62 @@
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
               style="position: relative;">
               <div>
-                <button type="button" aria-haspopup="true"
+                <button type="button" aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="userDropdown"
                   class="inline-flex items-center px-1  border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                  <NuxtLink to="/admin/users">
-                    <div
-                      class="flex items-center py-4 text-sm font-medium text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition duration-150 ease-in-out">
-                      <div>Users</div>
-                      <div class="ml-1">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                        </svg>
-                      </div>
+
+                  <div
+                    class="flex items-center py-4 text-sm font-medium text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition duration-150 ease-in-out">
+                    <div>Users</div>
+                    <div class="ml-1">
+                      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"></path>
+                      </svg>
                     </div>
-                  </NuxtLink>
+                  </div>
+
                 </button>
               </div>
+
+              <div id="userDropdown"
+                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 dark:divide-gray-600">
+
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                  <li>
+                    <NuxtLink to="/admin/users"
+                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      <div class="flex items-center"> All </div>
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink
+                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      <div class="flex items-center"> Players </div>
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink
+                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      <div class="flex items-center"> Coaches </div>
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink
+                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      <div class="flex items-center"> Admin </div>
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink
+                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      <div class="flex items-center"> Business User </div>
+                    </NuxtLink>
+                  </li>
+                </ul>
+              </div>
+
+
               <div>
                 <div class="absolute z-40"
                   style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(4px, 71.2px, 0px);">
@@ -146,7 +185,7 @@
               </li>
             </ul>
           </div>
-          
+
         </div>
       </div>
       <div class="hidden sm:hidden">
