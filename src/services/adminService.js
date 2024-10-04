@@ -494,6 +494,27 @@ const morderation_all_open_count =async () => {
   }
 };
 
+const school_profile =async (school_id,request_body) => {
+  const url = `/admin/schools/upload-profile-picture/${school_id}`;
+  const body = request_body;
+  try {
+    const response = await apiService.postRequest(url, body);
+    return response;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+const school_cover =async (school_id,request_body) => {
+  const url = `/admin/schools/upload-cover-picture/${school_id}`;
+  const body = request_body;
+  try {
+    const response = await apiService.postRequest(url, body);
+    return response;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
   return {
     new_user_register,
     list_users,
@@ -528,7 +549,9 @@ const morderation_all_open_count =async () => {
     morderation_comment_add,
     morderation_approve,
     morderation_logs,
-    morderation_all_open_count
+    morderation_all_open_count,
+    school_profile,
+    school_cover
   };
 };
 

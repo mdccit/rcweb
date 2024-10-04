@@ -36,8 +36,11 @@
 
                 <div class="flex flex-row gap-16">
                     <div><span class="block mb-1 text-gray-700 font-sans">Icon</span>
-                        <div class="mt-2"><img
+                        <div class="mt-2"><img v-if="profile == null"
                                 src="@assets/images/business.png"
+                                alt="SchoolAdm1" class="rounded-full h-20 w-20 object-cover">
+                                <img v-if="profile != null"
+                                :src="profile.url"
                                 alt="SchoolAdm1" class="rounded-full h-20 w-20 object-cover"></div>
                         <div class="mt-2" style="display: none;"><span
                                 class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
@@ -53,15 +56,18 @@
                                             <path d="M7 9l5 -5l5 5"></path>
                                             <path d="M12 4l0 12"></path>
                                         </svg>
-                                         Select A New Photo <input name="icon" type="file"
+                                         Select A New Photo <input name="icon" type="file" @change="handleFileChange"
                                             data-validation-key="icon"
                                             class="invisible absolute inset-0 w-full h-full disabled:opacity-50"></a></label><!---->
                             </div>
                         </div>
                     </div>
                     <div><span class="block mb-1 text-gray-700 font-sans">Cover</span>
-                        <div class="mt-2"><img
+                        <div class="mt-2"><img v-if="cover == null"
                                 src="@assets/images/image.svg"
+                                alt="School page background" class="rounded-full h-20 w-20 object-cover">
+                                <img v-if="cover != null"
+                                :src="cover.url"
                                 alt="School page background" class="rounded-full h-20 w-20 object-cover"></div>
                         <div class="mt-2" style="display: none;"><span
                                 class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
@@ -75,7 +81,7 @@
                                             <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
                                             <path d="M7 9l5 -5l5 5"></path>
                                             <path d="M12 4l0 12"></path>
-                                        </svg> Select A New Photo <input name="cover" type="file"
+                                        </svg> Select A New Photo <input name="cover" type="file" @change="handleFileCoverChange"
                                             data-validation-key="cover"
                                             class="invisible absolute inset-0 w-full h-full disabled:opacity-50"></a></label><!---->
                             </div>
@@ -232,10 +238,14 @@ const conference = ref('');
 const division = ref('');
 const is_verified = ref(false);
 const is_approved = ref(false);
+const profile =ref(null)
+const cover =ref(null)
+const profile_image = ref('')
+const cover_image = ref('')
 
 const action = ref(route.params.action || 'view'); // default to 'view' if action not provided
 const school_id = ref(route.params.school_id || '');
-
+const fileError =ref('')
 onMounted(() => {
 
     // Update the refs directly
@@ -264,19 +274,59 @@ const updateSchoolDetails = async () => {
             conference: conference.value,
             division: division.value,
         });
-
+         
+        await updateSchoolProfile()
+        await updateSchoolCover()
         if (response.status === 200) {
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
         } else {
             nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
         }
-
+        fetchSchoolDetails(school_id.value);
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
     }
 };
 
+const updateSchoolProfile = async () => {
+    if (!profile_image.value) {
+        // Handle case where no file is selected
+        console.log('no profile picture found');
+        return;
+    }
+    try {
+       console.log(profile_image.value)
+        const response = await $adminService.school_profile(school_id.value,{
+            file:profile_image.value
+        });
+
+        console.log(response)
+
+       
+    } catch (error) {
+        console.log(error) 
+    }
+};
+
+const updateSchoolCover = async () => {
+    if (!cover_image.value) {
+        // Handle case where no file is selected
+        console.log('no profile picture found');
+        return;
+    }
+    try {
+        const response = await $adminService.school_cover(school_id.value,{
+            file:cover_image.value
+        });
+
+        console.log(response)
+
+       
+    } catch (error) {
+        console.log(error) 
+    }
+};
 
 // Fetch School Details
 const fetchSchoolDetails = async (school_id) => {
@@ -291,6 +341,9 @@ const fetchSchoolDetails = async (school_id) => {
         // Convert 0/1 to boolean for form fields
         is_verified.value = data.school_info.is_verified === 1;
         is_approved.value = data.school_info.is_approved === 1;
+        profile.value = data.media_info.profile_picture || null;
+        cover.value = data.media_info.cover_picture || null;
+
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     }
@@ -302,6 +355,60 @@ definePageMeta({
   middleware: ['role'],
   requiredRole: ['admin'],
 });
+
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+  const maxSize = 30 * 1024 * 1024; // 30MB
+
+  // Check if a file is selected
+  if (file) {
+    // Validate the file type
+    if (!allowedTypes.includes(file.type)) {
+      fileError.value = 'Only jpg, jpeg, and png files are allowed';
+      event.target.value = ''; // Clear the file input
+      return;
+    }
+
+    // Validate the file size
+    if (file.size > maxSize) {
+      fileError.value = 'File size must be less than 30MB';
+      event.target.value = ''; // Clear the file input
+      return;
+    }
+
+    // If all validations pass, set the file to the reactive variable
+    fileError.value = ''; // Clear any previous errors
+    profile_image.value = file; // Store the selected file
+  }
+};
+
+const handleFileCoverChange = (event) => {
+  const file = event.target.files[0];
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+  const maxSize = 30 * 1024 * 1024; // 30MB
+
+  // Check if a file is selected
+  if (file) {
+    // Validate the file type
+    if (!allowedTypes.includes(file.type)) {
+      fileError.value = 'Only jpg, jpeg, and png files are allowed';
+      event.target.value = ''; // Clear the file input
+      return;
+    }
+
+    // Validate the file size
+    if (file.size > maxSize) {
+      fileError.value = 'File size must be less than 30MB';
+      event.target.value = ''; // Clear the file input
+      return;
+    }
+
+    // If all validations pass, set the file to the reactive variable
+    fileError.value = ''; // Clear any previous errors
+    cover_image.value = file; // Store the selected file
+  }
+};
 </script>
 
 
