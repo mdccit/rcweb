@@ -30,7 +30,7 @@
                                                         <input id="address_line_1" v-model="address_line_1"
                                                             class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                             placeholder="Enter Address Line 1" required>
-                                                            <InputError
+                                                        <InputError
                                                             :error="errors.address_line_1 ? errors.address_line_1.join(', ') : ''" />
                                                     </div>
                                                 </div>
@@ -43,7 +43,7 @@
                                                         <input id="address_line_2" v-model="address_line_2"
                                                             class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                             placeholder="Enter Address Line 2">
-                                                            <InputError
+                                                        <InputError
                                                             :error="errors.address_line_2 ? errors.address_line_2.join(', ') : ''" />
                                                     </div>
                                                 </div>
@@ -59,7 +59,7 @@
                                                         <input id="city" v-model="city"
                                                             class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                             placeholder="Enter City" required>
-                                                            <InputError
+                                                        <InputError
                                                             :error="errors.city ? errors.city.join(', ') : ''" />
                                                     </div>
                                                 </div>
@@ -73,7 +73,7 @@
                                                         <input id="state_province" v-model="state_province"
                                                             class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                             placeholder="Enter State/Province" required>
-                                                            <InputError
+                                                        <InputError
                                                             :error="errors.state_province ? errors.state_province.join(', ') : ''" />
                                                     </div>
                                                 </div>
@@ -90,7 +90,7 @@
                                                         <input id="postal_code" v-model="postal_code"
                                                             class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                             placeholder="Enter Postal Code" required>
-                                                            <InputError
+                                                        <InputError
                                                             :error="errors.postal_code ? errors.postal_code.join(', ') : ''" />
                                                     </div>
                                                 </div>
@@ -102,7 +102,7 @@
                                                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
                                                         <CountryDropdown :countries="countries" v-model="country"
                                                             id="country" class="mt-0" label="Country *" />
-                                                            <InputError
+                                                        <InputError
                                                             :error="errors.country ? errors.country.join(', ') : ''" />
                                                     </div>
                                                 </div>
@@ -117,7 +117,7 @@
                                                         <CountryCodeDropdown :country_codes="country_codes"
                                                             v-model="phone_code_country"
                                                             class="block w-full h-12 rounded-lg" />
-                                                            <InputError
+                                                        <InputError
                                                             :error="errors.phone_code_country ? errors.phone_code_country.join(', ') : ''" />
                                                     </div>
                                                 </div>
@@ -128,7 +128,7 @@
                                                         <input type="text" id="phone_number" v-model="phone_number"
                                                             class="block w-full h-12 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                             placeholder="Enter Phone Number" required />
-                                                            <InputError
+                                                        <InputError
                                                             :error="errors.phone_number ? errors.phone_number.join(', ') : ''" />
                                                     </div>
                                                 </div>
@@ -145,7 +145,7 @@
                                                         <input id="email" v-model="email"
                                                             class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                             placeholder="Enter Email Address" required>
-                                                            <InputError
+                                                        <InputError
                                                             :error="errors.email ? errors.email.join(', ') : ''" />
                                                     </div>
                                                 </div>
@@ -158,13 +158,19 @@
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                            <button type="submit"  :disabled="loading"
+                            <button type="submit" :disabled="loading"
                                 class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
                                 changes
-                                <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/>
-                                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"/>
-                                  </svg>
+                                <svg v-if="loading" aria-hidden="true" role="status"
+                                    class="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101"
+                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                        fill="#E5E7EB" />
+                                    <path
+                                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                        fill="currentColor" />
+                                </svg>
                             </button>
                             <button type="button" @click="$emit('close', 'address')"
                                 class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
@@ -257,17 +263,15 @@ const fetchPlayerContact = async () => {
     try {
         const dataSets = await $publicService.get_user_profile(props.slug);
         if (dataSets.user_address_info) {
-            country.value = dataSets.user_address_info.country_id ?? null;
-
             city.value = dataSets.user_address_info.city ?? 'User has not entered city';
             address_line_1.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01';
             address_line_2.value = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02';
             state_province.value = dataSets.user_address_info.state_province ?? 'User has not entered state provice';
             postal_code.value = dataSets.user_address_info.postal_code ?? 'User has not entered postal code';
-        }else if(dataSets.user_address_info == null){
-            if (dataSets.user_basic_info) {
-                country.value = dataSets.user_basic_info.country_id;
-            }
+        }
+
+        if (dataSets.user_address_info) {
+            country.value = dataSets.user_basic_info.country_id;
         }
 
         if (dataSets.user_phone_info) {
@@ -314,10 +318,10 @@ const updatePlayerAddress = async () => {
             nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
         }
 
-    } catch (error) {       
+    } catch (error) {
         //   nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
-    } finally{
+    } finally {
         loading.value = false;
     }
 };

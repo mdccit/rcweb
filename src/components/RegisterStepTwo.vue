@@ -683,7 +683,7 @@
 
 
 <script setup>
-import { ref } from 'vue';
+import { ref, nextTick  } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { loadCountryList, loadNationalityList, loadBudgetList, loadGenderList, loadHandnessList } from '~/services/commonService';
@@ -829,7 +829,7 @@ onMounted(() => {
     } else if (userRole == 'player' || userRole == 'parent' || userRole == 'admin') {
       router.push('/app');
     }
-  }else{
+  } else {
     router.push('/login');
   }
 
@@ -909,19 +909,27 @@ const handleSubmitStep2 = async () => {
 
       const response = await $authService.registerStepTwo(endpoint, data);
 
+      console.log(response);
       if (response.status === 200) {
         loading.value = false;
         userStore.clearRole();
         userStore.setRole(role.value);
 
+        console.log('role value', role.value);
         nuxtApp.$notification.triggerNotification(response.display_message, 'success');
-        if (role.value == 'coach' || role.value == 'business_manager') {
-          router.push('/user/approval-pending');
-        } else if (role.value == 'player' || role.value == 'parent' || role.value == 'admin') {
-          router.push('/app');
-        } else {
-          router.push('/');
-        }
+
+        nextTick(async () => {
+          if (role.value == 'coach' || role.value == 'business_manager') {
+            console.log('redirecting to approval pending');
+            // await router.push('/user/approval-pending');
+            router.push('/app');
+            return;
+          } else if (role.value == 'player' || role.value == 'parent' || role.value == 'admin') {
+            router.push('/app');
+          } else {
+            router.push('/');
+          }
+        });
 
       }
       else if (response.status === 401) {
