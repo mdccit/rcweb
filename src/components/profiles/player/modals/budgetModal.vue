@@ -9,17 +9,19 @@
                     <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                         <div class="sm:items-start">
                             <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Budget
-                                    change</h3>
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change
+                                    budget</h3>
                                 <div class="mt-2">
-                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want todeactivate</p>
+                                    <p class="text-sm text-gray-500 mb-3">Select your new budget here</p>
                                     <div class="">
-                                        <label class="block mb-1 text-gray-700 font-sans">Budget
+                                        <!-- <label class="block mb-1 text-gray-700 font-sans">Budget
                                             <span aria-hidden="true" class="text-red-600"
-                                                title="This field is required">*</span></label>
+                                                title="This field is required">*</span>
+                                        </label> -->
 
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                            <BudgetDropdown :budgets="budgets" v-model="selectedBudget" id="budgets" label="Budgets *" />
+                                            <BudgetDropdown :budgets="budgets" v-model="selectedBudget" id="budgets"
+                                                label="Budgets *" />
                                         </div>
                                     </div>
 
@@ -84,36 +86,36 @@ watch(() => props.visible, (newVal) => {
 });
 
 const fetchPlayerBudget = async (slug) => {
-  
-  try {
-    // Log before making the API call to ensure that it's being called properly
-    const dataSets = await $publicService.get_user_profile(slug);
 
-    // Check if the data exists and is structured correctly
-    if (dataSets && dataSets.profile_info && dataSets.profile_info.other_data) {
-      const { budget_min, budget_max } = dataSets.profile_info.other_data;
+    try {
+        // Log before making the API call to ensure that it's being called properly
+        const dataSets = await $publicService.get_user_profile(slug);
+
+        // Check if the data exists and is structured correctly
+        if (dataSets && dataSets.profile_info && dataSets.profile_info.other_data) {
+            const { budget_min, budget_max } = dataSets.profile_info.other_data;
 
 
-      // Ensure budgets are loaded before matching
-      if (budgets.value.length > 0) {
-        const matchingBudget = budgets.value.find(
-          (budget) => budget.budget_min === budget_min && budget.budget_max === budget_max
-        );
+            // Ensure budgets are loaded before matching
+            if (budgets.value.length > 0) {
+                const matchingBudget = budgets.value.find(
+                    (budget) => budget.budget_min === budget_min && budget.budget_max === budget_max
+                );
 
-        if (matchingBudget) {
-          selectedBudget.value = matchingBudget;  // Set the selected budget
+                if (matchingBudget) {
+                    selectedBudget.value = matchingBudget;  // Set the selected budget
+                } else {
+                    console.log('No matching budget found for budget_min:', budget_min, 'budget_max:', budget_max);
+                    selectedBudget.value = null;  // If no match, set to null
+                }
+            }
         } else {
-          console.log('No matching budget found for budget_min:', budget_min, 'budget_max:', budget_max);
-          selectedBudget.value = null;  // If no match, set to null
+            console.log('No profile_info or other_data found in API response');
         }
-      }
-    } else {
-      console.log('No profile_info or other_data found in API response');
+    } catch (error) {
+        console.error('Error fetching player budget:', error);  // Catch any error and log it
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     }
-  } catch (error) {
-    console.error('Error fetching player budget:', error);  // Catch any error and log it
-    nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
-  }
 };
 
 
@@ -143,16 +145,16 @@ const updatePlayerBudget = async () => {
 };
 
 const loadBudgets = async () => {
-  try {
-    // Load budgets into the `budgets` ref
-    const budgetData = await loadBudgetList();
-    budgets.value = budgetData;  // Ensure the budgets are loaded
+    try {
+        // Load budgets into the `budgets` ref
+        const budgetData = await loadBudgetList();
+        budgets.value = budgetData;  // Ensure the budgets are loaded
 
-    // Log budgets as a plain array
-    console.log('Budgets loaded:', JSON.parse(JSON.stringify(budgets.value)));
-  } catch (error) {
-    console.error('Error loading budgets:', error);
-  }
+        // Log budgets as a plain array
+        console.log('Budgets loaded:', JSON.parse(JSON.stringify(budgets.value)));
+    } catch (error) {
+        console.error('Error loading budgets:', error);
+    }
 };
 
 // Save budget when the user clicks "Save changes"

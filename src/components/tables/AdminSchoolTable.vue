@@ -1,25 +1,81 @@
 <template>
 
   <el-card>
-
     <!-- Search Input and Buttons -->
     <div class="flex justify-between items-center mb-4">
       <!-- Search Input for Filtering -->
-      <el-input class="h-[40px] mr-2" v-model="search" placeholder="Search..." clearable></el-input>
+      <el-input v-model="search" class="h-[40px] mr-2 focus:border-none" placeholder="Search..." clearable></el-input>
 
       <!--  Search Button -->
-      <button id="searchButton" @click="applySearch"
-        class="text-white bg-steelBlue hover:bg-blue-700 focus:ring-4 p-2 border rounded h-[40px] mr-1 mx-auto"
+      <!-- <button id="searchButton" @click="applySearch"
+        class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 p-2 border rounded h-[40px] mr-1 mx-auto"
         type="button">
-        <span class="ml-1">Search</span>
-      </button>
-      <button class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd"
-            d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-            clip-rule="evenodd"></path>
-        </svg>
-      </button>
+        <span class=" mx-auto">Search</span>
+      </button> -->
+      <div class="relative inline-block text-left">
+
+        <button type="button" aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdowntable"
+          class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
+            fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </button>
+        <!-- Dropdown Menu -->
+        <div id="dropdowntable"
+          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 hidden p-3">
+          <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+
+            <div class="mb-3">
+              <label for="">Role </label>
+              <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+                <select name="filter-role"
+                  class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
+                  <option value=""> - </option>
+                  <option value="admin"> Verified </option>
+                  <option value="coach"> Pending Verified </option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="">Has Admin </label>
+              <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+                <select name="filter-role"
+                  class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
+                  <option value=""> - </option>
+                  <option value="admin"> Has Admin </option>
+                  <option value="coach"> No Admin </option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="">GOV ID </label>
+              <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+                <select name="filter-role"
+                  class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
+                  <option value=""> - </option>
+                  <option value="admin"> Connected to school </option>
+                  <option value="coach"> Not Connected to school </option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="">Status </label>
+              <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+                <select name="filter-role"
+                  class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
+                  <option value=""> - </option>
+                  <option value="admin"> Open </option>
+                  <option value="coach"> Close </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <button
         class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 mx-auto">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
@@ -31,16 +87,16 @@
         </svg>
       </button>
 
-
     </div>
 
     <!-- Data Table -->
-    <el-table :data="filteredItems" style="width: 100%" stripe  v-loading="loading"  @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
+    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick"
+      :default-sort="{ prop: 'joined_at', order: 'descending' }">
       <!-- Display Name Column -->
       <el-table-column class="tealGaray" prop="name" label="DISPLAY NAME" sortable></el-table-column>
 
       <!-- Bio Column -->
-      <el-table-column class="tealGaray" prop="bio" label="BIO" sortable></el-table-column>
+      <el-table-column class="tealGaray truncate" prop="bio" label="BIO" sortable></el-table-column>
 
       <!-- Is Verified Column -->
       <el-table-column prop="is_verified" label="IS VERIFIED" sortable>
