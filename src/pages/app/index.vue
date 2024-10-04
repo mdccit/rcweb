@@ -503,8 +503,10 @@
   const refreshComments = async () => {
     // await fetchComments();
     nprogress.start();
-    const response = await $feedService.list_posts({});
-    posts.value = response;
+    // const response = await $feedService.list_posts({});
+    // posts.value = response;
+    currentPage.value = 1
+    loadInitfintePost();
     nprogress.done();
   };
   
