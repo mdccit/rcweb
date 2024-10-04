@@ -349,30 +349,6 @@ const fetchPlayerInfo = async () => {
         }
 
         if (dataSets.player_info) {
-            // Set Height
-            if (dataSets.player_info.height) {
-                height_in_cm.value = true; // Assuming height is stored in cm
-                height_cm.value = parseFloat(dataSets.player_info.height); // Convert height to cm if available
-            }
-
-            // Set Weight
-            if (dataSets.player_info.weight) {
-                weight_in_kg.value = true; // Assuming weight is in kg
-                weight_kg.value = parseFloat(dataSets.player_info.weight); // Convert weight to kg if available
-            }
-
-            // Set Handedness
-            handedness.value = dataSets.player_info.other_data.handedness ?? null;
-
-            // Set Preferred Surface
-            preferred_surface.value = dataSets.player_info.other_data.preferred_surface ?? null;
-        }
-    } catch (error) {
-        console.error('Error fetching player info:', error);  // Debug: log the error
-
-    }
-
-    if (dataSets.player_info) {
       // Set Height
       if (dataSets.player_info.height) {
         height_in_cm.value = true; // Assuming height is stored in cm
@@ -401,10 +377,11 @@ const fetchPlayerInfo = async () => {
       // Set Preferred Surface
       preferred_surface.value = dataSets.player_info.other_data.preferred_surface ?? null;
     }
-  } catch (error) {
-    console.error('Error fetching player info:', error);  // Debug: log the error
+    } catch (error) {
+        console.error('Error fetching player info:', error);  // Debug: log the error
 
-  }
+    }
+
 };
 
 
