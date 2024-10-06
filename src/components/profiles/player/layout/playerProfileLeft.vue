@@ -84,6 +84,21 @@
                     <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ props.data.email }}</b> </p>
                 </div>
             </div>
+            <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
+            </div>
+            <div v-if="loggedUserSlug == props.userSlug" class="grid grid-cols-10">
+                <div class="col-span-2 mx-auto" @click="toggleModal('info')">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" class="size-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
+                    </svg>
+                </div>
+                <div class="col-span-8">
+                    <p class="text-sm text-black leading-relaxed mb-4"> <b>{{ props.data.phoneCode }} {{
+                        phone }}</b> </p>
+                </div>
+            </div>
            
             <div v-if="userRole == 'coach' || loggedUserSlug == props.userSlug"  class="grid grid-cols-10">
             </div> -->
@@ -414,6 +429,10 @@ const isBioExpanded = ref(false);
 const seeMoreBtnHide = ref(false);
 const bio = ref('')
 const expandBtnName = ref('See More');
+
+const triggerProfilePictureUpdate = (url) => {
+    profile_picture.value = url || defaultProfilePicture;
+};
 const country_codes = ref([]);
 
 
@@ -536,7 +555,12 @@ const fetchUserDetails = async (slug) => {
         }
 
         if (dataSets.media_info.profile_picture != null) {
-            profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+            triggerProfilePictureUpdate(dataSets.media_info.profile_picture.url);
+            // profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+        } else {
+            // Fallback to default
+            triggerProfilePictureUpdate(defaultProfilePicture);
+            // profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
         }
 
     } catch (error) {
@@ -560,6 +584,11 @@ watch(
     },
     { immediate: true } // Execute immediately when component is mounted
 );
+
+watch(profile_picture, (newVal) => {
+    // profilePictureUrl.value = newVal;
+    console.log('Profile picture updated:', newVal);
+});
 
 onMounted(() => {
     userRole.value = userStore.user?.role || null;

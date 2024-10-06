@@ -302,9 +302,7 @@ const updateSchoolProfile = async () => {
         return;
     }
     try {
-        const response = await $adminService.school_profile(school_id.value,{
-            file:profile_image.value
-        });
+        const response = await $adminService.school_profile(school_id.value,profile_image.value);
 
 
        
@@ -316,13 +314,11 @@ const updateSchoolProfile = async () => {
 const updateSchoolCover = async () => {
     if (!cover_image.value) {
         // Handle case where no file is selected
-        console.log('no profile picture found');
+        console.log('no cover picture found');
         return;
     }
     try {
-        const response = await $adminService.school_cover(school_id.value,{
-            file:cover_image.value
-        });
+        const response = await $adminService.school_cover(school_id.value,cover_image.value);
 
 
        

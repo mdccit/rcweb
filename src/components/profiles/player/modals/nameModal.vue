@@ -261,7 +261,6 @@ const updatePlayerNames = async (firstName, lastName, otherNames) => {
         if (response.status == '200') {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
-            emit('close', 'name'); // Emit close event after successfully updating the names
         } else {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
@@ -274,9 +273,16 @@ const updatePlayerNames = async (firstName, lastName, otherNames) => {
 };
 
 // Save names when the user clicks "Save changes"
-const saveName = () => {
-    saveProfilePicture();
-    updatePlayerNames(first_name.value, last_name.value, other_names.value); // Call the API to update the player's names
+const saveName = async () => {
+
+    try {
+        await saveProfilePicture();
+        await updatePlayerNames(first_name.value, last_name.value, other_names.value); // Call the API to update the player's names
+        emit('close', 'name'); // Emit close event after successfully updating the names
+    } catch (error) {
+        console.error('Error during save process:', error);
+    }
+
 };
 
 const removeProfile =async() =>{

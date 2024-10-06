@@ -92,19 +92,6 @@
                                             Reject
                                         </button>
                                     </div>
-
-                                    <div class="flex text-white" v-if="buttonHide == false">
-                                        <button @click="connectAcceptOrConnect"
-                                            class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                            {{ connectionButtonName }}
-                                        </button>
-                                        <div v-if="connectionButtonName == 'Accept connection'" class="text-white">
-                                            <button @click="connectReject"
-                                                class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                                Reject
-                                            </button>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="">
                                     <button aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdown"

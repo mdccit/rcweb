@@ -500,55 +500,81 @@ const createAdminService = (apiService) => {
     }
   };
 
-const school_profile =async (school_id,request_body) => {
+const school_profile =async (school_id,profile_picture) => {
   const url = `/admin/schools/upload-profile-picture/${school_id}`;
-  const body = request_body;
+  const formData = new FormData();
+  if (profile_picture) {
+    formData.append('file', profile_picture); 
+  } else {
+    throw new Error('No file selected'); 
+  }
   try {
-    const response = await apiService.postRequest(url, body);
+    const response = await apiService.postMedia(url, formData);
     return response;
   } catch (error) {
+    console.log(error)
     throw new Error(error.message || 'Failed to register');
   }
 };
 
-const school_cover =async (school_id,request_body) => {
+const school_cover =async (school_id,cover_image) => {
   const url = `/admin/schools/upload-cover-picture/${school_id}`;
-  const body = request_body;
+  const formData = new FormData();
+  if (cover_image) {
+    formData.append('file', cover_image); 
+  } else {
+    throw new Error('No file selected'); 
+  }
   try {
-    const response = await apiService.postRequest(url, body);
+    const response = await apiService.postMedia(url, formData);
     return response;
   } catch (error) {
     throw new Error(error.message || 'Failed to register');
   }
 };
 
-const business_profile =async (business_id,request_body) => {
+const business_profile =async (business_id,profile_picture) => {
   const url = `/admin/businesses/upload-profile-picture/${business_id}`;
-  const body = request_body;
+  const formData = new FormData();
+  if (profile_picture) {
+    formData.append('file', profile_picture); 
+  } else {
+    throw new Error('No file selected'); 
+  }
   try {
-    const response = await apiService.postRequest(url, body);
+    const response = await apiService.postMedia(url, formData);
     return response;
   } catch (error) {
     throw new Error(error.message || 'Failed to register');
   }
 };
 
-const business_cover =async (business_id,request_body) => {
+const business_cover =async (business_id,cover_image) => {
   const url = `/admin/businesses/upload-cover-picture/${business_id}`;
-  const body = request_body;
+  const formData = new FormData();
+  if (cover_image) {
+    formData.append('file', cover_image); 
+  } else {
+    throw new Error('No file selected'); 
+  }
   try {
-    const response = await apiService.postRequest(url, body);
+    const response = await apiService.postMedia(url, formData);
     return response;
   } catch (error) {
     throw new Error(error.message || 'Failed to register');
   }
 };
 
-const user_profile =async (user_id,request_body) => {
+const user_profile =async (user_id,profile_picture) => {
   const url = `/admin/users/upload-profile-picture/${user_id}`;
-  const body = request_body;
+  const formData = new FormData();
+  if (profile_picture) {
+    formData.append('file', profile_picture); 
+  } else {
+    throw new Error('No file selected'); 
+  }
   try {
-    const response = await apiService.postRequest(url, body);
+    const response = await apiService.postMedia(url, formData);
     return response;
   } catch (error) {
     throw new Error(error.message || 'Failed to register');
