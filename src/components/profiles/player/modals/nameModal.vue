@@ -69,7 +69,7 @@
                                             <button @click="removeProfile">Remove</button>
                                         </div>
                                         
-                                        <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
+                                    
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
                                             <label for="profile_picture"
                                                 class=" img-inputblock w-1/3 px-4 py-2 text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input">
@@ -82,7 +82,7 @@
                                         </div>
                                         <span v-if="fileError" class="text-red-500">{{ fileError }}</span>
                                         <!-- Show validation error -->
-                                    </div>
+                                  
 
                                 </div>
                             </div>
