@@ -55,7 +55,7 @@
     </div>
 
     <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick"
-      class="cursor-pointer" :default-sort="{ prop: 'created_at', order: 'descending' }">
+      class="cursor-pointer min-h-[350px]" :default-sort="{ prop: 'created_at', order: 'descending' }">
       <el-table-column prop="priority" label="PRIORITY" sortable></el-table-column>
       <el-table-column prop="joined_at" label="DETAILS" sortable>
         <template v-slot="scope">
