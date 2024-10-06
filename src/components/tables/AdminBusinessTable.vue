@@ -55,20 +55,43 @@
     </div>
 
 
-    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" class="cursor-pointer min-h-[350px]" @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
+    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" class="cursor-pointer min-h-[350px]"
+      @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
       <el-table-column class="text-tealGray" prop="name" label="NAME" sortable></el-table-column>
-      <el-table-column class="text-tealGray" prop="total_staff" label="TITAL STAFF" sortable></el-table-column>
+      <!-- <el-table-column class="text-tealGray" prop="total_staff" label="TITAL STAFF" sortable></el-table-column>
       <el-table-column class="text-tealGray" prop="admin_staff" label="ADMIN STAFF" sortable></el-table-column>
       <el-table-column class="text-tealGray" prop="non_admin_staff" label="NON ADMIN STAFF" sortable></el-table-column>
-      <el-table-column class="text-tealGray" prop="admin_staff" label="ADMIN STAFF" sortable></el-table-column>
+      <el-table-column class="text-tealGray" prop="admin_staff" label="ADMIN STAFF" sortable></el-table-column> -->
+
+      <!-- Total Members Column -->
+      <el-table-column class="tealGaray" prop="total_members" label="Total Members" sortable>
+        <template v-slot="scope">
+          {{ scope.row.total_members !== null ? scope.row.total_members : 0 }}
+        </template>
+      </el-table-column>
+
+      <!-- Editor Column -->
+      <el-table-column class="tealGaray" prop="editors" label="Admin Members" sortable>
+        <template v-slot="scope">
+          {{ scope.row.editors !== null ? scope.row.editors : 0 }}
+        </template>
+      </el-table-column>
+
+      <!-- Viewer Column -->
+      <el-table-column class="tealGaray" prop="viewers" label="NON Admin Members" sortable>
+        <template v-slot="scope">
+          {{ scope.row.viewers !== null ? scope.row.viewers : 0 }}
+        </template>
+      </el-table-column>
+
       <!-- Joined At Column -->
       <el-table-column class="text-tealGray" prop="joined_at" label="JOINED DATE" sortable>
         <template v-slot="scope">
           <span>{{ formatDate(scope.row.joined_at) }}</span>
         </template>
       </el-table-column>
-        <!-- Actions Column -->
-        <!-- <el-table-column label="Actions">
+      <!-- Actions Column -->
+      <!-- <el-table-column label="Actions">
           <template v-slot="scope">
             <el-dropdown>
               <template #dropdown>
@@ -115,7 +138,7 @@ const options = ref({
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
-const hasAdmin =ref("");
+const hasAdmin = ref("");
 
 // Function to fetch data from the server
 const fetchData = async () => {
@@ -126,7 +149,7 @@ const fetchData = async () => {
     const search_term = search.value; // Get the search term
 
     // Fetch data from the server with pagination and search parameters
-    const dataSets = await $adminService.list_business(current_page, per_page_items,hasAdmin.value);
+    const dataSets = await $adminService.list_business(current_page, per_page_items, hasAdmin.value);
 
     // Update the table data
     items.value = dataSets.data; // Data for the current page
@@ -189,7 +212,7 @@ const viewDetails = (row) => {
     path: '/business/businessGeneral',
     query: {
       action: 'view',
-     business_id: row.id
+      business_id: row.id
     }
   });
 };
