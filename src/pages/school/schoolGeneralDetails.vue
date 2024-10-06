@@ -106,7 +106,7 @@
                             class="block w-full text-black rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50"></textarea></label>
                 </div>
                 <div class="my-8"></div>
-                <div><label class="block"><span class="block mb-1 text-gray-700 font-sans"> Media </span>
+                <!-- <div><label class="block"><span class="block mb-1 text-gray-700 font-sans"> Media </span>
 
                         <div class="flex items-center justify-center w-full">
                             <label for="dropzone-file"
@@ -127,8 +127,8 @@
                             </label>
                         </div>
 
-                    </label><!----></div>
-                <div class="my-8"></div>
+                    </label></div>
+                <div class="my-8"></div> -->
 
                 <div class="flex justify-between gap-x-2 mb-2">
                     <div class="w-full">

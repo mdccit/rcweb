@@ -244,7 +244,7 @@
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/user/images/Group 179.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2 mx-auto">
-                    <p class="text-xs">budget
+                    <p class="text-xs">Budget
                     </p>
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">${{ props.data.budgetMin }} -
                         ${{ props.data.budgetMax }}
@@ -325,7 +325,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted ,watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
@@ -380,6 +380,8 @@ watchEffect(() => {
     notificationType.value = nuxtApp.$notification.notification_type.value;
     notificationKey.value = nuxtApp.$notification.notificationKey.value;
 });
+
+
 
 const userRole = ref(null)
 
@@ -575,6 +577,10 @@ const profilePictureUrl = computed(() => profile_picture.value);
 // Watch for changes in props.data
 watch(
     () => props.data,
+  () => {
+    setBio() 
+  },
+    () => props.data,
     (newVal) => {
         if (newVal && newVal.media_info) {
             profile_picture.value = newVal.media_info.profile_picture?.url || defaultProfilePicture;
@@ -582,9 +588,20 @@ watch(
             profile_picture.value = defaultProfilePicture; // Fallback to default if media_info is undefined
         }
     },
-    { immediate: true } // Execute immediately when component is mounted
+    { immediate: true } ,
+    
+
+    // Execute immediately when component is mounted
 );
 
+
+const setBio = () =>{
+    let fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
+    console.log(fullBio)
+    bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
+    seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
+    isBioExpanded.value = false
+}
 watch(profile_picture, (newVal) => {
     // profilePictureUrl.value = newVal;
     console.log('Profile picture updated:', newVal);
@@ -602,20 +619,14 @@ onMounted(() => {
     }
 
     // Set profile picture when props.data becomes available
-    if (props.data && props.data.media_info) {
+    console.log(1177)
+    if (userStore.userProfilePicture !=null) {
         console.log('media available');
-        profile_picture.value = props.data.media_info.profile_picture?.url || defaultProfilePicture;
+        profile_picture.value = userStore.userProfilePicture?.url || defaultProfilePicture;
     } else {
         console.log('media not available');
         profile_picture.value = defaultProfilePicture;
     }
-    const fullBio = props.data.bio || ''; // This ensures fullBio is at least an empty string
-    console.log(fullBio)
-    bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
-    console.log(bio.value)
-    seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
-    isBioExpanded.value = false
-
 
 });
 

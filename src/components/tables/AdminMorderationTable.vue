@@ -29,11 +29,11 @@
           <div class="mb-3">
             <label for="">Status </label>
             <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
-              <select name="filter-role"
+              <select name="filter-role" v-model="status" @change="fetchData"
                 class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                 <option value=""> - </option>
-                <option value="admin"> Open </option>
-                <option value="coach"> Close </option>
+                <option value="open"> Open </option>
+                <option value="close"> Close </option>
               </select>
             </div>
           </div>
@@ -41,7 +41,7 @@
       </div>
     </div>
 
-    <button
+    <!-- <button
       class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 mx-auto">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
         fill="currentColor">
@@ -50,7 +50,7 @@
           d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
           clip-rule="evenodd"></path>
       </svg>
-    </button>
+    </button> -->
 
     </div>
 
@@ -88,7 +88,7 @@ import { useUserStore } from '~/stores/userStore';
 import { useModerationStore } from '~/stores/moderation';
 
 const moderationStore = useModerationStore();
-
+const status = ref('')
 const router = useRouter();
 const search = ref('');
 const items = ref([]);
@@ -110,9 +110,9 @@ const fetchData = async () => {
     const per_page_items = options.value.itemsPerPage;
     const current_page = options.value.page;
     const search_term = search.value; // Get the search term
-
+    
     // Fetch data from the server with pagination and search parameters
-    const dataSets = await $adminService.morderation_all();
+    const dataSets = await $adminService.morderation_all(status);
     // Update the table data
     items.value = dataSets; // Data for the current page
     totalItems.value = dataSets.length

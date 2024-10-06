@@ -283,7 +283,9 @@ const fetchUserDetails = async () => {
             sportName: sportName.value,
             media_info: dataSets.media_info,
             phone:phone.value,
-            phoneCode:phoneCode.value
+            phoneCode:phoneCode.value,
+            email: email.value,
+            media_info:dataSets.media_info
 
         }
 

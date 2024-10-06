@@ -223,8 +223,8 @@ const updateBusinessDetails = async () => {
       is_verified: is_verified.value ? 1 : 0,
       is_approved: is_approved.value ? 1 : 0,
     });
-    await updateBusinessProfile()
-    await updateBusinessCover()
+    
+    //await updateBusinessCover()
     if (response.status === 200) {
 
         triggerNotification(response.display_message, 'success');
@@ -261,7 +261,7 @@ onMounted(() => {
   fetchBusinessDetails();
 });
 
-const handleFileChange = (event) => {
+const handleFileChange = async(event) => {
   const file = event.target.files[0];
   const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
   const maxSize = 30 * 1024 * 1024; // 30MB
@@ -285,10 +285,14 @@ const handleFileChange = (event) => {
     // If all validations pass, set the file to the reactive variable
     fileError.value = ''; // Clear any previous errors
     profile_image.value = file; // Store the selected file
+
+    await updateBusinessProfile()
+    fetchBusinessDetails();
+
   }
 };
 
-const handleFileCoverChange = (event) => {
+const handleFileCoverChange = async(event) => {
   const file = event.target.files[0];
   const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
   const maxSize = 30 * 1024 * 1024; // 30MB
@@ -312,6 +316,10 @@ const handleFileCoverChange = (event) => {
     // If all validations pass, set the file to the reactive variable
     fileError.value = ''; // Clear any previous errors
     cover_image.value = file; // Store the selected file
+
+  await updateBusinessCover();
+  fetchBusinessDetails();
+
   }
 };
 
