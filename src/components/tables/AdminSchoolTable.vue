@@ -94,24 +94,34 @@
       <!-- Display Name Column -->
       <el-table-column class="tealGaray" prop="name" label="DISPLAY NAME" sortable></el-table-column>
 
-      <!-- Bio Column -->
-      <el-table-column class="tealGaray truncate" prop="bio" label="BIO" sortable></el-table-column>
 
-      <!-- Is Verified Column -->
-      <el-table-column prop="is_verified" label="IS VERIFIED" sortable>
+      <!-- Teams Column -->
+      <el-table-column class="tealGaray" prop="teams_count" label="Teams" sortable>
         <template v-slot="scope">
-          <span class="tealGaray">{{ scope.row.is_verified ? 'Yes' : 'No' }}</span>
+          {{ scope.row.teams_count !== null ? scope.row.teams_count : 0 }}
         </template>
       </el-table-column>
 
-      <!-- Approved Column -->
-      <el-table-column prop="is_approved" label="APPROVED" sortable>
+      <!-- Total Members Column -->
+      <el-table-column class="tealGaray" prop="total_members" label="Total Members" sortable>
         <template v-slot="scope">
-          <span class="tealGaray">{{ scope.row.is_approved ? 'Yes' : 'No' }}</span>
+          {{ scope.row.total_members !== null ? scope.row.total_members : 0 }}
         </template>
       </el-table-column>
 
+      <!-- Editor Column -->
+      <el-table-column class="tealGaray" prop="editors" label="Admin Members" sortable>
+        <template v-slot="scope">
+          {{ scope.row.editors !== null ? scope.row.editors : 0 }}
+        </template>
+      </el-table-column>
 
+      <!-- Viewer Column -->
+      <el-table-column class="tealGaray" prop="viewers" label="NON Admin Members" sortable>
+        <template v-slot="scope">
+          {{ scope.row.viewers !== null ? scope.row.viewers : 0 }}
+        </template>
+      </el-table-column>
       <!-- Joined At Column -->
       <el-table-column prop="joined_at" label="JOINED DATE" sortable>
         <template v-slot="scope">
