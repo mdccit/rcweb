@@ -81,20 +81,21 @@
                                     </button>
                                 </div>
 
-                                <div class="flex text-white" v-if="buttonHide == false">
-                                    <button @click="connectAcceptOrConnect"
-                                        class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                        {{ connectionButtonName }}
-                                    </button>
-                                    <div v-if="connectionButtonName == 'Accept'" class="text-white">
-                                        <button @click="connectReject"
-                                            class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                            Reject
+                                    <div class="flex text-white" v-if="buttonHide == false" >
+                                        <button @click="connectAcceptOrConnect"
+                                            class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                            {{ connectionButtonName }}
                                         </button>
+                                        <div v-if="connectionButtonName == 'Accept connection'" class="text-white">
+                                            <button @click="connectReject"
+                                                class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                Reject
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="">
-                                    <button aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdown"
+                                    <button aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdown" v-if="loggedUserSlug == props.userSlug"
                                         class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
@@ -111,10 +112,11 @@
                                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                         aria-labelledby="dropdownDefaultButton">
                                         <li>
-                                            <button href="#"
-                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full">Edit Contact Details</button>
+                                            <button @click="toggleModal('info')"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full">Edit
+                                                Other Info</button>
                                         </li>
-                                    
+
                                     </ul>
                                 </div>
                             </div>
@@ -135,7 +137,6 @@
                     </div>
                 </div>
             </div>
-            </div>
         </span>
     </section>
 
@@ -143,6 +144,7 @@
     <!-- Modal Components with Standardized Props -->
     <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
     <CoverModal :visible="modals.cover" @close="handleModalClose" :slug="slug" />
+    <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" />
 </template>
 
 <script setup>
@@ -153,7 +155,7 @@ import NameModal from '~/components/profiles/coach/modals/nameModal.vue';
 import CoverModal from '~/components/profiles/coach/modals/coverModal.vue';
 import { useUserStore } from '~/stores/userStore';
 import CoachTabNavigation from '~/components/profiles/navigation/CoachTabNavigation.vue';
-
+import InfoModal from '~/components/profiles/coach/modals/infoModal.vue';
 const emit = defineEmits(['changeTab']);
 const nuxtApp = useNuxtApp();
 const router = useRouter();
@@ -189,8 +191,9 @@ const profile_picture = ref(null);
 const userSlug = ref('')
 const sameUser = ref(false)
 const cover_picture = ref(null);
+
 // Import the default profile picture
-import defaultCoverPicture from '@/assets/images/covrss.jpg';
+import defaultCoverPicture from '@/assets/images/default_cover.png';
 import defaultProfilePicture from '@/assets/images/user.png';
 
 const tab = ref('feed');
@@ -294,10 +297,35 @@ const fetchUserDetails = async () => {
 
         const dataSets = await $publicService.get_user_profile(props.userSlug);
         if (dataSets.user_basic_info) {
+
+            props.data.bio = dataSets.user_basic_info.bio ?? "User has not entered bio"
             props.data.name = dataSets.user_basic_info.display_name ?? "User has not entered name";
 
-        }
+            const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDifference = today.getMonth() - birthDate.getMonth();
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            props.data.birthday = age ?? 'User has not entered birthday'
 
+            const date = new Date(dataSets.user_basic_info.joined_at);
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            const year = date.getFullYear();
+            const month = monthNames[date.getMonth()];
+            const day = date.getDate();
+            joinDate.value = `${year} ${month} ${day}`
+
+            props.data.nationality = dataSets.user_basic_info.nationality ?? "User has not entered nationality"
+            props.data.email = dataSets.user_basic_info.email ?? "User has not entered email"
+            props.data.gender = dataSets.user_basic_info.gender ?? "User has not entered gender"
+
+
+        }
         if (dataSets.media_info.profile_picture != null) {
             profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
         }
@@ -319,7 +347,8 @@ const fetchUserDetails = async () => {
 // Define reactive state for all modals
 const modals = reactive({
     name: false,
-    cover: false
+    cover: false,
+    info: false,
 });
 
 // Generic toggle function

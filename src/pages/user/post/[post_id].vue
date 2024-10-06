@@ -17,7 +17,7 @@ import PostCard from '@/components/user/feed/PostCard.vue'; // Assuming PostCard
 import { useNuxtApp } from '#app';  // To access global services
 
 definePageMeta({
-  layout: 'socialhub-three-column',
+  layout: 'one-column',
 });
 // State variables
 const post = ref(null);  // To store the post data

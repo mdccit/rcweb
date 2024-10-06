@@ -135,8 +135,7 @@
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl" src="@/assets/images/pin.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2 mx-auto">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-2">{{ props.data.city }} {{
-                        props.data.country }}
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-2">{{ props.data.city }}<span v-if="props.data.country && props.data.city">, </span>{{ props.data.country }}
                     </p>
 
                 </div>

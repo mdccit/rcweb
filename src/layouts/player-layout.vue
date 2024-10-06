@@ -7,7 +7,7 @@
   <NavBarPublic></NavBarPublic>
   <main class="bg-graySnowDrift">
     
-    <div class="container-compressed">
+    <div class="container-compressed pb-3">
       <div class="grid grid-cols-6 gap-4 temp-row grid-rows-[70px_auto] mt-16 pt-4">
         <div class="row-span-2 col-span-1 ">
           <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  />

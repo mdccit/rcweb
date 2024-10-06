@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-3">
     <!-- Upload Media Section -->
     <form @submit.prevent="uploadMediaFiles" class="upload-form">
       <div
@@ -25,7 +25,7 @@
       <ul class="mt-4">
         <li v-for="(file, index) in files" :key="index" class="mb-2 flex justify-between items-center">
           <span>{{ file.name }} ({{ file.type }})</span>
-          <button @click.prevent="removeFile(index)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700">
+          <button @click.prevent="removeFile(index)" class="remove-btn text-white px-2 py-1 rounded text-sm">
             Remove
           </button>
         </li>
@@ -60,7 +60,7 @@
           Your browser does not support the video tag.
         </video>
         <button @click="removeMediaItem(item.media_id, $event)"
-          class="bg-red-500 text-white px-2 py-1 mt-2 rounded hover:bg-red-700" v-if="loggedUserSlug == props.userSlug"
+          class="remove-btn text-white px-2 py-1 mt-2 rounded text-sm " v-if="loggedUserSlug == props.userSlug"
           :disabled="loadingStates[item.media_id]">
           Remove
           <svg v-if="loadingStates[item.media_id]" aria-hidden="true" role="status"
@@ -349,5 +349,11 @@ button[disabled] {
 .upload-btn-wrapper button[disabled] {
   background-color: #999;
   cursor: not-allowed;
+}
+.remove-btn{
+  background-color: rgb(240, 22, 22) !important;
+}
+.remove-btn :hover{
+  background-color: rgb(199, 18, 18) !important;
 }
 </style>
