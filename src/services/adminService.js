@@ -25,12 +25,11 @@ const createAdminService = (apiService) => {
     }
   };
   
-  const list_users = async (request_body) => {
-    const url = '/admin/users';
-    const body = request_body;
+  const list_users = async (role, lasteenAt, emailVerified) => {
+    const url = `/admin/users?is_email_verified=${emailVerified}&last_seen_at=${lasteenAt}&user_role=${role}`;
 
     try {
-      const response = await apiService.getRequest(url, body);
+      const response = await apiService.getRequest(url);
       if (response && response.data && response.data && response.data.dataSets) {
         return response.data.dataSets;
       } else {
@@ -57,9 +56,18 @@ const createAdminService = (apiService) => {
     }
   };
   
-  const list_schools = async (page = 1, per_page_items = 5) => {
-    const url = `/admin/schools?page=${page}&per_page_items=${per_page_items}`;
-  
+  const list_schools = async (current_page='',page = 1, per_page_items = 5,data) => {
+    console.log(12)
+    current_page=''
+    const newData ={
+      role:data.role??'',
+      admin:data.admin??'',
+      govId:data.govId??'',
+      coordLat:data.coordLat??''
+    }
+
+    const url = `/admin/schools?page=${page}&per_page_items=${per_page_items}&has_admins=${newData.admin}&is_verified=${newData.role}&has_coordinates=${newData.coordLat}&is_connected_to_school=${newData.govId}`;
+   
     try {
       const response = await apiService.getRequest(url);
       if (response && response.data && response.data.dataSets) {
@@ -131,8 +139,8 @@ const createAdminService = (apiService) => {
 
 
 
-  const list_business = async (page = 1, per_page_items = 10) => {
-    const url = `/admin/businesses?page=${page}&per_page_items=${per_page_items}`;
+  const list_business = async (page = 1, per_page_items = 10,hasAdmin) => {
+    const url = `/admin/businesses?page=${page}&per_page_items=${per_page_items}&has_admins=${hasAdmin}`;
   
     try {
       const response = await apiService.getRequest(url);
@@ -342,8 +350,8 @@ const createAdminService = (apiService) => {
     }
   };
 
-  const morderation_all =async () => {
-    const url = `/admin/morderation-get-all`;
+  const morderation_all =async (status) => {
+    const url = `/admin/morderation-get-all?status=${status}`;
   
     try {
       const response = await apiService.getRequest(url);

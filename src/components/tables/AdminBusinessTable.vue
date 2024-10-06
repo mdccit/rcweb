@@ -29,11 +29,11 @@
             <div class="mb-3">
               <label for="">Role </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
-                <select name="filter-role"
+                <select name="filter-role" @change="fetchData" v-model="hasAdmin"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
-                  <option value="admin"> Has Admin </option>
-                  <option value="coach"> No Admin </option>
+                  <option value="has_admins"> Has Admin </option>
+                  <option value="no_admins"> No Admin </option>
                 </select>
               </div>
             </div>
@@ -115,6 +115,7 @@ const options = ref({
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
+const hasAdmin =ref("");
 
 // Function to fetch data from the server
 const fetchData = async () => {
@@ -125,7 +126,7 @@ const fetchData = async () => {
     const search_term = search.value; // Get the search term
 
     // Fetch data from the server with pagination and search parameters
-    const dataSets = await $adminService.list_business(current_page, per_page_items);
+    const dataSets = await $adminService.list_business(current_page, per_page_items,hasAdmin.value);
 
     // Update the table data
     items.value = dataSets.data; // Data for the current page

@@ -29,11 +29,11 @@
           <div class="mb-3">
             <label for="">Status </label>
             <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
-              <select name="filter-role"
+              <select name="filter-role" v-model="status" @change="fetchData"
                 class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                 <option value=""> - </option>
-                <option value="admin"> Open </option>
-                <option value="coach"> Close </option>
+                <option value="open"> Open </option>
+                <option value="close"> Close </option>
               </select>
             </div>
           </div>
@@ -88,7 +88,7 @@ import { useUserStore } from '~/stores/userStore';
 import { useModerationStore } from '~/stores/moderation';
 
 const moderationStore = useModerationStore();
-
+const status = ref('')
 const router = useRouter();
 const search = ref('');
 const items = ref([]);
@@ -110,9 +110,9 @@ const fetchData = async () => {
     const per_page_items = options.value.itemsPerPage;
     const current_page = options.value.page;
     const search_term = search.value; // Get the search term
-
+    
     // Fetch data from the server with pagination and search parameters
-    const dataSets = await $adminService.morderation_all();
+    const dataSets = await $adminService.morderation_all(status);
     // Update the table data
     items.value = dataSets; // Data for the current page
     totalItems.value = dataSets.length

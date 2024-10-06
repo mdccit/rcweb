@@ -31,44 +31,44 @@
             <div class="mb-3">
               <label for="">Role </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
-                <select name="filter-role"
+                <select @change="fetchData" name="role"  v-model="role" 
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
-                  <option value="admin"> Verified </option>
-                  <option value="coach"> Pending Verified </option>
+                  <option value="verified"> Verified </option>
+                  <option value="not_verified"> Pending Verified </option>
                 </select>
               </div>
             </div>
             <div class="mb-3">
               <label for="">Has Admin </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
-                <select name="filter-role"
+                <select name="filter-role" v-model="hasAdmin"  @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
-                  <option value="admin"> Has Admin </option>
-                  <option value="coach"> No Admin </option>
+                  <option value="has_admins"> Has Admin </option>
+                  <option value="no_admins"> No Admin </option>
                 </select>
               </div>
             </div>
             <div class="mb-3">
               <label for="">GOV ID </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
-                <select name="filter-role"
+                <select name="filter-role" v-model="govId"  @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
-                  <option value="admin"> Connected to school </option>
-                  <option value="coach"> Not Connected to school </option>
+                  <option value="connected_to_school"> Connected to school </option>
+                  <option value="not_connected_to_school"> Not Connected to school </option>
                 </select>
               </div>
             </div>
             <div class="mb-3">
-              <label for="">Status </label>
+              <label for="">Coords Lat </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
-                <select name="filter-role"
+                <select name="filter-role"  v-model="coordLat"  @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
-                  <option value="admin"> Open </option>
-                  <option value="coach"> Close </option>
+                  <option value="has_coordinates">  Has Coordinates -- synced  </option>
+                  <option value="no_coordinates">  No Coordinates -- not synced  </option>
                 </select>
               </div>
             </div>
@@ -142,6 +142,10 @@ const router = useRouter();
 const search = ref('');
 const items = ref([]);
 const totalItems = ref(0);
+const role =ref("");
+const hasAdmin =ref("");
+const govId =ref("");
+const coordLat =ref("");
 const options = ref({
   page: 1,
   itemsPerPage: 10,
@@ -157,12 +161,19 @@ const fetchData = async () => {
     const per_page_items = options.value.itemsPerPage;
     const current_page = options.value.page;
     const search_term = search.value; // Get the search term
-
+    console.log(role.value)
+    const data ={
+      role:role.value,
+      admin:hasAdmin.value,
+      govId:govId.value,
+      coordLat:coordLat.value
+    }
+    console.log(11)
+    console.log(data)
     // Fetch data from the server with pagination and search parameters
-    const dataSets = await $adminService.list_schools(current_page, per_page_items, search_term);
-
+    const dataSets = await $adminService.list_schools(current_page, per_page_items, search_term,data);
     // Update the table data
-    items.value = dataSets.data; // Data for the current page
+    items.value = dataSets; // Data for the current page
     totalItems.value = dataSets.total; // Total number of items across all pages
     options.value.page = dataSets.current_page; // Current page
     options.value.itemsPerPage = dataSets.per_page; // Items per page
@@ -245,7 +256,6 @@ const manageStaff = (row) => {
 const handleRowClick = (row) => {
   editRecord(row);
 };
-
 
 </script>
 
