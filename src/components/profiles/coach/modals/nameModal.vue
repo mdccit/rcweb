@@ -65,9 +65,13 @@
                                                 title="This field is optional"></span>
                                         </label>
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
+                                            <label for="profile_picture"
+                                                class=" img-inputblock w-1/3 px-4 py-2 text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input">
+                                                Choose file
+                                            </label>
                                             <input id="profile_picture" type="file" @change="handleFileChange"
                                                 accept="image/jpeg, image/png"
-                                                class="w-full block px-5 py-3 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg">
+                                                class="lock pt-1 text-black h-12 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                                         </div>
                                         <span v-if="fileError" class="text-red-500">{{ fileError }}</span>
                                         <!-- Show validation error -->
