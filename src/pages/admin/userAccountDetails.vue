@@ -533,10 +533,8 @@ const updateUserProfile = async () => {
         return;
     }
     try {
-        const response = await $adminService.user_profile(id.value, {
-            file: profile_image.value
-        });
-
+        const response = await $adminService.user_profile(id.value,profile_image.value);
+   
     } catch (error) {
         console.log(error)
     }
