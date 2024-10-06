@@ -144,7 +144,8 @@ const userLogin = async (autoLogin = false) => {
         user_name:response.data.user_name,
         user_slug:response.data.user_slug
       });
-      userStore.setProfilePicture(response.data.media_info.profile_picture)
+      const newMedia = response.data.media_info.profile_picture??null
+      userStore.setProfilePicture(newMedia)
 
       // Set success notification
       // nuxtApp.$notification.triggerNotification(response.display_message, 'success');
@@ -163,6 +164,7 @@ const userLogin = async (autoLogin = false) => {
         } else if (response.data.user_permission_type != 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business_manager')) {
           router.push('/app');  
         } else if(['player', 'admin', 'parent'].includes(response.data.user_role)){
+          console.log(7895)
           router.push('/app');  // Redirect to Feed
         } else if ((response.data.user_role === 'default')){
           router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
@@ -176,6 +178,7 @@ const userLogin = async (autoLogin = false) => {
       nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
     }
   } catch (error) {
+    console.log(error)
     nuxtApp.$nprogress.done(); 
     nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     handleError(error, errors, notificationMessage, notification_type, showNotification, loading);

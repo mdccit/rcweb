@@ -155,10 +155,10 @@
                     class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                     <!-- <img class="h-8 w-8 rounded-full object-cover"
                       src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin"> -->
-                      <img v-if="userStore.userProfilePicture == null"class="h-8 w-8 rounded-full object-cover"
+                      <img class="h-8 w-8 rounded-full object-cover"
                                         src="@/assets/images/user.png" alt="">
-                                    <img v-if="userStore.userProfilePicture != null" class="h-8 w-8 rounded-full object-cover"
-                                        :src="userStore.userProfilePicture.url" alt="">
+                                    <!-- <img v-if="profilePicture != null" class="h-8 w-8 rounded-full object-cover"
+                                        :src="profilePicture" alt=""> -->
                   </button>
                 </div>
                 <div>
@@ -321,6 +321,7 @@ const router = useRouter();
 const $adminService = nuxtApp.$adminService;
 const morderationCount = ref(0);
 const moderationStore = useModerationStore();
+const profilePicture= ref(null)
 
 const loggedUserName = ref('');
 
@@ -404,6 +405,13 @@ onMounted(() => {
       console.log('No user_name found in localStorage.');
     }
   }
+
+  if(localStorage.getItem('profile_picture')){
+            profilePicture.value =localStorage.getItem('profile_picture')
+            userStore.setProfilePicture({
+                url:profilePicture.value
+            })
+        }
 });
 
 onMounted(() => {

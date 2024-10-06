@@ -55,7 +55,11 @@ export const useUserStore = defineStore('user', {
     },
     setProfilePicture(data) {
       this.profile_picture = data;
-      localStorage.setItem('profile_picture', data.url);
+      let newData = null;
+      if(this.profile_picture !=null){
+         newData = this.profile_picture.url
+      }
+      localStorage.setItem('profile_picture', newData);
     },
     setUserSlug(slug) {
       this.user_slug = slug;
