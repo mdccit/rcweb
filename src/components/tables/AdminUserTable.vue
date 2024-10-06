@@ -32,21 +32,21 @@
             <div class="mb-3">
               <label for="">Role </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
-                <select name="filter-role"
+                <select name="filter-role" v-model="role" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
-                  <option value="admin"> Admin </option>
-                  <option value="coach"> Coach </option>
-                  <option value="player"> Player </option>
-                  <option value="business"> Business </option>
-                  <option value="parent"> Parent </option>
+                  <option value="2"> Admin </option>
+                  <option value="5"> Coach </option>
+                  <option value="4"> Player </option>
+                  <option value="6"> Business </option>
+                  <option value="7"> Parent </option>
                 </select>
               </div>
             </div>
             <div class="mb-3">
               <label for="">Last Seen At </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
-                <select name="filter-role"
+                <select name="filter-role" v-model="lastSeenAt" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
                   <option value="1"> Last 24 hours </option>
@@ -60,11 +60,11 @@
             <div class="mb-3">
               <label for="">Email verified </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
-                <select name="filter-role"
+                <select name="filter-role" v-model="emailVerified" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
-                  <option value="admin"> Verified </option>
-                  <option value="coach"> Not Verified </option>
+                  <option value="verified"> Verified </option>
+                  <option value="not_verified"> Not Verified </option>
                 </select>
               </div>
             </div>
@@ -72,7 +72,7 @@
         </div>
       </div>
 
-      <button
+      <!-- <button
         class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 mx-auto">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
           fill="currentColor">
@@ -81,7 +81,7 @@
             d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
             clip-rule="evenodd"></path>
         </svg>
-      </button>
+      </button> -->
 
     </div>
 
@@ -184,13 +184,15 @@ const options = ref({
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
-
+const role = ref('')
+const lastSeenAt = ref('')
+const emailVerified = ref('')
 
 // Fetch data from the API
 const fetchData = async () => {
   loading.value = true
   try {
-    const users = await $adminService.list_users();
+    const users = await $adminService.list_users(role.value, lastSeenAt.value, emailVerified.value);
     items.value = users;
     totalItems.value = users.length
   } catch (error) {

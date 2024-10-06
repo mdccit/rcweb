@@ -52,7 +52,7 @@
 
     <!-- Media Gallery -->
     <div class="media-gallery grid">
-      <div v-for="(item, index) in galleryItems" :key="index" data-fancybox="gallery" class="media-item"
+      <div v-for="(item, index) in galleryItems" :key="item.media_id" data-fancybox="gallery" class="media-item"
         :src="item.src">
         <img v-if="item.type === 'image'" class="rounded media-item-content" :src="item.src" />
         <video v-if="item.type === 'video'" class="rounded media-item-content" controls>
@@ -230,6 +230,9 @@ const setGalleryItems = (mediaInfo) => {
     return;
   }
 
+    // Clear the gallery items before updating to prevent duplicates
+    galleryItems.value = [];
+
   // Cache busting: Append timestamp to media URLs to prevent caching issues
   galleryItems.value = mediaInfo.media_urls.map(media => {
     const urlWithCacheBust = `${media.url}?t=${new Date().getTime()}`;  // Cache-busting timestamp
@@ -332,8 +335,7 @@ onMounted(() => {
   justify-content: center;
 }
 
-button[disabled] {
-  background-color: #999;
+button[disabled] {  
   cursor: not-allowed;
 }
 
