@@ -244,7 +244,7 @@
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/user/images/Group 179.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2 mx-auto">
-                    <p class="text-xs">budget
+                    <p class="text-xs">Budget
                     </p>
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">${{ props.data.budgetMin }} -
                         ${{ props.data.budgetMax }}
