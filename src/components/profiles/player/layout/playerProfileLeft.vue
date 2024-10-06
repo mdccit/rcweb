@@ -83,7 +83,7 @@
                 <div class="col-span-8">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ props.data.email }}</b> </p>
                 </div>
-            </div> -->
+            </div>
             <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
             </div>
             <!-- <div v-if="loggedUserSlug == props.userSlug" class="grid grid-cols-10">
@@ -98,7 +98,12 @@
                     <p class="text-sm text-black leading-relaxed mb-4"> <b>{{ props.data.phoneCode }} {{
                         phone }}</b> </p>
                 </div>
+            </div>
+           
+            <div v-if="userRole == 'coach' || loggedUserSlug == props.userSlug"  class="grid grid-cols-10">
             </div> -->
+            
+           
 
             <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
@@ -118,6 +123,7 @@
                 </div>
                 <div class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4 ">
+                        
                         <span v-if="props.data.weight != 'User has not entered weight'">
                             {{ Number(props.data.pounds)
                             }}
@@ -242,22 +248,18 @@
                     <p class="text-sm text-black leading-relaxed mb-4 break-all"> {{ props.data.email }} </p>
                 </div>
             </div>
-
-
-            <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
-            </div>
-            <div v-if="loggedUserSlug == props.userSlug" class="grid grid-cols-10">
+           
+            <div v-if="userRole == 'coach' || userRole == 'admin' || loggedUserSlug == props.userSlug" class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-5">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
                     </svg>
-
                 </div>
                 <div class="col-span-8">
-                    <p class="text-sm text-black leading-relaxed mb-4"> {{ props.data.phoneCode }} {{
-                        phone }} </p>
+                    <p class="text-sm text-black leading-relaxed mb-4"> <b>{{ props.data.phoneCode }} {{
+                        props.data.phone }}</b> </p>
                 </div>
             </div>
             <div v-if="loggedUserSlug == props.userSlug" class="grid grid-cols-10">
@@ -452,6 +454,10 @@ const isBioExpanded = ref(false);
 const seeMoreBtnHide = ref(false);
 const bio = ref('')
 const expandBtnName = ref('See More');
+
+const triggerProfilePictureUpdate = (url) => {
+    profile_picture.value = url || defaultProfilePicture;
+};
 const country_codes = ref([]);
 
 
@@ -574,7 +580,12 @@ const fetchUserDetails = async (slug) => {
         }
 
         if (dataSets.media_info.profile_picture != null) {
-            profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+            triggerProfilePictureUpdate(dataSets.media_info.profile_picture.url);
+            // profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+        } else {
+            // Fallback to default
+            triggerProfilePictureUpdate(defaultProfilePicture);
+            // profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
         }
 
     } catch (error) {
@@ -598,6 +609,11 @@ watch(
     },
     { immediate: true } // Execute immediately when component is mounted
 );
+
+watch(profile_picture, (newVal) => {
+    // profilePictureUrl.value = newVal;
+    console.log('Profile picture updated:', newVal);
+});
 
 onMounted(() => {
     userRole.value = userStore.user?.role || null;
@@ -627,6 +643,8 @@ onMounted(() => {
 
 
 });
+
+
 
 
 const toggleText = () => {

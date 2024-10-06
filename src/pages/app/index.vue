@@ -14,7 +14,7 @@
                 <textarea type="text" placeholder="Write your thoughts..." v-model="newPost.description"
                   class="text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 "> </textarea>
   
-                <p v-if="meesge != ''" class="mt-1 text-sm text-red-600 dark:text-red-500">{{ meesge }}</p>
+                <!-- <p v-if="meesge != ''" class="mt-1 text-sm text-red-600 dark:text-red-500">{{ meesge }}</p> -->
   
                 <div class="flex justify-between items-center mt-2">
                   <div class="flex space-x-2">
@@ -363,9 +363,16 @@
   
   const loadInitfintePost = async () =>{
     try {
-       isLoading.value = true;
+       if(!isLoading.value){
+        console.log(1)
+        isLoading.value = true;
       const response = await $feedService.list_posts(currentPage.value);
-       posts.value.push(...response.data);
+      if(currentPage.value ==1){
+        posts.value = response.data
+      }else{
+        posts.value.push(...response.data);
+      }
+      
 
       lastPage.value =response.last_page
       currentPage.value =response.current_page +1
@@ -375,6 +382,8 @@
       }
       isHidddenComment.value = idsArray
        isLoading.value = false;
+       }
+      
     } catch (error) {
        isLoading.value = false;
       console.error('Failed to load posts:', error.message);
@@ -397,7 +406,6 @@
         title: ''
       }
       const response = await $feedService.create_post(newValue);
-  
       newPost.value = {
         description: '',
         type: 'post',
@@ -407,11 +415,12 @@
       postAdd.value = false
   
       nuxtApp.$notification.triggerNotification(response.display_message, 'success');
-      loadPost();
+      currentPage.value = 1
+      loadInitfintePost();
   
     } catch (error) {
       meesge.value = "Input validation failed"
-      nuxtApp.$notification.triggerNotification("Input validation failed", 'failure');
+      nuxtApp.$notification.triggerNotification("Post cannot be empty. Please add content before submitting.", 'failure');
   
       newPost.value = {
         description: '',
@@ -436,7 +445,7 @@
       } else {
         await $feedService.like_post(post_id);
       }
-      loadPosts();
+      loadInitfintePost();
   
       likeButtonDisable.value = likeButtonDisable.value.filter(item => item !== post_id);
   
@@ -471,8 +480,9 @@
     try {
       nprogress.start();
       await $feedService.create_comment(postId, { content: newComment.value });
-      newComment.value = ''; // Clear the comment input after submission
-      loadPosts(); // Reload posts to update the comments section
+      newComment.value = '';
+      currentPage.value = 1
+      loadInitfintePost(); // Clear the comment input after submission
     } catch (error) {
       console.error('Failed to add comment:', error.message);
     }finally{
@@ -493,8 +503,10 @@
   const refreshComments = async () => {
     // await fetchComments();
     nprogress.start();
-    const response = await $feedService.list_posts({});
-    posts.value = response;
+    // const response = await $feedService.list_posts({});
+    // posts.value = response;
+    currentPage.value = 1
+    loadInitfintePost();
     nprogress.done();
   };
   
@@ -521,8 +533,9 @@
       nprogress.start();
       model_id.value = ""
       const response = await nuxtApp.$feedService.delete_post(post_id);
-      loadPosts();
-    } catch (error) {
+      currentPage.value = 1
+      loadInitfintePost();
+      } catch (error) {
       console.error('Failed to fetch comments:', error.message);
     }finally{
       nprogress.done();
@@ -550,8 +563,8 @@
         title: 'Post',
       }
       const response = await nuxtApp.$feedService.update_post(post_id, newValue);
-      loadPosts();
-    } catch (error) {
+      currentPage.value = 1
+      loadInitfintePost();    } catch (error) {
       console.error('Failed to fetch comments:', error.message);
     }finally{
       nprogress.done();
@@ -594,7 +607,7 @@
       const container = document.getElementById('dataContainer');
        if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
           if(posts.value.length != displayedItems.value.length){
-            if(currentPage.value <= lastPage.value){
+            if(currentPage.value <= lastPage.value && !isLoading.value){
               loadInitfintePost();
             }
            

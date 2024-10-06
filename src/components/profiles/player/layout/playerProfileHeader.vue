@@ -22,7 +22,7 @@
                                     </svg>
                                 </button> -->
                 </div>
-                <div class="">
+                <div v-if="playerId != userId" >
                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5 text-blue-500 m-auto">
@@ -32,18 +32,21 @@
 
                     </button>
                 </div>
-
-                <div class="flex" v-if="buttonHide == false">
-                    <button @click="connectAcceptOrConnect"
-                        class="bg-blue-500 rounded-full  p-2 m-1 text-white text-xs h-[35px] w-[85px]">
-                        {{ connectionButtonName }}
-                    </button>
-                    <div v-if="connectionButtonName =='Accept connection'" class="text-white">
-                        <button @click="connectReject" class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                            Reject
-                       </button>
-                    </div> 
+                <div v-if="playerId != userId">
+                    <div class="flex" v-if="buttonHide == false">
+                        <button @click="connectAcceptOrConnect"
+                           class="bg-blue-500 rounded-full  p-2 m-1 text-white text-xs h-[35px] w-[85px]">
+                            {{ connectionButtonName }}
+                        </button>
+                        <div v-if="connectionButtonName =='Accept'" class="text-white">
+                            <button @click="connectReject" class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                               Reject
+                            </button>
+                        </div> 
+                    </div>
                 </div>
+                
+
                 <div class="">
                     <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
                         class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -156,13 +159,17 @@ const userStore = useUserStore();
 onMounted(() => {
     userId.value = userStore.user?.user_id || null;
     fetchUserDetails()
-    fetchCheckConnection()
 });
 
 const fetchUserDetails = async (slug) => {
   try {
     const dataSets = await $publicService.get_user_profile(props.userSlug);
     playerId.value = dataSets.user_basic_info.id || null;
+    if(playerId.value != userId.value ){
+        fetchCheckConnection()
+    }
+   
+
   }catch(error){
     console.error('Error fetching data:', error.message);
   }
@@ -191,7 +198,7 @@ const fetchCheckConnection = async () => {
 
                 if ((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)) {
                     buttonHide.value = false
-                    connectionButtonName.value = "Accept connection"
+                    connectionButtonName.value = "Accept"
                 }
 
                 if (dataSets.type.connection_status == 'accepted') {
@@ -213,7 +220,7 @@ const fetchCheckConnection = async () => {
 const connectAcceptOrConnect = async () => {
 
 try {
-    if (connectionButtonName.value == "Accept connection") {
+    if (connectionButtonName.value == "Accept") {
         await $userService.connection_accept(connectionType.value.id, {
             connection_status: "accepted"
         });
