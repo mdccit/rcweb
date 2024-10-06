@@ -133,9 +133,18 @@
                                         </button>
                                     </div>
                                     <div v-if="user.connection != null">
-                                        <button v-if="user.connection.connection_status =='pending'"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                             Invite Sent
-                                        </button>
+                                        <div v-if="user.connection.connection_status =='pending'">
+                                            <button v-if="user.connection.user_id ==user.connection.sender_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                Invite Sent
+                                            </button>
+                                            <button @click="accept(user.connection.id)" v-if="user.connection.user_id ==user.connection.receiver_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                Accept
+                                            </button>
+                                            <button @click="reject(user.connection.id)" v-if="user.connection.user_id ==user.connection.receiver_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                Reject
+                                            </button>
+                                        </div>
+                                        
                                     </div>
                                     <div v-if="user.connection == null">
                                         <button @click="connect(user.userId)"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
@@ -369,6 +378,29 @@ const connect = async (id) =>{
         console.error('Failed to load posts:', error.message);
     }
 }
+
+const accept = async (id) =>{
+    try {
+        await $userService.connection_accept(id, {
+            connection_status: "accepted"
+        });
+        searchStore.setSearchButton(true)
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
+}
+
+const reject = async (id) =>{
+    try {
+        const response = await $userService.connection_reject(id, {
+            connection_status: "rejected"
+        });
+        searchStore.setSearchButton(true)
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
+}
+
 
 const refresh = () =>{
     searchStore.setSearchKey(route.query.searchKey)
