@@ -1,18 +1,7 @@
 <template>
   <div>
     <!-- Skeleton Loader: Shows when isLoading is true -->
-    <div v-if="isLoading">
-      <div v-for="n in 5" :key="n" class="skeleton-post">
-        <div class="skeleton-avatar"></div>
-        <div class="skeleton-content">
-          <div class="skeleton-line skeleton-line-short"></div>
-          <div class="skeleton-line"></div>
-          <div class="skeleton-line"></div>
-        </div>
-      </div>
-    </div>
-
-
+    <SkeletonLoader v-if="isLoading" />
 
     <!-- BEGIN FEED -->
     <div v-else>
@@ -315,6 +304,7 @@ import CommentSection from '~/components/user/feed/CommentSection.vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import postGalleryComponent from '~/components/user/feed/postGalleryComponent.vue';
+import SkeletonLoader from '~/components/common/SkeltonLoader.vue';
 const nprogress = nuxtApp.$nprogress;
 
 const userStore = useUserStore()
