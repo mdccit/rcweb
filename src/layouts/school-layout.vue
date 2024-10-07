@@ -98,6 +98,7 @@ const currentPage = ref(1)
 const lastPage  =ref('')
 const isHidddenComment = ref([])
 const logUserInTheSchool =ref(false)
+const academicData = ref([])
 onMounted(() => {
     fetchSchooleDatils();
    //fetchPost();
@@ -131,6 +132,10 @@ const fetchSchooleDatils = async () =>{
             address.value =dataSets.school_info.other_data.address
             graduationRate.value =dataSets.school_info.other_data.graduation_rate
             academic.value =dataSets.school_info.other_data
+            if(dataSets.school_info.other_data.academics){
+              academicData.value =dataSets.school_info.other_data.academics??[]
+            }
+            
         }
 
         if(dataSets.school_users_info){
@@ -158,6 +163,7 @@ const fetchSchooleDatils = async () =>{
             conferenceId:conferenceId.value,
             profile: profilePicture.value,
             cover:coverPicture.value,
+            academicData:academicData.value
         }
         loadInitfintePost
         //fetchPost()
