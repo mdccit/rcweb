@@ -605,6 +605,31 @@ const createUserService = (apiService) => {
     }
   };
 
+
+  const upload_school_cover_photo = async (file, school_slug) => {
+
+    const url = `/public/schools/upload-cover-picture/${school_slug}`;
+    // Create a new FormData object
+    const formData = new FormData();
+
+    // Ensure the file is appended correctly
+    if (file) {
+      formData.append('file', file); // The field name must match what the backend expects
+    } else {
+      throw new Error('No file selected'); // Handle if no file is selected
+    }
+    try {
+      const response = await apiService.postMedia(url, formData);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to login');
+      }
+    }
+  };
+
   return {
     get_connection,
     connection_request,
@@ -649,7 +674,8 @@ const createUserService = (apiService) => {
     upload_business_user_media,
     delete_business_user_media,
     update_business_user_other_info,
-    upload_business_user_profile_picture
+    upload_business_user_profile_picture,
+    upload_school_cover_photo
   };
 
 

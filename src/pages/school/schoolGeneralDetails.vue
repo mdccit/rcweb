@@ -180,6 +180,7 @@
                                         <option value="6"> Northern Sun </option>
                                     </select>
                                 </div>
+                                <InputError :error="errors.conference ? errors.conference.join(', ') : ''" />
                             </div>
                         </label>
                     </div>
@@ -196,6 +197,7 @@
                                         <option value="5"> NJCAA </option>
                                     </select></div>
                             </div>
+                            <InputError :error="errors.division ? errors.division.join(', ') : ''" />
                         </label>
                     </div>
                 </div>

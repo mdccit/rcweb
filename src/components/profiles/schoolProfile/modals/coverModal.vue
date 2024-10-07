@@ -111,29 +111,24 @@ onMounted(() => {
 
 watch(() => props.visible, (newVal) => {
     if (newVal && props.slug) {
-        fetchCoachNames(props.slug);
+      fetchSchoolDetails(props.slug);
     }
 });
 
-const fetchCoachNames = async (slug) => {
-  try {
-    const dataSets = await $publicService.get_user_profile(slug);
-    // if (dataSets.user_basic_info) {
-    //     first_name.value = dataSets.user_basic_info.first_name ?? "";
-    //     last_name.value = dataSets.user_basic_info.last_name ?? "";
-    //     other_names.value = dataSets.user_basic_info.other_names ?? "";
-    // }
-    console.log('media');
-    
-    if (dataSets.media_info) {
-      cover_picture.value = dataSets.media_info.cover_picture ?? null
+const fetchSchoolDetails = async () =>{
+    try {
+       const dataSets = await $publicService.get_school(route.params.slug);
 
-    }
-    console.log(cover_picture.value);
-  } catch (error) {
-    nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
-  }
-};
+        if(dataSets.media_info){
+            profilePicture.value = dataSets.media_info.profile_picture
+            coverPicture.value = dataSets.media_info.cover_picture 
+            setGalleryItems(dataSets.media_info);
+        }        
+    } catch (error) {
+       console.error('Error fetching data:', error.message);
+    } 
+}
+
 
 const handleFileChange = (event) => {
   const file = event.target.files[0];
@@ -169,13 +164,13 @@ const saveProfilePicture = async () => {
 
   if (!cover_picture.value) {
     // Handle case where no file is selected
-    console.log('no profile picture found');
+    nuxtApp.$notification.triggerNotification('No cover picture found', 'warning');
     return;
   }
   try {
     loading.value = true;
     const user_slug = props.slug; // Assuming you have user_slug available in props
-    const response = await $userService.upload_coach_cover_photo(cover_picture.value, user_slug); // Call the upload function
+    const response = await $userService.upload_school_cover_photo(cover_picture.value, user_slug); // Call the upload function
 
     if (response.status == '200') {
       loading.value = false;
@@ -186,7 +181,7 @@ const saveProfilePicture = async () => {
     }
   } catch (error) {
     loading.value = false;
-    console.error('Error uploading profile picture', error);
+    console.error('Error uploading cover picture', error);
   }
 };
 

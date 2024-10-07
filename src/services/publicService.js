@@ -135,35 +135,6 @@ const delete_media_coache = async (media_id) => {
 //   }
 // };
 
-const get_scool= async (school_slug) => {
-  const url = `/public/schools/${school_slug}`;
-  try {
-    const response = await apiService.getRequest(url);
-    if (response && response.data) {
-      return response.data;
-    } else {
-      throw new Error('Unexpected API response structure');
-    }
-  } catch (error) {
-    throw new Error(error.message || 'Failed to register');
-  }
-};
-
-// const get_user_profile= async (slug) => {
-//   const url = `/public/users/${slug}`;
-//   try {
-//     const response = await apiService.getRequest(url);
-//     if (response && response.data) {
-//       console.log(response.data);
-//       return response.data;
-//     } else {
-//       throw new Error('Unexpected API response structure');
-//     }
-//   } catch (error) {
-//     console.log(error)
-//     throw new Error(error.message || 'Failed to register');
-//   }
-// };
 
 const get_school_team= async (id) => {
   const url = `/public/school-team-get/${id}`;
@@ -219,7 +190,6 @@ const delete_school_user= async (id) => {
     get_coache,
     get_business_user,
     get_business,
-    get_scool,
     get_user_profile,
     get_school_team,
     add_school_team,

@@ -172,7 +172,7 @@ const handleModalClose = (modalName) => {
     // Defensive check to make sure modalName exists
     if (modals[modalName] !== undefined) {
         modals[modalName] = false;  // Close the modal
-        fetchUserDetails();         // Fetch updated user details after closing
+        fetchSchoolDetails();         // Fetch updated user details after closing
     } else {
         console.error(`Invalid modal name: ${modalName}`);
     }
@@ -206,6 +206,22 @@ watch(
     },
     { immediate: true } // Execute immediately when component is mounted
 );
+
+
+const fetchSchoolDetails = async () =>{
+    try {
+       const dataSets = await $publicService.get_school(route.params.slug);
+
+        if(dataSets.media_info){
+            profilePicture.value = dataSets.media_info.profile_picture
+            coverPicture.value = dataSets.media_info.cover_picture 
+            setGalleryItems(dataSets.media_info);
+        }        
+    } catch (error) {
+       console.error('Error fetching data:', error.message);
+    } 
+}
+
 
 onMounted(() => {
     slug.value = schoolSlug;
