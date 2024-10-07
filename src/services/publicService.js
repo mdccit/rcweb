@@ -137,7 +137,6 @@ const delete_media_coache = async (media_id) => {
 
 const get_scool= async (school_slug) => {
   const url = `/public/schools/${school_slug}`;
-  console.log(url)
   try {
     const response = await apiService.getRequest(url);
     if (response && response.data) {
@@ -146,7 +145,6 @@ const get_scool= async (school_slug) => {
       throw new Error('Unexpected API response structure');
     }
   } catch (error) {
-    console.log(error)
     throw new Error(error.message || 'Failed to register');
   }
 };

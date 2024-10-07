@@ -16,7 +16,7 @@
                   <!-- Cover Picture Upload -->
                   <div class="w-full flex justify-center">
                     <div v-if="cover_picture != null">
-                      <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="cover_picture.value.url" alt="">
+                      <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="cover_picture" alt="">
                       <!-- <button @click="removeProfile">Remove</button> -->
                       <div class="w-full flex justify-center">
 

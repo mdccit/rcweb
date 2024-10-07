@@ -1,11 +1,15 @@
 <template>
     <section class="w-full mb-5 p-3">
         <div class="relative">
-            <img v-if="props.data.cover == null" class="w-full h-[400px] rounded-xl" src="@/assets/images/covrss.jpg" alt="">
-            <img v-if="props.data.cover != null" class="w-full h-[400px] rounded-xl" :src= "props.data.cover.url" alt="">
+            <img class="w-full h-[400px] rounded-xl" 
+            :src="data.cover && data.cover.url ? data.cover.url : '@/assets/images/covrss.jpg'" 
+            :alt="data.cover && data.cover.url ? 'User cover image' : 'Default cover image'">
+       
+
 
             <!-- Wrapper for the SVG to position it absolutely -->
-            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md">
+            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md"
+                @click="toggleModal('cover')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
                     stroke="currentColor" class="size-3">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -14,16 +18,17 @@
             </div>
         </div>
 
-        <span>
             <div class="-mt-[144px]">
                 <div class="grid grid-cols-5 gap-4 flex">
                     <div class="col-span-1">
                         <div class="text-center flex relative">
                             <div class="relative ml-5">
-                                <img v-if="props.data.profile == null" class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
+                                <img v-if="data.profile == null"
+                                    class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
                                     src="@/assets/images/user.png" alt="">
-                                <img v-if="props.data.profile != null" class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
-                                    :src="props.data.profile.url" alt="">
+                                <img v-if="data.profile != null"
+                                    class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
+                                    :src="data.profile.url" alt="">
 
                                 <!-- SVG Wrapper positioned at the bottom right of the image -->
                                 <div
@@ -41,7 +46,7 @@
 
 
                             <div class="text-left mt-[80px] ml-5">
-                                <h2 class="text-lg font-semibold text-white text-3xl">{{ props.data.name }} </h2>
+                                <h2 class="text-lg font-semibold text-white text-3xl">{{ data.name }} </h2>
                                 <h5 class="text-md text-white font-normal text-black text-primaryblue">School
                                 </h5>
                             </div>
@@ -67,7 +72,8 @@
                                     </button> -->
                                 </div>
                                 <div class="">
-                                    <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                    <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1"
+                                        @click="toggleModal('name')">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
                                             class="size-5 text-blue-500 m-auto">
@@ -82,7 +88,6 @@
 
                 </div>
             </div>
-        </span>
     </section>
 
     <!-- Modal Components with Standardized Props -->
@@ -95,7 +100,12 @@
 import { ref, defineEmits, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { useRouter, useRoute } from 'vue-router';
+import { useUserStore } from '~/stores/userStore';
 import SchoolTabNavigation from '~/components/profiles/navigation/SchoolTabNavigation.vue';
+import NameModal from '~/components/profiles/schoolProfile/modals/nameModal.vue';
+import CoverModal from '~/components/profiles/schoolProfile/modals/coverModal.vue';
+
+
 // Import the default profile picture
 import defaultCoverPicture from '@/assets/images/default_cover.png';
 import defaultProfilePicture from '@/assets/images/user.png';
@@ -104,20 +114,18 @@ import defaultProfilePicture from '@/assets/images/user.png';
 const emit = defineEmits(['changeTab']);
 const nuxtApp = useNuxtApp();
 const router = useRouter();
+const userStore = useUserStore();
 
-const props = defineProps({
-
-data: {
-    type: Object,
-    required: true,
-},
-
-schoolSlug: {
-    type: String,
-    required: true,
-}
+const { data, schoolSlug } = defineProps({
+    data: {
+        type: Object,
+        required: true,
+    },
+    schoolSlug: {
+        type: String,
+        required: true,
+    }
 });
-
 
 const tab = ref('feed');
 const connectionStatus = ref(false)
@@ -125,9 +133,11 @@ const connectionType = ref(null)
 const connectionButtonName = ref('Connect')
 const buttonHide = ref(true);
 const profile_picture = ref(null);
-const userSlug = ref('')
-const sameUser = ref(false)
+const slug = ref('');
+const sameUser = ref(false);
 const cover_picture = ref(null);
+const loggedUserSlug = ref(null);
+
 
 const handleTab = (selectedTab) => {
     tab.value = selectedTab;
@@ -135,21 +145,17 @@ const handleTab = (selectedTab) => {
 };
 
 const tabs = ref([
-  { name: 'feed', label: 'Post' },
-  { name: 'member', label: 'Member' },
-  { name: 'team', label: 'Team' },
-  { name: 'media', label: 'Media' },
-  { name: 'academic', label: 'Academics' }
+    { name: 'feed', label: 'Post' },
+    { name: 'member', label: 'Member' },
+    { name: 'team', label: 'Team' },
+    { name: 'media', label: 'Media' },
+    { name: 'academic', label: 'Academics' }
 ]);
-
-
-
 
 // Define reactive state for all modals
 const modals = reactive({
     name: false,
     cover: false,
-    info: false,
 });
 
 // Generic toggle function
@@ -176,9 +182,9 @@ const handleModalClose = (modalName) => {
 const profilePictureUrl = computed(() => profile_picture.value);
 const coverPictureUrl = computed(() => cover_picture.value);
 
-// Watch for changes in props.data
+// Watch for changes in data
 watch(
-    () => props.data,
+    () => data,
     (newVal) => {
         if (newVal && newVal.media_info) {
             profile_picture.value = newVal.media_info.profile_picture?.url || defaultProfilePicture;
@@ -190,7 +196,7 @@ watch(
 );
 
 watch(
-    () => props.data,
+    () => data,
     (newVal) => {
         if (newVal && newVal.media_info) {
             cover_picture.value = newVal.media_info.cover_picture?.url || defaultCoverPicture;
@@ -200,6 +206,27 @@ watch(
     },
     { immediate: true } // Execute immediately when component is mounted
 );
+
+onMounted(() => {
+    slug.value = schoolSlug;
+
+    if (process.client) {
+        loggedUserSlug.value = localStorage.getItem('user_slug')
+    }
+
+    // Set profile picture when data becomes available
+    if (data && data.media_info) {
+        console.log('media available');
+        profile_picture.value = data.media_info.profile_picture?.url || defaultProfilePicture;
+        cover_picture.value = data.media_info.cover_picture?.url || defaultProfilePicture;
+    } else {
+        console.log('media not available');
+        profile_picture.value = defaultProfilePicture;
+        cover_picture.value = defaultCoverPicture;
+    }
+
+})
+
 </script>
 
 <style scoped>

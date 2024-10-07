@@ -15,48 +15,19 @@
                               <div class="mt-2 w-full">
                                   <!-- First Name Input -->
                                   <div class="w-full">
-                                      <label class="block mb-1 text-gray-700 font-sans">First Name
+                                      <label class="block mb-1 text-gray-700 font-sans">School Name
                                           <span aria-hidden="true" class="text-red-600"
                                               title="This field is required">*</span>
                                       </label>
                                       <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
-                                          <input id="first_name" v-model="first_name" type="text"
-                                              autocomplete="first_name"
+                                          <input id="name" v-model="name" type="text"
+                                              autocomplete="name"
                                               class="w-full block px-5 py-3  text-black border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                               placeholder="Enter your first name" required>
                                       </div>
-                                      <InputError :error="errors.first_name ? errors.first_name.join(', ') : ''" />
+                                      <InputError :error="errors.name ? errors.name.join(', ') : ''" />
                                   </div>
 
-                                  <!-- Last Name Input -->
-                                  <div class="w-full mt-3">
-                                      <label class="block mb-1 text-gray-700 font-sans">Last Name
-                                          <span aria-hidden="true" class="text-red-600"
-                                              title="This field is required">*</span>
-                                      </label>
-                                      <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
-                                          <input id="last_name" v-model="last_name" type="text"
-                                              autocomplete="last_name"
-                                              class="w-full block px-5 py-3  text-black border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                              placeholder="Enter your last name" required>
-                                      </div>
-                                      <InputError :error="errors.last_name ? errors.last_name.join(', ') : ''" />
-                                  </div>
-
-                                  <!-- Other Names Input -->
-                                  <div class="w-full mt-3">
-                                      <label class="block mb-1 text-gray-700 font-sans">Other Names
-                                          <span aria-hidden="true" class="text-red-600"
-                                              title="This field is optional"></span>
-                                      </label>
-                                      <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
-                                          <input id="other_names" v-model="other_names" type="text"
-                                              autocomplete="other_names"
-                                              class="w-full block px-5 py-3  text-black border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                              placeholder="Enter other names (optional)">
-                                      </div>
-                                      <InputError :error="errors.other_names ? errors.other_names.join(', ') : ''" />
-                                  </div>
 
                                   <!-- Profile Picture Upload -->
                                   <div class="w-full mt-3">
@@ -145,9 +116,7 @@ const $userService = nuxtApp.$userService;
 const $publicService = nuxtApp.$publicService;
 
 // Local state for the user's name details
-const first_name = ref('');
-const last_name = ref('');
-const other_names = ref('');
+const name = ref('');
 const profile_picture_exit = ref(null)
 
 const error = ref('');
@@ -162,7 +131,7 @@ const profile_picture = ref('');
 // On mounted, fetch the current user names using the slug
 onMounted(() => {
   if (props.slug) {
-      fetchPlayerNames(props.slug);
+      fetchSchool(props.slug);
   }
 });
 
@@ -233,7 +202,7 @@ const saveProfilePicture = async () => {
 };
 
 // Function to fetch the player names based on the slug
-const fetchPlayerNames = async (slug) => {
+const fetchSchool = async (slug) => {
   try {
       const dataSets = await $publicService.get_user_profile(slug);
       if (dataSets.user_basic_info) {
