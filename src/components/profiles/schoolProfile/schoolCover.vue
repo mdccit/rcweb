@@ -1,7 +1,9 @@
 <template>
     <section class="w-full mb-5 p-3">
         <div class="relative">
-            <img class="w-full h-[400px] rounded-xl" src="@/assets/images/covrss.jpg" alt="">
+            <img v-if="props.data.cover == null" class="w-full h-[400px] rounded-xl" src="@/assets/images/covrss.jpg" alt="">
+            <img v-if="props.data.cover != null" class="w-full h-[400px] rounded-xl" :src= "props.data.cover.url" alt="">
+
             <!-- Wrapper for the SVG to position it absolutely -->
             <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
@@ -18,8 +20,10 @@
                     <div class="col-span-1">
                         <div class="text-center flex relative">
                             <div class="relative ml-5">
-                                <img class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
-                                    src="@/assets/images/avtar.png" alt="">
+                                <img v-if="props.data.profile == null" class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
+                                    src="@/assets/images/user.png" alt="">
+                                <img v-if="props.data.profile != null" class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
+                                    :src="props.data.profile.url" alt="">
 
                                 <!-- SVG Wrapper positioned at the bottom right of the image -->
                                 <div
@@ -37,8 +41,8 @@
 
 
                             <div class="text-left mt-[80px] ml-5">
-                                <h2 class="text-lg font-semibold text-white text-3xl">{{ name }} Sachool</h2>
-                                <h5 class="text-md text-white font-normal text-black text-primaryblue">Tennis {{ role }}
+                                <h2 class="text-lg font-semibold text-white text-3xl">{{ props.data.name }} </h2>
+                                <h5 class="text-md text-white font-normal text-black text-primaryblue">School
                                 </h5>
                             </div>
                         </div>
@@ -48,21 +52,7 @@
                         <div class="col-span-3">
                             <div
                                 class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                                <ul class="flex flex-wrap -mb-px">
-                                    <li class="me-2">
-                                        <a href="#"
-                                            class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</a>
-                                    </li>
-                                    <li class="me-2">
-                                        <a href="#"
-                                            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                            aria-current="page">Connections</a>
-                                    </li>
-                                    <li class="me-2">
-                                        <a href="#"
-                                            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</a>
-                                    </li>
-                                </ul>
+                                <SchoolTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
                             </div>
                         </div>
                     </div>
@@ -71,10 +61,10 @@
                         <div class="w-full flex justify-end">
                             <div class="flex space-x-2">
                                 <div class="text-white">
-                                    <button @click="connectAcceptOrConnect"
+                                    <!-- <button @click="connectAcceptOrConnect"
                                         class="bg-blue-500 rounded-full p-2 m-1 text-xs h-[35px] w-[85px]">
                                         {{ connectionButtonName }} Follow
-                                    </button>
+                                    </button> -->
                                 </div>
                                 <div class="">
                                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -97,7 +87,44 @@
 </template>
 
 <script setup>
+import { ref, defineEmits, onMounted } from 'vue';
+import { useNuxtApp } from '#app';
+import { useRouter, useRoute } from 'vue-router';
+import SchoolTabNavigation from '~/components/profiles/navigation/SchoolTabNavigation.vue';
 
+const emit = defineEmits(['changeTab']);
+const nuxtApp = useNuxtApp();
+const router = useRouter();
+
+const props = defineProps({
+
+data: {
+    type: Object,
+    required: true,
+},
+
+schoolSlug: {
+    type: String,
+    required: true,
+}
+});
+
+const tab = ref('feed');
+
+
+const handleTab = (selectedTab) => {
+    tab.value = selectedTab;
+    emit('changeTab', selectedTab)
+};
+
+const tabs = ref([
+  { name: 'feed', label: 'Post' },
+  { name: 'member', label: 'Member' },
+  { name: 'team', label: 'Team' },
+  { name: 'media', label: 'Media' },
+  { name: 'academic', label: 'Academics' }
+]);
+console.log(props.data)
 </script>
 
 <style scoped>

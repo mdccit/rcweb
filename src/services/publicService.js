@@ -65,7 +65,7 @@ const createPublicService = (apiService) => {
     }
   };
 
-  const get_scool = async (school_slug) => {
+  const get_school = async (school_slug) => {
     const url = `/public/schools/${school_slug}`;
     console.log(url)
     try {
@@ -118,6 +118,104 @@ const delete_media_coache = async (media_id) => {
     throw new Error(error.message || 'Failed to update post');
   }
 };
+
+// const get_business= async (business_slug) => {
+//   const url = `/public/businesses/${business_slug}`;
+//   console.log(url)
+//   try {
+//     const response = await apiService.getRequest(url);
+//     if (response && response.data) {
+//       return response.data;
+//     } else {
+//       throw new Error('Unexpected API response structure');
+//     }
+//   } catch (error) {
+//     console.log(error)
+//     throw new Error(error.message || 'Failed to register');
+//   }
+// };
+
+const get_scool= async (school_slug) => {
+  const url = `/public/schools/${school_slug}`;
+  console.log(url)
+  try {
+    const response = await apiService.getRequest(url);
+    if (response && response.data) {
+      return response.data;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    console.log(error)
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+// const get_user_profile= async (slug) => {
+//   const url = `/public/users/${slug}`;
+//   try {
+//     const response = await apiService.getRequest(url);
+//     if (response && response.data) {
+//       console.log(response.data);
+//       return response.data;
+//     } else {
+//       throw new Error('Unexpected API response structure');
+//     }
+//   } catch (error) {
+//     console.log(error)
+//     throw new Error(error.message || 'Failed to register');
+//   }
+// };
+
+const get_school_team= async (id) => {
+  const url = `/public/school-team-get/${id}`;
+  try {
+    const response = await apiService.getRequest(url);
+    if (response && response.data) {
+      console.log(response.data);
+      return response.data;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    console.log(error)
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+const delete_school_team= async (id) => {
+  const url = `/public/school-team-delete/${id}`;
+  try {
+    const response = await apiService.deleteRequest(url);
+    return response;
+  } catch (error) {
+    console.log(error)
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+const add_school_team= async (request_body) => {
+  const url = '/public/school-team-add';
+  const body = request_body;
+
+  try {
+    const response = await apiService.postRequest(url, body);
+    return response;
+  } catch (error) {
+    throw new Error(error.response.display_message || 'Failed to register');
+  }
+};
+
+const delete_school_user= async (id) => {
+  const url = `/public/schools-user-delete/${id}`;
+  try {
+    const response = await apiService.deleteRequest(url);
+    return response;
+  } catch (error) {
+    console.log(error)
+    throw new Error(error.message || 'Failed to register');
+  }
+};
   return {
     get_player,
     get_coache,
@@ -125,8 +223,10 @@ const delete_media_coache = async (media_id) => {
     get_business,
     get_scool,
     get_user_profile,
-    delete_media_player,
-    delete_media_coache
+    get_school_team,
+    add_school_team,
+    delete_school_team,
+    delete_school_user
   };
 
 
