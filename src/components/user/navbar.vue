@@ -123,8 +123,10 @@
                         <NuxtLink v-if="userRole != 'admin'" :to="`/app/profile/${userSlug}`">
                             <div class="flex space-x-2 items-center">
                                 <div class="hidden sm:hidden md:hidden lg:block">
-                                    <img class="w-10 h-10 rounded-lg border border-white shadow-lg"
-                                        src="@/assets/user/images/Rectangle_117.png" alt="">
+                                    <img v-if="userStore.userProfilePicture == null"class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                        src="@/assets/images/user.png" alt="">
+                                    <img v-if="userStore.userProfilePicture != null" class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                        :src="userStore.userProfilePicture.url" alt="">
                                 </div>
                                 <div class="hidden sm:hidden md:hidden lg:block">
                                     <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
@@ -135,11 +137,14 @@
                         <NuxtLink v-else :to="`/app/profile/${userSlug}`">
                             <div class="flex space-x-2 items-center">
                                 <div class="hidden sm:hidden md:hidden lg:block">
-                                    <img class="w-10 h-10 rounded-lg border border-white shadow-lg"
-                                        src="@/assets/user/images/Rectangle_117.png" alt="">
+                                    <img v-if="userStore.profile_picture == null"class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                        src="@/assets/images/user.png" alt="">
+                                        
+                                    <img v-if="userStore.profile_picture != null" class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                        :src="profilePicture" alt="">
                                 </div>
                                 <div class="hidden sm:hidden md:hidden lg:block">
-                                    <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
+                                    <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName  }}</h6>
                                     <p class="text-xs text-limegreen">Online</p>
                                 </div>
                             </div>
@@ -201,7 +206,7 @@ const loggedUserMail = computed(() => userStore.loggedUserEmail);
 const loggedUserName = ref('');
 const userSlug = ref('');
 const key = ref('');
-
+const profilePicture= ref('')
 
 const logout = async (event) => {
     event.preventDefault();
@@ -290,8 +295,14 @@ onMounted(() => {
         } else {
             userSlug.value = null; // Handle the absence of user_slug
         }
-
-
+        console.log("Media Info")
+        console.log(userStore.userProfilePicture)
+        if(localStorage.getItem('profile_picture')){
+            profilePicture.value =localStorage.getItem('profile_picture')
+            userStore.setProfilePicture({
+                url:profilePicture.value
+            })
+        }
     }
 
 

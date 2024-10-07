@@ -20,7 +20,6 @@
                 </div>
                 <!-- Modal Body -->
                 <div class="p-6 space-y-6">
-
                     <!-- Display error messages -->
                     <div v-if="errors.length" class="error-messages">
                         <p class="error-title">Validation Errors:</p>
@@ -35,19 +34,21 @@
                     <div>
                         <label for="name" class="block text-sm font-normal text-gray-900 light:text-gray">Business
                             Name</label>
+                        <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+                            <input type="text" id="name" v-model="name"
+                                class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg "
+                                placeholder="Enter Business Name" />
+                        </div>
 
-                        <input type="text" id="name" v-model="name"
-                            class=" bg-transparent w-full text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500 "
-                            placeholder="Enter Business Name" />
                     </div>
 
-                
+
 
                 </div>
                 <!-- Modal Footer -->
                 <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-300">
                     <button @click="submitRegistration"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:border-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Create
                     </button>
                     <button @click="$emit('close')"
@@ -100,8 +101,8 @@ const submitRegistration = async () => {
         if (response.status === 200) {
             notificationMessage.value = response.display_message;
             showNotification.value = true;
-            name.value='';
-            bio.value ='';
+            name.value = '';
+            bio.value = '';
             emit('close');
         } else {
             errors.value.push(response.data.display_message);

@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <select v-model="selected" @change="updateValue" placeholder="Handness" 
-    class="h-10 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" id="handedness" required>
+    class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg" id="handedness" required>
       <option v-for="handed in handedness" :key="handed.value" :value="handed.value">
         {{ handed.label }}
       </option>

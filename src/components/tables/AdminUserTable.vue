@@ -5,23 +5,74 @@
     <!-- Search Input and Buttons -->
     <div class="flex justify-between items-center mb-4">
       <!-- Search Input for Filtering -->
-      <el-input v-model="search" class="h-[40px] mr-2" placeholder="Search..." clearable></el-input>
+      <el-input v-model="search" class="h-[40px] mr-2 focus:border-none" placeholder="Search..." clearable></el-input>
 
       <!--  Search Button -->
-      <button id="searchButton" @click="applySearch"
+      <!-- <button id="searchButton" @click="applySearch"
         class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 p-2 border rounded h-[40px] mr-1 mx-auto"
         type="button">
         <span class=" mx-auto">Search</span>
-      </button>
+      </button> -->
+      <div class="relative inline-block text-left">
 
-      <button class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd"
-            d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-            clip-rule="evenodd"></path>
-        </svg>
-      </button>
-      <button
+        <button type="button" aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdowntable"
+          class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
+            fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </button>
+        <!-- Dropdown Menu -->
+        <div id="dropdowntable"
+          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 hidden p-3">
+          <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+
+            <div class="mb-3">
+              <label for="">Role </label>
+              <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+                <select name="filter-role" v-model="role" @change="fetchData"
+                  class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
+                  <option value=""> - </option>
+                  <option value="2"> Admin </option>
+                  <option value="5"> Coach </option>
+                  <option value="4"> Player </option>
+                  <option value="6"> Business </option>
+                  <option value="7"> Parent </option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="">Last Seen At </label>
+              <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+                <select name="filter-role" v-model="lastSeenAt" @change="fetchData"
+                  class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
+                  <option value=""> - </option>
+                  <option value="1"> Last 24 hours </option>
+                  <option value="7"> Last 7 days </option>
+                  <option value="30"> Last 30 days </option>
+                  <option value="90"> Last 90 days </option>
+                  <option value="365"> Last 365 days </option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="">Email verified </label>
+              <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+                <select name="filter-role" v-model="emailVerified" @change="fetchData"
+                  class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
+                  <option value=""> - </option>
+                  <option value="verified"> Verified </option>
+                  <option value="not_verified"> Not Verified </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <button
         class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 mx-auto">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
           fill="currentColor">
@@ -30,21 +81,21 @@
             d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
             clip-rule="evenodd"></path>
         </svg>
-      </button>
+      </button> -->
 
     </div>
 
     <!-- Data Table -->
-    <el-table :data="filteredItems" stripe style="width: 100%" v-loading="loading"  @row-click="handleRowClick"  :default-sort="{ prop: 'joined_at', order: 'descending' }">
+    <el-table :data="filteredItems" stripe style="width: 100%" v-loading="loading" class="cursor-pointer min-h-[350px]"  @row-click="handleRowClick"  :default-sort="{ prop: 'joined_at', order: 'descending' }">
       <!-- Display Name Column -->
       <el-table-column prop="display_name" label="DISPLAY NAME" sortable></el-table-column>
 
       <!-- Email Column -->
       <el-table-column prop="email" label="EMAIL" sortable class="truncate-text" show-overflow-tooltip>
         <template v-slot="scope">
-          <span class="truncate-text show-overflow-tooltip">{{scope.row.email }}</span>
+          <span class="truncate-text show-overflow-tooltip">{{ scope.row.email }}</span>
         </template>
-        
+
       </el-table-column>
 
       <!-- User Role Column -->
@@ -105,7 +156,7 @@
         </template>
       </el-table-column>
 
-       <!-- END TABLE  -->
+      <!-- END TABLE  -->
     </el-table>
 
 
@@ -133,12 +184,15 @@ const options = ref({
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
+const role = ref('')
+const lastSeenAt = ref('')
+const emailVerified = ref('')
 
 // Fetch data from the API
 const fetchData = async () => {
   loading.value = true
   try {
-    const users = await $adminService.list_users();
+    const users = await $adminService.list_users(role.value, lastSeenAt.value, emailVerified.value);
     items.value = users;
     totalItems.value = users.length
   } catch (error) {
@@ -147,6 +201,8 @@ const fetchData = async () => {
     loading.value = false
   }
 }
+
+
 
 // Watch options and search to update filtered items
 watch([options, search], fetchData, { immediate: true })

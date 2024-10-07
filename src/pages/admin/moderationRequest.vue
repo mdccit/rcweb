@@ -1,15 +1,39 @@
 <template>
+    <header class="bg-gray-200">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div class="flex w-full justify-between gap-8">
+                <div class="flex items-center gap-4"><a href="#"><svg
+                            class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 6l-6 6l6 6"></path>
+                        </svg></a>
+                    <h2 class="font-bold text-lg self-center"> Editing:User Name </h2>
+                </div>
+                <div class="">
+                    <!-- <a href="#"><button
+                            type="submit"
+                            class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
+                            View <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 7l-10 10"></path>
+                                <path d="M8 7l9 0l0 9"></path>
+                            </svg>
+                        </button>
+                    </a> -->
+                </div>
+            </div>
+        </div>
+    </header>
    <div class="p-5 card">
-      <div class="mb-3">
-         <h1> <b>Moderation</b> </h1>
-      </div>
-      <div class="py-12">
-         <div class="bg-white border-2 border-primary sm:rounded-lg p-8">
+      <div class="">
+         <div class=" sm:rounded-lg p-8">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                <div class="flex flex-col lg:flex-row gap-12 text-black">
                   <main class="max-w-[360px] w-full">
                      <div class="flex-1">
-                        <div class="bg-white border border-blue-500 overflow-hidden shadow-sm sm:rounded-lg p-8">
+                        <div class="bg-white border border-steelBlue overflow-hidden shadow-sm sm:rounded-lg p-8">
                            <h1 class="font-bold mb-4 text-lg text-blue-500">
                               <svg class="w-6 h-6 inline mr-2"
                                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -29,7 +53,7 @@
                                     alt="User profile picture" class="h-12 w-12 rounded-full">
                                  <div class="self-center flex-1">
                                     <strong class="capitalize">{{ userName }}</strong>
-                                    <p class="opacity-75 line-clamp-1">{{ userEmail }}</p>
+                                    <p class="opacity-75 line-clamp-1 break-words break-all">{{ userEmail }}</p>
                                  </div>
                               </NuxtLink>
                            </NuxtLink>
@@ -108,9 +132,9 @@
                      </div>
                   </main>
                   <aside class="flex-1 ">
-                     <div class=" border-2 border-gray-200 bg-white rounded-xl p-12 text-black ">
+                     <div class=" border-2 border-gray-200 bg-white rounded-xl p-12 text-black w-full">
                         <h2 class="font-bold text-2xl"> Activity Log and Comments </h2>
-                        <div class="px-5 py-2.5 my-4 font-bold rounded-lg bg-blue-100">
+                        <div class="px-5 py-2.5 my-4 font-normal rounded-lg bg-blue-100">
                            <p class="text-sm text-blue-800">
                               <svg class="w-4 h-4 inline mr-1"
                                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -137,7 +161,7 @@
                               </div>
                            </div>
                            <div class="markdown ml-14">
-                              <p>{{ comment.comment }}</p>
+                              <p class=" break-words break-all">{{ comment.comment }}</p>
                            </div>
                         </div>
                         <div v-if="commentList.length === 0" class="p-20 text-center opacity-50">No comments yet</div>

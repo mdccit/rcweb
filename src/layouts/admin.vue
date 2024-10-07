@@ -58,6 +58,6 @@ const closeNotification = () => {
 
 <style scoped>
 main {
-  padding: 20px;
+  /* padding: 20px; */
 }
 </style>
