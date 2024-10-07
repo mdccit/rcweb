@@ -84,6 +84,11 @@
             </div>
         </span>
     </section>
+
+    <!-- Modal Components with Standardized Props -->
+    <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
+    <CoverModal :visible="modals.cover" @close="handleModalClose" :slug="slug" />
+
 </template>
 
 <script setup>
@@ -91,6 +96,10 @@ import { ref, defineEmits, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { useRouter, useRoute } from 'vue-router';
 import SchoolTabNavigation from '~/components/profiles/navigation/SchoolTabNavigation.vue';
+// Import the default profile picture
+import defaultCoverPicture from '@/assets/images/default_cover.png';
+import defaultProfilePicture from '@/assets/images/user.png';
+
 
 const emit = defineEmits(['changeTab']);
 const nuxtApp = useNuxtApp();
@@ -109,8 +118,16 @@ schoolSlug: {
 }
 });
 
-const tab = ref('feed');
 
+const tab = ref('feed');
+const connectionStatus = ref(false)
+const connectionType = ref(null)
+const connectionButtonName = ref('Connect')
+const buttonHide = ref(true);
+const profile_picture = ref(null);
+const userSlug = ref('')
+const sameUser = ref(false)
+const cover_picture = ref(null);
 
 const handleTab = (selectedTab) => {
     tab.value = selectedTab;
@@ -124,7 +141,65 @@ const tabs = ref([
   { name: 'media', label: 'Media' },
   { name: 'academic', label: 'Academics' }
 ]);
-console.log(props.data)
+
+
+
+
+// Define reactive state for all modals
+const modals = reactive({
+    name: false,
+    cover: false,
+    info: false,
+});
+
+// Generic toggle function
+const toggleModal = (modalName) => {
+    if (modals.hasOwnProperty(modalName)) {
+        modals[modalName] = !modals[modalName];
+    } else {
+        console.warn(`Modal "${modalName}" does not exist.`);
+    }
+};
+
+// Generic function to close the modal and fetch user details
+const handleModalClose = (modalName) => {
+    // Defensive check to make sure modalName exists
+    if (modals[modalName] !== undefined) {
+        modals[modalName] = false;  // Close the modal
+        fetchUserDetails();         // Fetch updated user details after closing
+    } else {
+        console.error(`Invalid modal name: ${modalName}`);
+    }
+};
+
+// Computed profile picture URL
+const profilePictureUrl = computed(() => profile_picture.value);
+const coverPictureUrl = computed(() => cover_picture.value);
+
+// Watch for changes in props.data
+watch(
+    () => props.data,
+    (newVal) => {
+        if (newVal && newVal.media_info) {
+            profile_picture.value = newVal.media_info.profile_picture?.url || defaultProfilePicture;
+        } else {
+            profile_picture.value = defaultProfilePicture; // Fallback to default if media_info is undefined
+        }
+    },
+    { immediate: true } // Execute immediately when component is mounted
+);
+
+watch(
+    () => props.data,
+    (newVal) => {
+        if (newVal && newVal.media_info) {
+            cover_picture.value = newVal.media_info.cover_picture?.url || defaultCoverPicture;
+        } else {
+            cover_picture.value = defaultCoverPicture; // Fallback to default if media_info is undefined
+        }
+    },
+    { immediate: true } // Execute immediately when component is mounted
+);
 </script>
 
 <style scoped>
