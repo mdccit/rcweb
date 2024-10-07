@@ -7,7 +7,7 @@
   <NavBarPublic></NavBarPublic>
   <main class="bg-graySnowDrift">
     
-    <div class="container-compressed">
+    <div class="container-compressed pb-3">
       <div class="grid grid-cols-6 gap-4 temp-row grid-rows-[70px_auto] mt-16 pt-4">
         <div class="row-span-2 col-span-1 ">
           <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  />
@@ -19,7 +19,7 @@
           <!-- Content changes based on the selected tab -->
           <UserFeed v-if="tab === 'feed'" :posts="posts" @listpost="loadInitfintePost" :commentHidden="isHidddenComment"/>
           <Connection v-if="tab === 'connection'" :playerId="playerID" @profileView="redirectPage" />
-          <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
+          <mediaTab v-if="tab === 'media'" :userSlug="route.params.slug" @uploadCompleted="refreshGallery" />
 
         </div>
         <div>
@@ -135,7 +135,8 @@ const props = defineProps({
 });
 const currentPage = ref(1)
 const lastPage  =ref('')
-const isHidddenComment = ref([])
+const isHidddenComment = ref([]);
+const childKey = ref(0);
 
 onMounted(() => {
     slug.value = route.params.slug;
@@ -157,6 +158,11 @@ onMounted(() => {
         loadInitfintePost()
     }
 });
+
+const refreshGallery = () => {
+  // Increment the key to force a re-render of the child component
+  childKey.value++;
+};
 
 const fetchUserDetails = async () => {
     try {
@@ -276,6 +282,10 @@ const fetchUserDetails = async () => {
             name: name.value,
             sportName: sportName.value,
             media_info: dataSets.media_info,
+            phone:phone.value,
+            phoneCode:phoneCode.value,
+            email: email.value,
+            media_info:dataSets.media_info
 
         }
 
@@ -302,20 +312,20 @@ const fetchUserDetails = async () => {
 }
 
 
-// const fetchUserDetailsBySlug = async () => {
-//   try {
-//     const dataSets = await $publicService.get_user_profile(route.params.slug);
+const fetchUserDetailsBySlug = async () => {
+  try {
+    const dataSets = await $publicService.get_user_profile(route.params.slug);
    
-//     if (dataSets.media_info) {
-//       setGalleryItems(dataSets.media_info);
-//     } else {
-//       console.log('No media info available');
-//     }
-//   } catch (error) {
-//     console.log(error)
-//     console.error('Error fetching data:', error.message);
-//   }
-// }
+    if (dataSets.media_info) {
+      setGalleryItems(dataSets.media_info);
+    } else {
+      console.log('No media info available');
+    }
+  } catch (error) {
+    console.log(error)
+    console.error('Error fetching data:', error.message);
+  }
+}
 
 
 // Array of gallery items (images and video)

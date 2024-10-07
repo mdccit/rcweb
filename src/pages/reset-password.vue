@@ -63,7 +63,7 @@
           <!-- Password Confirmation -->
           <div class="py-2">
             <label class="block">
-              <span class="block mb-1 text-gray-700 font-sans">Password Confirmation <span class="text-red-600"
+              <span class="block mb-1 text-gray-700 font-sans">Confirm password <span class="text-red-600"
                   title="This field is required">*</span></span>
               <div class="flex rounded-lg border border-gray-300 shadow-sm">
                 <input

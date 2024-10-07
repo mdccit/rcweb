@@ -15,7 +15,8 @@ export const useUserStore = defineStore('user', {
     permissions: [],
     user_id: '',
     user_name: null,
-    user_slug: null
+    user_slug: null,
+    profile_picture:{}
   }),
   getters: {
     isAuthenticated: (state) => !!state.user && !!state.token,
@@ -28,6 +29,7 @@ export const useUserStore = defineStore('user', {
     userPermissionType:(state) => state.user_permission_type || null,
     // user: (state) => state.user || null
 
+    userProfilePicture:(state)=> state.profile_picture || null
   },
   actions: {
     setToken(token) {
@@ -54,6 +56,14 @@ export const useUserStore = defineStore('user', {
       if (process.client) {
         localStorage.setItem('user_permission_type', type);
       }
+    },
+    setProfilePicture(data) {
+      this.profile_picture = data;
+      let newData = null;
+      if(this.profile_picture !=null){
+         newData = this.profile_picture.url
+      }
+      localStorage.setItem('profile_picture', newData);
     },
     setUserSlug(slug) {
       this.user_slug = slug;
@@ -127,6 +137,7 @@ export const useUserStore = defineStore('user', {
       this.user_id = '';
       this.user_id = null;
       this.user_slug = null;
+      this.profile_picture = null
       // Remove session cookie
       Cookies.remove('session', { path: '/' });
 
@@ -141,6 +152,7 @@ export const useUserStore = defineStore('user', {
         localStorage.removeItem('user_slug');
         localStorage.removeItem('authType');
         localStorage.removeItem('password_reset_id');
+        localStorage.removeItem('profile_picture');
       }
     },
 

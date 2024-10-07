@@ -967,7 +967,7 @@ const fetchCheckConnection = async () => {
                 if ((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)) {
                     buttonHide.value = false
 
-                    connectionButtonName.value = "Accept connection"
+                    connectionButtonName.value = "Accept"
                 }
 
                 if (dataSets.type.connection_status == 'accepted') {

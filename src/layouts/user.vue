@@ -51,7 +51,7 @@ const search = ()  =>{
 
 <style scoped>
 main {
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 /* Adjust padding or other styles as needed */
