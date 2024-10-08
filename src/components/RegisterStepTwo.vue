@@ -18,9 +18,6 @@
           </div>
         </div>
         <div class="w-full"></div>
-        <div>
-          <label for="role" class="block mb-2 text-sm font-normal text-gray-900 mt-3">I am a ...</label>
-        </div>
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-4">
           <!-- Radio option for Player role -->
           <div class="radio relative cursor-pointer" @click="role = 'player'">
@@ -664,7 +661,7 @@
 
         <div class="flex items-center justify-end mt-6">
           <button type="submit"
-            class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-darkAzureBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue ml-4 !px-8 !py-2.5 transition">
+            class="border rounded-full shadow-sm py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-darkAzureBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue ml-4 !px-8 !py-2.5 transition">
             <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
               viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -686,7 +683,7 @@
 
 
 <script setup>
-import { ref } from 'vue';
+import { ref, nextTick  } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { loadCountryList, loadNationalityList, loadBudgetList, loadGenderList, loadHandnessList } from '~/services/commonService';
@@ -832,7 +829,7 @@ onMounted(() => {
     } else if (userRole == 'player' || userRole == 'parent' || userRole == 'admin') {
       router.push('/app');
     }
-  }else{
+  } else {
     router.push('/login');
   }
 
@@ -912,19 +909,26 @@ const handleSubmitStep2 = async () => {
 
       const response = await $authService.registerStepTwo(endpoint, data);
 
+      console.log(response);
       if (response.status === 200) {
         loading.value = false;
         userStore.clearRole();
         userStore.setRole(role.value);
 
+        console.log('role value', role.value);
         nuxtApp.$notification.triggerNotification(response.display_message, 'success');
-        if (role.value == 'coach' || role.value == 'business_manager') {
-          router.push('/user/approval-pending');
-        } else if (role.value == 'player' || role.value == 'parent' || role.value == 'admin') {
-          router.push('/app');
-        } else {
-          router.push('/');
-        }
+
+        nextTick(async () => {
+          if (role.value == 'coach' || role.value == 'business_manager') {
+            console.log('redirecting to approval pending');
+            await router.push('/user/approval-pending');
+            return;
+          } else if (role.value == 'player' || role.value == 'parent' || role.value == 'admin') {
+            router.push('/app');
+          } else {
+            router.push('/');
+          }
+        });
 
       }
       else if (response.status === 401) {

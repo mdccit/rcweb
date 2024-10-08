@@ -97,13 +97,36 @@ const get_user_profile= async (slug) => {
   }
 };
 
+const delete_media_player = async (media_id) => {
+  const url = `/public/players/remove-media/${media_id}`;
+  
+  try {
+    const response = await apiService.deleteRequest(url);
+    return response;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to update post');
+  }
+};
+
+const delete_media_coache = async (media_id) => {
+  const url = `/public/coaches/remove-media/${media_id}`;
+  
+  try {
+    const response = await apiService.deleteRequest(url);
+    return response;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to update post');
+  }
+};
   return {
     get_player,
     get_coache,
     get_business_user,
     get_business,
     get_scool,
-    get_user_profile
+    get_user_profile,
+    delete_media_player,
+    delete_media_coache
   };
 
 

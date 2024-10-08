@@ -12,8 +12,12 @@
                 </div>
             </div>
             <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
-                hdhdhgsdgsdgsd
+                {{ bio }}
             </p>
+            <div v-if="seeMoreBtnHide">
+                <button id="seeMoreBtn" @click="toggleText" >{{ expandBtnName }}</button>
+
+            </div>
         </div>
 
         <div style="height: 60px;"
@@ -24,7 +28,7 @@
                 </div>
                 <div class="col-span-6 ml-2">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Signed up
-                        2021 1 21
+                        {{ props.data.joinAt }}
                     </p>
 
                 </div>
@@ -45,7 +49,7 @@
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl" src="@/assets/images/pin.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">location
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3"> {{ props.data.country }}
                     </p>
 
                 </div>
@@ -64,7 +68,73 @@
 </template>
 
 <script setup>
+import { ref, onMounted, reactive ,watch } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import checkSession from '~/middleware/checkSession';
+import { useNuxtApp } from '#app';
+import { useUserStore } from '~/stores/userStore'
 
+const userStore = useUserStore();
+const  isBioExpanded = ref(false); 
+const seeMoreBtnHide =  ref(false);
+const bio = ref('')
+const expandBtnName = ref('See More')
+
+const nuxtApp = useNuxtApp();
+const $publicService = nuxtApp.$publicService;
+const $userService = nuxtApp.$userService;
+
+const router = useRouter();
+const route = useRoute();
+const slug = ref('');
+const userRole = ref('');
+
+const props = defineProps({
+    data: {
+        type: Object,
+        required: true,
+    },
+    userSlug: {
+        type: String,
+        required: true,
+    },
+});
+
+onMounted(() => {
+    userRole.value = userStore.user?.role || null;
+    slug.value = props.userSlug;
+    //loadedData.value = props.data;
+    // if (process.client) {
+    //     loggedUserSlug.value = localStorage.getItem('user_slug')
+    // }
+    
+
+});
+
+watch(
+  () => props.data,
+  () => {
+    setBio() 
+  }
+);
+
+const setBio = () =>{
+    let fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
+    bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
+    seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
+    isBioExpanded.value = false
+}
+const toggleText = () =>{
+     isBioExpanded.value = !isBioExpanded.value;
+     if(isBioExpanded.value){
+        bio.value = props.data.bio;
+        expandBtnName.value ='See Less'
+    }else{
+        bio.value = props.data.bio.substring(0, 100) + '...';
+        expandBtnName.value ='See More'
+    }
+
+}
 </script>
 
 <style scoped>

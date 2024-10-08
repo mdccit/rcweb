@@ -7,7 +7,7 @@
   <NavBarPublic></NavBarPublic>
   <main class="bg-graySnowDrift">
     
-    <div class="container-compressed">
+    <div class="container-compressed pb-3">
       <div class="grid grid-cols-6 gap-4 temp-row grid-rows-[70px_auto] mt-16 pt-4">
         <div class="row-span-2 col-span-1 ">
           <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  />
@@ -17,9 +17,9 @@
         </div>
         <div class="col-start-2 col-span-4 bg-brown-500">
           <!-- Content changes based on the selected tab -->
-          <UserFeed v-if="tab === 'feed'" :posts="posts" @listpost="fetchPost"/>
+          <UserFeed v-if="tab === 'feed'" :posts="posts" @listpost="loadInitfintePost" :commentHidden="isHidddenComment"/>
           <Connection v-if="tab === 'connection'" :playerId="playerID" @profileView="redirectPage" />
-          <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" />
+          <mediaTab v-if="tab === 'media'" :userSlug="route.params.slug" @uploadCompleted="refreshGallery" />
 
         </div>
         <div>
@@ -133,7 +133,10 @@ const props = defineProps({
         required: true,
     },
 });
-
+const currentPage = ref(1)
+const lastPage  =ref('')
+const isHidddenComment = ref([]);
+const childKey = ref(0);
 
 onMounted(() => {
     slug.value = route.params.slug;
@@ -149,11 +152,17 @@ onMounted(() => {
 
     if (playerID.value != null) {
         // fetchConnections();
-        fetchPost();
+       // fetchPost();
         //  fetchCheckConnection();
         // fetchMediaGallery();
+        loadInitfintePost()
     }
 });
+
+const refreshGallery = () => {
+  // Increment the key to force a re-render of the child component
+  childKey.value++;
+};
 
 const fetchUserDetails = async () => {
     try {
@@ -273,6 +282,10 @@ const fetchUserDetails = async () => {
             name: name.value,
             sportName: sportName.value,
             media_info: dataSets.media_info,
+            phone:phone.value,
+            phoneCode:phoneCode.value,
+            email: email.value,
+            media_info:dataSets.media_info
 
         }
 
@@ -299,20 +312,20 @@ const fetchUserDetails = async () => {
 }
 
 
-// const fetchUserDetailsBySlug = async () => {
-//   try {
-//     const dataSets = await $publicService.get_user_profile(route.params.slug);
+const fetchUserDetailsBySlug = async () => {
+  try {
+    const dataSets = await $publicService.get_user_profile(route.params.slug);
    
-//     if (dataSets.media_info) {
-//       setGalleryItems(dataSets.media_info);
-//     } else {
-//       console.log('No media info available');
-//     }
-//   } catch (error) {
-//     console.log(error)
-//     console.error('Error fetching data:', error.message);
-//   }
-// }
+    if (dataSets.media_info) {
+      setGalleryItems(dataSets.media_info);
+    } else {
+      console.log('No media info available');
+    }
+  } catch (error) {
+    console.log(error)
+    console.error('Error fetching data:', error.message);
+  }
+}
 
 
 // Array of gallery items (images and video)
@@ -339,16 +352,37 @@ const setGalleryItems = (mediaInfo) => {
     });
 };
 
-const fetchPost = async () => {
-    try {
-        const response = await $feedService.list_posts({});
-        const filteredData = response.filter(item => item.user_id === playerID.value);
-        posts.value = filteredData || [];
+// const fetchPost = async () => {
+//     try {
+//         const response = await $feedService.list_posts({});
+//         const filteredData = response.filter(item => item.user_id === playerID.value);
+//         posts.value = filteredData || [];
 
+//     } catch (error) {
+//         console.error('Failed to load posts:', error.message);
+//     }
+// }
+
+const loadInitfintePost = async () =>{
+    try {
+      //  isLoading.value = true;
+      const response = await $feedService.list_posts(currentPage.value);
+     // const filteredData = response.filter(item => item.user_id === playerID.value);
+       posts.value.push(...response.data);
+
+      lastPage.value =response.last_page
+      currentPage.value =response.current_page +1
+      const idsArray = [];
+      for (const post of posts.value) {
+        idsArray[post.id] = false
+      }
+      isHidddenComment.value = idsArray
+      //  isLoading.value = false;
     } catch (error) {
-        console.error('Failed to load posts:', error.message);
+      // isLoading.value = false;
+      console.error('Failed to load posts:', error.message);
     }
-}
+  }
 
 const redirectPage = (url) =>{
     router.push({

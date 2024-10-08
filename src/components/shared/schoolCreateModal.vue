@@ -19,7 +19,7 @@
                     </button>
                 </div>
                 <!-- Modal Body -->
-                <div class="p-6 space-y-6">
+                <div class="p-6 space-y-4 text-sm">
 
                     <!-- Display error messages -->
                     <div v-if="errors.length" class="error-messages">
@@ -35,13 +35,14 @@
                     <div>
                         <label for="name" class="block text-sm font-normal text-gray-900 light:text-gray">School
                             Name</label>
-
-                        <input type="text" id="first_name" v-model="name"
-                            class=" bg-transparent w-full text-black block w-full mt-1 p-2.5 border border-gray-300 rounded-lg shadow-sm  light:bg-gray-600 light:border-gray-500 "
-                            placeholder="Enter Name" />
+                        <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+                            <input type="text" id="first_name" v-model="name"
+                                class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg "
+                                placeholder="Enter Name" />
+                        </div>
                     </div>
 
-                
+
 
                 </div>
                 <!-- Modal Footer -->
@@ -100,8 +101,8 @@ const submitRegistration = async () => {
         if (response.status === 200) {
             notificationMessage.value = response.display_message;
             showNotification.value = true;
-            name.value='';
-            bio.value ='';
+            name.value = '';
+            bio.value = '';
             emit('close');
         } else {
             errors.value.push(response.data.display_message);
@@ -127,7 +128,6 @@ const submitRegistration = async () => {
 }
 
 .error-messages {
-    margin-top: 20px;
     color: red;
 }
 

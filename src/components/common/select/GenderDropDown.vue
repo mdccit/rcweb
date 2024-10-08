@@ -1,11 +1,14 @@
 <template>
   <div class="w-full">
-    <select v-model="selected" @change="updateValue" placeholder="Gender" 
-    class="h-12 w-full border border-gray-300 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" id="gender" required>
-      <option v-for="gender in genders" :key="gender.value" :value="gender.value">
-        {{ gender.label }}
-      </option>
-    </select>
+    <div class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
+      <select v-model="selected" @change="updateValue" placeholder="Gender"
+        class="h-12 lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
+        id="gender" required>
+        <option v-for="gender in genders" :key="gender.value" :value="gender.value">
+          {{ gender.label }}
+        </option>
+      </select>
+    </div>
   </div>
 
 </template>
@@ -40,6 +43,4 @@ watch(
 );
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

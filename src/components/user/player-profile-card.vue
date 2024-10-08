@@ -37,7 +37,7 @@
                         </li>
                     </select>
                 </div> -->
-                <GenderDropDown @change="changeGender" :genders="genders" v-model="gender" id="gender" label="Gender *" class="text-black bg-white border border-timberwolf rounded text-sm text-center"/>
+                <GenderDropDown @change="changeGender" :genders="genders" v-model="gender" id="gender" label="Gender *"/>
 
             </div>
         </div>
@@ -47,7 +47,7 @@
                     <label class="text-black text-sm">Grad Month</label>
                     <div class="flex flex-wrap mt-2">
                         <input type="month" @change="changeGraduationMonth" v-model="graduation_month"
-                class="pl-2 text-black bg-white border border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
+                class="h-12 pl-2 text-black bg-white border rounded-lg border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
                 placeholder="Player Graduation Month/Year"
                  />
                         <!-- <button
@@ -77,7 +77,7 @@
                     <label class="text-black text-sm">Grad Year</label>
                     <div class="flex flex-wrap mt-2">
                         <input type="month" @change="changeGraduationYear" v-model="graduation_year"
-                class="pl-2 text-black bg-white border border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
+                class="h-12 pl-2 text-black bg-white border rounded-lg border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
                 placeholder="Player Graduation Month/Year"
                  />
 
@@ -110,8 +110,8 @@
         </div>
         <div class="space-y-2">
             <label class="text-black text-sm">Handedness</label>
-            <HandednessDropdown @change="changeHandness" :handedness="handednesses" v-model="handedness" id="handedness"  class="text-black bg-white border border-timberwolf rounded text-sm text-center"
-                label="Handedness *" />
+            <HandednessDropdown @change="changeHandness" :handedness="handednesses" v-model="handedness" id="handedness" 
+             class="rounded-lg border border-gray-300"   label="Handedness *" />
             <!-- <div class="flex flex-wrap mt-2">
 
                 <button
