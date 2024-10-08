@@ -114,7 +114,7 @@
                 </div>
                 <div class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4 ">
-                        {{ Number(props.data.feet) }} ( {{ props.data.heigth }}
+                        {{ Number(props.data.ft_value)   }} {{Number(props.data.in_value)}} ( {{ props.data.heigth }}
                         <span v-if="props.data.heigth != 'User has not entered height'">cm)</span>
                     </p>
                 </div>

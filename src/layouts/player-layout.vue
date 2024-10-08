@@ -127,6 +127,8 @@ const slug = ref('');
 const utrData = ref({})
 const leftData = ref({})
 const media_info = ref();
+const height_ft = ref('')
+const height_in = ref('')
 const props = defineProps({
     user: {
         type: Object,
@@ -253,6 +255,9 @@ const fetchUserDetails = async () => {
             graduationDate.value = parsedDate.toLocaleDateString('en-US', options) ?? 'User has not entered graduation date'
 
             feet.value = (dataSets.player_info.height / 30.48).toFixed(2);
+            let totalFeet = (dataSets.player_info.height / 30.48).toFixed(2);
+             height_ft.value = Math.floor(totalFeet);
+             height_in.value = Math.floor((totalFeet - height_ft.value) * 12)
             pounds.value = (2.20462 * dataSets.player_info.weight).toFixed(2)
         }
 
@@ -286,7 +291,9 @@ const fetchUserDetails = async () => {
             phone:phone.value,
             phoneCode:phoneCode.value,
             email: email.value,
-            media_info:dataSets.media_info
+            media_info:dataSets.media_info,
+            ft_value :height_ft.value,
+            in_value:height_in.value
 
         }
 
