@@ -426,8 +426,6 @@ const updateUserDetails = async () => {
             phone_code_country: phone_code_country.value,
             phone_number: phone_number.value,
         });
-
-        await updateUserProfile()
         if (response.status === 200) {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
@@ -523,6 +521,7 @@ const handleFileChange = (event) => {
         // If all validations pass, set the file to the reactive variable
         fileError.value = ''; // Clear any previous errors
         profile_image.value = file; // Store the selected file
+        updateUserProfile()
     }
 };
 
@@ -534,7 +533,12 @@ const updateUserProfile = async () => {
     }
     try {
         const response = await $adminService.user_profile(id.value,profile_image.value);
-   
+        if (response.status === 200) {
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+        } else {
+            nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+        }
+        fetchUserDetails(user_id.value)
     } catch (error) {
         console.log(error)
     }
