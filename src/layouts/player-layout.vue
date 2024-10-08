@@ -167,6 +167,7 @@ const refreshGallery = () => {
 const fetchUserDetails = async () => {
     try {
         const dataSets = await $publicService.get_player(route.params.slug);
+        console.log(dataSets)
         playerID.value = dataSets.user_basic_info.id || null;
         if (dataSets.user_basic_info) {
             bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"

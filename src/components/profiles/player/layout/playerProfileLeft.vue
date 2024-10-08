@@ -5,7 +5,10 @@
         <div class="group">
             <div class="text-center">
                 <div class="relative">
-                    <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profilePictureUrl" alt="">
+                    <!-- <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profilePictureUrl" alt=""> -->
+                    <img v-if="profile_picture != null"class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profile_picture" alt="">
+                    <img v-else class="mx-auto w-44 h-44 rounded-[30px] mt-3" src="@/assets/images/user.png" alt="">
+
                     <div v-if="loggedUserSlug == props.userSlug" @click="toggleModal('name')"
                         class="absolute bottom-4 right-8 w-8 h-8 bg-white rounded-full flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer text-steelBlue">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -436,7 +439,7 @@ const bio = ref('')
 const expandBtnName = ref('See More');
 
 const triggerProfilePictureUpdate = (url) => {
-    profile_picture.value = url || defaultProfilePicture;
+    //profile_picture.value = url || defaultProfilePicture;
 };
 const country_codes = ref([]);
 
@@ -560,11 +563,12 @@ const fetchUserDetails = async (slug) => {
         }
 
         if (dataSets.media_info.profile_picture != null) {
-            triggerProfilePictureUpdate(dataSets.media_info.profile_picture.url);
-            // profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+            //triggerProfilePictureUpdate(dataSets.media_info.profile_picture.url);
+            profile_picture.value = dataSets.media_info.profile_picture.url;
         } else {
             // Fallback to default
-            triggerProfilePictureUpdate(defaultProfilePicture);
+            //triggerProfilePictureUpdate(defaultProfilePicture);
+            profile_picture.value = null
             // profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
         }
 
@@ -581,22 +585,43 @@ const profilePictureUrl = computed(() => profile_picture.value);
 watch(
     () => props.data,
   () => {
+    setprofile() 
+  },
+    () => props.data,
+  () => {
     setBio() 
   },
     () => props.data,
     (newVal) => {
-        if (newVal && newVal.media_info) {
-            profile_picture.value = newVal.media_info.profile_picture?.url || defaultProfilePicture;
-        } else {
-            profile_picture.value = defaultProfilePicture; // Fallback to default if media_info is undefined
-        }
+        // if (newVal && newVal.media_info) {
+        //     if(newVal.media_info.profile_picture !=null){
+        //         profile_picture.value = newVal.media_info.profile_picture?.url
+        //     }else{
+        //         profile_picture.value =  defaultProfilePicture;
+        //     }
+            
+        // } else {
+        //     profile_picture.value = defaultProfilePicture; // Fallback to default if media_info is undefined
+        // }
+        
     },
     { immediate: true } ,
+    
     
 
     // Execute immediately when component is mounted
 );
 
+const setprofile = () =>{
+    if(props.data.media_info.profile_picture !=null){
+       profile_picture.value = props.data.media_info.profile_picture?.url
+    }else{
+       profile_picture.value =  null
+    }
+    console.log(7514)
+
+    console.log(profile_picture.value)
+}
 
 const setBio = () =>{
     let fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
@@ -605,10 +630,10 @@ const setBio = () =>{
     seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
     isBioExpanded.value = false
 }
-watch(profile_picture, (newVal) => {
-    // profilePictureUrl.value = newVal;
-    console.log('Profile picture updated:', newVal);
-});
+// watch(profile_picture, (newVal) => {
+//     // profilePictureUrl.value = newVal;
+//     console.log('Profile picture updated:', newVal);
+// });
 
 onMounted(() => {
     userRole.value = userStore.user?.role || null;
@@ -622,14 +647,13 @@ onMounted(() => {
     }
 
     // Set profile picture when props.data becomes available
-    console.log(1177)
-    if (userStore.userProfilePicture !=null) {
-        console.log('media available');
-        profile_picture.value = userStore.userProfilePicture?.url || defaultProfilePicture;
-    } else {
-        console.log('media not available');
-        profile_picture.value = defaultProfilePicture;
-    }
+    // if (userStore.userProfilePicture !=null) {
+    //     console.log('media available');
+    //     profile_picture.value = userStore.userProfilePicture?.url || defaultProfilePicture;
+    // } else {
+    //     console.log('media not available');
+    //     profile_picture.value = defaultProfilePicture;
+    // }
 
 });
 
