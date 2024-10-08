@@ -71,19 +71,19 @@ const emit = defineEmits(['close']);
 onMounted(() => {
   if (props.slug) {
       user_slug.value = props.slug;
-      fetchSchoolBio(props.slug);
+      fetchPlayerBio(props.slug);
   }
 });
 
 watch(() => props.visible, (newVal) => {
 if (newVal && props.slug) {
-  fetchSchoolBio(props.slug);
+  fetchPlayerBio(props.slug);
 }
 });
 
-const fetchSchoolBio = async (slug) => {
+const fetchPlayerBio = async (slug) => {
   try {
-      const dataSets = await $publicService.get_school(props.slug);
+      const dataSets = await $publicService.get_user_profile(props.slug);
 
       if (dataSets.user_basic_info) {
           user_bio.value = dataSets.user_basic_info.bio ?? "N/A";
@@ -95,7 +95,7 @@ const fetchSchoolBio = async (slug) => {
 }
 
 // Function to update player bio
-const updateSchoolBio = async (bio) => {
+const updatePlayerBio = async (bio) => {
   try {
      loading.value = true;
       const request_body = { user_slug: props.slug, bio: bio };  // Construct request body with bio

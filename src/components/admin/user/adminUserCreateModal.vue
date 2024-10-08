@@ -267,11 +267,9 @@ const submitRegistration = async () => {
             nuxtApp.$notification.triggerNotification(response.display_message || 'An error occurred', 'failure');
         }
     } catch (error) {
-        console.log('error');
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
     } finally {
         loading.value = false;
-        emit('close');
     }
 };
 

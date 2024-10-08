@@ -194,7 +194,8 @@ const delete_school_user= async (id) => {
     get_school_team,
     add_school_team,
     delete_school_team,
-    delete_school_user
+    delete_school_user,
+    get_school,
   };
 
 
