@@ -3,7 +3,7 @@
         <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
             <div class="flex items-center justify-between w-full">
                 <h1 class="text-lg font-semibold text-black">Bio</h1>
-                <div class="cursor-pointer">
+                <div @click="toggleModal('bio')" class="cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -12,10 +12,10 @@
                 </div>
             </div>
             <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
-                {{ props.data.bio }}
+                {{ bio }}
             </p>
-            <div >
-                <!-- <button id="seeMoreBtn" @click="toggleText" >{{ expandBtnName }}</button> -->
+            <div v-if="seeMoreBtnHide">
+                <button id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
 
             </div>
         </div>
@@ -42,13 +42,15 @@
             </div>
 
         </div>
-        
+        <BioModal :visible="modals.bio" @close="handleModalClose" :slug="props.businessSlug" :data="props.data" />
+
 
     </div>
 </template>
 
 <script setup>
-import { ref, defineEmits, onMounted } from 'vue';
+import { ref, defineEmits, onMounted ,watch} from 'vue';
+import BioModal from '~/components/profiles/businessProfile/modals/bioModal.vue';
 
 const props = defineProps({
 
@@ -67,16 +69,17 @@ const  isBioExpanded = ref(false);
 const seeMoreBtnHide =  ref(false);
 const bio = ref('')
 const expandBtnName = ref('See More')
+const emit = defineEmits(['updateData']);
 
-onMounted(() => {
-    console.log(7)
- setTimeout(()=>{
-    bioSet()
- },500)   
-    
-});
 
-const bioSet = () =>{
+
+watch(
+    () => props.data,
+    () => {
+        setBio()
+    }
+);
+const setBio = () =>{
     const fullBio =  props.data.bio || ''; 
     bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
     console.log(bio.value)
@@ -95,6 +98,30 @@ const toggleText = () =>{
     }
 
 }
+
+const modals = reactive({
+    bio: false,
+   
+});
+
+// Generic toggle function
+const toggleModal = (modalName) => {
+    if (modals.hasOwnProperty(modalName)) {
+        modals[modalName] = !modals[modalName];
+    } else {
+        console.warn(`Modal "${modalName}" does not exist.`);
+    }
+};
+const handleModalClose = (modalName) => {
+    // Defensive check to make sure modalName exists
+    if (modals[modalName] !== undefined) {
+        modals[modalName] = false;  // Close the modal
+        emit('updateData')
+        
+    } else {
+        console.error(`Invalid modal name: ${modalName}`);
+    }
+};
 </script>
 
 <style scoped>

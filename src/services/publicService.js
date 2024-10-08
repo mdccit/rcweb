@@ -216,6 +216,118 @@ const delete_school_user= async (id) => {
     throw new Error(error.message || 'Failed to register');
   }
 };
+
+const upload_business_media = async (formData) => {
+  // Extract user_slug from the formData to build the URL
+  const businessSlug = formData.get('business_slug');
+
+  // Ensure userSlug is present
+  if (!businessSlug) {
+    throw new Error('Business slug is missing from formData.');
+  }
+
+  const url = `/public/businesses/upload-media/${businessSlug}`;
+
+  try {
+    // Send the FormData directly as the body
+    const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
+
+    return response;
+  } catch (error) {
+    // Handle error response from the API
+    if (error.response) {
+      throw error.response; // Pass the full response for further handling
+    } else {
+      throw new Error(error.message || 'Failed to upload media');
+    }
+  }
+};
+
+
+const upload_business_profile_picture = async (file, businessSlug) => {
+
+  const url = `/public/businesses/upload-profile-picture/${businessSlug}`;
+  // Create a new FormData object
+  const formData = new FormData();
+
+  // Ensure the file is appended correctly
+  if (file) {
+    formData.append('file', file); // The field name must match what the backend expects
+  } else {
+    throw new Error('No file selected'); // Handle if no file is selected
+  }
+  try {
+    const response = await apiService.postMedia(url, formData);
+    return response;
+  } catch (error) {
+    if (error.response) {
+      throw error.response; // Pass the full response to be handled in the frontend
+    } else {
+      throw new Error(error.message || 'Failed to login');
+    }
+  }
+};
+const upload_business_cover_picture = async (file, businessSlug) => {
+
+  const url = `/public/businesses/upload-cover-picture/${businessSlug}`;
+  // Create a new FormData object
+  const formData = new FormData();
+
+  // Ensure the file is appended correctly
+  if (file) {
+    formData.append('file', file); // The field name must match what the backend expects
+  } else {
+    throw new Error('No file selected'); // Handle if no file is selected
+  }
+  try {
+    const response = await apiService.postMedia(url, formData);
+    return response;
+  } catch (error) {
+    if (error.response) {
+      throw error.response; // Pass the full response to be handled in the frontend
+    } else {
+      throw new Error(error.message || 'Failed to login');
+    }
+  }
+};
+const update_business_media_remove = async (request_body) => {
+
+  const url = `/public/businesses/remove-media/${request_body.business_slug}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to update');
+  }
+};
+
+const update_business_bio = async (request_body) => {
+
+  const url = `/public/businesses/update-bio/${request_body.business_slug}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to update');
+  }
+};
+
+const update_business_basic_info = async (request_body) => {
+
+  const url = `/public/businesses/update-basic-info/${request_body.business_slug}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to update');
+  }
+};
   return {
     get_player,
     get_coache,
@@ -226,7 +338,13 @@ const delete_school_user= async (id) => {
     get_school_team,
     add_school_team,
     delete_school_team,
-    delete_school_user
+    delete_school_user,
+    upload_business_media,
+    upload_business_profile_picture,
+    upload_business_cover_picture,
+    update_business_media_remove,
+    update_business_basic_info,
+    update_business_bio
   };
 
 

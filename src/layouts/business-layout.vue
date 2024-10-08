@@ -8,10 +8,10 @@
         <NavBarPublic></NavBarPublic>
         <div class="grid grid-cols-6 grid-rows-2 gap-0 mt-16">
             <div class="col-span-6 row-start-1 row-end-2s">
-                <BusinessCover :data="businessData" @changeTab="setSelectedTab"  :businessSlug="route.params.slug"/>
+                <BusinessCover :data="businessData" @changeTab="setSelectedTab"  :businessSlug="route.params.slug" @updateData="fetchbusinessDetatils"/>
             </div>
             <div class="col-start-1 col-end-2 row-start-2 row-end-3">
-                <BusinessLeft :data="businessData" :businessSlug="route.params.slug"/>
+                <BusinessLeft :data="businessData" :businessSlug="route.params.slug"  @updateData="fetchbusinessDetatils"/>
             </div>
             <div class="col-start-6 col-end-7 row-start-2 row-end-3"> 
                 <BusinessRight :data="businessData" :businessSlug="route.params.slug" />
@@ -19,6 +19,9 @@
             <div class="col-start-2 col-end-6 row-start-2 row-end-3">
                 <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="fetchPost" />
                 <Member v-if="tab == 'member'" :members="members"/>
+                <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug"
+                     @uploadData="fetchbusinessDetatils" />
+
             </div>
         </div>
     </main>
@@ -37,6 +40,8 @@ import BusinessRight from '~/components/profiles/businessProfile/businessRight.v
 import { useRoute } from 'vue-router'
 import Member from '~/components/user/profile/member.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
+import mediaTab from '~/components/profiles/businessProfile/tabs/mediaTab.vue';
+
 const route = useRoute();
 
 const nuxtApp = useNuxtApp();
@@ -100,6 +105,8 @@ const fetchbusinessDetatils = async () =>{
         }
 
         if(dataSets.media_info){
+            console.log(dataSets.media_info)
+            setGalleryItems(dataSets.media_info);
             profile.value =dataSets.media_info.profile_picture
             cover.value =dataSets.media_info.cover_picture
         }
@@ -109,7 +116,7 @@ const fetchbusinessDetatils = async () =>{
             bio:bio.value,
             joinAt:joinAt.value,
             profile:profile.value,
-            cover:cover.value
+            cover:cover.value,
         }
         
         console.log(dataSets)
@@ -120,6 +127,7 @@ const fetchbusinessDetatils = async () =>{
 }
 
 const setSelectedTab = (selectedTab) => {
+    console.log(tab.value)
   tab.value = selectedTab;
 };
 
@@ -141,6 +149,28 @@ const fetchPost = async () => {
     console.error('Failed to load posts:', error.message);
   }
 }
+
+const galleryItems = ref([]);
+
+const setGalleryItems = (mediaInfo) => {
+    console.log(7458)
+  galleryItems.value = mediaInfo.media_urls.map(media => {
+    if (media.media_type === 'image') {
+      return {
+        type: 'image',
+        href: media.url,
+        src: media.url, // Replace with thumbnail URL if available
+      };
+    } else if (media.media_type === 'video') {
+      return {
+        type: 'video',
+        href: media.url,
+        src: media.url || 'https://via.placeholder.com/200x150.png?text=Video', // Use server-provided thumbnail or placeholder
+      };
+    }
+  });
+  console.log(galleryItems.value)
+};
 </script>
 
 <style scoped>
