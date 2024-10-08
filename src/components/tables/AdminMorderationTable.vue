@@ -2,7 +2,7 @@
   <el-card>
     <div class="flex justify-between items-center mb-4">
     <!-- Search Input for Filtering -->
-    <el-input v-model="search" class="h-[40px] mr-2 focus:border-none" placeholder="Search..." clearable></el-input>
+    <el-input v-model="search" class="h-[40px] mr-2 focus:border-none" placeholder="Search Priority..." clearable></el-input>
 
     <!--  Search Button -->
     <!-- <button id="searchButton" @click="applySearch"
@@ -148,9 +148,14 @@ const formatDate = (dateString) => {
 };
 
 const filteredItems = computed(() => {
-  let filtered = items.value;
+  // let filtered = items.value;
 
+  if (!search.value) return items.value;
 
+return items.value.filter(item =>
+  item.priority.toLowerCase().includes(search.value.toLowerCase()) ||
+  (item.bio && item.bio.toLowerCase().includes(search.value.toLowerCase()))
+);
 
   // Paginate items
   const start = (options.value.page - 1) * options.value.itemsPerPage;
