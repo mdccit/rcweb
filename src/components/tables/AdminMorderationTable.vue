@@ -112,7 +112,7 @@ const fetchData = async () => {
     const search_term = search.value; // Get the search term
     
     // Fetch data from the server with pagination and search parameters
-    const dataSets = await $adminService.morderation_all(status);
+    const dataSets = await $adminService.morderation_all(status.value);
     // Update the table data
     items.value = dataSets; // Data for the current page
     totalItems.value = dataSets.length
