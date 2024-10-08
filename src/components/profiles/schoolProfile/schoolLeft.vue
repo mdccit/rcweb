@@ -112,7 +112,12 @@ const bio = ref('');
 const expandBtnName = ref('See More');
 const nuxtApp = useNuxtApp();
 const router = useRouter();
+const loading = ref(false);
+const route = useRoute();
 const userStore = useUserStore();
+const schoolId = ref('');
+
+const $publicService = nuxtApp.$publicService;
 
 const loggedUserSlug = ref(null);
 const slug = ref('');
@@ -193,12 +198,38 @@ const toggleText = () => {
 const fetchSchoolDetails = async () => {
     try {
         const dataSets = await $publicService.get_school(route.params.slug);
-
-        if (dataSets.media_info) {
-            profilePicture.value = dataSets.media_info.profile_picture
-            coverPicture.value = dataSets.media_info.cover_picture
-            setGalleryItems(dataSets.media_info);
+        if(dataSets.school_info){
+            schoolId.value =dataSets.school_info.id || '';
+console.log('bdiaf');
+            bio.value = dataSets.school_info.bio || 'School has not entered bio';
+            name.value =dataSets.school_info.name
+            const date = new Date(dataSets.school_info.joined_at);
+            const monthNames = [
+               'January', 'February', 'March', 'April', 'May', 'June',
+               'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            const year = date.getFullYear();
+            const month = monthNames[date.getMonth()];
+           const day = date.getDate();
+           joinAt.value = `${year} ${month} ${day}`
+            divitionId.value = dataSets.school_info.division_id || 'Unknown';
+            conferenceId.value = dataSets.school_info.conference_id || 'Unknown';
         }
+
+        if(dataSets.school_info.other_data){
+            tuitionInState.value =dataSets.school_info.other_data.tuition_in_state
+            tuitionOutState.value =dataSets.school_info.other_data.tuition_out_state
+            costOfAttendance.value =dataSets.school_info.other_data.cost_of_attendance
+            address.value =dataSets.school_info.other_data.address
+            graduationRate.value =dataSets.school_info.other_data.graduation_rate
+            academic.value =dataSets.school_info.other_data
+        }
+
+        if(dataSets.school_users_info){
+            members.value =dataSets.school_users_info
+            // logUserInTheSchool.value =dataSets.school_users_info.some(user => user.slug == userStore.userSlug);
+        }
+
     } catch (error) {
         console.error('Error fetching data:', error.message);
     }

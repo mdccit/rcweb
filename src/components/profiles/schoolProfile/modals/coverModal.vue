@@ -81,6 +81,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
+import { useRouter, useRoute } from 'vue-router';
 import { handleError } from '@/utils/handleError';
 import InputError from '@/components/common/input/InputError.vue';
 
@@ -99,6 +100,8 @@ const errors = ref('');
 const loading = ref(false);
 const fileError = ref('');
 const cover_picture = ref('');
+
+const route = useRoute();
 
 const $publicService = nuxtApp.$publicService;
 
@@ -156,8 +159,6 @@ const handleFileChange = (event) => {
     cover_picture.value = file; // Store the selected file
   }
 };
-
-
 
 // Function to handle the profile picture upload
 const saveProfilePicture = async () => {

@@ -798,22 +798,6 @@ const createUserService = (apiService) => {
     }
   };
 
-  const add_school_team = async (request_body) => {
-
-    const url = `/public/school-team-add/`;
-    const body = request_body;
-
-    try {
-      const response = await apiService.postRequest(url, body);
-      return response;
-    } catch (error) {
-      if (error.response) {
-        throw error.response; // Pass the full response for further handling
-      } else {
-        throw new Error(error.message || 'Failed to upload media');
-      }
-    }
-  };
 
   return {
     get_connection,
@@ -869,8 +853,7 @@ const createUserService = (apiService) => {
     update_school_status_info,
     upload_school_profile_picture,
     upload_school_media,
-    delete_school_media,
-    add_school_team
+    delete_school_media
   };
 
 
