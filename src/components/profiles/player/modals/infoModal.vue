@@ -72,7 +72,8 @@
                                             <div v-if="weight_in_kg">
                                                 <div
                                                     class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
-                                                    <input type="number" required v-model="weight_kg"
+                                                    <input type="number" required v-model="weight_kg"         step="0.01" 
+
                                                         class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
                                                         placeholder="Weight in kg" />
                                                 </div>
@@ -80,7 +81,7 @@
                                             </div>
                                             <!-- Weight in Pounds -->
                                             <div v-else>
-                                                <input type="number" required v-model="weight_lb"
+                                                <input type="number" required v-model="weight_lb" step="0.01" 
                                                     class="block w-full rounded-lg border-gray-300 shadow-sm"
                                                     placeholder="Weight in lb" />
                                             </div>
