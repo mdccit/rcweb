@@ -19,7 +19,7 @@
 
             </div>
         </div>
-<!-- 
+
         <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 ">
@@ -27,11 +27,11 @@
                             </div>
                         </div>
                         <p class="text-xs text-darkSlateBlue leading-loose mb-4 ">
-                            <span
+                            <span v-for="data in props.data.academicData"
                                 class="bg-blue-100 pb-1 font-light text-blue-800 text-xs  me-2 px-2.5 py-0.5 rounded rounded-full bg-blue-500 text-white ">
-                                Health
+                                {{ data }}
                             </span>
-                            <span
+                            <!-- <span
                                 class="bg-blue-100 pb-1 font-light text-blue-800 text-xs  me-2 px-2.5 py-0.5 rounded rounded-full bg-blue-500 text-white ">
                                 Business Marketing
                             </span>
@@ -39,9 +39,9 @@
                             <span
                                 class="bg-blue-100 pb-1 font-light text-blue-800 text-xs  me-2 px-2.5 py-0.5 rounded rounded-full bg-blue-500 text-white ">
                                 Computer engineering
-                            </span>
+                            </span> -->
                         </p>
-                    </div> -->
+                    </div>
 
         <div style="height: 60px;"
             class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
