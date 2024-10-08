@@ -8,7 +8,7 @@
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M15 6l-6 6l6 6"></path>
                         </svg></a>
-                    <h2 class="font-bold text-lg self-center"> Editing:User Name </h2>
+                    <h2 class="font-bold text-lg self-center">Moderation Request </h2>
                 </div>
                 <div class="">
                     <!-- <a href="#"><button
