@@ -1,9 +1,11 @@
 <template>
       <section class="w-full mb-5 p-3">
         <div class="relative">
-            <img class="w-full h-[400px] rounded-xl" src="@/assets/images/covrss.jpg" alt="">
+            <img  v-if="props.data.cover_picture ==null" class="w-full h-[400px] rounded-xl" src="@/assets/images/covrss.jpg" alt="">
+            <img v-if="props.data.cover_picture !=null" class="w-full h-[400px] rounded-xl" :src="props.data.cover_picture.url" alt="">
+
             <!-- Wrapper for the SVG to position it absolutely -->
-            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md">
+            <div v-if="loggedUserSlug == props.userSlug" class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md"  @click="toggleModal('cover')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
                     stroke="currentColor" class="size-3">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -18,11 +20,13 @@
                     <div class="col-span-1">
                         <div class="text-center flex relative">
                             <div class="relative ml-5">
-                                <img class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
-                                    src="@/assets/images/avtar.png" alt="">
+                                <img v-if="props.data.profile_picture == null" class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
+                                    src="@/assets/images/user.png" alt="">
+                                <img v-if="props.data.profile_picture != null" class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
+                                    :src="props.data.profile_picture.url" alt="">
 
                                 <!-- SVG Wrapper positioned at the bottom right of the image -->
-                                <div
+                                <div  v-if="loggedUserSlug == props.userSlug" @click="toggleModal('name')"
                                     class="absolute bottom-0 right-0 mb-[10px] mr-[10px] cursor-pointer bg-white p-1 rounded-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -37,8 +41,8 @@
 
 
                             <div class="text-left mt-[80px] ml-5">
-                                <h2 class="text-lg font-semibold text-white text-3xl"> Parent </h2>
-                                <h5 class="text-md text-white font-normal text-black text-primaryblue">role
+                                <h2 class="text-lg font-semibold text-white text-3xl"> {{  props.data.name }} </h2>
+                                <h5 class="text-md text-white font-normal text-black text-primaryblue">
                                 </h5>
                             </div>
                         </div>
@@ -48,21 +52,8 @@
                         <div class="col-span-3">
                             <div
                                 class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                                <ul class="flex flex-wrap -mb-px">
-                                    <li class="me-2">
-                                        <button @click="handleTab('feed')"
-                                            class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:text-blue-500 dark:border-blue-500">Post</button>
-                                    </li>
-                                    <li class="me-2">
-                                        <button @click="handleTab('connection')"
-                                            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg active  hover:border-gray-300 dark:hover:text-gray-300"
-                                            aria-current="page">Connections</button>
-                                    </li>
-                                    <li class="me-2">
-                                        <button @click="handleTab('media')"
-                                            class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Media</button>
-                                    </li>
-                                </ul>
+                                <ParentTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
+
                             </div>
                         </div>
                     </div>
@@ -92,7 +83,7 @@
                                     </button>
                                 </div>
 
-                                <div>
+                                <!-- <div>
                                     <button @click="connectAcceptOrConnect"
                                         class="bg-blue-500 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                         Connect
@@ -102,7 +93,7 @@
                                             Reject
                                         </button>
                                     </div> 
-                                </div>
+                                </div> -->
                                 <div class="">
                                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -120,11 +111,90 @@
                 </div>
             </div>
         </span>
+        <CoverModal :visible="modals.cover" @close="handleModalClose" :slug="props.userSlug" :coverPicture="props.data.cover_picture" @dataUpdate="dataUpdate" />
+        <NameModal :visible="modals.name" @close="handleModalClose" :slug="props.userSlug" :data="props.data" @dataUpdate="dataUpdate" />
+
     </section>
 </template>
 
 <script setup>
+import { ref, onMounted, reactive, watch } from 'vue';
+import ParentTabNavigation from '~/components/profiles/navigation/ParentTabNavigation.vue';
+import CoverModal from '~/components/profiles/parentProfile/modals/coverModal.vue';
+import NameModal from '~/components/profiles/parentProfile/modals/nameModal.vue';
+import { useUserStore } from '~/stores/userStore';
 
+const userStore = useUserStore();
+const loggedUserSlug = ref('');
+
+const emit = defineEmits(['changeTab','updateData']); // Emit close event with the modal name
+const userId= ref('')
+const props = defineProps({
+    data: {
+        type: Object,
+        required: true,
+    },
+    userSlug: {
+        type: String,
+        required: true,
+    },
+    parentId: {
+        type: String,
+        required: true,
+    },
+});
+const tab = ref('feed');
+
+const tabs = ref([
+  { name: 'feed', label: 'Post' },
+  { name: 'connection', label: 'Connections' },
+  { name: 'media', label: 'Media' },
+  { name: 'child', label: 'Children' }
+]);
+
+const handleTab = (selectedTab) => {
+    tab.value = selectedTab;
+    emit('changeTab', selectedTab)
+};
+
+const modals = reactive({
+    name: false,
+    cover: false,
+    info: false,
+});
+
+// Generic toggle function
+const toggleModal = (modalName) => {
+    if (modals.hasOwnProperty(modalName)) {
+        modals[modalName] = !modals[modalName];
+    } else {
+        console.warn(`Modal "${modalName}" does not exist.`);
+    }
+};
+
+onMounted(()=>{
+    if (process.client) {
+        loggedUserSlug.value = localStorage.getItem('user_slug')
+    }
+})
+
+// Generic function to close the modal and fetch user details
+const handleModalClose = (modalName) => {
+    // Defensive check to make sure modalName exists
+    if (modals[modalName] !== undefined) {
+        modals[modalName] = false;  // Close the modal
+        // Fetch updated user details after closing
+    } else {
+        console.error(`Invalid modal name: ${modalName}`);
+    }
+};
+
+const dataUpdate = () =>{
+    emit('updateData')
+    handleModalClose()
+    userId.value = userStore.user?.user_id || null;
+
+}
 </script>
 
 <style scoped>
