@@ -143,8 +143,9 @@
             </NuxtLink>
             <NuxtLink @click="logout" v-if="isLoggedIn" 
               class=" inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              <div class="flex items-center cursor-pointer"> Logout </div>
+              <div class="flex items-center cursor-pointer"> Logout  </div>
             </NuxtLink>
+            
 
           </div>
           <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -192,7 +193,7 @@
               <li>
                 <NuxtLink @click="logout" v-if="isLoggedIn"
                   class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
-                  <div class="flex items-center"> Logout </div>
+                  <div class="flex items-center"> Logout</div>
                 </NuxtLink>
               </li>
             </ul>
@@ -334,6 +335,7 @@ const closeDropdown = (event) => {
 
 const logout = async () => {
   try {
+    router.push('/login');
 
     const token = localStorage.getItem('token');  // Retrieve the token from local storage
 
