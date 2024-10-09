@@ -194,7 +194,7 @@ const loadInitfintePost = async () =>{
     }
   }
 
-  const galleryItems = ref([]); 
+const galleryItems = ref([]); 
 
 const setGalleryItems = (mediaInfo) => {
   galleryItems.value = mediaInfo.media_urls.map(media => {

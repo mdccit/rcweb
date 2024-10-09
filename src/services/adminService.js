@@ -52,7 +52,7 @@ const createAdminService = (apiService) => {
 
     try {
       const response = await apiService.getRequest(url);
-      if (response && response.data && response.data.user_basic_info) {
+      if (response && response.data ) {
         return response.data;
       } else {
         throw new Error('Unexpected API response structure');
@@ -602,6 +602,33 @@ const user_profile_delete = async (media_id) => {
     throw new Error(error.message || 'Failed to register');
   }
 };
+
+const upload_user_media = async (formData) => {
+  // Extract user_slug from the formData to build the URL
+  const userId = formData.get('user_id');
+
+  // Ensure userSlug is present
+  if (!userId) {
+    throw new Error('User slug is missing from formData.');
+  }
+
+  const url = `/admin/users/upload-media/${userId}`;
+
+  try {
+    // Send the FormData directly as the body
+    const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
+
+    return response;
+  } catch (error) {
+    // Handle error response from the API
+    if (error.response) {
+      throw error.response; // Pass the full response for further handling
+    } else {
+      throw new Error(error.message || 'Failed to upload media');
+    }
+  }
+};
+
   return {
     new_user_register,
     list_users,
@@ -642,7 +669,8 @@ const user_profile_delete = async (media_id) => {
     business_profile,
     business_cover,
     user_profile,
-    user_profile_delete
+    user_profile_delete,
+    upload_user_media
   };
 };
 
