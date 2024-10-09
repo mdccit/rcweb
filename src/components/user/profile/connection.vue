@@ -6,14 +6,16 @@
                 <div class="bg-white p-4 border rounded-2xl">
                     <div class=" grid grid-cols-12 gap-4">
                         <div class="col-span-3">
-                            <img class=" rounded-2xl w-[85px] h-[85px]" src="@/assets/user/images/Rectangle 193.png"
+                            <img v-if="connection.profile_picture == null" class=" rounded-2xl w-[85px] h-[85px]" src="@/assets/images/user.png"
+                                alt="Neil image">
+                            <img v-if="connection.profile_picture != null" class=" rounded-2xl w-[85px] h-[85px]" :src="connection.profile_picture.url"
                                 alt="Neil image">
                         </div>
                         <div class="col-span-6">
                             <h4 class="text-black font-normal"> {{ connection.name }}</h4>
                             <div class="flex items-center space-x-2 mb-2">
                                 <div class="bg-mintGreen p-1 rounded">
-                                    <img src="@/assets/user/images/man-medal.png" alt="" class=" w-4 h-4">
+                                    <img  src="@/assets/user/images/man-medal.png" alt="" class=" w-4 h-4">
                                 </div>
                                 <div class="text-sm ml-2 text-green-500">{{ connection.sport_name ?? '' }} {{
                                     connection.role }}</div>
@@ -132,6 +134,7 @@ const fetchConnections = async () => {
 
         const dataSets = await $userService.get_connection(props.playerId);
         connections.value = dataSets.connection
+        console.log(connections.value)
     } catch (error) {
         console.log(error)
         console.error('Error fetching data:', error.message);
