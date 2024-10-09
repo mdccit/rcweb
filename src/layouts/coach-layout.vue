@@ -130,8 +130,8 @@ const fetchUserDetailsBySlug = async () => {
         city.value = dataSets?.user_address_info?.city || '';
     }
 
-    if(dataSets.user_phone_info){
-        country.value = dataSets?.user_phone_info?.country || '';
+    if(dataSets.user_address_info){
+        country.value = dataSets?.user_address_info?.country || '';
     }
     
 
