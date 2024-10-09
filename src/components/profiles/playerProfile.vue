@@ -38,7 +38,7 @@
 
 
                     <!-- BIO SECTION  -->
-                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
+                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
@@ -61,7 +61,7 @@
 
 
                     <!-- INFO SECTION  -->
-                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
+                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
@@ -204,7 +204,7 @@
 
                     <!-- ADDRESS SECTION  -->
                     <div style="height: 70px;"
-                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
                         <div class="grid grid-cols-5 gap-4">
                             <div class="col-span-1...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl " src="@/assets/images/pin.png" alt="">
@@ -229,7 +229,7 @@
                     </div>
 
                     <div v-if="userRole == 'coach' || userRole == 'admin'" style="height: 70px;"
-                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
                         <div class="grid grid-cols-5 gap-4" @click="toggleModal('budget')">
                             <div class="col-span-1...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl "
@@ -255,7 +255,7 @@
                     </div>
 
                     <div style="height: 70px;"
-                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
                         <div class="grid grid-cols-3 gap-4">
                             <div class="...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl"
@@ -644,7 +644,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-blue-500 p-3 mt-2">
+                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-blue-500 p-3 mt-2">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
