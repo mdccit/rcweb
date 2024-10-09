@@ -378,7 +378,7 @@ const connect = async (id) =>{
         await $userService.connection_request({
             receiver_id: id
         });
-
+        fetchData()
         searchStore.setSearchButton(true)
     } catch (error) {
         console.error('Failed to load posts:', error.message);
@@ -390,6 +390,7 @@ const accept = async (id) =>{
         await $userService.connection_accept(id, {
             connection_status: "accepted"
         });
+        fetchData()
         searchStore.setSearchButton(true)
     } catch (error) {
         console.error('Failed to load posts:', error.message);
@@ -401,6 +402,7 @@ const reject = async (id) =>{
         const response = await $userService.connection_reject(id, {
             connection_status: "rejected"
         });
+        fetchData()
         searchStore.setSearchButton(true)
     } catch (error) {
         console.error('Failed to load posts:', error.message);
@@ -409,9 +411,11 @@ const reject = async (id) =>{
 
 const cancel = async (id) =>{
     try {
-        await $userService.connection_accept(id, {
+        const response =await $userService.connection_cancelle(id, {
             connection_status: "cancelled"
         });
+        console.log(response)
+        fetchData()
         searchStore.setSearchButton(true)
     } catch (error) {
         console.error('Failed to load posts:', error.message);

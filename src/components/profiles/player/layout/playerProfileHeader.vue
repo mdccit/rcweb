@@ -267,7 +267,7 @@ try {
 
 const connectCancel = async () => {
 try {
-    await $userService.connection_reject(connectionType.value.id, {
+    await $userService.connection_cancelle(connectionType.value.id, {
         connection_status: "cancelled"
     });
     

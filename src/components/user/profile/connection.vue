@@ -145,7 +145,6 @@ const fetchConnections = async () => {
 
         const dataSets = await $userService.get_connection(props.playerId);
         connections.value = dataSets.connection
-        console.log(connections.value)
         user_id.value = userStore.user.user_id
     } catch (error) {
         console.log(error)
