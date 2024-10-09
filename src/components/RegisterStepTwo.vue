@@ -683,7 +683,7 @@
 
 
 <script setup>
-import { ref, nextTick  } from 'vue';
+import { ref, nextTick } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { loadCountryList, loadNationalityList, loadBudgetList, loadGenderList, loadHandnessList } from '~/services/commonService';
@@ -909,7 +909,6 @@ const handleSubmitStep2 = async () => {
 
       const response = await $authService.registerStepTwo(endpoint, data);
 
-      console.log(response);
       if (response.status === 200) {
         loading.value = false;
         userStore.clearRole();
@@ -919,7 +918,13 @@ const handleSubmitStep2 = async () => {
         nuxtApp.$notification.triggerNotification(response.display_message, 'success');
 
         nextTick(async () => {
-          if (role.value == 'coach' || role.value == 'business_manager') {
+          if (role.value == 'coach') {
+            if (token.value) {
+              await router.push(`/register-step-three/${token.value}`);
+            } else {
+              console.error('Token is missing.');
+            }
+          } if (role.value == 'business_manager') {
             console.log('redirecting to approval pending');
             await router.push('/user/approval-pending');
             return;
@@ -933,7 +938,6 @@ const handleSubmitStep2 = async () => {
       }
       else if (response.status === 401) {
         loading.value = false;
-        console.log('401 detected, redirecting to login...');
         await router.push('/login');
       } else {
         loading.value = false;

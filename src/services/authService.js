@@ -156,6 +156,63 @@ const createAuthService = (apiService) => {
       }
     }
   };
+
+  const createSetupIntent = async (customerId) => {
+    const url = '/subscription/stripe/create-setup-intent';
+    const body = { customer_id: customerId };
+  
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response.data; // Assuming response contains clientSecret and other data
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Handle backend error in frontend
+      } else {
+        throw new Error(error.message || 'Failed to create setup intent');
+      }
+    }
+  };
+
+  const confirmSetupIntent = async (setupIntentId, paymentMethodId, clientSecret) => {
+    const url = '/subscription/stripe/confirm-setup-intent';
+    const body = {
+      setup_intent_id: setupIntentId,
+      payment_method_id: paymentMethodId,
+      client_secret: clientSecret,
+    };
+  
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response.data; // Handle response after confirming the setup intent
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Handle backend error in frontend
+      } else {
+        throw new Error(error.message || 'Failed to confirm setup intent');
+      }
+    }
+  };
+  
+  const createSubscription = async (subscriptionType, isAutoRenewal, paymentMethodId) => {
+    const url = '/subscription/stripe/confirm-payment-and-create-subscription';
+    const body = {
+      subscription_type: subscriptionType, // e.g., 'monthly'
+      is_auto_renewal: isAutoRenewal, // Boolean, true or false
+      payment_method_id: paymentMethodId, // Stripe payment method ID
+    };
+  
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response.data; // Handle the subscription creation response
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Handle backend error in frontend
+      } else {
+        throw new Error(error.message || 'Failed to create subscription');
+      }
+    }
+  };
+  
   
 
   return {
