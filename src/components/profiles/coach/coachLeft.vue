@@ -292,7 +292,7 @@ const fetchUserDetails = async () => {
             props.data.country = dataSets.user_address_info.country ?? 'User has not entered country'
             props.data.city = dataSets.user_address_info.city ?? 'User has not entered city'
             props.data.addressLine01 = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
-            props.data.addressLine02 = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
+            props.data.addressLine02 = dataSets.user_address_info.address_line_2 ?? ''
             props.data.stateProvince = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
         }
 

@@ -271,7 +271,6 @@ const submitRegistration = async () => {
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
     } finally {
         loading.value = false;
-        emit('close');
     }
 };
 

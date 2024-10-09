@@ -147,7 +147,7 @@
                                         
                                     </div>
                                     <div v-if="user.connection == null">
-                                        <button @click="connect(user.userId)"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                        <button @click="connect(user.userId)"   class="bg-blue-500 text-white rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                              Connect
                                         </button>
                                     </div>
