@@ -29,7 +29,7 @@
                                     </svg>
 
                                 </div>
-                                <div class="text-sm ml-2 text-black">{{ connection.city }}, {{ connection.country }}
+                                <div class="text-sm ml-2 text-black">{{ connection.city }} {{ connection.city?',':'' }} {{ connection.country }}
                                 </div>
                             </div>
                         </div>
