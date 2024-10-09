@@ -62,6 +62,7 @@
                                         d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                 </svg>
                             </button>
+                            <div v-if="user_id !=connection.id ">
                             <button @click="connectRequestSend(connection.id)"
                                 v-if="connection.connection_status == 'connect'"
                                 class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
@@ -87,7 +88,7 @@
                                         d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
                             </button>
-
+                            </div>
                         </div>
 
                     </div>
@@ -111,18 +112,20 @@
 <script setup>
 import { defineProps, ref, onMounted, defineEmits } from 'vue';
 import { useNuxtApp } from '#app';
+import { useUserStore } from '~/stores/userStore';
 
 const emit = defineEmits(['profileView']);
 
 const nuxtApp = useNuxtApp();
 const $userService = nuxtApp.$userService;
+const userStore = useUserStore();
 
 const props = defineProps({
     playerId: String
 });
 
 const connections = ref([])
-
+const user_id = ref('')
 onMounted(() => {
     fetchConnections();
 
@@ -135,6 +138,7 @@ const fetchConnections = async () => {
         const dataSets = await $userService.get_connection(props.playerId);
         connections.value = dataSets.connection
         console.log(connections.value)
+        user_id.value = userStore.user.user_id
     } catch (error) {
         console.log(error)
         console.error('Error fetching data:', error.message);
