@@ -202,7 +202,7 @@ const fetchUserDetails = async (slug) => {
       country.value = dataSets.user_address_info.country ?? 'User has not entered country'
       city.value = dataSets.user_address_info.city ?? 'User has not entered city'
       addressLine01.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
-      addressLine02.value = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
+      addressLine02.value = dataSets.user_address_info.address_line_2 ?? ''
       stateProvince.value = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
     }
 

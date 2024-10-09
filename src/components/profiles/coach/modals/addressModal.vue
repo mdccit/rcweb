@@ -224,7 +224,7 @@ const fetchCoachContact = async () => {
 
             city.value = dataSets.user_address_info.city ?? 'User has not entered city';
             address_line_1.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01';
-            address_line_2.value = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02';
+            address_line_2.value = dataSets.user_address_info.address_line_2 ?? '';
             state_province.value = dataSets.user_address_info.state_province ?? 'User has not entered state provice';
             postal_code.value = dataSets.user_address_info.postal_code ?? 'User has not entered postal code';
         }
