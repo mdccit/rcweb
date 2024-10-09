@@ -1,5 +1,6 @@
 <template>
     <header class="bg-gray-200">
+        <div class="bg-white rounded-lg"></div>
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="flex w-full justify-between gap-8">
                 <div class="flex items-center gap-4">
@@ -24,80 +25,71 @@
         </div>
     </header>
 
-    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <el-card>
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="bg-white p-10 rounded-lg">
+            <h3 class="font-semibold text-xl mb-2 text-black">Your transcription files</h3>
+            <p class="text-sm text-darkSlateBlue mb-4"> Manage your transcription files effortlessly. Whether you want
+                to
+                view, remove, or download, everything is just a click away.</p>
 
-            <!-- Search Input and Buttons -->
-            <div class="flex justify-between items-center mb-4">
-                <!-- Search Input for Filtering -->
-                <el-input v-model="search" class="h-[40px] mr-2" placeholder="Search..." clearable></el-input>
+            <div class="flex">
+                <div class="flex-1 ">
+                    <div class="card rounded-lg bg-lightGray1 h-[300px] m-2">
+                        <div class="flex">
+                            <div class="flex-1 p-3">
+                                <div class="card rounded-lg bg-blue-400  h-[270px]"></div>
+                            </div>
+                            <div class="flex-1 pt-4">
+                                <div class="h-[225px]">
+                                    <h3 class="font-semibold text-xl mb-2 text-steelBlue">Transcript</h3>
+                                    <p class="text-sm text-darkSlateBlue mb-4">transcript_file_143.pdf</p>
+                                    <p class="text-sm text-darkSlateBlue mb-4 flex">
+                                        <span class="text-green-500 mr-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                fill="currentColor" class="size-5">
+                                                <path fill-rule="evenodd"
+                                                    d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </span>
+                                        A.I. Verified
+                                    </p>
+                                </div>
+                                <div class="">
+                                    <div class="w-full pr-4">
+                                        <button type="button"
+                                            class="focus:outline-none text-white bg-redOrange hover:bg-red-700 focus:ring-4  rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-full">
+                                            Remove</button>
+                                    </div>
+                                </div>
 
-                <button
-                    class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
-                        fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 ">
+                    <div class="card rounded-lg h-[300px] m-2">
+                        <div class="bg-steelBlue h-[50px] w-full rounded-lg">
+                            <div class="flex h-[50px]">
+                                <div class="flex-1 mx-auto p-3">
+                                    <h3 class="text-white font-light">GPA</h3>
+                                </div>
+                                <div class="flex-1 mx-auto p-3">
+                                    <div class="mx-auto">
+                                        <h3 class="text-white bg-steelBlueLight79 text-center rounded-lg h-[25px]">
+                                            4.0021
+                                        </h3>
+                                    </div>
 
-                <!-- <button
-        class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 mx-auto">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
-            fill="currentColor">
-            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-            <path fill-rule="evenodd"
-                d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-                clip-rule="evenodd"></path>
-        </svg>
-    </button> -->
-
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <!-- Data Table -->
-            <el-table :default-sort="{ prop: 'joined_at', order: 'descending' }">
-                <!-- Display Name Column -->
-                <el-table-column prop="display_name" label="DISPLAY NAME" sortable></el-table-column>
-
-                <!-- Email Column -->
-                <el-table-column prop="email" label="EMAIL" sortable class="truncate-text" show-overflow-tooltip>
-                    <template v-slot="scope">
-                        <span class="truncate-text show-overflow-tooltip">email</span>
-                    </template>
-
-                </el-table-column>
-
-                <!-- User Role Column -->
-                <el-table-column prop="user_role" label="USER ROLE" sortable>
-                    <template v-slot="scope">
-                        <span class="">
-                            role</span>
-                    </template>
-                </el-table-column>
-
-                <!-- Joined At Column -->
-                <el-table-column prop="joined_at" label="JOINED DATE" sortable>
-                    <template v-slot="scope">
-                        <span>date</span>
-                    </template>
-                </el-table-column>
-
-                <!-- Last Seen At Column -->
-                <el-table-column prop="last_seen_at" label="TRANSCRIPT NAME" sortable>
-                    <template v-slot="scope">
-                        <span>date</span>
-                    </template>
-                </el-table-column>
-
-                <!-- END TABLE  -->
-            </el-table>
+        </div>
 
 
-            <!-- Pagination -->
-            <el-pagination layout="prev, pager, next">
-            </el-pagination>
-        </el-card>
     </div>
 
 </template>
