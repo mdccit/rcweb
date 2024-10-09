@@ -7,9 +7,9 @@
                                      elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p> -->
             </div>
             <div class="col-span-1 text-right">
-                <button @click="memberAdd">
+                <button class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-normal text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto" @click="memberAdd">
 
-                    Add Child
+                    Add Child +
                 </button>
             </div>
         </div>
