@@ -137,6 +137,9 @@
                                             <button v-if="loginUserId ==user.connection.sender_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Invite Sent
                                             </button>
+                                            <button v-if="loginUserId ==user.connection.sender_id" @click="cancel(user.connection.id)"  class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                Cancel Request
+                                            </button>
                                             <button @click="accept(user.connection.id)" v-if="loginUserId ==user.connection.receiver_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Accept
                                             </button>
@@ -404,6 +407,16 @@ const reject = async (id) =>{
     }
 }
 
+const cancel = async (id) =>{
+    try {
+        await $userService.connection_accept(id, {
+            connection_status: "cancelled"
+        });
+        searchStore.setSearchButton(true)
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
+}
 
 const refresh = () =>{
     searchStore.setSearchKey(route.query.searchKey)

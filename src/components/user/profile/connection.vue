@@ -72,6 +72,10 @@
                                 class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                 Invite sent
                             </button>
+                            <button v-if="connection.connection_status == 'pending'" @click="connectCancelle(connection.connection_id)"
+                                class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                canncel Request
+                            </button>
                             <button v-if="connection.connection_status == 'accepted'"
                                 class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

@@ -38,11 +38,17 @@
                            class="bg-blue-500 rounded-full  p-2 m-1 text-white text-xs h-[35px] w-[85px]">
                             {{ connectionButtonName }}
                         </button>
+                        
                         <div v-if="connectionButtonName =='Accept'" class="text-white">
                             <button @click="connectReject" class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                Reject
                             </button>
                         </div> 
+                        <div v-if="connectionButtonName =='Invite sent'" class="text-white">
+                            <button @click="connectCancel" class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                               Cancel Request
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
@@ -165,6 +171,7 @@ const fetchUserDetails = async (slug) => {
   try {
     const dataSets = await $publicService.get_user_profile(props.userSlug);
     playerId.value = dataSets.user_basic_info.id || null;
+    console.log("player Id  "+playerId.value)
     if(playerId.value != userId.value ){
         fetchCheckConnection()
     }
@@ -187,6 +194,7 @@ const fetchCheckConnection = async () => {
         if (props.userSlug != null) {
             const dataSets = await $userService.get_check_connection_type(props.userSlug);
            
+
             connectionStatus.value = dataSets.connection
             if (connectionStatus.value == true) {
                 connectionType.value = dataSets.type
@@ -248,6 +256,19 @@ const connectReject = async () => {
 try {
     await $userService.connection_reject(connectionType.value.id, {
         connection_status: "rejected"
+    });
+    
+    fetchCheckConnection();
+
+} catch (error) {
+    console.error('Failed to Connect :', error.message);
+}
+}
+
+const connectCancel = async () => {
+try {
+    await $userService.connection_reject(connectionType.value.id, {
+        connection_status: "cancelled"
     });
     
     fetchCheckConnection();
