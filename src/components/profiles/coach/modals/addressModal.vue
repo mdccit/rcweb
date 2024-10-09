@@ -209,7 +209,6 @@ watch(countries, (newVal) => {
 });
 
 watch(country_codes, (newVal) => {
-    console.log('Watcher triggered for country codes:', newVal.length);  // Log length of country codes
     if (newVal.length > 0 && phone_code_country.value === null && dataSets.user_phone_info) {
         phone_code_country.value = dataSets.user_phone_info.id ?? null;
     }
@@ -230,7 +229,7 @@ const fetchCoachContact = async () => {
 
         if (dataSets.user_phone_info) {
             phone_number.value = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number';
-            phone_code_country.value = dataSets.user_phone_info.id ?? null;
+            phone_code_country.value = dataSets.user_phone_info.country_id ?? null;
         }
 
         if (dataSets.user_basic_info) {
