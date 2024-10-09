@@ -134,17 +134,16 @@
                                     </div>
                                     <div v-if="user.connection != null">
                                         <div v-if="user.connection.connection_status =='pending'">
-                                            <button v-if="user.connection.user_id ==user.connection.sender_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                            <button v-if="loginUserId ==user.connection.sender_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Invite Sent
                                             </button>
-                                            <button @click="accept(user.connection.id)" v-if="user.connection.user_id ==user.connection.receiver_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                            <button @click="accept(user.connection.id)" v-if="loginUserId ==user.connection.receiver_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Accept
                                             </button>
-                                            <button @click="reject(user.connection.id)" v-if="user.connection.user_id ==user.connection.receiver_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                            <button @click="reject(user.connection.id)" v-if="loginUserId ==user.connection.receiver_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Reject
                                             </button>
                                         </div>
-                                        
                                     </div>
                                     <div v-if="user.connection == null">
                                         <button @click="connect(user.userId)"   class="bg-blue-500 text-white rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
@@ -215,7 +214,7 @@ const outStateMin = ref('')
 const outStateMxn = ref('')
 const filterNewSet = ref([])
 const route = useRoute();
-
+const loginUserId = ref('')
 onMounted(() => {
     fetchData();
   
@@ -265,15 +264,18 @@ const fetchData = async () =>{
     console.log(data)
     try {
     const response = await $userService.search_user(data);
-
+     console.log(response)
      search.value = response.data.dataSets.users || [];
      connections.value = response.data.dataSets.connections || [];
-   
+     console.log("Commentcion")
+     console.log(connections.value)
     search.value = search.value.map(user => {
-    const connection =  connections.value.find(conn => conn.user_id === user.userId);
-    return { ...user, connection: connection || null }; // Add connection or null if not found
-});
+          const connection =  connections.value.find(conn => conn.user_id === user.userId);
+           return { ...user, connection: connection || null }; // Add connection or null if not found
+    });
+    console.log(1455)
     console.log(search.value)
+    loginUserId.value =userStore.user.user_id
 
   } catch (error) {
     console.error('Failed to load posts:', error.message);
@@ -369,6 +371,7 @@ const getSaveData = async() =>{
 
 const connect = async (id) =>{
     try {
+       
         await $userService.connection_request({
             receiver_id: id
         });
