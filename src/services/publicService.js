@@ -186,7 +186,6 @@ const delete_school_user= async (id) => {
   }
 };
 
-<<<<<<< HEAD
 const upload_business_media = async (formData) => {
   // Extract user_slug from the formData to build the URL
   const businessSlug = formData.get('business_slug');
@@ -197,7 +196,20 @@ const upload_business_media = async (formData) => {
   }
 
   const url = `/public/businesses/upload-media/${businessSlug}`;
-=======
+  try {
+    // Send the FormData directly as the body
+    const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
+
+    return response;
+  } catch (error) {
+    // Handle error response from the API
+    if (error.response) {
+      throw error.response; // Pass the full response for further handling
+    } else {
+      throw new Error(error.message || 'Failed to upload media');
+    }
+  }
+};
 const get_parent= async (slug) => {
   const url = `/public/parents/${slug}`;
   try {
@@ -321,7 +333,6 @@ const upload_parent_media = async (formData) => {
   }
 
   const url = `/public/parents/upload-media/${userSlug}`;
->>>>>>> 69005a9a5601c91fda296293a4887f078fb6c1b5
 
   try {
     // Send the FormData directly as the body
@@ -337,8 +348,8 @@ const upload_parent_media = async (formData) => {
     }
   }
 };
+  
 
-<<<<<<< HEAD
 
 const upload_business_profile_picture = async (file, businessSlug) => {
 
@@ -389,7 +400,15 @@ const upload_business_cover_picture = async (file, businessSlug) => {
 const update_business_media_remove = async (request_body) => {
 
   const url = `/public/businesses/remove-media/${request_body.business_slug}`;
-=======
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to update');
+  }
+};
 const add_parent_child = async (request_body) => {
 
   const url = `/public/parents/child/add-new/${request_body.user_slug}`;
@@ -404,9 +423,7 @@ console.log(body)
 };
 
 const update_parent_child = async (request_body) => {
-
   const url = `/public/parents/child/update/${request_body.user_id}`;
->>>>>>> 69005a9a5601c91fda296293a4887f078fb6c1b5
   const body = request_body;
 
   try {
@@ -417,7 +434,6 @@ const update_parent_child = async (request_body) => {
   }
 };
 
-<<<<<<< HEAD
 const update_business_bio = async (request_body) => {
 
   const url = `/public/businesses/update-bio/${request_body.business_slug}`;
@@ -428,6 +444,199 @@ const update_business_bio = async (request_body) => {
     return response;
   } catch (error) {
     throw new Error(error.message || 'Failed to update');
+  }
+};
+
+
+const upload_school_cover_photo = async (file, school_slug) => {
+
+  const url = `/public/schools/upload-cover-picture/${school_slug}`;
+  // Create a new FormData object
+  const formData = new FormData();
+
+  // Ensure the file is appended correctly
+  if (file) {
+    formData.append('file', file); // The field name must match what the backend expects
+  } else {
+    throw new Error('No file selected'); // Handle if no file is selected
+  }
+  try {
+    const response = await apiService.postMedia(url, formData);
+    return response;
+  } catch (error) {
+    if (error.response) {
+      throw error.response; // Pass the full response to be handled in the frontend
+    } else {
+      throw new Error(error.message || 'Failed to login');
+    }
+  }
+};
+
+const upload_school_profile_picture = async (file, school_slug) => {
+
+  const url = `/public/schools/upload-profile-picture/${school_slug}`;
+  // Create a new FormData object
+  const formData = new FormData();
+
+  // Ensure the file is appended correctly
+  if (file) {
+    formData.append('file', file); // The field name must match what the backend expects
+  } else {
+    throw new Error('No file selected'); // Handle if no file is selected
+  }
+  try {
+    const response = await apiService.postMedia(url, formData);
+    return response;
+  } catch (error) {
+    if (error.response) {
+      throw error.response; // Pass the full response to be handled in the frontend
+    } else {
+      throw new Error(error.message || 'Failed to login');
+    }
+  }
+};
+
+
+const upload_school_media = async (file, school_slug) => {
+
+  const url = `/public/schools/upload-media/${school_slug}`;
+  // Create a new FormData object
+  const formData = new FormData();
+
+  // Ensure the file is appended correctly
+  if (file) {
+    formData.append('file', file); // The field name must match what the backend expects
+  } else {
+    throw new Error('No file selected'); // Handle if no file is selected
+  }
+  try {
+    const response = await apiService.postMedia(url, formData);
+    return response;
+  } catch (error) {
+    if (error.response) {
+      throw error.response; // Pass the full response to be handled in the frontend
+    } else {
+      throw new Error(error.message || 'Failed to login');
+    }
+  }
+};
+
+const delete_school_media = async (request_body) => {
+
+  const url = `/public/schools/remove-media/${request_body.user_slug}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    if (error.response) {
+      throw error.response; // Pass the full response for further handling
+    } else {
+      throw new Error(error.message || 'Failed to upload media');
+    }
+  }
+};
+
+const update_school_bio = async (request_body) => {
+
+  const url = `/public/schools/update-bio/${request_body.user_slug}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    if (error.response) {
+      throw error.response; // Pass the full response for further handling
+    } else {
+      throw new Error(error.message || 'Failed to upload media');
+    }
+  }
+};
+
+const update_school_basic_info = async (request_body) => {
+
+  const url = `/public/schools/update-basic-info/${request_body.user_slug}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    if (error.response) {
+      throw error.response; // Pass the full response for further handling
+    } else {
+      throw new Error(error.message || 'Failed to upload media');
+    }
+  }
+};
+
+const school_add_new_academic = async (request_body) => {
+
+  const url = `/public/schools/add-new-academic/${request_body.user_slug}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    if (error.response) {
+      throw error.response; // Pass the full response for further handling
+    } else {
+      throw new Error(error.message || 'Failed to upload media');
+    }
+  }
+};
+
+const school_remove_academic = async (request_body) => {
+
+  const url = `/public/schools/remove-academic/${request_body.user_slug}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    if (error.response) {
+      throw error.response; // Pass the full response for further handling
+    } else {
+      throw new Error(error.message || 'Failed to upload media');
+    }
+  }
+};
+
+const update_school_tennis_info = async (request_body) => {
+
+  const url = `/public/schools/update-tennis-info/${request_body.user_slug}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    if (error.response) {
+      throw error.response; // Pass the full response for further handling
+    } else {
+      throw new Error(error.message || 'Failed to upload media');
+    }
+  }
+};
+
+const update_school_status_info = async (request_body) => {
+
+  const url = `/public/schools/update-status-info/${request_body.user_slug}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    if (error.response) {
+      throw error.response; // Pass the full response for further handling
+    } else {
+      throw new Error(error.message || 'Failed to upload media');
+    }
   }
 };
 
@@ -443,8 +652,7 @@ const update_business_basic_info = async (request_body) => {
     throw new Error(error.message || 'Failed to update');
   }
 };
-=======
->>>>>>> 69005a9a5601c91fda296293a4887f078fb6c1b5
+
   return {
     get_player,
     get_coache,
@@ -455,14 +663,12 @@ const update_business_basic_info = async (request_body) => {
     add_school_team,
     delete_school_team,
     delete_school_user,
-<<<<<<< HEAD
     upload_business_media,
     upload_business_profile_picture,
     upload_business_cover_picture,
     update_business_media_remove,
     update_business_basic_info,
-    update_business_bio
-=======
+    update_business_bio,
     get_school,
     get_parent,
     upload_parent_cover_photo,
@@ -473,11 +679,21 @@ const update_business_basic_info = async (request_body) => {
     update_parent_info,
     upload_parent_media,
     add_parent_child,
-    update_parent_child
->>>>>>> 69005a9a5601c91fda296293a4887f078fb6c1b5
-  };
+    update_parent_child,
+    update_school_status_info,
+    update_school_tennis_info,
+    school_remove_academic,
+    school_add_new_academic,
+    update_school_basic_info,
+    update_school_bio,
+    delete_school_media,
+    upload_school_media,
+    upload_school_profile_picture,
+    upload_school_cover_photo,
+    delete_media_player,
+    delete_media_coache
 
-
+}
 }
 
 
