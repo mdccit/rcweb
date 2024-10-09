@@ -24,6 +24,7 @@
     "@nuxtjs/eslint-module": "^4.1.0",
     "@pinia/nuxt": "^0.5.2",
     "@popperjs/core": "npm:@sxzz/popperjs-es@^2.11.7",
+    "@stripe/stripe-js": "^4.7.0",
     "@vueuse/core": "^10.11.0",
     "@vueuse/nuxt": "^11.0.1",
     "cropperjs": "^1.6.2",

@@ -919,8 +919,9 @@ const handleSubmitStep2 = async () => {
 
         nextTick(async () => {
           if (role.value == 'coach') {
-            if (token.value) {
-              await router.push(`/register-step-three/${token.value}`);
+            const user_token = localStorage.getItem('token'); 
+            if (user_token) {
+              await router.push(`/register-step-three/${user_token}`);
             } else {
               console.error('Token is missing.');
             }

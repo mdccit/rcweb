@@ -3,6 +3,7 @@
     <h2>Enter Payment Information</h2>
     <div id="card-element"></div>
     <div id="card-errors" role="alert"></div>
+
     <button @click="handlePayment">Submit Payment</button>
   </div>
 </template>
@@ -11,51 +12,52 @@
 import { ref, onMounted } from 'vue';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripe = await loadStripe('your-stripe-public-key-here');
-let elements, cardElement;
+// Props from Register Step 3
+const props = defineProps({
+  stripeCustomerId: {
+    type: String,
+    required: true,
+  },
+  handleSubscription: {
+    type: Function,
+    required: true,
+  }
+});
 
+// Stripe Initialization
+const stripe = await loadStripe('your-publishable-key');
+let cardElement;
 onMounted(() => {
-  elements = stripe.elements();
+  const elements = stripe.elements();
   cardElement = elements.create('card');
   cardElement.mount('#card-element');
 });
 
+// Handle Payment Submission
 const handlePayment = async () => {
   try {
-    const response = await axios.post('/api/subscription/setup-intent', { userId: 'user-id-here' });
-    const clientSecret = response.data.clientSecret;
+    // Step 1: Call the parent function to get the setup intent from the backend
+    const setupIntent = await props.handleSubscription(props.stripeCustomerId);
 
-    const { setupIntent, error } = await stripe.confirmCardSetup(clientSecret, {
+    // Step 2: Confirm the card setup using the Stripe client_secret from the setup intent
+    const { setupIntent: confirmedSetup, error } = await stripe.confirmCardSetup(setupIntent.client_secret, {
       payment_method: {
         card: cardElement,
         billing_details: {
-          name: 'Customer Name', // Replace with actual billing details
+          name: 'Customer Name', // Pass actual billing details
         },
       },
     });
 
     if (error) {
-      console.error('Error confirming card setup:', error);
-    } else {
-      await createSubscription(setupIntent.payment_method);
+      console.error('Error during payment confirmation:', error);
+      return;
     }
+
+    // Step 3: Call the parent function to finalize subscription
+    await props.handleSubscription(confirmedSetup.payment_method);
   } catch (error) {
     console.error('Error during payment:', error);
-  }
-};
-
-const createSubscription = async (paymentMethodId) => {
-  try {
-    const response = await axios.post('/api/subscription/create', {
-      paymentMethodId,
-      package: 'premium',
-    });
-
-    if (response.data.url) {
-      window.location.href = response.data.url;
-    }
-  } catch (error) {
-    console.error('Error creating subscription:', error);
   }
 };
 </script>

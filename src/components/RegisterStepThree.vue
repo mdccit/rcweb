@@ -23,8 +23,9 @@
               <img :src="package.whiteIcon"
                 class="cursor-pointer absolute bottom-11 opacity-0 group-hover:opacity-100 group-[.is-checked]:opacity-100 transition">
               <label :for="package.value"
-                class="text-sm text-black absolute bottom-6 group-hover:text-white group-[.is-checked]:text-white transition">{{
-        package.label }}</label>
+                class="text-sm text-black absolute bottom-6 group-hover:text-white group-[.is-checked]:text-white transition">
+                {{ package.label }}
+              </label>
             </div>
           </div>
         </div>
@@ -52,14 +53,21 @@
     </div>
 
     <!-- Render Payment Component if Premium is selected -->
-    <PaymentComponent v-if="selectedPackage === 'premium'" />
-
+    <PaymentComponent v-if="selectedPackage === 'premium'" :stripeCustomerId="stripeCustomerId"
+      :handleSubscription="createSetupIntent" :confirmSetupIntent="confirmSetupIntent"
+      :finalizeSubscription="finalizeSubscription" />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import PaymentComponent from '@/components/subscription/PaymentComponent.vue';
+import { loadStripe } from '@stripe/stripe-js';
+import createAuthService from '@/services/authService';
+import apiService from '@/services/apiService'; // Ensure this is imported
+
+const authService = createAuthService(apiService);
+const stripe = await loadStripe('your-stripe-public-key');
 
 // Set default package to 'standard'
 const selectedPackage = ref('standard');
@@ -72,48 +80,80 @@ const packages = [
 
 const errors = ref({});
 const loading = ref(false);
+const stripeCustomerId = ref(null);
+let cardElement;
 
-const handleSubmitStep3 = async () => {
+// Fetch Stripe Customer ID on component load
+onMounted(async () => {
   try {
-    if (!selectedPackage.value) {
-      errors.value.package = 'Please select a package.';
-      return;
-    }
+    stripeCustomerId.value = await authService.getStripeCustomerId();
+    console.log('Stripe Customer ID:', stripeCustomerId.value);
 
-    // If the selected package is 'premium', handle Stripe subscription
-    if (selectedPackage.value === 'premium') {
-      loading.value = true;
-
-      // Call your Laravel backend to create a Stripe session
-      const response = await $authService.createSubscription({
-        package: selectedPackage.value,
-        token: token.value // Pass any necessary user or token info
-      });
-
-      if (response.status === 200 && response.data.url) {
-        // Redirect to Stripe Checkout
-        window.location.href = response.data.url;
-      } else {
-        // Handle any errors returned from the backend
-        errors.value.subscription = 'There was an issue creating the subscription. Please try again.';
-      }
-    } else {
-      // Handle other packages, e.g., Standard
-      // Submit standard package selection (non-premium) logic here
-    }
-
+    // Initialize Stripe Elements for card input
+    const elements = stripe.elements();
+    cardElement = elements.create('card');
+    cardElement.mount('#card-element');
   } catch (error) {
-    console.error('Error during subscription process:', error);
-    errors.value.subscription = 'There was an issue processing your request. Please try again.';
-  } finally {
-    loading.value = false;
+    console.error('Failed to retrieve Stripe customer ID:', error);
+  }
+});
+
+// Create Setup Intent (called by PaymentComponent)
+const createSetupIntent = async (customerId) => {
+  try {
+    const setupIntent = await authService.createSetupIntent({ customer_id: customerId });
+    return setupIntent; // Return setupIntent to PaymentComponent
+  } catch (error) {
+    console.error('Error creating setup intent:', error);
   }
 };
 
+// Confirm Setup Intent with Stripe
+const confirmSetupIntent = async (clientSecret) => {
+  try {
+    const { setupIntent, error } = await stripe.confirmCardSetup(clientSecret, {
+      payment_method: {
+        card: cardElement,
+        billing_details: {
+          name: 'Customer Name', // Replace with actual customer details
+        },
+      },
+    });
+
+    if (error) {
+      console.error('Error confirming setup intent:', error);
+      throw error;
+    }
+    return setupIntent;
+  } catch (error) {
+    console.error('Error confirming setup intent:', error);
+    throw error;
+  }
+};
+
+// Finalize the subscription creation (called by PaymentComponent)
+const finalizeSubscription = async (paymentMethodId) => {
+  try {
+    const subscription = await authService.createSubscription({
+      subscription_type: 'monthly',
+      is_auto_renewal: true,
+      payment_method_id: paymentMethodId,
+    });
+
+    console.log('Subscription created successfully', subscription);
+  } catch (error) {
+    console.error('Error during subscription creation:', error);
+  }
+};
 </script>
 
 <style scoped>
-.radio-input {
-  display: none;
+h1 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+label {
+  display: block;
+  margin-bottom: 8px;
 }
 </style>
