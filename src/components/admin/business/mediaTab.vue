@@ -148,9 +148,8 @@
   const removeMediaItem = async (media_id, event) => {
     event.stopPropagation();
     loadingStates.value[media_id] = true;
-    console.log(loadingStates.value)
     try {
-      const response = await $adminService.user_profile_delete(media_id);
+      const response = await $adminService.business_media_delete(media_id);
       if (response.status === 200) {
         loading.value = false;
         nuxtApp.$notification.triggerNotification(response.display_message, 'success');
@@ -173,13 +172,13 @@
     loading.value = true;
   
     // Append user_slug and files to FormData
-    formData.append('user_id', user_id.value);
+    formData.append('business_id', business_id.value);
     files.value.forEach((file) => {
       formData.append('files[]', file);
     });
 
     try {
-      const response = await $adminService.upload_user_media(formData);
+      const response = await $adminService.upload_business_media(formData);
       if (response.status === 200) {
         // Clear the files array
         files.value = [];
@@ -236,45 +235,13 @@
     }
   };
   
-  
-//   const setGalleryItems = (mediaInfo) => {
-//     if (!mediaInfo || !Array.isArray(mediaInfo.media_urls)) {
-//       console.error('mediaInfo or media_urls is invalid:', mediaInfo);
-//       return;
-//     }
-  
-//       // Clear the gallery items before updating to prevent duplicates
-//       galleryItems.value = [];
-  
-//     // Cache busting: Append timestamp to media URLs to prevent caching issues
-//     galleryItems.value = mediaInfo.media_urls.map(media => {
-//       const urlWithCacheBust = `${media.url}?t=${new Date().getTime()}`;  // Cache-busting timestamp
-  
-//       if (media.media_type === 'image') {
-//         return {
-//           type: 'image',
-//           href: urlWithCacheBust,
-//           src: urlWithCacheBust,
-//           media_id: media.media_id,
-//         };
-//       } else if (media.media_type === 'video') {
-//         return {
-//           type: 'video',
-//           href: urlWithCacheBust,
-//           src: urlWithCacheBust || 'https://via.placeholder.com/200x150.png?text=Video',
-//           media_id: media.media_id,
-//         };
-//       }
-//     });
-  
-//     console.log('Updated galleryItems with cache busting:', galleryItems.value);
-//   };
+
   
 const action = ref(route.params.action || 'view'); // default to 'view' if action not provided
-const user_id = ref(route.params.user_id || '');
+const business_id = ref(route.params.business_id || '');
   onMounted(() => {
     action.value = route.query.action || 'view';
-    user_id.value = route.query.user_id || '';
+    business_id.value = route.query.business_id || '';
     Fancybox.bind('[data-fancybox="gallery"]', {
       dragToClose: false,
       Toolbar: {

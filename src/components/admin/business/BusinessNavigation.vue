@@ -26,6 +26,19 @@
       </button>
     </NuxtLink>
 
+    <!-- Media Link -->
+    <NuxtLink :to="{ path: '/business/businessMedia', query: { business_id: businessId } }">
+      <button
+        :class="{
+          'bg-gray-300': isActive('/business/businessMedia'),
+          'opacity-50': !isActive('/business/businessMedia'),
+          'text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200': true
+        }"
+      >
+        Media
+      </button>
+    </NuxtLink>
+
     <!-- Synchronization Link -->
     <NuxtLink :to="{ path: '/admin/businesses/sync', query: { business_id: businessId } }">
       <button

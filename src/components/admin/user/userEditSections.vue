@@ -1,11 +1,24 @@
 <template>
 
     <div class="flex gap-x-4">
-        <button @click="accountDetails"
-                class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200"> Account
-                Details </button>
-        <button @click="accountMedia"
-                class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200">Media </button>
+        <NuxtLink :to="{ path: '/admin/userAccountDetails', query: { action: 'edit', user_id: user_id } }">
+
+        <button 
+          :class="{
+             'bg-gray-300': isActive('/admin/userAccountDetails'),
+             'opacity-50': !isActive('/admin/userAccountDetails'),
+             'text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200': true
+          }"
+         > Account Details </button>
+        </NuxtLink>
+        <NuxtLink :to="{ path: '/admin/userMedia', query: { action: 'edit', user_id: user_id } }">
+            <button 
+               :class="{
+                'bg-gray-300': isActive('/admin/userMedia'),
+                'opacity-50': !isActive('/admin/userMedia'),
+                'text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200': true
+               }">Media </button>
+        </NuxtLink>
         <NuxtLink to="/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7/connections"><button
                 class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
                 Connections </button>
@@ -41,7 +54,12 @@ onMounted(() => {
     console.log("User type"+ action.value)
 
 });
-
+const props = defineProps({
+ user_id: {
+    type: String,
+    required: true
+  }
+});
 const accountMedia = () =>{
   router.push({
     path: '/admin/userMedia',
@@ -61,4 +79,8 @@ const accountDetails = () =>{
     }
   });
 }
+
+const isActive = (path) => {
+  return route.path === path && route.query.user_id === props.user_id;
+};
 </script>

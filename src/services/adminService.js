@@ -629,6 +629,88 @@ const upload_user_media = async (formData) => {
   }
 };
 
+const upload_school_media = async (formData) => {
+  // Extract user_slug from the formData to build the URL
+  const schoolId = formData.get('school_id');
+
+  // Ensure userSlug is present
+  if (!schoolId) {
+    throw new Error('School Id is missing from formData.');
+  }
+
+  const url = `/admin/schools/upload-media/${schoolId}`;
+
+  try {
+    // Send the FormData directly as the body
+    const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
+
+    return response;
+  } catch (error) {
+    // Handle error response from the API
+    if (error.response) {
+      throw error.response; // Pass the full response for further handling
+    } else {
+      throw new Error(error.message || 'Failed to upload media');
+    }
+  }
+};
+
+const school_media_delete = async (media_id) => {
+  const url = `/admin/schools/remove-media/${media_id}`;
+  try {
+    const response = await apiService.deleteRequest(url);
+
+    if (response) {
+      return response;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+const upload_business_media = async (formData) => {
+  // Extract user_slug from the formData to build the URL
+  const businessId = formData.get('business_id');
+
+  // Ensure userSlug is present
+  if (!businessId) {
+    throw new Error('Business Id is missing from formData.');
+  }
+
+  const url = `/admin/businesses/upload-media/${businessId}`;
+
+  try {
+    // Send the FormData directly as the body
+    const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
+
+    return response;
+  } catch (error) {
+    // Handle error response from the API
+    if (error.response) {
+      throw error.response; // Pass the full response for further handling
+    } else {
+      throw new Error(error.message || 'Failed to upload media');
+    }
+  }
+};
+
+const business_media_delete = async (media_id) => {
+  const url = `/admin/businesses/remove-media/${media_id}`;
+  try {
+    const response = await apiService.deleteRequest(url);
+
+    if (response) {
+      return response;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
   return {
     new_user_register,
     list_users,
@@ -670,7 +752,11 @@ const upload_user_media = async (formData) => {
     business_cover,
     user_profile,
     user_profile_delete,
-    upload_user_media
+    upload_user_media,
+    upload_school_media,
+    school_media_delete,
+    upload_business_media,
+    business_media_delete
   };
 };
 

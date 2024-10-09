@@ -2,17 +2,20 @@
     <header class="bg-gray-200">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="flex w-full justify-between gap-8">
-                <div class="flex items-center gap-4"><a href="https://qa1.recruited.qualitapps.com/admin/users"><svg
-                            class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                <div class="flex items-center gap-4">
+                    <NuxtLink to="/admin/schools">
+                        <svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M15 6l-6 6l6 6"></path>
-                        </svg></a>
-                    <h2 class="font-bold text-lg self-center"> Editing:{{ display_name }} </h2>
+                        </svg>
+                    </NuxtLink>
+                    <h2 class="font-bold text-black text-lg self-center"> Editing: {{ name }} </h2>
                 </div>
+
                 <div class="">
-                    <a href="#"><button type="submit"
-                            class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
+                    <NuxtLink to="/school/9c2845cc-7676-45e1-b498-13f930b22e9b"><button type="submit"
+                            class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-blue-300 focus:ring-blue-200">
                             View <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24"
                                 height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                 stroke-linecap="round" stroke-linejoin="round">
@@ -20,91 +23,76 @@
                                 <path d="M8 7l9 0l0 9"></path>
                             </svg>
                         </button>
-                    </a>
+                    </NuxtLink>
                 </div>
+
             </div>
         </div>
     </header>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-7">
-        <!-- User Edit Section Component -->
-        <userEditSection :user_id="user_id" />
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-7 mb-5 ">
+        <!-- Use the SchoolNavigation component -->
+        <SchoolNavigation :schoolId="school_id" />
+        <div class="mt-10"></div>
 
-        <usermediaTab :galleryItems="galleryItems"  @updateMedia="fetchUserDetails"/>
-        <div class="my-16"></div>
-
+        <mediaTab :galleryItems="galleryItems"  @updateMedia="fetchSchoolDetails"/>
+        <div class="my-8"></div>
+      
     </div>
+
 </template>
 
 <script setup>
 
 import { ref, computed, watch, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
-import { defineProps, defineEmits, defineExpose } from 'vue';
 import { useRoute } from 'vue-router';
-import userEditSection from '~/components/admin/user/userEditSections.vue';
-;
-import usermediaTab from '~/components/admin/user/usermediaTab.vue';
+import SchoolNavigation from '~/components/admin/school/SchoolNavigation.vue';
+import mediaTab from '~/components/admin/school/mediaTab.vue';
 
 const route = useRoute(); // Use useRoute to access query parameters
-
-
-
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
-const $authService = nuxtApp.$authService;
-
-// Reference to the modal component
-const modalRef = ref(null);
-const emit = defineEmits(['close']);
-const media = ref([])
+const errors = ref([]);
+const name = ref('');
 const action = ref(route.params.action || 'view'); // default to 'view' if action not provided
-const user_id = ref(route.params.user_id || '');
-const slug= ref('')
+const school_id = ref(route.params.school_id || '');
+
 onMounted(() => {
+
+    // Update the refs directly
     action.value = route.query.action || 'view';
-    user_id.value = route.query.user_id || '';
+    school_id.value = route.query.school_id || '';
 
     if (action.value === 'view' || action.value === 'edit') {
-        fetchUserDetails(user_id.value);
+        fetchSchoolDetails();
     }
 });
 
-
-
-// Watch for changes in the route query parameters
-watch([() => route.query.action, () => route.query.user_id], ([newAction, newUserId]) => {
-    action.value = newAction || 'view';
-    user_id.value = newUserId || '';
-  
-     if (action.value === 'edit' || action.value === 'view') {
-        fetchUserDetails(user_id.value);  // Fetch user details for "edit" & "view"
-    }
-});
-
-
-const display_name =ref('')
-
-// Fetch user details function
-const fetchUserDetails = async (userId) => {
+// Fetch School Details
+const fetchSchoolDetails = async () => {
+    errors.value = [];
     try {
-        const response = await $adminService.get_user_details(user_id.value);
-        const user = response.user_basic_info;
-        display_name.value = response.user_basic_info.display_name
-
-        console.log(response.media_info)
-        if( response.media_info){
-            setGalleryItems(response.media_info)
+        const data = await $adminService.get_school_details(school_id.value);
+        name.value = data.school_info.name || '';
+        if( data.media_info){
+            setGalleryItems(data.media_info)
         }
 
     } catch (error) {
         console.log(error)
-        nuxtApp.$notification.triggerNotification(error.message, 'failure');
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     }
 };
+
+definePageMeta({
+    ssr: false,
+    layout: 'admin',
+    middleware: ['role'],
+    requiredRole: ['admin'],
+});
 
 const galleryItems = ref([]); 
 
@@ -127,18 +115,11 @@ const setGalleryItems = (mediaInfo) => {
     }
   });
 
-  console.log( galleryItems.value)
+  
 };
 
-
-definePageMeta({
-    ssr: false,
-    layout: 'admin',
-    middleware: ['role'],
-    requiredRole: ['admin'],
-});
-
 </script>
+
 
 <style scoped>
 .container {

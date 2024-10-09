@@ -8,7 +8,7 @@
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M15 6l-6 6l6 6"></path>
                         </svg></a>
-                    <h2 class="font-bold text-lg self-center"> Editing:User Name </h2>
+                    <h2 class="font-bold text-lg self-center"> Editing:{{ display_name }}</h2>
                 </div>
                 <div class="">
                     <a href="#"><button type="submit"
@@ -28,7 +28,7 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-7">
         <!-- User Edit Section Component -->
-        <userEditSection />
+        <userEditSection :user_id="user_id" />
 
         <form @submit.prevent="updateUserDetails">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
@@ -346,7 +346,7 @@ const errors = ref([]);
 const profile = ref(null)
 const profile_image = ref('')
 const fileError = ref('')
-
+const display_name =ref('')
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
@@ -462,7 +462,7 @@ const fetchUserDetails = async (userId) => {
         phone_number.value = contact_info.phone_number || '';             // Adjust if needed
         is_set_email_verified.value = !!user.email_verified_at;
         profile.value = response.media_info.profile_picture || null;
-
+        display_name.value = response.user_basic_info.display_name
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.message, 'failure');
     }

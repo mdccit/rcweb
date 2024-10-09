@@ -25,6 +25,18 @@
         Staff & Teams
       </button>
     </NuxtLink>
+     <!-- School media Link -->
+    <NuxtLink :to="{ path: '/school/media', query: { school_id: schoolId } }">
+      <button
+        :class="{
+          'bg-gray-300': isActive('/school/media'),
+          'opacity-50': !isActive('/school/media'),
+          'text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200': true
+        }"
+      >
+        Media
+      </button>
+    </NuxtLink>
 
     <!-- Synchronization Link -->
     <NuxtLink :to="{ path: '/admin/schools/sync', query: { school_id: schoolId } }">
