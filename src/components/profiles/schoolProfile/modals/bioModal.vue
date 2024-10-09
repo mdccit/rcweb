@@ -61,8 +61,13 @@ const $userService = nuxtApp.$userService;
 const $publicService = nuxtApp.$publicService;
 
 const school_bio = ref('');
-const user_slug = ref('');
+
+const error = ref('');
+const errors = ref({});
 const loading = ref(false);
+const showNotification = ref(false);
+const notificationMessage = ref('');
+const notification_type = ref(0);
 
 const props = defineProps({
   visible: Boolean,
@@ -97,7 +102,12 @@ const fetchSchoolBio = async (slug) => {
 // Function to update player bio
 const updateSchoolBio = async (bio) => {
   try {
-     loading.value = true;
+    error.value = '';
+    errors.value = {};
+    loading.value = true;
+    notification_type.value = '';
+    notificationMessage.value = '';
+    showNotification.value = false;
       const request_body = { user_slug: props.slug, bio: school_bio.value };  // Construct request body with bio
       const response = await $userService.update_school_bio(request_body);  // Pass slug and request body
       if (response.status == '200') {
@@ -112,7 +122,7 @@ const updateSchoolBio = async (bio) => {
 
   } catch (error) {
       // Handle error
-      nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+      handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
   } finally{
      loading.value = false;
   }

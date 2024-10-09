@@ -43,3 +43,8 @@ textarea{
 ::-webkit-scrollbar-thumb {
   background-color: #0085FF;
 }
+
+
+.z-index-220 {
+    z-index: 220;
+}
