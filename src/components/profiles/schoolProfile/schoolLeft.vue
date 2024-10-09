@@ -91,7 +91,7 @@
 
     <!-- Modal Components with Standardized Props -->
     <BioModal :visible="modals.bio" @close="handleModalClose" :slug="slug" />
-    <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" />
+    <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" :schoolData="props.data" />
     <AcademicModal :visible="modals.academic" @close="handleModalClose" :slug="slug" />
 </template>
 
@@ -199,9 +199,8 @@ const fetchSchoolDetails = async () => {
         const dataSets = await $publicService.get_school(route.params.slug);
         if(dataSets.school_info){
             schoolId.value =dataSets.school_info.id || '';
-console.log('bdiaf');
             bio.value = dataSets.school_info.bio || 'School has not entered bio';
-            name.value =dataSets.school_info.name
+            props.data.name = dataSets.school_info.name;
             const date = new Date(dataSets.school_info.joined_at);
             const monthNames = [
                'January', 'February', 'March', 'April', 'May', 'June',
@@ -210,7 +209,7 @@ console.log('bdiaf');
             const year = date.getFullYear();
             const month = monthNames[date.getMonth()];
            const day = date.getDate();
-           joinAt.value = `${year} ${month} ${day}`
+           props.data.joinAt = `${year} ${month} ${day}`
             divitionId.value = dataSets.school_info.division_id || 'Unknown';
             conferenceId.value = dataSets.school_info.conference_id || 'Unknown';
         }
