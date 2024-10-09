@@ -11,7 +11,7 @@ definePageMeta({
   colorMode: 'light',
   layout: 'outer',
   middleware: ['role'],
-  requiredRole: ['default','undefined','coach'],
+  requiredRole: ['default','undefined','coach', 'player'],
 });
 // Capture the dynamic token from the route
 const route = useRoute();

@@ -12,26 +12,26 @@
 
         <!-- Package Selection -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
-          <div v-for="package in packages" :key="package.value" class="radio relative cursor-pointer"
-            @click="selectedPackage = package.value">
-            <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0 peer" :id="package.value"
-              type="radio" :value="package.value" v-model="selectedPackage" name="package">
+          <div v-for="pkg in packages" :key="pkg.value" class="radio relative cursor-pointer"
+            @click="selectedPackage = pkg.value">
+            <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0 peer" :id="pkg.value"
+              type="radio" :value="pkg.value" v-model="selectedPackage" name="pkg">
             <div
-              :class="['radio-tile rounded-2xl relative group flex flex-col items-center justify-center border border-gray-300 h-28 transition-all duration-150 ease-in hover:bg-steelBlue hover:border-steelBlue peer-checked:border-steelBlue peer-checked:bg-steelBlue', selectedPackage === package.value ? 'group is-checked' : '']">
-              <img :src="package.icon"
+              :class="['radio-tile rounded-2xl relative group flex flex-col items-center justify-center border border-gray-300 h-28 transition-all duration-150 ease-in hover:bg-steelBlue hover:border-steelBlue peer-checked:border-steelBlue peer-checked:bg-steelBlue', selectedPackage === pkg.value ? 'group is-checked' : '']">
+              <img :src="pkg.icon"
                 class="cursor-pointer absolute bottom-11 group-hover:opacity-0 group-[.is-checked]:opacity-0 transition">
-              <img :src="package.whiteIcon"
+              <img :src="pkg.whiteIcon"
                 class="cursor-pointer absolute bottom-11 opacity-0 group-hover:opacity-100 group-[.is-checked]:opacity-100 transition">
-              <label :for="package.value"
+              <label :for="pkg.value"
                 class="text-sm text-black absolute bottom-6 group-hover:text-white group-[.is-checked]:text-white transition">
-                {{ package.label }}
+                {{ pkg.label }}
               </label>
             </div>
           </div>
         </div>
 
         <!-- Error Message -->
-        <span v-if="errors.package" class="text-red-500 text-sm">{{ errors.package }}</span>
+        <span v-if="errors.pkg" class="text-red-500 text-sm">{{ errors.pkg }}</span>
 
         <!-- Submit Button -->
         <div class="flex items-center justify-end mt-6">
@@ -59,14 +59,17 @@
   </div>
 </template>
 
+
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import PaymentComponent from '@/components/subscription/PaymentComponent.vue';
 import { loadStripe } from '@stripe/stripe-js';
-import createAuthService from '@/services/authService';
-import apiService from '@/services/apiService'; // Ensure this is imported
+import { useNuxtApp } from '#app';
+// Access authService from the context
+const nuxtApp = useNuxtApp();
 
-const authService = createAuthService(apiService);
+const $authService = nuxtApp.$authService;
 const stripe = await loadStripe('your-stripe-public-key');
 
 // Set default package to 'standard'
@@ -86,7 +89,7 @@ let cardElement;
 // Fetch Stripe Customer ID on component load
 onMounted(async () => {
   try {
-    stripeCustomerId.value = await authService.getStripeCustomerId();
+    stripeCustomerId.value = await $authService.getStripeCustomerId();
     console.log('Stripe Customer ID:', stripeCustomerId.value);
 
     // Initialize Stripe Elements for card input
@@ -101,7 +104,7 @@ onMounted(async () => {
 // Create Setup Intent (called by PaymentComponent)
 const createSetupIntent = async (customerId) => {
   try {
-    const setupIntent = await authService.createSetupIntent({ customer_id: customerId });
+    const setupIntent = await $authService.createSetupIntent({ customer_id: customerId });
     return setupIntent; // Return setupIntent to PaymentComponent
   } catch (error) {
     console.error('Error creating setup intent:', error);
@@ -134,7 +137,7 @@ const confirmSetupIntent = async (clientSecret) => {
 // Finalize the subscription creation (called by PaymentComponent)
 const finalizeSubscription = async (paymentMethodId) => {
   try {
-    const subscription = await authService.createSubscription({
+    const subscription = await $authService.createSubscription({
       subscription_type: 'monthly',
       is_auto_renewal: true,
       payment_method_id: paymentMethodId,

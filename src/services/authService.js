@@ -210,7 +210,7 @@ const createAuthService = (apiService) => {
   
     try {
       const response = await apiService.getRequest(url);
-      return response.data.stripe_customer_id;
+      return response.stripe_customer_id;
     } catch (error) {
       if (error.response) {
         throw error.response;
@@ -233,6 +233,10 @@ const createAuthService = (apiService) => {
     resetPasswordRequest,
     resetPassword,
     resendVerificationEmail,
+    createSetupIntent,
+    confirmSetupIntent,
+    createSubscription,
+    getStripeCustomerId
   };
 };
 

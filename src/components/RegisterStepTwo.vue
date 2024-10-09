@@ -824,9 +824,16 @@ onMounted(() => {
   const userRole = localStorage.getItem('user_role'); // Retrieve user role
 
   if (token) {
-    if (userRole == 'coach' || userRole == 'business_manager') {
+    if (userRole == 'business_manager') {
       router.push('/user/approval-pending');
-    } else if (userRole == 'player' || userRole == 'parent' || userRole == 'admin') {
+    } if (userRole == 'coach') {
+      if (token) {
+        router.push(`/register-step-three/${token}`);
+      } else {
+        console.error('Token is missing.');
+      }
+    }
+    else if (userRole == 'player' || userRole == 'parent' || userRole == 'admin') {
       router.push('/app');
     }
   } else {
@@ -914,19 +921,17 @@ const handleSubmitStep2 = async () => {
         userStore.clearRole();
         userStore.setRole(role.value);
 
-        console.log('role value', role.value);
         nuxtApp.$notification.triggerNotification(response.display_message, 'success');
 
         nextTick(async () => {
           if (role.value == 'coach') {
-            const user_token = localStorage.getItem('token'); 
+            const user_token = localStorage.getItem('token');
             if (user_token) {
               await router.push(`/register-step-three/${user_token}`);
             } else {
               console.error('Token is missing.');
             }
           } if (role.value == 'business_manager') {
-            console.log('redirecting to approval pending');
             await router.push('/user/approval-pending');
             return;
           } else if (role.value == 'player' || role.value == 'parent' || role.value == 'admin') {
