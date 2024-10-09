@@ -84,7 +84,7 @@
                 </span>
             </section>
             <section class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
-                <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
+                <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                             <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
@@ -329,7 +329,7 @@
                 <!-- Start UTR Section -->
                 <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
                     <div
-                        class="h-[80px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 h-auto">
+                        class="h-[80px] card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 h-auto">
                         <div class="grid grid-cols-3 gap-4">
                             <div class="... text-center">
                                 <img class="mx-auto w-[60px] h-[60px] rounded-full "
@@ -347,7 +347,7 @@
                     </div>
 
                     <div
-                        class="h-[70px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                        class="h-[70px] card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
                         <div class="grid grid-cols-3 gap-4">
                             <div class="...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl "
