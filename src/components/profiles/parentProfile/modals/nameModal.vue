@@ -1,6 +1,6 @@
 <template>
     <!-- Name change modal -->
-    <div v-if="visible" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div v-if="visible" class="relative z-index-220" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -79,12 +79,12 @@
                                             </div>
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
                                             <label for="profile_picture"
-                                                class=" img-inputblock w-1/3 px-4 py-2 text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input">
+                                                class=" img-inputblock w-1/3 pl-3 pt-[13px] text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input absolute w-[100px] h-[49px]">
                                                 Choose file
                                             </label>
                                             <input id="profile_picture" type="file" @change="handleFileChange"
                                                 accept="image/jpeg, image/png"
-                                                class="lock pt-1 text-black h-12 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
+                                                class="lock pt-1 text-black h-12 w-full border-0  focus:ring  rounded-lg">
                                         </div>
                                         <span v-if="fileError" class="text-red-500">{{ fileError }}</span>
                                         <!-- Show validation error -->

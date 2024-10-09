@@ -36,14 +36,13 @@
                       <label class="block mb-1 text-gray-700 font-sans"> Select Cover Picture
                         <span aria-hidden="true" class="text-red-600" title="This field is optional"></span>
                       </label>
-                      <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
-  
+                      <div class="flex rounded-lg border border-gray-300 shadow-sm w-full h-[50px]">
                         <label for="profile_picture"
-                          class=" img-inputblock w-1/3 px-4 py-2 text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input">
+                          class=" img-inputblock w-1/3 pl-3 pt-[13px] text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input absolute w-[100px] h-[49px]">
                           Choose file
                         </label>
                         <input id="cover_picture" type="file" @change="handleFileChange" accept="image/jpeg, image/png"
-                          class="lock pt-1 text-black h-12 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
+                          class="lock pt-1 text-black h-12 w-full border-0  rounded-lg">
                       </div>
                       <span v-if="fileError" class="text-red-500">{{ fileError }}</span>
                       <!-- Show validation error -->
@@ -56,7 +55,7 @@
   
             <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               <button type="button" @click="saveName"
-                class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 sm:ml-3 sm:w-auto"
                 :disabled="loading">Save
                 changes
                 <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
