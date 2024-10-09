@@ -52,9 +52,9 @@
                         <NuxtLink :to="`/app/profile/${user.slug}`">
                             <div class=" grid grid-cols-12 gap-4">
                                 <div class="col-span-4">
-                                    <img v-if="user.profile_picture == null" class=" rounded-2xl w-[160px] h-[160px]"
+                                    <img v-if="user.profile_picture == null" class=" rounded-2xl object-cover w-[160px] h-[160px]"
                                         src="@/assets/images/user.png" alt="Neil image"/>
-                                    <img v-if="user.profile_picture != null" class=" rounded-2xl w-[160px] h-[160px]"
+                                    <img v-if="user.profile_picture != null" class=" rounded-2xl object-cover w-[160px] h-[160px]"
                                         :src="user.profile_picture.url" alt="Neil image"/>
                                 </div>
                                 <div class="col-span-8">
@@ -147,7 +147,7 @@
                                         
                                     </div>
                                     <div v-if="user.connection == null">
-                                        <button @click="connect(user.userId)"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                        <button @click="connect(user.userId)"   class="bg-blue-500 text-white rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                              Connect
                                         </button>
                                     </div>
