@@ -88,6 +88,10 @@
                                         d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
                             </button>
+                            <button v-if="connection.connection_status == 'accepted'" @click="connectRemove(connection.connection_id)"
+                                class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                 Remove Connection
+                            </button>
                             </div>
                         </div>
 
