@@ -29,7 +29,7 @@
                             <!-- First Name -->
                             <div>
                                 <label for="first_name" class="block text-sm font-normal text-gray-900 mb-1">First
-                                    Name</label>
+                                    Name *</label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <input type="text" id="first_name" v-model="first_name"
                                         class="bg-transparent text-black block w-full p-2.5 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
@@ -41,7 +41,7 @@
                             <!-- Last Name -->
                             <div>
                                 <label for="last_name" class="block text-sm font-normal text-gray-900 mb-1">Last
-                                    Name</label>
+                                    Name *</label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <input type="text" id="last_name" v-model="last_name"
                                         class="bg-transparent text-black block w-full p-2.5 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
@@ -53,7 +53,7 @@
 
                         <!-- Email -->
                         <div class="mt-4">
-                            <label for="email" class="block text-sm font-normal text-gray-900 mb-1">Email</label>
+                            <label for="email" class="block text-sm font-normal text-gray-900 mb-1">Email *</label>
                             <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                 <input type="email" id="email" v-model="email"
                                     class="bg-transparent text-black block w-full p-2.5 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
@@ -67,7 +67,7 @@
                             <input type="checkbox" id="checked-checkbox" v-model="is_set_email_verified"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring focus:ring-blue-500">
                             <label for="checked-checkbox" class="ml-2 text-sm font-normal text-gray-600">Set email
-                                verified</label>
+                                verified *</label>
                         </div>
                         <InputError
                             :error="errors.is_set_email_verified ? errors.is_set_email_verified.join(', ') : ''" />
@@ -75,7 +75,7 @@
                         <!-- Password Fields -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4" v-if="props.action !== 'view'">
                             <div>
-                                <label for="password" class="block text-sm font-normal text-gray-900">Password</label>
+                                <label for="password" class="block text-sm font-normal text-gray-900">Password *</label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <input type="password" id="password" v-model="password"
                                         class="bg-transparent text-black block w-full p-2.5 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
@@ -87,7 +87,7 @@
                             <div>
                                 <label for="password_confirmation"
                                     class="block text-sm font-normal text-gray-900">Confirm
-                                    Password</label>
+                                    Password *</label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <input type="password" id="password_confirmation" v-model="password_confirmation"
                                         class="bg-transparent text-black block w-full p-2.5 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
@@ -100,12 +100,12 @@
 
                         <!-- Role Selection -->
                         <div class="mt-4">
-                            <label for="role" class="block text-sm font-normal text-gray-900 mb-1">Role</label>
-                            <select id="role" v-model="user_role"
+                            <label for="role" class="block text-sm font-normal text-gray-900 mb-1">Role *</label>
+                            <select id="role" v-model="user_role" required
                                 class="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 :disabled="props.action === 'view'">
                                 <option selected>Choose a Role</option>
-                                <option value="1">Default</option>
+                                <!-- <option value="1">Default</option> -->
                                 <option value="2">Admin</option>
                                 <option value="3">Operator</option>
                                 <option value="4">Player</option>
@@ -120,21 +120,21 @@
                         <div class="grid grid-cols-5 gap-4 mt-4">
                             <div class="col-span-2">
                                 <label for="phone_code_country"
-                                    class="block text-sm font-normal text-gray-900">Code</label>
+                                    class="block text-sm font-normal text-gray-900">Code *</label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <ModalCountryCodeDropdown :country_codes="country_codes"
                                         v-model="phone_code_country" name="phone_code_country"
                                         class="text-black px-5 h-[40px] py-2 w-full focus:ring focus:ring-blue-300 focus:ring-opacity-50 rounded-lg"
-                                        :disabled="props.action === 'view'" />
+                                        :disabled="props.action === 'view'" required />
                                 </div>
                                 <InputError
                                     :error="errors.phone_code_country ? errors.phone_code_country.join(', ') : ''" />
                             </div>
 
                             <div class="col-span-3">
-                                <label for="phone_number" class="block text-sm font-normal text-gray-900">Number</label>
+                                <label for="phone_number" class="block text-sm font-normal text-gray-900">Number *</label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
-                                    <input type="text" id="phone_number" v-model="phone_number"
+                                    <input type="text" id="phone_number" v-model="phone_number" required
                                         class="text-black px-5 py-2 w-full focus:ring focus:ring-blue-300 focus:ring-opacity-50 rounded-lg"
                                         placeholder="Number" :disabled="props.action === 'view'" />
                                 </div>
@@ -267,11 +267,9 @@ const submitRegistration = async () => {
             nuxtApp.$notification.triggerNotification(response.display_message || 'An error occurred', 'failure');
         }
     } catch (error) {
-        console.log('error');
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
     } finally {
         loading.value = false;
-        emit('close');
     }
 };
 

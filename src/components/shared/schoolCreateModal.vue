@@ -21,16 +21,6 @@
                 <!-- Modal Body -->
                 <div class="p-6 space-y-4 text-sm">
 
-                    <!-- Display error messages -->
-                    <div v-if="errors.length" class="error-messages">
-                        <p class="error-title">Validation Errors:</p>
-                        <ul class="error-list">
-                            <li v-for="(error, index) in splitErrors" :key="index" class="error-item">
-                                {{ error }}
-                            </li>
-                        </ul>
-                    </div>
-
                     <!-- Form Fields -->
                     <div>
                         <label for="name" class="block text-sm font-normal text-gray-900 light:text-gray">School
@@ -40,6 +30,7 @@
                                 class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg "
                                 placeholder="Enter Name" />
                         </div>
+                        <InputError :error="errors.name ? errors.name.join(', ') : ''" />
                     </div>
 
 
@@ -67,6 +58,8 @@ import { ref, computed } from 'vue';
 import { useNuxtApp } from '#app';
 import { defineProps, defineEmits } from 'vue';
 import Notification from '~/components/common/Notification.vue';
+import { handleError } from '@/utils/handleError';
+import InputError from '@/components/common/input/InputError.vue';
 
 const name = ref('');
 const bio = ref('');
@@ -107,16 +100,8 @@ const submitRegistration = async () => {
         } else {
             errors.value.push(response.data.display_message);
         }
-    } catch (err) {
-        if (err.response?.data?.message) {
-            if (Array.isArray(err.response.data.message)) {
-                errors.value = err.response.data.message;
-            } else {
-                errors.value = [err.response.data.message];
-            }
-        } else {
-            errors.value = [err.response?.data?.message || err.message];
-        }
+    } catch (error) {
+        handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
     }
 };
 </script>
