@@ -52,7 +52,7 @@
 
     <!-- Media Gallery -->
     <div class="media-gallery grid">
-      <div v-for="(item, index) in galleryItems" :key="index" data-fancybox="gallery" class="media-item"
+      <div v-for="(item, index) in galleryItems" :key="item.media_id" data-fancybox="gallery" class="media-item"
         :src="item.src">
         <img v-if="item.type === 'image'" class="rounded media-item-content" :src="item.src" />
         <video v-if="item.type === 'video'" class="rounded media-item-content" controls>
@@ -60,7 +60,7 @@
           Your browser does not support the video tag.
         </video>
         <button @click="removeMediaItem(item.media_id, $event)"
-          class="bg-red-500 text-white px-2 py-1 mt-2 rounded hover:bg-red-700" v-if="loggedUserSlug == props.userSlug"
+          class="remove-btn text-white px-2 py-1 mt-2 rounded text-sm " v-if="loggedUserSlug == props.userSlug"
           :disabled="loadingStates[item.media_id]">
           Remove
           <svg v-if="loadingStates[item.media_id]" aria-hidden="true" role="status"
@@ -76,6 +76,7 @@
         </button>
       </div>
     </div>
+
 
   </div>
 </template>
@@ -230,26 +231,30 @@ const fetchGalleryBySlug = async () => {
 
 
 const setGalleryItems = (mediaInfo) => {
+  // Clear the gallery items before updating to prevent duplicates
+  galleryItems.value = [];
+
+  // Cache busting: Append timestamp to media URLs to prevent caching issues
   galleryItems.value = mediaInfo.media_urls.map(media => {
-    // Append a timestamp to the URL to prevent browser caching
-    const cacheBustedUrl = `${media.url}?t=${new Date().getTime()}`;
+    const urlWithCacheBust = `${media.url}?t=${new Date().getTime()}`;  // Cache-busting timestamp
 
     if (media.media_type === 'image') {
       return {
         type: 'image',
-        href: cacheBustedUrl,
-        src: cacheBustedUrl,
+        href: urlWithCacheBust,
+        src: urlWithCacheBust,
         media_id: media.media_id,
       };
     } else if (media.media_type === 'video') {
       return {
         type: 'video',
-        href: cacheBustedUrl,
-        src: cacheBustedUrl || 'https://via.placeholder.com/200x150.png?text=Video',
+        href: urlWithCacheBust,
+        src: urlWithCacheBust || 'https://via.placeholder.com/200x150.png?text=Video',
         media_id: media.media_id,
       };
     }
   });
+
 };
 
 
@@ -347,5 +352,12 @@ button[disabled] {
 .upload-btn-wrapper button[disabled] {
   background-color: #999;
   cursor: not-allowed;
+}
+
+.remove-btn{
+  background-color: rgb(240, 22, 22) !important;
+}
+.remove-btn :hover{
+  background-color: rgb(199, 18, 18) !important;
 }
 </style>

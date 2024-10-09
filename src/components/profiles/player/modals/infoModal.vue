@@ -189,7 +189,8 @@
                                         <div>
                                             <label for="preferred_surface"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Preferred
-                                                Surface</label>
+                                                Surface <span
+                                                class="text-red-600">*</span></label>
                                             <div
                                                 class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
                                                 <select v-model="preferred_surface" required
@@ -207,7 +208,8 @@
                                         <div>
                                             <label for="graduation_month_year"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Graduation
-                                                Month/Year</label>
+                                                Month/Year <span
+                                                class="text-red-600">*</span></label>
                                             <div
                                                 class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
                                                 <input type="month" v-model="graduation_month_year" required

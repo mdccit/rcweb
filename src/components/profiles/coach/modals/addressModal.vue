@@ -219,12 +219,11 @@ watch(country_codes, (newVal) => {
 const fetchCoachContact = async () => {
     try {
         const dataSets = await $publicService.get_user_profile(props.slug);
-        if (dataSets.user_address_info) {
-            country.value = dataSets.user_address_info.country_id ?? null;
+        if (dataSets.user_address_info) {           
 
             city.value = dataSets.user_address_info.city ?? 'User has not entered city';
             address_line_1.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01';
-            address_line_2.value = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02';
+            address_line_2.value = dataSets.user_address_info.address_line_2 ?? '';
             state_province.value = dataSets.user_address_info.state_province ?? 'User has not entered state provice';
             postal_code.value = dataSets.user_address_info.postal_code ?? 'User has not entered postal code';
         }
@@ -235,6 +234,7 @@ const fetchCoachContact = async () => {
         }
 
         if (dataSets.user_basic_info) {
+            country.value = dataSets.user_basic_info.country_id ?? null;
             email.value = dataSets.user_basic_info.email ?? 'User has not entered email';
         }
     } catch (error) {
