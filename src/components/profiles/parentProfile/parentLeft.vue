@@ -3,7 +3,7 @@
         <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
             <div class="flex items-center justify-between w-full">
                 <h1 class="text-lg font-semibold text-black">Bio</h1>
-                <div  class="cursor-pointer" @click="toggleModal('bio')">
+                <div class="cursor-pointer" @click="toggleModal('bio')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -15,24 +15,24 @@
                 {{ bio }}
             </p>
             <div v-if="seeMoreBtnHide">
-                <button id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
+                <button class="text-xs" id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
 
             </div>
         </div>
-
-        <div style="height: 60px;"
+        
+        <div style="height:auto"
             class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
             <div class="grid grid-cols-10 gap-2">
-                <div class="col-span-3">
+                <div class="col-span-3 mx-auto">
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl" src="@/assets/user/images/Group 79.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Signed up
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">Signed up
                         {{ props.data.joinDate }}
                     </p>
 
                 </div>
-                <!-- <div class="col-span-1">
+                <!-- <div class="col-span-1" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -42,18 +42,20 @@
             </div>
 
         </div>
-        <div style="height: 60px;"
+
+
+        <div style="height:auto"
             class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
             <div class="grid grid-cols-10 gap-2">
-                <div class="col-span-3">
+                <div class="col-span-3 mx-auto">
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl" src="@/assets/images/pin.png" alt="">
                 </div>
-                <div class="col-span-6 ml-2">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">{{  props.data.city }} {{  props.data.country }}
+                <div class="col-span-6 ml-2 mx-auto">
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-2">{{ props.data.city }}<span v-if="props.data.country && props.data.city">, </span>{{ props.data.country }}
                     </p>
 
                 </div>
-                <div  class="col-span-1" @click="toggleModal('address')">
+                <div class="col-span-1" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -63,8 +65,10 @@
             </div>
 
         </div>
-        <BioModal :visible="modals.bio" @close="handleModalClose" :slug="props.userSlug" :data="props.data" @dataUpdate="dataUpdate" />
-        <AddressModal :visible="modals.address" @close="handleModalClose" :slug="props.userSlug" :data="props.data" @dataUpdate="dataUpdate" />
+        <BioModal :visible="modals.bio" @close="handleModalClose" :slug="props.userSlug" :data="props.data"
+            @dataUpdate="dataUpdate" />
+        <AddressModal :visible="modals.address" @close="handleModalClose" :slug="props.userSlug" :data="props.data"
+            @dataUpdate="dataUpdate" />
 
     </div>
 </template>
@@ -145,13 +149,13 @@ const handleModalClose = (modalName) => {
     }
 };
 
-const dataUpdate = () =>{
+const dataUpdate = () => {
     emit('updateData')
     handleModalClose()
 }
 const loggedUserSlug = ref('');
 
-onMounted(()=>{
+onMounted(() => {
     if (process.client) {
         loggedUserSlug.value = localStorage.getItem('user_slug')
     }
