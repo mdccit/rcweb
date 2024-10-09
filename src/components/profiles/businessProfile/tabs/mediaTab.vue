@@ -1,7 +1,7 @@
 <template>
     <div>
       <!-- Upload Media Section -->
-      <form @submit.prevent="uploadMedia" class="upload-form" >
+      <form v-if="props.editor==true" @submit.prevent="uploadMedia" class="upload-form" >
         <div
           class="upload-section mb-4 border-2 border-dashed border-blue-500 rounded-lg p-4 bg-blue-50 hover:bg-blue-100">
           <label for="media-upload" class="cursor-pointer flex flex-col items-center justify-center">
@@ -25,7 +25,7 @@
         <ul class="mt-4">
           <li v-for="(file, index) in files" :key="index" class="mb-2 flex justify-between items-center">
             <span>{{ file.name }} ({{ file.type }})</span>
-            <button @click.prevent="removeFile(index)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700">
+            <button v-if="props.editor==true" @click.prevent="removeFile(index)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700">
               Remove
             </button>
           </li>
@@ -115,6 +115,10 @@
     galleryItems:{
         type: Array,
         required: true,
+    },
+    editor:{
+      type: String,
+      required: true,
     }
   });
   

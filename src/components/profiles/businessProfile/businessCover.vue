@@ -5,7 +5,7 @@
             <img v-if="props.data.cover !=null" class="w-full h-[400px] rounded-xl" :src="props.data.cover.url" alt="">
 
             <!-- Wrapper for the SVG to position it absolutely -->
-            <div @click="toggleModal('cover')" class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md">
+            <div v-if="props.data.editor==true" @click="toggleModal('cover')" class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
                     stroke="currentColor" class="size-3">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -26,7 +26,7 @@
                                     :src="props.data.profile.url" alt="">
 
                                 <!-- SVG Wrapper positioned at the bottom right of the image -->
-                                <div @click="toggleModal('profile')"
+                                <div v-if="props.data.editor==true"  @click="toggleModal('profile')"
                                     class="absolute bottom-0 right-0 mb-[10px] mr-[10px] cursor-pointer bg-white p-1 rounded-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -41,7 +41,7 @@
 
 
                             <div class="text-left mt-[80px] ml-5">
-                                <div @click="toggleModal('name')"
+                                <div v-if="props.data.editor==true"  @click="toggleModal('name')"
                                     class="absolute bottom-0 right-0 mb-[10px] mr-[10px] cursor-pointer bg-white p-1 rounded-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">

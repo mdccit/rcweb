@@ -20,7 +20,7 @@
                 <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="fetchPost" />
                 <Member v-if="tab == 'member'" :members="members"/>
                 <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug"
-                     @uploadData="fetchbusinessDetatils" />
+                     @uploadData="fetchbusinessDetatils" :editor="editor" />
 
             </div>
         </div>
@@ -41,8 +41,10 @@ import { useRoute } from 'vue-router'
 import Member from '~/components/user/profile/member.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
 import mediaTab from '~/components/profiles/businessProfile/tabs/mediaTab.vue';
+import { useUserStore } from '@/stores/userStore';
 
 const route = useRoute();
+const userStore = useUserStore();
 
 const nuxtApp = useNuxtApp();
 const $publicService = nuxtApp.$publicService;
@@ -62,7 +64,9 @@ const joinAt = ref('')
 const businessData =ref({})
 const profile = ref(null)
 const cover = ref(null)
-
+const userId = ref(null);
+const userpermissionType = ref('none')
+const editor = ref(false)
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
     showNotification.value = nuxtApp.$notification.showNotification.value;
@@ -78,6 +82,9 @@ const closeNotification = () => {
 onMounted(() => {
     fetchbusinessDetatils();
    fetchPost();
+   userId.value = userStore.user?.user_id || null;
+   userpermissionType.value = userStore.user?.user_permission_type;
+   console.log(userStore.user?.user_permission_type)
 
 });
 
@@ -103,6 +110,15 @@ const fetchbusinessDetatils = async () =>{
         if(dataSets.business_managers_info){
             members.value =dataSets.business_managers_info
         }
+        const user = members.value.find(user => user.user_id === userId.value);
+        console.log("permission type "+userpermissionType.value)
+        if (user) {
+           if(userpermissionType.value =='editor'){
+               editor.value = true;
+           }
+        } else {
+          console.log('User not found');
+        }
 
         if(dataSets.media_info){
             console.log(dataSets.media_info)
@@ -117,6 +133,7 @@ const fetchbusinessDetatils = async () =>{
             joinAt:joinAt.value,
             profile:profile.value,
             cover:cover.value,
+            editor:editor.value
         }
         
         console.log(dataSets)
