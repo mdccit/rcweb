@@ -270,16 +270,13 @@ const fetchPlayerContact = async () => {
             postal_code.value = dataSets.user_address_info.postal_code ?? 'User has not entered postal code';
         }
 
-        if (dataSets.user_address_info) {
-            country.value = dataSets.user_basic_info.country_id;
-        }
-
         if (dataSets.user_phone_info) {
             phone_number.value = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number';
             phone_code_country.value = dataSets.user_phone_info.country_id ?? null;
         }
 
         if (dataSets.user_basic_info) {
+            country.value = dataSets.user_basic_info.country_id;
             email.value = dataSets.user_basic_info.email ?? 'User has not entered email';
         }
     } catch (error) {
