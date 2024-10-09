@@ -924,25 +924,25 @@ const handleSubmitStep2 = async () => {
         nuxtApp.$notification.triggerNotification(response.display_message, 'success');
 
         nextTick(async () => {
-          if (role.value == 'coach') {
-            const user_token = localStorage.getItem('token');
-            if (user_token) {
-              await router.push(`/register-step-three/${user_token}`);
-            } else {
-              console.error('Token is missing.');
-            }
-          } if (role.value == 'business_manager') {
+          const user_token = localStorage.getItem('token');
+
+          if (!user_token) {
+            console.error('Token is missing.');
+            return;  // Return early if token is missing to avoid undefined behavior
+          }
+
+          if (role.value === 'coach') {
+            console.log('Coach registered successfully.');
+            await router.push(`/register-step-three/${user_token}`);
+          } else if (role.value === 'business_manager') {
             await router.push('/user/approval-pending');
-            return;
-          } else if (role.value == 'player' || role.value == 'parent' || role.value == 'admin') {
-            router.push('/app');
+          } else if (['player', 'parent', 'admin'].includes(role.value)) {
+            await router.push('/app');
           } else {
-            router.push('/');
+            await router.push('/');
           }
         });
-
-      }
-      else if (response.status === 401) {
+      } else if (response.status === 401) {
         loading.value = false;
         await router.push('/login');
       } else {
