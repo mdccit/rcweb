@@ -6,6 +6,7 @@ export const usePackageStore = defineStore('package', {
     stripeCustomerId: null, // State for Stripe Customer ID
     setupIntentClientSecret: null,  // State for SetupIntent client secret
     setupIntentId: null,  // State for SetupIntent ID
+    paymentTokens: {} 
   }),
   getters: {
     // Rename the getter for Stripe customer ID to avoid conflict
@@ -51,6 +52,23 @@ export const usePackageStore = defineStore('package', {
         localStorage.setItem('setupIntentClientSecret', clientSecret);
         localStorage.setItem('setupIntentId', setupIntentId);
       }
+    },
+
+    setPaymentToken(token) {
+      // Store payment details associated with a token
+      this.paymentTokens[token] = {
+        clientSecret: this.clientSecret,
+        setupIntentId: this.setupIntentId
+      };
+    },
+
+    getPaymentDataByToken(token) {
+      // Retrieve payment data based on the token
+      return this.paymentTokens[token];
+    },
+    clearPaymentData() {
+      this.clientSecret = null;
+      this.setupIntentId = null;
     },
 
     // Clear SetupIntent data

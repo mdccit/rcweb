@@ -70,10 +70,6 @@
       </form>
     </div>
 
-    <!-- Render Payment Component if Premium is selected -->
-    <PaymentComponent v-if="selectedPackage === 'premium'" :stripeCustomerId="stripeCustomerId"
-      :handleSubscription="createSetupIntent" :confirmSetupIntent="confirmSetupIntent"
-      :finalizeSubscription="finalizeSubscription" />
   </div>
 </template>
 
@@ -82,7 +78,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import PaymentComponent from '~/components/subscription/PaymentComponent.vue';
 import { loadStripe } from '@stripe/stripe-js';
 import { useNuxtApp } from '#app';
 import { usePackageStore } from '~/stores/packageStore';
@@ -91,11 +86,10 @@ import { usePackageStore } from '~/stores/packageStore';
 const nuxtApp = useNuxtApp();
 
 const $authService = nuxtApp.$authService;
-const route = useRoute();
+const router = useRouter(); // Initialize router
 const packageStore = usePackageStore();
 const stripe = ref(null);
 const cardElement = ref(null);
-
 const selectedPackage = ref('');
 const errors = ref({});
 const loading = ref(false);
@@ -151,62 +145,29 @@ const handleSubmitStep3 = async () => {
         const setupIntent = await createSetupIntent(customerId);
 
         // Log setupIntent to verify its structure
-        console.log('SetupIntent Response:', setupIntent);
+        console.log('SetupIntent Response:', setupIntent.client_secret);
 
         // Check if setupIntent has client_secret and setup_intent_id
         if (setupIntent && setupIntent.client_secret && setupIntent.setup_intent_id) {
+          console.log('entered redirection');
           // Store the setup intent data in Pinia store
           packageStore.setSetupIntentData(setupIntent.client_secret, setupIntent.setup_intent_id);
 
-          const clientSecret = setupIntent.client_secret;
-          const setupIntentId = setupIntent.setup_intent_id;
+          // Generate a unique reference (e.g., using token or customerId) and store it
+          const payment_token = customerId; // For example, you can use customerId or a generated token
+          packageStore.setPaymentToken(payment_token);
 
-          // Step 3: Confirm the card setup with Stripe using the clientSecret
-          const result = await stripe.confirmCardSetup(clientSecret, {
-            payment_method: {
-              card: cardElement.value, // Ensure cardElement is defined and populated correctly
-            },
-          });
+          console.log('payment token', payment_token.value);
+          // Step 4: Redirect to the /payment page
+          router.push(`/payment/${payment_token}`);
 
-          if (result.error) {
-            cardError.value = result.error.message;
-            nuxtApp.$notification.triggerNotification(result.error.message, 'failure');
-            throw new Error(result.error.message);
-          }
-
-          // Step 4: Extract payment_method_id from the result
-          const paymentMethodId = result.setupIntent.payment_method;
-
-          // Step 5: Call backend to confirm the setup intent
-          const setupIntentConfirmation = await confirmSetupIntent(setupIntentId, paymentMethodId, clientSecret);
-
-          if (setupIntentConfirmation.status === 'success') {
-            // Step 6: Proceed to create the subscription using paymentMethodId
-            const subscriptionDetails = {
-              subscription_type: 'monthly',
-              is_auto_renewal: true,
-              payment_method_id: paymentMethodId,
-            };
-
-            const subscription = await $authService.createSubscription(subscriptionDetails);
-
-            if (subscription.status === 'success') {
-              nuxtApp.$notification.triggerNotification(subscription.message, 'success');
-              console.log('Subscription created successfully:', subscription);
-              // Redirect or show confirmation message
-            } else {
-              nuxtApp.$notification.triggerNotification(subscription.message, 'warning');
-            }
-          } else {
-            throw new Error('Failed to confirm Setup Intent.');
-          }
         } else {
           // Throw error if setupIntent is invalid
           throw new Error('Invalid SetupIntent response from the backend.');
         }
       } catch (error) {
-        nuxtApp.$notification.triggerNotification('Error during subscription process', 'failure');
-        console.error('Error during payment setup:', error);
+        // nuxtApp.$notification.triggerNotification('Error during subscription process', 'failure');
+        console.error('Error during payment method setup:', error);
       } finally {
         loading.value = false;
       }
