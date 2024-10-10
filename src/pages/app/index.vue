@@ -78,7 +78,9 @@
                 <div>
                   <div class="flex items-center justify-between">
                     <div v-if="post.school_id != null" class="flex items-center space-x-3">
-                      <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12">
+                      <img v-if="post.school_profile_picture ==null" src="@/assets/images/user.png" alt="" class="rounded-lg w-12 h-12">
+                      <img v-if="post.school_profile_picture !=null" :src="post.school_profile_picture.url" alt="" class="rounded-lg w-12 h-12">
+
                       <div>
                         <div class="text-md font-bold text-black">{{ post.school.name }}</div>
                         <div class="flex space-x-2 items-center">
@@ -107,7 +109,11 @@
                   <div class="flex items-center justify-between">
                     <!-- SCHOOL POST COACH USER  -->
                     <div class="flex space-x-3 items-center">
-                      <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
+                      <NuxtLink :to="`/app/profile/${post.user.slug}`" class="font-bold text-sm text-black">
+                         <img v-if="post.user_profile_picture ==null" src="@/assets/images/user.png" alt="" class="rounded-lg w-10 h-10">
+                         <img v-if="post.user_profile_picture !=null" src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
+                      </NuxtLink>
+                     
                       <div>
                         <!-- Pass the user ID as a query parameter and the slug as part of the path -->
                         <NuxtLink :to="`/app/profile/${post.user.slug}`" class="font-bold text-sm text-black">
