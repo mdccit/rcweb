@@ -8,6 +8,8 @@
 
         <!-- Subscription & Billing Option -->
         <button class="bg-lightGray text-darkSlateBlue px-4 py-2 rounded-lg text-sm w-full text-left"> Subscription & Billing</button>
+
+        <button class="bg-lightGray text-darkSlateBlue px-4 py-2 rounded-lg text-sm w-full text-left"> Transcript</button>
     </div>
 </template>
 
