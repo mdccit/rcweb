@@ -6,19 +6,21 @@
                 <div class="bg-white p-4 border rounded-2xl">
                     <div class=" grid grid-cols-12 gap-4">
                         <div class="col-span-3">
-                            <img class=" rounded-2xl w-[85px] h-[85px]" src="@/assets/user/images/Rectangle 193.png"
+                            <img v-if="connection.profile_picture == null" class=" rounded-2xl w-[85px] h-[85px]" src="@/assets/images/user.png"
+                                alt="Neil image">
+                            <img v-if="connection.profile_picture != null" class=" rounded-2xl w-[85px] h-[85px]" :src="connection.profile_picture.url"
                                 alt="Neil image">
                         </div>
                         <div class="col-span-6">
                             <h4 class="text-black font-normal"> {{ connection.name }}</h4>
                             <div class="flex items-center space-x-2 mb-2">
                                 <div class="bg-mintGreen p-1 rounded">
-                                    <img src="@/assets/user/images/man-medal.png" alt="" class=" w-4 h-4">
+                                    <img  src="@/assets/user/images/man-medal.png" alt="" class=" w-4 h-4">
                                 </div>
                                 <div class="text-sm ml-2 text-green-500">{{ connection.sport_name ?? '' }} {{
                                     connection.role }}</div>
                             </div>
-                            <div class="flex items-center space-x-2">
+                            <div v-if="connection.city|| connection.country " class="flex items-center space-x-2">
                                 <div class=" rounded">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-black mr-1">
@@ -29,7 +31,7 @@
                                     </svg>
 
                                 </div>
-                                <div class="text-sm ml-2 text-black">{{ connection.city }}, {{ connection.country }}
+                                <div class="text-sm ml-2 text-black">{{ connection.city }} {{ connection.city?',':'' }} {{ connection.country }}
                                 </div>
                             </div>
                         </div>
@@ -60,6 +62,7 @@
                                         d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                 </svg>
                             </button>
+                            <div v-if="user_id !=connection.id ">
                             <button @click="connectRequestSend(connection.id)"
                                 v-if="connection.connection_status == 'connect'"
                                 class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
@@ -68,6 +71,10 @@
                             <button v-if="connection.connection_status == 'pending'"
                                 class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                 Invite sent
+                            </button>
+                            <button v-if="connection.connection_status == 'pending'" @click="connectCancelle(connection.connection_id)"
+                                class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                canncel Request
                             </button>
                             <button v-if="connection.connection_status == 'accepted'"
                                 class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -85,7 +92,11 @@
                                         d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
                             </button>
-
+                            <button v-if="connection.connection_status == 'accepted'" @click="connectRemove(connection.connection_id)"
+                                class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                 Remove Connection
+                            </button>
+                            </div>
                         </div>
 
                     </div>
@@ -109,18 +120,20 @@
 <script setup>
 import { defineProps, ref, onMounted, defineEmits } from 'vue';
 import { useNuxtApp } from '#app';
+import { useUserStore } from '~/stores/userStore';
 
 const emit = defineEmits(['profileView']);
 
 const nuxtApp = useNuxtApp();
 const $userService = nuxtApp.$userService;
+const userStore = useUserStore();
 
 const props = defineProps({
     playerId: String
 });
 
 const connections = ref([])
-
+const user_id = ref('')
 onMounted(() => {
     fetchConnections();
 
@@ -132,6 +145,7 @@ const fetchConnections = async () => {
 
         const dataSets = await $userService.get_connection(props.playerId);
         connections.value = dataSets.connection
+        user_id.value = userStore.user.user_id
     } catch (error) {
         console.log(error)
         console.error('Error fetching data:', error.message);

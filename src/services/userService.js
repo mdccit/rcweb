@@ -260,18 +260,10 @@ const createUserService = (apiService) => {
       return response;
     } catch (error) {
       if (error.response) {
-        // The API returned an error response (status code outside the 2xx range)
-        console.error('Error Response:', error.response);
-        console.error('Status:', error.response.status);
-        console.error('Data:', error.response.data); // This will show the error object returned by the API
         return error.response;
       } else if (error.request) {
-        // The request was made but no response was received
-        console.error('No Response:', error.request);
         throw new Error('No response received from server');
       } else {
-        // Other error, such as setting up the request
-        console.error('Error:', error.message);
         throw new Error(error.message || 'Error in request setup');
       }
     }

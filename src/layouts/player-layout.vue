@@ -127,6 +127,8 @@ const slug = ref('');
 const utrData = ref({})
 const leftData = ref({})
 const media_info = ref();
+const height_ft = ref('')
+const height_in = ref('')
 const props = defineProps({
     user: {
         type: Object,
@@ -167,6 +169,7 @@ const refreshGallery = () => {
 const fetchUserDetails = async () => {
     try {
         const dataSets = await $publicService.get_player(route.params.slug);
+        console.log(dataSets)
         playerID.value = dataSets.user_basic_info.id || null;
         if (dataSets.user_basic_info) {
             bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"
@@ -203,7 +206,7 @@ const fetchUserDetails = async () => {
             country.value = dataSets.user_address_info.country ?? 'User has not entered country'
             city.value = dataSets.user_address_info.city ?? 'User has not entered city'
             addressLine01.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
-            addressLine02.value = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
+            addressLine02.value = dataSets.user_address_info.address_line_2 ?? ''
             stateProvince.value = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
         }
 
@@ -252,6 +255,9 @@ const fetchUserDetails = async () => {
             graduationDate.value = parsedDate.toLocaleDateString('en-US', options) ?? 'User has not entered graduation date'
 
             feet.value = (dataSets.player_info.height / 30.48).toFixed(2);
+            let totalFeet = (dataSets.player_info.height / 30.48).toFixed(2);
+             height_ft.value = Math.floor(totalFeet);
+             height_in.value = Math.floor((totalFeet - height_ft.value) * 12)
             pounds.value = (2.20462 * dataSets.player_info.weight).toFixed(2)
         }
 
@@ -285,7 +291,9 @@ const fetchUserDetails = async () => {
             phone:phone.value,
             phoneCode:phoneCode.value,
             email: email.value,
-            media_info:dataSets.media_info
+            media_info:dataSets.media_info,
+            ft_value :height_ft.value,
+            in_value:height_in.value
 
         }
 

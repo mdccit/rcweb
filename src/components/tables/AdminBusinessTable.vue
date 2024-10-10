@@ -173,6 +173,11 @@ onMounted(() => {
   fetchData();
 });
 
+// Expose the fetchData method
+const refreshTable = () => {
+    fetchData();
+};
+
 // Handle search submission
 const applySearch = () => {
   options.value.page = 1; // Reset to first page on new search

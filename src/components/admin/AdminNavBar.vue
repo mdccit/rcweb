@@ -155,10 +155,10 @@
                     class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                     <!-- <img class="h-8 w-8 rounded-full object-cover"
                       src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin"> -->
-                      <img class="h-8 w-8 rounded-full object-cover"
+                      <img  v-if="profilePicture == 'null'" class="h-8 w-8 rounded-full object-cover"
                                         src="@/assets/images/user.png" alt="">
-                                    <!-- <img v-if="profilePicture != null" class="h-8 w-8 rounded-full object-cover"
-                                        :src="profilePicture" alt=""> -->
+                      <img v-if="profilePicture != 'null'" class="h-8 w-8 rounded-full object-cover"
+                                        :src="profilePicture" alt="">
                   </button>
                 </div>
                 <div>
@@ -192,7 +192,7 @@
               <li>
                 <NuxtLink @click="logout" v-if="isLoggedIn"
                   class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
-                  <div class="flex items-center"> Logout </div>
+                  <div class="flex items-center"> Logout</div>
                 </NuxtLink>
               </li>
             </ul>
@@ -334,6 +334,7 @@ const closeDropdown = (event) => {
 
 const logout = async () => {
   try {
+    router.push('/login');
 
     const token = localStorage.getItem('token');  // Retrieve the token from local storage
 
@@ -430,6 +431,20 @@ watch(
   },
 )
 
+watch(
+    () => localStorage.getItem('profile_picture'),
+    () => {
+        if(localStorage.getItem('profile_picture')){
+            profilePicture.value =localStorage.getItem('profile_picture')
+            console.log(1144)
+            console.log(profilePicture.value)
+
+            userStore.setProfilePicture({
+                url:profilePicture.value
+            })
+        }
+    }
+);
 
 const login = () => {
   console.log('login push');
