@@ -7,13 +7,8 @@
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M15 6l-6 6l6 6"></path>
-<<<<<<< HEAD
-                        </svg></a>
-                    <h2 class="font-bold text-lg self-center">Moderation Request </h2>
-=======
                         </svg>
                     <h2 class="font-bold text-lg self-center"> Editing:{{ userName }} </h2>
->>>>>>> da1cf9ae62048ce969c836f6173a1e8269e99fcc
                 </div>
                 <div class="">
                     <!-- <a href="#"><button

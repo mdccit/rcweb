@@ -1,7 +1,7 @@
 <template>
     <!-- <div class="flex"> -->
-    <div class="">
-        <div v-for="connection in connections" class="flex-1 p-2">
+    <div class="grid grid-cols-6">
+        <div v-for="connection in connections" class="col-span-3 p-2 ">
             <button @click="redirect(`/app/profile/${connection.slug}`)">
                 <div class="bg-white p-4 border rounded-2xl">
                     <div class=" grid grid-cols-12 gap-4">
@@ -104,6 +104,7 @@
             </button>
 
         </div>
+
         <div class="mx-auto text-center">
             <div v-if="connections.length == 0">
                 <h4 class="text-black font-normal"> No connections</h4>
