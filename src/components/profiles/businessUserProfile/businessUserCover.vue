@@ -1,10 +1,12 @@
 <template>
     <section class="w-full mb-5 p-3">
         <div class="relative">
-            <img  class="w-full h-[400px] rounded-xl" :src="coverPictureUrl" alt="">
-            <!-- <img v-if="data.cover != null" class="w-full h-[400px] rounded-xl" :src="data.cover.url" alt=""> -->
+            <img class="w-full h-[400px] rounded-xl" :src="coverPictureUrl" alt="">
+            <!-- <img v-if="props.data.cover_picture != null" class="w-full h-[400px] rounded-xl"
+                :src="props.data.cover_picture.url" alt=""> -->
             <!-- Wrapper for the SVG to position it absolutely -->
-            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md" v-if="loggedUserSlug == userSlug" @click="toggleModal('cover')">
+            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md"
+                v-if="loggedUserSlug == props.userSlug" @click="toggleModal('cover')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
                     stroke="currentColor" class="size-3">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -15,17 +17,19 @@
 
         <span>
             <div class="-mt-[144px]">
-                <div class="grid grid-cols-5 gap-4 flex">
-                    <div class="col-span-1">
+                <div class="grid grid-cols-10 gap-4 flex">
+                    <div class="col-span-3">
                         <div class="text-center flex relative">
                             <div class="relative ml-5">
-                                <img v-if="data.profile == null" class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
+                                <img v-if="props.data.profile_picture == null"
+                                    class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
                                     src="@/assets/images/user.png" alt="">
-                                <img v-if="data.profile != null" class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
-                                    :src="data.profile.url" alt="">
+                                <img v-if="props.data.profile_picture != null"
+                                    class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
+                                    :src="props.data.profile_picture.url" alt="">
 
                                 <!-- SVG Wrapper positioned at the bottom right of the image -->
-                                <div v-if="loggedUserSlug == userSlug" @click="toggleModal('name')"
+                                <div v-if="loggedUserSlug == props.userSlug" @click="toggleModal('name')"
                                     class="absolute bottom-0 right-0 mb-[10px] mr-[10px] cursor-pointer bg-white p-1 rounded-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -35,6 +39,8 @@
                                 </div>
                             </div>
 
+
+                            <!-- Wrapper for the SVG to position it absolutely at the bottom right corner -->
                             <div class="text-left mt-[80px] ml-5">
                                 <h2 class="text-lg font-semibold text-white text-3xl">{{ data.name }} </h2>
                                 <h5 class="text-md text-white font-normal text-black text-primaryblue"> {{ data.role }}
@@ -43,19 +49,13 @@
                         </div>
                     </div>
 
-                    <div class="col-span-3">
-                        <div class="col-span-3">
-                            <div
-                                class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                                 <BusinessUserTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
-                            </div>
-                        </div>
+                    <div class="col-span-5">
                     </div>
 
-                    <div class="col-span-1 mt-[70px] z-10">
+                    <div class="col-span-2 mt-[70px] z-10 text-right z-0">
                         <div>
-                            <div class="flex">
-                                <div class="">
+                            <div class="flex justify-end pr-[20px]">
+                                <div class="text-right ml-30px">
                                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
@@ -65,15 +65,34 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <!-- Rest of the template remains unchanged -->
+                    
                             </div>
                         </div>
                     </div>
 
                 </div>
+                <div class="grid grid-cols-5 gap-4 flex -mt-[85px]">
+                    <div class="col-span-1">
+                    </div>
+                    <div class="col-span-4">
+                        <div class="">
+                            <div
+                                class="mt-[10px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
+                                <BusinessUserTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </span>
+        <CoverModal :visible="modals.cover" @close="handleModalClose" :slug="props.userSlug"
+            :coverPicture="props.data.cover_picture" @dataUpdate="dataUpdate" />
+        <NameModal :visible="modals.name" @close="handleModalClose" :slug="props.userSlug" :data="props.data"
+            @dataUpdate="dataUpdate" />
+
     </section>
+
+
     <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
     <CoverModal :visible="modals.cover" @close="handleModalClose" :slug="slug" />
 </template>
@@ -95,18 +114,18 @@ const emit = defineEmits(['changeTab']);
 
 const props = defineProps({
 
-data: {
-    type: Object,
-    required: true,
-},
-businessUserId: {
-    type: String,
-    required: true,
-},
-userSlug: {
-    type: String,
-    required: true,
-}
+    data: {
+        type: Object,
+        required: true,
+    },
+    businessUserId: {
+        type: String,
+        required: true,
+    },
+    userSlug: {
+        type: String,
+        required: true,
+    }
 });
 
 const nuxtApp = useNuxtApp();
@@ -131,9 +150,9 @@ const profilePictureUrl = computed(() => profile_picture.value);
 const coverPictureUrl = computed(() => cover_picture.value);
 
 const tabs = ref([
-  { name: 'feed', label: 'Post' },
-  { name: 'connection', label: 'Connections' },
-  { name: 'media', label: 'Media' }
+    { name: 'feed', label: 'Post' },
+    { name: 'connection', label: 'Connections' },
+    { name: 'media', label: 'Media' }
 ]);
 
 const handleTab = (selectedTab) => {
@@ -142,14 +161,14 @@ const handleTab = (selectedTab) => {
 };
 
 onMounted(() => {
-    
+
     userId.value = userStore.user?.user_id || null;
     slug.value = props.userSlug;
     userSlug.value = props.userSlug;
 
-    if(userSlug.value != slug.value){
+    if (userSlug.value != slug.value) {
         fetchCheckConnection()
-    }else{
+    } else {
         sameUser.value = true
     }
     if (process.client) {

@@ -8,7 +8,7 @@
 
   <main>
     <NavBarPublic></NavBarPublic>
-    <div class="grid grid-cols-6 grid-rows-2 gap-0 mt-16">
+    <div class="grid grid-cols-6 grid-rows-1 gap-0 mt-16">
       <div class="col-span-6 row-start-1 row-end-2s">
         <BusinessUserCover :data="businessUserData" @changeTab="setSelectedTab" :businessUserId="businessUserId"
           :userSlug="route.params.slug" />

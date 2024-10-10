@@ -1,6 +1,6 @@
 <template>
     <!-- Address change modal -->
-    <div v-if="visible" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div v-if="visible" class="relative z-index-220" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
@@ -17,9 +17,9 @@
                                     </p>
 
                                     <div>
-                                        <div class="grid sm:grid-cols-1 grid-cols-1 gap-2 mb-2">
+                                        <div class="grid grid-cols-6 gap-2 mb-2">
                                             <!-- Address Line 1 -->
-                                            <div class="mb-2 sm:col-span-2 col-span-1">
+                                            <div class="mb-2 col-span-3">
                                                 <label class="block mb-1 text-gray-700 font-sans text-sm">Address Line 1
                                                     <span aria-hidden="true" class="text-red-600"
                                                         title="This field is required">*</span></label>
@@ -30,7 +30,7 @@
                                                 </div>
                                             </div>
                                             <!-- Address Line 2 -->
-                                            <div class="mb-2 sm:col-span-2 col-span-1">
+                                            <div class="mb-2 col-span-3">
                                                 <label class="block mb-1 text-gray-700 font-sans text-sm">Address Line
                                                     2</label>
                                                 <div class="flex rounded-lg border border-gray-300 shadow-sm">
@@ -41,9 +41,9 @@
                                             </div>
                                         </div>
 
-                                        <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                        <div class="grid grid-cols-6  gap-2 mb-2">
                                             <!-- City -->
-                                            <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                            <div class="mb-2 col-span-3">
                                                 <label class="block mb-1 text-gray-700 font-sans text-sm">City
                                                     <span aria-hidden="true" class="text-red-600"
                                                         title="This field is required">*</span></label>
@@ -54,7 +54,7 @@
                                                 </div>
                                             </div>
                                             <!-- State/Province -->
-                                            <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                            <div class="mb-2 col-span-3">
                                                 <label class="block mb-1 text-gray-700 font-sans text-sm">State/Province
                                                     <span aria-hidden="true" class="text-red-600"
                                                         title="This field is required">*</span></label>
@@ -66,9 +66,9 @@
                                             </div>
                                         </div>
 
-                                        <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                        <div class="grid grid-cols-6 gap-2 mb-2">
                                             <!-- Postal Code -->
-                                            <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                            <div class="mb-2 col-span-3">
                                                 <label class="block mb-1 text-gray-700 font-sans text-sm">Postal Code
                                                     <span aria-hidden="true" class="text-red-600"
                                                         title="This field is required">*</span></label>
@@ -79,7 +79,7 @@
                                                 </div>
                                             </div>
                                             <!-- Country -->
-                                            <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                            <div class="mb-2 col-span-3">
                                                 <label class="block mb-1 text-gray-700 font-sans text-sm">Country
                                                     <span aria-hidden="true" class="text-red-600"
                                                         title="This field is required">*</span></label>
@@ -90,7 +90,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                        <div class="grid grid-cols-6 gap-2 mb-2">
                                             <!-- Phone Code and Phone Number on Separate Lines -->
                                             <div class="mb-2 sm:col-span-2 col-span-1">
                                                 <label class="block mb-1 text-gray-700 font-sans text-sm">Phone
@@ -101,7 +101,7 @@
                                                         class="block w-full h-12 rounded-lg" />
                                                 </div>
                                             </div>
-                                            <div class="mb-2 sm:col-span-2 col-span-1">
+                                            <div class="mb-2 col-span-4">
                                                 <label class="block mb-1 text-gray-700 font-sans text-sm">Phone
                                                     Number</label>
                                                 <div class="flex rounded-lg border border-gray-300 shadow-sm">
