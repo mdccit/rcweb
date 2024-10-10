@@ -106,7 +106,7 @@ onMounted(() => {
 
 const fetchSchooleDatils = async () =>{
     try {
-       const dataSets = await $publicService.get_scool(route.params.slug);
+       const dataSets = await $publicService.get_school(route.params.slug);
         if(dataSets.school_info){
             schoolId.value =dataSets.school_info.id || '';
 

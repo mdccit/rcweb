@@ -605,6 +605,9 @@ const createUserService = (apiService) => {
     }
   };
 
+
+
+
   return {
     get_connection,
     connection_request,
@@ -649,7 +652,7 @@ const createUserService = (apiService) => {
     upload_business_user_media,
     delete_business_user_media,
     update_business_user_other_info,
-    upload_business_user_profile_picture
+    upload_business_user_profile_picture,
   };
 
 

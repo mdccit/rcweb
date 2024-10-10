@@ -383,7 +383,7 @@ onMounted(() => {
 
 const fetchSchooleDatils = async () =>{
     try {
-       const dataSets = await $publicService.get_scool('285006d4-6bfc-11ef-97c7-d8c49745e52b');
+       const dataSets = await $publicService.get_school('285006d4-6bfc-11ef-97c7-d8c49745e52b');
         bio.value =dataSets.school_info.bio
         name.value =dataSets.school_info.name
         members.value =dataSets.school_users_info

@@ -91,8 +91,7 @@
                                 class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg border border-gray-300" />
                         </div>
                     </label>
-                    <p v-if="errors.first_name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
-            errors.first_name.join(', ') }}</p>
+                    <InputError :error="errors.first_name ? errors.first_name.join(', ') : ''" />
                 </div>
 
                 <div class="my-8"></div>
@@ -107,8 +106,7 @@
                                 v-model="last_name" name="name" type="text" data-validation-key="name"
                                 :disabled="action === 'view'" />
                         </div>
-                        <p v-if="errors.last_name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
-            errors.last_name.join(', ') }}</p>
+                        <InputError :error="errors.last_name ? errors.last_name.join(', ') : ''" />
                     </label>
                 </div>
 
@@ -124,8 +122,8 @@
                                 v-model="other_names" name="name" type="text" data-validation-key="other-names"
                                 :disabled="action === 'view'" />
                         </div>
-                        <p v-if="errors.other_names" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
-            errors.other_names.join(', ') }}</p>
+               
+                        <InputError :error="errors.other_names ? errors.other_names.join(', ') : ''" />
                     </label>
                 </div>
 
@@ -143,8 +141,7 @@
                                     name="email" type="text" data-validation-key="email"
                                     :disabled="action === 'view'" />
                             </div>
-                            <p v-if="errors.email" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
-            errors.email.join(', ') }}</p>
+                            <InputError :error="errors.email ? errors.email.join(', ') : ''" />
                         </label>
                     </div>
 
@@ -164,6 +161,7 @@
                                 Email verified
                             </span>
                         </label>
+                        <InputError :error="errors.is_set_email_verified ? errors.is_set_email_verified.join(', ') : ''" />
 
                         <!-- Resend Verification Email Link aligned on the same row to the right -->
                         <div v-if="!is_set_email_verified" class="flex items-center text-black gap-2 ml-4">
@@ -189,8 +187,7 @@
                                 name="password" v-model="password" type="text" data-validation-key="password"
                                 :disabled="action === 'view'" />
                         </div>
-                        <p v-if="errors.password" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
-            errors.password.join(', ') }}</p>
+                        <InputError :error="errors.password ? errors.password.join(', ') : ''" />
                     </label>
                 </div>
 
@@ -207,6 +204,7 @@
                                 <option value="1">Yes</option>
                                 <option value="0">No</option>
                             </select>
+                            <InputError :error="errors.is_approved ? errors.is_approved.join(', ') : ''" />
                         </div>
                     </label>
                 </div>
@@ -246,6 +244,7 @@
                                             name="phone_code" data-validation-key="phone_code"
                                             :disabled="action === 'view'" required />
                                     </div>
+                                    <InputError :error="errors.phone_code_country ? errors.phone_code_country.join(', ') : ''" />
                                 </div>
                             </label>
                         </div>
@@ -263,6 +262,7 @@
                                             v-model="phone_number" id="phone_number" step="0.01" required
                                             placeholder="123456789" :disabled="action === 'view'" />
                                     </div>
+                                    <InputError :error="errors.phone_number ? errors.phone_number.join(', ') : ''" />
                                 </label>
                             </div>
                         </div>
@@ -319,6 +319,7 @@ import userEditSection from '~/components/admin/user/userEditSections.vue';
 import { loadCountryList } from '~/services/commonService';
 import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
 import { handleError } from '@/utils/handleError';
+import InputError from '@/components/common/input/InputError.vue';
 
 const route = useRoute(); // Use useRoute to access query parameters
 
