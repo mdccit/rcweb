@@ -8,9 +8,8 @@ export const usePackageStore = defineStore('package', {
     setupIntentId: null,  // State for SetupIntent ID
   }),
   getters: {
-    getStripeCustomerId: (state) => state.stripeCustomerId || '', // Getter for Stripe Customer ID
-    getSetupIntentClientSecret: (state) => state.setupIntentClientSecret || '', // Getter for SetupIntent client secret
-    getSetupIntentId: (state) => state.setupIntentId || '', // Getter for SetupIntent ID
+    // Rename the getter for Stripe customer ID to avoid conflict
+    retrievedStripeCustomerId: (state) => state.stripeCustomerId || '', 
   },
   actions: {
     // Set Stripe Customer ID
@@ -21,8 +20,8 @@ export const usePackageStore = defineStore('package', {
       }
     },
 
-    // Get Stripe Customer ID
-    getStripeCustomerId() {
+    // Renaming this method to avoid conflict with $authService
+    fetchStoredStripeCustomerId() {
       if (this.stripeCustomerId) {
         return this.stripeCustomerId;
       }
@@ -44,7 +43,6 @@ export const usePackageStore = defineStore('package', {
       }
     },
 
-
     // Set SetupIntent client secret and ID
     setSetupIntentData(clientSecret, setupIntentId) {
       this.setupIntentClientSecret = clientSecret;
@@ -53,29 +51,6 @@ export const usePackageStore = defineStore('package', {
         localStorage.setItem('setupIntentClientSecret', clientSecret);
         localStorage.setItem('setupIntentId', setupIntentId);
       }
-    },
-
-    // Get SetupIntent client secret and ID
-    getSetupIntentData() {
-      if (this.setupIntentClientSecret && this.setupIntentId) {
-        return {
-          clientSecret: this.setupIntentClientSecret,
-          setupIntentId: this.setupIntentId,
-        };
-      }
-      if (process.client) {
-        const clientSecret = localStorage.getItem('setupIntentClientSecret');
-        const setupIntentId = localStorage.getItem('setupIntentId');
-        if (clientSecret && setupIntentId) {
-          this.setupIntentClientSecret = clientSecret;
-          this.setupIntentId = setupIntentId;
-          return {
-            clientSecret,
-            setupIntentId,
-          };
-        }
-      }
-      return null;
     },
 
     // Clear SetupIntent data
@@ -87,6 +62,5 @@ export const usePackageStore = defineStore('package', {
         localStorage.removeItem('setupIntentId');
       }
     },
-
   },
 });

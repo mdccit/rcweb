@@ -22,7 +22,7 @@
       <form @submit.prevent="handleSubmitStep3">
         <div class="flex justify-center space-x-4">
           <div v-for="pkg in packages" :key="pkg.value"
-            class="border w-[230px] rounded-lg text-center p-3 relative cursor-pointer"
+            :class="['border w-[230px] rounded-lg text-center p-3 relative cursor-pointer', selectedPackage === pkg.value ? 'border-blue-500 bg-blue-100' : '']"
             @click="selectedPackage = pkg.value">
             <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0 peer" :id="pkg.value" type="radio"
               :value="pkg.value" v-model="selectedPackage" name="pkg" />
@@ -43,6 +43,10 @@
             </div>
           </div>
         </div>
+
+        <!-- Card Element -->
+        <div id="card-element" class="border p-4 rounded-md mt-4"></div>
+        <span v-if="cardError" class="text-red-500 text-sm">{{ cardError }}</span>
 
         <!-- Error Message -->
         <span v-if="errors.pkg" class="text-red-500 text-sm">{{ errors.pkg }}</span>
@@ -89,13 +93,14 @@ const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 const route = useRoute();
 const packageStore = usePackageStore();
-const stripe = await loadStripe('your-stripe-public-key');
+const stripe = ref(null);
+const cardElement = ref(null);
 
 const selectedPackage = ref('');
 const errors = ref({});
 const loading = ref(false);
-const stripeCustomerId = ref(null);
-let cardElement;
+const stripeCustomerId = ref('');
+const cardError = ref('');
 
 
 // Simulating packages - You can fetch this from an API instead
@@ -120,58 +125,93 @@ const packages = [
 
 // Fetch Stripe Customer ID on component load
 onMounted(async () => {
-  const token = route.params.token;
-  try {
-    // Initialize Stripe Elements for card input
-    const elements = stripe.elements();
-    cardElement = elements.create('card');
-    cardElement.mount('#card-element');
-  } catch (error) {
-    console.error('Failed to retrieve Stripe customer ID:', error);
-  }
+  stripe.value = await loadStripe('pk_test_51Q5IlqB1aCt3RRccXbVS8aYnSTynl0TufY4s4mPxlYeZKbZrX2YpKxkwMBbeitKm8iWBAyWwWzcLyYByyE9sGegG00OJSEbT2i');
+
+  const elements = stripe.value.elements();
+  cardElement.value = elements.create('card');
+  cardElement.value.mount('#card-element');
+
 });
 
-// Handle submit for Step 3
 const handleSubmitStep3 = async () => {
   if (!selectedPackage.value) {
     nuxtApp.$notification.triggerNotification('Please select a package!', 'warning');
   } else {
     errors.value.pkg = '';
 
-    // Check if the user selected the premium package
     if (selectedPackage.value === 'premium') {
       try {
-        loading.value = true; // Set loading state
+        loading.value = true;
 
-        // Get Stripe customer ID from the backend when the user submits the form
-        const stripeCustomerId = await $authService.getStripeCustomerId(); // Fix the variable assignment
+        // Step 1: Get Stripe customer ID
+        const customerId = await $authService.getStripeCustomerId();
+        packageStore.setStripeCustomerId(customerId);
 
-        // Set the Stripe customer ID in the Pinia store
-        packageStore.setStripeCustomerId(stripeCustomerId); // Use stripeCustomerId here instead of customerId
+        // Step 2: Create SetupIntent on the backend
+        const setupIntent = await createSetupIntent(customerId);
 
-        // Create the setup intent for the premium package
-        const setupIntent = await createSetupIntent(stripeCustomerId); // Pass stripeCustomerId here as well
+        // Log setupIntent to verify its structure
+        console.log('SetupIntent Response:', setupIntent);
 
-        if (setupIntent) {
-          console.log('Setup Intent created successfully:', setupIntent);
-
-          // Store the client_secret and setup_intent_id in the Pinia store
+        // Check if setupIntent has client_secret and setup_intent_id
+        if (setupIntent && setupIntent.client_secret && setupIntent.setup_intent_id) {
+          // Store the setup intent data in Pinia store
           packageStore.setSetupIntentData(setupIntent.client_secret, setupIntent.setup_intent_id);
 
-          // You can now proceed with the payment process using the stored values
-        } else {
-          throw new Error('Failed to create setup intent');
-        }
+          const clientSecret = setupIntent.client_secret;
+          const setupIntentId = setupIntent.setup_intent_id;
 
+          // Step 3: Confirm the card setup with Stripe using the clientSecret
+          const result = await stripe.confirmCardSetup(clientSecret, {
+            payment_method: {
+              card: cardElement.value, // Ensure cardElement is defined and populated correctly
+            },
+          });
+
+          if (result.error) {
+            cardError.value = result.error.message;
+            nuxtApp.$notification.triggerNotification(result.error.message, 'failure');
+            throw new Error(result.error.message);
+          }
+
+          // Step 4: Extract payment_method_id from the result
+          const paymentMethodId = result.setupIntent.payment_method;
+
+          // Step 5: Call backend to confirm the setup intent
+          const setupIntentConfirmation = await confirmSetupIntent(setupIntentId, paymentMethodId, clientSecret);
+
+          if (setupIntentConfirmation.status === 'success') {
+            // Step 6: Proceed to create the subscription using paymentMethodId
+            const subscriptionDetails = {
+              subscription_type: 'monthly',
+              is_auto_renewal: true,
+              payment_method_id: paymentMethodId,
+            };
+
+            const subscription = await $authService.createSubscription(subscriptionDetails);
+
+            if (subscription.status === 'success') {
+              nuxtApp.$notification.triggerNotification(subscription.message, 'success');
+              console.log('Subscription created successfully:', subscription);
+              // Redirect or show confirmation message
+            } else {
+              nuxtApp.$notification.triggerNotification(subscription.message, 'warning');
+            }
+          } else {
+            throw new Error('Failed to confirm Setup Intent.');
+          }
+        } else {
+          // Throw error if setupIntent is invalid
+          throw new Error('Invalid SetupIntent response from the backend.');
+        }
       } catch (error) {
-        console.error('Error retrieving Stripe customer ID:', error);
-        errors.value.pkg = 'Failed to retrieve Stripe customer ID. Please try again.';
+        nuxtApp.$notification.triggerNotification('Error during subscription process', 'failure');
+        console.error('Error during payment setup:', error);
       } finally {
-        loading.value = false; // Reset loading state
+        loading.value = false;
       }
     } else {
       console.log('Standard package selected, no payment needed.');
-      // Proceed with the standard package flow
     }
   }
 };

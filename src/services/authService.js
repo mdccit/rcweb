@@ -163,7 +163,7 @@ const createAuthService = (apiService) => {
   
     try {
       const response = await apiService.postRequest(url, body);
-      return response.data;
+      return response;
     } catch (error) {
       if (error.response) {
         throw error.response;
@@ -179,7 +179,7 @@ const createAuthService = (apiService) => {
   
     try {
       const response = await apiService.postRequest(url, body);
-      return response.data;
+      return response;
     } catch (error) {
       if (error.response) {
         throw error.response;
@@ -195,7 +195,7 @@ const createAuthService = (apiService) => {
   
     try {
       const response = await apiService.postRequest(url, body);
-      return response.data;
+      return response;
     } catch (error) {
       if (error.response) {
         throw error.response;
