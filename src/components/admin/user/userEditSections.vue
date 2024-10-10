@@ -27,8 +27,13 @@
                 class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50"> Lists
             </button>
         </NuxtLink>
-        <NuxtLink to="/admin/users/9caacfe4-214f-40eb-9289-038c8819bcc7/danger-zone"><button
-                class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50"> Danger
+        <NuxtLink :to="{ path: '/admin/userDangerZone', query: { action: 'edit', user_id: user_id } }">
+          <button
+              :class="{
+                'bg-gray-300': isActive('/admin/userDangerZone'),
+                'opacity-50': !isActive('/admin/userDangerZone'),
+                'text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200': true
+               }"> Danger
                 Zone </button>
         </NuxtLink>
     </div>

@@ -2,12 +2,12 @@
     <header class="bg-gray-200">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="flex w-full justify-between gap-8">
-                <div class="flex items-center gap-4"><a href="https://qa1.recruited.qualitapps.com/admin/users"><svg
+                <div class="flex items-center gap-4"><button @click="goBack"><svg
                             class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M15 6l-6 6l6 6"></path>
-                        </svg></a>
+                        </svg></button>
                     <h2 class="font-bold text-lg self-center"> Editing:{{ display_name }} </h2>
                 </div>
                 <div class="">
@@ -48,6 +48,7 @@ import userEditSection from '~/components/admin/user/userEditSections.vue';
 import usermediaTab from '~/components/admin/user/usermediaTab.vue';
 
 const route = useRoute(); // Use useRoute to access query parameters
+const router = useRouter();
 
 
 
@@ -69,7 +70,7 @@ onMounted(() => {
     user_id.value = route.query.user_id || '';
 
     if (action.value === 'view' || action.value === 'edit') {
-        fetchUserDetails(user_id.value);
+        fetchUserDetails();
     }
 });
 
@@ -81,7 +82,7 @@ watch([() => route.query.action, () => route.query.user_id], ([newAction, newUse
     user_id.value = newUserId || '';
   
      if (action.value === 'edit' || action.value === 'view') {
-        fetchUserDetails(user_id.value);  // Fetch user details for "edit" & "view"
+        fetchUserDetails();  // Fetch user details for "edit" & "view"
     }
 });
 
@@ -89,7 +90,7 @@ watch([() => route.query.action, () => route.query.user_id], ([newAction, newUse
 const display_name =ref('')
 
 // Fetch user details function
-const fetchUserDetails = async (userId) => {
+const fetchUserDetails = async () => {
     try {
         const response = await $adminService.get_user_details(user_id.value);
         const user = response.user_basic_info;
@@ -137,6 +138,10 @@ definePageMeta({
     middleware: ['role'],
     requiredRole: ['admin'],
 });
+
+const goBack = () =>{
+    router.back();
+}
 
 </script>
 
