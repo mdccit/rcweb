@@ -44,31 +44,37 @@
 
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                   <li>
-                    <NuxtLink to="/admin/users"
+                    <NuxtLink to="/admin/users?role=1"
                       class=" cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> All </div>
                     </NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink
+                    <NuxtLink to="/admin/users?role=4"
                       class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> Players </div>
                     </NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink
+                    <NuxtLink to="/admin/users?role=5"
                       class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> Coaches </div>
                     </NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink
+                    <NuxtLink to="/admin/users?role=7"
+                      class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      <div class="flex items-center"> Parent </div>
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink to="/admin/users?role=2"
                       class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> Admin </div>
                     </NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink
+                    <NuxtLink to="/admin/users?role=6"
                       class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> Business User </div>
                     </NuxtLink>
