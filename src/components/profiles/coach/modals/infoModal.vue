@@ -20,8 +20,12 @@
                                             <label for="nationality"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Nationality<span
                                                     class="text-red-600">*</span></label>
-                                            <NationalityDropdown :nationalities="nationalities" v-model="nationality"
-                                                id="nationality" required />
+                                            <div
+                                                class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
+                                                <NationalityDropdown :nationalities="nationalities"
+                                                    v-model="nationality" id="nationality" required />
+                                            </div>
+
                                             <InputError
                                                 :error="errors.nationality ? errors.nationality.join(', ') : ''" />
 
@@ -33,8 +37,12 @@
                                             <label for="date_of_birth"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Date of Birth <span
                                                     class="text-red-600">*</span></label>
-                                            <input type="date" v-model="date_of_birth" required
-                                                class="w-full border border-gray-300 rounded-lg shadow-sm h-12" />
+                                            <div
+                                                class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
+                                                <input type="date" v-model="date_of_birth" required :max="today"
+                                                    class="h-12 lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg" />
+                                            </div>
+
                                             <InputError
                                                 :error="errors.date_of_birth ? errors.date_of_birth.join(', ') : ''" />
 
@@ -129,6 +137,16 @@ onMounted(async () => {
 
     ]);
 });
+// Function to get today's date in 'YYYY-MM-DD' format
+const getTodayDate = () => {
+    const today = new Date()
+    const year = today.getFullYear()
+    const month = String(today.getMonth() + 1).padStart(2, '0')
+    const day = String(today.getDate()).padStart(2, '0')
+    return `${year}-${month}-${day}`
+}
+
+const today = getTodayDate()
 
 watch(() => props.visible, (newVal) => {
     if (newVal && props.slug) {

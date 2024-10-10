@@ -10,8 +10,9 @@
                     <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                         <div class="sm:flex sm:items-start">
                             <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
-                                <h1 class="text-base font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Edit User Profile</h1>
-                              
+                                <h1 class="text-base font-semibold leading-6 text-gray-900 mb-3" id="modal-title">Edit
+                                    User Profile</h1>
+
                                 <div class="mt-2 w-full">
                                     <!-- First Name Input -->
                                     <div class="w-full">
@@ -64,22 +65,24 @@
                                             <span aria-hidden="true" class="text-red-600"
                                                 title="This field is optional"></span>
                                         </label>
-                                        <div  v-if="profile_picture_exit !=null">
-                                            <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profile_picture_exit.url" alt="">
+                                        <div v-if="profile_picture_exit != null">
+                                            <img class="mx-auto w-44 h-44 rounded-[30px] mt-3"
+                                                :src="profile_picture_exit.url" alt="">
                                             <!-- <button @click="removeProfile">Remove</button> -->
                                         </div>
-                                        <div v-if="profile_picture_exit !=null" class="w-full flex justify-center">
-                                                <button class="p-2 rounded-lg bg-red-600 mx-auto m-2 text-white" @click="removeProfile"><svg xmlns="http://www.w3.org/2000/svg"
-                                                        fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                                        stroke="currentColor" class="size-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                                    </svg>
-                                                </button>
-                                            </div>
+                                        <div v-if="profile_picture_exit != null" class="w-full flex justify-center">
+                                            <button class="p-2 rounded-lg bg-red-600 mx-auto m-2 text-white"
+                                                @click="removeProfile"><svg xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                                    stroke="currentColor" class="size-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
                                             <label for="profile_picture"
-                                                class=" img-inputblock w-1/3 px-4 py-2 text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input">
+                                                class="absolute pt-[13px] img-inputblock w-[110px] px-4 py-2 text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input">
                                                 Choose file
                                             </label>
                                             <input id="profile_picture" type="file" @change="handleFileChange"
@@ -142,7 +145,7 @@ const notificationMessage = ref('');
 const notification_type = ref(0);
 const fileError = ref('');
 const profile_picture = ref('');
-const profile_picture_exit= ref(null)
+const profile_picture_exit = ref(null)
 
 // On mounted, fetch the current user names using the slug
 onMounted(() => {
@@ -199,13 +202,13 @@ const saveProfilePicture = async () => {
     try {
         const user_slug = props.slug; // Assuming you have user_slug available in props
         const response = await $userService.upload_coach_profile_picture(profile_picture.value, user_slug); // Call the upload function
-        const data ={
-            url:response.data.url,
-            media_type:response.data.media_type,
-            media_id:response.data.media_id
+        const data = {
+            url: response.data.url,
+            media_type: response.data.media_type,
+            media_id: response.data.media_id
         }
         userStore.setProfilePicture(data)
-        
+
         if (response.status == '200') {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
@@ -227,8 +230,8 @@ const fetchCoachNames = async (slug) => {
             other_names.value = dataSets.user_basic_info.other_names ?? "";
         }
 
-        if(dataSets.media_info){
-            profile_picture_exit.value =dataSets.media_info.profile_picture??null
+        if (dataSets.media_info) {
+            profile_picture_exit.value = dataSets.media_info.profile_picture ?? null
             userStore.setProfilePicture(dataSets.media_info.profile_picture)
         }
     } catch (error) {
@@ -284,7 +287,7 @@ const saveName = async () => {
 
 };
 
-const removeProfile =async() =>{
+const removeProfile = async () => {
     try {
         const dataSets = await $publicService.delete_media_coache(profile_picture_exit.value.media_id);
         fetchCoachNames(props.slug);

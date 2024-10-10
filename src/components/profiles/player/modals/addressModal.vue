@@ -108,9 +108,9 @@
                                                 </div>
                                             </div>
 
-                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                            <div class="grid  grid-cols-6 lg:grid-cols-6 gap-2 mb-2">
                                                 <!-- Phone Code and Phone Number on Separate Lines -->
-                                                <div class="mb-2 sm:col-span-2 col-span-1">
+                                                <div class="mb-2  col-span-2">
                                                     <label class="block mb-1 text-gray-700 font-sans text-sm">Phone
                                                         Code</label>
                                                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
@@ -121,7 +121,7 @@
                                                             :error="errors.phone_code_country ? errors.phone_code_country.join(', ') : ''" />
                                                     </div>
                                                 </div>
-                                                <div class="mb-2 sm:col-span-2 col-span-1">
+                                                <div class="mb-2  col-span-4">
                                                     <label class="block mb-1 text-gray-700 font-sans text-sm">Phone
                                                         Number</label>
                                                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
