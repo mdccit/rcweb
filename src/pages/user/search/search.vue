@@ -48,7 +48,7 @@
 
                 <!-- card 01 -->
                 <div v-for="user in search" class="col-span-3 p-2"> 
-                    <button  class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+                    <button  class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
                         <NuxtLink :to="`/app/profile/${user.slug}`">
                             <div class=" grid grid-cols-12 gap-4">
                                 <div class="col-span-4">
@@ -134,20 +134,20 @@
                                     </div>
                                     <div v-if="user.connection != null">
                                         <div v-if="user.connection.connection_status =='pending'">
-                                            <button v-if="user.connection.user_id ==user.connection.sender_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                            <button v-if="user.connection.user_id ==user.connection.sender_id"   class="bg-blue-500 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Invite Sent
                                             </button>
-                                            <button @click="accept(user.connection.id)" v-if="user.connection.user_id ==user.connection.receiver_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                            <button @click="accept(user.connection.id)" v-if="user.connection.user_id ==user.connection.receiver_id"   class="bg-blue-500 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Accept
                                             </button>
-                                            <button @click="reject(user.connection.id)" v-if="user.connection.user_id ==user.connection.receiver_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                            <button @click="reject(user.connection.id)" v-if="user.connection.user_id ==user.connection.receiver_id"   class="bg-blue-500 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Reject
                                             </button>
                                         </div>
                                         
                                     </div>
                                     <div v-if="user.connection == null">
-                                        <button @click="connect(user.userId)"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                        <button @click="connect(user.userId)"   class="bg-blue-500 text-white rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                              Connect
                                         </button>
                                     </div>

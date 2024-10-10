@@ -22,7 +22,7 @@
                     </svg>
                     <span class="pl-2.5">All</span>
                 </a>
-                <span class="ml-auto bg-steelBlue h-10 p-2 rounded-r-xl"></span>
+                <span class="ml-auto bg-steelBlue h-12 p-2 rounded-r-xl"></span>
             </li>
             <li class="flex justify-between items-center mb-2 hover:bg-lightGray">
                 <a href="#" class="flex items-center text-black p-2 rounded-md">

@@ -1,4 +1,5 @@
 <script setup>
+import { nextTick } from 'vue';
 import AdminBusinessTable from '~/components/tables/AdminBusinessTable.vue';
 import { useUserStore } from '~/stores/userStore';
 import businessCreateModal from '~/components/shared/businessCreateModal.vue';
@@ -6,6 +7,9 @@ const userStore = useUserStore();
 
 
 const showModal = ref(false);
+
+// Reference to AdminBusinessTable component
+const businessTableRef = ref(null);
 
 // Method to open the modal
 const openCreateBusinessModal = () => {
@@ -15,6 +19,20 @@ const openCreateBusinessModal = () => {
 // Method to close the modal
 const closeModal = () => {
     showModal.value = false;
+};
+
+const reloadTable = () => {
+   closeModal();
+
+   console.log('businessTableRef:', businessTableRef.value);
+   nextTick(() => {
+        if (businessTableRef.value) {
+            console.log('Refreshing table...');
+            businessTableRef.value.refreshTable();
+        } else {
+            console.error('Table ref not available after nextTick');
+        }
+    });
 };
 
 definePageMeta({
@@ -53,13 +71,13 @@ definePageMeta({
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <AdminBusinessTable></AdminBusinessTable>
+            <AdminBusinessTable ref="businessTableRef"></AdminBusinessTable>
         </div>
 
     </div>
 
     <!-- Admin Bsuienss Create Modal Component -->
-    <businessCreateModal :isVisible="showModal" @close="showModal = false" ref="businessModal" />
+    <businessCreateModal :isVisible="showModal" @close="reloadTable" ref="businessModal" />
 
 
 </template>

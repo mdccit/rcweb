@@ -1,5 +1,5 @@
 <template>
-        <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-semibold text-black">Player Profile </h2>
             <button @click="clear" class="flex text-ceil text-sm">
@@ -12,8 +12,9 @@
             </button>
         </div>
         <div class="space-y-2">
-            <label class="text-black text-sm">Gender</label>
-            <div class="flex flex-wrap mt-2">
+            <div class="w-full">
+                        <label class="block mb-1 text-black text-sm">Gender</label>
+                        <div class="flex rounded-lg border-0 border-gray-300 shadow-sm">
 
                 <!-- <button
                     class="pl-2 text-black bg-white border border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
@@ -37,19 +38,22 @@
                         </li>
                     </select>
                 </div> -->
-                <GenderDropDown @change="changeGender" :genders="genders" v-model="gender" id="gender" label="Gender *"/>
+                <GenderDropDown @change="changeGender" :genders="genders" v-model="gender" id="gender"
+                    label="Gender *" />
+                    </div>
 
             </div>
         </div>
         <div class="space-y-2">
             <div class="flex flex-wrap mt-2">
                 <div class="flex-1">
-                    <label class="text-black text-sm">Grad Month</label>
-                    <div class="flex flex-wrap mt-2">
-                        <input type="month" @change="changeGraduationMonth" v-model="graduation_month"
-                class="pl-2 text-black bg-white border rounded-lg border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
-                placeholder="Player Graduation Month/Year"
-                 />
+                    <div class="w-full">
+                        <label class="block mb-1 text-black text-sm">Grad Month</label>
+                        <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                        
+                                <input type="month" @change="changeGraduationMonth" v-model="graduation_month" class="h-12 block text-gray-700 px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" placeholder="Player Graduation Month/Year" />
+           
+                        </div>
                         <!-- <button
                             class="pl-2 text-black bg-white border border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
                             d="dropdownGradMonthButton" data-dropdown-toggle="dropdownGradMonth">
@@ -74,12 +78,15 @@
                     </div>
                 </div>
                 <div class="flex-1">
-                    <label class="text-black text-sm">Grad Year</label>
-                    <div class="flex flex-wrap mt-2">
-                        <input type="month" @change="changeGraduationYear" v-model="graduation_year"
-                class="pl-2 text-black bg-white border rounded-lg border-timberwolf rounded text-sm px-5 py-2.5 text-center inline-flex items-center w-full  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
-                placeholder="Player Graduation Month/Year"
-                 />
+                    <div class="w-full">
+                        <label class="block mb-1 text-black text-sm">Grad Year</label>
+                        <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                        
+                                <input type="month" @change="changeGraduationYear" v-model="graduation_year"
+                                    class="h-12 block text-gray-700 px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                    placeholder="Player Graduation Month/Year" />
+           
+                        </div>
 
 
                         <!-- <button
@@ -110,8 +117,8 @@
         </div>
         <div class="space-y-2">
             <label class="text-black text-sm">Handedness</label>
-            <HandednessDropdown @change="changeHandness" :handedness="handednesses" v-model="handedness" id="handedness" 
-                label="Handedness *" />
+            <HandednessDropdown @change="changeHandness" :handedness="handednesses" v-model="handedness" id="handedness"
+                class="rounded-lg border border-gray-300" label="Handedness *" />
             <!-- <div class="flex flex-wrap mt-2">
 
                 <button
@@ -191,120 +198,120 @@ const graduation_month = ref('');
 const graduation_year = ref('');
 const handedness = ref('')
 const filter = ref([])
-const data  = ref({})
+const data = ref({})
 
 onMounted(() => {
-//   loadCountryCodes();
-  loadCountries();
-//   loadNationalities();
-  loadGenders();
-//   loadBudgets();
-   loadHandness();
+    //   loadCountryCodes();
+    loadCountries();
+    //   loadNationalities();
+    loadGenders();
+    //   loadBudgets();
+    loadHandness();
 });
 
 const loadGenders = async () => {
-  try {
-    genders.value = await loadGenderList();
-  } catch (err) {
-    console.error('Error loading genders:', err);
-  }
+    try {
+        genders.value = await loadGenderList();
+    } catch (err) {
+        console.error('Error loading genders:', err);
+    }
 };
 
 const loadHandness = async () => {
-  try {
-    handednesses.value = await loadHandnessList();
-  } catch (err) {
-    console.error('Error loading handess:', err);
-  }
+    try {
+        handednesses.value = await loadHandnessList();
+    } catch (err) {
+        console.error('Error loading handess:', err);
+    }
 };
 
 const loadCountries = async () => {
-  try {
-    countries.value = await loadCountryList();
-  } catch (err) {
-    console.error('Error loading countries:', err);
-  }
+    try {
+        countries.value = await loadCountryList();
+    } catch (err) {
+        console.error('Error loading countries:', err);
+    }
 };
 
-const changeCountry = (changedata) =>{
+const changeCountry = (changedata) => {
     searchStore.setCountryId(country.value)
     data.value = {
-        name:'country',
-        value:country.value,
-        display_value:"Country | "+country.value
+        name: 'country',
+        value: country.value,
+        display_value: "Country | " + country.value
     }
     dataFilter(data.value)
 }
 
-const changeGender = () =>{
+const changeGender = () => {
     searchStore.setGenders(gender.value)
     data.value = {
-        name:'gender',
-        value:gender.value,
-        display_value:"Gender | "+gender.value
+        name: 'gender',
+        value: gender.value,
+        display_value: "Gender | " + gender.value
     }
     dataFilter(data.value)
 
 }
 
-const changeHandness = () =>{
+const changeHandness = () => {
     searchStore.setHandednesses(handedness.value)
     data.value = {
-        name:'handness',
-        value:handedness.value,
-        display_value:"Handness | "+handedness.value
+        name: 'handness',
+        value: handedness.value,
+        display_value: "Handness | " + handedness.value
     }
     dataFilter(data.value)
 
 }
 
-const changeGraduationMonth = () =>{
+const changeGraduationMonth = () => {
     searchStore.setGraduationMonth(graduation_month.value)
     data.value = {
-        name:'month',
-        value:graduation_month.value,
-        display_value:"Month | "+graduation_month.value
+        name: 'month',
+        value: graduation_month.value,
+        display_value: "Month | " + graduation_month.value
     }
     dataFilter(data.value)
 
 }
 
-const changeGraduationYear = () =>{
+const changeGraduationYear = () => {
     searchStore.setGraduationYear(graduation_year.value)
     data.value = {
-        name:'year',
-        value:graduation_year.value,
-        display_value:"Year | "+graduation_month.value
+        name: 'year',
+        value: graduation_year.value,
+        display_value: "Year | " + graduation_month.value
 
     }
-   // dataFilter(data.value)
+    // dataFilter(data.value)
 }
 
-const dataFilter = (data) =>{
-    filter.value =searchStore.searchFilter
+const dataFilter = (data) => {
+    filter.value = searchStore.searchFilter
     const exists = filter.value.some(item => item.name == data.name);
     if (exists) {
-       filter.value = filter.value.map(item => item.name === data.name ? {...item, value:data.value ,display_value:data.display_value} : item);
-    }else{
-        filter.value.push({name: data.name, value:data.value,display_value:data.display_value});
+        filter.value = filter.value.map(item => item.name === data.name ? { ...item, value: data.value, display_value: data.display_value } : item);
+    } else {
+        filter.value.push({ name: data.name, value: data.value, display_value: data.display_value });
     }
     searchStore.setSearchFilter(filter.value)
     searchStore.setSearchButton(true)
 }
 
-const clear = ()=>{
+const clear = () => {
     country.value = '';
     gender.value = '';
     handedness.value = '';
     graduation_month.value = '';
     graduation_year.value = '';
-   
+
     searchStore.setCountryId('')
     searchStore.setGenders('')
     searchStore.setHandednesses('')
     searchStore.setGraduationMonth('')
     searchStore.setGraduationYear('')
-    filter.value =searchStore.searchFilter
+    filter.value = searchStore.searchFilter
     filter.value = filter.value.filter(item => item.name !== 'year');
     filter.value = filter.value.filter(item => item.name !== 'month');
     filter.value = filter.value.filter(item => item.name !== 'gender');
