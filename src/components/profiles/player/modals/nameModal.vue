@@ -241,6 +241,7 @@ const fetchPlayerNames = async (slug) => {
 
         if (dataSets.media_info) {
             profile_picture_exit.value = dataSets.media_info.profile_picture ?? null
+            userStore.setProfilePicture(dataSets.media_info.profile_picture)
         }
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
@@ -295,6 +296,7 @@ const saveName = async () => {
 const removeProfile = async () => {
     try {
         const dataSets = await $publicService.delete_media_player(profile_picture_exit.value.media_id);
+        nuxtApp.$notification.triggerNotification(dataSets.display_message, 'success');
         fetchPlayerNames(props.slug);
     } catch (error) {
         console.log(error)

@@ -5,12 +5,9 @@
         <button
           @click="selectTab(tab.name)"
           :class="[
-            'inline-block p-4 border-b-2 rounded-t-lg',
-            tab.name === activeTab
-              ? 'text-blue-600 border-blue-600' // Active tab styles
-              : 'border-transparent hover:text-gray-600 hover:border-gray-300'
+            'inline-block p-4 rounded-t-lg',
+            tab.name === activeTab ? 'text-steelBlue border-b-4 border-steelBlue' : 'border-transparent hover:text-gray-600 hover:border-gray-300'
           ]"
-          aria-current="page"
         >
           {{ tab.label }}
         </button>

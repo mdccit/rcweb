@@ -16,7 +16,7 @@
                   <!-- Cover Picture Upload -->
                   <div class="w-full flex justify-center">
                     <div v-if="cover_picture != null">
-                      <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="cover_picture.value.url" alt="">
+                      <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="cover_picture.url" alt="">
                       <!-- <button @click="removeProfile">Remove</button> -->
                       <div class="w-full flex justify-center">
 
@@ -98,7 +98,7 @@ const error = ref('');
 const errors = ref('');
 const loading = ref(false);
 const fileError = ref('');
-const cover_picture = ref('');
+const cover_picture = ref(null);
 
 const $publicService = nuxtApp.$publicService;
 
@@ -112,24 +112,27 @@ onMounted(() => {
 watch(() => props.visible, (newVal) => {
     if (newVal && props.slug) {
         fetchCoachNames(props.slug);
+        console.log(455)
     }
 });
 
 const fetchCoachNames = async (slug) => {
   try {
-    const dataSets = await $publicService.get_user_profile(slug);
+    console.log(855)
+    console.log(slug)
+    const dataSets = await $publicService.get_user_profile(props.slug);
+    console.log(dataSets)
     // if (dataSets.user_basic_info) {
     //     first_name.value = dataSets.user_basic_info.first_name ?? "";
     //     last_name.value = dataSets.user_basic_info.last_name ?? "";
     //     other_names.value = dataSets.user_basic_info.other_names ?? "";
     // }
     console.log('media');
-    
+    console.log(dataSets.media_info.cover_picture    )
     if (dataSets.media_info) {
       cover_picture.value = dataSets.media_info.cover_picture ?? null
 
     }
-    console.log(cover_picture.value);
   } catch (error) {
     nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
   }
