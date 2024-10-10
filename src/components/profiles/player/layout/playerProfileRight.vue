@@ -151,10 +151,12 @@ import UTRModal from '~/components/profiles/player/modals/utrModal.vue';
 
 const userStore = useUserStore();
 const loggedUserSlug = ref('');
-
+const route = useRoute();
 
 defineNuxtRouteMiddleware(checkSession);
 const nuxtApp = useNuxtApp();
+const $publicService = nuxtApp.$publicService;
+
 const loading = ref(false);
 const router = useRouter();
 
