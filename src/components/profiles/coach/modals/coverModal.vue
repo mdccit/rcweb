@@ -39,7 +39,7 @@
                     <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
 
                       <label for="profile_picture"
-                        class=" img-inputblock w-1/3 px-4 py-2 text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input">
+                        class="absolute pt-[13px] img-inputblock w-[110px] px-4 py-2 text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input">
                         Choose file
                       </label>
                       <input id="cover_picture" type="file" @change="handleFileChange" accept="image/jpeg, image/png"
@@ -56,7 +56,7 @@
 
           <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
             <button type="button" @click="saveName"
-              class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+              class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 sm:ml-3 sm:w-auto"
               :disabled="loading">Save
               changes
               <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
