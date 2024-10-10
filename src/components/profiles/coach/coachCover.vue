@@ -192,7 +192,7 @@ const profile_picture = ref(null);
 const userSlug = ref('')
 const sameUser = ref(false)
 const cover_picture = ref(null);
-
+const joinDate = ref('')
 // Import the default profile picture
 import defaultCoverPicture from '@/assets/images/default_cover.png';
 import defaultProfilePicture from '@/assets/images/user.png';

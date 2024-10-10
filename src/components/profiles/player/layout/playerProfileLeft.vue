@@ -269,6 +269,23 @@
                         props.data.phone }}</b> </p>
                 </div>
             </div>
+            <div class="grid grid-cols-10 gap-2">
+                <div class="col-span-3 mx-auto">
+                    <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/images/pin.png" alt="">
+                </div>
+                <div class="col-span-6 ml-2 mx-auto">
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">
+                        <span v-if="userRole == 'coach' || userRole == 'admin'">
+                            {{ props.data.addressLine01 }} {{ props.data.addressLine02 }} {{ props.data.stateProvince }}
+                        </span>
+                        {{ props.data.city }}
+                        <span v-if="props.data.country">, </span>{{ props.data.country }}
+                    </p>
+
+
+                </div>
+                
+            </div>
         </div>
 
         <!-- <div style="height: auto;"
@@ -351,6 +368,7 @@ import { loadCountryList } from '~/services/commonService';
 import defaultProfilePicture from '@/assets/images/user.png';
 
 const userStore = useUserStore();
+const emit = defineEmits(['updateData']);
 
 defineNuxtRouteMiddleware(checkSession);
 const nuxtApp = useNuxtApp();
@@ -472,7 +490,8 @@ const handleModalClose = (modalName) => {
     // Defensive check to make sure modalName exists
     if (modals[modalName] !== undefined) {
         modals[modalName] = false;  // Close the modal
-        fetchUserDetails();         // Fetch updated user details after closing
+        //fetchUserDetails();  
+        emit('updateData')       // Fetch updated user details after closing
     } else {
         console.error(`Invalid modal name: ${modalName}`);
     }
@@ -481,7 +500,8 @@ const handleModalClose = (modalName) => {
 const fetchUserDetails = async (slug) => {
     try {
 
-        const dataSets = await $publicService.get_user_profile(route.params.slug);
+        const dataSets = await $publicService.get_player(route.params.slug);
+        console.log(dataSets)
         if (dataSets.user_basic_info) {
 
             props.data.bio = dataSets.user_basic_info.bio ?? "User has not entered bio"

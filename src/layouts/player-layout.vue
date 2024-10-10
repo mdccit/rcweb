@@ -10,7 +10,7 @@
     <div class="container-compressed pb-3">
       <div class="grid grid-cols-6 gap-4 temp-row grid-rows-[70px_auto] mt-16 pt-4">
         <div class="row-span-2 col-span-1 ">
-          <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  />
+          <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  @updateData="fetchUserDetails" />
         </div>
         <div class="col-start-2 col-span-5 mt-4">
           <playerProfileHedarer @changeTab="setSelectedTab" :playerId="playerID" :userSlug="route.params.slug" />
