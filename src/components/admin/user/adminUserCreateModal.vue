@@ -29,7 +29,7 @@
                             <!-- First Name -->
                             <div>
                                 <label for="first_name" class="block text-sm font-normal text-gray-900 mb-1">First
-                                    Name</label>
+                                    Name <span class="text-red-500">*</span></label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <input type="text" id="first_name" v-model="first_name"
                                         class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
@@ -44,7 +44,7 @@
                             <!-- Last Name -->
                             <div>
                                 <label for="last_name" class="block text-sm font-normal text-gray-900 mb-1">Last
-                                    Name</label>
+                                    Name <span class="text-red-500">*</span></label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <input type="text" id="last_name" v-model="last_name"
                                         class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
@@ -56,7 +56,7 @@
 
                         <!-- Email -->
                         <div class="mt-4">
-                            <label for="email" class="block text-sm font-normal text-gray-900 mb-1">Email</label>
+                            <label for="email" class="block text-sm font-normal text-gray-900 mb-1">Email <span class="text-red-500">*</span></label>
                             <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                 <input type="email" id="email" v-model="email"
                                     class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
@@ -78,7 +78,7 @@
                         <!-- Password Fields -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4" v-if="props.action !== 'view'">
                             <div>
-                                <label for="password" class="block text-sm font-normal text-gray-900">Password</label>
+                                <label for="password" class="block text-sm font-normal text-gray-900">Password <span class="text-red-500">*</span></label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <input type="password" id="password" v-model="password"
                                         class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
@@ -90,7 +90,7 @@
                             <div>
                                 <label for="password_confirmation"
                                     class="block text-sm font-normal text-gray-900">Confirm
-                                    Password</label>
+                                    Password <span class="text-red-500">*</span></label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <input type="password" id="password_confirmation" v-model="password_confirmation"
                                         class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
@@ -103,7 +103,7 @@
 
                         <!-- Role Selection -->
                         <div class="mt-4">
-                            <label for="role" class="block text-sm font-normal text-gray-900 mb-1">Role</label>
+                            <label for="role" class="block text-sm font-normal text-gray-900 mb-1">Role <span class="text-red-500">*</span></label>
                             <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                 <select id="role" v-model="user_role"
                                     class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
@@ -126,7 +126,7 @@
                         <div class="grid grid-cols-5 gap-4 mt-4 mb-4">
                             <div class="col-span-2">
                                 <label for="phone_code_country"
-                                    class="block text-sm font-normal text-gray-900">Code</label>
+                                    class="block text-sm font-normal text-gray-900">Code <span class="text-red-500">*</span></label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <ModalCountryCodeDropdown :country_codes="country_codes"
                                         v-model="phone_code_country" name="phone_code_country"
@@ -138,7 +138,7 @@
                             </div>
 
                             <div class="col-span-3">
-                                <label for="phone_number" class="block text-sm font-normal text-gray-900">Number</label>
+                                <label for="phone_number" class="block text-sm font-normal text-gray-900">Number <span class="text-red-500">*</span></label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <input type="text" id="phone_number" v-model="phone_number"
                                         class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
