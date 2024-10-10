@@ -80,7 +80,7 @@
 
                                     </button>
                                 </div>
-
+                                  <div v-if="coachId != userId">
                                     <div class="flex text-white" v-if="buttonHide == false" >
                                         <button @click="connectAcceptOrConnect"
                                             class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
@@ -93,6 +93,7 @@
                                             </button>
                                         </div>
                                     </div>
+                                </div>
                                 </div>
                                 <div class="">
                                     <button aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdown" v-if="loggedUserSlug == props.userSlug"

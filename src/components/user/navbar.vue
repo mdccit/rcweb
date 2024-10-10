@@ -123,10 +123,10 @@
                         <NuxtLink v-if="userRole != 'admin'" :to="`/app/profile/${userSlug}`">
                             <div class="flex space-x-2 items-center">
                                 <div class="hidden sm:hidden md:hidden lg:block">
-                                    <img v-if="userStore.userProfilePicture == null"class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                    <img v-if="profilePicture == 'null'"class="w-10 h-10 rounded-lg border border-white shadow-lg"
                                         src="@/assets/images/user.png" alt="">
-                                    <img v-if="userStore.userProfilePicture != null" class="w-10 h-10 rounded-lg border border-white shadow-lg"
-                                        :src="userStore.userProfilePicture.url" alt="">
+                                    <img v-if="profilePicture != 'null'" class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                        :src="profilePicture" alt="">
                                 </div>
                                 <div class="hidden sm:hidden md:hidden lg:block">
                                     <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
@@ -137,10 +137,10 @@
                         <NuxtLink v-else :to="`/app/profile/${userSlug}`">
                             <div class="flex space-x-2 items-center">
                                 <div class="hidden sm:hidden md:hidden lg:block">
-                                    <img v-if="userStore.profile_picture == null"class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                    <img v-if="profilePicture == 'null'"class="w-10 h-10 rounded-lg border border-white shadow-lg"
                                         src="@/assets/images/user.png" alt="">
                                         
-                                    <img v-if="userStore.profile_picture != null" class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                    <img v-if="profilePicture != 'null'" class="w-10 h-10 rounded-lg border border-white shadow-lg"
                                         :src="profilePicture" alt="">
                                 </div>
                                 <div class="hidden sm:hidden md:hidden lg:block">
@@ -183,7 +183,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, defineProps, defineEmits, defineExpose } from 'vue';
+import { ref, onMounted, defineProps, defineEmits, defineExpose, watch } from 'vue';
 import { useSearchStore } from '~/stores/searchStore';
 import { useFlowbite } from '~/composables/useFlowbite';
 import { useUserStore } from '~/stores/userStore';
@@ -207,7 +207,7 @@ const loggedUserName = ref('');
 const userSlug = ref('');
 const key = ref('');
 const profilePicture= ref('')
-
+const profile_picture= ref('')
 const logout = async (event) => {
     event.preventDefault();
 
@@ -295,14 +295,14 @@ onMounted(() => {
         } else {
             userSlug.value = null; // Handle the absence of user_slug
         }
-        console.log("Media Info")
-        console.log(userStore.userProfilePicture)
         if(localStorage.getItem('profile_picture')){
             profilePicture.value =localStorage.getItem('profile_picture')
+
             userStore.setProfilePicture({
                 url:profilePicture.value
             })
         }
+        // console.log(localStorage.getItem('profile_picture'))
     }
 
 
@@ -310,6 +310,22 @@ onMounted(() => {
         initFlowbite();
     })
 })
+
+
+watch(
+    () => localStorage.getItem('profile_picture'),
+    () => {
+        if(localStorage.getItem('profile_picture')){
+            profilePicture.value =localStorage.getItem('profile_picture')
+            console.log(1144)
+            console.log(profilePicture.value)
+
+            userStore.setProfilePicture({
+                url:profilePicture.value
+            })
+        }
+    }
+);
 
 const searchkey = () => {
     searchStore.setSearchKey(key.value)

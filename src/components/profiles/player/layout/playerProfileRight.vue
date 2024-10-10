@@ -109,8 +109,7 @@
                                 <!-- <<p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">WTN</p> -->
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
                     class="mb-4 text-sm">ACT</p>
-                <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="mb-4 text-sm">ACT</p>
+               
                 <p class="mb-4 text-sm">National Ranking</p>
             </div>
             <div class="">
@@ -129,8 +128,6 @@
                 <p class="mb-4 text-sm">{{  props.data.atp }}</p>
                 <p class="mb-4 text-sm">{{  props.data.itf }}</p>
                                 <!-- <<p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ wtn }}</p> -->
-                <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="mb-4 text-sm">{{  props.data.act }}</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
                     class="mb-4 text-sm">{{  props.data.act }}</p>
                 <p class="mb-4 text-sm">{{  props.data.nationalRanking }}</p>

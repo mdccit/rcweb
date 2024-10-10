@@ -281,8 +281,7 @@ const updateSchoolDetails = async () => {
             division: division.value,
         });
          
-        await updateSchoolProfile()
-        await updateSchoolCover()
+       
         if (response.status === 200) {
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
         } else {
@@ -303,7 +302,12 @@ const updateSchoolProfile = async () => {
     }
     try {
         const response = await $adminService.school_profile(school_id.value,profile_image.value);
-
+        if (response.status === 200) {
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+        } else {
+            nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+        }
+        fetchSchoolDetails(school_id.value);
 
        
     } catch (error) {
@@ -319,7 +323,12 @@ const updateSchoolCover = async () => {
     }
     try {
         const response = await $adminService.school_cover(school_id.value,cover_image.value);
-
+        if (response.status === 200) {
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+        } else {
+            nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+        }
+        fetchSchoolDetails(school_id.value);
 
        
     } catch (error) {
@@ -379,6 +388,7 @@ const handleFileChange = (event) => {
     // If all validations pass, set the file to the reactive variable
     fileError.value = ''; // Clear any previous errors
     profile_image.value = file; // Store the selected file
+    updateSchoolProfile()
   }
 };
 
@@ -406,6 +416,7 @@ const handleFileCoverChange = (event) => {
     // If all validations pass, set the file to the reactive variable
     fileError.value = ''; // Clear any previous errors
     cover_image.value = file; // Store the selected file
+    updateSchoolCover()
   }
 };
 </script>
