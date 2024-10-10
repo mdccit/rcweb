@@ -313,17 +313,18 @@ onMounted(() => {
 
 
 watch(
-    () => localStorage.getItem('profile_picture'),
+    () => userStore.userProfilePicture,
     () => {
-        if(localStorage.getItem('profile_picture')){
-            profilePicture.value =localStorage.getItem('profile_picture')
-            console.log(1144)
-            console.log(profilePicture.value)
+        //if(localStorage.getItem('profile_picture')){
+        console.log(userStore.userProfilePicture)
+            profilePicture.value =userStore.userProfilePicture.url
+            // console.log(1144)
+            // console.log(profilePicture.value)
 
-            userStore.setProfilePicture({
-                url:profilePicture.value
-            })
-        }
+            // userStore.setProfilePicture({
+            //     url:profilePicture.value
+            // })
+        //}
     }
 );
 

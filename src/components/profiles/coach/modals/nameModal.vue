@@ -114,7 +114,9 @@ import { ref, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { handleError } from '@/utils/handleError';
 import InputError from '@/components/common/input/InputError.vue';
+import { useUserStore } from '~/stores/userStore';
 
+const userStore = useUserStore();
 const props = defineProps({
     visible: Boolean,
     slug: String
