@@ -178,6 +178,14 @@ const fetchUserDetails = async () => {
         nuxtApp.$notification.triggerNotification(error.message, 'failure');
     }
 };
+
+definePageMeta({
+  ssr: false,
+  layout: 'admin',
+  middleware: ['role'],
+  requiredRole: ['admin'],
+});
+
 </script>
 
 <style scoped>
