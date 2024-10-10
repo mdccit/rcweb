@@ -17,9 +17,9 @@
                 <CoachRight :data="coachData"   :userSlug="route.params.slug"  />
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3 px-3 pt-3">
-                <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="loadInitfintePost" :commentHidden="isHidddenComment" />
-                <Connection v-if="tab === 'connection'" :playerId="coachId" @profileView="redirectPage"/>
-                <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" :commentHidden="isHidddenComment" :coacheId="coachId" />
+                <UserFeed v-if="tab == 'feed'" :posts="posts" @profileView="redirectPage" @listpost="loadInitfintePost" :commentHidden="isHidddenComment" />
+                <Connection v-if="tab == 'connection'" :playerId="coachId" @profileView="redirectPage"/>
+                <mediaTab v-if="tab == 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" :commentHidden="isHidddenComment" :coacheId="coachId" />
             </div>
         </div>
     </main>

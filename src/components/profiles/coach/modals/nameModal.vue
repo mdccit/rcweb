@@ -68,7 +68,7 @@
                                             <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profile_picture_exit.url" alt="">
                                             <!-- <button @click="removeProfile">Remove</button> -->
                                         </div>
-                                        <div class="w-full flex justify-center">
+                                        <div v-if="profile_picture_exit !=null" class="w-full flex justify-center">
                                                 <button class="p-2 rounded-lg bg-red-600 mx-auto m-2 text-white" @click="removeProfile"><svg xmlns="http://www.w3.org/2000/svg"
                                                         fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                                         stroke="currentColor" class="size-6">

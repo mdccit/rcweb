@@ -46,13 +46,13 @@
                     </div>
 
                     <div class="col-span-5">
-                        <!-- <div class="col-span-3">
+                        <div class="col-span-3">
                             <div
                                 class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
                               
                                 <CoachTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
                             </div>
-                        </div> -->
+                        </div>
                     </div>
 
                     <div class="col-span-2 mt-[70px] z-10 text-right">
@@ -130,10 +130,10 @@
                     </div>
                     <div class="col-span-5">
                         <div class="pl-3">
-                            <div
+                            <!-- <div
                                 class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
                                 <CoachTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
