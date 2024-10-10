@@ -229,6 +229,7 @@ const fetchCoachNames = async (slug) => {
 
         if(dataSets.media_info){
             profile_picture_exit.value =dataSets.media_info.profile_picture??null
+            userStore.setProfilePicture(dataSets.media_info.profile_picture)
         }
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
