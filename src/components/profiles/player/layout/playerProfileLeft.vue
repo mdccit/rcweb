@@ -6,7 +6,7 @@
             <div class="text-center">
                 <div class="relative">
                     <!-- <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profilePictureUrl" alt=""> -->
-                    <img v-if="profile_picture != null"class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profile_picture" alt="">
+                    <img v-if="profile_picture != null" class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profile_picture" alt="">
                     <img v-else class="mx-auto w-44 h-44 rounded-[30px] mt-3" src="@/assets/images/user.png" alt="">
 
                     <div v-if="loggedUserSlug == props.userSlug" @click="toggleModal('name')"
