@@ -44,7 +44,7 @@
                     </button></NuxtLink>
                 <NuxtLink to="/admin/users/9c9ad039-6106-40d6-92de-b5c7556b05a7/danger-zone"><button
                         class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 bg-gray-200">
-                       Transcript </button></NuxtLink>
+                        Transcript </button></NuxtLink>
                 <NuxtLink to="/admin/users/9c9ad039-6106-40d6-92de-b5c7556b05a7/danger-zone"><button
                         class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
                         Danger Zone </button></NuxtLink>
@@ -61,7 +61,11 @@
                         <div class="card rounded-lg bg-lightGray1 h-[300px] m-2">
                             <div class="flex">
                                 <div class="flex-1 p-3">
-                                    <div class="card rounded-lg bg-blue-400  h-[270px]"></div>
+                                    <div class="card rounded-lg bg-blue-400  h-[270px]">
+                                        <iframe class=" top-0 left-0 w-full h-full"
+                                            src="src/assets/images/sample.pdf" type="application/pdf" frameborder="0">
+                                        </iframe>
+                                    </div>
                                 </div>
                                 <div class="flex-1 pt-4">
                                     <div class="h-[225px]">
