@@ -11,7 +11,7 @@
                             <path d="M15 6l-6 6l6 6"></path>
                         </svg>
                     </NuxtLink>
-                    <h2 class="font-bold text-lg self-center text-black"> Editing: {{ businessName }} </h2>
+                    <h2 class="font-bold text-lg self-center text-black"> Editing: {{ name }} </h2>
                 </div>
             </div>
         </div>
@@ -79,11 +79,12 @@ const $adminService = nuxtApp.$adminService;
 const business_id = ref('');
 const members = ref([]); // Array to store members
 const errors = ref([]);  // Array to handle error messages
-
+const name = ref('')
 // Fetch business members on component mount
 onMounted(() => {
     business_id.value = route.query.business_id || '';
     fetchBusinessMembers(business_id.value); // Load members
+    fetchBusinessDetails()
 });
 
 // Fetch business members from the service
@@ -116,6 +117,15 @@ const triggerNotification = (message, type) => {
     }, 3000);
 };
 
+const fetchBusinessDetails = async () => {
+  try {
+    const data = await $adminService.get_business_details(business_id.value);
+    name.value = data.business_info.name;
+    
+  } catch (error) {
+    console.error('Error fetching business details:', error.message);
+  }
+};
 
 
 definePageMeta({

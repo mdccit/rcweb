@@ -345,7 +345,7 @@ const isLoading = ref(true)
 const totalItems = ref(0)
 const currentPage = ref(1)
 const lastPage = ref('')
-
+const load = ref(false)
 onMounted(async () => {
   if (process.client) {
     // Check or fetch user role
@@ -376,6 +376,7 @@ onMounted(async () => {
 });
 
 const loadInitfintePost = async () => {
+  load.value =true
   try {
     const response = await $feedService.list_posts(currentPage.value);
     if (currentPage.value == 1) {
@@ -385,17 +386,28 @@ const loadInitfintePost = async () => {
     }
     lastPage.value = response.last_page
     currentPage.value = response.current_page + 1
+  
     const idsArray = [];
     for (const post of posts.value) {
       idsArray[post.id] = false
     }
-    isHidddenComment.value = idsArray
+   // if (currentPage.value == 1) {
+      isHidddenComment.value = idsArray
+    // } else {
+    //   isHidddenComment.value.push(...idsArray);
+    // }
+    
 
   } catch (error) {
     console.error('Failed to load posts:', error.message);
   } finally {
     isLoading.value = false; // Turn off loading once posts are fetched
   }
+  setTimeout(()=>{
+    load.value =false
+  },10000)
+  
+
 }
 
 const handleScroll = () => {
@@ -617,7 +629,10 @@ const onScroll = (event) => {
   if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
     if (posts.value.length != displayedItems.value.length) {
       if (currentPage.value <= lastPage.value && !isLoading.value) {
-        loadInitfintePost();
+        if(load.value == false){
+          loadInitfintePost();
+        }
+        
       }
 
     }
