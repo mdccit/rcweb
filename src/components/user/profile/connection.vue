@@ -20,7 +20,7 @@
                                 <div class="text-sm ml-2 text-green-500">{{ connection.sport_name ?? '' }} {{
                                     connection.role }}</div>
                             </div>
-                            <div class="flex items-center space-x-2">
+                            <div v-if="connection.city|| connection.country " class="flex items-center space-x-2">
                                 <div class=" rounded">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-black mr-1">
