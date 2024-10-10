@@ -46,13 +46,13 @@
                     </div>
 
                     <div class="col-span-5">
-                        <!-- <div class="col-span-3">
+                        <div class="col-span-3">
                             <div
                                 class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
                               
                                 <CoachTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
                             </div>
-                        </div> -->
+                        </div>
                     </div>
 
                     <div class="col-span-2 mt-[70px] z-10 text-right">
@@ -86,7 +86,7 @@
                                             class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                             {{ connectionButtonName }}
                                         </button>
-                                        <div v-if="connectionButtonName == 'Accept connection'" class="text-white">
+                                        <div v-if="connectionButtonName =='Accept'" class="text-white">
                                             <button @click="connectReject"
                                                 class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Reject
@@ -130,10 +130,10 @@
                     </div>
                     <div class="col-span-5">
                         <div class="pl-3">
-                            <div
+                            <!-- <div
                                 class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
                                 <CoachTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -192,7 +192,7 @@ const profile_picture = ref(null);
 const userSlug = ref('')
 const sameUser = ref(false)
 const cover_picture = ref(null);
-
+const joinDate = ref('')
 // Import the default profile picture
 import defaultCoverPicture from '@/assets/images/default_cover.png';
 import defaultProfilePicture from '@/assets/images/user.png';

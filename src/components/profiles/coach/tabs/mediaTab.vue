@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Upload Media Section -->
-    <form @submit.prevent="uploadMedia" class="upload-form" v-if="loggedUserSlug == props.userSlug">
+    <form  @submit.prevent="uploadMedia" class="upload-form" v-if="loggedUserSlug == props.userSlug">
       <div
         class="upload-section mb-4 border-2 border-dashed border-blue-500 rounded-lg p-4 bg-blue-50 hover:bg-blue-100">
         <label for="media-upload" class="cursor-pointer flex flex-col items-center justify-center">
@@ -102,7 +102,7 @@ const userStore = useUserStore();
 const files = ref([]); // To hold the uploaded files
 const loggedUserSlug = ref('');
 const loadingStates = ref({});
-
+const user_id = ref('')
 const emit = defineEmits(['uploadCompleted']); // Define the event
 
 const loading = ref(false);
@@ -113,6 +113,7 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  coacheId:String
 });
 
 
@@ -285,6 +286,7 @@ onMounted(() => {
     },
   });
 
+  user_id.value = userStore.user.user_id
 
   if (process.client) {
     loggedUserSlug.value = localStorage.getItem('user_slug');

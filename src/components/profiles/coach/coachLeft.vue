@@ -188,7 +188,8 @@ const loading = ref(false);
 const router = useRouter();
 const route = useRoute();
 const slug = ref('');
-
+const joinDate = ref('')
+const profile_picture= ref({})
 router.beforeEach((to, from, next) => {
     loading.value = true;
     next();
@@ -220,6 +221,7 @@ watch(
 );
 
 const setBio = () => {
+
     let fullBio = props.data.bio || ''; // This ensures fullBio is at least an empty string
     bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
     seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
@@ -262,9 +264,11 @@ const fetchUserDetails = async () => {
         const dataSets = await $publicService.get_user_profile(route.params.slug);
         if (dataSets.user_basic_info) {
 
-            props.data.bio = dataSets.user_basic_info.bio ?? "User has not entered bio"
+           let newBio = dataSets.user_basic_info.bio ?? "User has not entered bio"
             props.data.name = dataSets.user_basic_info.display_name ?? "User has not entered name";
-
+            bio.value = newBio.length > 100 ? newBio.substring(0, 100) + '...' : newBio;
+            seeMoreBtnHide.value = newBio.length > 100 ? true + '...' : false;
+           isBioExpanded.value = false
             const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
             const today = new Date();
             let age = today.getFullYear() - birthDate.getFullYear();

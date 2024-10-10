@@ -163,13 +163,13 @@
                                 aria-labelledby="dropdownUserAvatarButton">
                                 <li>
                                     <NuxtLink @click="gotoAdminDashboard"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                         Admin Dashboard</NuxtLink>
                                 </li>
                             </ul>
                             <div class="py-2">
                                 <NuxtLink @click="logout"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                    class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                     Sign out</NuxtLink>
                             </div>
                         </div>
@@ -313,17 +313,18 @@ onMounted(() => {
 
 
 watch(
-    () => localStorage.getItem('profile_picture'),
+    () => userStore.userProfilePicture,
     () => {
-        if(localStorage.getItem('profile_picture')){
-            profilePicture.value =localStorage.getItem('profile_picture')
-            console.log(1144)
-            console.log(profilePicture.value)
+        //if(localStorage.getItem('profile_picture')){
+        console.log(userStore.userProfilePicture)
+            profilePicture.value =userStore.userProfilePicture.url
+            // console.log(1144)
+            // console.log(profilePicture.value)
 
-            userStore.setProfilePicture({
-                url:profilePicture.value
-            })
-        }
+            // userStore.setProfilePicture({
+            //     url:profilePicture.value
+            // })
+        //}
     }
 );
 
