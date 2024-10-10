@@ -209,7 +209,6 @@ watch(countries, (newVal) => {
 });
 
 watch(country_codes, (newVal) => {
-    console.log('Watcher triggered for country codes:', newVal.length);  // Log length of country codes
     if (newVal.length > 0 && phone_code_country.value === null && dataSets.user_phone_info) {
         phone_code_country.value = dataSets.user_phone_info.id ?? null;
     }
@@ -219,19 +218,20 @@ watch(country_codes, (newVal) => {
 const fetchCoachContact = async () => {
     try {
         const dataSets = await $publicService.get_user_profile(props.slug);
-        if (dataSets.user_address_info) {
-            country.value = dataSets.user_address_info.country_id ?? null;
-
+        if (dataSets.user_address_info) {           
+            console.log(dataSets.user_address_info)
             city.value = dataSets.user_address_info.city ?? 'User has not entered city';
             address_line_1.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01';
             address_line_2.value = dataSets.user_address_info.address_line_2 ?? '';
             state_province.value = dataSets.user_address_info.state_province ?? 'User has not entered state provice';
             postal_code.value = dataSets.user_address_info.postal_code ?? 'User has not entered postal code';
+            country.value = dataSets.user_address_info.country_id ?? null;
+
         }
 
         if (dataSets.user_phone_info) {
             phone_number.value = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number';
-            phone_code_country.value = dataSets.user_phone_info.id ?? null;
+            phone_code_country.value = dataSets.user_phone_info.country_id ?? null;
         }
 
         if (dataSets.user_basic_info) {

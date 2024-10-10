@@ -264,13 +264,18 @@ const updatePlayerCoreValues = async () => {
             national_ranking: nationalRanking.value ?? null
         };
         const response = await $userService.update_player_core_values(request_body);  // Pass slug and request body
+        console.log("response")
+        console.log(response)
+
         if (response.status == '200') {
             loading.value = false;
             clearCoreValues();
             // Trigger success notification
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
             // Emit close event to parent to close the modal
-            emit('close', 'utr');  // Close the modal after successfully updating the bio
+            // emit('close', 'utr');  // Close the modal after successfully updating the bio
+            // emit('utr');
+            emit('close','utr')
         } else {
             loading.value = false;
             handleError(response, errors, notificationMessage, notification_type, showNotification, loading);
