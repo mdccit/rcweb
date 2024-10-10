@@ -204,8 +204,8 @@ const loadInitfintePost = async () =>{
     try {
       //  isLoading.value = true;
       const response = await $feedService.list_posts(currentPage.value);
-      //const filteredData = response.filter(item => item.user_id === coachId.value);
-       posts.value.push(...response.data);
+      const filteredData = response.data.filter(item => item.user_id === coachId.value);
+       posts.value.push(...filteredData);
 
       lastPage.value =response.last_page
       currentPage.value =response.current_page +1
