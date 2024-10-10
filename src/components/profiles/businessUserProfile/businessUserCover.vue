@@ -4,7 +4,7 @@
             <img v-if="props.data.cover == null" class="w-full h-[400px] rounded-xl" src="@/assets/images/covrss.jpg" alt="">
             <img v-if="props.data.cover != null" class="w-full h-[400px] rounded-xl" :src="props.data.cover.url" alt="">
             <!-- Wrapper for the SVG to position it absolutely -->
-            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md">
+            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] w-6 h-6 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
                     stroke="currentColor" class="size-3">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -26,7 +26,7 @@
 
                                 <!-- SVG Wrapper positioned at the bottom right of the image -->
                                 <div
-                                    class="absolute bottom-0 right-0 mb-[10px] mr-[10px] cursor-pointer bg-white p-1 rounded-md">
+                                    class="absolute bottom-0 right-0 mb-[10px] mr-[10px] w-6 h-6 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -84,7 +84,7 @@
 
                                 <div class="color-white" v-if="buttonHide == false">
                                     <button @click="connectAcceptOrConnect"
-                                        class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                        class="bg-blue-500 text-white rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                         {{ connectionButtonName }} 
                                     </button>
                                     <div v-if="connectionButtonName == 'Accept connection'" class="text-white">

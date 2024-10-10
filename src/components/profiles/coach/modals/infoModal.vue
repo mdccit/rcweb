@@ -17,14 +17,16 @@
                                     <div class="mt-2 grid grid-cols-2 gap-4">
                                         <!-- Nationality -->
                                         <div>
+
                                             <label for="nationality"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Nationality<span
                                                     class="text-red-600">*</span></label>
-                                            <NationalityDropdown :nationalities="nationalities" v-model="nationality"
-                                                id="nationality" required />
-                                            <InputError
-                                                :error="errors.nationality ? errors.nationality.join(', ') : ''" />
-
+                                            <div class="flex rounded-lg border border-gray-300 shadow-sm w-100">
+                                                <NationalityDropdown :nationalities="nationalities"
+                                                    v-model="nationality" id="nationality" required />
+                                                <InputError
+                                                    :error="errors.nationality ? errors.nationality.join(', ') : ''" />
+                                            </div>
                                         </div>
 
 
