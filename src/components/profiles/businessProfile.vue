@@ -123,7 +123,7 @@
             <section class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
                 <!-- Start Profile pic section  -->
                 <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
-                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mb-4">
+                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mb-4">
                         <div class="flex items-center justify-between">
 
                             <div class="flex items-center space-x-4 w-48">

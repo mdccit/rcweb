@@ -3,7 +3,8 @@
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="flex w-full justify-between gap-8">
                 <div class="flex items-center gap-4">
-                    <NuxtLink to="/admin/schools"><svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                    <NuxtLink :to="{ path: '/school/schoolGeneralDetails', query: { action: 'edit' ,school_id: school_id } }">
+                        <svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg"
                             width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                             fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M15 6l-6 6l6 6"></path>

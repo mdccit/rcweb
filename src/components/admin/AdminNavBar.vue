@@ -45,31 +45,31 @@
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                   <li>
                     <NuxtLink to="/admin/users"
-                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      class=" cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> All </div>
                     </NuxtLink>
                   </li>
                   <li>
                     <NuxtLink
-                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> Players </div>
                     </NuxtLink>
                   </li>
                   <li>
                     <NuxtLink
-                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> Coaches </div>
                     </NuxtLink>
                   </li>
                   <li>
                     <NuxtLink
-                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> Admin </div>
                     </NuxtLink>
                   </li>
                   <li>
                     <NuxtLink
-                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> Business User </div>
                     </NuxtLink>
                   </li>
@@ -130,21 +130,22 @@
               <div class="flex items-center"> Transcripts </div>
             </NuxtLink> -->
             <NuxtLink @click="login" v-if="!isLoggedIn"
-              class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Login </div>
             </NuxtLink>
             <NuxtLink @click="register" v-if="!isLoggedIn"
-              class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Register </div>
             </NuxtLink>
             <NuxtLink  to="/app"
-              class=" inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer  inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center  cursor-pointer"> Profile </div>
             </NuxtLink>
             <NuxtLink @click="logout" v-if="isLoggedIn" 
-              class=" inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              <div class="flex items-center cursor-pointer"> Logout </div>
+              class="cursor-pointer  inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+              <div class="flex items-center cursor-pointer"> Logout  </div>
             </NuxtLink>
+            
 
           </div>
           <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -152,13 +153,13 @@
               <div style="position: relative;">
                 <div>
                   <button type="button" aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdown"
-                    class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                    class="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                     <!-- <img class="h-8 w-8 rounded-full object-cover"
                       src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin"> -->
-                      <img class="h-8 w-8 rounded-full object-cover"
+                      <img  v-if="profilePicture == 'null'" class="h-8 w-8 rounded-full object-cover"
                                         src="@/assets/images/user.png" alt="">
-                                    <!-- <img v-if="profilePicture != null" class="h-8 w-8 rounded-full object-cover"
-                                        :src="profilePicture" alt=""> -->
+                      <img v-if="profilePicture != 'null'" class="h-8 w-8 rounded-full object-cover"
+                                        :src="profilePicture" alt="">
                   </button>
                 </div>
                 <div>
@@ -185,14 +186,14 @@
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
               <li>
                 <NuxtLink @click="profile" v-if="isLoggedIn"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                  class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                   <div class="flex items-center"> Profile </div>
                 </NuxtLink>
               </li>
               <li>
                 <NuxtLink @click="logout" v-if="isLoggedIn"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
-                  <div class="flex items-center"> Logout </div>
+                  class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                  <div class="flex items-center"> Logout</div>
                 </NuxtLink>
               </li>
             </ul>
@@ -208,23 +209,23 @@
           </NuxtLink> -->
           <div class="pl-8">
             <NuxtLink to="/admin/users"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               All Users
             </NuxtLink>
             <NuxtLink to="/admin/users?filter%5Brole%5D=player"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Players
             </NuxtLink>
             <NuxtLink to="/admin/users?filter%5Brole%5D=coach"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Coaches
             </NuxtLink>
             <NuxtLink to="/admin/users?filter%5Brole%5D=admin"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Admins
             </NuxtLink>
             <NuxtLink to="/admin/schools"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Schools
             </NuxtLink>
           </div>
@@ -234,15 +235,15 @@
           </NuxtLink> -->
           <div class="pl-8">
             <NuxtLink to="/admin/newsletter"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Newsletter
             </NuxtLink>
             <NuxtLink to="/admin/blog"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Blog
             </NuxtLink>
             <NuxtLink to="/admin/events"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Events
             </NuxtLink>
             <NuxtLink to="/admin/resources"
@@ -251,7 +252,7 @@
             </NuxtLink>
           </div>
           <NuxtLink to="/admin/moderation?filter%5Bis_closed%5D=0"
-            class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+            class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
             <span class="flex items-center"> Moderation </span>
           </NuxtLink>
 
@@ -261,7 +262,7 @@
 
           <NuxtLink to="/app">
             <button id="dropdownUserButton" data-dropdown-toggle="dropdownUser"
-              class="flex items-center text-sm font-medium text-gray-800 hover:text-gray-900" type="button">
+              class="cursor-pointer flex items-center text-sm font-medium text-gray-800 hover:text-gray-900" type="button">
               <img class="h-10 w-10 rounded-full object-cover mr-3"
                 src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin" />
               <span>Admin</span>
@@ -281,19 +282,19 @@
             </div>
             <ul class="py-1 text-gray-700">
               <li>
-                <NuxtLink to="/app" class="block py-2 px-4 text-sm hover:bg-gray-100">
+                <NuxtLink to="/app" class="cursor-pointer block py-2 px-4 text-sm hover:bg-gray-100">
                   Go to Members Area
                 </NuxtLink>
               </li>
               <li>
-                <NuxtLink to="/user/profile" class="block py-2 px-4 text-sm hover:bg-gray-100">
+                <NuxtLink to="/user/profile" class="cursor-pointer block py-2 px-4 text-sm hover:bg-gray-100">
                   Profile
                 </NuxtLink>
               </li>
             </ul>
             <div class="py-1">
               <form>
-                <button type="submit" class="block w-full py-2 px-4 text-sm text-left hover:bg-gray-100">
+                <button type="submit" class="cursor-pointer block w-full py-2 px-4 text-sm text-left hover:bg-gray-100">
                   Log Out
                 </button>
               </form>
@@ -334,6 +335,7 @@ const closeDropdown = (event) => {
 
 const logout = async () => {
   try {
+    router.push('/login');
 
     const token = localStorage.getItem('token');  // Retrieve the token from local storage
 
@@ -430,6 +432,20 @@ watch(
   },
 )
 
+watch(
+    () => localStorage.getItem('profile_picture'),
+    () => {
+        if(localStorage.getItem('profile_picture')){
+            profilePicture.value =localStorage.getItem('profile_picture')
+            console.log(1144)
+            console.log(profilePicture.value)
+
+            userStore.setProfilePicture({
+                url:profilePicture.value
+            })
+        }
+    }
+);
 
 const login = () => {
   console.log('login push');

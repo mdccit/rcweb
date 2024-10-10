@@ -2,13 +2,13 @@
     <header class="bg-gray-200">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="flex w-full justify-between gap-8">
-                <div class="flex items-center gap-4"><a href="#"><svg
+                <div  @click="redirectBack" class="flex items-center gap-4"><svg
                             class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M15 6l-6 6l6 6"></path>
-                        </svg></a>
-                    <h2 class="font-bold text-lg self-center"> Editing:User Name </h2>
+                        </svg>
+                    <h2 class="font-bold text-lg self-center"> Editing:{{ userName }} </h2>
                 </div>
                 <div class="">
                     <!-- <a href="#"><button
@@ -321,6 +321,13 @@ const isDeleted = async () =>{
     });
 }
 
+const redirectBack = async () =>{
+   console.log("redirect")
+    router.push({
+      path: '/admin/moderation',
+
+    });
+}
 const comments = async () => {
     try {
         const dataSets = await $adminService.morderation_comment_add({
