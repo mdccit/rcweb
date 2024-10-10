@@ -12,6 +12,7 @@
   </div>
 </template>
 
+
 <script setup>
 import { ref, onMounted } from 'vue';
 import { loadStripe } from '@stripe/stripe-js';
@@ -38,30 +39,22 @@ const stripe = ref(null);
 const cardElement = ref(null);
 const cardError = ref('');
 const loading = ref(false);
-const token = route.params.token; // Get token from route params
-// OnMounted, retrieve clientSecret and setupIntentId from store using token
+const customer_token = route.params.token;
 const clientSecret = ref('');
 const setupIntentId = ref('');
 
 onMounted(async () => {
   // Get stored data from packageStore using token
-  const paymentData = packageStore.getPaymentDataByToken(token);
 
+  clientSecret.value = localStorage.getItem('setupIntentClientSecret');
+  setupIntentId.value = localStorage.getItem('setupIntentId');
 
-  if (paymentData) {
-    console.log('payment data exist');
-    console.log(paymentData);
-    clientSecret.value = paymentData.clientSecret;
-    setupIntentId.value = paymentData.setupIntentId;
+  // Load Stripe and mount the card element
+  stripe.value = await loadStripe('pk_test_51Q5IlqB1aCt3RRccXbVS8aYnSTynl0TufY4s4mPxlYeZKbZrX2YpKxkwMBbeitKm8iWBAyWwWzcLyYByyE9sGegG00OJSEbT2i');
+  const elements = stripe.value.elements();
+  cardElement.value = elements.create('card');
+  cardElement.value.mount('#card-element');
 
-    // Load Stripe and mount the card element
-    stripe.value = await loadStripe('pk_test_51Q5IlqB1aCt3RRccXbVS8aYnSTynl0TufY4s4mPxlYeZKbZrX2YpKxkwMBbeitKm8iWBAyWwWzcLyYByyE9sGegG00OJSEbT2i');
-    const elements = stripe.value.elements();
-    cardElement.value = elements.create('card');
-    cardElement.value.mount('#card-element');
-  } else {
-    console.error('No payment data found for the provided token');
-  }
 
 
 });
@@ -82,16 +75,19 @@ const confirmPayment = async () => {
       throw new Error(result.error.message);
     }
 
-    const paymentMethodId = result.setupIntent.payment_method;
+    // Handle further actions if required (e.g., 3D Secure)
+    if (result.setupIntent && result.setupIntent.status === 'requires_action') {
+      const actionResult = await stripe.value.handleCardAction(result.setupIntent.client_secret);
+      if (actionResult.error) {
+        cardError.value = actionResult.error.message;
+        throw new Error(actionResult.error.message);
+      }
+    }
 
-    // Call the backend to confirm setup intent
-    const setupIntentConfirmation = await packageStore.confirmSetupIntent(
-      setupIntentId.value,
-      paymentMethodId,
-      clientSecret.value
-    );
+    // Once the SetupIntent has succeeded, we proceed without calling confirmSetupIntent again
+    if (result.setupIntent.status === 'succeeded') {
+      const paymentMethodId = result.setupIntent.payment_method;
 
-    if (setupIntentConfirmation.status === 'success') {
       // Now create the subscription
       const subscriptionDetails = {
         subscription_type: 'monthly',
@@ -99,7 +95,7 @@ const confirmPayment = async () => {
         payment_method_id: paymentMethodId,
       };
 
-      const subscription = await packageStore.createSubscription(subscriptionDetails);
+      const subscription = await $authService.createSubscription(subscriptionDetails);
 
       if (subscription.status === 'success') {
         console.log('Subscription created successfully');
@@ -107,12 +103,14 @@ const confirmPayment = async () => {
         throw new Error(subscription.message);
       }
     } else {
-      throw new Error('Failed to confirm Setup Intent.');
+      throw new Error('Failed to complete payment process.');
     }
+
   } catch (error) {
     console.error('Error during payment process:', error);
   } finally {
     loading.value = false;
   }
 };
+
 </script>

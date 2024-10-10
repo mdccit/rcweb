@@ -48,10 +48,8 @@ export const usePackageStore = defineStore('package', {
     setSetupIntentData(clientSecret, setupIntentId) {
       this.setupIntentClientSecret = clientSecret;
       this.setupIntentId = setupIntentId;
-      if (process.client) {
         localStorage.setItem('setupIntentClientSecret', clientSecret);
         localStorage.setItem('setupIntentId', setupIntentId);
-      }
     },
 
     setPaymentToken(token) {

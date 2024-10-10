@@ -44,13 +44,6 @@
           </div>
         </div>
 
-        <!-- Card Element -->
-        <div id="card-element" class="border p-4 rounded-md mt-4"></div>
-        <span v-if="cardError" class="text-red-500 text-sm">{{ cardError }}</span>
-
-        <!-- Error Message -->
-        <span v-if="errors.pkg" class="text-red-500 text-sm">{{ errors.pkg }}</span>
-
         <!-- Submit Button -->
         <div class="flex items-center justify-end mt-6">
           <button type="submit"
@@ -88,13 +81,10 @@ const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 const router = useRouter(); // Initialize router
 const packageStore = usePackageStore();
-const stripe = ref(null);
-const cardElement = ref(null);
 const selectedPackage = ref('');
 const errors = ref({});
 const loading = ref(false);
 const stripeCustomerId = ref('');
-const cardError = ref('');
 
 
 // Simulating packages - You can fetch this from an API instead
@@ -119,11 +109,7 @@ const packages = [
 
 // Fetch Stripe Customer ID on component load
 onMounted(async () => {
-  stripe.value = await loadStripe('pk_test_51Q5IlqB1aCt3RRccXbVS8aYnSTynl0TufY4s4mPxlYeZKbZrX2YpKxkwMBbeitKm8iWBAyWwWzcLyYByyE9sGegG00OJSEbT2i');
 
-  const elements = stripe.value.elements();
-  cardElement.value = elements.create('card');
-  cardElement.value.mount('#card-element');
 
 });
 

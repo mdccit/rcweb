@@ -1,7 +1,6 @@
 import { defineNuxtConfig } from 'nuxt/config';
 import { resolve } from 'path';
 import dotenv from 'dotenv';
-import customRoutes from './src/config/routes'
 dotenv.config();
 
 export default defineNuxtConfig({
