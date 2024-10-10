@@ -1,7 +1,7 @@
 <template>
-    <div class="p-2" >
+    <div class="p-3 pt-6" >
         <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
-            <div class="h-[80px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 h-auto">
+            <div class="h-[80px] card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 h-auto">
                 <div class="grid grid-cols-3 gap-4">
                     <div class="... text-center">
                         <img class="mx-auto w-[60px] h-[60px] rounded-full " src="@/assets/user/images/whittier.png"

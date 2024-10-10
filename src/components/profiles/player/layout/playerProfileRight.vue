@@ -71,9 +71,9 @@
             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
                 <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                    <div class="cursor-pointer mr-[20px]"  v-if="loggedUserSlug == props.userSlug"  @click="toggleModal('utr')">
+                    <div class="w-6 h-6 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue mr-[20px]"  v-if="loggedUserSlug == props.userSlug"  @click="toggleModal('utr')">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="size-4 text-white rounded-sm m-2">
+                            stroke="currentColor" class="size-4">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                         </svg>
@@ -109,8 +109,7 @@
                                 <!-- <<p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">WTN</p> -->
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
                     class="mb-4 text-sm">ACT</p>
-                <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="mb-4 text-sm">ACT</p>
+               
                 <p class="mb-4 text-sm">National Ranking</p>
             </div>
             <div class="">
@@ -129,8 +128,6 @@
                 <p class="mb-4 text-sm">{{  props.data.atp }}</p>
                 <p class="mb-4 text-sm">{{  props.data.itf }}</p>
                                 <!-- <<p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ wtn }}</p> -->
-                <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="mb-4 text-sm">{{  props.data.act }}</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
                     class="mb-4 text-sm">{{  props.data.act }}</p>
                 <p class="mb-4 text-sm">{{  props.data.nationalRanking }}</p>
@@ -154,10 +151,12 @@ import UTRModal from '~/components/profiles/player/modals/utrModal.vue';
 
 const userStore = useUserStore();
 const loggedUserSlug = ref('');
-
+const route = useRoute();
 
 defineNuxtRouteMiddleware(checkSession);
 const nuxtApp = useNuxtApp();
+const $publicService = nuxtApp.$publicService;
+
 const loading = ref(false);
 const router = useRouter();
 
@@ -229,8 +228,8 @@ const handleModalClose = (modalName) => {
 const fetchUserDetails = async (slug) => {
     try {
        
-        const dataSets = await $publicService.get_user_profile(route.params.slug);
-  
+        const dataSets = await $publicService.get_player(route.params.slug);
+        console.log(dataSets)
         if (dataSets.player_info) {
             props.data.utr = dataSets.player_info.other_data.utr ?? 0
             props.data.gpa = dataSets.player_info.gpa ?? "Unknown"

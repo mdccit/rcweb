@@ -2,13 +2,13 @@
     <header class="bg-gray-200">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="flex w-full justify-between gap-8">
-                <div class="flex items-center gap-4"><a href="https://qa1.recruited.qualitapps.com/admin/users"><svg
+                <div class="flex items-center gap-4"><a href="/admin/users"><svg
                             class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M15 6l-6 6l6 6"></path>
                         </svg></a>
-                    <h2 class="font-bold text-lg self-center"> Editing:User Name </h2>
+                    <h2 class="font-bold text-lg self-center"> Editing: {{  first_name + ' ' + last_name }} </h2>
                 </div>
                 <div class="">
                     <a href="#"><button type="submit"
@@ -344,7 +344,8 @@ const notification_type = ref('');
 const errors = ref([]);
 const profile = ref(null)
 const profile_image = ref('')
-const fileError = ref('')
+const fileError = ref('');
+const storedUserName = ref('');
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -364,6 +365,7 @@ onMounted(() => {
     // Update the refs directly
     action.value = route.query.action || 'view';
     user_id.value = route.query.user_id || '';
+    storedUserName.value = localStorage.getItem('user_name');
 
     if (action.value === 'view' || action.value === 'edit') {
         fetchUserDetails(user_id.value);
@@ -371,7 +373,6 @@ onMounted(() => {
 });
 
 const resendVerificationEmail = async () => {
-    console.log('adfhjka');
     loading.value = true;
     try {
         const response = await $authService.resendVerificationEmail(user_id.value);
@@ -426,8 +427,6 @@ const updateUserDetails = async () => {
             phone_code_country: phone_code_country.value,
             phone_number: phone_number.value,
         });
-
-        await updateUserProfile()
         if (response.status === 200) {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
@@ -523,6 +522,7 @@ const handleFileChange = (event) => {
         // If all validations pass, set the file to the reactive variable
         fileError.value = ''; // Clear any previous errors
         profile_image.value = file; // Store the selected file
+        updateUserProfile()
     }
 };
 
@@ -534,7 +534,12 @@ const updateUserProfile = async () => {
     }
     try {
         const response = await $adminService.user_profile(id.value,profile_image.value);
-   
+        if (response.status === 200) {
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+        } else {
+            nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+        }
+        fetchUserDetails(user_id.value)
     } catch (error) {
         console.log(error)
     }
