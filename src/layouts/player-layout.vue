@@ -19,7 +19,7 @@
           <!-- Content changes based on the selected tab -->
           <UserFeed v-if="tab === 'feed'" :posts="posts" @listpost="loadInitfintePost" :commentHidden="isHidddenComment"/>
           <Connection v-if="tab === 'connection'" :playerId="playerID" @profileView="redirectPage" />
-          <mediaTab v-if="tab === 'media'" :userSlug="route.params.slug" @uploadCompleted="refreshGallery" />
+          <mediaTab v-if="tab === 'media'" :userSlug="route.params.slug" @uploadCompleted="refreshGallery" :playerId="playerID" />
 
         </div>
         <div>
