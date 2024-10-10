@@ -48,7 +48,7 @@
 
                 <!-- card 01 -->
                 <div v-for="user in search" class="col-span-3 p-2"> 
-                    <button  class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+                    <button  class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
                         <NuxtLink :to="`/app/profile/${user.slug}`">
                             <div class=" grid grid-cols-12 gap-4">
                                 <div class="col-span-4">
