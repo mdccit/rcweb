@@ -55,7 +55,7 @@
                       <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
                     </button>
                     <div v-if="post.school_id != null" class="text-darkSlateBlue text-xs">Coach at {{ post.school_id !=
-      null ? post.school.name : '' }}</div>
+                      null ? post.school.name : '' }}</div>
                     <div v-if="post.school_id == null" class="text-darkSlateBlue text-xs">{{ getTimeAgo(post.updated_at)
                       }}</div>
 
@@ -118,11 +118,12 @@
 
                    </textarea>
               <!-- </div> -->
-              <button v-if="editingPostId == post.id" @click="startEditPost(post.id)"
-                class="mt-2 bg-steelBlue hover:bg-darkAzureBlue transition text-white px-8 py-2 rounded-lg text-sm">
-                Edit
-              </button>
-
+              <div class="flex justify-end mt-2">
+                <button v-if="editingPostId == post.id" @click="startEditPost(post.id)"
+                  class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-8 py-2 rounded-lg text-sm min-w-24">
+                  Update
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -260,8 +261,8 @@ onMounted(async () => {
 
   loading.value = true;
   await nextTick();
- // Simulate the fetching of posts with a delay to visualize loader
- await loadInitialPosts();
+  // Simulate the fetching of posts with a delay to visualize loader
+  await loadInitialPosts();
 
   window.addEventListener('scroll', onScroll);
 });
