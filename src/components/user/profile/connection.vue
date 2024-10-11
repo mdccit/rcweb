@@ -3,8 +3,8 @@
     <div class="grid grid-cols-6">
         <div v-for="connection in connections" class="col-span-3 p-2 ">
             <button >
-                <div class="bg-white p-4 border rounded-2xl">
-                    <div class=" grid grid-cols-12 gap-4">
+                <div class="bg-white p-4 border rounded-2xl"  @click="redirect(`/app/profile/${connection.slug}`)">
+                    <button class=" grid grid-cols-12 gap-4">
                         <div class="col-span-3">
                             <img v-if="connection.profile_picture == null" class=" rounded-2xl w-[85px] h-[85px]"
                                 src="@/assets/images/user.png" alt="Neil image">
@@ -49,7 +49,7 @@
                         <div class="col-span-3">
                             <!-- <h4 class="text-black">UTR <span class="text-blue-500">30.01</span></h4> -->
                         </div>
-                    </div>
+                    </button>
                     <div class="flex mt-2">
                         <div class="flex-1">
                             <div class="flex items-center space-x-2 mb-2">
@@ -106,7 +106,7 @@
                                     </svg>
                                 </button>
                             
-                                <div id="dropdownmore"
+                                <div id="dropdownmore"  
                                     class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                         aria-labelledby="dropdownDefaultButton">
