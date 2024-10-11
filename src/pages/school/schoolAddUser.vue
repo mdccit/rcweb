@@ -138,7 +138,12 @@ const options = {
 const searchUsers = async () => {
   try {
     const search_key = searchQuery.value || '';  // If searchQuery is empty, use an empty string
+    console.log(search_key)
+
     const response = await $adminService.search_school_users(school_id.value, options.page, options.per_page_items, search_key);
+    console.log(555)
+    console.log(response)
+
     if (response && response.dataSets && response.dataSets.data) {
       users.value = response.dataSets.data || [];  // Set users from the response
     } else {

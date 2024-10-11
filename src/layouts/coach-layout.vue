@@ -17,9 +17,9 @@
                 <CoachRight :data="coachData"   :userSlug="route.params.slug"  />
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3 px-3 pt-3">
-                <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="loadInitfintePost" :commentHidden="isHidddenComment" />
-                <Connection v-if="tab === 'connection'" :playerId="coachId" @profileView="redirectPage"/>
-                <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" :commentHidden="isHidddenComment" />
+                <UserFeed v-if="tab == 'feed'" :posts="posts" @profileView="redirectPage" @listpost="newLoader" :commentHidden="isHidddenComment" />
+                <Connection v-if="tab == 'connection'" :playerId="coachId" @profileView="redirectPage"/>
+                <mediaTab v-if="tab == 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" :commentHidden="isHidddenComment" :coacheId="coachId" />
             </div>
         </div>
     </main>
@@ -74,7 +74,7 @@ const birthDay = ref('');
 const currentPage = ref(1)
 const lastPage  =ref('')
 const isHidddenComment = ref([])
-
+const load = ref(false)
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
     showNotification.value = nuxtApp.$notification.showNotification.value;
@@ -200,12 +200,19 @@ const closeNotification = () => {
 //   }
 // }
 
+const newLoader = ()=>{
+  if(load.value ==false){
+    loadInitfintePost()
+  }
+}
+
 const loadInitfintePost = async () =>{
+  load.value = true
     try {
       //  isLoading.value = true;
       const response = await $feedService.list_posts(currentPage.value);
-      //const filteredData = response.filter(item => item.user_id === coachId.value);
-       posts.value.push(...response.data);
+      const filteredData = response.data.filter(item => item.user_id === coachId.value);
+       posts.value.push(...filteredData);
 
       lastPage.value =response.last_page
       currentPage.value =response.current_page +1
@@ -219,6 +226,9 @@ const loadInitfintePost = async () =>{
        //isLoading.value = false;
       console.error('Failed to load posts:', error.message);
     }
+    setTimeout(()=>{
+      load.value =false
+    },10000)
   }
 
 const redirectPage = (url) =>{

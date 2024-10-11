@@ -10,7 +10,7 @@
                             <path d="M15 6l-6 6l6 6"></path>
                         </svg>
                     </NuxtLink> -->
-                    <h2 class="font-bold text-black text-lg self-center"> All users </h2>
+                    <h2 class="font-bold text-black text-lg self-center"> {{ role }} users </h2>
                 </div>
                 <div>
                     <button type="submit" class=" border rounded-full shadow-sm font-bold py-2.5 px-8 
@@ -52,11 +52,14 @@
 
 
 <script setup>
-import { ref } from 'vue';
+import { ref ,watch , onMounted} from 'vue';
 import AdminUserTable from '~/components/tables/AdminUserTable.vue';
 import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.vue';
 import { useUserStore } from '~/stores/userStore';
+import { useRoute } from 'vue-router';
+
 const userStore = useUserStore();
+const route = useRoute(); // Use useRoute to access query parameters
 
 const showModal = ref(false);
 
@@ -68,6 +71,8 @@ const openModal = () => {
     modalRef.value.openModal();
 };
 
+const role = ref('All')
+
 definePageMeta({
     ssr: false,
     layout: 'admin',
@@ -75,4 +80,35 @@ definePageMeta({
     requiredRole: ['admin'],
 });
 
+watch(
+    () => route.query.role,
+    () => {
+        if(route.query.role ==1){
+            role.value ="All"
+        }
+
+        if(route.query.role ==2){
+            role.value ="Admin"
+        }
+
+        if(route.query.role ==4){
+            role.value ="Players"
+        }
+        if(route.query.role ==5){
+            role.value ="Coaches"
+        }
+        if(route.query.role ==7){
+            role.value ="Parent"
+        }
+        if(route.query.role ==6){
+            role.value ="Business"
+        }
+        
+       
+    }
+);
+
+onMounted(()=>{
+    console.log(route.query.role )
+})
 </script>

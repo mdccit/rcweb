@@ -10,16 +10,16 @@
     <div class="container-compressed pb-3">
       <div class="grid grid-cols-6 gap-4 temp-row grid-rows-[70px_auto] mt-16 pt-4">
         <div class="row-span-2 col-span-1 ">
-          <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  />
+          <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  @updateData="fetchUserDetails" />
         </div>
         <div class="col-start-2 col-span-5 mt-4">
           <playerProfileHedarer @changeTab="setSelectedTab" :playerId="playerID" :userSlug="route.params.slug" />
         </div>
         <div class="col-start-2 col-span-4 bg-brown-500">
           <!-- Content changes based on the selected tab -->
-          <UserFeed v-if="tab === 'feed'" :posts="posts" @listpost="loadInitfintePost" :commentHidden="isHidddenComment"/>
+          <UserFeed v-if="tab === 'feed'" :posts="posts" @listpost="newLoader" :commentHidden="isHidddenComment"/>
           <Connection v-if="tab === 'connection'" :playerId="playerID" @profileView="redirectPage" />
-          <mediaTab v-if="tab === 'media'" :userSlug="route.params.slug" @uploadCompleted="refreshGallery" />
+          <mediaTab v-if="tab === 'media'" :userSlug="route.params.slug" @uploadCompleted="refreshGallery" :playerId="playerID" />
 
         </div>
         <div>
@@ -139,7 +139,7 @@ const currentPage = ref(1)
 const lastPage  =ref('')
 const isHidddenComment = ref([]);
 const childKey = ref(0);
-
+const load = ref(false)
 onMounted(() => {
     slug.value = route.params.slug;
 
@@ -371,12 +371,19 @@ const setGalleryItems = (mediaInfo) => {
 //     }
 // }
 
+
+const newLoader = ()=>{
+  if(load.value ==false){
+    loadInitfintePost()
+  }
+}
 const loadInitfintePost = async () =>{
+  load.value = true
     try {
       //  isLoading.value = true;
       const response = await $feedService.list_posts(currentPage.value);
-     // const filteredData = response.filter(item => item.user_id === playerID.value);
-       posts.value.push(...response.data);
+     const filteredData = response.data.filter(item => item.user_id === playerID.value);
+       posts.value.push(...filteredData);
 
       lastPage.value =response.last_page
       currentPage.value =response.current_page +1
@@ -390,6 +397,9 @@ const loadInitfintePost = async () =>{
       // isLoading.value = false;
       console.error('Failed to load posts:', error.message);
     }
+    setTimeout(()=>{
+      load.value =false
+    },10000)
   }
 
 const redirectPage = (url) =>{
