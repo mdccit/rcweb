@@ -2,12 +2,13 @@
     <header class="bg-gray-200">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="flex w-full justify-between gap-8">
-                <div class="flex items-center gap-4"><a href="/admin/users"><svg class="w-6 h-6 text-gray-500"
+                <div class="flex items-center gap-4">
+                    <NuxtLink to="/admin/users"><svg class="w-6 h-6 text-gray-500"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
                             stroke-linejoin="round">
                             <path d="M15 6l-6 6l6 6"></path>
-                        </svg></a>
+                        </svg></NuxtLink>
                     <h2 class="font-bold text-lg self-center"> Editing: {{ ' ' + first_name + ' ' + last_name }} </h2>
                 </div>
                 <div class="">
@@ -28,7 +29,7 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-7">
         <!-- User Edit Section Component -->
-        <userEditSection />
+        <userEditSection :user_id="user_id" />
 
         <form @submit.prevent="updateUserDetails">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
@@ -92,8 +93,7 @@
                                 class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg border border-gray-300" />
                         </div>
                     </label>
-                    <p v-if="errors.first_name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
-                        errors.first_name.join(', ') }}</p>
+                    <InputError :error="errors.first_name ? errors.first_name.join(', ') : ''" />
                 </div>
 
                 <div class="my-8"></div>
@@ -109,8 +109,7 @@
                                 v-model="last_name" name="name" type="text" data-validation-key="name"
                                 :disabled="action === 'view'" />
                         </div>
-                        <p v-if="errors.last_name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
-                            errors.last_name.join(', ') }}</p>
+                        <InputError :error="errors.last_name ? errors.last_name.join(', ') : ''" />
                     </label>
                 </div>
 
@@ -126,8 +125,8 @@
                                 v-model="other_names" name="name" type="text" data-validation-key="other-names"
                                 :disabled="action === 'view'" />
                         </div>
-                        <p v-if="errors.other_names" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
-                            errors.other_names.join(', ') }}</p>
+               
+                        <InputError :error="errors.other_names ? errors.other_names.join(', ') : ''" />
                     </label>
                 </div>
 
@@ -146,8 +145,7 @@
                                     name="email" type="text" data-validation-key="email"
                                     :disabled="action === 'view'" />
                             </div>
-                            <p v-if="errors.email" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
-                                errors.email.join(', ') }}</p>
+                            <InputError :error="errors.email ? errors.email.join(', ') : ''" />
                         </label>
                     </div>
 
@@ -167,6 +165,7 @@
                                 Email verified
                             </span>
                         </label>
+                        <InputError :error="errors.is_set_email_verified ? errors.is_set_email_verified.join(', ') : ''" />
 
                         <!-- Resend Verification Email Link aligned on the same row to the right -->
                         <div v-if="!is_set_email_verified" class="flex items-center text-black gap-2 ml-4">
@@ -194,8 +193,7 @@
                                 name="password" v-model="password" type="text" data-validation-key="password"
                                 :disabled="action === 'view'" />
                         </div>
-                        <p v-if="errors.password" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
-                            errors.password.join(', ') }}</p>
+                        <InputError :error="errors.password ? errors.password.join(', ') : ''" />
                     </label>
                 </div>
 
@@ -213,6 +211,7 @@
                                 <option value="1">Yes</option>
                                 <option value="0">No</option>
                             </select>
+                            <InputError :error="errors.is_approved ? errors.is_approved.join(', ') : ''" />
                         </div>
                     </label>
                 </div>
@@ -254,6 +253,7 @@
                                             name="phone_code" data-validation-key="phone_code"
                                             :disabled="action === 'view'" required />
                                     </div>
+                                    <InputError :error="errors.phone_code_country ? errors.phone_code_country.join(', ') : ''" />
                                 </div>
                             </label>
                         </div>
@@ -275,6 +275,7 @@
                                             v-model="phone_number" id="phone_number" step="0.01" required
                                             placeholder="123456789" :disabled="action === 'view'" />
                                     </div>
+                                    <InputError :error="errors.phone_number ? errors.phone_number.join(', ') : ''" />
                                 </label>
                             </div>
                         </div>
@@ -331,9 +332,9 @@ import userEditSection from '~/components/admin/user/userEditSections.vue';
 import { loadCountryList } from '~/services/commonService';
 import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
 import { handleError } from '@/utils/handleError';
+import InputError from '@/components/common/input/InputError.vue';
 
 const route = useRoute(); // Use useRoute to access query parameters
-
 const first_name = ref('');
 const last_name = ref('');
 const other_names = ref('');
@@ -358,6 +359,7 @@ const profile = ref(null)
 const profile_image = ref('')
 const fileError = ref('');
 const storedUserName = ref('');
+const display_name =ref('');
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -472,7 +474,7 @@ const fetchUserDetails = async (userId) => {
         phone_number.value = contact_info.phone_number || '';             // Adjust if needed
         is_set_email_verified.value = !!user.email_verified_at;
         profile.value = response.media_info.profile_picture || null;
-
+        display_name.value = response.user_basic_info.display_name
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.message, 'failure');
     }
@@ -577,6 +579,11 @@ const deleyeUserProfilePicture = async () => {
         console.log(error)
     }
 };
+
+const goBack = () =>{
+    router.back();
+}
+
 </script>
 
 <style scoped>
