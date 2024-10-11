@@ -91,37 +91,25 @@
 
         <div class="flex-1">
           <div class="space-y-4 w-full">
-            <div class="relative flex items-center justify-between p-4 bg-white rounded-lg shadow border">
+            <!-- Loop through the payment methods and display each one -->
+            <div v-for="(method, index) in paymentMethods" :key="method.id"
+              class="relative flex items-center justify-between p-4 bg-white rounded-lg shadow border">
               <div>
-                <span class="text-xs text-darkSlateBlue block">Select card</span>
-                <span class="font-semibold text-black">XXXX XXXX XXXX 4353</span>
+                <span class="text-xs text-darkSlateBlue block">Card Brand: {{ method.card.brand }}</span>
+                <span class="font-semibold text-black">XXXX XXXX XXXX {{ method.card.last4 }}</span>
+                <p class="text-xs text-gray-500">Expires {{ method.card.exp_month }}/{{ method.card.exp_year }}</p>
               </div>
-              <button class="text-red hover:text-red-700">
+              <button @click="removeCard(method.id)" class="text-red hover:text-red-700">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="size-4">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                 </svg>
-
-              </button>
-            </div>
-
-            <div class="relative flex items-center justify-between p-4 bg-white rounded-lg shadow border">
-              <div>
-                <span class="text-xs text-darkSlateBlue block">Select card</span>
-                <span class="font-semibold text-black">XXXX XXXX XXXX 4353</span>
-              </div>
-              <button class="text-red hover:text-red-700">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" class="size-4">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                </svg>
-
               </button>
             </div>
           </div>
         </div>
+
       </div>
 
     </div>
@@ -170,6 +158,7 @@ const startDate = ref('');
 const endDate = ref('');
 const activeStatus = ref('');
 const subscriptionType = ref('');
+const paymentMethods = ref([]);
 
 onMounted(async () => {
   try {
@@ -177,6 +166,10 @@ onMounted(async () => {
     const response = await $subscriptionService.get_subscription();
     subscription.value = response;
 
+    const payment_methods = await $subscriptionService.get_customer_payment_methods();
+    paymentMethods.value = payment_methods;
+
+    console.log(payment_methods)
     startDate.value = formatDate(response.start_date);
     endDate.value = formatDate(response.end_date);
     activeStatus.value = response.status;
@@ -185,6 +178,16 @@ onMounted(async () => {
   }
 });
 
+
+// Example method to handle card removal
+const removeCard = async (paymentMethodId) => {
+  try {
+    await $subscriptionService.remove_payment_method(paymentMethodId);
+    paymentMethods.value = paymentMethods.value.filter(method => method.id !== paymentMethodId);
+  } catch (error) {
+    console.error('Error removing payment method:', error);
+  }
+};
 
 // Helper function to format date from "YYYY-MM-DD HH:mm:ss" to "Y-M-d"
 function formatDate(dateString) {
