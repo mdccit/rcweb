@@ -82,7 +82,7 @@
                                         </div>
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
                                             <label for="profile_picture"
-                                                class="absolute pt-[13px] img-inputblock w-[110px] px-4 py-2 text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input">
+                                                class="absolute pt-[13px] h-[49px] img-inputblock w-[110px] px-4 py-2 text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input">
                                                 Choose file
                                             </label>
                                             <input id="profile_picture" type="file" @change="handleFileChange"

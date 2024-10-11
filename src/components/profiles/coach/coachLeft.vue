@@ -14,7 +14,7 @@
             <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
                 {{ bio }}
             </p>
-            <div v-if="seeMoreBtnHide">
+            <div class="text-blue-500 text-xs" v-if="seeMoreBtnHide">
                 <button id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
 
             </div>
