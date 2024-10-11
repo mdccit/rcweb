@@ -16,7 +16,7 @@
                         Danger Zone </button></a></div>
             <div class="my-8"></div>
 
-             <ConnectToGovermentSchool  v-if="connectToGovComponent"  @search="search" />
+            <ConnectToGovermentSchool  v-if="connectToGovComponent"  @search="search" />
 
             <div class="my-8"></div>
 
@@ -53,7 +53,7 @@ const route = useRoute(); // Use useRoute to access query parameters
 const userStore = useUserStore()
 
 // const schoolId = ref(route.params.schoolId || '9cdfa29e-22ec-4cec-bd99-040b1d34da0c');
-const schoolId = ref(route.params.schoolId || '9cdfa297-fe14-46b5-b09c-4cea71443b78');
+const schoolId = ref(route.params.schoolId || '9d15f1c1-d9b9-4a36-86a9-a2fffcde063f');
 
 const govId = ref('')
 const email = userStore.user?.email

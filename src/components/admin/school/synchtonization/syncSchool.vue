@@ -1,5 +1,5 @@
 <template>
-   <div v-if="connectShow" class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8"> This school has been matched up to a
+    <div v-if="connectShow" class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8"> This school has been matched up to a
         government school. You can now synchronize the data from their source.<br><br> Gov ID:
         <strong>{{ props.govId }}</strong><br><br><br> Wish to disconnect? <form data-splade-id="NXOBIVwqZ9sKqRVD"
             method="POST"
@@ -11,17 +11,15 @@
                     Disconnect </button></div>
             </fieldset>
            </form>
-           <br><br><br> This school was <a
-            href="https://qa1.recruited.qualitapps.com/admin/schools/9bcd594d-b596-4409-93c0-14cb4dffecc6/sync/604">
-            last synchronized 4 months ago</a>. <form data-splade-id="LBk0rcxjTOwaQQ9e" method="POST"
-            action="https://qa1.recruited.qualitapps.com/admin/schools/9bcd594d-b596-4409-93c0-14cb4dffecc6/sync/sync">
+           <br><br><br>
+            <div v-if="history  !=null" >This school was was last synchronized  {{ getTimeAgo(history.created_at) }}.</div>
+            <div v-if="history  ==null" >This school has not been synchronized yet.</div> 
             <fieldset><input type="hidden" name="_token" autocomplete="off"
                 value="SMCjyTHMYbxsRFsCUr0LzVyPfyxtnWNPTwNnlr09">
                 <div class=""><button type="button" @click="fetchSync"
                     class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
                     Synchronize now </button></div>
             </fieldset>
-        </form>
     </div>
     <div class="my-8"></div>
     <div  v-if="connectShow" class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
@@ -35,8 +33,8 @@
                     <div v-for="setting in settings"><label class="flex items-center"><input name="setting.name" @change="changeSetting(setting)"
                         type="checkbox" 
                         class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                        :value="setting.value"   :true-value="true"
-                        :false-value="false"><span
+                        :value="setting.value"   :true-value="true" :checked="setting.value"
+                        ><span
                         class="ml-4">{{ setting.label }}</span></label></div>
                    
                 </div>
@@ -47,7 +45,7 @@
             </fieldset>
     </div>
     <div class="my-8"></div>
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
+    <div v-if="connectShow" class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
         <h2 class="text-2xl font-bold">Synchronization History</h2>
         <div class="my-4"></div>
             <div class="flex flex-col">
@@ -65,9 +63,9 @@
                         <p>Details</p>
                     </div>
                 </div>
-                <div v-for=" history in history" class="flex gap-4 border-b-2 px-2 py-4">
+                <div v-if="history != null" class="flex gap-4 border-b-2 px-2 py-4">
                     <div class="w-1/4">
-                        <p>{{ history.created_at }}</p>
+                        <p>{{ getTimeAgo(history.created_at) }}</p>
                     </div>
                     <div class="w-1/4">
                         <p>{{  history.status }}</p>
@@ -97,13 +95,15 @@ const $adminService = nuxtApp.$adminService;
 
 const showModal = ref(false)
 const disConeected =ref(false)
-const history = ref([])
+const history = ref({})
 const details = ref({});
 const settings = ref([]);
 const connectShow = ref(true)
+const time = ref('')
 const props = defineProps({
     govId:String,
-    schoolId:String
+    schoolId:String,
+    sysncSchoolComponent:Boolean
  
 });
 const emit = defineEmits(['emitMessage','disconnect']);
@@ -114,10 +114,22 @@ onMounted(() => {
 });
 
 
+watch(
+    () => props.sysncSchoolComponent,
+    () => {
+        console.log(45877)
+        fetchHistory(props.schoolId);
+        fetChSettings(props.schoolId)
+    }
+);
+
 const fetchHistory = async (schoolId) => {
     try {
+        console.log("mew 2")
+        console.log(schoolId)
         const data = await $adminService.school_sync_history(schoolId);
          history.value = data
+
          console.log(data)
 
     } catch (error) {
@@ -128,8 +140,10 @@ const fetchHistory = async (schoolId) => {
 
 const fetChSettings = async (schoolId) => {
     try {
+        console.log("setting")
+        console.log(schoolId)
         const data = await $adminService.school_sync_settings(schoolId);
-         console.log(data.data)
+         console.log(data)
          settings.value = data.data
     } catch (error) {
         console.error('Failed to load user details:', error.message);
@@ -183,6 +197,30 @@ const settingUpdate = async()=>{
 const changeSetting = (setting) =>{
     setting.value = !setting.value
 }
+
+const getTimeAgo = (date) => {
+  const secondsAgo = Math.floor((new Date() - new Date(date)) / 1000);
+
+  let interval = Math.floor(secondsAgo / 31536000);
+  if (interval >= 1) return interval === 1 ? '1 year ago' : `${interval} years ago`;
+
+  interval = Math.floor(secondsAgo / 2592000);
+  if (interval >= 1) return interval === 1 ? '1 month ago' : `${interval} months ago`;
+
+  interval = Math.floor(secondsAgo / 604800);
+  if (interval >= 1) return interval === 1 ? '1 week ago' : `${interval} weeks ago`;
+
+  interval = Math.floor(secondsAgo / 86400);
+  if (interval >= 1) return interval === 1 ? '1 day ago' : `${interval} days ago`;
+
+  interval = Math.floor(secondsAgo / 3600);
+  if (interval >= 1) return interval === 1 ? '1 hour ago' : `${interval} hours ago`;
+
+  interval = Math.floor(secondsAgo / 60);
+  if (interval >= 1) return interval === 1 ? '1 minute ago' : `${interval} minutes ago`;
+
+  return secondsAgo === 1 ? '1 second ago' : `${secondsAgo} seconds ago`;
+};
 </script>
 
 <style scoped>

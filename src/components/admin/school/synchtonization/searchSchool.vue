@@ -18,10 +18,13 @@
                     </div>
                 </fieldset>
         </div>
+        <p v-if="loading">Loading..........</p>
     </div>
+   
     <div class="my-8"></div>
+
     <div v-if="afterSearch"  class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8 mbb-5">
-        <p>{{ resultCount }} results found for "{{ search }}"</p>
+        <p >{{ resultCount }} results found for "{{ search }}"</p>
         <div class="flex gap-4 flex-wrap">
             <div v-for="result in results" :key="results.value" class="border-2 p-4 rounded w-[500px]">
                 <div>
@@ -41,36 +44,7 @@
                     </div>
                 </div>
             </div>
-             <!-- <div  class="border-2 p-4 rounded w-[500px]">
-                <div>
-                    <p>#146612</p>
-                    <h3 class="font-bold text-lg">Lewis University</h3>
-                    <p>Romeoville, IL</p>
-                </div>
-                <div>
-                    <div class="flex items-center mt-4">
-                        <div class="flex mr-4 mt-2 bg-gray-200 p-2 rounded items-center"><svg
-                            class="w-6 h-6 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg"
-                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
-                            <path d="M9 12l2 2l4 -4"></path>
-                            </svg>
-                            <p class="max-w-[300px]">This school is already connected to <a
-                                href="https://qa1.recruited.qualitapps.com/admin/schools/9bc8ab9b-ec4b-47a1-bfb2-c992335e2540"
-                                class="text-blue-500 underline">Lewis University</a></p>
-                        </div>
-                        <fieldset class="opacity-30">
-                            <div class=""><button type="submit" 
-                                class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
-                                <div class="flex flex-row items-center justify-center"><span
-                                class=""> Connect </span></div>
-                            </button></div>
-                        </fieldset>
-                    </div>
-                </div>
-            </div>  -->
+            
 
         </div>
     </div>
@@ -92,7 +66,8 @@ const search = ref('')
 const buttonDisable = ref(false)
 const results = ref([])
 const resultCount = ref("No")
-
+const error = ref({})
+const loading = ref(false)
 const emit = defineEmits(['close']);
  
 const props = defineProps({
@@ -102,6 +77,9 @@ const props = defineProps({
 const submit = async () =>{
     try{
         buttonDisable.value = true
+        loading.value = true
+        afterSearch.value = false
+        results.value =[];
         const response = await $adminService.search_school_sysnchronic_result({
             search: search.value
        });
@@ -109,6 +87,7 @@ const submit = async () =>{
         afterSearch.value = true
         results.value = response.data.dataSets.result
         resultCount.value = response.data.dataSets.result_count != 0 ? response.data.dataSets.result_count :"No"
+        loading.value = false
     }catch (err) {
          error.value = err.response?.data?.message || err.message;
     }
