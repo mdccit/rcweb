@@ -27,7 +27,7 @@
         <!-- Dropdown Menu -->
         <div id="dropdowntable"
           class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none  hidden p-3">
-          <div class="py-1 z-index-220" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+          <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
             <div class="mb-3">
               <label for="">Role </label>
