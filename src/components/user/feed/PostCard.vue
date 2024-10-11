@@ -108,7 +108,7 @@
           <!-- Post description -->
           <!-- <p class="mt-4 text-darkSlateBlue text-base" v-html=" post?.description"></p> -->
           <p v-if="meesge != ''" class="mt-4 text-sm text-red-600 dark:text-red-500">{{ meesge }}</p>
-          <p v-if="!editingPostId || editingPostId !== post.id" class="mt-4 text-darkSlateBlue text-base"
+          <p v-if="!editingPostId || editingPostId !== post.id" class="mt-4 text-darkSlateBlue text-base break-all"
             v-html="post.description"></p>
 
 
