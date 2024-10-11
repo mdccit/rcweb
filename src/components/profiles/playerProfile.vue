@@ -38,7 +38,7 @@
 
 
                     <!-- BIO SECTION  -->
-                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
+                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
@@ -61,7 +61,7 @@
 
 
                     <!-- INFO SECTION  -->
-                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
+                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
@@ -204,7 +204,7 @@
 
                     <!-- ADDRESS SECTION  -->
                     <div style="height: 70px;"
-                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
                         <div class="grid grid-cols-5 gap-4">
                             <div class="col-span-1...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl " src="@/assets/images/pin.png" alt="">
@@ -229,7 +229,7 @@
                     </div>
 
                     <div v-if="userRole == 'coach' || userRole == 'admin'" style="height: 70px;"
-                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
                         <div class="grid grid-cols-5 gap-4" @click="toggleModal('budget')">
                             <div class="col-span-1...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl "
@@ -255,7 +255,7 @@
                     </div>
 
                     <div style="height: 70px;"
-                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
                         <div class="grid grid-cols-3 gap-4">
                             <div class="...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl"
@@ -644,7 +644,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-blue-500 p-3 mt-2">
+                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-blue-500 p-3 mt-2">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
@@ -652,7 +652,7 @@
                                     <div v-if="userId.value == playerID.value" class="cursor-pointer mr-[20px]" @click="toggleModal('utr')">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
-                                            class="size-4 bg-white rounded-sm m-2">
+                                            class="size-4 text-white rounded-sm m-2">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                         </svg>
@@ -905,7 +905,7 @@ const fetchUserDetails = async (slug) => {
             country.value = dataSets.user_address_info.country ?? 'User has not entered country'
             city.value = dataSets.user_address_info.city ?? 'User has not entered city'
             addressLine01.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
-            addressLine02.value = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
+            addressLine02.value = dataSets.user_address_info.address_line_2 ?? ''
             stateProvince.value = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
         }
 

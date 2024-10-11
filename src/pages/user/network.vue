@@ -96,7 +96,7 @@
                                 </div>
 
                                 <div>
-                                    <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    <button class="bg-blue-500 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                         Connect +
                                     </button>
                                 </div>
@@ -179,7 +179,7 @@
                                 </div>
 
                                 <div>
-                                    <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    <button class="bg-blue-500 rounded-full  text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                         Connect +
                                     </button>
                                 </div>

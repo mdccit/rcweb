@@ -26,7 +26,7 @@
                         <label for="name" class="block text-sm font-normal text-gray-900 light:text-gray">School
                             Name</label>
                         <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
-                            <input type="text" id="first_name" v-model="name"
+                            <input type="text" id="name" v-model="name"
                                 class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg "
                                 placeholder="Enter Name" />
                         </div>
@@ -61,11 +61,19 @@ import Notification from '~/components/common/Notification.vue';
 import { handleError } from '@/utils/handleError';
 import InputError from '@/components/common/input/InputError.vue';
 
+
+
 const name = ref('');
 const bio = ref('');
+
+const errors = ref({});
+const authType = ref('');
+const notification_type = ref('');
+const successMessage = ref('');
 const showNotification = ref(false);
 const notificationMessage = ref('');
-const errors = ref([]);
+const loading = ref(false);
+
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -98,7 +106,7 @@ const submitRegistration = async () => {
             bio.value = '';
             emit('close');
         } else {
-            errors.value.push(response.data.display_message);
+            nuxtApp.$notification.triggerNotification(response.display_message || 'An error occurred', 'failure');
         }
     } catch (error) {
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading);

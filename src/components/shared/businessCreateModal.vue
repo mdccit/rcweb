@@ -28,7 +28,7 @@
                             <input type="text" id="name" v-model="name"
                                 class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg "
                                 placeholder="Enter Business Name" />
-                        </div>                        
+                        </div>
                         <InputError :error="errors.name ? errors.name.join(', ') : ''" />
 
                     </div>
@@ -62,10 +62,15 @@ import { handleError } from '@/utils/handleError';
 import InputError from '@/components/common/input/InputError.vue';
 
 const name = ref('');
-const bio = ref('');
+
+const errors = ref({});
+const authType = ref('');
+const notification_type = ref('');
+const successMessage = ref('');
 const showNotification = ref(false);
 const notificationMessage = ref('');
-const errors = ref([]);
+const loading = ref(false);
+
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -87,22 +92,21 @@ const submitRegistration = async () => {
     errors.value = [];
     try {
         const response = await $adminService.business_register({
-            name: name.value,
-            bio: bio.value
+            name: name.value
         });
 
         if (response.status === 200) {
             notificationMessage.value = response.display_message;
             showNotification.value = true;
             name.value = '';
-            bio.value = '';
             emit('close');
         } else {
-            errors.value.push(response.data.display_message);
+            nuxtApp.$notification.triggerNotification(response.display_message || 'An error occurred', 'failure');
         }
     } catch (error) {
-
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
+    }finally{
+
     }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-semibold text-black">Rankings & Ratings</h2>
             <button @click="clear" class="flex text-ceil text-sm">
@@ -16,12 +16,12 @@
             <div class="flex flex-wrap mt-2">
                 <div class="flex-1">
                     <input type="text"  v-model="utrMin" @change="utrMinChange"
-                        class="w-full  text-black px-3 py-2 border rounded-lg border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
+                        class="w-full h-12 text-black px-3 py-2 border rounded-lg border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
                         placeholder="Min">
                 </div>
                 <div class="flex-1">
                     <input type="text"  v-model="utrMax" @change="utrMaxChange"
-                        class="w-full  text-black px-3 py-2 border rounded-lg border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed ml-2"
+                        class="w-full h-12 text-black px-3 py-2 border rounded-lg border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed ml-2"
                         placeholder="Max">
                 </div>
             </div>
@@ -31,12 +31,12 @@
             <div class="flex flex-wrap mt-2">
                 <div class="flex-1">
                     <input type="text"  v-model="wtnMin" @change="wtnMinChange"
-                        class="w-full text-black px-3 py-2 border rounded-lg border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
+                        class="w-full h-12 text-black px-3 py-2 border rounded-lg border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
                         placeholder="Min">
                 </div>
                 <div class="flex-1">
                     <input type="text"  v-model="wtnMax" @change="wtnMaxChange"
-                        class="w-full text-black px-3 py-2 border rounded-lg border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed ml-2"
+                        class="w-full h-12 text-black px-3 py-2 border rounded-lg border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed ml-2"
                         placeholder="Max">
                 </div>
             </div>
@@ -44,13 +44,13 @@
         <div class="space-y-2">
             <label class="text-black text-sm">Minimum Rankings</label>
             <input type="number" v-model="apt" @change="aptChange"
-                class="w-full text-black px-3 py-2 border rounded-lg border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
+                class="w-full h-12 text-black px-3 py-2 border rounded-lg border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
                 placeholder="ATP Ranking">
             <input type="number"  v-model="itf" @change="itfChange"
-                class="w-full text-black px-3 py-2 border rounded-lg border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
+                class="w-full h-12 text-black px-3 py-2 border rounded-lg border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
                 placeholder="ITF Ranking">
             <input type="number"  v-model="nationalRanking" @change="nationalRankingChange"
-                class="w-full text-black px-3 py-2 border rounded-lg border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
+                class="w-full h-12 text-black px-3 py-2 border rounded-lg border-timberwolf rounded  focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed"
                 placeholder="National Ranking">
         </div>
     </div>

@@ -7,9 +7,9 @@
                 <div class="relative">
                     <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profilePictureUrl" alt="">
                     <div v-if="loggedUserSlug == props.userSlug" @click="toggleModal('name')"
-                        class="absolute bottom-4 right-8 w-8 h-8 bg-white rounded-full flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer text-steelBlue">
+                        class="absolute bottom-4 right-8 w-6 h-6 bg-timberwolf rounded-full flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer text-steelBlue">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-5">
+                            stroke="currentColor" class="size-4">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                         </svg>
@@ -28,11 +28,11 @@
         <div
             class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white py-6 px-4 mt-3">
             <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
-                    <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
-                    <h1 class="text-lg font-semibold mb-4 text-black col-span-2" v-if="loggedUserSlug == props.userSlug"
+                <div class="grid grid-cols-10 gap-2">
+                    <h1 class="text-lg font-semibold mb-4 text-black col-span-9">Bio</h1>
+                    <h1 class="2mb-2col-span-1" v-if="loggedUserSlug == props.userSlug"
                         @click="toggleModal('bio')">
-                        <div class="cursor-pointer">
+                        <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -56,10 +56,10 @@
         <div
             class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white py-6 px-4 mt-3">
             <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
-                    <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
-                    <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                        <div class="cursor-pointer" v-if="loggedUserSlug == props.userSlug"
+                <div class="grid grid-cols-10 gap-2">
+                    <h1 class="text-lg font-semibold mb-4 text-black col-span-9"></h1>
+                    <h1 class="mb-2col-span-1">
+                        <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue" v-if="loggedUserSlug == props.userSlug"
                             @click="toggleModal('info')">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4">
@@ -86,7 +86,7 @@
             </div>
             <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
             </div>
-            <!-- <div v-if="loggedUserSlug == props.userSlug" class="grid grid-cols-10">
+             <div v-if="loggedUserSlug == props.userSlug" class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                         stroke="currentColor" class="size-5">
@@ -200,18 +200,20 @@
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/user/images/Group 179.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2 mx-auto">
-                    <p class="text-xs">budget
+                    <p class="text-xs">Budget
                     </p>
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">${{ props.data.budgetMin }} -
                         ${{ props.data.budgetMax }}
                     </p>
                 </div>
-                <div class="col-span-1" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('budget')">
+                <div class="col-span-1">
+                    <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"  v-if="loggedUserSlug == props.userSlug" @click="toggleModal('budget')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                     </svg>
+                    </div>
                 </div>
             </div>
 
@@ -219,17 +221,19 @@
 
 
         <div
-            class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white py-6 px-4 mt-3">
+            class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white py-4 px-4 mt-3">
             <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
-                    <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
-                    <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
-                        <div class="col-span-1" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
+                <div class="grid grid-cols-10 gap-2">
+                    <h1 class="text-lg font-semibold mb-4 text-black col-span-9"></h1>
+                    <h1 class=" mb-2 text-black col-span-1">
+                        <div class="col-span-1">
+                            <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"  v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                             </svg>
+                        </div>
                         </div>
                     </h1>
                 </div>
@@ -260,43 +264,6 @@
                 <div class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4"> <b>{{ props.data.phoneCode }} {{
                         props.data.phone }}</b> </p>
-                </div>
-            </div>
-        </div>
-
-
-        <div style="height: auto;"
-            class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
-            <div class="grid grid-cols-10 gap-2">
-                <div class="col-span-3 mx-auto">
-                    <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/user/images/Group 179.png" alt="">
-                </div>
-                <div class="col-span-6 ml-2 mx-auto">
-                    <p class="text-xs">Budget
-                    </p>
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">${{ props.data.budgetMin }} -
-                        ${{ props.data.budgetMax }}
-                    </p>
-                </div>
-                <div class="col-span-1" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('budget')">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                    </svg>
-
-
-                </div>
-                <div class="col-span-8">
-                    <p class="text-sm text-black leading-relaxed mb-4">
-                        <span v-if="userRole == 'coach' || userRole == 'admin'">
-                            {{ props.data.addressLine01 }} {{ props.data.addressLine02 }} {{ props.data.stateProvince }}
-                        </span>
-                        {{ props.data.city }}
-                        <span v-if="props.data.country">, </span>{{ props.data.country }}
-                    </p>
                 </div>
             </div>
         </div>
@@ -546,7 +513,7 @@ const fetchUserDetails = async (slug) => {
         if (dataSets.user_address_info) {
             props.data.city = dataSets.user_address_info.city ?? 'User has not entered city'
             props.data.addressLine01 = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
-            props.data.addressLine02 = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
+            props.data.addressLine02 = dataSets.user_address_info.address_line_2 ?? ''
             props.data.stateProvince = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
         }
 

@@ -660,7 +660,7 @@
         </div>
 
         <div class="flex items-center justify-end mt-6">
-          <button type="submit"
+          <button type="submit"  :disabled="loading"
             class="border rounded-full shadow-sm py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-darkAzureBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue ml-4 !px-8 !py-2.5 transition">
             <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
               viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -760,6 +760,8 @@ const player_gpa = ref('');
 const player_graduation_month_year = ref('');
 const player_nationality = ref('');
 
+const nprogress = nuxtApp.$nprogress;
+
 
 defineProps({
   token: {
@@ -838,6 +840,7 @@ onMounted(() => {
 const handleSubmitStep2 = async () => {
 
   try {
+    nprogress.start();
     error.value = '';
     errors.value = {};  // Reset errors before submitting
     loading.value = true;  // Set loading state
@@ -892,7 +895,6 @@ const handleSubmitStep2 = async () => {
     } else if (role.value === 'coach') {
       endpoint = `/auth/${role.value}-register`;
     } else if (role.value === 'business_manager') {
-
       endpoint = `/auth/business-manager-register`;
     }
 
@@ -920,7 +922,6 @@ const handleSubmitStep2 = async () => {
 
         nextTick(async () => {
           if (role.value == 'coach' || role.value == 'business_manager') {
-            console.log('redirecting to approval pending');
             await router.push('/user/approval-pending');
             return;
           } else if (role.value == 'player' || role.value == 'parent' || role.value == 'admin') {
@@ -943,9 +944,10 @@ const handleSubmitStep2 = async () => {
 
   } catch (error) {
     loading.value = false;
-    nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    // nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
   } finally {
+    nprogress.done();
     loading.value = false;  // Reset loading state
   }
 };

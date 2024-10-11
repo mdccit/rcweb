@@ -1,5 +1,5 @@
 <template>
-    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-16">
+    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-16">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-semibold text-black">Filters</h2>
             <button @click="clear" class="flex text-ceil text-sm">
@@ -21,7 +21,7 @@
                     </svg>
                     <span class="pl-2.5">All</span>
                 </button>
-                <span v-if="name==''|| name=='All'"class="ml-auto bg-steelBlue h-10 p-2 rounded-r-xl"></span>
+                <span v-if="name==''|| name=='All'" class="ml-auto bg-steelBlue h-10 p-2 rounded-r-xl"></span>
             </li>
             <!-- <li class="flex justify-between items-center mb-2 hover:bg-lightGray">
                 <a href="#" class="flex items-center text-black p-2 rounded-md">
@@ -74,7 +74,7 @@
 
                     <span class="pl-2.5">Coaches</span>
                 </button>
-                <span v-if="name=='Coaches'"class="ml-auto bg-steelBlue h-10 p-2 rounded-r-xl"></span>
+                <span v-if="name=='Coaches'" class="ml-auto bg-steelBlue h-10 p-2 rounded-r-xl"></span>
             </li>
             <li :class="['flex justify-between items-center hover:bg-lightGray', name=='Players'? 'mb-2 border text-steelBlue rounded-xl':'']">
                 <button @click="changeRole(4)" class="flex items-center text-black p-2 rounded-md">
@@ -84,7 +84,7 @@
 
                     <span class="pl-2.5">Players</span>
                 </button>
-                <span v-if="name=='Players'"class="ml-auto bg-steelBlue h-10 p-2 rounded-r-xl"></span>
+                <span v-if="name=='Players'" class="ml-auto bg-steelBlue h-10 p-2 rounded-r-xl"></span>
             </li>
         </ul>
     </div>
