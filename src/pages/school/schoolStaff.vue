@@ -3,12 +3,13 @@
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="flex w-full justify-between gap-8">
                 <div class="flex items-center gap-4">
-                    <NuxtLink to="/admin/schools"><svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                    <NuxtLink :to="{ path: '/school/schoolGeneralDetails', query: { action: 'edit' ,school_id: school_id } }">
+                        <svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg"
                             width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                             fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M15 6l-6 6l6 6"></path>
                         </svg></NuxtLink>
-                    <h2 class="font-bold text-lg self-center text-black"> Editing: </h2>
+                    <h2 class="font-bold text-lg self-center text-black"> Editing: {{ name }}</h2>
                 </div>
                 <div class=""><button type="submit"
                         class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-blue-300 focus:ring-blue-200">
@@ -136,7 +137,7 @@ const notificationMessage = ref('');  // Message for the notification
 const action = ref('');  // Action type (e.g., manage, view)
 const school_id = ref('');  // School ID
 const staff_members = ref([]);  // Array to hold staff data
-
+const name = ref('')
 onMounted(() => {
     // Set initial values for action and school_id from route query parameters
     // action.value = route.query.action || 'manage';
@@ -145,6 +146,7 @@ onMounted(() => {
     // Fetch school staff data if action is 'manage'
     // if (action.value === 'manage') {
     fetchSchoolStaff(school_id.value);
+    fetchSchoolDetails(school_id.value)
     // }
 });
 
@@ -155,6 +157,7 @@ const fetchSchoolStaff = async (schoolId) => {
     try {
         // Fetch staff data from the API using $adminService
         const staffData = await $adminService.list_school_staff(schoolId);
+        console.log(staffData)
         staff_members.value = staffData || [];  // Set the fetched data to the staff ref
     } catch (error) {
         console.error('Failed to load school staff details:', error.message);
@@ -162,6 +165,18 @@ const fetchSchoolStaff = async (schoolId) => {
     }
 };
 
+const fetchSchoolDetails = async (school_id) => {
+    errors.value = [];
+    try {
+        const data = await $adminService.get_school_details(school_id);
+        
+        name.value = data.school_info.name || '';
+       
+
+    } catch (error) {
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    }
+};
 definePageMeta({
     ssr: false,
     layout: 'admin',

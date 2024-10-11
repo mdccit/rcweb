@@ -145,6 +145,7 @@ const userLogin = async (autoLogin = false) => {
         user_slug:response.data.user_slug
       });
       const newMedia = response.data.media_info.profile_picture??null
+
       userStore.setProfilePicture(newMedia)
 
       // Set success notification

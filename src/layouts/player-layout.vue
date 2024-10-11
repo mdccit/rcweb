@@ -10,16 +10,16 @@
     <div class="container-compressed pb-3">
       <div class="grid grid-cols-6 gap-4 temp-row grid-rows-[70px_auto] mt-16 pt-4">
         <div class="row-span-2 col-span-1 ">
-          <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  />
+          <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  @updateData="fetchUserDetails" />
         </div>
         <div class="col-start-2 col-span-5 mt-4">
           <playerProfileHedarer @changeTab="setSelectedTab" :playerId="playerID" :userSlug="route.params.slug" />
         </div>
         <div class="col-start-2 col-span-4 bg-brown-500">
           <!-- Content changes based on the selected tab -->
-          <UserFeed v-if="tab === 'feed'" :posts="posts" @listpost="loadInitfintePost" :commentHidden="isHidddenComment"/>
+          <UserFeed v-if="tab === 'feed'" :posts="posts" @listpost="newLoader" :commentHidden="isHidddenComment"/>
           <Connection v-if="tab === 'connection'" :playerId="playerID" @profileView="redirectPage" />
-          <mediaTab v-if="tab === 'media'" :userSlug="route.params.slug" @uploadCompleted="refreshGallery" />
+          <mediaTab v-if="tab === 'media'" :userSlug="route.params.slug" @uploadCompleted="refreshGallery" :playerId="playerID" />
 
         </div>
         <div>
@@ -127,6 +127,8 @@ const slug = ref('');
 const utrData = ref({})
 const leftData = ref({})
 const media_info = ref();
+const height_ft = ref('')
+const height_in = ref('')
 const props = defineProps({
     user: {
         type: Object,
@@ -137,7 +139,7 @@ const currentPage = ref(1)
 const lastPage  =ref('')
 const isHidddenComment = ref([]);
 const childKey = ref(0);
-
+const load = ref(false)
 onMounted(() => {
     slug.value = route.params.slug;
 
@@ -167,6 +169,7 @@ const refreshGallery = () => {
 const fetchUserDetails = async () => {
     try {
         const dataSets = await $publicService.get_player(route.params.slug);
+        console.log(dataSets)
         playerID.value = dataSets.user_basic_info.id || null;
         if (dataSets.user_basic_info) {
             bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"
@@ -252,6 +255,9 @@ const fetchUserDetails = async () => {
             graduationDate.value = parsedDate.toLocaleDateString('en-US', options) ?? 'User has not entered graduation date'
 
             feet.value = (dataSets.player_info.height / 30.48).toFixed(2);
+            let totalFeet = (dataSets.player_info.height / 30.48).toFixed(2);
+             height_ft.value = Math.floor(totalFeet);
+             height_in.value = Math.floor((totalFeet - height_ft.value) * 12)
             pounds.value = (2.20462 * dataSets.player_info.weight).toFixed(2)
         }
 
@@ -285,7 +291,9 @@ const fetchUserDetails = async () => {
             phone:phone.value,
             phoneCode:phoneCode.value,
             email: email.value,
-            media_info:dataSets.media_info
+            media_info:dataSets.media_info,
+            ft_value :height_ft.value,
+            in_value:height_in.value
 
         }
 
@@ -363,12 +371,19 @@ const setGalleryItems = (mediaInfo) => {
 //     }
 // }
 
+
+const newLoader = ()=>{
+  if(load.value ==false){
+    loadInitfintePost()
+  }
+}
 const loadInitfintePost = async () =>{
+  load.value = true
     try {
       //  isLoading.value = true;
       const response = await $feedService.list_posts(currentPage.value);
-     // const filteredData = response.filter(item => item.user_id === playerID.value);
-       posts.value.push(...response.data);
+     const filteredData = response.data.filter(item => item.user_id === playerID.value);
+       posts.value.push(...filteredData);
 
       lastPage.value =response.last_page
       currentPage.value =response.current_page +1
@@ -382,6 +397,9 @@ const loadInitfintePost = async () =>{
       // isLoading.value = false;
       console.error('Failed to load posts:', error.message);
     }
+    setTimeout(()=>{
+      load.value =false
+    },10000)
   }
 
 const redirectPage = (url) =>{

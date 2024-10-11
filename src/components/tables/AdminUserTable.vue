@@ -17,7 +17,7 @@
 
         <button type="button" aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdowntable"
           class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto " viewBox="0 0 20 20"
             fill="currentColor">
             <path fill-rule="evenodd"
               d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
@@ -26,7 +26,7 @@
         </button>
         <!-- Dropdown Menu -->
         <div id="dropdowntable"
-          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 hidden p-3">
+          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none  hidden p-3 z-10">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
             <div class="mb-3">
@@ -171,6 +171,10 @@
 import { ref, watch, computed, onMounted, defineEmits } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
+import { useRoute } from 'vue-router';
+
+
+const route = useRoute(); // Use useRoute to access query parameters
 
 const emit = defineEmits(['open-modal']);
 const router = useRouter();
@@ -190,9 +194,11 @@ const emailVerified = ref('')
 
 // Fetch data from the API
 const fetchData = async () => {
+  console.log(4587)
   loading.value = true
   try {
     const users = await $adminService.list_users(role.value, lastSeenAt.value, emailVerified.value);
+    console.log(users)
     items.value = users;
     totalItems.value = users.length
   } catch (error) {
@@ -207,7 +213,15 @@ const fetchData = async () => {
 // Watch options and search to update filtered items
 watch([options, search], fetchData, { immediate: true })
 
-onMounted(fetchData)
+onMounted(()=>{
+  console.log(route.query.role)
+  if(route.query.role =='1'){
+    role.value =null
+  }{
+    role.value =route.query.role
+  }
+  fetchData()
+})
 
 const filteredItems = computed(() => {
   let filtered = items.value;
@@ -258,6 +272,23 @@ const formatDate = (dateString) => {
   const options = { year: 'numeric', month: 'short', day: 'numeric' };
   return new Date(dateString).toLocaleDateString(undefined, options);
 };
+
+watch(
+    () => route.query.role,
+    () => {
+      console.log(route.query.role)
+
+      if(route.query.role =='1'){
+        console.log(123)
+            role.value =''
+      }{
+        role.value =route.query.role
+      }
+
+        
+        fetchData()
+    }
+);
 </script>
 
 <script>
@@ -274,5 +305,8 @@ export default {
 .input-with-select {
   width: 300px;
   margin-bottom: 20px;
+}
+.active-filter{
+  color: #0085FF !important;
 }
 </style>

@@ -109,8 +109,7 @@
                                 <!-- <<p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">WTN</p> -->
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
                     class="mb-4 text-sm">ACT</p>
-                <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="mb-4 text-sm">ACT</p>
+               
                 <p class="mb-4 text-sm">National Ranking</p>
             </div>
             <div class="">
@@ -129,8 +128,6 @@
                 <p class="mb-4 text-sm">{{  props.data.atp }}</p>
                 <p class="mb-4 text-sm">{{  props.data.itf }}</p>
                                 <!-- <<p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ wtn }}</p> -->
-                <p v-if="userRole == 'coach' || userRole == 'admin'"
-                    class="mb-4 text-sm">{{  props.data.act }}</p>
                 <p v-if="userRole == 'coach' || userRole == 'admin'"
                     class="mb-4 text-sm">{{  props.data.act }}</p>
                 <p class="mb-4 text-sm">{{  props.data.nationalRanking }}</p>
@@ -154,10 +151,12 @@ import UTRModal from '~/components/profiles/player/modals/utrModal.vue';
 
 const userStore = useUserStore();
 const loggedUserSlug = ref('');
-
+const route = useRoute();
 
 defineNuxtRouteMiddleware(checkSession);
 const nuxtApp = useNuxtApp();
+const $publicService = nuxtApp.$publicService;
+
 const loading = ref(false);
 const router = useRouter();
 
@@ -229,8 +228,8 @@ const handleModalClose = (modalName) => {
 const fetchUserDetails = async (slug) => {
     try {
        
-        const dataSets = await $publicService.get_user_profile(route.params.slug);
-  
+        const dataSets = await $publicService.get_player(route.params.slug);
+        console.log(dataSets)
         if (dataSets.player_info) {
             props.data.utr = dataSets.player_info.other_data.utr ?? 0
             props.data.gpa = dataSets.player_info.gpa ?? "Unknown"

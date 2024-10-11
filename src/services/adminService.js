@@ -32,7 +32,13 @@ const createAdminService = (apiService) => {
   };
   
   const list_users = async (role, lasteenAt, emailVerified) => {
-    const url = `/admin/users?is_email_verified=${emailVerified}&last_seen_at=${lasteenAt}&user_role=${role}`;
+    let url=''
+    if(role==1){
+      url = `/admin/users?is_email_verified=${emailVerified}&last_seen_at=${lasteenAt}`;
+    }else{
+      url = `/admin/users?is_email_verified=${emailVerified}&last_seen_at=${lasteenAt}&user_role=${role}`;
+    }
+   
 
     try {
       const response = await apiService.getRequest(url);
