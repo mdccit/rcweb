@@ -78,7 +78,9 @@
                 <div>
                   <div class="flex items-center justify-between">
                     <div v-if="post.school_id != null" class="flex items-center space-x-3">
-                      <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12">
+                      <img v-if="post.school_profile_picture ==null" src="@/assets/images/user.png" alt="" class="rounded-lg w-12 h-12">
+                      <img v-if="post.school_profile_picture !=null" :src="post.school_profile_picture.url" alt="" class="rounded-lg w-12 h-12">
+
                       <div>
                         <div class="text-md font-bold text-black">{{ post.school.name }}</div>
                         <div class="flex space-x-2 items-center">
@@ -107,7 +109,11 @@
                   <div class="flex items-center justify-between">
                     <!-- SCHOOL POST COACH USER  -->
                     <div class="flex space-x-3 items-center">
-                      <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
+                      <NuxtLink :to="`/app/profile/${post.user.slug}`" class="font-bold text-sm text-black">
+                         <img v-if="post.user_profile_picture ==null" src="@/assets/images/user.png" alt="" class="rounded-lg w-10 h-10">
+                         <img v-if="post.user_profile_picture !=null" src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
+                      </NuxtLink>
+                     
                       <div>
                         <!-- Pass the user ID as a query parameter and the slug as part of the path -->
                         <NuxtLink :to="`/app/profile/${post.user.slug}`" class="font-bold text-sm text-black">
@@ -345,7 +351,7 @@ const isLoading = ref(true)
 const totalItems = ref(0)
 const currentPage = ref(1)
 const lastPage = ref('')
-
+const load = ref(false)
 onMounted(async () => {
   if (process.client) {
     // Check or fetch user role
@@ -376,6 +382,7 @@ onMounted(async () => {
 });
 
 const loadInitfintePost = async () => {
+  load.value =true
   try {
     const response = await $feedService.list_posts(currentPage.value);
     if (currentPage.value == 1) {
@@ -385,17 +392,28 @@ const loadInitfintePost = async () => {
     }
     lastPage.value = response.last_page
     currentPage.value = response.current_page + 1
+  
     const idsArray = [];
     for (const post of posts.value) {
       idsArray[post.id] = false
     }
-    isHidddenComment.value = idsArray
+   // if (currentPage.value == 1) {
+      isHidddenComment.value = idsArray
+    // } else {
+    //   isHidddenComment.value.push(...idsArray);
+    // }
+    
 
   } catch (error) {
     console.error('Failed to load posts:', error.message);
   } finally {
     isLoading.value = false; // Turn off loading once posts are fetched
   }
+  setTimeout(()=>{
+    load.value =false
+  },10000)
+  
+
 }
 
 const handleScroll = () => {
@@ -617,7 +635,10 @@ const onScroll = (event) => {
   if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
     if (posts.value.length != displayedItems.value.length) {
       if (currentPage.value <= lastPage.value && !isLoading.value) {
-        loadInitfintePost();
+        if(load.value == false){
+          loadInitfintePost();
+        }
+        
       }
 
     }
