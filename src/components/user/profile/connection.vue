@@ -3,8 +3,8 @@
     <div class="grid grid-cols-6">
         <div v-for="connection in connections" class="col-span-3 p-2 ">
             <button >
-                <div class="bg-white p-4 border rounded-2xl">
-                    <div class=" grid grid-cols-12 gap-4">
+                <div class="bg-white p-4 border rounded-2xl"  >
+                    <button @click="redirect(`/app/profile/${connection.slug}`)" class=" grid grid-cols-12 gap-4">
                         <div class="col-span-3">
                             <img v-if="connection.profile_picture == null" class=" rounded-2xl w-[85px] h-[85px]"
                                 src="@/assets/images/user.png" alt="Neil image">
@@ -49,7 +49,7 @@
                         <div class="col-span-3">
                             <!-- <h4 class="text-black">UTR <span class="text-blue-500">30.01</span></h4> -->
                         </div>
-                    </div>
+                    </button>
                     <div class="flex mt-2">
                         <div class="flex-1">
                             <div class="flex items-center space-x-2 mb-2">
@@ -77,20 +77,20 @@
                                 </button>
                                 <button @click="connectRequestSend(connection.id)"
                                     v-if="connection.connection_status == 'connect'"
-                                    class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    class="bg-blue-500 rounded-full  p-2 m-1 text-white text-xs h-[35px] w-[85px]">
                                     Connect +
                                 </button>
                                 <button v-if="connection.connection_status == 'pending'"
-                                    class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    class="bg-blue-500 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                     Invite sent
                                 </button>
                                 <button v-if="connection.connection_status == 'pending'"
                                     @click="connectCancelle(connection.connection_id)"
-                                    class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    class="bg-blue-500 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                     canncel Request
                                 </button>
                                 <button v-if="connection.connection_status == 'accepted'"
-                                    class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                    class="bg-lighterGray text-white rounded-full w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -98,7 +98,7 @@
                                     </svg>
                                 </button>
                                 <button v-if="connection.connection_status == 'accepted'" id="dropdownDefaultButton" data-dropdown-toggle="dropdownmore"
-                                    class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                    class="bg-lighterGray rounded-full text-white w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -106,7 +106,7 @@
                                     </svg>
                                 </button>
                             
-                                <div id="dropdownmore"
+                                <div id="dropdownmore"  
                                     class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                         aria-labelledby="dropdownDefaultButton">
