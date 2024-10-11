@@ -1,14 +1,16 @@
 <template>
-  <div>
-    <!-- Card Element (ensure it's mounted) -->
-    <div id="card-element" class="border p-4 rounded-md mt-4"></div>
-    <span v-if="cardError" class="text-red-500 text-sm">{{ cardError }}</span>
+  <div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
+      <!-- Card Element (ensure it's mounted) -->
+      <div id="card-element" class="border p-4 rounded-md"></div>
+      <span v-if="cardError" class="text-red-500 text-sm">{{ cardError }}</span>
 
-    <!-- Submit Payment Button -->
-    <button @click="confirmPayment"
-      class="border rounded-full shadow-sm py-2 px-4 focus:outline-none focus:ring bg-steelBlue text-white mt-4">
-      Confirm Payment
-    </button>
+      <!-- Submit Payment Button -->
+      <button @click="confirmPayment"
+        class="w-full mt-4 bg-steelBlue text-white py-2 px-4 rounded-full shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        Confirm Payment
+      </button>
+    </div>
   </div>
 </template>
 

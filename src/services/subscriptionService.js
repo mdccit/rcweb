@@ -16,6 +16,20 @@ const createSubscriptionService = (apiService) => {
     }
   };
 
+  const get_stripe_payment_history = async () => {
+    const url = `/subscription/stripe/payment-history`;
+    try {
+      const response = await apiService.getRequest(url);
+      if (response) {
+        return response;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error || 'Failed to register');
+    }
+  };
+
   const connection_request = async (request_body) => {
     const url = '/user/connections-request';
     const body = request_body;
@@ -45,6 +59,7 @@ const createSubscriptionService = (apiService) => {
     get_subscription,
     connection_request,
     connection_accept,
+    get_stripe_payment_history
   };
 
 
