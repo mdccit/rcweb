@@ -85,7 +85,7 @@
                                             <path d="M12 4l0 12"></path>
                                         </svg> Select A New Photo <input name="cover" type="file"
                                             @change="handleFileCoverChange" data-validation-key="cover"
-                                            class="invisible absolute inset-0 w-full h-full disabled:opacity-50"></a></label><!---->
+                                            class="invisible absolute  w-full h-full disabled:opacity-50"></a></label><!---->
                             </div>
                         </div>
                     </div>
@@ -408,8 +408,7 @@ const handleFileChange = (event) => {
     // If all validations pass, set the file to the reactive variable
     fileError.value = ''; // Clear any previous errors
     profile_image.value = file; // Store the selected file
-    updateSchoolProfile()
-  }
+    updateSchoolProfile();  
 };
 
 const handleFileCoverChange = (event) => {
@@ -449,8 +448,7 @@ const handleFileCoverChange = (event) => {
     fileError.value = ''; // Clear any previous errors
     cover_image.value = file; // Store the selected file
     updateSchoolCover()
-  }
-};
+  };
 </script>
 
 
