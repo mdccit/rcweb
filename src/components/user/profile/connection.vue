@@ -12,14 +12,23 @@
                                 alt="Neil image">
                         </div>
                         <div class="col-span-6">
-                            <h4 class="text-black font-normal"> {{ connection.name }}</h4>
-                            <div class="flex items-center space-x-2 mb-2">
-                                <div class="bg-mintGreen p-1 rounded">
+                            <h4 class="text-black font-normal text-left">{{connection.name}}</h4>
+                            
+                            <div v-if="connection.role=='Coach'" class="flex items-center space-x-2 mb-2">
+                                <div  class="bg-mintGreen p-1 rounded">
                                     <img  src="@/assets/user/images/man-medal.png" alt="" class=" w-4 h-4">
                                 </div>
                                 <div class="text-sm ml-2 text-green-500">{{ connection.sport_name ?? '' }} {{
                                     connection.role }}</div>
                             </div>
+                            <div v-if="connection.role=='Player'" class="flex items-center space-x-2 mb-2">
+                                <div  class="bg-blue-200 p-1 rounded">
+                                    <img  src="@/assets/user/images/playerIcon.png" alt="" class=" w-4 h-4">
+                                </div>
+                                <div class="text-sm ml-2 text-blue-500">{{ connection.sport_name ?? '' }} {{
+                                    connection.role }}</div>
+                            </div>
+
                             <div v-if="connection.city|| connection.country " class="flex items-center space-x-2">
                                 <div class=" rounded">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

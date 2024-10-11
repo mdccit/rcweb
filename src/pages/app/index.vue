@@ -78,8 +78,10 @@
                 <div>
                   <div class="flex items-center justify-between">
                     <div v-if="post.school_id != null" class="flex items-center space-x-3">
-                      <img v-if="post.school_profile_picture ==null" src="@/assets/images/user.png" alt="" class="rounded-lg w-12 h-12">
-                      <img v-if="post.school_profile_picture !=null" :src="post.school_profile_picture.url" alt="" class="rounded-lg w-12 h-12">
+                      <img v-if="post.school_profile_picture == null" src="@/assets/images/user.png" alt=""
+                        class="rounded-lg w-12 h-12">
+                      <img v-if="post.school_profile_picture != null" :src="post.school_profile_picture.url" alt=""
+                        class="rounded-lg w-12 h-12">
 
                       <div>
                         <div class="text-md font-bold text-black">{{ post.school.name }}</div>
@@ -110,10 +112,12 @@
                     <!-- SCHOOL POST COACH USER  -->
                     <div class="flex space-x-3 items-center">
                       <NuxtLink :to="`/app/profile/${post.user.slug}`" class="font-bold text-sm text-black">
-                         <img v-if="post.user_profile_picture ==null" src="@/assets/images/user.png" alt="" class="rounded-lg w-10 h-10">
-                         <img v-if="post.user_profile_picture !=null" src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
+                        <img v-if="post.user_profile_picture == null" src="@/assets/images/user.png" alt=""
+                          class="rounded-lg w-10 h-10">
+                        <img v-if="post.user_profile_picture != null" src="@/assets/user/images/Rectangle_117.png" alt=""
+                          class="rounded-lg w-10 h-10">
                       </NuxtLink>
-                     
+
                       <div>
                         <!-- Pass the user ID as a query parameter and the slug as part of the path -->
                         <NuxtLink :to="`/app/profile/${post.user.slug}`" class="font-bold text-sm text-black">
@@ -121,11 +125,11 @@
                         </NuxtLink>
 
                         <div v-if="post.school_id != null" class="text-darkSlateBlue text-xs">Coach at {{ post.school_id
-      !=
-      null ? post.school.name : '' }}</div>
+                          !=
+                          null ? post.school.name : '' }}</div>
                         <div v-if="post.school_id == null" class="text-darkSlateBlue text-xs">{{
-      getTimeAgo(post.updated_at)
-    }}</div>
+                          getTimeAgo(post.updated_at)
+                          }}</div>
 
                       </div>
                     </div>
@@ -185,7 +189,7 @@
 
                   <div class="basis-full flex flex-col  ">
                     <p v-if="!editingPostId || editingPostId !== post.id"
-                      class="mt-4 text-darkSlateBlue text-base break-words" v-html="post.description"></p>
+                      class="mt-4 text-darkSlateBlue text-base break-words break-all" v-html="post.description"></p>
                     <textarea v-else type="text" placeholder="Write your thoughts..." v-model="editPost"
                       class="mt-4 text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 ">
                      </textarea>
@@ -214,7 +218,7 @@
             <div class="flex items-center justify-between mt-3">
               <div class="flex items-center space-x-4">
                 <button class="flex items-center space-x-1"
-                  :class="likeButtonDisable.includes(post.id) ? 'cursor-default opacity-50 ' :'flex items-center space-x-1'"
+                  :class="likeButtonDisable.includes(post.id) ? 'cursor-default opacity-50 ' : 'flex items-center space-x-1'"
                   :disabled="likeButtonDisable.includes(post.id)"
                   @click="likePost(post.id, post), post.user_has_liked == true ? post.user_has_liked = false : post.user_has_liked = true">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -362,7 +366,7 @@ onMounted(async () => {
     }
   }
 
-  
+
   isLoading.value = true;
   try {
     await loadInitfintePost();
@@ -382,7 +386,7 @@ onMounted(async () => {
 });
 
 const loadInitfintePost = async () => {
-  load.value =true
+  load.value = true
   try {
     const response = await $feedService.list_posts(currentPage.value);
     if (currentPage.value == 1) {
@@ -392,27 +396,27 @@ const loadInitfintePost = async () => {
     }
     lastPage.value = response.last_page
     currentPage.value = response.current_page + 1
-  
+
     const idsArray = [];
     for (const post of posts.value) {
       idsArray[post.id] = false
     }
-   // if (currentPage.value == 1) {
-      isHidddenComment.value = idsArray
+    // if (currentPage.value == 1) {
+    isHidddenComment.value = idsArray
     // } else {
     //   isHidddenComment.value.push(...idsArray);
     // }
-    
+
 
   } catch (error) {
     console.error('Failed to load posts:', error.message);
   } finally {
     isLoading.value = false; // Turn off loading once posts are fetched
   }
-  setTimeout(()=>{
-    load.value =false
-  },10000)
-  
+  setTimeout(() => {
+    load.value = false
+  }, 10000)
+
 
 }
 
@@ -635,10 +639,10 @@ const onScroll = (event) => {
   if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
     if (posts.value.length != displayedItems.value.length) {
       if (currentPage.value <= lastPage.value && !isLoading.value) {
-        if(load.value == false){
+        if (load.value == false) {
           loadInitfintePost();
         }
-        
+
       }
 
     }
@@ -703,6 +707,7 @@ const onScroll = (event) => {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
