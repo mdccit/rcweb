@@ -104,7 +104,7 @@ import { useNuxtApp } from '#app';
 import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '~/stores/userStore';
 import BusinessUserTabNavigation from '~/components/profiles/navigation/BusinessUserTabNavigation.vue';
-import CoverModal from '~/components/profiles/businessUserProfile/modals/CoverModal.vue';
+import CoverModal from '~/components/profiles/businessUserProfile/modals/coverModal.vue';
 import NameModal from '~/components/profiles/businessUserProfile/modals/nameModal.vue';
 // Import the default profile picture
 import defaultCoverPicture from '@/assets/images/covrss.jpg';
