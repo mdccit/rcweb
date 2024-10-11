@@ -37,7 +37,6 @@
 
 <script setup>
 import { useUserStore } from '~/stores/userStore'
-import schoolTable from '~/components/tables/schoolTables.vue';
 import schoolCreateModal from '~/components/shared/schoolCreateModal.vue';
 import ConnectToGovermentSchool from '~/components/admin/school/synchtonization/connectToGovermentSchool.vue';
 import SearchSchool from '~/components/admin/school/synchtonization/searchSchool.vue';

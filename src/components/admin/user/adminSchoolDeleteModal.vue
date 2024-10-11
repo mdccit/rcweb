@@ -26,8 +26,10 @@
 import { ref, computed, watch , onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { defineProps, defineEmits, defineExpose} from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
-
+const route = useRoute();
+const router = useRouter();
 const error = ref('');
 const successMessage = ref('');
 const errors = ref([]);
@@ -53,7 +55,7 @@ const openModal = () => {
 const props = defineProps({
     isVisible: Boolean,
     action: String,
-    userId: String,
+    schoolId: String,
 });
 
 watch(() => props.isVisible, (newValue) => {});
@@ -73,6 +75,7 @@ const submit = async () => {
             successMessage.value = response.display_message;
             emit('emitMessage',response.display_message)
             emit('close');
+            router.push('/admin/schools');
         } else {
             
             emit('emitMessage',response.display_message)

@@ -20,8 +20,13 @@ logs
 
 # Local env files
 .env
+.env.dev
+.env.qa
+.env.uat
+.env.production
 .env.*
-!.env.example
+
+ecosystem.config.cjs
 
 .ssh/
 setup.sh
@@ -31,3 +36,5 @@ package-lock.json
 
 #test
 coverage/*
+
+.github/*

@@ -1,0 +1,43 @@
+/* tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* assets/css/global.css */
+
+
+@layer base {
+    @font-face {
+      font-family: 'Figtree';
+      font-style: normal;
+      src: url(@/assets/fonts/Figtree-VariableFont_wght.woff2) format('woff2');
+    }
+    @font-face {
+        font-family: 'Figtree-italic';
+        font-style: italic;
+        src: url(@/assets/fonts/Figtree-Italic-VariableFont_wght.woff2) format('woff2');
+    }
+  
+}
+
+
+
+#nprogress .bar {
+  display: block !important;
+  background: #000000 !important; /* Customize the color */
+  height: 6px  !important;         /* Customize the height */
+  z-index: 9999 !important; 
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #4c0fc7, 0 0 5px #6a59ff; /* Customize the shadow */
+}
+
+#nprogress .spinner {
+  display: block; /* Hide spinner if not needed */
+}
+
+
+.animation{
+  transition: transform 0.5s ease, background-color 0.5s ease;
+}

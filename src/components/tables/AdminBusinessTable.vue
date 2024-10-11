@@ -1,86 +1,97 @@
 <template>
   <el-card>
-    <!-- <el-input v-model="search" placeholder="Search" class="input-with-select" clearable></el-input> -->
-    <div class="p-1 text-right">
-      <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-        class="text-white mr-2 bg-blue-100 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    <div class="flex justify-between items-center mb-4">
+      <!-- Search Input for Filtering -->
+      <el-input v-model="search" class="h-[40px] mr-2 focus:border-none" placeholder="Search..." clearable></el-input>
+
+      <!--  Search Button -->
+      <!-- <button id="searchButton" @click="applySearch"
+        class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 p-2 border rounded h-[40px] mr-1 mx-auto"
         type="button">
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-          width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-            d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z" />
-        </svg>
+        <span class=" mx-auto">Search</span>
+      </button> -->
+      <div class="relative inline-block text-left">
 
-      </button>
+        <button type="button" aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdowntable"
+          class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
+            fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </button>
+        <!-- Dropdown Menu -->
+        <div id="dropdowntable"
+          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 hidden p-3">
+          <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
-      <button id="dropdownToggleButton" data-dropdown-toggle="dropdownToggle"
-        class="text-white bg-blue-100 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        type="button">
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-          width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-width="2"
-            d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
-          <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-        </svg>
-
-      </button>
-
-      <!-- Dropdown menu -->
-      <div id="dropdownToggle"
-        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-72 dark:bg-gray-700 dark:divide-gray-600">
-        <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownToggleButton">
-          <li>
-            <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-              <label class="inline-flex items-center w-full cursor-pointer">
-                <input type="checkbox" value="" class="sr-only peer">
-                <div
-                  class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600">
-                </div>
-                <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Enable notifications</span>
-              </label>
+            <div class="mb-3">
+              <label for="">Role </label>
+              <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+                <select name="filter-role" @change="fetchData" v-model="hasAdmin"
+                  class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
+                  <option value=""> - </option>
+                  <option value="has_admins"> Has Admin </option>
+                  <option value="no_admins"> No Admin </option>
+                </select>
+              </div>
             </div>
-          </li>
-          <li>
-            <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-              <label class="inline-flex items-center w-full cursor-pointer">
-                <input type="checkbox" value="" class="sr-only peer">
-                <div
-                  class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600">
-                </div>
-                <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Enable 2FA authentication</span>
-              </label>
-            </div>
-          </li>
-          <li>
-            <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-              <label class="inline-flex items-center w-full cursor-pointer">
-                <input type="checkbox" value="" class="sr-only peer">
-                <div
-                  class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600">
-                </div>
-                <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Subscribe to newsletter</span>
-              </label>
-            </div>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
+
+      <!-- <button
+        class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 mx-auto">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
+          fill="currentColor">
+          <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+          <path fill-rule="evenodd"
+            d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </button> -->
+
     </div>
 
 
-    <el-table :data="filteredItems" style="width: 100%" v-loading="loading">
-      <el-table-column prop="name" label="Name" sortable></el-table-column>
-      <el-table-column prop="total_staff" label="Total Staff" sortable></el-table-column>
-      <el-table-column prop="admin_staff" label="Admin Staff" sortable></el-table-column>
-      <el-table-column prop="non_admin_staff" label="Non Admin Staff" sortable></el-table-column>
-      <el-table-column prop="admin_staff" label="Admin Staff" sortable></el-table-column>
+    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" class="cursor-pointer min-h-[350px]"
+      @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
+      <el-table-column class="text-tealGray" prop="name" label="NAME" sortable></el-table-column>
+      <!-- <el-table-column class="text-tealGray" prop="total_staff" label="TITAL STAFF" sortable></el-table-column>
+      <el-table-column class="text-tealGray" prop="admin_staff" label="ADMIN STAFF" sortable></el-table-column>
+      <el-table-column class="text-tealGray" prop="non_admin_staff" label="NON ADMIN STAFF" sortable></el-table-column>
+      <el-table-column class="text-tealGray" prop="admin_staff" label="ADMIN STAFF" sortable></el-table-column> -->
+
+      <!-- Total Members Column -->
+      <el-table-column class="tealGaray" prop="total_members" label="Total Members" sortable>
+        <template v-slot="scope">
+          {{ scope.row.total_members !== null ? scope.row.total_members : 0 }}
+        </template>
+      </el-table-column>
+
+      <!-- Editor Column -->
+      <el-table-column class="tealGaray" prop="editors" label="Admin Members" sortable>
+        <template v-slot="scope">
+          {{ scope.row.editors !== null ? scope.row.editors : 0 }}
+        </template>
+      </el-table-column>
+
+      <!-- Viewer Column -->
+      <el-table-column class="tealGaray" prop="viewers" label="NON Admin Members" sortable>
+        <template v-slot="scope">
+          {{ scope.row.viewers !== null ? scope.row.viewers : 0 }}
+        </template>
+      </el-table-column>
+
       <!-- Joined At Column -->
-      <el-table-column prop="joined_at" label="Joined Date" sortable>
+      <el-table-column class="text-tealGray" prop="joined_at" label="JOINED DATE" sortable>
         <template v-slot="scope">
           <span>{{ formatDate(scope.row.joined_at) }}</span>
         </template>
       </el-table-column>
-        <!-- Actions Column -->
-        <el-table-column label="Actions">
+      <!-- Actions Column -->
+      <!-- <el-table-column label="Actions">
           <template v-slot="scope">
             <el-dropdown>
               <template #dropdown>
@@ -102,7 +113,7 @@
               </el-button>
             </el-dropdown>
           </template>
-        </el-table-column>
+        </el-table-column> -->
     </el-table>
 
     <el-pagination v-model:current-page="options.page" :page-size="options.itemsPerPage" :total="totalItems"
@@ -127,6 +138,7 @@ const options = ref({
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
+const hasAdmin = ref("");
 
 // Function to fetch data from the server
 const fetchData = async () => {
@@ -137,7 +149,7 @@ const fetchData = async () => {
     const search_term = search.value; // Get the search term
 
     // Fetch data from the server with pagination and search parameters
-    const dataSets = await $adminService.list_business(current_page, per_page_items);
+    const dataSets = await $adminService.list_business(current_page, per_page_items, hasAdmin.value);
 
     // Update the table data
     items.value = dataSets.data; // Data for the current page
@@ -160,6 +172,11 @@ watch([options, search], () => {
 onMounted(() => {
   fetchData();
 });
+
+// Expose the fetchData method
+const refreshTable = () => {
+    fetchData();
+};
 
 // Handle search submission
 const applySearch = () => {
@@ -200,7 +217,7 @@ const viewDetails = (row) => {
     path: '/business/businessGeneral',
     query: {
       action: 'view',
-      userId: row.id
+      business_id: row.id
     }
   });
 };
@@ -211,7 +228,7 @@ const editRecord = (row) => {
     path: '/business/businessGeneral',
     query: {
       action: 'edit',
-      userId: row.id
+      business_id: row.id
     }
   });
 };
@@ -225,6 +242,12 @@ const manageMembers = (row) => {
     }
   });
 };
+
+const handleRowClick = (row) => {
+  editRecord(row);
+};
+
+
 
 </script>
 

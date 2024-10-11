@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <select v-model="selected" @change="updateValue" placeholder="Handness" class="bg-gray-50 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50" id="handedness" required>
+  <div class="w-full">
+    <select v-model="selected" @change="updateValue" placeholder="Handness" 
+    class="h-12 lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg" id="handedness" required>
       <option v-for="handed in handedness" :key="handed.value" :value="handed.value">
         {{ handed.label }}
       </option>
@@ -23,6 +24,7 @@ const props = defineProps({
   }
 });
 
+console.log(props.handedness);
 const emits = defineEmits(['update:modelValue']);
 
 const selected = ref(props.modelValue);
@@ -40,9 +42,5 @@ watch(
 </script>
 
 <style scoped>
-select {
-  width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-}
+
 </style>

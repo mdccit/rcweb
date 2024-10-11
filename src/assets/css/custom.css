@@ -1,0 +1,50 @@
+
+::selection {
+  background-color: #15a2fa !important; /* Customize the background color */
+  color: white;              /* Customize the text color */
+}
+
+/* Firefox-specific */
+::-moz-selection {
+  background-color: #15a2fa !important;
+  color: white;
+}
+
+.radio-input {
+  width: 150px !important;
+}
+
+.tile-icon {
+  background-image: url("images/player-gray.png");
+  width: 33px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.-mt-13 {
+  margin-top: -3px;
+}
+
+textarea{
+  overflow: hidden;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ddd;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: #ddd;
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #0085FF;
+}
+
+
+.z-index-220 {
+    z-index: 220;
+}

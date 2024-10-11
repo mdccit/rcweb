@@ -10,13 +10,13 @@
                         <div class="flex items-center justify-between">
 
                             <div class="flex items-center space-x-4">
-                                <img src="../../assets/user/images/Rectangle 126.png" alt=""
+                                <img src="@/assets/user/images/Rectangle 126.png" alt=""
                                     class="rounded-lg w-12 h-12 mr-4">
                                 <div>
                                     <div class="text-lg font-semibold text-black">Dianne Russell</div>
                                     <div class="flex items-center space-x-2">
                                         <div class="bg-mintGreen p-1 rounded">
-                                            <img src="../../assets/user/images/man-medal.png" alt="" class=" w-4 h-4">
+                                            <img src="@/assets/user/images/man-medal.png" alt="" class=" w-4 h-4">
                                         </div>
                                         <div class="text-sm ml-2 text-black">4 hour ago</div>
                                     </div>
@@ -56,7 +56,7 @@
                                                 Edit post
                                             </a>
                                         </li>
-                                        <li class="text-red">
+                                        <li class="text-red-500">
                                             <a href="#" class="block px-4 py-2 hover:bg-lightGray flex">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                     stroke-width="1.5" stroke="currentColor" class="size-4 mr-2">
@@ -75,7 +75,7 @@
                             document or a typeface without relying on meaningful content.
                         </p>
                         <div class="relative w-82 h-82 pt-4">
-                            <img src="../../assets/user/images/Rectangle 128.png" alt=""
+                            <img src="@/assets/user/images/Rectangle 128.png" alt=""
                                 class="rounded-lg mr-4 w-full h-full object-cover">
                             <div class="absolute inset-0 flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -136,7 +136,7 @@
                         </div>
                         <hr class="mt-3 mb-3 text-pigeonBlue">
                         <div class="flex space-x-4 mt-3">
-                            <img src="../../assets/user/images/Rectangle 117.png" alt=""
+                            <img src="@/assets/user/images/Rectangle_117.png" alt=""
                                 class="rounded-lg w-12 h-12 mr-4">
                             <div>
                                 <div class="text-lg font-semibold text-black">Jane Cooper</div>
@@ -163,7 +163,7 @@
                             </div>
                         </div>
                         <div class="flex space-x-4 mt-4">
-                            <img src="../../assets/user/images/Rectangle 117.png" alt=""
+                            <img src="@/assets/user/images/Rectangle_117.png" alt=""
                                 class="rounded-lg w-12 h-12 mr-4">
                             <div>
                                 <div class="text-lg font-semibold text-black">Christopher Rogers</div>
@@ -197,7 +197,7 @@
                 <!-- comment section -->
                 <div id="accordion-collapse-comment-2-body" aria-labelledby="accordion-collapse-comment-2"
                     class="z-10 hidden bg-white mt-4 flex items-start space-x-4">
-                    <img src="../../assets/user/images/Rectangle 117.png" alt="User Image" class="w-12 h-12 rounded-lg">
+                    <img src="@/assets/user/images/Rectangle_117.png" alt="User Image" class="w-12 h-12 rounded-lg">
                     <div class="relative  w-full ">
                         <input type="text" placeholder="Write your comment..."
                             class=" text-ceil bg-ceil w-full rounded-xl py-2 px-4 border-none"
@@ -227,8 +227,3 @@
     </section>
 </template>
 
-<!-- <script setup>
-definePageMeta({
-  layout: 'user',
-});
-</script> -->

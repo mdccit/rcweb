@@ -1,11 +1,18 @@
 <template>
-    <select v-model="selected" @change="updateValue" placeholder="Code" class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50" id="mobileCode" required>
-      <option v-for="code in country_codes" :key="code.phone_code" :value="code.value">
-        {{ '(' + code.phone_code + ') ' + code.label }}
-      </option>
-    </select>
+  <select 
+    v-model="selected" 
+    @change="updateValue" 
+    placeholder="Code" 
+    class="h-12 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg text-black" 
+    id="mobileCode" 
+    required
+  >
+    <option v-for="code in country_codes" :key="code.phone_code" :value="code.value">
+      {{ '(' + code.phone_code + ') '  }}
+      {{ code.label }}
+    </option>
+  </select>
 </template>
-
 <script setup>
 import { defineProps, defineEmits, watch } from 'vue';
 
@@ -37,9 +44,17 @@ watch(
 </script>
 
 <style scoped>
-select {
-  width: 100%;
-  padding: 8px;
-  margin-top: 4px;
+
+
+
+option span.truncate {
+  display: inline-block;
+  max-width: 100px; /* Adjust the width as needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+select{
+  padding: 5px;
 }
 </style>
