@@ -233,17 +233,23 @@ const model_id = ref('');
 const editingPostId = ref(null)
 const isLoading = ref(false);
 const loading = ref(true);
-
+const tabValue = ref('')
 const props = defineProps({
   posts: Array,
-  commentHidden: Array
+  commentHidden: Array,
+  tab:String
 });
 
 watch(
   () => props.commentHidden,
   () => {
     setCommentHiden()
-  }
+  },
+  ()=> props.tab,
+  () => {
+    console.log(props.tab)
+    tabValue.value = props.tab
+  },
 );
 
 const setCommentHiden = () => {
@@ -263,14 +269,15 @@ onMounted(async () => {
 
 
 const onScroll = async (event) => {
-  isLoading.value = true
-  const container = document.getElementById('dataContainer');
-  if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
-
-    await emit('listpost');
-
-  }
+  if(tabValue.value == 'feed'){
+    isLoading.value = true
+    const container = document.getElementById('dataContainer');
+    if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+      await emit('listpost');
+    }
   isLoading.value = false;
+  }
+  
 }
 
 // Function to load the initial set of posts

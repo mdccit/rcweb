@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   head: {
     title: 'Recruited', // Change this to your website title
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/_nuxt/assets/images/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/_nuxt/assets/images/favicon.ico' }      
     ],
   },
   srcDir: 'src/',
