@@ -70,7 +70,7 @@
                             <input type="checkbox" id="checked-checkbox" v-model="is_set_email_verified"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring focus:ring-blue-500">
                             <label for="checked-checkbox" class="ml-2 text-sm font-normal text-gray-600">Set email
-                                verified</label>
+                                verified *</label>
                         </div>
                         <InputError
                             :error="errors.is_set_email_verified ? errors.is_set_email_verified.join(', ') : ''" />
@@ -273,7 +273,6 @@ const submitRegistration = async () => {
             nuxtApp.$notification.triggerNotification(response.display_message || 'An error occurred', 'failure');
         }
     } catch (error) {
-        console.log('error');
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
     } finally {
         loading.value = false;

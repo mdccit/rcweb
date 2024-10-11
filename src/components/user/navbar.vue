@@ -144,7 +144,7 @@
                                         :src="profilePicture" alt="">
                                 </div>
                                 <div class="hidden sm:hidden md:hidden lg:block">
-                                    <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName  }}</h6>
+                                    <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
                                     <p class="text-xs text-limegreen">Online</p>
                                 </div>
                             </div>
@@ -157,7 +157,7 @@
                         </button>
 
                         <!-- Dropdown menu -->
-                        <div id="dropdownUser"  
+                        <div id="dropdownUser"
                             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                             <ul v-if="userRole === 'admin'" class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                 aria-labelledby="dropdownUserAvatarButton">
@@ -299,7 +299,7 @@ onMounted(() => {
             profilePicture.value =localStorage.getItem('profile_picture')
 
             userStore.setProfilePicture({
-                url:profilePicture.value
+                url: profilePicture.value
             })
         }
         // console.log(localStorage.getItem('profile_picture'))
@@ -340,3 +340,9 @@ const searchkey = () => {
     });
 }
 </script>
+
+<style>
+.z-index-200 {
+    z-index: 200;
+}
+</style>

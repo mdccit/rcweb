@@ -123,7 +123,7 @@
         </template>
       </el-table-column>
       <!-- Joined At Column -->
-      <el-table-column prop="joined_at" label="JOINED DATE" sortable>
+      <el-table-column prop="joined_at" label="JOINED" sortable>
         <template v-slot="scope">
           <span class="tealGaray">{{ formatDate(scope.row.joined_at) }}</span>
         </template>

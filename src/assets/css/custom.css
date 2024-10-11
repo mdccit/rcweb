@@ -40,7 +40,12 @@ textarea {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #0085ff;
+  background-color: #0085FF;
+}
+
+
+.z-index-220 {
+  z-index: 220;
 }
 
 .tabs-align {

@@ -58,9 +58,9 @@ import { ref, computed } from 'vue';
 import { useNuxtApp } from '#app';
 import { defineProps, defineEmits } from 'vue';
 import Notification from '~/components/common/Notification.vue';
-
 import { handleError } from '@/utils/handleError';
 import InputError from '@/components/common/input/InputError.vue';
+
 
 
 const name = ref('');
