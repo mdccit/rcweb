@@ -77,20 +77,20 @@
                                 </button>
                                 <button @click="connectRequestSend(connection.id)"
                                     v-if="connection.connection_status == 'connect'"
-                                    class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    class="bg-blue-500 rounded-full  p-2 m-1 text-white text-xs h-[35px] w-[85px]">
                                     Connect +
                                 </button>
                                 <button v-if="connection.connection_status == 'pending'"
-                                    class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    class="bg-blue-500 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                     Invite sent
                                 </button>
                                 <button v-if="connection.connection_status == 'pending'"
                                     @click="connectCancelle(connection.connection_id)"
-                                    class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    class="bg-blue-500 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                     canncel Request
                                 </button>
                                 <button v-if="connection.connection_status == 'accepted'"
-                                    class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                    class="bg-lighterGray text-white rounded-full w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -98,7 +98,7 @@
                                     </svg>
                                 </button>
                                 <button v-if="connection.connection_status == 'accepted'" id="dropdownDefaultButton" data-dropdown-toggle="dropdownmore"
-                                    class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                    class="bg-lighterGray rounded-full text-white w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
                                         <path stroke-linecap="round" stroke-linejoin="round"
