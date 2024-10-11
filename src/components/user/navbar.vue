@@ -1,6 +1,6 @@
 <template>
     <!-- start header -->
-    <header class="fixed top-0 left-0 right-0 bg-white border-b border-b-poloBlue border-opacity-23 py-3 z-10">
+    <header class="fixed top-0 left-0 right-0 bg-white border-b border-b-poloBlue border-opacity-23 py-3 z-index-320">
         <div class="container-compressed">
             <div class="grid grid-cols-6 gap-4">
                 <div class="flex items-center">

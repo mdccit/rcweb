@@ -191,4 +191,7 @@ export default {
   width: 300px;
   margin-bottom: 20px;
 }
+.active-filter{
+  color: #0085FF !important;
+}
 </style>

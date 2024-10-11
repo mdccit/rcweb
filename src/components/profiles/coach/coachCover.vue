@@ -133,7 +133,7 @@
                     </div>
 
                 </div>
-                <div class="grid grid-cols-6 gap-4 flex -mt-[85px] z-index-200">
+                <div class="grid grid-cols-6 gap-4 flex -mt-[85px] tabs-align">
                     <div class="col-span-1">
                     </div>
                     <div class="col-span-5">
