@@ -116,8 +116,8 @@ definePageMeta({
 });
 
 import { ref, onMounted } from 'vue';
-import SubscriptionBilling from '~/components/subscription/profile/SubscriptionBilling.vue';
-import PaymentHistory from '~/components/subscription/profile/PaymentHistory.vue';
+import SubscriptionBilling from '~/components/profiles/subscription/SubscriptionBilling.vue';
+import PaymentHistory from '~/components/profiles/subscription/PaymentHistory.vue';
 import { usePackageStore } from '@/stores/packageStore';
 import { useNuxtApp, useRuntimeConfig } from '#app';
 // Access authService from the context

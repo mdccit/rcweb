@@ -72,6 +72,33 @@
         </tbody>
       </table>
     </div>
+
+
+
+    <!-- Cancel subscription -->
+    <div class="mt-6">
+      <hr class="mt-5 mb-3 text-pigeonBlue">
+      <h3 class="font-semibold text-xl mb-4 text-black">Cancel subscription</h3>
+      <p class="text-sm text-darkSlateBlue mb-4">Lorem ipsum is a placeholder text commonly used to demonstrate the
+        visual form of a document or a typeface without relying on meaningful content.
+      </p>
+
+      <div class="space-y-4">
+        <div class="card rounded-2xl overflow-hidden border border-gainsboroGray bg-white w-full p-3 mt-3">
+          <p class="text-sm text-darkSlateBlue mb-6">Lorem ipsum is a placeholder text commonly used to demonstrate
+            the
+            visual form of a documentLorem ipsum is a placeholder text commonly used to demonstrate the visual form
+            of a document or a typeface without relying on meaningful content.</p>
+
+          <div class="mt-6">
+            <button
+              class="w-50 py-3 px-2 bg-redOrange text-white  text-xs font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Cancel
+              Subscription</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 </template>

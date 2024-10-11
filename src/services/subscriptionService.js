@@ -1,8 +1,8 @@
 const createSubscriptionService = (apiService) => {
 
 
-  const get_connection = async (user_id) => {
-    const url = `/user/connections-list-with-compare/${user_id}`;
+  const get_subscription = async () => {
+    const url = `/subscription/show`;
     try {
       const response = await apiService.getRequest(url);
       if (response && response.data) {
@@ -42,7 +42,7 @@ const createSubscriptionService = (apiService) => {
 
 
   return {
-    get_connection,
+    get_subscription,
     connection_request,
     connection_accept,
   };

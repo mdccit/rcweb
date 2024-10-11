@@ -16,11 +16,11 @@ export const initializeServices = () => {
 
   const apiService = createApiService(config);
   const authService = createAuthService(apiService);
-  const adminService = createAdminService(apiService);
-  const feedService = createFeedService(apiService);
-  const publicService = createPublicService(apiService);
-  const userService = createUserService(apiService);
-  const subscriptionService = createSubscriptionService(apiService);
+  // const adminService = createAdminService(apiService);
+  // const feedService = createFeedService(apiService);
+  // const publicService = createPublicService(apiService);
+  // const userService = createUserService(apiService);
+  // const subscriptionService = createSubscriptionService(apiService);
 
-  return { apiService, authService , adminService, feedService, publicService, userService, subscriptionService };
+  return { apiService, authService };
 };

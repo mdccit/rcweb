@@ -21,7 +21,12 @@
               typeface
               without relying on meaningful content.
             </p>
-            <p class="text-steelBlue font-semibold mt-4 text-xl">Activated</p>
+            <p v-if="activeStatus === 'active'" class="bg-green-100 text-green-600 font-semibold mt-4 text-xl px-4 py-2 rounded-full">
+              Activated
+            </p>
+            <p v-else class="bg-red-100 text-red-600 font-semibold mt-4 text-xl px-4 py-2 rounded-full">
+              Inactive
+            </p>
           </div>
 
 
@@ -29,11 +34,11 @@
             <div class="border border-gainsboroGray rounded-lg p-4 flex justify-between mb-10">
               <div>
                 <p class="text-darkSlateBlue text-sm font-semibold mb-2">Last subscribed date</p>
-                <p class="font-semibold text-lg text-black">2024 08 01</p>
+                <p class="font-semibold text-lg text-black">{{ startDate }}</p>
               </div>
               <div class="border-l border-gainsboroGray px-4">
                 <p class="text-darkSlateBlue text-sm font-semibold mb-2">Next renewal date</p>
-                <p class="font-semibold text-lg text-black">2024 09 01</p>
+                <p class="font-semibold text-lg text-black">{{ endDate }}</p>
               </div>
             </div>
 
@@ -120,90 +125,6 @@
 
     </div>
 
-    <!-- Payment history -->
-    <div class="mt-6">
-      <hr class="mt-5 mb-3 text-pigeonBlue">
-      <h3 class="font-semibold text-xl mb-4 text-black">Payment history</h3>
-      <p class="text-sm text-darkSlateBlue mb-4"> Lorem ipsum is a placeholder text commonly used to demonstrate the
-        visual form of a document or a typeface without relying on meaningful content.</p>
-
-      <div class="px-3 divide-x text-right">
-        <a class="text-steelBlue text-sm hover:underline">See all</a>
-      </div>
-      <div class="card rounded-2xl overflow-hidden border border-gainsboroGray bg-white w-full p-2 mt-3">
-        <table class="min-w-full border-collapse">
-          <thead>
-            <tr>
-              <th class="p-1 text-left text-darkSlateBlue text-xs">Date</th>
-              <th class="p-1 text-left text-darkSlateBlue text-xs">Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-black p-1 font-semibold text-sm">2024 05 01</td>
-              <td class="text-black p-1 font-semibold text-sm">$100.00</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="card rounded-2xl overflow-hidden border border-gainsboroGray bg-white w-full p-2 mt-3">
-        <table class="min-w-full border-collapse">
-          <thead>
-            <tr>
-              <th class="p-1 text-left text-darkSlateBlue text-xs">Date</th>
-              <th class="p-1 text-left text-darkSlateBlue text-xs">Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-black p-1 font-semibold text-sm">2024 05 01</td>
-              <td class="text-black p-1 font-semibold text-sm">$100.00</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="card rounded-2xl overflow-hidden border border-gainsboroGray bg-white w-full p-2 mt-3">
-        <table class="min-w-full border-collapse">
-          <thead>
-            <tr>
-              <th class="p-1 text-left text-darkSlateBlue text-xs">Date</th>
-              <th class="p-1 text-left text-darkSlateBlue text-xs">Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-black p-1 font-semibold text-sm">2024 05 01</td>
-              <td class="text-black p-1 font-semibold text-sm">$100.00</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-      <!-- Cancel subscription -->
-      <div class="mt-6">
-        <hr class="mt-5 mb-3 text-pigeonBlue">
-        <h3 class="font-semibold text-xl mb-4 text-black">Cancel subscription</h3>
-        <p class="text-sm text-darkSlateBlue mb-4">Lorem ipsum is a placeholder text commonly used to demonstrate the
-          visual form of a document or a typeface without relying on meaningful content.
-        </p>
-
-        <div class="space-y-4">
-          <div class="card rounded-2xl overflow-hidden border border-gainsboroGray bg-white w-full p-3 mt-3">
-            <p class="text-sm text-darkSlateBlue mb-6">Lorem ipsum is a placeholder text commonly used to demonstrate
-              the
-              visual form of a documentLorem ipsum is a placeholder text commonly used to demonstrate the visual form
-              of a document or a typeface without relying on meaningful content.</p>
-
-            <div class="mt-6">
-              <button
-                class="w-50 py-3 px-2 bg-redOrange text-white  text-xs font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Cancel
-                Subscription</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
   </div>
 
 </template>
@@ -217,6 +138,34 @@ const nuxtApp = useNuxtApp();
 const RuntimeConfig = useRuntimeConfig().public;
 
 const $subscriptionService = nuxtApp.$subscriptionService;
+const subscription = ref([]);
+const startDate = ref('');
+const endDate = ref('');
+const activeStatus = ref('');
+const subscriptionType = ref('');
 
+onMounted(async () => {
+  try {
+    // Fetch user subscription information
+    const response = await $subscriptionService.get_subscription();
+    subscription.value = response;
+
+    startDate.value = formatDate(response.start_date);
+    endDate.value = formatDate(response.end_date);
+    activeStatus.value = response.status;
+  } catch (error) {
+    console.error('Error fetching subscription data:', error);
+  }
+});
+
+
+// Helper function to format date from "YYYY-MM-DD HH:mm:ss" to "Y-M-d"
+function formatDate(dateString) {
+  const date = new Date(dateString);  // Create a Date object
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed, so add 1
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
 
 </script>
