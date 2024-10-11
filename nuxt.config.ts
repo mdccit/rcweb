@@ -65,7 +65,9 @@ export default defineNuxtConfig({
       apiUrl: process.env.NUXT_PUBLIC_API_URL,
       accessKey: process.env.ACCESS_KEY,
       defaultLang: process.env.DEFAULT_LANG,
+      stripePublicKey: process.env.STRIPE_PUBLIC_KEY,// Client-side key
     },
+    stripeSecretKey: process.env.STRIPE_SECRET_KEY, // Server-side key
   },
   plugins: [
     '~/plugins/runtimeConfig.js',

@@ -17,10 +17,12 @@
 import { ref, onMounted } from 'vue';
 import { loadStripe } from '@stripe/stripe-js';
 import { usePackageStore } from '@/stores/packageStore';
-import { useNuxtApp } from '#app';
+import { useNuxtApp, useRuntimeConfig } from '#app';
+
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
+const RuntimeConfig = useRuntimeConfig().public;
 
 const $authService = nuxtApp.$authService;
 const route = useRoute();
@@ -45,17 +47,15 @@ const setupIntentId = ref('');
 
 onMounted(async () => {
   // Get stored data from packageStore using token
-
   clientSecret.value = localStorage.getItem('setupIntentClientSecret');
   setupIntentId.value = localStorage.getItem('setupIntentId');
 
   // Load Stripe and mount the card element
-  stripe.value = await loadStripe('pk_test_51Q5IlqB1aCt3RRccXbVS8aYnSTynl0TufY4s4mPxlYeZKbZrX2YpKxkwMBbeitKm8iWBAyWwWzcLyYByyE9sGegG00OJSEbT2i');
+  const stripePublicKey = RuntimeConfig.public.stripePublicKey;  // Access from runtimeConfig
+  stripe.value = await loadStripe(stripePublicKey);
   const elements = stripe.value.elements();
   cardElement.value = elements.create('card');
   cardElement.value.mount('#card-element');
-
-
 
 });
 
