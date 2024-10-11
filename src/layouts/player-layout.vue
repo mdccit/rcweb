@@ -17,7 +17,7 @@
         </div>
         <div class="col-start-2 col-span-4 bg-brown-500">
           <!-- Content changes based on the selected tab -->
-          <UserFeed v-if="tab === 'feed'" :posts="posts" @listpost="loadInitfintePost" :commentHidden="isHidddenComment"/>
+          <UserFeed v-if="tab === 'feed'" :posts="posts" @listpost="newLoader" :commentHidden="isHidddenComment"/>
           <Connection v-if="tab === 'connection'" :playerId="playerID" @profileView="redirectPage" />
           <mediaTab v-if="tab === 'media'" :userSlug="route.params.slug" @uploadCompleted="refreshGallery" :playerId="playerID" />
 
@@ -139,7 +139,7 @@ const currentPage = ref(1)
 const lastPage  =ref('')
 const isHidddenComment = ref([]);
 const childKey = ref(0);
-
+const load = ref(false)
 onMounted(() => {
     slug.value = route.params.slug;
 
@@ -371,7 +371,14 @@ const setGalleryItems = (mediaInfo) => {
 //     }
 // }
 
+
+const newLoader = ()=>{
+  if(load.value ==false){
+    loadInitfintePost()
+  }
+}
 const loadInitfintePost = async () =>{
+  load.value = true
     try {
       //  isLoading.value = true;
       const response = await $feedService.list_posts(currentPage.value);
@@ -390,6 +397,9 @@ const loadInitfintePost = async () =>{
       // isLoading.value = false;
       console.error('Failed to load posts:', error.message);
     }
+    setTimeout(()=>{
+      load.value =false
+    },10000)
   }
 
 const redirectPage = (url) =>{

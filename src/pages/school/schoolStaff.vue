@@ -9,7 +9,7 @@
                             fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M15 6l-6 6l6 6"></path>
                         </svg></NuxtLink>
-                    <h2 class="font-bold text-lg self-center text-black"> Editing: </h2>
+                    <h2 class="font-bold text-lg self-center text-black"> Editing: {{ name }}</h2>
                 </div>
                 <div class=""><button type="submit"
                         class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-blue-300 focus:ring-blue-200">
@@ -137,7 +137,7 @@ const notificationMessage = ref('');  // Message for the notification
 const action = ref('');  // Action type (e.g., manage, view)
 const school_id = ref('');  // School ID
 const staff_members = ref([]);  // Array to hold staff data
-
+const name = ref('')
 onMounted(() => {
     // Set initial values for action and school_id from route query parameters
     // action.value = route.query.action || 'manage';
@@ -146,6 +146,7 @@ onMounted(() => {
     // Fetch school staff data if action is 'manage'
     // if (action.value === 'manage') {
     fetchSchoolStaff(school_id.value);
+    fetchSchoolDetails(school_id.value)
     // }
 });
 
@@ -156,6 +157,7 @@ const fetchSchoolStaff = async (schoolId) => {
     try {
         // Fetch staff data from the API using $adminService
         const staffData = await $adminService.list_school_staff(schoolId);
+        console.log(staffData)
         staff_members.value = staffData || [];  // Set the fetched data to the staff ref
     } catch (error) {
         console.error('Failed to load school staff details:', error.message);
@@ -163,6 +165,18 @@ const fetchSchoolStaff = async (schoolId) => {
     }
 };
 
+const fetchSchoolDetails = async (school_id) => {
+    errors.value = [];
+    try {
+        const data = await $adminService.get_school_details(school_id);
+        
+        name.value = data.school_info.name || '';
+       
+
+    } catch (error) {
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    }
+};
 definePageMeta({
     ssr: false,
     layout: 'admin',

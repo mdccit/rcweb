@@ -171,6 +171,10 @@
 import { ref, watch, computed, onMounted, defineEmits } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
+import { useRoute } from 'vue-router';
+
+
+const route = useRoute(); // Use useRoute to access query parameters
 
 const emit = defineEmits(['open-modal']);
 const router = useRouter();
@@ -190,9 +194,11 @@ const emailVerified = ref('')
 
 // Fetch data from the API
 const fetchData = async () => {
+  console.log(4587)
   loading.value = true
   try {
     const users = await $adminService.list_users(role.value, lastSeenAt.value, emailVerified.value);
+    console.log(users)
     items.value = users;
     totalItems.value = users.length
   } catch (error) {
@@ -207,7 +213,15 @@ const fetchData = async () => {
 // Watch options and search to update filtered items
 watch([options, search], fetchData, { immediate: true })
 
-onMounted(fetchData)
+onMounted(()=>{
+  console.log(route.query.role)
+  if(route.query.role =='1'){
+    role.value =null
+  }{
+    role.value =route.query.role
+  }
+  fetchData()
+})
 
 const filteredItems = computed(() => {
   let filtered = items.value;
@@ -258,6 +272,23 @@ const formatDate = (dateString) => {
   const options = { year: 'numeric', month: 'short', day: 'numeric' };
   return new Date(dateString).toLocaleDateString(undefined, options);
 };
+
+watch(
+    () => route.query.role,
+    () => {
+      console.log(route.query.role)
+
+      if(route.query.role =='1'){
+        console.log(123)
+            role.value =''
+      }{
+        role.value =route.query.role
+      }
+
+        
+        fetchData()
+    }
+);
 </script>
 
 <script>
