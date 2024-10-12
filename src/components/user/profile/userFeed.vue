@@ -14,7 +14,11 @@
               <div class="flex items-center justify-between">
                 <div v-if="post.school_id != null" class="flex items-center space-x-3">
                   <button @click="schoolProfile(post.school.slug)">
-                    <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12">
+                    <!-- <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12"> -->
+                    <img v-if="post.school_profile_picture == null" src="@/assets/images/user.png" alt=""
+                        class="rounded-lg w-12 h-12">
+                      <img v-if="post.school_profile_picture != null" :src="post.school_profile_picture.url" alt=""
+                        class="rounded-lg w-12 h-12">
                   </button>
 
                   <div>
@@ -47,8 +51,11 @@
               <div class="flex items-center justify-between">
                 <div class="flex space-x-3 items-center">
                   <button @click="userProfile(post.user.slug)">
-                       <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-[35px] h-[35px]">
-
+                       <!-- <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-[35px] h-[35px]"> -->
+                       <img v-if="post.user_profile_picture == null" src="@/assets/images/user.png" alt=""
+                          class="rounded-lg w-10 h-10">
+                        <img v-if="post.user_profile_picture != null" :src="post.user_profile_picture.url" alt=""
+                          class="rounded-lg w-10 h-10">
                   </button>
                   <div>
                     <button @click="userProfile(post.user.slug)">

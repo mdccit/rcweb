@@ -10,7 +10,7 @@
               <path d="M15 6l-6 6l6 6"></path>
             </svg>
           </NuxtLink>
-          <h2 class="font-bold text-black text-lg self-center"> Editing: </h2>
+          <h2 class="font-bold text-black text-lg self-center"> Editing: {{ name }}</h2>
         </div>
         <div>
           <NuxtLink to="/school/9c2845cc-7676-45e1-b498-13f930b22e9b">
@@ -127,7 +127,22 @@ const notificationKey = ref(0);
 
 onMounted(() => {
   school_id.value = route.query.school_id || '';
+  fetchSchoolDetails()
+
 });
+
+const name = ref('')
+const fetchSchoolDetails = async () => {
+    try {
+        const data = await $adminService.get_school_details(school_id.value);
+        name.value = data.school_info.name || '';
+     
+    } catch (error) {
+      console.log(error)
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    }
+};
+
 
 const options = {
   page: 1,  // Default page number

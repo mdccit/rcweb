@@ -41,7 +41,7 @@
 
               <div id="userDropdown"
                 class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 dark:divide-gray-600">
-
+              
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                   <li>
                     <NuxtLink to="/admin/users?role=1"
@@ -97,6 +97,7 @@
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               Businesses
             </NuxtLink>
+            
             <!-- <div
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
               style="position: relative;">
@@ -309,6 +310,7 @@ import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 import { useUserStore } from '@/stores/userStore';
 import { useModerationStore } from '~/stores/moderation';
+import { useFlowbite } from '~/composables/useFlowbite';
 
 const userStore = useUserStore();
 const nuxtApp = useNuxtApp();
@@ -404,7 +406,9 @@ onMounted(() => {
       console.log('No user_name found in localStorage.');
     }
   }
-
+  useFlowbite(() => {
+        initFlowbite();
+  })
   if(localStorage.getItem('profile_picture')){
             profilePicture.value =localStorage.getItem('profile_picture')
             userStore.setProfilePicture({

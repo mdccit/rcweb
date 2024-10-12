@@ -9,7 +9,7 @@
             <path d="M15 6l-6 6l6 6"></path>
           </svg>
         </NuxtLink>
-        <h2 class="font-bold text-black text-lg self-center"> Add a User to Business </h2>
+        <h2 class="font-bold text-black text-lg self-center"> Editing: {{ name }}  </h2>
       </div>
       <div>
         <NuxtLink :to="{ path: '/business/businessGeneral', query: { action: 'edit', business_id: business_id } }">
@@ -114,8 +114,20 @@ const notificationKey = ref(0);
 onMounted(() => {
   business_id.value = route.query.business_id || ''; 
   console.log('Business ID:', business_id.value);  // Log business_id to check its value
-
+  fetchBusinessDetails()
 });
+
+const name = ref('')
+
+const fetchBusinessDetails = async () => {
+  try {
+    const data = await $adminService.get_business_details(business_id.value);
+    name.value = data.business_info.name;
+   
+  } catch (error) {
+    console.error('Error fetching business details:', error.message);
+  }
+};
 
 // Pagination options
 const options = ref({

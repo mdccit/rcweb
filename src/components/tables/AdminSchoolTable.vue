@@ -147,6 +147,7 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
+import { useFlowbite } from '~/composables/useFlowbite';
 
 const router = useRouter();
 const search = ref('');
@@ -202,6 +203,9 @@ watch([options, search], () => {
 // On mount, fetch the initial data
 onMounted(() => {
   fetchData();
+  useFlowbite(() => {
+      initFlowbite();
+  })
 });
 
 // Handle search submission
