@@ -5,7 +5,7 @@
             <!-- <img v-if="props.data.cover_picture != null" class="w-full h-[400px] rounded-xl"
                 :src="props.data.cover_picture.url" alt=""> -->
             <!-- Wrapper for the SVG to position it absolutely -->
-            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md"
+            <div class="absolute top-0 right-0 mt-[8px] mr-[8px]  w-6 h-6 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"
                 v-if="loggedUserSlug == props.userSlug" @click="toggleModal('cover')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
                     stroke="currentColor" class="size-3">
@@ -30,7 +30,7 @@
 
                                 <!-- SVG Wrapper positioned at the bottom right of the image -->
                                 <div v-if="loggedUserSlug == props.userSlug" @click="toggleModal('name')"
-                                    class="absolute bottom-0 right-0 mb-[10px] mr-[10px] cursor-pointer bg-white p-1 rounded-md">
+                                    class="absolute bottom-0 right-0 mb-[10px] mr-[10px]  w-6 h-6 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -104,7 +104,7 @@ import { useNuxtApp } from '#app';
 import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '~/stores/userStore';
 import BusinessUserTabNavigation from '~/components/profiles/navigation/BusinessUserTabNavigation.vue';
-import CoverModal from '~/components/profiles/businessUserProfile/modals/CoverModal.vue';
+import CoverModal from '~/components/profiles/businessUserProfile/modals/coverModal.vue';
 import NameModal from '~/components/profiles/businessUserProfile/modals/nameModal.vue';
 // Import the default profile picture
 import defaultCoverPicture from '@/assets/images/covrss.jpg';
