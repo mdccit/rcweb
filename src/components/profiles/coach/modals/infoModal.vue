@@ -1,6 +1,6 @@
 <template>
     <!-- Info change modal -->
-    <div v-if="visible" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div v-if="visible" class="relative z-index-320" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -17,11 +17,16 @@
                                     <div class="mt-2 grid grid-cols-2 gap-4">
                                         <!-- Nationality -->
                                         <div>
+
                                             <label for="nationality"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Nationality<span
                                                     class="text-red-600">*</span></label>
-                                            <NationalityDropdown :nationalities="nationalities" v-model="nationality"
-                                                id="nationality" required />
+                                            <div
+                                                class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
+                                                <NationalityDropdown :nationalities="nationalities"
+                                                    v-model="nationality" id="nationality" required />
+                                            </div>
+
                                             <InputError
                                                 :error="errors.nationality ? errors.nationality.join(', ') : ''" />
 
@@ -33,8 +38,12 @@
                                             <label for="date_of_birth"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Date of Birth <span
                                                     class="text-red-600">*</span></label>
-                                            <input type="date" v-model="date_of_birth" required
-                                                class="w-full border border-gray-300 rounded-lg shadow-sm h-12" />
+                                            <div
+                                                class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
+                                                <input type="date" v-model="date_of_birth" required :max="today"
+                                                    class="h-12 lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg" />
+                                            </div>
+
                                             <InputError
                                                 :error="errors.date_of_birth ? errors.date_of_birth.join(', ') : ''" />
 
@@ -58,7 +67,7 @@
                                 class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
                                 changes
                                 <svg v-if="loading" aria-hidden="true" role="status"
-                                    class="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101"
+                                    class="inline w-4 h-4 me-3 text-white animate-spin mt-[3px] ml-[5px]" viewBox="0 0 100 101"
                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
@@ -129,6 +138,16 @@ onMounted(async () => {
 
     ]);
 });
+// Function to get today's date in 'YYYY-MM-DD' format
+const getTodayDate = () => {
+    const today = new Date()
+    const year = today.getFullYear()
+    const month = String(today.getMonth() + 1).padStart(2, '0')
+    const day = String(today.getDate()).padStart(2, '0')
+    return `${year}-${month}-${day}`
+}
+
+const today = getTodayDate()
 
 watch(() => props.visible, (newVal) => {
     if (newVal && props.slug) {

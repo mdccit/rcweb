@@ -55,7 +55,7 @@
                       <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
                     </button>
                     <div v-if="post.school_id != null" class="text-darkSlateBlue text-xs">Coach at {{ post.school_id !=
-      null ? post.school.name : '' }}</div>
+                      null ? post.school.name : '' }}</div>
                     <div v-if="post.school_id == null" class="text-darkSlateBlue text-xs">{{ getTimeAgo(post.updated_at)
                       }}</div>
 
@@ -107,22 +107,23 @@
 
             <!-- Display only for the school - end -->
 
-            <h3 v-if="post.type === 'blog' || post.type === 'event'" class="mt-4 text-darkSlateBlue text-base">
+            <h3 v-if="post.type === 'blog' || post.type === 'event'" class="mt-4 text-darkSlateBlue text-base break-all">
               {{ post.title }}
             </h3>
             <div class="basis-full flex flex-col  ">
-              <p v-if="!editingPostId || editingPostId !== post.id" class="mt-4 text-darkSlateBlue text-base"
+              <p v-if="!editingPostId || editingPostId !== post.id" class="mt-4 text-darkSlateBlue text-base break-all" 
                 v-html="post.description"></p>
               <textarea v-else type="text" placeholder="Write your thoughts..." v-model="editPost"
                 class="mt-4 text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 ">
 
                    </textarea>
               <!-- </div> -->
-              <button v-if="editingPostId == post.id" @click="startEditPost(post.id)"
-                class="mt-2 bg-steelBlue hover:bg-darkAzureBlue transition text-white px-8 py-2 rounded-lg text-sm">
-                Edit
-              </button>
-
+              <div class="flex justify-end mt-2">
+                <button v-if="editingPostId == post.id" @click="startEditPost(post.id)"
+                  class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-8 py-2 rounded-lg text-sm min-w-24">
+                  Update
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -232,17 +233,23 @@ const model_id = ref('');
 const editingPostId = ref(null)
 const isLoading = ref(false);
 const loading = ref(true);
-
+const tabValue = ref('')
 const props = defineProps({
   posts: Array,
-  commentHidden: Array
+  commentHidden: Array,
+  tab:String
 });
 
 watch(
   () => props.commentHidden,
   () => {
     setCommentHiden()
-  }
+  },
+  ()=> props.tab,
+  () => {
+    console.log(props.tab)
+    tabValue.value = props.tab
+  },
 );
 
 const setCommentHiden = () => {
@@ -254,22 +261,23 @@ onMounted(async () => {
 
   loading.value = true;
   await nextTick();
- // Simulate the fetching of posts with a delay to visualize loader
- await loadInitialPosts();
+  // Simulate the fetching of posts with a delay to visualize loader
+  await loadInitialPosts();
 
   window.addEventListener('scroll', onScroll);
 });
 
 
 const onScroll = async (event) => {
-  isLoading.value = true
-  const container = document.getElementById('dataContainer');
-  if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
-
-    await emit('listpost');
-
-  }
+  if(tabValue.value == 'feed'){
+    isLoading.value = true
+    const container = document.getElementById('dataContainer');
+    if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+      await emit('listpost');
+    }
   isLoading.value = false;
+  }
+  
 }
 
 // Function to load the initial set of posts

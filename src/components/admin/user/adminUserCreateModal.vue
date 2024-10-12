@@ -29,22 +29,25 @@
                             <!-- First Name -->
                             <div>
                                 <label for="first_name" class="block text-sm font-normal text-gray-900 mb-1">First
-                                    Name</label>
+                                    Name <span class="text-red-500">*</span></label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <input type="text" id="first_name" v-model="first_name"
-                                        class="bg-transparent text-black block w-full p-2.5 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
+                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                         placeholder="Enter Name" required />
                                 </div>
                                 <InputError :error="errors.first_name ? errors.first_name.join(', ') : ''" />
                             </div>
 
+
+
+
                             <!-- Last Name -->
                             <div>
                                 <label for="last_name" class="block text-sm font-normal text-gray-900 mb-1">Last
-                                    Name</label>
+                                    Name <span class="text-red-500">*</span></label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <input type="text" id="last_name" v-model="last_name"
-                                        class="bg-transparent text-black block w-full p-2.5 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
+                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                         placeholder="Enter Name" required />
                                 </div>
                                 <InputError :error="errors.last_name ? errors.last_name.join(', ') : ''" />
@@ -53,11 +56,11 @@
 
                         <!-- Email -->
                         <div class="mt-4">
-                            <label for="email" class="block text-sm font-normal text-gray-900 mb-1">Email</label>
+                            <label for="email" class="block text-sm font-normal text-gray-900 mb-1">Email <span class="text-red-500">*</span></label>
                             <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                 <input type="email" id="email" v-model="email"
-                                    class="bg-transparent text-black block w-full p-2.5 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
-                                    placeholder="Enter Email"  required />
+                                    class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                    placeholder="Enter Email" required />
                             </div>
                             <InputError :error="errors.email ? errors.email.join(', ') : ''" />
                         </div>
@@ -67,7 +70,7 @@
                             <input type="checkbox" id="checked-checkbox" v-model="is_set_email_verified"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring focus:ring-blue-500">
                             <label for="checked-checkbox" class="ml-2 text-sm font-normal text-gray-600">Set email
-                                verified</label>
+                                verified *</label>
                         </div>
                         <InputError
                             :error="errors.is_set_email_verified ? errors.is_set_email_verified.join(', ') : ''" />
@@ -75,10 +78,10 @@
                         <!-- Password Fields -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4" v-if="props.action !== 'view'">
                             <div>
-                                <label for="password" class="block text-sm font-normal text-gray-900">Password</label>
+                                <label for="password" class="block text-sm font-normal text-gray-900">Password <span class="text-red-500">*</span></label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <input type="password" id="password" v-model="password"
-                                        class="bg-transparent text-black block w-full p-2.5 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
+                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                         placeholder="Enter password" required />
                                 </div>
                                 <InputError :error="errors.password ? errors.password.join(', ') : ''" />
@@ -87,10 +90,10 @@
                             <div>
                                 <label for="password_confirmation"
                                     class="block text-sm font-normal text-gray-900">Confirm
-                                    Password</label>
+                                    Password <span class="text-red-500">*</span></label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <input type="password" id="password_confirmation" v-model="password_confirmation"
-                                        class="bg-transparent text-black block w-full p-2.5 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
+                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                         placeholder="Confirm password" required />
                                 </div>
                                 <InputError
@@ -100,31 +103,34 @@
 
                         <!-- Role Selection -->
                         <div class="mt-4">
-                            <label for="role" class="block text-sm font-normal text-gray-900 mb-1">Role</label>
-                            <select id="role" v-model="user_role"
-                                class="bg-light-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                :disabled="props.action === 'view'">
-                                <option selected>Choose a Role</option>
-                                <option value="1">Default</option>
-                                <option value="2">Admin</option>
-                                <option value="3">Operator</option>
-                                <option value="4">Player</option>
-                                <option value="5">Coach</option>
-                                <option value="6">Business Manager</option>
-                                <option value="7">Parent</option>
-                            </select>
+                            <label for="role" class="block text-sm font-normal text-gray-900 mb-1">Role <span class="text-red-500">*</span></label>
+                            <div class="flex border border-gray-300 rounded-lg shadow-sm">
+                                <select id="role" v-model="user_role"
+                                    class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                    :disabled="props.action === 'view'">
+                                    <option selected>Choose a Role</option>
+                                    <option value="1">Default</option>
+                                    <option value="2">Admin</option>
+                                    <option value="3">Operator</option>
+                                    <option value="4">Player</option>
+                                    <option value="5">Coach</option>
+                                    <option value="6">Business Manager</option>
+                                    <option value="7">Parent</option>
+                                </select>
+                            </div>
+
                             <InputError :error="errors.user_role ? errors.user_role.join(', ') : ''" />
                         </div>
 
                         <!-- Phone Fields -->
-                        <div class="grid grid-cols-5 gap-4 mt-4">
+                        <div class="grid grid-cols-5 gap-4 mt-4 mb-4">
                             <div class="col-span-2">
                                 <label for="phone_code_country"
-                                    class="block text-sm font-normal text-gray-900">Code</label>
+                                    class="block text-sm font-normal text-gray-900">Code <span class="text-red-500">*</span></label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <ModalCountryCodeDropdown :country_codes="country_codes"
                                         v-model="phone_code_country" name="phone_code_country"
-                                        class="text-black px-5 h-[40px] py-2 w-full focus:ring focus:ring-blue-300 focus:ring-opacity-50 rounded-lg"
+                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                         :disabled="props.action === 'view'" />
                                 </div>
                                 <InputError
@@ -132,10 +138,10 @@
                             </div>
 
                             <div class="col-span-3">
-                                <label for="phone_number" class="block text-sm font-normal text-gray-900">Number</label>
+                                <label for="phone_number" class="block text-sm font-normal text-gray-900">Number <span class="text-red-500">*</span></label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <input type="text" id="phone_number" v-model="phone_number"
-                                        class="text-black px-5 py-2 w-full focus:ring focus:ring-blue-300 focus:ring-opacity-50 rounded-lg"
+                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                         placeholder="Number" :disabled="props.action === 'view'" />
                                 </div>
                                 <InputError :error="errors.phone_number ? errors.phone_number.join(', ') : ''" />
@@ -145,7 +151,7 @@
 
 
                         <!-- Modal Footer -->
-                        <div class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-300"
+                        <div class="flex items-center justify-end pt-4 space-x-2 border-t border-gray-200 rounded-b"
                             v-if="props.action !== 'view'">
                             <button type="submit"
                                 class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -267,7 +273,6 @@ const submitRegistration = async () => {
             nuxtApp.$notification.triggerNotification(response.display_message || 'An error occurred', 'failure');
         }
     } catch (error) {
-        console.log('error');
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
     } finally {
         loading.value = false;

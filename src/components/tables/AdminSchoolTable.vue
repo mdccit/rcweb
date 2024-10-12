@@ -123,7 +123,7 @@
         </template>
       </el-table-column>
       <!-- Joined At Column -->
-      <el-table-column prop="joined_at" label="JOINED DATE" sortable>
+      <el-table-column prop="joined_at" label="JOINED" sortable>
         <template v-slot="scope">
           <span class="tealGaray">{{ formatDate(scope.row.joined_at) }}</span>
         </template>
@@ -284,5 +284,8 @@ export default {
 .input-with-select {
   width: 300px;
   margin-bottom: 20px;
+}
+.active-filter{
+  color: #0085FF !important;
 }
 </style>

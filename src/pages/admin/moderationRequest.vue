@@ -8,7 +8,7 @@
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M15 6l-6 6l6 6"></path>
                         </svg>
-                    <h2 class="font-bold text-lg self-center"> Editing:{{ userName }} </h2>
+                    <h2 class="font-bold text-lg self-center"> Editing:{{' '+ userName }} </h2>
                 </div>
                 <div class="">
                     <!-- <a href="#"><button
