@@ -317,7 +317,12 @@ watch(
     () => {
         //if(localStorage.getItem('profile_picture')){
         console.log(userStore.userProfilePicture)
+        if(userStore.userProfilePicture !=null){
             profilePicture.value =userStore.userProfilePicture.url
+        }else{
+            profilePicture.value = 'null'
+        }
+           
             // console.log(1144)
             // console.log(profilePicture.value)
 

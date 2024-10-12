@@ -151,7 +151,7 @@
 
 
     <!-- Modal Components with Standardized Props -->
-    <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
+    <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" @updateData="fetchUserDetails" />
     <CoverModal :visible="modals.cover" @close="handleModalClose" :slug="slug" />
     <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" />
 </template>
@@ -337,10 +337,14 @@ const fetchUserDetails = async () => {
         }
         if (dataSets.media_info.profile_picture != null) {
             profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+        }else{
+            profile_picture.value =defaultProfilePicture;
         }
 
         if (dataSets.media_info.cover_picture != null) {
-            cover_picture.value = dataSets.media_info.cover_picture.url || defaultProfilePicture;
+            cover_picture.value = dataSets.media_info.cover_picture.url || defaultCoverPicture;
+        }else{
+            cover_picture.value =defaultCoverPicture;
         }
 
 
@@ -372,10 +376,13 @@ const toggleModal = (modalName) => {
 // Generic function to close the modal and fetch user details
 const handleModalClose = (modalName) => {
     // Defensive check to make sure modalName exists
+    console.log(1)
     if (modals[modalName] !== undefined) {
         modals[modalName] = false;  // Close the modal
-        fetchUserDetails();         // Fetch updated user details after closing
+        fetchUserDetails();   
+        console.log(2)      // Fetch updated user details after closing
     } else {
+        console.log(3)
         console.error(`Invalid modal name: ${modalName}`);
     }
 };
