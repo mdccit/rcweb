@@ -454,6 +454,150 @@ const createUserService = (apiService) => {
     }
   };
 
+  const update_business_user_bio = async (request_body) => {
+
+    const url = `/public/business-managers/update-bio/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+  const update_business_user_contact_info = async (request_body) => {
+
+    const url = `/public/business-managers/update-contact-info/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+  
+  const update_business_user_name = async (request_body) => {
+
+    const url = `/public/business-managers/update-basic-info/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to login');
+      }
+    }
+  };
+
+  const upload_business_user_cover_photo = async (file, user_slug) => {
+
+    const url = `/public/business-managers/upload-cover-picture/${user_slug}`;
+    // Create a new FormData object
+    const formData = new FormData();
+
+    // Ensure the file is appended correctly
+    if (file) {
+      formData.append('file', file); // The field name must match what the backend expects
+    } else {
+      throw new Error('No file selected'); // Handle if no file is selected
+    }
+    try {
+      const response = await apiService.postMedia(url, formData);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to login');
+      }
+    }
+  };
+
+  const delete_business_user_media = async (media_id) => {
+
+    const url = `/public/business-managers/remove-media/${media_id}`;
+    const body = {};
+
+    try {
+      const response = await apiService.deleteRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+  const update_business_user_other_info = async (request_body) => {
+
+    const url = `/public/business-managers/update-other-info/${request_body.user_slug}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+  const upload_business_user_profile_picture = async (file, user_slug) => {
+
+    const url = `/public/business-managers/upload-profile-picture/${user_slug}`;
+    // Create a new FormData object
+    const formData = new FormData();
+
+    // Ensure the file is appended correctly
+    if (file) {
+      formData.append('file', file); // The field name must match what the backend expects
+    } else {
+      throw new Error('No file selected'); // Handle if no file is selected
+    }
+    try {
+      const response = await apiService.postMedia(url, formData);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to login');
+      }
+    }
+  };
+
+  const upload_business_user_media = async (formData) => {
+    // Extract user_slug from the formData to build the URL
+    const userSlug = formData.get('user_slug');
+
+    // Ensure userSlug is present
+    if (!userSlug) {
+      throw new Error('User slug is missing from formData.');
+    }
+
+    const url = `/public/business-managers/upload-media/${userSlug}`;
+
+    try {
+      // Send the FormData directly as the body
+      const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
+
+      return response;
+    } catch (error) {
+      // Handle error response from the API
+      if (error.response) {
+        throw error.response; // Pass the full response for further handling
+      } else {
+        throw new Error(error.message || 'Failed to upload media');
+      }
+    }
+  };
+
+
 
 
   return {
@@ -492,8 +636,15 @@ const createUserService = (apiService) => {
     upload_coach_profile_picture,
     upload_coach_media,
     upload_coach_cover_photo,
-    delete_coach_media
-
+    delete_coach_media,
+    update_business_user_bio,
+    update_business_user_contact_info,
+    update_business_user_name,
+    upload_business_user_cover_photo,
+    upload_business_user_media,
+    delete_business_user_media,
+    update_business_user_other_info,
+    upload_business_user_profile_picture,
   };
 
 
