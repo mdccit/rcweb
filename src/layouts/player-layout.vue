@@ -297,7 +297,7 @@ const fetchUserDetails = async () => {
 
         }
 
-
+         console.log(leftData.value)
         const date = new Date(dataSets.user_basic_info.joined_at);
         const monthNames = [
             'January', 'February', 'March', 'April', 'May', 'June',

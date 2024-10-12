@@ -47,6 +47,7 @@
             </div>
             <p class="text-sm text-darkSlateBlue leading-relaxed">
                 {{ bio }}
+
             </p>
             <div v-if="seeMoreBtnHide">
                 <button id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
@@ -610,11 +611,9 @@ watch(
     () => props.data,
   () => {
     setprofile() 
-  },
-    () => props.data,
-  () => {
     setBio() 
   },
+   
     () => props.data,
     (newVal) => {
         // if (newVal && newVal.media_info) {
@@ -648,6 +647,7 @@ const setprofile = () =>{
 }
 
 const setBio = () =>{
+    console.log(852)
     let fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
     console.log(fullBio)
     bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;

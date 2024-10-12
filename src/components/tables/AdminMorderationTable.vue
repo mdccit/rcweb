@@ -2,7 +2,7 @@
   <el-card>
     <div class="flex justify-between items-center mb-4">
     <!-- Search Input for Filtering -->
-    <el-input v-model="search" class="h-[40px] mr-2 focus:border-none" placeholder="Search Priority..." clearable></el-input>
+    <el-input v-model="search" class="h-[40px] mr-2 focus:border-none" placeholder="Search" clearable></el-input>
 
     <!--  Search Button -->
     <!-- <button id="searchButton" @click="applySearch"
@@ -57,6 +57,8 @@
     <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick"
       class="cursor-pointer min-h-[350px]" :default-sort="{ prop: 'created_at', order: 'descending' }">
       <el-table-column prop="priority" label="PRIORITY" sortable></el-table-column>
+      <!-- <el-table-column style="display: none;" prop="display_name" label="Display Name" sortable></el-table-column> -->
+
       <el-table-column prop="joined_at" label="DETAILS" sortable>
         <template v-slot="scope">
           <span>User Creation - Needs Approval</span>
@@ -86,6 +88,7 @@ import { useNuxtApp } from '#app';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { useModerationStore } from '~/stores/moderation';
+import { useFlowbite } from '~/composables/useFlowbite';
 
 const moderationStore = useModerationStore();
 const status = ref('')
@@ -131,6 +134,9 @@ watch([options, search], () => {
 // On mount, fetch the initial data
 onMounted(() => {
   fetchData();
+  useFlowbite(() => {
+      initFlowbite();
+  })
 });
 
 
@@ -154,7 +160,8 @@ const filteredItems = computed(() => {
 
 return items.value.filter(item =>
   item.priority.toLowerCase().includes(search.value.toLowerCase()) ||
-  (item.bio && item.bio.toLowerCase().includes(search.value.toLowerCase()))
+  (item.display_name && item.display_name.toLowerCase().includes(search.value.toLowerCase())) ||
+  (item.email && item.email.toLowerCase().includes(search.value.toLowerCase()))
 );
 
   // Paginate items

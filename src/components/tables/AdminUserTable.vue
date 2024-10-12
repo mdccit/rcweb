@@ -172,6 +172,7 @@ import { ref, watch, computed, onMounted, defineEmits } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 import { useRoute } from 'vue-router';
+import { useFlowbite } from '~/composables/useFlowbite';
 
 
 const route = useRoute(); // Use useRoute to access query parameters
@@ -221,6 +222,10 @@ onMounted(()=>{
     role.value =route.query.role
   }
   fetchData()
+
+  useFlowbite(() => {
+      initFlowbite();
+  })
 })
 
 const filteredItems = computed(() => {
