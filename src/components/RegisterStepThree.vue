@@ -143,7 +143,6 @@ const handleSubmitStep3 = async () => {
           const payment_token = customerId; // For example, you can use customerId or a generated token
           packageStore.setPaymentToken(payment_token);
 
-          console.log('payment token', payment_token.value);
           // Step 4: Redirect to the /payment page
           router.push(`/payment/${payment_token}`);
 
@@ -174,43 +173,6 @@ const createSetupIntent = async (customerId) => {
   }
 };
 
-// Confirm Setup Intent with Stripe
-const confirmSetupIntent = async (clientSecret) => {
-  try {
-    const { setupIntent, error } = await stripe.confirmCardSetup(clientSecret, {
-      payment_method: {
-        card: cardElement,
-        billing_details: {
-          name: 'Customer Name', // Replace with actual customer details
-        },
-      },
-    });
-
-    if (error) {
-      console.error('Error confirming setup intent:', error);
-      throw error;
-    }
-    return setupIntent;
-  } catch (error) {
-    console.error('Error confirming setup intent:', error);
-    throw error;
-  }
-};
-
-// Finalize the subscription creation (called by PaymentComponent)
-const finalizeSubscription = async (paymentMethodId) => {
-  try {
-    const subscription = await $authService.createSubscription({
-      subscription_type: 'monthly',
-      is_auto_renewal: true,
-      payment_method_id: paymentMethodId,
-    });
-
-    console.log('Subscription created successfully', subscription);
-  } catch (error) {
-    console.error('Error during subscription creation:', error);
-  }
-};
 </script>
 
 <style scoped>

@@ -44,6 +44,20 @@ const createSubscriptionService = (apiService) => {
     }
   };
 
+  const get_customer_active_payment_method = async () => {
+    const url = `/subscription/stripe/customer-active-payment-method`;
+    try {
+      const response = await apiService.getRequest(url);
+      if (response) {
+        return response;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error || 'Failed to register');
+    }
+  };
+
   const connection_request = async (request_body) => {
     const url = '/user/connections-request';
     const body = request_body;
@@ -74,7 +88,8 @@ const createSubscriptionService = (apiService) => {
     connection_request,
     connection_accept,
     get_stripe_payment_history,
-    get_customer_payment_methods
+    get_customer_payment_methods,
+    get_customer_active_payment_method
   };
 
 
