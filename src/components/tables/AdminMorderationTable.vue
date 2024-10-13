@@ -14,7 +14,7 @@
 
       <button type="button" aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdowntable"
         class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
+        <svg xmlns="http://www.w3.org/2000/svg"  :class="filterApply ==true ?'active-filter h-5 w-5 text-gray-400 mx-auto':'h-5 w-5 text-gray-400 mx-auto'" viewBox="0 0 20 20"
           fill="currentColor">
           <path fill-rule="evenodd"
             d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
@@ -100,6 +100,7 @@ const options = ref({
   page: 1,
   itemsPerPage: 10,
 });
+const filterApply = ref(false)
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
@@ -124,8 +125,25 @@ const fetchData = async () => {
   } finally {
     loading.value = false;
   }
+  filterView()
 };
 
+const filterView = () =>{
+
+
+filterApply.value = false;
+ 
+ if(status.value != ''){
+  filterApply.value = true;
+ }
+
+
+ if( status.value == '' ){
+  filterApply.value = false;
+ }
+
+ console.log(filterApply.value)
+}
 // Watch pagination options and search term to refetch data
 watch([options, search], () => {
   fetchData();

@@ -153,7 +153,7 @@
     <!-- Modal Components with Standardized Props -->
     <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" @updateData="fetchUserDetails" />
     <CoverModal :visible="modals.cover" @close="handleModalClose" :slug="slug" />
-    <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" />
+    <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" :data="props.data" />
 </template>
 
 <script setup>
@@ -420,6 +420,7 @@ onMounted(() => {
 
     userId.value = userStore.user?.user_id || null;
     slug.value = props.userSlug;
+    console.log(slug.value)
     userSlug.value = userStore.userSlug ?? null
     if (userSlug.value != slug.value) {
         fetchCheckConnection()
