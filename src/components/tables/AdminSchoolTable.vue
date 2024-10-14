@@ -25,12 +25,12 @@
         </button>
         <!-- Dropdown Menu -->
         <div id="dropdowntable"
-          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 hidden p-3 table-filter-dropDown">
+          class="origin-top-right absolute p-4 right-0 mt-2 w-[300px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 hidden p-3 table-filter-dropDown">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
             <div class="mb-3">
               <label for="text-sm">Role </label>
-              <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+              <div class="flex  mt-2 mb-2  border border-gray-300 shadow-sm rounded-[10px]">
                 <select @change="fetchData" name="role"  v-model="role" 
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
@@ -41,7 +41,7 @@
             </div>
             <div class="mb-3">
               <label for="text-sm">Has Admin </label>
-              <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+              <div class="flex  mt-2 mb-2 border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" v-model="hasAdmin"  @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
@@ -52,7 +52,7 @@
             </div>
             <div class="mb-3">
               <label for="text-sm">GOV ID </label>
-              <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+              <div class="flex  mt-2 mb-2 border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" v-model="govId"  @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
@@ -63,7 +63,7 @@
             </div>
             <div class="mb-3">
               <label for="text-sm">Coords Lat </label>
-              <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+              <div class="flex  mt-2 mb-2 border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role"  v-model="coordLat"  @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>

@@ -15,7 +15,7 @@
       </button> -->
       <div class="relative inline-block text-left">
 
-        <button type="button" aria-haspopup="true" id="dropdownButtonUserTable" data-dropdown-toggle="dropdowntable"
+        <button type="button" aria-haspopup="true" id="dropdownButtonUserTable" data-dropdown-toggle="dropdowntable2"
           class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
           <svg xmlns="http://www.w3.org/2000/svg" :class=" filterApply ==true ?'active-filter h-5 w-5 text-gray-400 mx-auto':'h-5 w-5 text-gray-400 mx-auto' " viewBox="0 0 20 20"
             fill="currentColor">
@@ -26,14 +26,14 @@
         </button>
 
         <!-- Dropdown Menu -->
-        <div id="dropdowntable"
-          class="mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none
-           p-3 z-10 block  transform -translate-x-[130.4px] translate-y-[50.4px] table-filter-dropDown">
+        <div id="dropdowntable2"
+          class="mt-2 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none
+           p-4 z-10 block  transform -translate-x-[130.4px] translate-y-[50.4px] table-filter-dropDown hidden">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
             <div class="mb-3">
-              <label for="text-sm">Role </label>
-              <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+              <label for="text-sm mb-1">Role </label>
+              <div class="flex  border border-gray-300 shadow-sm rounded-[10px] mt-2 mb-2">
                 <select name="filter-role" v-model="role" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
@@ -47,7 +47,7 @@
             </div>
             <div class="mb-3">
               <label for="text-sm">Last Seen At </label>
-              <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+              <div class="flex  border border-gray-300 shadow-sm rounded-[10px] mt-2">
                 <select name="filter-role" v-model="lastSeenAt" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
@@ -61,7 +61,7 @@
             </div>
             <div class="mb-3">
               <label for="text-sm">Email verified </label>
-              <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
+              <div class="flex  border border-gray-300 shadow-sm rounded-[10px] mt-2">
                 <select name="filter-role" v-model="emailVerified" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
