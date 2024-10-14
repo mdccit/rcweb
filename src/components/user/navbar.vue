@@ -134,7 +134,7 @@
                                 </div>
                             </div>
                         </NuxtLink>
-                        <NuxtLink v-else :to="`/app/profile/${userSlug}`">
+                        <NuxtLink v-if="userRole == 'admin'" >
                             <div class="flex space-x-2 items-center">
                                 <div class="hidden sm:hidden md:hidden lg:block">
                                     <img v-if="profilePicture == 'null'"class="w-10 h-10 rounded-lg border border-white shadow-lg"
@@ -317,7 +317,12 @@ watch(
     () => {
         //if(localStorage.getItem('profile_picture')){
         console.log(userStore.userProfilePicture)
+        if(userStore.userProfilePicture !=null){
             profilePicture.value =userStore.userProfilePicture.url
+        }else{
+            profilePicture.value = 'null'
+        }
+           
             // console.log(1144)
             // console.log(profilePicture.value)
 

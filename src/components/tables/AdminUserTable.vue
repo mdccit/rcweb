@@ -17,20 +17,22 @@
 
         <button type="button" aria-haspopup="true" id="dropdownButtonUserTable" data-dropdown-toggle="dropdowntable"
           class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
-          <svg xmlns="http://www.w3.org/2000/svg" :class=" role !=1?'active-filter h-5 w-5 text-gray-400 mx-auto':'h-5 w-5 text-gray-400 mx-auto' " viewBox="0 0 20 20"
+          <svg xmlns="http://www.w3.org/2000/svg" :class=" filterApply ==true ?'active-filter h-5 w-5 text-gray-400 mx-auto':'h-5 w-5 text-gray-400 mx-auto' " viewBox="0 0 20 20"
             fill="currentColor">
             <path fill-rule="evenodd"
               d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
               clip-rule="evenodd"></path>
           </svg>
         </button>
+
         <!-- Dropdown Menu -->
         <div id="dropdowntable"
-          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none  hidden p-3 z-10">
+          class="mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none
+           p-3 z-10 block  transform -translate-x-[130.4px] translate-y-[50.4px] table-filter-dropDown">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
             <div class="mb-3">
-              <label for="">Role </label>
+              <label for="text-sm">Role </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" v-model="role" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
@@ -44,7 +46,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <label for="">Last Seen At </label>
+              <label for="text-sm">Last Seen At </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" v-model="lastSeenAt" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
@@ -58,7 +60,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <label for="">Email verified </label>
+              <label for="text-sm">Email verified </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" v-model="emailVerified" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
@@ -86,7 +88,7 @@
     </div>
 
     <!-- Data Table -->
-    <el-table :data="filteredItems" stripe style="width: 100%" v-loading="loading" class="cursor-pointer min-h-[350px]"  @row-click="handleRowClick"  :default-sort="{ prop: 'joined_at', order: 'descending' }">
+    <el-table :data="filteredItems" stripe style="width: 100%" v-loading="loading" class="cursor-pointer min-h-[350px]"  @row-click="handleRowClick"  :default-sort="{ prop: 'joined_at', order: 'descending' }"  @sort-change="handleSortChange">
       <!-- Display Name Column -->
       <el-table-column prop="display_name" label="DISPLAY NAME" sortable></el-table-column>
 
@@ -172,6 +174,7 @@ import { ref, watch, computed, onMounted, defineEmits } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 import { useRoute } from 'vue-router';
+import { useFlowbite } from '~/composables/useFlowbite';
 
 
 const route = useRoute(); // Use useRoute to access query parameters
@@ -191,7 +194,8 @@ const $adminService = nuxtApp.$adminService;
 const role = ref('')
 const lastSeenAt = ref('')
 const emailVerified = ref('')
-
+const sort = ref({ prop: 'joined_at', order: 'descending' })
+const filterApply = ref(false)
 // Fetch data from the API
 const fetchData = async () => {
   console.log(4587)
@@ -205,40 +209,116 @@ const fetchData = async () => {
     console.error(error)
   } finally {
     loading.value = false
+    
   }
+  filterView()
+
 }
 
+const filterView = () =>{
+ 
+
+  filterApply.value = false;
+   if(role.value != '' || role.value !=1){
+    filterApply.value = true;
+   }
+
+   if(emailVerified.value != ''){
+    filterApply.value = true;
+   }
+
+   if(lastSeenAt.value != ''){
+      filterApply.value = true;
+   }
+
+   if(role.value == '' && lastSeenAt.value == '' && emailVerified.value == '' ||role.value == 1 ){
+    filterApply.value = false;
+   }
+
+   console.log(filterApply.value)
+}
 
 
 // Watch options and search to update filtered items
 watch([options, search], fetchData, { immediate: true })
 
-onMounted(()=>{
+onMounted(() => {
   console.log(route.query.role)
-  if(route.query.role =='1'){
-    role.value =null
-  }{
-    role.value =route.query.role
+  if (route.query.role == '1') {
+    role.value = null
+  } {
+    role.value = route.query.role
   }
   fetchData()
+
+  useFlowbite(() => {
+    initFlowbite();
+  })
 })
 
-const filteredItems = computed(() => {
-  let filtered = items.value;
 
+
+// const filteredItems = computed(() => {
+//   let filtered = items.value;
+
+//   if (search.value) {
+//     filtered = filtered.filter(item =>
+//       item.display_name.toLowerCase().includes(search.value.toLowerCase()) ||
+//       item.email.toLowerCase().includes(search.value.toLowerCase()) ||
+//       item.user_role.toLowerCase().includes(search.value.toLowerCase())
+//     );
+//   }
+
+//   // Paginate items
+//   const start = (options.value.page - 1) * options.value.itemsPerPage;
+//   const end = start + options.value.itemsPerPage;
+//   return filtered.slice(start, end);
+// });
+
+// Computed property for filtered, sorted, and paginated items
+const filteredItems = computed(() => {
+  let sorted = [...items.value];
+
+  // Apply sorting
+  if (sort.value.prop) {
+    sorted.sort((a, b) => {
+      let aVal = a[sort.value.prop];
+      let bVal = b[sort.value.prop];
+
+      // Handle date fields
+      if (sort.value.prop.includes('date') || sort.value.prop.includes('at')) {
+        aVal = new Date(aVal);
+        bVal = new Date(bVal);
+      }
+
+      if (aVal < bVal) return sort.value.order === 'ascending' ? -1 : 1;
+      if (aVal > bVal) return sort.value.order === 'ascending' ? 1 : -1;
+      return 0;
+    });
+  }
+
+  // Apply search filtering
   if (search.value) {
-    filtered = filtered.filter(item =>
+    sorted = sorted.filter(item =>
       item.display_name.toLowerCase().includes(search.value.toLowerCase()) ||
       item.email.toLowerCase().includes(search.value.toLowerCase()) ||
       item.user_role.toLowerCase().includes(search.value.toLowerCase())
     );
   }
 
-  // Paginate items
+  // Update total items after filtering
+  totalItems.value = sorted.length;
+
+  // Apply pagination
   const start = (options.value.page - 1) * options.value.itemsPerPage;
   const end = start + options.value.itemsPerPage;
-  return filtered.slice(start, end);
+  return sorted.slice(start, end);
 });
+
+// Handle sort change event
+const handleSortChange = (newSort) => {
+  sort.value = newSort;
+};
 
 
 const viewDetails = (row) => {
@@ -274,20 +354,20 @@ const formatDate = (dateString) => {
 };
 
 watch(
-    () => route.query.role,
-    () => {
-      console.log(route.query.role)
+  () => route.query.role,
+  () => {
+    console.log(route.query.role)
 
-      if(route.query.role =='1'){
-        console.log(123)
-            role.value =''
-      }{
-        role.value =route.query.role
-      }
-
-        
-        fetchData()
+    if (route.query.role == '1') {
+      console.log(123)
+      role.value = ''
+    } {
+      role.value = route.query.role
     }
+
+
+    fetchData()
+  }
 );
 </script>
 
@@ -306,7 +386,10 @@ export default {
   width: 300px;
   margin-bottom: 20px;
 }
-.active-filter{
+
+.active-filter {
   color: #0085FF !important;
 }
+
+
 </style>

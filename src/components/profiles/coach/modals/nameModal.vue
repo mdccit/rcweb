@@ -82,7 +82,7 @@
                                         </div>
                                         <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
                                             <label for="profile_picture"
-                                                class="absolute pt-[13px] img-inputblock w-[110px] px-4 py-2 text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input">
+                                                class="absolute pt-[13px] h-[49px] img-inputblock w-[110px] px-4 py-2 text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input">
                                                 Choose file
                                             </label>
                                             <input id="profile_picture" type="file" @change="handleFileChange"
@@ -102,7 +102,7 @@
                         <button type="button" @click="saveName"
                             class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
                             changes</button>
-                        <button type="button" @click="$emit('close', 'name')"
+                        <button type="button" @click="close"
                             class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
                     </div>
                 </div>
@@ -125,7 +125,7 @@ const props = defineProps({
     slug: String
 });
 
-const emit = defineEmits(['close']); // Emit close event with the modal name
+const emit = defineEmits(['close','updateData']); // Emit close event with the modal name
 
 const nuxtApp = useNuxtApp();
 const $userService = nuxtApp.$userService;
@@ -291,8 +291,19 @@ const removeProfile = async () => {
     try {
         const dataSets = await $publicService.delete_media_coache(profile_picture_exit.value.media_id);
         fetchCoachNames(props.slug);
+        // const data = {
+        //     url: response.data.url,
+        //     media_type: response.data.media_type,
+        //     media_id: response.data.media_id
+        // }
+
+        userStore.setProfilePicture(null)
+        emit('updateData')
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     }
+}
+const close = () =>{
+    emit('close', 'name');
 }
 </script>

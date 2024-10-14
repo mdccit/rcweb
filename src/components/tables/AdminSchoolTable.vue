@@ -16,7 +16,7 @@
 
         <button type="button" aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdowntable"
           class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
+          <svg xmlns="http://www.w3.org/2000/svg" :class="filterApply ==true ?'active-filter h-5 w-5 text-gray-400 mx-auto':'h-5 w-5 text-gray-400 mx-auto'" viewBox="0 0 20 20"
             fill="currentColor">
             <path fill-rule="evenodd"
               d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
@@ -25,11 +25,11 @@
         </button>
         <!-- Dropdown Menu -->
         <div id="dropdowntable"
-          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 hidden p-3">
+          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 hidden p-3 table-filter-dropDown">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
             <div class="mb-3">
-              <label for="">Role </label>
+              <label for="text-sm">Role </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select @change="fetchData" name="role"  v-model="role" 
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
@@ -40,7 +40,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <label for="">Has Admin </label>
+              <label for="text-sm">Has Admin </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" v-model="hasAdmin"  @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
@@ -51,7 +51,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <label for="">GOV ID </label>
+              <label for="text-sm">GOV ID </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" v-model="govId"  @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
@@ -62,7 +62,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <label for="">Coords Lat </label>
+              <label for="text-sm">Coords Lat </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role"  v-model="coordLat"  @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
@@ -147,6 +147,7 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
+import { useFlowbite } from '~/composables/useFlowbite';
 
 const router = useRouter();
 const search = ref('');
@@ -163,7 +164,7 @@ const options = ref({
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
-
+const filterApply = ref(false)
 // Function to fetch data from the server
 const fetchData = async () => {
   loading.value = true;
@@ -192,7 +193,34 @@ const fetchData = async () => {
   } finally {
     loading.value = false;
   }
+  filterView()
 };
+
+const filterView = () =>{
+ 
+
+  filterApply.value = false;
+   if(role.value != ''){
+    filterApply.value = true;
+   }
+
+   if(hasAdmin.value != ''){
+    filterApply.value = true;
+   }
+
+   if(govId.value != ''){
+      filterApply.value = true;
+   }
+
+   if(coordLat.value != ''){
+      filterApply.value = true;
+   }
+   if(role.value =='' && hasAdmin.value == '' && coordLat.value == ''  &&govId.value == '' ){
+    filterApply.value = false;
+   }
+
+   console.log(filterApply.value)
+}
 
 // Watch pagination options and search term to refetch data
 watch([options, search], () => {
@@ -202,6 +230,9 @@ watch([options, search], () => {
 // On mount, fetch the initial data
 onMounted(() => {
   fetchData();
+  useFlowbite(() => {
+      initFlowbite();
+  })
 });
 
 // Handle search submission

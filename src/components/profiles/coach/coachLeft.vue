@@ -14,7 +14,7 @@
             <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
                 {{ bio }}
             </p>
-            <div v-if="seeMoreBtnHide">
+            <div class="text-blue-500 text-xs" v-if="seeMoreBtnHide">
                 <button id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
 
             </div>
@@ -323,6 +323,7 @@ const fetchUserDetails = async () => {
 onMounted(() => {
     userRole.value = userStore.user?.role || null;
     slug.value = props.userSlug;
+    console.log(slug)
     loadedData.value = props.data;
     if (process.client) {
         loggedUserSlug.value = localStorage.getItem('user_slug')
