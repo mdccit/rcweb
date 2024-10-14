@@ -45,7 +45,7 @@
             </fieldset>
     </div>
     <div class="my-8"></div>
-    <div v-if="connectShow" class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
+    <div v-if="connectShow && history  !=null" class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
         <h2 class="text-2xl font-bold">Synchronization History</h2>
         <div class="my-4"></div>
             <div class="flex flex-col">
@@ -100,6 +100,7 @@ const details = ref({});
 const settings = ref([]);
 const connectShow = ref(true)
 const time = ref('')
+const errors = ref({})
 const props = defineProps({
     govId:String,
     schoolId:String,
@@ -117,7 +118,6 @@ onMounted(() => {
 watch(
     () => props.sysncSchoolComponent,
     () => {
-        console.log(45877)
         fetchHistory(props.schoolId);
         fetChSettings(props.schoolId)
     }
@@ -128,13 +128,14 @@ const fetchHistory = async (schoolId) => {
         console.log("mew 2")
         console.log(schoolId)
         const data = await $adminService.school_sync_history(schoolId);
-         history.value = data
-
-         console.log(data)
+        console.log(data)
+        history.value = data.data ?? null
+        //  console.log(4587)
+        //  console.log(data)
 
     } catch (error) {
         console.error('Failed to load user details:', error.message);
-        errors.value.push('Failed to load user details.');
+       // errors.value.push('Failed to load user details.');
     }
 };
 
@@ -154,7 +155,7 @@ const fetChSettings = async (schoolId) => {
 const fetchSync = async () => {
     try {
         const data = await $adminService.school_sync(props.schoolId);
-        emit('emitMessage',data.display_message)
+        emit('emitMessage',"Successful Synchronize ")
         fetchHistory(props.schoolId);
     } catch (error) {
         console.error('Failed to load user details:', error.message);

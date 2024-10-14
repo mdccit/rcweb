@@ -400,8 +400,8 @@ const createAdminService = (apiService) => {
     const url = `/admin/history/${school_id}`;
     try {
       const response = await apiService.getRequest(url);
-      if (response && response.data ) {
-        return response.data;
+      if (response  ) {
+        return response;
       } else {
         throw new Error('Unexpected API response structure');
       }

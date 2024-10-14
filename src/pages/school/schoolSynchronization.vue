@@ -3,11 +3,11 @@
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-black">
         <div class="flex w-full justify-between gap-8">
             <div class="flex items-center gap-4">
-                <button @click="goBack"><svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                <NuxtLink to="/admin/schools"><svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg"
                         width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M15 6l-6 6l6 6"></path>
-                    </svg></button>
+                    </svg></NuxtLink>
                 <h2 class="font-bold text-lg self-center"> Editing:{{  name }} </h2>
             </div>
             <div class="">
@@ -32,7 +32,7 @@
 
             <div class="my-8"></div>
             <div class="text-black">
-                <SearchSchool  v-if="searchComponent" :schoolId="schoolId"  @connectedSchool="connectedSchool" />
+                <SearchSchool  v-if="searchComponent" :schoolId="schoolId" :schoolName="name" @connectedSchool="connectedSchool" />
                 <div class="my-8"></div>
                 <div  v-if="sysncSchoolComponent">
                     <SyncSchool :sysncSchoolComponent="sysncSchoolComponent"  :schoolId="schoolId"  :govId="govId" @emitMessage="notification"  @disconnect="disconnect"/>
@@ -44,7 +44,7 @@
       
 
         <!-- Notification Component -->
-        <Notification v-if="showNotification" :message="notificationMessage" :duration="8000" />
+        <Notification  :message="notificationMessage" :duration="8000" />
     </div>
 </template>
 
@@ -85,9 +85,15 @@ const openModal = () => {
 }
 
 const notification = (message) => {
+    nuxtApp.$notification.triggerNotification(message, 'success');
+//    console.log("message")
+//    console.log(message)
 
-    notificationMessage.value = message;
-    showNotification.value = true
+//     notificationMessage.value = message;
+//     showNotification.value = true
+//     console.log(notificationMessage.value)
+//     console.log(showNotification.value)
+
 }
 
 onMounted(()=>{
