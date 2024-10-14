@@ -1,7 +1,6 @@
-
 ::selection {
   background-color: #15a2fa !important; /* Customize the background color */
-  color: white;              /* Customize the text color */
+  color: white; /* Customize the text color */
 }
 
 /* Firefox-specific */
@@ -26,7 +25,7 @@
   margin-top: -3px;
 }
 
-textarea{
+textarea {
   overflow: hidden;
 }
 
@@ -42,4 +41,18 @@ textarea{
 
 ::-webkit-scrollbar-thumb {
   background-color: #0085FF;
+}
+
+
+.z-index-220 {
+  z-index: 220;
+}
+
+.tabs-align {
+  position: relative !important;
+  z-index: 300 !important;
+}
+
+.z-index-320{
+  z-index: 320 !important;
 }

@@ -14,7 +14,11 @@
               <div class="flex items-center justify-between">
                 <div v-if="post.school_id != null" class="flex items-center space-x-3">
                   <button @click="schoolProfile(post.school.slug)">
-                    <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12">
+                    <!-- <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12"> -->
+                    <img v-if="post.school_profile_picture == null" src="@/assets/images/user.png" alt=""
+                        class="rounded-lg w-12 h-12">
+                      <img v-if="post.school_profile_picture != null" :src="post.school_profile_picture.url" alt=""
+                        class="rounded-lg w-12 h-12">
                   </button>
 
                   <div>
@@ -47,8 +51,11 @@
               <div class="flex items-center justify-between">
                 <div class="flex space-x-3 items-center">
                   <button @click="userProfile(post.user.slug)">
-                       <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-[35px] h-[35px]">
-
+                       <!-- <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-[35px] h-[35px]"> -->
+                       <img v-if="post.user_profile_picture == null" src="@/assets/images/user.png" alt=""
+                          class="rounded-lg w-10 h-10">
+                        <img v-if="post.user_profile_picture != null" :src="post.user_profile_picture.url" alt=""
+                          class="rounded-lg w-10 h-10">
                   </button>
                   <div>
                     <button @click="userProfile(post.user.slug)">
@@ -107,12 +114,12 @@
 
             <!-- Display only for the school - end -->
 
-            <h3 v-if="post.type === 'blog' || post.type === 'event'" class="mt-4 text-darkSlateBlue text-base">
+            <h3 v-if="post.type === 'blog' || post.type === 'event'" class="mt-4 text-darkSlateBlue text-base break-all">
               {{ post.title }}
             </h3>
             <div class="basis-full flex flex-col  ">
-              <p v-if="!editingPostId || editingPostId !== post.id"
-                class="mt-4 text-darkSlateBlue text-base break-all whitespace-normal" v-html="post.description"></p>
+              <p v-if="!editingPostId || editingPostId !== post.id" class="mt-4 text-darkSlateBlue text-base break-all" 
+                v-html="post.description"></p>
               <textarea v-else type="text" placeholder="Write your thoughts..." v-model="editPost"
                 class="mt-4 text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 ">
 
@@ -233,17 +240,23 @@ const model_id = ref('');
 const editingPostId = ref(null)
 const isLoading = ref(false);
 const loading = ref(true);
-
+const tabValue = ref('')
 const props = defineProps({
   posts: Array,
-  commentHidden: Array
+  commentHidden: Array,
+  tab:String
 });
 
 watch(
   () => props.commentHidden,
   () => {
     setCommentHiden()
-  }
+  },
+  ()=> props.tab,
+  () => {
+    console.log(props.tab)
+    tabValue.value = props.tab
+  },
 );
 
 const setCommentHiden = () => {
@@ -263,14 +276,15 @@ onMounted(async () => {
 
 
 const onScroll = async (event) => {
-  isLoading.value = true
-  const container = document.getElementById('dataContainer');
-  if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
-
-    await emit('listpost');
-
-  }
+  if(tabValue.value == 'feed'){
+    isLoading.value = true
+    const container = document.getElementById('dataContainer');
+    if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+      await emit('listpost');
+    }
   isLoading.value = false;
+  }
+  
 }
 
 // Function to load the initial set of posts

@@ -61,7 +61,6 @@ import Notification from '~/components/common/Notification.vue';
 import { handleError } from '@/utils/handleError';
 import InputError from '@/components/common/input/InputError.vue';
 
-
 const name = ref('');
 
 const errors = ref({});

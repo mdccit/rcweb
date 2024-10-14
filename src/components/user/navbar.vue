@@ -1,6 +1,6 @@
 <template>
     <!-- start header -->
-    <header class="fixed top-0 left-0 right-0 bg-white border-b border-b-poloBlue border-opacity-23 py-3 z-10">
+    <header class="fixed top-0 left-0 right-0 bg-white border-b border-b-poloBlue border-opacity-23 py-3 z-index-320">
         <div class="container-compressed">
             <div class="grid grid-cols-6 gap-4">
                 <div class="flex items-center">
@@ -134,7 +134,7 @@
                                 </div>
                             </div>
                         </NuxtLink>
-                        <NuxtLink v-else :to="`/app/profile/${userSlug}`">
+                        <NuxtLink v-if="userRole == 'admin'" >
                             <div class="flex space-x-2 items-center">
                                 <div class="hidden sm:hidden md:hidden lg:block">
                                     <img v-if="profilePicture == 'null'"class="w-10 h-10 rounded-lg border border-white shadow-lg"
@@ -144,7 +144,7 @@
                                         :src="profilePicture" alt="">
                                 </div>
                                 <div class="hidden sm:hidden md:hidden lg:block">
-                                    <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName  }}</h6>
+                                    <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
                                     <p class="text-xs text-limegreen">Online</p>
                                 </div>
                             </div>
@@ -157,7 +157,7 @@
                         </button>
 
                         <!-- Dropdown menu -->
-                        <div id="dropdownUser"  
+                        <div id="dropdownUser"
                             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                             <ul v-if="userRole === 'admin'" class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                 aria-labelledby="dropdownUserAvatarButton">
@@ -299,7 +299,7 @@ onMounted(() => {
             profilePicture.value =localStorage.getItem('profile_picture')
 
             userStore.setProfilePicture({
-                url:profilePicture.value
+                url: profilePicture.value
             })
         }
         // console.log(localStorage.getItem('profile_picture'))
@@ -317,7 +317,12 @@ watch(
     () => {
         //if(localStorage.getItem('profile_picture')){
         console.log(userStore.userProfilePicture)
+        if(userStore.userProfilePicture !=null){
             profilePicture.value =userStore.userProfilePicture.url
+        }else{
+            profilePicture.value = 'null'
+        }
+           
             // console.log(1144)
             // console.log(profilePicture.value)
 
@@ -340,3 +345,9 @@ const searchkey = () => {
     });
 }
 </script>
+
+<style>
+.z-index-200 {
+    z-index: 200;
+}
+</style>

@@ -32,7 +32,13 @@ const createAdminService = (apiService) => {
   };
   
   const list_users = async (role, lasteenAt, emailVerified) => {
-    const url = `/admin/users?is_email_verified=${emailVerified}&last_seen_at=${lasteenAt}&user_role=${role}`;
+    let url=''
+    if(role==1){
+      url = `/admin/users?is_email_verified=${emailVerified}&last_seen_at=${lasteenAt}`;
+    }else{
+      url = `/admin/users?is_email_verified=${emailVerified}&last_seen_at=${lasteenAt}&user_role=${role}`;
+    }
+   
 
     try {
       const response = await apiService.getRequest(url);
@@ -52,7 +58,7 @@ const createAdminService = (apiService) => {
 
     try {
       const response = await apiService.getRequest(url);
-      if (response && response.data && response.data.user_basic_info) {
+      if (response && response.data ) {
         return response.data;
       } else {
         throw new Error('Unexpected API response structure');
@@ -610,6 +616,115 @@ const user_profile_delete = async (media_id) => {
     throw new Error(error.message || 'Failed to register');
   }
 };
+
+const upload_user_media = async (formData) => {
+  // Extract user_slug from the formData to build the URL
+  const userId = formData.get('user_id');
+
+  // Ensure userSlug is present
+  if (!userId) {
+    throw new Error('User slug is missing from formData.');
+  }
+
+  const url = `/admin/users/upload-media/${userId}`;
+
+  try {
+    // Send the FormData directly as the body
+    const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
+
+    return response;
+  } catch (error) {
+    // Handle error response from the API
+    if (error.response) {
+      throw error.response; // Pass the full response for further handling
+    } else {
+      throw new Error(error.message || 'Failed to upload media');
+    }
+  }
+};
+
+const upload_school_media = async (formData) => {
+  // Extract user_slug from the formData to build the URL
+  const schoolId = formData.get('school_id');
+
+  // Ensure userSlug is present
+  if (!schoolId) {
+    throw new Error('School Id is missing from formData.');
+  }
+
+  const url = `/admin/schools/upload-media/${schoolId}`;
+
+  try {
+    // Send the FormData directly as the body
+    const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
+
+    return response;
+  } catch (error) {
+    // Handle error response from the API
+    if (error.response) {
+      throw error.response; // Pass the full response for further handling
+    } else {
+      throw new Error(error.message || 'Failed to upload media');
+    }
+  }
+};
+
+const school_media_delete = async (media_id) => {
+  const url = `/admin/schools/remove-media/${media_id}`;
+  try {
+    const response = await apiService.deleteRequest(url);
+
+    if (response) {
+      return response;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+const upload_business_media = async (formData) => {
+  // Extract user_slug from the formData to build the URL
+  const businessId = formData.get('business_id');
+
+  // Ensure userSlug is present
+  if (!businessId) {
+    throw new Error('Business Id is missing from formData.');
+  }
+
+  const url = `/admin/businesses/upload-media/${businessId}`;
+
+  try {
+    // Send the FormData directly as the body
+    const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
+
+    return response;
+  } catch (error) {
+    // Handle error response from the API
+    if (error.response) {
+      throw error.response; // Pass the full response for further handling
+    } else {
+      throw new Error(error.message || 'Failed to upload media');
+    }
+  }
+};
+
+const business_media_delete = async (media_id) => {
+  const url = `/admin/businesses/remove-media/${media_id}`;
+  try {
+    const response = await apiService.deleteRequest(url);
+
+    if (response) {
+      return response;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
   return {
     new_user_register,
     list_users,
@@ -650,7 +765,12 @@ const user_profile_delete = async (media_id) => {
     business_profile,
     business_cover,
     user_profile,
-    user_profile_delete
+    user_profile_delete,
+    upload_user_media,
+    upload_school_media,
+    school_media_delete,
+    upload_business_media,
+    business_media_delete
   };
 };
 
