@@ -58,12 +58,12 @@ const createSubscriptionService = (apiService) => {
     }
   };
 
-  const connection_request = async (request_body) => {
-    const url = '/user/connections-request';
+  const cancel_subscription = async (request_body) => {
+    const url = '/subscription/cancel';
     const body = request_body;
 
     try {
-      const response = await apiService.postRequest(url, body);
+      const response = await apiService.putRequest(url, body);
       return response;
     } catch (error) {
       throw new Error(error.message || 'Failed to register');
@@ -85,11 +85,11 @@ const createSubscriptionService = (apiService) => {
 
   return {
     get_subscription,
-    connection_request,
     connection_accept,
     get_stripe_payment_history,
     get_customer_payment_methods,
-    get_customer_active_payment_method
+    get_customer_active_payment_method,
+    cancel_subscription
   };
 
 

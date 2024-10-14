@@ -80,7 +80,11 @@
               <div class="mt-4">
                 <span class="font-semibold">Selected card</span>
                 <!-- Display dynamic card details -->
-                <span class="text-lg font-semibold tracking-widest block">XXXX XXXX XXXX {{ selectedCard?.last4 }}</span>
+                <span class="text-lg font-semibold tracking-widest block">
+                  XXXX XXXX XXXX {{ selectedCard?.last4 }}
+                </span>
+                <!-- Display expiration date -->
+                <p class="text-sm mt-2">Expires {{ selectedCard?.exp_month }}/{{ selectedCard?.exp_year }}</p>
               </div>
               <div class="right-4">
                 <img :src="getCardBrandLogo(selectedCard?.brand)" alt="" class="rounded-lg w-8 h-8 mr-4">
@@ -88,7 +92,7 @@
             </div>
           </div>
         </div>
-        
+
 
         <div class="flex-1">
           <div class="space-y-4 w-full">
@@ -117,7 +121,7 @@
 
 
     <!-- Cancel subscription -->
-    <div class="mt-6">
+    <div class="mt-6" v-if="activeStatus === 'active'">
       <hr class="mt-5 mb-3 text-pigeonBlue">
       <h3 class="font-semibold text-xl mb-4 text-black">Cancel subscription</h3>
       <p class="text-sm text-darkSlateBlue mb-4">Lorem ipsum is a placeholder text commonly used to demonstrate the
@@ -132,7 +136,7 @@
             of a document or a typeface without relying on meaningful content.</p>
 
           <div class="mt-6">
-            <button
+            <button @click="cancelSubscription"
               class="w-50 py-3 px-2 bg-redOrange text-white  text-xs font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Cancel
               Subscription</button>
           </div>
@@ -169,15 +173,21 @@ onMounted(async () => {
     subscription.value = response;
 
     const payment_methods = await $subscriptionService.get_customer_payment_methods();
-    paymentMethods.value = payment_methods;
 
-    // Fetch the active card and set it in selectedCard
-    await getCustomerActiveCard();
+    if (payment_methods && payment_methods.status == 200) {
+      paymentMethods.value = payment_methods.data;
+
+      // Fetch the active card and set it in selectedCard
+      await getCustomerActiveCard();
 
 
-    startDate.value = formatDate(response.start_date);
-    endDate.value = formatDate(response.end_date);
-    activeStatus.value = response.status;
+      startDate.value = formatDate(response.start_date);
+      endDate.value = formatDate(response.end_date);
+      activeStatus.value = response.status;
+    }else{
+      console.error('No payment mehods found.');
+    }
+
   } catch (error) {
     console.error('Error fetching subscription data:', error);
   }
@@ -190,17 +200,17 @@ const getCustomerActiveCard = async () => {
     const activeCardResponse = await $subscriptionService.get_customer_active_payment_method();
 
     // Assuming the response has the card details, map the relevant data to selectedCard
-    if (activeCardResponse && activeCardResponse.payment_method) {
+    if (activeCardResponse && activeCardResponse.status === 200) {
       selectedCard.value = {
-        brand: activeCardResponse.payment_method.brand,
-        last4: activeCardResponse.payment_method.last4,
-        exp_month: activeCardResponse.payment_method.exp_month,
-        exp_year: activeCardResponse.payment_method.exp_year,
+        brand: activeCardResponse.data.brand,
+        last4: activeCardResponse.data.last4,
+        exp_month: activeCardResponse.data.exp_month,
+        exp_year: activeCardResponse.data.exp_year,
         billing_details: {
-          name: activeCardResponse.payment_method.billing_details.name,
-          email: activeCardResponse.payment_method.billing_details.email,
-          phone: activeCardResponse.payment_method.billing_details.phone,
-          address: activeCardResponse.payment_method.billing_details.address,
+          name: activeCardResponse.data.billing_details.name,
+          email: activeCardResponse.data.billing_details.email,
+          phone: activeCardResponse.data.billing_details.phone,
+          address: activeCardResponse.data.billing_details.address,
         }
       };
     } else {
@@ -210,6 +220,22 @@ const getCustomerActiveCard = async () => {
     console.error('Error fetching active payment method:', error);
   }
 };
+
+const cancelSubscription = async () => {
+  try {
+    const response = await $subscriptionService.cancel_subscription();
+    if (response && response.status === 200) {
+      // Success case
+      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+    } else {
+      // Handle non-success status codes
+      nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+    }
+  } catch (error) {
+    console.error('Error canceling subscription:', error);
+  }
+};
+
 // Example method to handle card removal
 const removeCard = async (paymentMethodId) => {
   try {
