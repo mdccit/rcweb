@@ -11,7 +11,7 @@
                     <h2 class="font-bold text-lg self-center"> Editing:{{ display_name }} </h2>
                 </div>
                 <div class="">
-                    <a href="#"><button type="submit"
+                    <NuxtLink :to="`/app/profile/${slug}`"><button type="submit"
                             class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
                             View <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24"
                                 height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -20,7 +20,7 @@
                                 <path d="M8 7l9 0l0 9"></path>
                             </svg>
                         </button>
-                    </a>
+                    </NuxtLink>
                 </div>
             </div>
         </div>
@@ -161,17 +161,16 @@ watch([() => route.query.action, () => route.query.user_id], ([newAction, newUse
         fetchUserDetails();  
     }
 });
-
+const slug = ref('')
 const fetchUserDetails = async () => {
     try {
         const response = await $adminService.get_user_details(user_id.value);
         const user = response.user_basic_info;
         display_name.value = response.user_basic_info.display_name
-
-        console.log(response.media_info)
-        if( response.media_info){
-            setGalleryItems(response.media_info)
-        }
+        slug.value = response.user_basic_info.slug
+        // if( response.media_info){
+        //     setGalleryItems(response.media_info)
+        // }
 
     } catch (error) {
         console.log(error)

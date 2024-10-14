@@ -11,11 +11,11 @@
           }"
          > Account Details </button>
         </NuxtLink>
-        <NuxtLink v-if="role== 4"  :to="{ path: '/admin/userMedia', query: { action: 'edit', user_id: user_id , role:role} }">
+        <NuxtLink v-if="role== 4"  :to="{ path: '/admin/userPlayerProfile', query: { action: 'edit', user_id: user_id , role:role} }">
             <button 
                :class="{
-                'bg-gray-300': isActive('/admin/userMedia'),
-                'opacity-50': !isActive('/admin/userMedia'),
+                'bg-gray-300': isActive('/admin/userPlayerProfile'),
+                'opacity-50': !isActive('/admin/userPlayerProfile'),
                 'text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200': true
                }">Profile </button>
         </NuxtLink>

@@ -12,7 +12,7 @@
                     <h2 class="font-bold text-lg self-center"> Editing: {{ ' ' + first_name + ' ' + last_name }} </h2>
                 </div>
                 <div class="">
-                    <a href="#"><button type="submit"
+                    <NuxtLink :to="`/app/profile/${slug}`"><button type="submit"
                             class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
                             View <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24"
                                 height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -21,7 +21,7 @@
                                 <path d="M8 7l9 0l0 9"></path>
                             </svg>
                         </button>
-                    </a>
+                    </NuxtLink>
                 </div>
             </div>
         </div>
@@ -360,6 +360,7 @@ const profile_image = ref('')
 const fileError = ref('');
 const storedUserName = ref('');
 const display_name =ref('');
+const slug = ref('')
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -475,6 +476,7 @@ const fetchUserDetails = async (userId) => {
         is_set_email_verified.value = !!user.email_verified_at;
         profile.value = response.media_info.profile_picture || null;
         display_name.value = response.user_basic_info.display_name
+        slug.value = response.user_basic_info.slug
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.message, 'failure');
     }
