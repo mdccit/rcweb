@@ -23,11 +23,11 @@
         </button>
         <!-- Dropdown Menu -->
         <div id="dropdowntable"
-          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 hidden p-3">
+          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 hidden p-3 table-filter-dropDown">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
             <div class="mb-3">
-              <label for="">Role </label>
+              <label for="text-sm">Role </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" @change="fetchData" v-model="hasAdmin"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
