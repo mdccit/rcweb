@@ -1,6 +1,6 @@
 <template>
     <!-- Address change modal -->
-    <div v-if="visible" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div v-if="visible" class="relative z-index-320" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
@@ -90,9 +90,9 @@
                                             </div>
                                         </div>
 
-                                        <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                        <div class="grid grid-cols-6 gap-2 mb-2">
                                             <!-- Phone Code and Phone Number on Separate Lines -->
-                                            <div class="mb-2 sm:col-span-2 col-span-1">
+                                            <div class="mb-2 col-span-2">
                                                 <label class="block mb-1 text-gray-700 font-sans text-sm">Phone
                                                     Code</label>
                                                 <div class="flex rounded-lg border border-gray-300 shadow-sm">
@@ -101,7 +101,7 @@
                                                         class="block w-full h-12 rounded-lg" />
                                                 </div>
                                             </div>
-                                            <div class="mb-2 sm:col-span-2 col-span-1">
+                                            <div class="mb-2 col-span-4">
                                                 <label class="block mb-1 text-gray-700 font-sans text-sm">Phone
                                                     Number</label>
                                                 <div class="flex rounded-lg border border-gray-300 shadow-sm">
@@ -219,22 +219,25 @@ const fetchCoachContact = async () => {
     try {
         const dataSets = await $publicService.get_user_profile(props.slug);
         if (dataSets.user_address_info) {           
-
+            console.log(dataSets.user_address_info)
             city.value = dataSets.user_address_info.city ?? 'User has not entered city';
             address_line_1.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01';
             address_line_2.value = dataSets.user_address_info.address_line_2 ?? '';
             state_province.value = dataSets.user_address_info.state_province ?? 'User has not entered state provice';
             postal_code.value = dataSets.user_address_info.postal_code ?? 'User has not entered postal code';
+
         }
 
         if (dataSets.user_phone_info) {
             phone_number.value = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number';
             phone_code_country.value = dataSets.user_phone_info.country_id ?? null;
+
         }
 
         if (dataSets.user_basic_info) {
-            country.value = dataSets.user_basic_info.country_id ?? null;
             email.value = dataSets.user_basic_info.email ?? 'User has not entered email';
+            country.value = dataSets.user_basic_info.country_id ?? null;
+
         }
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');

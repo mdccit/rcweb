@@ -5,7 +5,10 @@
         <div class="group">
             <div class="text-center">
                 <div class="relative">
-                    <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profilePictureUrl" alt="">
+                    <!-- <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profilePictureUrl" alt=""> -->
+                    <img v-if="profile_picture != null" class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profile_picture" alt="">
+                    <img v-else class="mx-auto w-44 h-44 rounded-[30px] mt-3" src="@/assets/images/user.png" alt="">
+
                     <div v-if="loggedUserSlug == props.userSlug" @click="toggleModal('name')"
                         class="absolute bottom-4 right-8 w-6 h-6 bg-timberwolf rounded-full flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer text-steelBlue">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -44,6 +47,7 @@
             </div>
             <p class="text-sm text-darkSlateBlue leading-relaxed">
                 {{ bio }}
+
             </p>
             <div v-if="seeMoreBtnHide">
                 <button id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
@@ -111,7 +115,7 @@
                 </div>
                 <div class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4 ">
-                        {{ Number(props.data.feet) }} ( {{ props.data.heigth }}
+                        {{ Number(props.data.ft_value)   }} {{Number(props.data.in_value)}} ( {{ props.data.heigth }}
                         <span v-if="props.data.heigth != 'User has not entered height'">cm)</span>
                     </p>
                 </div>
@@ -195,11 +199,11 @@
 
         <div style="height: auto;"
             class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
-            <div class="grid grid-cols-10 gap-2">
-                <div class="col-span-3 mx-auto">
+            <div class="grid grid-cols-10 gap-1">
+                <div class="col-span-2 mx-auto">
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/user/images/Group 179.png" alt="">
                 </div>
-                <div class="col-span-6 ml-2 mx-auto">
+                <div class="col-span-7 ml-2 mx-auto">
                     <p class="text-xs">Budget
                     </p>
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">${{ props.data.budgetMin }} -
@@ -265,6 +269,23 @@
                     <p class="text-sm text-black leading-relaxed mb-4"> <b>{{ props.data.phoneCode }} {{
                         props.data.phone }}</b> </p>
                 </div>
+            </div>
+            <div class="grid grid-cols-10 gap-2">
+                <div class="col-span-3 mx-auto">
+                    <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/images/pin.png" alt="">
+                </div>
+                <div class="col-span-6 ml-2 mx-auto">
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">
+                        <span v-if="userRole == 'coach' || userRole == 'admin'">
+                            {{ props.data.addressLine01 }} {{ props.data.addressLine02 }} {{ props.data.stateProvince }}
+                        </span>
+                        {{ props.data.city }}
+                        <span v-if="props.data.country">, </span>{{ props.data.country }}
+                    </p>
+
+
+                </div>
+                
             </div>
         </div>
 
@@ -348,6 +369,7 @@ import { loadCountryList } from '~/services/commonService';
 import defaultProfilePicture from '@/assets/images/user.png';
 
 const userStore = useUserStore();
+const emit = defineEmits(['updateData']);
 
 defineNuxtRouteMiddleware(checkSession);
 const nuxtApp = useNuxtApp();
@@ -440,7 +462,7 @@ const bio = ref('')
 const expandBtnName = ref('See More');
 
 const triggerProfilePictureUpdate = (url) => {
-    profile_picture.value = url || defaultProfilePicture;
+    //profile_picture.value = url || defaultProfilePicture;
 };
 const country_codes = ref([]);
 
@@ -469,7 +491,8 @@ const handleModalClose = (modalName) => {
     // Defensive check to make sure modalName exists
     if (modals[modalName] !== undefined) {
         modals[modalName] = false;  // Close the modal
-        fetchUserDetails();         // Fetch updated user details after closing
+        //fetchUserDetails();  
+        emit('updateData')       // Fetch updated user details after closing
     } else {
         console.error(`Invalid modal name: ${modalName}`);
     }
@@ -478,7 +501,8 @@ const handleModalClose = (modalName) => {
 const fetchUserDetails = async (slug) => {
     try {
 
-        const dataSets = await $publicService.get_user_profile(route.params.slug);
+        const dataSets = await $publicService.get_player(route.params.slug);
+        console.log(dataSets)
         if (dataSets.user_basic_info) {
 
             props.data.bio = dataSets.user_basic_info.bio ?? "User has not entered bio"
@@ -564,11 +588,12 @@ const fetchUserDetails = async (slug) => {
         }
 
         if (dataSets.media_info.profile_picture != null) {
-            triggerProfilePictureUpdate(dataSets.media_info.profile_picture.url);
-            // profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+            //triggerProfilePictureUpdate(dataSets.media_info.profile_picture.url);
+            profile_picture.value = dataSets.media_info.profile_picture.url;
         } else {
             // Fallback to default
-            triggerProfilePictureUpdate(defaultProfilePicture);
+            //triggerProfilePictureUpdate(defaultProfilePicture);
+            profile_picture.value = null
             // profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
         }
 
@@ -585,34 +610,54 @@ const profilePictureUrl = computed(() => profile_picture.value);
 watch(
     () => props.data,
   () => {
+    setprofile() 
     setBio() 
   },
+   
     () => props.data,
     (newVal) => {
-        if (newVal && newVal.media_info) {
-            profile_picture.value = newVal.media_info.profile_picture?.url || defaultProfilePicture;
-        } else {
-            profile_picture.value = defaultProfilePicture; // Fallback to default if media_info is undefined
-        }
+        // if (newVal && newVal.media_info) {
+        //     if(newVal.media_info.profile_picture !=null){
+        //         profile_picture.value = newVal.media_info.profile_picture?.url
+        //     }else{
+        //         profile_picture.value =  defaultProfilePicture;
+        //     }
+            
+        // } else {
+        //     profile_picture.value = defaultProfilePicture; // Fallback to default if media_info is undefined
+        // }
+        
     },
     { immediate: true } ,
+    
     
 
     // Execute immediately when component is mounted
 );
 
+const setprofile = () =>{
+    if(props.data.media_info.profile_picture !=null){
+       profile_picture.value = props.data.media_info.profile_picture?.url
+    }else{
+       profile_picture.value =  null
+    }
+    console.log(7514)
+
+    console.log(profile_picture.value)
+}
 
 const setBio = () =>{
+    console.log(852)
     let fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
     console.log(fullBio)
     bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
     seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
     isBioExpanded.value = false
 }
-watch(profile_picture, (newVal) => {
-    // profilePictureUrl.value = newVal;
-    console.log('Profile picture updated:', newVal);
-});
+// watch(profile_picture, (newVal) => {
+//     // profilePictureUrl.value = newVal;
+//     console.log('Profile picture updated:', newVal);
+// });
 
 onMounted(() => {
     userRole.value = userStore.user?.role || null;
@@ -626,14 +671,13 @@ onMounted(() => {
     }
 
     // Set profile picture when props.data becomes available
-    console.log(1177)
-    if (userStore.userProfilePicture !=null) {
-        console.log('media available');
-        profile_picture.value = userStore.userProfilePicture?.url || defaultProfilePicture;
-    } else {
-        console.log('media not available');
-        profile_picture.value = defaultProfilePicture;
-    }
+    // if (userStore.userProfilePicture !=null) {
+    //     console.log('media available');
+    //     profile_picture.value = userStore.userProfilePicture?.url || defaultProfilePicture;
+    // } else {
+    //     console.log('media not available');
+    //     profile_picture.value = defaultProfilePicture;
+    // }
 
 });
 

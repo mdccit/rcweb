@@ -6,7 +6,7 @@
     </div>
     <main>
         <NavBarPublic></NavBarPublic>
-        <div class="grid grid-cols-6 grid-rows-1 gap-0 mt-16">
+        <div class="grid grid-cols-6 grid-rows-1 gap-0 mt-16 bg-graySnowDrift ">
             <div class="col-span-6 row-start-1 row-end-2s">
                 <CoachCover :data="coachData"  @changeTab="setSelectedTab" :coachId="coachId" :userSlug="route.params.slug"/>
             </div>
@@ -17,9 +17,9 @@
                 <CoachRight :data="coachData"   :userSlug="route.params.slug"  />
             </div>
             <div class="col-start-2 col-end-6 row-start-2 row-end-3 px-3 pt-3">
-                <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="loadInitfintePost" :commentHidden="isHidddenComment" />
-                <Connection v-if="tab === 'connection'" :playerId="coachId" @profileView="redirectPage"/>
-                <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" :commentHidden="isHidddenComment" />
+                <UserFeed v-if="tab == 'feed'" :posts="posts" @profileView="redirectPage" @listpost="newLoader" :commentHidden="isHidddenComment" />
+                <Connection v-if="tab == 'connection'" :playerId="coachId" @profileView="redirectPage"/>
+                <mediaTab v-if="tab == 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" :commentHidden="isHidddenComment" :coacheId="coachId" />
             </div>
         </div>
     </main>
@@ -74,7 +74,10 @@ const birthDay = ref('');
 const currentPage = ref(1)
 const lastPage  =ref('')
 const isHidddenComment = ref([])
-
+const load = ref(false)
+const nationality_id =ref('')
+const gender =ref('none')
+const dateOfBirth =ref('')
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
     showNotification.value = nuxtApp.$notification.showNotification.value;
@@ -85,7 +88,12 @@ watchEffect(() => {
 
 onMounted(() => {
   slug.value = route.params.slug;
-  fetchUserDetailsBySlug()
+  if(slug.value){
+    fetchUserDetailsBySlug()
+
+  }else{
+    console.log("slug not found")
+  }
   userId.value = userStore.user?.user_id || null;
   
 });
@@ -93,13 +101,17 @@ onMounted(() => {
 const fetchUserDetailsBySlug = async () => {
   try {
     const dataSets = await $publicService.get_user_profile(route.params.slug);
+    console.log(dataSets)
     if (dataSets.user_basic_info) {
         bio.value = dataSets?.user_basic_info?.bio || 'User has not entered bio';
         name.value = dataSets?.user_basic_info?.display_name || 'Anonymous';
         role.value = dataSets?.user_basic_info?.user_role || '';  
         coachId.value = dataSets?.user_basic_info?.id || ''; 
         loadedSlug.value = dataSets?.user_basic_info?.slug || ''; 
-
+        nationality_id.value = dataSets?.user_basic_info?.nationality_id || null; 
+        gender.value = dataSets?.user_basic_info?.gender || 'none'; 
+        dateOfBirth.value =dataSets.user_basic_info.date_of_birth
+        country.value = dataSets?.user_basic_info?.country || '';
         const date = new Date(dataSets.user_basic_info.joined_at);
         const monthNames = [
             'January', 'February', 'March', 'April', 'May', 'June',
@@ -130,9 +142,6 @@ const fetchUserDetailsBySlug = async () => {
         city.value = dataSets?.user_address_info?.city || '';
     }
 
-    if(dataSets.user_address_info){
-        country.value = dataSets?.user_address_info?.country || '';
-    }
     
 
     coachData.value ={
@@ -147,7 +156,10 @@ const fetchUserDetailsBySlug = async () => {
         slug: loadedSlug,
         media_info: dataSets.media_info,
         school_slug: dataSets.profile_info.school_slug,
-        birth_day :birthDay.value
+        birth_day :birthDay.value,
+        gender:gender.value,
+        nationality_id:nationality_id.value,
+        dateOfBirth:dateOfBirth.value
     }
     
     if (dataSets.media_info) {
@@ -200,12 +212,19 @@ const closeNotification = () => {
 //   }
 // }
 
+const newLoader = ()=>{
+  if(load.value ==false){
+    loadInitfintePost()
+  }
+}
+
 const loadInitfintePost = async () =>{
+  load.value = true
     try {
       //  isLoading.value = true;
       const response = await $feedService.list_posts(currentPage.value);
-      //const filteredData = response.filter(item => item.user_id === coachId.value);
-       posts.value.push(...response.data);
+      const filteredData = response.data.filter(item => item.user_id === coachId.value);
+       posts.value.push(...filteredData);
 
       lastPage.value =response.last_page
       currentPage.value =response.current_page +1
@@ -219,6 +238,9 @@ const loadInitfintePost = async () =>{
        //isLoading.value = false;
       console.error('Failed to load posts:', error.message);
     }
+    setTimeout(()=>{
+      load.value =false
+    },10000)
   }
 
 const redirectPage = (url) =>{

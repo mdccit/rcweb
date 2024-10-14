@@ -85,7 +85,7 @@
                                             <path d="M12 4l0 12"></path>
                                         </svg> Select A New Photo <input name="cover" type="file"
                                             @change="handleFileCoverChange" data-validation-key="cover"
-                                            class="invisible absolute inset-0 w-full h-full disabled:opacity-50"></a></label><!---->
+                                            class="invisible absolute  w-full h-full disabled:opacity-50"></a></label><!---->
                             </div>
                         </div>
                     </div>
@@ -290,9 +290,8 @@ const updateSchoolDetails = async () => {
             conference: conference.value,
             division: division.value,
         });
-
-        await updateSchoolProfile()
-        await updateSchoolCover()
+         
+       
         if (response.status === 200) {
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
         } else {
@@ -312,9 +311,13 @@ const updateSchoolProfile = async () => {
         return;
     }
     try {
-        const response = await $adminService.school_profile(school_id.value, profile_image.value);
-
-
+        const response = await $adminService.school_profile(school_id.value,profile_image.value);
+        if (response.status === 200) {
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+        } else {
+            nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+        }
+        fetchSchoolDetails(school_id.value);
 
     } catch (error) {
         console.log(error)
@@ -328,9 +331,13 @@ const updateSchoolCover = async () => {
         return;
     }
     try {
-        const response = await $adminService.school_cover(school_id.value, cover_image.value);
-
-
+        const response = await $adminService.school_cover(school_id.value,cover_image.value);
+        if (response.status === 200) {
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+        } else {
+            nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+        }
+        fetchSchoolDetails(school_id.value);
 
     } catch (error) {
         console.log(error)
@@ -390,6 +397,18 @@ const handleFileChange = (event) => {
         fileError.value = ''; // Clear any previous errors
         profile_image.value = file; // Store the selected file
     }
+
+    // Validate the file size
+    if (file.size > maxSize) {
+      fileError.value = 'File size must be less than 30MB';
+      event.target.value = ''; // Clear the file input
+      return;
+    }
+
+    // If all validations pass, set the file to the reactive variable
+    fileError.value = ''; // Clear any previous errors
+    profile_image.value = file; // Store the selected file
+    updateSchoolProfile();  
 };
 
 const handleFileCoverChange = (event) => {
@@ -417,7 +436,19 @@ const handleFileCoverChange = (event) => {
         fileError.value = ''; // Clear any previous errors
         cover_image.value = file; // Store the selected file
     }
-};
+
+    // Validate the file size
+    if (file.size > maxSize) {
+      fileError.value = 'File size must be less than 30MB';
+      event.target.value = ''; // Clear the file input
+      return;
+    }
+
+    // If all validations pass, set the file to the reactive variable
+    fileError.value = ''; // Clear any previous errors
+    cover_image.value = file; // Store the selected file
+    updateSchoolCover()
+  };
 </script>
 
 

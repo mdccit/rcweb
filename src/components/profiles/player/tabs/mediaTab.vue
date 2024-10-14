@@ -1,7 +1,7 @@
 <template>
   <div class="mb-3">
     <!-- Upload Media Section -->
-    <form @submit.prevent="uploadMediaFiles" class="upload-form">
+    <form v-if="user_id == props.playerId" @submit.prevent="uploadMediaFiles" class="upload-form">
       <div
         class="upload-section mb-4 border-2 border-dashed border-blue-500 rounded-lg p-4 bg-blue-50 hover:bg-blue-100">
         <label for="media-upload" class="cursor-pointer flex flex-col items-center justify-center">
@@ -85,6 +85,7 @@
 import { ref, onMounted } from 'vue';
 import VueCropper from 'vue-cropperjs';
 import 'cropperjs/dist/cropper.css';
+import { useUserStore } from '~/stores/userStore';
 
 // Import Fancybox from the @fancyapps/ui package
 import { Fancybox } from '@fancyapps/ui';
@@ -94,6 +95,7 @@ const nuxtApp = useNuxtApp();
 const $publicService = nuxtApp.$publicService;
 const $userService = nuxtApp.$userService;
 const files = ref([]); // To hold the uploaded files
+const userStore = useUserStore();
 
 const emit = defineEmits(['uploadCompleted']); // Define the event
 
@@ -107,13 +109,14 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  playerId: String
 });
 
 
 const galleryItems = ref([]);
 // Reactive key to force re-render
 const galleryKey = ref(0);
-
+const user_id = ref('')
 // Reactive data
 const isImageCropping = ref(false); // Toggle for image cropping
 const cropperImage = ref(null); // Image to be cropped
@@ -284,6 +287,7 @@ onMounted(() => {
       },
     },
   });
+  user_id.value = userStore.user.user_id
 
   if (process.client) {
     loggedUserSlug.value = localStorage.getItem('user_slug');

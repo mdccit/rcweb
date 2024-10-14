@@ -5,7 +5,9 @@
         <div>
           <div class="flex items-center justify-between">
             <div v-if="post.school_id != null" class="flex items-center space-x-3">
-              <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12">
+              <!-- <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12"> -->
+              <img v-if="post.school_profile_picture ==null" src="@/assets/images/user.png" alt="" class="rounded-lg w-12 h-12">
+              <img v-if="post.school_profile_picture !=null" :src="post.school_profile_picture.url" alt="" class="rounded-lg w-12 h-12">
               <div>
                 <div class="text-md font-bold text-black">{{ post.school.name }}</div>
                 <div class="flex space-x-2 items-center">
@@ -33,8 +35,9 @@
             <div class="flex items-center space-x-3">
               <!-- Safely access user profile image and display default image if not available -->
               <!-- <img :src="post?.user?.profile_image || defaultImage" alt="User image" class="rounded-lg w-12 h-12"> -->
-              <img src="@/assets/user/images/Rectangle_117.png" alt="User image" class="rounded-lg w-12 h-12">
-
+              <!-- <img src="@/assets/user/images/Rectangle_117.png" alt="User image" class="rounded-lg w-12 h-12"> -->
+              <img v-if="post.user_profile_picture ==null" src="@/assets/images/user.png" alt="" class="rounded-lg w-10 h-10">
+              <img v-if="post.user_profile_picture !=null" src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
               <div>
                 <!-- Safely access user display name -->
                 <div class="text-md font-bold text-black">{{ post?.user?.display_name || 'Unknown User' }}</div>
@@ -105,7 +108,7 @@
           <!-- Post description -->
           <!-- <p class="mt-4 text-darkSlateBlue text-base" v-html=" post?.description"></p> -->
           <p v-if="meesge != ''" class="mt-4 text-sm text-red-600 dark:text-red-500">{{ meesge }}</p>
-          <p v-if="!editingPostId || editingPostId !== post.id" class="mt-4 text-darkSlateBlue text-base"
+          <p v-if="!editingPostId || editingPostId !== post.id" class="mt-4 text-darkSlateBlue text-base break-all"
             v-html="post.description"></p>
 
 
