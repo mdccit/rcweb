@@ -14,7 +14,11 @@
               <div class="flex items-center justify-between">
                 <div v-if="post.school_id != null" class="flex items-center space-x-3">
                   <button @click="schoolProfile(post.school.slug)">
-                    <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12">
+                    <!-- <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12"> -->
+                    <img v-if="post.school_profile_picture == null" src="@/assets/images/user.png" alt=""
+                        class="rounded-lg w-12 h-12">
+                      <img v-if="post.school_profile_picture != null" :src="post.school_profile_picture.url" alt=""
+                        class="rounded-lg w-12 h-12">
                   </button>
 
                   <div>
@@ -47,15 +51,18 @@
               <div class="flex items-center justify-between">
                 <div class="flex space-x-3 items-center">
                   <button @click="userProfile(post.user.slug)">
-                       <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-[35px] h-[35px]">
-
+                       <!-- <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-[35px] h-[35px]"> -->
+                       <img v-if="post.user_profile_picture == null" src="@/assets/images/user.png" alt=""
+                          class="rounded-lg w-10 h-10">
+                        <img v-if="post.user_profile_picture != null" :src="post.user_profile_picture.url" alt=""
+                          class="rounded-lg w-10 h-10">
                   </button>
                   <div>
                     <button @click="userProfile(post.user.slug)">
                       <div class="font-bold text-sm text-black">{{ post.user.display_name }}</div>
                     </button>
                     <div v-if="post.school_id != null" class="text-darkSlateBlue text-xs">Coach at {{ post.school_id !=
-      null ? post.school.name : '' }}</div>
+                      null ? post.school.name : '' }}</div>
                     <div v-if="post.school_id == null" class="text-darkSlateBlue text-xs">{{ getTimeAgo(post.updated_at)
                       }}</div>
 
@@ -118,11 +125,12 @@
 
                    </textarea>
               <!-- </div> -->
-              <button v-if="editingPostId == post.id" @click="startEditPost(post.id)"
-                class="mt-2 bg-steelBlue hover:bg-darkAzureBlue transition text-white px-8 py-2 rounded-lg text-sm">
-                Edit
-              </button>
-
+              <div class="flex justify-end mt-2">
+                <button v-if="editingPostId == post.id" @click="startEditPost(post.id)"
+                  class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-8 py-2 rounded-lg text-sm min-w-24">
+                  Update
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -260,8 +268,8 @@ onMounted(async () => {
 
   loading.value = true;
   await nextTick();
- // Simulate the fetching of posts with a delay to visualize loader
- await loadInitialPosts();
+  // Simulate the fetching of posts with a delay to visualize loader
+  await loadInitialPosts();
 
   window.addEventListener('scroll', onScroll);
 });

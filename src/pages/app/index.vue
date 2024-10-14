@@ -11,7 +11,11 @@
         <div v-if="userRole == 'coach'"
           class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-3">
           <div class="flex">
-            <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-14 h-14 mr-4">
+            <!-- <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-14 h-14 mr-4"> -->
+            <img v-if="profilePicture == 'null'" class="rounded-lg w-14 h-14 mr-4"
+              src="@/assets/images/user.png" alt="">
+            <img v-if="profilePicture != 'null'" class="rounded-lg w-14 h-14 mr-4"
+                :src="profilePicture" alt="">
             <div class="basis-full flex flex-col">
 
               <textarea type="text" placeholder="Write your thoughts..." v-model="newPost.description"
@@ -114,7 +118,7 @@
                       <NuxtLink :to="`/app/profile/${post.user.slug}`" class="font-bold text-sm text-black">
                         <img v-if="post.user_profile_picture == null" src="@/assets/images/user.png" alt=""
                           class="rounded-lg w-10 h-10">
-                        <img v-if="post.user_profile_picture != null" src="@/assets/user/images/Rectangle_117.png" alt=""
+                        <img v-if="post.user_profile_picture != null" :src="post.user_profile_picture.url" alt=""
                           class="rounded-lg w-10 h-10">
                       </NuxtLink>
 
@@ -356,6 +360,7 @@ const totalItems = ref(0)
 const currentPage = ref(1)
 const lastPage = ref('')
 const load = ref(false)
+const profilePicture= ref('')
 onMounted(async () => {
   if (process.client) {
     // Check or fetch user role
@@ -382,6 +387,13 @@ onMounted(async () => {
   // const container = document.getElementById('dataContainer');
   // container.addEventListener('scroll', onScroll);
   window.addEventListener('scroll', onScroll);
+
+  if(localStorage.getItem('profile_picture')){
+      profilePicture.value =localStorage.getItem('profile_picture')
+      userStore.setProfilePicture({
+        url: profilePicture.value
+      })
+  }
 
 });
 
@@ -420,6 +432,19 @@ const loadInitfintePost = async () => {
 
 }
 
+watch(
+    () => userStore.userProfilePicture,
+    () => {
+            profilePicture.value =userStore.userProfilePicture.url
+            // console.log(1144)
+            // console.log(profilePicture.value)
+
+            // userStore.setProfilePicture({
+            //     url:profilePicture.value
+           
+        //}
+    }
+);
 const handleScroll = () => {
   model_id.value = ""
 }

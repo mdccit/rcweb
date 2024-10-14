@@ -17,7 +17,7 @@
 
         <button type="button" aria-haspopup="true" id="dropdownButtonUserTable" data-dropdown-toggle="dropdowntable"
           class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto " viewBox="0 0 20 20"
+          <svg xmlns="http://www.w3.org/2000/svg" :class=" role !=1?'active-filter h-5 w-5 text-gray-400 mx-auto':'h-5 w-5 text-gray-400 mx-auto' " viewBox="0 0 20 20"
             fill="currentColor">
             <path fill-rule="evenodd"
               d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
@@ -30,7 +30,7 @@
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
             <div class="mb-3">
-              <label for="">Role </label>
+              <label for="text-sm">Role </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" v-model="role" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
@@ -44,7 +44,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <label for="">Last Seen At </label>
+              <label for="text-sm">Last Seen At </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" v-model="lastSeenAt" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
@@ -58,7 +58,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <label for="">Email verified </label>
+              <label for="text-sm">Email verified </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" v-model="emailVerified" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
@@ -172,6 +172,7 @@ import { ref, watch, computed, onMounted, defineEmits } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 import { useRoute } from 'vue-router';
+import { useFlowbite } from '~/composables/useFlowbite';
 
 
 const route = useRoute(); // Use useRoute to access query parameters
@@ -221,6 +222,10 @@ onMounted(()=>{
     role.value =route.query.role
   }
   fetchData()
+
+  useFlowbite(() => {
+      initFlowbite();
+  })
 })
 
 const filteredItems = computed(() => {

@@ -3,8 +3,8 @@
     <div class="grid grid-cols-6">
         <div v-for="connection in connections" class="col-span-3 p-2 ">
             <button >
-                <div class="bg-white p-4 border rounded-2xl">
-                    <div class=" grid grid-cols-12 gap-4">
+                <div class="bg-white p-4 border rounded-2xl"  >
+                    <button @click="redirect(`/app/profile/${connection.slug}`)" class=" grid grid-cols-12 gap-4">
                         <div class="col-span-3">
                             <img v-if="connection.profile_picture == null" class=" rounded-2xl w-[85px] h-[85px]"
                                 src="@/assets/images/user.png" alt="Neil image">
@@ -49,17 +49,17 @@
                         <div class="col-span-3">
                             <!-- <h4 class="text-black">UTR <span class="text-blue-500">30.01</span></h4> -->
                         </div>
-                    </div>
+                    </button>
                     <div class="flex mt-2">
                         <div class="flex-1">
                             <div class="flex items-center space-x-2 mb-2">
-                                <div class="bg-blue-100 p-1 rounded">
+                                <!-- <div class="bg-blue-100 p-1 rounded">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-4 text-blue-700">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                                     </svg>
-                                </div>
+                                </div> -->
                                 <!-- <div class="text-xs ml-2 text-black"><span
                                     class="text-blue-700">Ralph,Cameron</span> 3 more mutual connections
                                 </div> -->
@@ -97,7 +97,7 @@
                                             d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
                                     </svg>
                                 </button>
-                                <button v-if="connection.connection_status == 'accepted'" id="dropdownDefaultButton" data-dropdown-toggle="dropdownmore"
+                                <button @click="view(connection.connection_id)" v-if="connection.connection_status == 'accepted'" id="dropdownDefaultButton" data-dropdown-toggle="dropdownmore"
                                     class="bg-lighterGray rounded-full text-white w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
@@ -106,8 +106,8 @@
                                     </svg>
                                 </button>
                             
-                                <div id="dropdownmore"
-                                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                                <div v-if="connection.connection_id == dropdownId" id="dropdownmore"  
+                                    class="z-10  bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                         aria-labelledby="dropdownDefaultButton">
                                         <li>
@@ -115,8 +115,8 @@
                                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">View profile</div>
                                         </li>
                                         <li>
-                                            <a href="#"
-                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
+                                            <div v-if="connection.connection_status == 'accepted'"   @click="connectRemove(connection.connection_id)"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</div>
                                         </li>
                                     </ul>
                                 </div>
@@ -149,7 +149,7 @@ import { useNuxtApp } from '#app';
 import { useUserStore } from '~/stores/userStore';
 
 const emit = defineEmits(['profileView']);
-
+const dropdownId = ref('')
 const nuxtApp = useNuxtApp();
 const $userService = nuxtApp.$userService;
 const userStore = useUserStore();
@@ -162,7 +162,7 @@ const connections = ref([])
 const user_id = ref('')
 onMounted(() => {
     fetchConnections();
-
+    //window.addEventListener('click', handleClickOutside);
 
 });
 
@@ -241,6 +241,18 @@ const redirect = (url) => {
 
 }
 
+
+const view = (id) =>{
+    dropdownId.value = id
+}
+
+// const handleClickOutside = (event) =>{
+//     const dropdown = document.getElementById('dropdownmore');
+//     console.log(event.target.mame)
+//       if (dropdown && !dropdown.contains(event.target)) {
+//          // dropdownId.value = ''; // Close the dropdown if clicked outside
+//       }
+// }
 
 
 </script>

@@ -22,7 +22,7 @@
           'text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200': true
         }"
       >
-        Staff & Teams
+        Members
       </button>
     </NuxtLink>
 

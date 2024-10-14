@@ -27,7 +27,7 @@
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
             <div class="mb-3">
-              <label for="">Role </label>
+              <label for="text-sm">Role </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" @change="fetchData" v-model="hasAdmin"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
@@ -126,6 +126,7 @@ import { ref, watch, computed, onMounted } from 'vue';
 import { useFetch } from '#app';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
+import { useFlowbite } from '~/composables/useFlowbite';
 
 const router = useRouter();
 const search = ref('');
@@ -171,6 +172,10 @@ watch([options, search], () => {
 // On mount, fetch the initial data
 onMounted(() => {
   fetchData();
+
+  useFlowbite(() => {
+      initFlowbite();
+  })
 });
 
 // Expose the fetchData method

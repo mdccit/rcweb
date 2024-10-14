@@ -6,7 +6,7 @@
             <div class="text-center">
                 <div class="relative">
                     <!-- <img class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profilePictureUrl" alt=""> -->
-                    <img v-if="profile_picture != null"class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profile_picture" alt="">
+                    <img v-if="profile_picture != null" class="mx-auto w-44 h-44 rounded-[30px] mt-3" :src="profile_picture" alt="">
                     <img v-else class="mx-auto w-44 h-44 rounded-[30px] mt-3" src="@/assets/images/user.png" alt="">
 
                     <div v-if="loggedUserSlug == props.userSlug" @click="toggleModal('name')"
@@ -47,6 +47,7 @@
             </div>
             <p class="text-sm text-darkSlateBlue leading-relaxed">
                 {{ bio }}
+
             </p>
             <div v-if="seeMoreBtnHide">
                 <button id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
@@ -198,11 +199,11 @@
 
         <div style="height: auto;"
             class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
-            <div class="grid grid-cols-10 gap-2">
-                <div class="col-span-3 mx-auto">
+            <div class="grid grid-cols-10 gap-1">
+                <div class="col-span-2 mx-auto">
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/user/images/Group 179.png" alt="">
                 </div>
-                <div class="col-span-6 ml-2 mx-auto">
+                <div class="col-span-7 ml-2 mx-auto">
                     <p class="text-xs">Budget
                     </p>
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">${{ props.data.budgetMin }} -
@@ -615,6 +616,7 @@ const profilePictureUrl = computed(() => profile_picture.value);
 // Watch for changes in props.data
 watch(
     () => props.data,
+<<<<<<< HEAD
     () => {
         setprofile()
     },
@@ -622,6 +624,13 @@ watch(
     () => {
         setBio()
     },
+=======
+  () => {
+    setprofile() 
+    setBio() 
+  },
+   
+>>>>>>> 2f6e2261b89d663a0e5dfdbc47902354f23bb378
     () => props.data,
     (newVal) => {
         // if (newVal && newVal.media_info) {
@@ -654,8 +663,14 @@ const setprofile = () => {
     console.log(profile_picture.value)
 }
 
+<<<<<<< HEAD
 const setBio = () => {
     let fullBio = props.data.bio || ''; // This ensures fullBio is at least an empty string
+=======
+const setBio = () =>{
+    console.log(852)
+    let fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
+>>>>>>> 2f6e2261b89d663a0e5dfdbc47902354f23bb378
     console.log(fullBio)
     bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
     seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
