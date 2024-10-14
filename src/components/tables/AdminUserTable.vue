@@ -17,16 +17,19 @@
 
         <button type="button" aria-haspopup="true" id="dropdownButtonUserTable" data-dropdown-toggle="dropdowntable"
           class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
-          <svg xmlns="http://www.w3.org/2000/svg" :class=" role !=1?'active-filter h-5 w-5 text-gray-400 mx-auto':'h-5 w-5 text-gray-400 mx-auto' " viewBox="0 0 20 20"
-            fill="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg"
+            :class="role != 1 ? 'active-filter h-5 w-5 text-gray-400 mx-auto' : 'h-5 w-5 text-gray-400 mx-auto'"
+            viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd"
               d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
               clip-rule="evenodd"></path>
           </svg>
         </button>
+
         <!-- Dropdown Menu -->
         <div id="dropdowntable"
-          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none  hidden p-3 z-10">
+          class="mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none
+           p-3 z-10 block  transform -translate-x-[130.4px] translate-y-[50.4px] table-filter-dropDown">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
             <div class="mb-3">
@@ -86,7 +89,8 @@
     </div>
 
     <!-- Data Table -->
-    <el-table :data="filteredItems" stripe style="width: 100%" v-loading="loading" class="cursor-pointer min-h-[350px]"  @row-click="handleRowClick"  :default-sort="{ prop: 'joined_at', order: 'descending' }">
+    <el-table :data="filteredItems" stripe style="width: 100%" v-loading="loading" class="cursor-pointer min-h-[350px]"
+      @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
       <!-- Display Name Column -->
       <el-table-column prop="display_name" label="DISPLAY NAME" sortable></el-table-column>
 
@@ -214,17 +218,17 @@ const fetchData = async () => {
 // Watch options and search to update filtered items
 watch([options, search], fetchData, { immediate: true })
 
-onMounted(()=>{
+onMounted(() => {
   console.log(route.query.role)
-  if(route.query.role =='1'){
-    role.value =null
-  }{
-    role.value =route.query.role
+  if (route.query.role == '1') {
+    role.value = null
+  } {
+    role.value = route.query.role
   }
   fetchData()
 
   useFlowbite(() => {
-      initFlowbite();
+    initFlowbite();
   })
 })
 
@@ -279,20 +283,20 @@ const formatDate = (dateString) => {
 };
 
 watch(
-    () => route.query.role,
-    () => {
-      console.log(route.query.role)
+  () => route.query.role,
+  () => {
+    console.log(route.query.role)
 
-      if(route.query.role =='1'){
-        console.log(123)
-            role.value =''
-      }{
-        role.value =route.query.role
-      }
-
-        
-        fetchData()
+    if (route.query.role == '1') {
+      console.log(123)
+      role.value = ''
+    } {
+      role.value = route.query.role
     }
+
+
+    fetchData()
+  }
 );
 </script>
 
@@ -311,7 +315,10 @@ export default {
   width: 300px;
   margin-bottom: 20px;
 }
-.active-filter{
+
+.active-filter {
   color: #0085FF !important;
 }
+
+
 </style>
