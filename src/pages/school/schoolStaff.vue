@@ -11,14 +11,14 @@
                         </svg></NuxtLink>
                     <h2 class="font-bold text-lg self-center text-black"> Editing: {{ name }}</h2>
                 </div>
-                <div class=""><button type="submit"
+                <NuxtLink :to="`/app/profile/school/${slug}`"><button type="submit"
                         class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-blue-300 focus:ring-blue-200">
                         View <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M17 7l-10 10"></path>
                             <path d="M8 7l9 0l0 9"></path>
-                        </svg></button></div>
+                        </svg></button></NuxtLink>
             </div>
         </div>
     </header>
@@ -138,6 +138,8 @@ const action = ref('');  // Action type (e.g., manage, view)
 const school_id = ref('');  // School ID
 const staff_members = ref([]);  // Array to hold staff data
 const name = ref('')
+const slug = ref('')
+
 onMounted(() => {
     // Set initial values for action and school_id from route query parameters
     // action.value = route.query.action || 'manage';
@@ -171,7 +173,8 @@ const fetchSchoolDetails = async (school_id) => {
         const data = await $adminService.get_school_details(school_id);
         
         name.value = data.school_info.name || '';
-       
+        slug.value = data.school_info.slug || '';
+
 
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');

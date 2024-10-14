@@ -121,7 +121,7 @@
                                             </span>
                                             <div class="flex rounded-lg border border-gray-300 shadow-sm"><input
                                                     class="block  text-gray-700 px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                    name="graduation_month_year" type="date" v-model="graduation_month_year"
+                                                    name="graduation_month_year" type="month" v-model="graduation_month_year"
                                                     data-validation-key="graduation_month_year"></div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
@@ -515,8 +515,9 @@ const fetchPlayerDetails = async (userId) => {
        wtn_score_manual.value = other_data.wtn_score_manual
         
     } catch (error) {
+        console.log(error)
         console.error('Failed to load user details:', error.message);
-        errors.value.push('Failed to load user details.');
+       // errors.value.push('Failed to load user details.');
     }
 };
 

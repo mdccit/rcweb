@@ -51,7 +51,7 @@
                             <div class=""><button type="type" disabled
                                  class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
                                 <div class="flex flex-row items-center justify-center"><span
-                                    class=""> Connect </span></div>
+                                    class=""> Connected </span></div>
                             </button></div>
                         </fieldset>
                     </div>

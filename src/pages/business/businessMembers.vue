@@ -80,6 +80,7 @@ const business_id = ref('');
 const members = ref([]); // Array to store members
 const errors = ref([]);  // Array to handle error messages
 const name = ref('')
+const slug = ref('')
 // Fetch business members on component mount
 onMounted(() => {
     business_id.value = route.query.business_id || '';
@@ -121,7 +122,8 @@ const fetchBusinessDetails = async () => {
   try {
     const data = await $adminService.get_business_details(business_id.value);
     name.value = data.business_info.name;
-    
+    slug.value = data.business_info.slug;
+
   } catch (error) {
     console.error('Error fetching business details:', error.message);
   }
