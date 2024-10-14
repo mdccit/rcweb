@@ -1,5 +1,5 @@
 <template>
-  <div v-if="visible" :class="notificationClasses" class="fixed top-4 right-4 w-96 border rounded-lg shadow-lg p-4 z-index-220">
+  <div v-if="visible" :class="notificationClasses" class="fixed top-4 right-4 w-96 border rounded-lg shadow-lg p-4 z-index-320">
     <div class="flex justify-between items-center">
       <div class="flex items-center">
         <span class="text-sm text-white">{{ message }}</span>

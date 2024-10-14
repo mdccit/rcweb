@@ -225,17 +225,19 @@ const fetchCoachContact = async () => {
             address_line_2.value = dataSets.user_address_info.address_line_2 ?? '';
             state_province.value = dataSets.user_address_info.state_province ?? 'User has not entered state provice';
             postal_code.value = dataSets.user_address_info.postal_code ?? 'User has not entered postal code';
-            country.value = dataSets.user_address_info.country_id ?? null;
 
         }
 
         if (dataSets.user_phone_info) {
             phone_number.value = dataSets.user_phone_info.phone_number ?? 'User has not entered phone number';
             phone_code_country.value = dataSets.user_phone_info.country_id ?? null;
+
         }
 
         if (dataSets.user_basic_info) {
             email.value = dataSets.user_basic_info.email ?? 'User has not entered email';
+            country.value = dataSets.user_basic_info.country_id ?? null;
+
         }
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
