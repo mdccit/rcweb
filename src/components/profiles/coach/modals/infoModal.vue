@@ -123,7 +123,9 @@ const genders = ref([]);
 // Props and Emit definition
 const props = defineProps({
     visible: Boolean,
-    slug: String
+    slug: String,
+    data:Object
+
 });
 
 const emit = defineEmits(['close']);
@@ -134,7 +136,7 @@ onMounted(async () => {
     await Promise.all([
         loadNationalities(),
         loadGenders(),
-        fetchPlayerInfo(),
+       // fetchPlayerInfo(),
 
     ]);
 });
@@ -156,24 +158,14 @@ watch(() => props.visible, (newVal) => {
 });
 
 const fetchPlayerInfo = async () => {
-    try {
-        const dataSets = await $publicService.get_coache(props.slug);
+    console.log(145222)
+    console.log( props.data.gender)
+    nationality.value = props.data.nationality_id ?? null;
+    gender.value =  props.data.gender ?? '';
+    date_of_birth.value = props.data.dateOfBirth ?? '';
+}
+       
 
-        if (dataSets.user_basic_info) {
-            // Set Nationality, Gender, and Date of Birth
-            nationality.value = dataSets.user_basic_info.nationality_id ?? null;
-            gender.value = dataSets.user_basic_info.gender ?? null;
-
-            // Set Date of Birth
-            if (dataSets.user_basic_info.date_of_birth) {
-                const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
-                date_of_birth.value = birthDate.toISOString().split('T')[0];  // Format as 'YYYY-MM-DD'
-            }
-        }
-    } catch (error) {
-        console.error('Error fetching coach info:', error);  // Debug: log the error
-    }
-};
 
 
 // Save player info
