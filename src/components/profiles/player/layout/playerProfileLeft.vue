@@ -33,9 +33,9 @@
             <div class="flex items-center justify-between">
                 <div class="grid grid-cols-10 gap-2">
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-9">Bio</h1>
-                    <h1 class="2mb-2col-span-1" v-if="loggedUserSlug == props.userSlug"
-                        @click="toggleModal('bio')">
-                        <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue">
+                    <h1 class="2mb-2col-span-1" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('bio')">
+                        <div
+                            class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -63,8 +63,8 @@
                 <div class="grid grid-cols-10 gap-2">
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-9"></h1>
                     <h1 class="mb-2col-span-1">
-                        <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue" v-if="loggedUserSlug == props.userSlug"
-                            @click="toggleModal('info')">
+                        <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"
+                            v-if="loggedUserSlug == props.userSlug" @click="toggleModal('info')">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-4">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -106,8 +106,8 @@
            
             <div v-if="userRole == 'coach' || loggedUserSlug == props.userSlug"  class="grid grid-cols-10">
             </div> -->
-            
-           
+
+
 
             <div class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
@@ -115,7 +115,7 @@
                 </div>
                 <div class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4 ">
-                        {{ Number(props.data.ft_value)   }} {{Number(props.data.in_value)}} ( {{ props.data.heigth }}
+                        {{ Number(props.data.ft_value) }} {{ Number(props.data.in_value) }} ( {{ props.data.heigth }}
                         <span v-if="props.data.heigth != 'User has not entered height'">cm)</span>
                     </p>
                 </div>
@@ -127,7 +127,7 @@
                 </div>
                 <div class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4 ">
-                        
+
                         <span v-if="props.data.weight != 'User has not entered weight'">
                             {{ Number(props.data.pounds)
                             }}
@@ -194,7 +194,7 @@
         </div>
 
         <!-- CONTACT INFO SECTION  -->
-       
+
 
 
         <div style="height: auto;"
@@ -211,12 +211,13 @@
                     </p>
                 </div>
                 <div class="col-span-1">
-                    <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"  v-if="loggedUserSlug == props.userSlug" @click="toggleModal('budget')">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                    </svg>
+                    <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"
+                        v-if="loggedUserSlug == props.userSlug" @click="toggleModal('budget')">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                        </svg>
                     </div>
                 </div>
             </div>
@@ -231,13 +232,14 @@
                     <h1 class="text-lg font-semibold mb-4 text-black col-span-9"></h1>
                     <h1 class=" mb-2 text-black col-span-1">
                         <div class="col-span-1">
-                            <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"  v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="size-4">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                            </svg>
-                        </div>
+                            <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"
+                                v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                </svg>
+                            </div>
                         </div>
                     </h1>
                 </div>
@@ -256,8 +258,9 @@
                     <p class="text-sm text-black leading-relaxed mb-4 break-all"> {{ props.data.email }} </p>
                 </div>
             </div>
-           
-            <div v-if="userRole == 'coach' || userRole == 'admin' || loggedUserSlug == props.userSlug" class="grid grid-cols-10">
+
+            <div v-if="userRole == 'coach' || userRole == 'admin' || loggedUserSlug == props.userSlug"
+                class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-5">
@@ -270,22 +273,26 @@
                         props.data.phone }}</b> </p>
                 </div>
             </div>
-            <div class="grid grid-cols-10 gap-2">
-                <div class="col-span-3 mx-auto">
-                    <img class="mx-auto w-[35px] h-[35px] rounded-xl " src="@/assets/images/pin.png" alt="">
+            <div class="grid grid-cols-10">
+                <div class="col-span-2 mx-auto" @click="toggleModal('info')">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                    </svg>
+
                 </div>
-                <div class="col-span-6 ml-2 mx-auto">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">
-                        <span v-if="userRole == 'coach' || userRole == 'admin'">
+                <div class="col-span-8">
+                    <p class="text-sm text-black leading-relaxed mb-4"> <span
+                            v-if="userRole == 'coach' || userRole == 'admin'">
                             {{ props.data.addressLine01 }} {{ props.data.addressLine02 }} {{ props.data.stateProvince }}
                         </span>
                         {{ props.data.city }}
                         <span v-if="props.data.country">, </span>{{ props.data.country }}
                     </p>
-
-
                 </div>
-                
             </div>
         </div>
 
@@ -353,7 +360,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted ,watch } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
@@ -609,11 +616,21 @@ const profilePictureUrl = computed(() => profile_picture.value);
 // Watch for changes in props.data
 watch(
     () => props.data,
+<<<<<<< HEAD
+    () => {
+        setprofile()
+    },
+    () => props.data,
+    () => {
+        setBio()
+    },
+=======
   () => {
     setprofile() 
     setBio() 
   },
    
+>>>>>>> 2f6e2261b89d663a0e5dfdbc47902354f23bb378
     () => props.data,
     (newVal) => {
         // if (newVal && newVal.media_info) {
@@ -622,33 +639,38 @@ watch(
         //     }else{
         //         profile_picture.value =  defaultProfilePicture;
         //     }
-            
+
         // } else {
         //     profile_picture.value = defaultProfilePicture; // Fallback to default if media_info is undefined
         // }
-        
+
     },
-    { immediate: true } ,
-    
-    
+    { immediate: true },
+
+
 
     // Execute immediately when component is mounted
 );
 
-const setprofile = () =>{
-    if(props.data.media_info.profile_picture !=null){
-       profile_picture.value = props.data.media_info.profile_picture?.url
-    }else{
-       profile_picture.value =  null
+const setprofile = () => {
+    if (props.data.media_info.profile_picture != null) {
+        profile_picture.value = props.data.media_info.profile_picture?.url
+    } else {
+        profile_picture.value = null
     }
     console.log(7514)
 
     console.log(profile_picture.value)
 }
 
+<<<<<<< HEAD
+const setBio = () => {
+    let fullBio = props.data.bio || ''; // This ensures fullBio is at least an empty string
+=======
 const setBio = () =>{
     console.log(852)
     let fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
+>>>>>>> 2f6e2261b89d663a0e5dfdbc47902354f23bb378
     console.log(fullBio)
     bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
     seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;

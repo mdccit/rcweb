@@ -134,23 +134,23 @@
                                     </div>
                                     <div v-if="user.connection != null">
                                         <div v-if="user.connection.connection_status =='pending'">
-                                            <button v-if="loginUserId ==user.connection.sender_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                            <button v-if="loginUserId ==user.connection.sender_id"   class="bg-blue-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Invite Sent
                                             </button>
-                                            <button v-if="loginUserId ==user.connection.sender_id" @click="cancel(user.connection.id)"  class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                                Cancel Request
+                                            <button v-if="loginUserId ==user.connection.sender_id" @click="cancel(user.connection.id)"  class="bg-red-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                Cancel
                                             </button>
-                                            <button @click="accept(user.connection.id)" v-if="loginUserId ==user.connection.receiver_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                            <button @click="accept(user.connection.id)" v-if="loginUserId ==user.connection.receiver_id"   class="bg-blue-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Accept
                                             </button>
-                                            <button @click="reject(user.connection.id)" v-if="loginUserId ==user.connection.receiver_id"   class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                            <button @click="reject(user.connection.id)" v-if="loginUserId ==user.connection.receiver_id"   class="bg-blue-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Reject
                                             </button>
                                         </div>
                                     </div>
                                     <div v-if="user.connection == null">
                                         <button @click="connect(user.userId)"   class="bg-blue-500 text-white rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                             Connect
+                                             Connect +
                                         </button>
                                     </div>
                                 </div>

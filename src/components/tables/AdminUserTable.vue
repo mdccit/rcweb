@@ -30,7 +30,7 @@
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
             <div class="mb-3">
-              <label for="">Role </label>
+              <label for="text-sm">Role </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" v-model="role" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
@@ -44,7 +44,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <label for="">Last Seen At </label>
+              <label for="text-sm">Last Seen At </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" v-model="lastSeenAt" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
@@ -58,7 +58,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <label for="">Email verified </label>
+              <label for="text-sm">Email verified </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" v-model="emailVerified" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
