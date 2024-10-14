@@ -82,6 +82,20 @@ const createSubscriptionService = (apiService) => {
     }
   };
 
+  const delete_stripe_payment_method = async (payment_method_id) => {
+    const url = `/subscription/remove-payment-method/${payment_method_id}`;
+    try {
+      const response = await apiService.deleteRequest(url);
+      if (response) {
+        return response;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error || 'Failed to register');
+    }
+  };
+
 
   return {
     get_subscription,
@@ -89,7 +103,8 @@ const createSubscriptionService = (apiService) => {
     get_stripe_payment_history,
     get_customer_payment_methods,
     get_customer_active_payment_method,
-    cancel_subscription
+    cancel_subscription,
+    delete_stripe_payment_method
   };
 
 
