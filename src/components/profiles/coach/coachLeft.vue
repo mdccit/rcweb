@@ -3,7 +3,7 @@
         <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3">
             <div class="flex items-center justify-between w-full">
                 <h1 class="text-lg font-semibold text-black">Bio</h1>
-                <div class="w-6 h-6 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('bio')">
+                <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('bio')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -131,17 +131,17 @@
         
         <div style="height:auto"
             class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
-            <div class="grid grid-cols-12 gap-2">
-                <div class="col-span-3 mx-auto">
+            <div class="grid grid-cols-8 gap-2">
+                <div class="col-span-2 mx-auto">
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl" src="@/assets/images/pin.png" alt="">
                 </div>
-                <div class="col-span-7 ml-2 mx-auto">
+                <div class="col-span-5 ml-2 mx-auto">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-2">{{ props.data.city }}<span v-if="props.data.country && props.data.city">, </span>{{ props.data.country }}
                     </p>
 
                 </div>
-                <div class="col-span-2">
-                    <div class="w-6 h-6 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"  v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
+                <div class="col-span-1">
+                    <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"  v-if="loggedUserSlug == props.userSlug" @click="toggleModal('address')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
