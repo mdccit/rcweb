@@ -75,6 +75,9 @@ const currentPage = ref(1)
 const lastPage  =ref('')
 const isHidddenComment = ref([])
 const load = ref(false)
+const nationality_id =ref('')
+const gender =ref('none')
+const dateOfBirth =ref('')
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
     showNotification.value = nuxtApp.$notification.showNotification.value;
@@ -85,7 +88,12 @@ watchEffect(() => {
 
 onMounted(() => {
   slug.value = route.params.slug;
-  fetchUserDetailsBySlug()
+  if(slug.value){
+    fetchUserDetailsBySlug()
+
+  }else{
+    console.log("slug not found")
+  }
   userId.value = userStore.user?.user_id || null;
   
 });
@@ -93,13 +101,17 @@ onMounted(() => {
 const fetchUserDetailsBySlug = async () => {
   try {
     const dataSets = await $publicService.get_user_profile(route.params.slug);
+    console.log(dataSets)
     if (dataSets.user_basic_info) {
         bio.value = dataSets?.user_basic_info?.bio || 'User has not entered bio';
         name.value = dataSets?.user_basic_info?.display_name || 'Anonymous';
         role.value = dataSets?.user_basic_info?.user_role || '';  
         coachId.value = dataSets?.user_basic_info?.id || ''; 
         loadedSlug.value = dataSets?.user_basic_info?.slug || ''; 
-
+        nationality_id.value = dataSets?.user_basic_info?.nationality_id || null; 
+        gender.value = dataSets?.user_basic_info?.gender || 'none'; 
+        dateOfBirth.value =dataSets.user_basic_info.date_of_birth
+        country.value = dataSets?.user_basic_info?.country || '';
         const date = new Date(dataSets.user_basic_info.joined_at);
         const monthNames = [
             'January', 'February', 'March', 'April', 'May', 'June',
@@ -130,9 +142,6 @@ const fetchUserDetailsBySlug = async () => {
         city.value = dataSets?.user_address_info?.city || '';
     }
 
-    if(dataSets.user_address_info){
-        country.value = dataSets?.user_address_info?.country || '';
-    }
     
 
     coachData.value ={
@@ -147,7 +156,10 @@ const fetchUserDetailsBySlug = async () => {
         slug: loadedSlug,
         media_info: dataSets.media_info,
         school_slug: dataSets.profile_info.school_slug,
-        birth_day :birthDay.value
+        birth_day :birthDay.value,
+        gender:gender.value,
+        nationality_id:nationality_id.value,
+        dateOfBirth:dateOfBirth.value
     }
     
     if (dataSets.media_info) {
