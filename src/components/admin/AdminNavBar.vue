@@ -40,7 +40,7 @@
               </div>
 
               <div id="userDropdown"
-                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 dark:divide-gray-600">
+                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
               
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                   <li>
@@ -77,6 +77,12 @@
                     <NuxtLink to="/admin/users?role=6"
                       class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> Business User </div>
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink @click="goto_transfer_tracker"
+                      class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      <div class="flex items-center"> Transfer Tracker </div>
                     </NuxtLink>
                   </li>
                 </ul>
@@ -474,6 +480,10 @@ const fetchMorderationCount = async () => {
     console.error('Failed to load posts:', error.message);
   }
 }
+
+const goto_transfer_tracker = () => {
+  router.push('/admin/transferTracker');
+};
 
 </script>
 
