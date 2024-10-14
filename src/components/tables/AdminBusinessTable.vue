@@ -256,15 +256,6 @@ const editRecord = (row) => {
   });
 };
 
-const manageMembers = (row) => {
-  router.push({
-    path: '/business/businessMembers',
-    query: {
-      action: 'manage',
-      business_id: row.id
-    }
-  });
-};
 
 const handleRowClick = (row) => {
   editRecord(row);
