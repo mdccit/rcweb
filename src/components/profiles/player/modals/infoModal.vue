@@ -1,6 +1,6 @@
 <template>
     <!-- Info change modal -->
-    <div v-if="visible" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div v-if="visible" class="relative z-index-320" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -225,8 +225,8 @@
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                             <button type="submit" :disabled="loading"
-                                class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
-                                changes
+                                class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">
+                                Save changes
                                 <svg v-if="loading" aria-hidden="true" role="status"
                                     class="inline w-4 h-4 me-3 text-white animate-spin ml-2 mt-[3px]"
                                     viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

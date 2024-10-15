@@ -1,6 +1,6 @@
 <template>
     <!-- Address change modal -->
-    <div v-if="visible" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div v-if="visible" class="relative z-index-320" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
@@ -108,11 +108,12 @@
                                                 </div>
                                             </div>
 
-                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                            <div class="grid  grid-cols-6 lg:grid-cols-6 gap-2 mb-2">
                                                 <!-- Phone Code and Phone Number on Separate Lines -->
-                                                <div class="mb-2 sm:col-span-2 col-span-1">
+                                                <div class="mb-2  col-span-2">
                                                     <label class="block mb-1 text-gray-700 font-sans text-sm">Phone
-                                                        Code</label>
+                                                        Code <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
                                                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
                                                         <CountryCodeDropdown :country_codes="country_codes"
                                                             v-model="phone_code_country"
@@ -121,9 +122,10 @@
                                                             :error="errors.phone_code_country ? errors.phone_code_country.join(', ') : ''" />
                                                     </div>
                                                 </div>
-                                                <div class="mb-2 sm:col-span-2 col-span-1">
+                                                <div class="mb-2  col-span-4">
                                                     <label class="block mb-1 text-gray-700 font-sans text-sm">Phone
-                                                        Number</label>
+                                                        Number <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
                                                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
                                                         <input type="text" id="phone_number" v-model="phone_number"
                                                             class="block w-full h-12 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
@@ -162,7 +164,7 @@
                                 class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
                                 changes
                                 <svg v-if="loading" aria-hidden="true" role="status"
-                                    class="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101"
+                                    class="inline w-4 h-4 me-3 text-white animate-spin mt-[3px] ml-[5px]" viewBox="0 0 100 101"
                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"

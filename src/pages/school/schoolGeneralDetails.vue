@@ -25,7 +25,7 @@
                         </button>
                     </NuxtLink>
                 </div>
-                
+
             </div>
         </div>
     </header>
@@ -40,12 +40,11 @@
 
                 <div class="flex flex-row gap-16">
                     <div><span class="block mb-1 text-gray-700 font-sans">Icon</span>
-                        <div class="mt-2"><img v-if="profile == null"
-                                src="@assets/images/business.png"
-                                alt="SchoolAdm1" class="rounded-full h-20 w-20 object-cover">
-                                <img v-if="profile != null"
-                                :src="profile.url"
-                                alt="SchoolAdm1" class="rounded-full h-20 w-20 object-cover"></div>
+                        <div class="mt-2"><img v-if="profile == null" src="@assets/images/business.png" alt="SchoolAdm1"
+                                class="rounded-full h-20 w-20 object-cover">
+                            <img v-if="profile != null" :src="profile.url" alt="SchoolAdm1"
+                                class="rounded-full h-20 w-20 object-cover">
+                        </div>
                         <div class="mt-2" style="display: none;"><span
                                 class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
                                 style="background-image: url(&quot;&quot;);"></span></div>
@@ -53,27 +52,25 @@
                         <div class="flex mt-2 space-x-2">
                             <div><label class="block"><a
                                         class="font-semibold border border-border rounded py-4 px-4 w-full block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center">
-                                        <svg
-                                            class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24"
+                                        <svg class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24"
                                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
                                             <path d="M7 9l5 -5l5 5"></path>
                                             <path d="M12 4l0 12"></path>
                                         </svg>
-                                         Select A New Photo <input name="icon" type="file" @change="handleFileChange"
+                                        Select A New Photo <input name="icon" type="file" @change="handleFileChange"
                                             data-validation-key="icon"
                                             class="invisible absolute inset-0 w-full h-full disabled:opacity-50"></a></label><!---->
                             </div>
                         </div>
                     </div>
                     <div><span class="block mb-1 text-gray-700 font-sans">Cover</span>
-                        <div class="mt-2"><img v-if="cover == null"
-                                src="@assets/images/image.svg"
+                        <div class="mt-2"><img v-if="cover == null" src="@assets/images/image.svg"
                                 alt="School page background" class="rounded-full h-20 w-20 object-cover">
-                                <img v-if="cover != null"
-                                :src="cover.url"
-                                alt="School page background" class="rounded-full h-20 w-20 object-cover"></div>
+                            <img v-if="cover != null" :src="cover.url" alt="School page background"
+                                class="rounded-full h-20 w-20 object-cover">
+                        </div>
                         <div class="mt-2" style="display: none;"><span
                                 class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
                                 style="background-image: url(&quot;&quot;);"></span></div>
@@ -86,9 +83,9 @@
                                             <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
                                             <path d="M7 9l5 -5l5 5"></path>
                                             <path d="M12 4l0 12"></path>
-                                        </svg> Select A New Photo <input name="cover" type="file" @change="handleFileCoverChange"
-                                            data-validation-key="cover"
-                                            class="invisible absolute inset-0 w-full h-full disabled:opacity-50"></a></label><!---->
+                                        </svg> Select A New Photo <input name="cover" type="file"
+                                            @change="handleFileCoverChange" data-validation-key="cover"
+                                            class="invisible absolute  w-full h-full disabled:opacity-50"></a></label><!---->
                             </div>
                         </div>
                     </div>
@@ -96,14 +93,21 @@
                 <div class="my-8"></div>
                 <div class="w-full"><label class="block"><span class="block mb-1 text-gray-700 font-sans"> Name
                         </span>
-                        <div class="flex rounded-lg border border-gray-300 shadow-sm"><input v-model="name"
+                        <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                            <input v-model="name"
                                 class="block text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                name="name" type="text" data-validation-key="name"></div>
+                                name="name" type="text" data-validation-key="name">
+                                <InputError :error="errors.name ? errors.name.join(', ') : ''" />
+                        </div>
                     </label></div>
                 <div class="my-8"></div>
-                <div class="w-full"><label class="block"><span class="block mb-1 text-gray-700 font-sans"> Bio
-                        </span><textarea name="bio" data-validation-key="bio" v-model="bio"
-                            class="block w-full text-black rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50"></textarea></label>
+                <div class="w-full">
+                    <label class="block"><span class="block mb-1 text-gray-700 font-sans"> Bio
+                        </span>
+                        <textarea name="bio" data-validation-key="bio" v-model="bio"
+                            class="block w-full text-black rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50"></textarea>
+                    </label>
+                    <InputError :error="errors.bio ? errors.bio.join(', ') : ''" />
                 </div>
                 <div class="my-8"></div>
                 <!-- <div><label class="block"><span class="block mb-1 text-gray-700 font-sans"> Media </span>
@@ -136,12 +140,14 @@
                             <span class="block mb-1 text-gray-700 font-sans">
                                 Approved </span>
                             <div class="relative">
-                                <div class="mr-1"><select name="is_approved" data-validation-key="is_approved"
-                                        v-model="is_approved"
+                                <div class="mr-1">
+                                    <select name="is_approved" data-validation-key="is_approved" v-model="is_approved"
                                         class="block text-black w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 px-5 py-3 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50">
                                         <option :value="true"> Yes </option>
                                         <option :value="false"> No </option>
-                                    </select></div>
+                                    </select>
+                                    <InputError :error="errors.is_approved ? errors.is_approved.join(', ') : ''" />
+                                </div>
                             </div>
                         </label>
                     </div>
@@ -154,6 +160,7 @@
                                         <option :value="true"> Yes </option>
                                         <option :value="false"> No </option>
                                     </select></div>
+                                <InputError :error="errors.is_verified ? errors.is_verified.join(', ') : ''" />
                             </div>
                         </label>
                     </div>
@@ -173,6 +180,7 @@
                                         <option value="6"> Northern Sun </option>
                                     </select>
                                 </div>
+                                <InputError :error="errors.conference ? errors.conference.join(', ') : ''" />
                             </div>
                         </label>
                     </div>
@@ -189,6 +197,7 @@
                                         <option value="5"> NJCAA </option>
                                     </select></div>
                             </div>
+                            <InputError :error="errors.division ? errors.division.join(', ') : ''" />
                         </label>
                     </div>
                 </div>
@@ -222,6 +231,7 @@ import { useRoute } from 'vue-router';
 import Notification from '~/components/common/Notification.vue';
 import SchoolNavigation from '~/components/admin/school/SchoolNavigation.vue';
 import { handleError } from '@/utils/handleError';
+import InputError from '@/components/common/input/InputError.vue';
 
 const route = useRoute(); // Use useRoute to access query parameters
 
@@ -244,14 +254,14 @@ const conference = ref('');
 const division = ref('');
 const is_verified = ref(false);
 const is_approved = ref(false);
-const profile =ref(null)
-const cover =ref(null)
+const profile = ref(null)
+const cover = ref(null)
 const profile_image = ref('')
 const cover_image = ref('')
 
 const action = ref(route.params.action || 'view'); // default to 'view' if action not provided
 const school_id = ref(route.params.school_id || '');
-const fileError =ref('')
+const fileError = ref('')
 onMounted(() => {
 
     // Update the refs directly
@@ -289,7 +299,7 @@ const updateSchoolDetails = async () => {
         }
         fetchSchoolDetails(school_id.value);
     } catch (error) {
-        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+        // nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
     }
 };
@@ -309,9 +319,8 @@ const updateSchoolProfile = async () => {
         }
         fetchSchoolDetails(school_id.value);
 
-       
     } catch (error) {
-        console.log(error) 
+        console.log(error)
     }
 };
 
@@ -330,9 +339,8 @@ const updateSchoolCover = async () => {
         }
         fetchSchoolDetails(school_id.value);
 
-       
     } catch (error) {
-        console.log(error) 
+        console.log(error)
     }
 };
 
@@ -365,17 +373,29 @@ definePageMeta({
 });
 
 const handleFileChange = (event) => {
-  const file = event.target.files[0];
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-  const maxSize = 30 * 1024 * 1024; // 30MB
+    const file = event.target.files[0];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    const maxSize = 30 * 1024 * 1024; // 30MB
 
-  // Check if a file is selected
-  if (file) {
-    // Validate the file type
-    if (!allowedTypes.includes(file.type)) {
-      fileError.value = 'Only jpg, jpeg, and png files are allowed';
-      event.target.value = ''; // Clear the file input
-      return;
+    // Check if a file is selected
+    if (file) {
+        // Validate the file type
+        if (!allowedTypes.includes(file.type)) {
+            fileError.value = 'Only jpg, jpeg, and png files are allowed';
+            event.target.value = ''; // Clear the file input
+            return;
+        }
+
+        // Validate the file size
+        if (file.size > maxSize) {
+            fileError.value = 'File size must be less than 30MB';
+            event.target.value = ''; // Clear the file input
+            return;
+        }
+
+        // If all validations pass, set the file to the reactive variable
+        fileError.value = ''; // Clear any previous errors
+        profile_image.value = file; // Store the selected file
     }
 
     // Validate the file size
@@ -388,22 +408,33 @@ const handleFileChange = (event) => {
     // If all validations pass, set the file to the reactive variable
     fileError.value = ''; // Clear any previous errors
     profile_image.value = file; // Store the selected file
-    updateSchoolProfile()
-  }
+    updateSchoolProfile();  
 };
 
 const handleFileCoverChange = (event) => {
-  const file = event.target.files[0];
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-  const maxSize = 30 * 1024 * 1024; // 30MB
+    const file = event.target.files[0];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    const maxSize = 30 * 1024 * 1024; // 30MB
 
-  // Check if a file is selected
-  if (file) {
-    // Validate the file type
-    if (!allowedTypes.includes(file.type)) {
-      fileError.value = 'Only jpg, jpeg, and png files are allowed';
-      event.target.value = ''; // Clear the file input
-      return;
+    // Check if a file is selected
+    if (file) {
+        // Validate the file type
+        if (!allowedTypes.includes(file.type)) {
+            fileError.value = 'Only jpg, jpeg, and png files are allowed';
+            event.target.value = ''; // Clear the file input
+            return;
+        }
+
+        // Validate the file size
+        if (file.size > maxSize) {
+            fileError.value = 'File size must be less than 30MB';
+            event.target.value = ''; // Clear the file input
+            return;
+        }
+
+        // If all validations pass, set the file to the reactive variable
+        fileError.value = ''; // Clear any previous errors
+        cover_image.value = file; // Store the selected file
     }
 
     // Validate the file size
@@ -417,8 +448,7 @@ const handleFileCoverChange = (event) => {
     fileError.value = ''; // Clear any previous errors
     cover_image.value = file; // Store the selected file
     updateSchoolCover()
-  }
-};
+  };
 </script>
 
 

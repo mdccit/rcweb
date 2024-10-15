@@ -1,8 +1,15 @@
 <template>
     <section class="w-full mb-5 p-3">
         <div class="relative">
+            <!-- Cover Picture -->
             <img class="w-full h-[400px] rounded-xl" :src="coverPictureUrl" alt="">
-            <!-- Wrapper for the SVG to position it absolutely -->
+
+            <!-- Gradient Overlay -->
+            <div
+                class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 rounded-xl">
+            </div>
+
+            <!-- SVG Button (for editing the cover picture) -->
             <div class="absolute top-0 right-0 mt-[8px] mr-[8px] w-6 h-6 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"
                 v-if="loggedUserSlug == props.userSlug" @click="toggleModal('cover')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
@@ -49,8 +56,8 @@
                         <div class="col-span-3">
                             <div
                                 class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                              
-                                <CoachTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
+
+                                <!-- <CoachTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" /> -->
                             </div>
                         </div>
                     </div>
@@ -78,25 +85,26 @@
                                                     d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
                                             </svg>
 
-                                    </button>
-                                </div>
-                                  <div v-if="coachId != userId">
-                                    <div class="flex text-white" v-if="buttonHide == false" >
-                                        <button @click="connectAcceptOrConnect"
-                                            class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                            {{ connectionButtonName }}
                                         </button>
-                                        <div v-if="connectionButtonName =='Accept'" class="text-white">
-                                            <button @click="connectReject"
-                                                class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                                Reject
+                                    </div>
+                                    <div v-if="coachId != userId">
+                                        <div class="flex text-white" v-if="buttonHide == false">
+                                            <button @click="connectAcceptOrConnect"
+                                                class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                {{ connectionButtonName }}
                                             </button>
+                                            <div v-if="connectionButtonName == 'Accept'" class="text-white">
+                                                <button @click="connectReject"
+                                                    class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                    Reject
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                </div>
                                 <div class="">
-                                    <button aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdown" v-if="loggedUserSlug == props.userSlug"
+                                    <button aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdown"
+                                        v-if="loggedUserSlug == props.userSlug"
                                         class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
@@ -125,15 +133,15 @@
                     </div>
 
                 </div>
-                <div class="grid grid-cols-6 gap-4 flex -mt-[85px]">
+                <div class="grid grid-cols-6 gap-4 flex -mt-[85px] tabs-align">
                     <div class="col-span-1">
                     </div>
                     <div class="col-span-5">
                         <div class="pl-3">
-                            <!-- <div
-                                class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
+                            <div
+                                class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400 z-10">
                                 <CoachTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -143,9 +151,9 @@
 
 
     <!-- Modal Components with Standardized Props -->
-    <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
+    <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" @updateData="fetchUserDetails" />
     <CoverModal :visible="modals.cover" @close="handleModalClose" :slug="slug" />
-    <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" />
+    <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" :data="props.data" />
 </template>
 
 <script setup>
@@ -329,10 +337,14 @@ const fetchUserDetails = async () => {
         }
         if (dataSets.media_info.profile_picture != null) {
             profile_picture.value = dataSets.media_info.profile_picture.url || defaultProfilePicture;
+        }else{
+            profile_picture.value =defaultProfilePicture;
         }
 
         if (dataSets.media_info.cover_picture != null) {
-            cover_picture.value = dataSets.media_info.cover_picture.url || defaultProfilePicture;
+            cover_picture.value = dataSets.media_info.cover_picture.url || defaultCoverPicture;
+        }else{
+            cover_picture.value =defaultCoverPicture;
         }
 
 
@@ -364,10 +376,13 @@ const toggleModal = (modalName) => {
 // Generic function to close the modal and fetch user details
 const handleModalClose = (modalName) => {
     // Defensive check to make sure modalName exists
+    console.log(1)
     if (modals[modalName] !== undefined) {
         modals[modalName] = false;  // Close the modal
-        fetchUserDetails();         // Fetch updated user details after closing
+        fetchUserDetails();   
+        console.log(2)      // Fetch updated user details after closing
     } else {
+        console.log(3)
         console.error(`Invalid modal name: ${modalName}`);
     }
 };
@@ -405,6 +420,7 @@ onMounted(() => {
 
     userId.value = userStore.user?.user_id || null;
     slug.value = props.userSlug;
+    console.log(slug.value)
     userSlug.value = userStore.userSlug ?? null
     if (userSlug.value != slug.value) {
         fetchCheckConnection()
