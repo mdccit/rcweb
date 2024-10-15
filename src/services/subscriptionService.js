@@ -54,7 +54,11 @@ const createSubscriptionService = (apiService) => {
         throw new Error('Unexpected API response structure');
       }
     } catch (error) {
-      throw new Error(error || 'Failed to register');
+      if (error.response) {
+        throw error.response; // Pass the full response for further handling
+      } else {
+        throw new Error(error.message || ' Error in retrieve active payment method');
+      }
     }
   };
 
@@ -70,18 +74,6 @@ const createSubscriptionService = (apiService) => {
     }
   };
 
-  const connection_accept = async (connection_id, request_body) => {
-    const url = `/user/connections-accept/${connection_id}`;
-    const body = request_body;
-
-    try {
-      const response = await apiService.putRequest(url, body);
-      return response;
-    } catch (error) {
-      throw new Error(error.message || 'Failed to update');
-    }
-  };
-
   const delete_stripe_payment_method = async (payment_method_id) => {
     const url = `/subscription/remove-payment-method/${payment_method_id}`;
     try {
@@ -92,14 +84,18 @@ const createSubscriptionService = (apiService) => {
         throw new Error('Unexpected API response structure');
       }
     } catch (error) {
-      throw new Error(error || 'Failed to register');
+      if (error.response) {
+        throw error.response; // Pass the full response for further handling
+      } else {
+        throw new Error(error.message || 'Failed to remove payment method');
+      }
+
     }
   };
 
 
   return {
     get_subscription,
-    connection_accept,
     get_stripe_payment_history,
     get_customer_payment_methods,
     get_customer_active_payment_method,

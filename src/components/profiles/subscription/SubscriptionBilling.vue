@@ -239,28 +239,28 @@ const cancelSubscription = async () => {
 const deletePaymentMethod = async (paymentMethodId) => {
   try {
     const response = await $subscriptionService.delete_stripe_payment_method(paymentMethodId);
+    
+    // Check for a successful response
     if (response && response.status === 200) {
       // Success case
-      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+      nuxtApp.$notification.triggerNotification(response.display_message || 'Payment method removed successfully.', 'success');
     } else {
-      // Handle non-success status codes
-      nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+      // Handle non-success status codes, show display_message if available
+      nuxtApp.$notification.triggerNotification(response.display_message || 'Failed to remove payment method.', 'failure');
     }
   } catch (error) {
-    nuxtApp.$notification.triggerNotification(error.message, 'failure');
-    console.error('Error canceling subscription:', error);
+    // Check if the error object contains a structured message from the API
+    if (error.response && error.response.data) {
+      // Show the display_message from the API error response if available
+      nuxtApp.$notification.triggerNotification(error.response.data.display_message || 'Failed to remove payment method.', 'failure');
+    } else {
+      // Generic error handling fallback
+      nuxtApp.$notification.triggerNotification(error.message || 'An unexpected error occurred.', 'failure');
+    }
+    console.error('Error removing card:', error);
   }
 };
 
-// Example method to handle card removal
-const removeCard = async (paymentMethodId) => {
-  try {
-    await $subscriptionService.remove_payment_method(paymentMethodId);
-    paymentMethods.value = paymentMethods.value.filter(method => method.id !== paymentMethodId);
-  } catch (error) {
-    console.error('Error removing payment method:', error);
-  }
-};
 
 // Helper function to format date from "YYYY-MM-DD HH:mm:ss" to "Y-M-d"
 function formatDate(dateString) {
