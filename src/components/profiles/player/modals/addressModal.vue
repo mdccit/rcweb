@@ -112,7 +112,8 @@
                                                 <!-- Phone Code and Phone Number on Separate Lines -->
                                                 <div class="mb-2  col-span-2">
                                                     <label class="block mb-1 text-gray-700 font-sans text-sm">Phone
-                                                        Code</label>
+                                                        Code <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
                                                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
                                                         <CountryCodeDropdown :country_codes="country_codes"
                                                             v-model="phone_code_country"
@@ -123,7 +124,8 @@
                                                 </div>
                                                 <div class="mb-2  col-span-4">
                                                     <label class="block mb-1 text-gray-700 font-sans text-sm">Phone
-                                                        Number</label>
+                                                        Number <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
                                                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
                                                         <input type="text" id="phone_number" v-model="phone_number"
                                                             class="block w-full h-12 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
