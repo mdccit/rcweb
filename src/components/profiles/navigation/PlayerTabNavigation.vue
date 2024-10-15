@@ -1,12 +1,12 @@
 <template>
-  <div class="text-sm font-medium text-center border-b border-gray-300 text-black">
+  <div class="text-sm font-medium text-center border-b border-grayishSilver text-black">
     <ul class="flex flex-wrap -mb-px">
       <li v-for="(tab, index) in tabs" :key="index" class="me-2">
         <button
           @click="selectTab(tab.name)"
           :class="[
             'inline-block p-4 rounded-t-lg',
-            tab.name === activeTab ? 'text-blue-600 border-b-2 border-blue-600' : 'border-transparent hover:text-gray-600 hover:border-gray-300'
+            tab.name === activeTab ? 'text-steelBlue border-b-4 border-steelBlue' : 'border-transparent hover:text-gray-600 hover:border-gray-300'
           ]"
         >
           {{ tab.label }}

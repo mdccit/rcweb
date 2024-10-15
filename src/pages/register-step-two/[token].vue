@@ -3,17 +3,47 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter, onBeforeRouteLeave } from 'vue-router';
 import RegisterStepTwo from '~/components/RegisterStepTwo.vue';
+import { onMounted, onBeforeUnmount } from 'vue';
+
 definePageMeta({
   colorMode: 'light',
   layout: 'outer',
   middleware: ['role'],
-  requiredRole: ['default'],
+  requiredRole: ['default','undefined'],
 });
 // Capture the dynamic token from the route
 const route = useRoute();
 const token = route.params.token;  // Access the token parameter from the route
+
+onBeforeRouteLeave((to, from, next) => {
+  if (from.name === 'somePreviousRouteName') {
+    // Prevent backward navigation
+    next(false);
+  } else {
+    // Allow forward navigation
+    next();
+  }
+});
+
+onMounted(() => {
+  // Add a new history entry to prevent backward navigation
+  history.pushState(null, null, location.href);
+
+  // Listen for the popstate event
+  const preventBackNavigation = (event) => {
+    history.pushState(null, null, location.href);
+  };
+
+  window.addEventListener('popstate', preventBackNavigation);
+
+  // Clean up the event listener when the component is unmounted
+  onBeforeUnmount(() => {
+    window.removeEventListener('popstate', preventBackNavigation);
+  });
+});
+
 </script>
 
 <style scoped>

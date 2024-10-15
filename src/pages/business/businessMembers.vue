@@ -1,22 +1,26 @@
 <template>
-    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <div class="flex w-full justify-between gap-8">
-            <div class="flex items-center gap-4">
-                <NuxtLink :to="{ path: '/business/businessGeneral', query: { action: 'edit', business_id: business_id } }">
-                    <svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M15 6l-6 6l6 6"></path>
-                    </svg>
-                </NuxtLink>
-                <h2 class="font-bold text-lg self-center text-black"> Editing: {{ businessName }} </h2>
+    <header class="bg-gray-200">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div class="flex w-full justify-between gap-8">
+                <div class="flex items-center gap-4">
+                    <NuxtLink
+                        :to="{ path: '/business/businessGeneral', query: { action: 'edit', business_id: business_id } }">
+                        <svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 6l-6 6l6 6"></path>
+                        </svg>
+                    </NuxtLink>
+                    <h2 class="font-bold text-lg self-center text-black"> Editing: {{ name }} </h2>
+                </div>
             </div>
         </div>
-    </div>
+    </header>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <!-- Use the BusinessNavigation component -->
-      <BusinessNavigation :businessId="business_id" />
+            <!-- Use the BusinessNavigation component -->
+            <BusinessNavigation :businessId="business_id" />
 
 
             <div class="my-8"></div>
@@ -26,9 +30,9 @@
                     <div class="flex justify-between">
                         <div class="flex-1 text-2xl font-bold mb-4 text-black"> All Members </div>
                         <div class="">
-                            <NuxtLink >
+                            <NuxtLink>
                                 <button @click="addMembers"
-                                    class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
+                                    class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700 active:bg-blue-600 text-white border-transparent focus:border-blue-300 focus:ring-blue-200">
                                     Add User
                                 </button>
                             </NuxtLink>
@@ -45,7 +49,7 @@
                             <div class="self-center flex flex-wrap gap-2">
                                 <a :href="`/admin/businesses/${business_id}/users/${member.id}/edit`">
                                     <button type="submit"
-                                        class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
+                                        class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-blue-300 focus:ring-blue-200">
                                         Manage
                                     </button>
                                 </a>
@@ -75,11 +79,12 @@ const $adminService = nuxtApp.$adminService;
 const business_id = ref('');
 const members = ref([]); // Array to store members
 const errors = ref([]);  // Array to handle error messages
-
+const name = ref('')
 // Fetch business members on component mount
 onMounted(() => {
     business_id.value = route.query.business_id || '';
     fetchBusinessMembers(business_id.value); // Load members
+    fetchBusinessDetails()
 });
 
 // Fetch business members from the service
@@ -100,25 +105,34 @@ const addMembers = () => {
 };
 
 const triggerNotification = (message, type) => {
-  notificationMessage.value = message;
-  notification_type.value = type;
-  showNotification.value = true;
+    notificationMessage.value = message;
+    notification_type.value = type;
+    showNotification.value = true;
 
-  notificationKey.value += 1; // Force re-render
+    notificationKey.value += 1; // Force re-render
 
-  // Auto-hide after 3 seconds
-  setTimeout(() => {
-    showNotification.value = false;
-  }, 3000);
+    // Auto-hide after 3 seconds
+    setTimeout(() => {
+        showNotification.value = false;
+    }, 3000);
+};
+
+const fetchBusinessDetails = async () => {
+  try {
+    const data = await $adminService.get_business_details(business_id.value);
+    name.value = data.business_info.name;
+    
+  } catch (error) {
+    console.error('Error fetching business details:', error.message);
+  }
 };
 
 
-
 definePageMeta({
-  ssr: false,
-  layout: 'admin',
-  middleware: ['role'],
-  requiredRole: ['admin'],
+    ssr: false,
+    layout: 'admin',
+    middleware: ['role'],
+    requiredRole: ['admin'],
 });
 </script>
 

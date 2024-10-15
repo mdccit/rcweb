@@ -1,7 +1,7 @@
 const createFeedService = (apiService) => {
 
   const list_posts = async (request_body) => {
-    const url = `/feed/posts?sortBy=updated_at`;
+    const url = `/feed/posts?page=${request_body}`;
     const body = request_body;
 
     try {

@@ -21,23 +21,68 @@
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
               style="position: relative;">
               <div>
-                <button type="button" aria-haspopup="true"
+                <button type="button" aria-haspopup="true" id="dropdownButtonUser" data-dropdown-toggle="userDropdown"
                   class="inline-flex items-center px-1  border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                  <NuxtLink to="/admin/users">
-                    <div
-                      class="flex items-center py-4 text-sm font-medium text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition duration-150 ease-in-out">
-                      <div>Users</div>
-                      <div class="ml-1">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                        </svg>
-                      </div>
+
+                  <div
+                    class="flex items-center py-4 text-sm font-medium text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition duration-150 ease-in-out">
+                    <div>Users</div>
+                    <div class="ml-1">
+                      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"></path>
+                      </svg>
                     </div>
-                  </NuxtLink>
+                  </div>
+
                 </button>
               </div>
+
+              <div id="userDropdown"
+                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 dark:divide-gray-600">
+              
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                  <li>
+                    <NuxtLink to="/admin/users?role=1"
+                      class=" cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      <div class="flex items-center"> All </div>
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink to="/admin/users?role=4"
+                      class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      <div class="flex items-center"> Players </div>
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink to="/admin/users?role=5"
+                      class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      <div class="flex items-center"> Coaches </div>
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink to="/admin/users?role=7"
+                      class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      <div class="flex items-center"> Parent </div>
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink to="/admin/users?role=2"
+                      class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      <div class="flex items-center"> Admin </div>
+                    </NuxtLink>
+                  </li>
+                  <li>
+                    <NuxtLink to="/admin/users?role=6"
+                      class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                      <div class="flex items-center"> Business User </div>
+                    </NuxtLink>
+                  </li>
+                </ul>
+              </div>
+
+
               <div>
                 <div class="absolute z-40"
                   style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(4px, 71.2px, 0px);">
@@ -52,7 +97,8 @@
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               Businesses
             </NuxtLink>
-            <div
+            
+            <!-- <div
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
               style="position: relative;">
               <div>
@@ -76,44 +122,42 @@
                   style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(4px, 71.2px, 0px);">
                 </div>
               </div>
-            </div>
+            </div> -->
             <NuxtLink to="/admin/moderation?filter%5Bis_closed%5D=0"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Moderation <div
-                  class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full">60
+                  class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full">{{
+                    morderationCount }}
                 </div>
               </div>
             </NuxtLink>
-   
+
             <!-- <NuxtLink to="/admin/transcripts"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Transcripts </div>
             </NuxtLink> -->
             <NuxtLink @click="login" v-if="!isLoggedIn"
-              class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Login </div>
             </NuxtLink>
             <NuxtLink @click="register" v-if="!isLoggedIn"
-              class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Register </div>
             </NuxtLink>
-            <NuxtLink @click="logout" v-if="isLoggedIn"
-              class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              <div class="flex items-center"> Logout </div>
-            </NuxtLink>
-            <NuxtLink @click="profile" v-if="isLoggedIn"
-            class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-            <div class="flex items-center"> Profile </div>
-          </NuxtLink>
+      
           </div>
           <div class="hidden sm:flex sm:items-center sm:ml-6">
             <div class="ml-3 relative">
               <div style="position: relative;">
                 <div>
-                  <button type="button" aria-haspopup="true"
-                    class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                    <img class="h-8 w-8 rounded-full object-cover"
-                      src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin">
+                  <button type="button" aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdown"
+                    class="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                    <!-- <img class="h-8 w-8 rounded-full object-cover"
+                      src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin"> -->
+                      <img  v-if="profilePicture == 'null'" class="h-8 w-8 rounded-full object-cover"
+                                        src="@/assets/images/user.png" alt="">
+                      <img v-if="profilePicture != 'null'" class="h-8 w-8 rounded-full object-cover"
+                                        :src="profilePicture" alt="">
                   </button>
                 </div>
                 <div>
@@ -130,51 +174,74 @@
                 <path class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M6 18L18 6M6 6l12 12"></path>
               </svg></button></div>
+
+
+
+          <!-- Dropdown menu -->
+          <div id="dropdown"
+            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 dark:divide-gray-600">
+
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+              <li>
+                <NuxtLink @click="profile" v-if="isLoggedIn"
+                  class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                  <div class="flex items-center"> Profile </div>
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink @click="logout" v-if="isLoggedIn"
+                  class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
+                  <div class="flex items-center"> Logout</div>
+                </NuxtLink>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
       <div class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-          <NuxtLink to="/admin"
+          <!-- <NuxtLink to="/admin"
             class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
             Dashboard
-          </NuxtLink>
+          </NuxtLink> -->
           <div class="pl-8">
             <NuxtLink to="/admin/users"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               All Users
             </NuxtLink>
             <NuxtLink to="/admin/users?filter%5Brole%5D=player"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Players
             </NuxtLink>
             <NuxtLink to="/admin/users?filter%5Brole%5D=coach"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Coaches
             </NuxtLink>
             <NuxtLink to="/admin/users?filter%5Brole%5D=admin"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Admins
             </NuxtLink>
             <NuxtLink to="/admin/schools"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Schools
             </NuxtLink>
           </div>
-          <NuxtLink to="/admin"
+          <!-- <NuxtLink to="/admin"
             class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
             Marketing
-          </NuxtLink>
+          </NuxtLink> -->
           <div class="pl-8">
             <NuxtLink to="/admin/newsletter"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Newsletter
             </NuxtLink>
             <NuxtLink to="/admin/blog"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Blog
             </NuxtLink>
             <NuxtLink to="/admin/events"
-              class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+              class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
               Events
             </NuxtLink>
             <NuxtLink to="/admin/resources"
@@ -183,81 +250,49 @@
             </NuxtLink>
           </div>
           <NuxtLink to="/admin/moderation?filter%5Bis_closed%5D=0"
-            class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
-            <span class="flex items-center">
-              Moderation
-              <span
-                class="ml-2 bg-red-500 text-white text-xs h-6 w-6 flex items-center justify-center rounded-full">60</span>
-            </span>
+            class="cursor-pointer block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+            <span class="flex items-center"> Moderation </span>
           </NuxtLink>
+
         </div>
         <div class="relative inline-block">
           <!-- Dropdown toggle button -->
-          
+
           <NuxtLink to="/app">
-          <button
-            id="dropdownUserButton"
-            data-dropdown-toggle="dropdownUser"
-            class="flex items-center text-sm font-medium text-gray-800 hover:text-gray-900"
-            type="button"
-          >
-            <img
-              class="h-10 w-10 rounded-full object-cover mr-3"
-              src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF"
-              alt="Admin"
-            />
-            <span>Admin</span>
-            <svg
-              class="ml-2 w-4 h-4"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </NuxtLink>
-      
+            <button id="dropdownUserButton" data-dropdown-toggle="dropdownUser"
+              class="cursor-pointer flex items-center text-sm font-medium text-gray-800 hover:text-gray-900" type="button">
+              <img class="h-10 w-10 rounded-full object-cover mr-3"
+                src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin" />
+              <span>Admin</span>
+              <svg class="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </NuxtLink>
+
           <!-- Dropdown menu -->
-          <div
-            id="dropdownUser"
-            class="hidden z-10 w-48 bg-white rounded divide-y divide-gray-100 shadow"
-            data-popper-placement="bottom"
-          >
+          <div id="dropdownUser" class="hidden z-10 w-48 bg-white rounded divide-y divide-gray-100 shadow"
+            data-popper-placement="bottom">
             <div class="py-3 px-4 text-sm text-gray-900">
-              <div class="font-medium">Admin</div>
+              <div class="font-medium">{{ loggedUserName }}</div>
               <div class="text-sm text-gray-500">{{ loggedUserMail }}</div>
             </div>
             <ul class="py-1 text-gray-700">
               <li>
-                <NuxtLink
-                  to="/app"
-                  class="block py-2 px-4 text-sm hover:bg-gray-100"
-                >
+                <NuxtLink to="/app" class="cursor-pointer block py-2 px-4 text-sm hover:bg-gray-100">
                   Go to Members Area
                 </NuxtLink>
               </li>
               <li>
-                <NuxtLink
-                  to="/user/profile"
-                  class="block py-2 px-4 text-sm hover:bg-gray-100"
-                >
+                <NuxtLink to="/user/profile" class="cursor-pointer block py-2 px-4 text-sm hover:bg-gray-100">
                   Profile
                 </NuxtLink>
               </li>
             </ul>
             <div class="py-1">
               <form>
-                <button
-                  type="submit"
-                  class="block w-full py-2 px-4 text-sm text-left hover:bg-gray-100"
-                >
+                <button type="submit" class="cursor-pointer block w-full py-2 px-4 text-sm text-left hover:bg-gray-100">
                   Log Out
                 </button>
               </form>
@@ -274,6 +309,8 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 import { useUserStore } from '@/stores/userStore';
+import { useModerationStore } from '~/stores/moderation';
+import { useFlowbite } from '~/composables/useFlowbite';
 
 const userStore = useUserStore();
 const nuxtApp = useNuxtApp();
@@ -281,6 +318,12 @@ const $authService = nuxtApp.$authService;
 const isAuthenticated = computed(() => userStore.isAuthenticated);
 const loggedUserMail = computed(() => userStore.loggedUserEmail);
 const router = useRouter();
+const $adminService = nuxtApp.$adminService;
+const morderationCount = ref(0);
+const moderationStore = useModerationStore();
+const profilePicture= ref(null)
+
+const loggedUserName = ref('');
 
 const closeDropdown = (event) => {
   if (!event.target.closest('.relative')) {
@@ -291,12 +334,13 @@ const closeDropdown = (event) => {
 
 const logout = async () => {
   try {
+    router.push('/login');
 
     const token = localStorage.getItem('token');  // Retrieve the token from local storage
-    
+
     if (!token) {
       userStore.clearUser();  // Clear user data if no token is found
-      nuxtApp.$notification.triggerNotification( 'You have been logged out.', 'success');
+      nuxtApp.$notification.triggerNotification('You have been logged out.', 'success');
       // Use a timeout to display the notification before redirecting to login
       setTimeout(() => {
         router.push('/login');  // Redirect to login
@@ -315,21 +359,21 @@ const logout = async () => {
     if (response.status === 200) {
       userStore.clearUser();  // Clear user data from Pinia store
       console.log('user cleared');
-      nuxtApp.$notification.triggerNotification( response.display_message, 'success');
-      
+      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+
       setTimeout(() => {
         router.push('/login');  // Redirect to login after 2 seconds
       }, 2000);  // 2-second delay
     } else {
-      nuxtApp.$notification.triggerNotification( response.display_message, 'failure');
-      
+      nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+
       setTimeout(() => {
         router.push('/login');
       }, 2000);
     }
   } catch (err) {
 
-console.log(err);
+    console.log(err);
     if (err.response && err.response.status === 401) {
       // Handle 401 error and redirect to login
       nuxtApp.$notification.triggerNotification('Session expired. Please log in again.', 'failure');
@@ -344,7 +388,7 @@ console.log(err);
         router.push('/login');  // Ensure redirection to login even on other errors
       }, 2000);  // 2-second delay
     }
-    nuxtApp.$notification.triggerNotification( err.display_message, 'failure');
+    nuxtApp.$notification.triggerNotification(err.display_message, 'failure');
     setTimeout(() => {
       router.push('/login');  // Ensure redirection to login even on error
     }, 2000);  // 2-second delay
@@ -352,8 +396,57 @@ console.log(err);
 };
 
 onMounted(() => {
-  window.removeEventListener('click', closeDropdown);
+  if (process.client) {  // Ensure this runs only on the client-side
+    const storedUserName = localStorage.getItem('user_name');  // Get value from localStorage
+
+    if (storedUserName) {
+      // Set the loggedUserName in the store with the value from localStorage
+      loggedUserName.value = storedUserName;
+    } else {
+      console.log('No user_name found in localStorage.');
+    }
+  }
+  useFlowbite(() => {
+        initFlowbite();
+  })
+  if(localStorage.getItem('profile_picture')){
+            profilePicture.value =localStorage.getItem('profile_picture')
+            userStore.setProfilePicture({
+                url:profilePicture.value
+            })
+        }
 });
+
+onMounted(() => {
+  window.removeEventListener('click', closeDropdown);
+  fetchMorderationCount()
+});
+
+watch(
+  () => moderationStore.moderationClose,
+  () => {
+    if (moderationStore.moderationClose == true) {
+      fetchMorderationCount()
+      moderationStore.setModerationClose(false)
+    }
+
+  },
+)
+
+watch(
+    () => localStorage.getItem('profile_picture'),
+    () => {
+        if(localStorage.getItem('profile_picture')){
+            profilePicture.value =localStorage.getItem('profile_picture')
+            console.log(1144)
+            console.log(profilePicture.value)
+
+            userStore.setProfilePicture({
+                url:profilePicture.value
+            })
+        }
+    }
+);
 
 const login = () => {
   console.log('login push');
@@ -371,6 +464,16 @@ const profile = () => {
 const isLoggedIn = computed(() => userStore.isLoggedIn);
 const userRole = computed(() => userStore.userRole);
 
+const fetchMorderationCount = async () => {
+  try {
+    if (isAuthenticated.value && (userStore.role == 'admin')) {
+      const response = await $adminService.morderation_all_open_count();
+      morderationCount.value = response.dataSets
+    }
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
+  }
+}
 
 </script>
 

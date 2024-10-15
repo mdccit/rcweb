@@ -1,5 +1,6 @@
 <template>
-  <div class="min-h-screen w-full bg-generic bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4">
+  <div
+    class="min-h-screen w-full bg-generic bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4">
     <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl">
       <form @submit.prevent="handleSubmitStep2">
         <div class="flex items-center space-x-4">
@@ -17,9 +18,6 @@
           </div>
         </div>
         <div class="w-full"></div>
-        <div>
-          <label for="role" class="block mb-2 text-sm font-normal text-gray-900 mt-3">I am a ...</label>
-        </div>
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-4">
           <!-- Radio option for Player role -->
           <div class="radio relative cursor-pointer" @click="role = 'player'">
@@ -27,9 +25,14 @@
               value="player" v-model="role" name="role">
             <div
               :class="['radio-tile rounded-2xl relaive group flex flex-col items-center justify-center border border-gray-300 h-28 transition-all duration-150 ease-in hover:bg-steelBlue hover:border-steelBlue peer-checked:border-steelBlue peer-checked:bg-steelBlue', role === 'player' ? 'group is-checked' : '']">
-              <img class="cursor-pointer absolute bottom-11 group-hover:opacity-0 group-[.is-checked]:opacity-0 transition" src="@/assets/images/player-icon.png">
-              <img class="cursor-pointer absolute bottom-11 opacity-0 group-hover:opacity-100 group-[.is-checked]:opacity-100 transition" src="@/assets/images/player-white.png">
-              <label for="player" class="text-sm text-black absolute bottom-6 group-hover:text-white group-[.is-checked]:text-white transition">Player</label>
+              <img
+                class="cursor-pointer absolute bottom-11 group-hover:opacity-0 group-[.is-checked]:opacity-0 transition"
+                src="@/assets/images/player-icon.png">
+              <img
+                class="cursor-pointer absolute bottom-11 opacity-0 group-hover:opacity-100 group-[.is-checked]:opacity-100 transition"
+                src="@/assets/images/player-white.png">
+              <label for="player"
+                class="text-sm text-black absolute bottom-6 group-hover:text-white group-[.is-checked]:text-white transition">Player</label>
             </div>
           </div>
 
@@ -39,9 +42,14 @@
               value="coach" v-model="role" name="role">
             <div
               :class="['radio-tile rounded-2xl relaive group flex flex-col items-center justify-center border border-gray-300 h-28 transition-all duration-150 ease-in hover:bg-steelBlue hover:border-steelBlue peer-checked:border-steelBlue peer-checked:bg-steelBlue', role === 'coach' ? 'group is-checked' : '']">
-              <img class="cursor-pointer absolute bottom-11 group-hover:opacity-0 group-[.is-checked]:opacity-0 transition" src="@/assets/images/coach_icon.png">
-              <img class="cursor-pointer absolute bottom-11 opacity-0 group-hover:opacity-100 group-[.is-checked]:opacity-100 transition" src="@/assets/images/coach-white.png">
-              <label for="coach" class="text-sm text-black absolute bottom-6 group-hover:text-white group-[.is-checked]:text-white transition">Coach</label>
+              <img
+                class="cursor-pointer absolute bottom-11 group-hover:opacity-0 group-[.is-checked]:opacity-0 transition"
+                src="@/assets/images/coach_icon.png">
+              <img
+                class="cursor-pointer absolute bottom-11 opacity-0 group-hover:opacity-100 group-[.is-checked]:opacity-100 transition"
+                src="@/assets/images/coach-white.png">
+              <label for="coach"
+                class="text-sm text-black absolute bottom-6 group-hover:text-white group-[.is-checked]:text-white transition">Coach</label>
             </div>
           </div>
 
@@ -51,21 +59,31 @@
               value="parent" v-model="role" name="role">
             <div
               :class="['radio-tile rounded-2xl relaive group flex flex-col items-center justify-center border border-gray-300 h-28 transition-all duration-150 ease-in hover:bg-steelBlue hover:border-steelBlue peer-checked:border-steelBlue peer-checked:bg-steelBlue', role === 'parent' ? 'group is-checked' : '']">
-              <img class="cursor-pointer absolute bottom-12 group-hover:opacity-0 group-[.is-checked]:opacity-0 transition" src="@/assets/images/parent.png">
-              <img class="cursor-pointer absolute bottom-12 opacity-0 group-hover:opacity-100 group-[.is-checked]:opacity-100 transition" src="@/assets/images/parent-white.png">
-              <label for="parent" class="text-sm text-black absolute bottom-6 group-hover:text-white group-[.is-checked]:text-white transition">Parent</label>
+              <img
+                class="cursor-pointer absolute bottom-12 group-hover:opacity-0 group-[.is-checked]:opacity-0 transition"
+                src="@/assets/images/parent.png">
+              <img
+                class="cursor-pointer absolute bottom-12 opacity-0 group-hover:opacity-100 group-[.is-checked]:opacity-100 transition"
+                src="@/assets/images/parent-white.png">
+              <label for="parent"
+                class="text-sm text-black absolute bottom-6 group-hover:text-white group-[.is-checked]:text-white transition">Parent</label>
             </div>
           </div>
 
           <!-- Radio option for Business role -->
           <div class="radio relative cursor-pointer" @click="role = 'business_manager'">
-            <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0 peer" id="business"
-              type="radio" value="business_manager" v-model="role" name="role">
+            <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0 peer" id="business" type="radio"
+              value="business_manager" v-model="role" name="role">
             <div
               :class="['radio-tile rounded-2xl relaive group flex flex-col items-center justify-center border border-gray-300 h-28 transition-all duration-150 ease-in hover:bg-steelBlue hover:border-steelBlue peer-checked:border-steelBlue peer-checked:bg-steelBlue', role === 'business_manager' ? 'group is-checked' : '']">
-              <img class="cursor-pointer absolute bottom-12 group-hover:opacity-0 group-[.is-checked]:opacity-0 transition" src="@/assets/images/bussiness.png">
-              <img class="cursor-pointer absolute bottom-12 opacity-0 group-hover:opacity-100 group-[.is-checked]:opacity-100 transition" src="@/assets/images/bussiness-white.png">
-              <label for="business" class="text-sm text-black absolute bottom-6 group-hover:text-white group-[.is-checked]:text-white transition">Business</label>
+              <img
+                class="cursor-pointer absolute bottom-12 group-hover:opacity-0 group-[.is-checked]:opacity-0 transition"
+                src="@/assets/images/bussiness.png">
+              <img
+                class="cursor-pointer absolute bottom-12 opacity-0 group-hover:opacity-100 group-[.is-checked]:opacity-100 transition"
+                src="@/assets/images/bussiness-white.png">
+              <label for="business"
+                class="text-sm text-black absolute bottom-6 group-hover:text-white group-[.is-checked]:text-white transition">Business</label>
             </div>
           </div>
 
@@ -74,8 +92,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-2">
 
           <div v-if="roleFields.includes('nationality')">
-            <label for="nationality"
-              class="block  text-sm font-normal text-gray-900 dark:text-gray mb-1">Nationality
+            <label for="nationality" class="block  text-sm font-normal text-gray-900 dark:text-gray mb-1">Nationality
               <span class="text-red-600">*</span>
             </label>
             <div class="flex rounded-lg border border-gray-300 shadow-sm w-100">
@@ -90,8 +107,7 @@
           </div>
 
           <div v-if="roleFields.includes('country')">
-            <label for="country"
-              class="font-normal text-black block text-sm text-gray-900 dark:text-gray mb-1">Country
+            <label for="country" class="font-normal text-black block text-sm text-gray-900 dark:text-gray mb-1">Country
               <span class="text-red-600">*</span>
             </label>
             <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
@@ -136,15 +152,15 @@
             </div>
             <ul>
               <li> <span v-if="errors.phone_code_country" class="text-red-500 text-sm ">{{
-                errors.phone_code_country.join(',')
-                  }}</span> </li>
+        errors.phone_code_country.join(',')
+      }}</span> </li>
               <li> <span v-if="errors.phone_number" class="text-red-500 text-sm ">{{ errors.phone_number.join(', ')
                   }}</span></li>
             </ul>
           </div>
 
 
-          <div class="w-full" v-if="roleFields.includes('gender')"> 
+          <div class="w-full" v-if="roleFields.includes('gender')">
             <label for="gender" class="font-normal block text-sm text-gray-900 dark:text-gray mb-1">Gender <span
                 class="text-red-600">*</span> </label>
             <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
@@ -217,7 +233,7 @@
                   class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                   placeholder="In" :required="roleFields.includes('height_in')" />
                 <span v-if="errors.height_in" class="text-red-500 text-sm absolute mt-[50px] ">{{
-                  errors.height_in.join(', ') }}</span>
+        errors.height_in.join(', ') }}</span>
 
               </div>
 
@@ -280,8 +296,8 @@
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 placeholder="Select Month/Year" />
               <span v-if="errors.graduation_month_year" class="text-red-500 text-sm ">{{
-                errors.graduation_month_year.join(', ')
-              }}</span>
+        errors.graduation_month_year.join(', ')
+      }}</span>
 
             </div>
 
@@ -319,7 +335,7 @@
 
           <!-- Fields for Parent Role -->
           <div v-if="roleFields.includes('player_first_name')" class="col-span-2 mt-4 mb-2">
-            <hr>            
+            <hr>
             <h2 class="text-black mt-3"><b>Player infomation</b></h2>
           </div>
 
@@ -331,8 +347,8 @@
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 placeholder="First Name" required />
               <span v-if="errors.player_first_name" class="text-red-500 text-sm absolute mb-3 mt-[50px] ">{{
-                errors.player_first_name.join(', ')
-              }}</span>
+        errors.player_first_name.join(', ')
+      }}</span>
 
             </div>
           </div>
@@ -345,8 +361,8 @@
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 placeholder="Last Name" required />
               <span v-if="errors.player_last_name" class="text-red-500 text-sm absolute mb-3 mt-[50px]">{{
-                errors.player_last_name.join(', ')
-              }}</span>
+        errors.player_last_name.join(', ')
+      }}</span>
 
             </div>
 
@@ -373,8 +389,8 @@
               <CountryDropdown :countries="countries" v-model="player_country" id="player_country"
                 label="Player Country" :required="roleFields.includes('player_country')" />
               <span v-if="errors.player_country" class="text-red-500 text-sm absolute mt-[50px]">{{
-                errors.player_country.join(', ')
-              }}</span>
+        errors.player_country.join(', ')
+      }}</span>
             </div>
 
 
@@ -403,7 +419,7 @@
                   :required="roleFields.includes('player_phone_code_country')" />
 
                 <span v-if="errors.player_phone_code_country" class="text-red-500 text-sm absolute mt-[50px]">{{
-                  errors.player_phone_code_country.join(', ') }}</span>
+        errors.player_phone_code_country.join(', ') }}</span>
               </div>
               <div class="flex rounded-lg border border-gray-300 shadow-sm col-span-3">
                 <input type="text" id="player_phone_number" v-model="player_phone_number"
@@ -411,8 +427,8 @@
                   placeholder="Player Number" :required="roleFields.includes('player_phone_number')" />
 
                 <span v-if="errors.player_phone_number" class="text-red-500 text-sm absolute mt-[50px]">{{
-                  errors.player_phone_number.join(',')
-                }}</span>
+        errors.player_phone_number.join(',')
+      }}</span>
               </div>
 
             </div>
@@ -443,8 +459,8 @@
               <HandednessDropdown :handedness="handednesses" v-model="player_handedness" id="player_handedness"
                 :required="roleFields.includes('player_handedness')" label="Player Handedness" />
               <span v-if="errors.player_handedness" class="text-red-500 text-sm absolute mt-[50px]">{{
-                errors.player_handedness.join(', ')
-              }}</span>
+        errors.player_handedness.join(', ')
+      }}</span>
 
             </div>
           </div>
@@ -479,8 +495,8 @@
                   class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                   placeholder="Height in cm" />
                 <span v-if="errors.player_height_cm" class="text-red-500 text-sm absolute mt-[50px]">{{
-                  errors.player_height_cm.join(', ')
-                }}</span>
+        errors.player_height_cm.join(', ')
+      }}</span>
 
               </div>
 
@@ -494,8 +510,8 @@
                   placeholder="Ft" required />
 
                 <span v-if="errors.player_height_ft" class="text-red-500 text-sm ">{{
-                  errors.player_height_ft.join(',')
-                }}</span>
+        errors.player_height_ft.join(',')
+      }}</span>
               </div>
 
               <div class="flex rounded-lg border border-gray-300 shadow-sm col-span-5">
@@ -503,8 +519,8 @@
                   class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                   placeholder="In" required />
                 <span v-if="errors.player_height_in" class="text-red-500 text-sm ">{{
-                  errors.player_height_in.join(',')
-                }}</span>
+        errors.player_height_in.join(',')
+      }}</span>
               </div>
             </div>
             <ul>
@@ -517,8 +533,7 @@
           <div v-if="roleFields.includes('player_budget')">
             <label for="player_budget"
               class="block mb-2 text-sm font-normal text-gray-900 dark:text-gray grid grid-cols-10">
-              <div class="col-span-9">Budget  <span
-                class="text-red-600">*</span> </div>
+              <div class="col-span-9">Budget <span class="text-red-600">*</span> </div>
               <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right tooltip"><svg
                   xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="size-4 ml-[20px]">
@@ -539,8 +554,8 @@
               <BudgetDropdown :player_budgets="budgets" v-model="player_budget" id="player_budget"
                 label="Player Budget" />
               <span v-if="errors.player_budget" class="text-red-500 text-sm absolute mt-[50px]">{{
-                errors.player_budget.join(', ')
-                }}</span>
+        errors.player_budget.join(', ')
+      }}</span>
 
             </div>
 
@@ -554,7 +569,7 @@
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 placeholder="Player UTR" required />
               <span v-if="errors.player_utr" class="text-red-500 text-sm absolute mt-[50px]">{{
-                errors.player_utr.join(', ')}}</span>
+        errors.player_utr.join(', ') }}</span>
 
             </div>
 
@@ -568,7 +583,7 @@
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 placeholder="Player GPA" required />
               <span v-if="errors.player_gpa" class="text-red-500 text-sm absolute mt-[50px]">{{
-                errors.player_gpa.join(', ')}}</span>
+        errors.player_gpa.join(', ') }}</span>
 
             </div>
 
@@ -584,8 +599,8 @@
                 placeholder="Player Graduation Month/Year"
                 :required="roleFields.includes('player_graduation_month_year')" />
               <span v-if="errors.player_graduation_month_year" class="text-red-500 text-sm absolute mt-[50px]">{{
-                errors.player_graduation_month_year.join(', ')
-              }}</span>
+        errors.player_graduation_month_year.join(', ')
+      }}</span>
             </div>
           </div>
 
@@ -628,7 +643,7 @@
           </p>
         </div>
 
-        <div class="mt-5">
+        <div class="mt-5" v-if="(role.length > 0)">
           <div class="flex items-center">
             <input id="termsAccepted" type="checkbox" v-model="termsAccepted" required
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-steelBlue light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
@@ -645,11 +660,16 @@
         </div>
 
         <div class="flex items-center justify-end mt-6">
-          <button type="submit"
-            class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-darkAzureBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue ml-4 !px-8 !py-2.5 transition">
-            <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/>
-              <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"/>
+          <button type="submit"  :disabled="loading"
+            class="border rounded-full shadow-sm py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-darkAzureBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue ml-4 !px-8 !py-2.5 transition">
+            <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
+              viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                fill="#E5E7EB" />
+              <path
+                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                fill="currentColor" />
             </svg>
             Sign up now for free
           </button>
@@ -663,7 +683,7 @@
 
 
 <script setup>
-import { ref } from 'vue';
+import { ref, nextTick  } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { loadCountryList, loadNationalityList, loadBudgetList, loadGenderList, loadHandnessList } from '~/services/commonService';
@@ -740,6 +760,8 @@ const player_gpa = ref('');
 const player_graduation_month_year = ref('');
 const player_nationality = ref('');
 
+const nprogress = nuxtApp.$nprogress;
+
 
 defineProps({
   token: {
@@ -788,7 +810,7 @@ const roles = [
   { value: 'player', label: 'Player', icon: '@/assets/images/player_icon.png' },
   { value: 'coach', label: 'Coach', icon: '@/assets/images/coach_icon.png' },
   { value: 'parent', label: 'Parent', icon: '@/assets/images/parent_icon.png' },
-  { value: 'business', label: 'Business', icon: '@/assets/images/business_icon.png' }
+  { value: 'business_manager', label: 'Business', icon: '@/assets/images/business_icon.png' }
 ];
 
 onMounted(() => {
@@ -798,11 +820,27 @@ onMounted(() => {
   loadGenders();
   loadBudgets();
   loadHandness();
+
+
+  const token = localStorage.getItem('token'); // Retrieve token from localStorage
+  const userRole = localStorage.getItem('user_role'); // Retrieve user role
+
+  if (token) {
+    if (userRole == 'coach' || userRole == 'business_manager') {
+      router.push('/user/approval-pending');
+    } else if (userRole == 'player' || userRole == 'parent' || userRole == 'admin') {
+      router.push('/app');
+    }
+  } else {
+    router.push('/login');
+  }
+
 });
 
 const handleSubmitStep2 = async () => {
 
   try {
+    nprogress.start();
     error.value = '';
     errors.value = {};  // Reset errors before submitting
     loading.value = true;  // Set loading state
@@ -856,53 +894,60 @@ const handleSubmitStep2 = async () => {
       });
     } else if (role.value === 'coach') {
       endpoint = `/auth/${role.value}-register`;
-    } else if (role.value === 'business') {
-      endpoint = `/auth/${role.value}-manager-register`;
+    } else if (role.value === 'business_manager') {
+      endpoint = `/auth/business-manager-register`;
     }
 
     if (endpoint === undefined || endpoint === 'undefined') {
-      loading.value = false; 
+      loading.value = false;
       nuxtApp.$notification.triggerNotification('Please Select Role!', 'failure');
     } else if ((role.value == 'parent' || role.value == 'player') && notEnrolled.value !== true) {
-      loading.value = false; 
+      loading.value = false;
       nuxtApp.$notification.triggerNotification('Please Accept Enrollment!', 'failure');
     } else if ((role.value == 'parent' || role.value == 'player') && termsAccepted.value !== true) {
-      loading.value = false; 
+      loading.value = false;
       nuxtApp.$notification.triggerNotification('Please Accept Terms!', 'failure');
     } else {
 
       const response = await $authService.registerStepTwo(endpoint, data);
 
+      console.log(response);
       if (response.status === 200) {
-        loading.value = false; 
+        loading.value = false;
         userStore.clearRole();
         userStore.setRole(role.value);
 
+        console.log('role value', role.value);
         nuxtApp.$notification.triggerNotification(response.display_message, 'success');
-        if (role.value == 'coach' || role.value == 'business_manager') {
-          router.push('/user/approval-pending');
-        } else if (role.value == 'player' || role.value == 'parent' || role.value == 'admin') {
-          router.push('/app');
-        } else{
-          router.push('/');
-        }
+
+        nextTick(async () => {
+          if (role.value == 'coach' || role.value == 'business_manager') {
+            await router.push('/user/approval-pending');
+            return;
+          } else if (role.value == 'player' || role.value == 'parent' || role.value == 'admin') {
+            router.push('/app');
+          } else {
+            router.push('/');
+          }
+        });
 
       }
       else if (response.status === 401) {
-        loading.value = false; 
+        loading.value = false;
         console.log('401 detected, redirecting to login...');
         await router.push('/login');
       } else {
-        loading.value = false; 
+        loading.value = false;
         nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
       }
     }
 
   } catch (error) {
-    loading.value = false; 
-    nuxtApp.$notification.triggerNotification(error.display_message,'failure');
+    loading.value = false;
+    // nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
   } finally {
+    nprogress.done();
     loading.value = false;  // Reset loading state
   }
 };
@@ -956,7 +1001,6 @@ const loadCountryCodes = async () => {
 };
 
 const roleFields = computed(() => {
-  console.log(role.value);
   switch (role.value) {
     case 'player':
       return ['country', 'phone_code_country', 'phone_number', 'gender', 'handedness', 'height_ft', 'height_in', 'height_cm', 'utr', 'gpa', 'graduation', 'nationality', 'budget', 'height'];
@@ -1023,12 +1067,13 @@ label input {
 /* Tooltip text */
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 200px;
+  width: 250px;
   background-color: black;
   color: #fff;
   text-align: center;
   padding: 10px;
   border-radius: 6px;
+  font-size: 13px;
 
   /* Position the tooltip text - see examples below! */
   position: absolute;

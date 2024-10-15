@@ -1,17 +1,17 @@
 <template>
-    <div class="grid grid-cols-5 mt-8">
-        <div class="col-span-4">
-            <div class="col-span-5 sm:col-span-3 md:col-span-5 lg:col-span-2 xl:col-span-3 mb-5">
+    <div class="flex justify-between">
+        <div class="grow">
+            <div class="col-span-5 sm:col-span-3 md:col-span-5 lg:col-span-2 xl:col-span-3">
 
                 <div
-                    class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
+                    class="text-sm font-medium text-center text-gray-500 text-gray-400 border-gray-400">
                   
                     <PlayerTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
 
                 </div>
             </div>
         </div>
-        <div class="ml-2">
+        <div class="border-b border-grayishSilver">
             <div class="flex">
                 <div class="">
                     <!-- <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -22,7 +22,7 @@
                                     </svg>
                                 </button> -->
                 </div>
-                <div class="">
+                <div v-if="playerId != userId" >
                     <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5 text-blue-500 m-auto">
@@ -32,18 +32,27 @@
 
                     </button>
                 </div>
-
-                <div v-if="buttonHide == false">
-                    <button @click="connectAcceptOrConnect"
-                        class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                        {{ connectionButtonName }}
-                    </button>
-                    <div v-if="connectionButtonName ='Accept connection'" class="text-white">
-                        <button @click="connectReject" class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                            Reject
-                       </button>
-                </div> 
+                <div v-if="playerId != userId">
+                    <div class="flex" v-if="buttonHide == false">
+                        <button @click="connectAcceptOrConnect"
+                           class="bg-blue-500 rounded-full  p-2 m-1 text-white text-xs h-[35px] w-[85px]">
+                            {{ connectionButtonName }}
+                        </button>
+                        
+                        <div v-if="connectionButtonName =='Accept'" class="text-white">
+                            <button @click="connectReject" class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                               Reject
+                            </button>
+                        </div> 
+                        <div v-if="connectionButtonName =='Invite sent'" class="text-white">
+                            <button @click="connectCancel" class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                               Cancel Request
+                            </button>
+                        </div>
+                    </div>
                 </div>
+                
+
                 <div class="">
                     <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
                         class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
@@ -77,15 +86,14 @@
 <script setup>
 import { ref ,defineEmits ,onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import SocialHubNavbar from '~/components/user/navbar.vue';
-import Filter from '~/components/user/feed/filter.vue';
-import FooterBar from '~/components/user/user-footer.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
 import PlayerTabNavigation from '~/components/profiles/navigation/PlayerTabNavigation.vue';
 import { useUserStore } from '~/stores/userStore';
+
+
 
 
 
@@ -121,7 +129,8 @@ const showNotification = ref(false);
 const notificationMessage = ref('');
 const notificationType = ref('');
 const notificationKey = ref(0);
-
+const userId = ref(null)
+const playerId = ref(null)
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
     showNotification.value = nuxtApp.$notification.showNotification.value;
@@ -143,16 +152,35 @@ const tabs = ref([
 const tab = ref('feed');
 
 const props = defineProps({
-    playerId: {
+    
+    userSlug: {
         type: String,
         required: true,
     },
 }); 
 
+const userStore = useUserStore();
+
+
 onMounted(() => {
-    fetchCheckConnection()
+    userId.value = userStore.user?.user_id || null;
+    fetchUserDetails()
 });
 
+const fetchUserDetails = async (slug) => {
+  try {
+    const dataSets = await $publicService.get_user_profile(props.userSlug);
+    playerId.value = dataSets.user_basic_info.id || null;
+    console.log("player Id  "+playerId.value)
+    if(playerId.value != userId.value ){
+        fetchCheckConnection()
+    }
+   
+
+  }catch(error){
+    console.error('Error fetching data:', error.message);
+  }
+}
 // Function to handle tab change
 const handleTab = (selectedTab) => {
     tab.value = selectedTab;
@@ -161,15 +189,15 @@ const handleTab = (selectedTab) => {
 
 const fetchCheckConnection = async () => {
     try {
-      console.log(props.playerId)
      
-        if (props.playerId != null) {
-            const dataSets = await $userService.get_check_connection_type(props.playerId);
-            console.log( dataSets)
-            connectionStatus.value = dataSets.connection
-            if (connectionStatus.value) {
-                connectionType.value = dataSets.type
+       connectionButtonName.value = "Connect"
+        if (props.userSlug != null) {
+            const dataSets = await $userService.get_check_connection_type(props.userSlug);
+           
 
+            connectionStatus.value = dataSets.connection
+            if (connectionStatus.value == true) {
+                connectionType.value = dataSets.type
                 if ((dataSets.type.connection_status == 'pending') && (dataSets.type.sender_id == userId.value)) {
                     buttonHide.value = false
 
@@ -178,8 +206,7 @@ const fetchCheckConnection = async () => {
 
                 if ((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)) {
                     buttonHide.value = false
-
-                    connectionButtonName.value = "Accept connection"
+                    connectionButtonName.value = "Accept"
                 }
 
                 if (dataSets.type.connection_status == 'accepted') {
@@ -189,6 +216,7 @@ const fetchCheckConnection = async () => {
                 }
             } else {
                 buttonHide.value = false
+                connectionButtonName.value = "Connect"
             }
 
         }
@@ -200,16 +228,16 @@ const fetchCheckConnection = async () => {
 const connectAcceptOrConnect = async () => {
 
 try {
-    if (connectionButtonName.value == "Accept connection") {
+    if (connectionButtonName.value == "Accept") {
         await $userService.connection_accept(connectionType.value.id, {
             connection_status: "accepted"
         });
     }
 
     if (connectionButtonName.value == "Connect") {
-        if (playerID.value != null) {
+        if (playerId.value != null) {
             const response = await $userService.connection_request({
-                receiver_id: playerID.value
+                receiver_id: playerId.value
             });
 
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
@@ -225,10 +253,22 @@ try {
 }
 
 const connectReject = async () => {
-
 try {
-    await $userService.connection_accept(connectionType.value.id, {
+    await $userService.connection_reject(connectionType.value.id, {
         connection_status: "rejected"
+    });
+    
+    fetchCheckConnection();
+
+} catch (error) {
+    console.error('Failed to Connect :', error.message);
+}
+}
+
+const connectCancel = async () => {
+try {
+    await $userService.connection_cancelle(connectionType.value.id, {
+        connection_status: "cancelled"
     });
     
     fetchCheckConnection();
