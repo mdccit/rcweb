@@ -202,7 +202,6 @@ const fetchData = async () => {
   loading.value = true
   try {
     const users = await $adminService.list_users(role.value, lastSeenAt.value, emailVerified.value);
-    console.log(users)
     items.value = users;
     totalItems.value = users.length
   } catch (error) {
