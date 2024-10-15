@@ -16,7 +16,8 @@ export const useUserStore = defineStore('user', {
     user_id: '',
     user_name: null,
     user_slug: null,
-    profile_picture:{}
+    profile_picture:{},
+    user_setting_active_tab: "security"
   }),
   getters: {
     isAuthenticated: (state) => !!state.user && !!state.token,
@@ -29,7 +30,8 @@ export const useUserStore = defineStore('user', {
     userPermissionType:(state) => state.user_permission_type || null,
     // user: (state) => state.user || null
 
-    userProfilePicture:(state)=> state.profile_picture || null
+    userProfilePicture:(state)=> state.profile_picture || null,
+    userSettingActiveTab:(state)=> state.user_setting_active_tab || "security"
   },
   actions: {
     setToken(token) {
@@ -122,6 +124,9 @@ export const useUserStore = defineStore('user', {
     setTempUser(role, token) {
       this.token = token;
       this.user_role = role || 'default';
+    },
+    setUserSettingActiveTab(tab) {
+      this.user_setting_active_tab = tab;
     },
     clearRole() {
       this.user_role = null;

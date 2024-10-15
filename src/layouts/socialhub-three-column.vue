@@ -14,7 +14,7 @@
              <!-- <NetworkLeft /> -->
             <!-- <Filter v-if="route.meta.showFilterLeft" /> -->
             <!-- <resources-left-bar /> -->
-             <userSettingLeftBar />
+             <userSettingLeftBar v-if="route.meta.showUserSettingLeftBar" />
           </div>
 
           <!-- Middle pane -->
