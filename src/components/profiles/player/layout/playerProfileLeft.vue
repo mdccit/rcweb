@@ -616,21 +616,11 @@ const profilePictureUrl = computed(() => profile_picture.value);
 // Watch for changes in props.data
 watch(
     () => props.data,
-<<<<<<< HEAD
-    () => {
-        setprofile()
-    },
-    () => props.data,
-    () => {
-        setBio()
-    },
-=======
   () => {
     setprofile() 
     setBio() 
   },
    
->>>>>>> 2f6e2261b89d663a0e5dfdbc47902354f23bb378
     () => props.data,
     (newVal) => {
         // if (newVal && newVal.media_info) {
@@ -663,14 +653,9 @@ const setprofile = () => {
     console.log(profile_picture.value)
 }
 
-<<<<<<< HEAD
-const setBio = () => {
-    let fullBio = props.data.bio || ''; // This ensures fullBio is at least an empty string
-=======
 const setBio = () =>{
     console.log(852)
     let fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
->>>>>>> 2f6e2261b89d663a0e5dfdbc47902354f23bb378
     console.log(fullBio)
     bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
     seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;

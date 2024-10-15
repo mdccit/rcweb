@@ -25,7 +25,7 @@
         </button>
         <!-- Dropdown Menu -->
         <div id="dropdowntable"
-          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 hidden p-3">
+          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 hidden p-3 table-filter-dropDown">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
             <div class="mb-3">
@@ -164,7 +164,8 @@ const options = ref({
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
-const filterApply = ref(false)
+const filterApply = ref(false);
+const sort = ref({ prop: 'joined_at', order: 'descending' });
 // Function to fetch data from the server
 const fetchData = async () => {
   loading.value = true;
@@ -172,22 +173,19 @@ const fetchData = async () => {
     const per_page_items = options.value.itemsPerPage;
     const current_page = options.value.page;
     const search_term = search.value; // Get the search term
-    console.log(role.value)
+
     const data ={
       role:role.value,
       admin:hasAdmin.value,
       govId:govId.value,
       coordLat:coordLat.value
     }
-    console.log(11)
-    console.log(data)
+
     // Fetch data from the server with pagination and search parameters
-    const dataSets = await $adminService.list_schools(current_page, per_page_items, search_term,data);
+    const schools = await $adminService.list_schools(current_page, 0, search_term,data);
     // Update the table data
-    items.value = dataSets; // Data for the current page
-    totalItems.value = dataSets.total; // Total number of items across all pages
-    options.value.page = dataSets.current_page; // Current page
-    options.value.itemsPerPage = dataSets.per_page; // Items per page
+    items.value = schools; // Update table data
+    totalItems.value = schools.length;
   } catch (error) {
     console.error('Error fetching data:', error.message);
   } finally {
@@ -219,7 +217,6 @@ const filterView = () =>{
     filterApply.value = false;
    }
 
-   console.log(filterApply.value)
 }
 
 // Watch pagination options and search term to refetch data
@@ -253,25 +250,43 @@ const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString(undefined, options);
 };
 
+// Computed property for filtered and paginated items
 const filteredItems = computed(() => {
-  if (!search.value) return items.value;
+  let sorted = [...items.value];
 
-  return items.value.filter(item =>
-    item.name.toLowerCase().includes(search.value.toLowerCase()) ||
-    (item.bio && item.bio.toLowerCase().includes(search.value.toLowerCase()))
-  );
+  // Apply sorting
+  if (sort.value.prop) {
+    sorted.sort((a, b) => {
+      let aVal = a[sort.value.prop];
+      let bVal = b[sort.value.prop];
+
+      // Handle date fields
+      if (sort.value.prop.includes('date') || sort.value.prop.includes('at')) {
+        aVal = new Date(aVal);
+        bVal = new Date(bVal);
+      }
+
+      if (aVal < bVal) return sort.value.order === 'ascending' ? -1 : 1;
+      if (aVal > bVal) return sort.value.order === 'ascending' ? 1 : -1;
+      return 0;
+    });
+  }
+
+  // Apply search filtering
+  if (search.value) {
+    sorted = sorted.filter(item =>
+      item.name.toLowerCase().includes(search.value.toLowerCase()));
+  }
+
+  // Update total items after filtering
+  totalItems.value = sorted.length;
+
+  // Apply pagination
+  const start = (options.value.page - 1) * options.value.itemsPerPage;
+  const end = start + options.value.itemsPerPage;
+  return sorted.slice(start, end);
 });
 
-// Function to navigate to view details
-const viewDetails = (row) => {
-  router.push({
-    path: '/school/schoolGeneralDetails',
-    query: {
-      action: 'view',
-      school_id: row.id
-    }
-  });
-};
 
 // Function to navigate to edit record
 const editRecord = (row) => {
@@ -279,16 +294,6 @@ const editRecord = (row) => {
     path: '/school/schoolGeneralDetails',
     query: {
       action: 'edit',
-      school_id: row.id
-    }
-  });
-};
-
-const manageStaff = (row) => {
-  router.push({
-    path: '/school/schoolStaff',
-    query: {
-      action: 'manage',
       school_id: row.id
     }
   });

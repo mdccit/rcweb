@@ -56,3 +56,11 @@ textarea {
 .z-index-320{
   z-index: 320 !important;
 }
+
+.table-filter-dropDown {
+  margin: auto;
+  position: absolute;
+  inset: 0px auto auto 0px !important;
+  top: 11px !important;
+  left: -45px !important;
+}

@@ -10,7 +10,7 @@
           <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
             <div class="sm:flex sm:items-start">
               <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
-                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change Cover Photo</h3>
+                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change Cover Photo </h3>
                 <div class="mt-2 w-full">
 
                   <!-- Cover Picture Upload -->
@@ -36,7 +36,7 @@
 
                   </div>
                   <div class="w-full mt-3">
-                    <label class="block mb-1 text-gray-700 font-sans"> Select Cover Picture
+                    <label class="block mb-1 text-gray-700 font-sans"> Select Cover Picture <span class="text-gray-400">(851 pixels wide by 315 pixels)</span>
                       <span aria-hidden="true" class="text-red-600" title="This field is optional"></span>
                     </label>
                     <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
