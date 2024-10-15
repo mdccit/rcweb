@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Security Card -->
-    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-8 mt-3">
+    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-8 mt-3" v-if="userSettingActiveTab == 'security'">
       <h2 class="text-2xl font-bold mb-6 text-black">Security</h2>
       <hr class="mt-5 mb-3 text-pigeonBlue">
       <!-- Change Password Section -->
@@ -96,7 +96,7 @@
     <!-- / Security Card -->
 
     <!-- Subscription & Billing Card -->
-    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-8 mt-3">
+    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-8 mt-3" v-if="userSettingActiveTab == 'subscription'">
       <h2 class="text-2xl font-bold mb-6 text-black">Subscription & Billing</h2>
       <hr class="mt-5 mb-3 text-pigeonBlue">
       <div>
@@ -303,7 +303,7 @@
     </div>
     <!-- / Subscription & Billing Card -->
 
-    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-8 mt-3">
+    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-8 mt-3" v-if="userSettingActiveTab == 'subscription'">
       <h2 class="text-2xl font-bold mb-6 text-black">Subscription & Billing</h2>
       <hr class="mt-5 mb-3 text-pigeonBlue">
 
@@ -378,17 +378,22 @@
     </div>
 
     <!-- Transcript Card -->
-    <TranscriptCard></TranscriptCard>
+    <TranscriptCard v-if="userSettingActiveTab == 'transcript'"></TranscriptCard>
   </div>
 </template>
 
 
 <script setup>
 import TranscriptCard from '~/components/user/userSettings/TranscriptCard.vue';
+import { useUserStore } from '~/stores/userStore';
+
+const userStore = useUserStore();
+const userSettingActiveTab = computed(() => userStore.userSettingActiveTab);
 
 definePageMeta({
   layout: 'socialhub-three-column',
   middleware: ['role'],
   requiredRole: ['admin', 'coach', 'business_manager', 'player', 'parent', 'default'],
+  showUserSettingLeftBar: true,
 });
 </script>
