@@ -1,6 +1,6 @@
 <template>
 
-  <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-8 mt-3">
+  <div>
     <h2 class="text-2xl font-bold mb-6 text-black">Subscription & Billing</h2>
     <hr class="mt-5 mb-3 text-pigeonBlue">
     <div>
@@ -14,7 +14,7 @@
         <div class="flex gap-4 bg-white p-6">
           <div class="border border-gainsboroGray rounded-lg p-6 flex-1 text-center">
             <p class="text-black mb-2 text-md font-semibold">Current Subscription plan</p>
-            <p class="text-4xl font-bold text-steelBlue mb-4 mt-2">$100</p>
+            <p class="text-4xl font-bold text-steelBlue mb-4 mt-2">${{ Price }}</p>
             <p class="text-xl font-semibold text-black">PREMIUM</p>
             <p class="text-darkSlateBlue mt-4 text-sm">
               Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a
@@ -48,7 +48,7 @@
               <p class="text-darkSlateBlue mb-4 text-sm">
                 Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document.
               </p>
-              <button class="bg-steelBlue text-white px-4 py-2 rounded-lg text-sm">change plan</button>
+              <button class="bg-steelBlue text-white px-4 py-2 rounded-lg text-sm" @click="changeSubscription">change plan</button>
             </div>
           </div>
         </div>
@@ -161,6 +161,7 @@ const $subscriptionService = nuxtApp.$subscriptionService;
 const subscription = ref([]);
 const startDate = ref('');
 const endDate = ref('');
+const Price = ref('');
 const activeStatus = ref('');
 const subscriptionType = ref('');
 const paymentMethods = ref([]);
@@ -183,6 +184,7 @@ onMounted(async () => {
 
       startDate.value = formatDate(response.start_date);
       endDate.value = formatDate(response.end_date);
+      Price.value = response.price;
       activeStatus.value = response.status;
     }else{
       console.error('No payment mehods found.');
@@ -287,4 +289,8 @@ const getCardBrandLogo = (brand) => {
   }
 };
 
+
+const changeSubscription = async () => {
+ router.push('/user/change-subscription')
+}
 </script>
