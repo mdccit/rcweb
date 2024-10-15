@@ -1,5 +1,5 @@
 <script setup>
-import { nextTick } from 'vue';
+import { nextTick ,} from 'vue';
 import AdminBusinessTable from '~/components/tables/AdminBusinessTable.vue';
 import { useUserStore } from '~/stores/userStore';
 import businessCreateModal from '~/components/shared/businessCreateModal.vue';
@@ -20,6 +20,8 @@ const openCreateBusinessModal = () => {
 const closeModal = () => {
     showModal.value = false;
 };
+
+
 
 const reloadTable = () => {
    closeModal();

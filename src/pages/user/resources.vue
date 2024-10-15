@@ -6,7 +6,7 @@
         <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
             <!-- Section Header -->
             <div class="mb-6">
-                <h2 class="text-2xl text-black font-bold">Resources</h2>
+                <h2 class="text-2xl text-black font-bold">{{ tab==1?'Resources':'Tutorial'}}</h2>
                 <p class="text-darkSlateBlue mt-2">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
                     et dolore magna aliqua.
@@ -15,102 +15,28 @@
 
             <!-- Tabs -->
             <div class="flex space-x-8 border-b">
-                <button class="pb-2 border-b-2 border-steelBlue text-steelBlue focus:outline-none">
+                <button @click="changeTab(1)" :class="tab==1?'pb-2 border-b-2 border-steelBlue text-steelBlue focus:outline-none':'pb-2 border-b-2 border-transparent text-black hover:text-lightSteelBlue hover:border-lightSteelBlue focus:outline-none'">
                     Free Resources
                 </button>
-                <button
-                    class="pb-2 border-b-2 border-transparent text-black hover:text-lightSteelBlue hover:border-lightSteelBlue focus:outline-none">
+                <button @click="changeTab(2)" 
+                    :class="tab==2?'pb-2 border-b-2 border-steelBlue text-steelBlue focus:outline-none':'pb-2 border-b-2 border-transparent text-black hover:text-lightSteelBlue hover:border-lightSteelBlue focus:outline-none'">
                     Tutorial
                 </button>
             </div>
 
-            <!-- Cards Section -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                <!-- Card 1 -->
-                <div class="bg-culturedBlue p-4 rounded-lg flex items-center space-x-4">
-                    <div class="bg-lightGray1 p-3 rounded-full">
-                        <img src="@/assets/images/elegibility.png" alt="" class="w-6 h-4">
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-black">Eligibility</h3>
-                        <p class="text-lightSteelBlue text-sm">Providing an in-depth guide to staying eligible and
-                            complying
-                            with NCAA rules.</p>
-                    </div>
-                </div>
+            <!-- Cards Section 1 -->
+             <Category v-if="tab==1" :data="category"  />
+            <!-- Card Section End -->
+            <!-- Cards Section 2 -->
+             <Tutorial v-if="tab==2" />
+            <!-- Card Section End -->
 
-                <!-- Card 2 -->
-                <div class="bg-culturedBlue p-4 rounded-lg flex items-center space-x-4">
-                    <div class="bg-lightGray1 p-3 rounded-full">
-                        <img src="@/assets/images/immigration.png" alt="" class="w-6 h-4">
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-black">Immigration/Visas</h3>
-                        <p class="text-lightSteelBlue text-sm">Providing international students information on how to
-                            navigate
-                            visa processes.</p>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="bg-culturedBlue p-4 rounded-lg flex items-center space-x-4">
-                    <div class="bg-lightGray1 p-3 rounded-full">
-                        <img src="@/assets/images/world.png" alt="" class="w-6 h-4">
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-black">Life in the USA</h3>
-                        <p class="text-lightSteelBlue text-sm">Providing an in-depth guide of staying eligible and
-                            complying
-                            with NCAA rules.</p>
-                    </div>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="bg-culturedBlue p-4 rounded-lg flex items-center space-x-4">
-                    <div class="bg-lightGray1 p-3 rounded-full">
-                        <img src="@/assets/images/transfer.png" alt="" class="w-6 h-4">
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-black">Transfer Information</h3>
-                        <p class="text-lightSteelBlue text-sm">Providing international students information on how to
-                            navigate
-                            visa processes.</p>
-                    </div>
-                </div>
-
-                <!-- Card 5 -->
-                <div class="bg-culturedBlue p-4 rounded-lg flex items-center space-x-4">
-                    <div class="bg-lightGray1 p-3 rounded-full">
-                        <img src="@/assets/images/info.png" alt="" class="w-6 h-4">
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-black">NIL Information</h3>
-                        <p class="text-lightSteelBlue text-sm">Helping players understand the ins and outs of Name Image
-                            and
-                            Likeness in college sports.</p>
-                    </div>
-                </div>
-
-                <!-- Card 6 -->
-                <div class="bg-culturedBlue p-4 rounded-lg flex items-center space-x-4">
-                    <div class="bg-lightGray1 p-3 rounded-full">
-                        <img src="@/assets/images/map.png" alt="" class="w-6 h-4">
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-black">Eligibility</h3>
-                        <p class="text-lightSteelBlue text-sm">Providing an in-depth guide to staying eligible and
-                            complying
-                            with NCAA rules.</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!--/ Resources -->
 
         <!-- Tutorial -->
-        <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
-            <!-- Section Header -->
+        <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
             <div class="mb-6">
                 <h2 class="text-2xl text-black font-bold">Tutorial</h2>
                 <p class="text-darkSlateBlue mt-2">
@@ -119,7 +45,6 @@
                 </p>
             </div>
 
-            <!-- Tabs -->
             <div class="flex space-x-8 border-b">
                 <button class="pb-2 border-b-2 border-transparent text-black hover:text-lightSteelBlue hover:border-lightSteelBlue focus:outline-none">
                     Free Resources
@@ -130,37 +55,13 @@
                 </button>
             </div>
 
-            <!-- Cards Section -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                <!-- Card 1 -->
-                <div class=" p-4 ">
-                    <div class="bg-culturedBlue h-[270px] rounded-lg"></div>
-                    <p class="text-black mt-1">Video name</p>
-                </div>
-
-                <!-- Card 2 -->
-                <div class=" p-4 ">
-                    <div class="bg-culturedBlue h-[270px] rounded-lg"></div>
-                    <p class="text-black mt-1">Video name</p>
-                </div>
-
-                <!-- Card 3 -->
-                <div class=" p-4 ">
-                    <div class="bg-culturedBlue h-[270px] rounded-lg"></div>
-                    <p class="text-black mt-1">Video name</p>
-                </div>
-
-                <!-- Card 4 -->
-                <div class=" p-4 ">
-                    <div class="bg-culturedBlue h-[270px] rounded-lg"></div>
-                    <p class="text-black mt-1">Video name</p>
-                </div>
-            </div>
-        </div>
+          
+         
+        </div> -->
 
         <!-- Pro Tennis Eligibility Guide -->
 
-        <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+        <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
             <h1 class="text-3xl font-bold mb-6 text-black">Pro Tennis Eligibility Guide</h1>
 
             <section class="mb-8">
@@ -216,7 +117,7 @@
                         organizations.</li>
                 </ul>
             </section>
-        </div>
+        </div> -->
         <!-- / Pro Tennis Eligibility Guide -->
 
     </div>
@@ -229,4 +130,38 @@ definePageMeta({
     middleware: ['role'],
     requiredRole: ['admin', 'coach', 'business_manager', 'player', 'parent', 'default'],
 });
+
+import { ref, watchEffect ,onMounted } from 'vue';
+import { useNuxtApp } from '#app';
+import { useUserStore } from '@/stores/userStore';
+import Category from '~/components/resources/category.vue';
+import Tutorial from '~/components/resources/tutorial.vue';
+const userStore = useUserStore();
+const tab = ref(1)
+const nuxtApp = useNuxtApp();
+const $userService = nuxtApp.$userService;
+const category = ref([])
+
+onMounted(() => {
+    fetchResourcresCategory()
+
+});
+
+const fetchResourcresCategory = async () => {
+  try {
+     const response = await $userService.get_resource_category();
+     category.value = response.dataSets
+    console.log(response)
+    //const filteredData = response.filter(item => item.user_id === coachId.value);
+    // posts.value = response
+   
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
+  }
+}
+
+const changeTab = (data) =>{
+  tab.value = data
+}
+
 </script>
