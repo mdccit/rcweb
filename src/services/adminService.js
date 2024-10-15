@@ -725,6 +725,73 @@ const business_media_delete = async (media_id) => {
   }
 };
 
+const resource_category = async () => {
+  const url = `/admin/resource-categories`;
+
+  try {
+    const response = await apiService.getRequest(url);
+    if (response && response.data) {
+      return response.data;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+
+const new_resource_category_create= async (request_body) => {
+  const url = '/admin/resource-categories-create';
+  const body = request_body;
+
+  try {
+    const response = await apiService.postRequest(url, body);
+    return response;
+  } catch (error) {
+    if (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response for further handling
+      } else {
+        throw new Error(error.message || 'Failed to featch user');
+      }
+    }
+  }
+};
+
+const new_resource_create= async (request_body) => {
+  const url = '/admin/resource-create';
+  const body = request_body;
+
+  try {
+    const response = await apiService.postRequest(url, body);
+    return response;
+  } catch (error) {
+    if (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response for further handling
+      } else {
+        throw new Error(error.message || 'Failed to featch user');
+      }
+    }
+  }
+};
+
+const get_resource = async () => {
+  const url = `/admin/resource`;
+
+  try {
+    const response = await apiService.getRequest(url);
+    if (response && response.data) {
+      return response.data;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
   return {
     new_user_register,
     list_users,
@@ -770,7 +837,11 @@ const business_media_delete = async (media_id) => {
     upload_school_media,
     school_media_delete,
     upload_business_media,
-    business_media_delete
+    business_media_delete,
+    resource_category,
+    new_resource_category_create,
+    new_resource_create,
+    get_resource
   };
 };
 

@@ -10,15 +10,15 @@
                             <path d="M15 6l-6 6l6 6"></path>
                         </svg>
                     </NuxtLink> -->
-                    <h2 class="font-bold text-black text-lg self-center">Resources </h2>
+                    <h2 class="font-bold text-black text-lg self-center">Resource Categories </h2>
                 </div>
                 <div>
-                    <button @click="viewCategory"
+                    <!-- <button @click="viewCategory"
                         class="border rounded-full mr-2 shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
                         Categories
-                    </button>
+                    </button> -->
 
-                    <button  @click="createResources" class=" border rounded-full shadow-sm font-bold py-2.5 px-8 
+                    <button @click="createCategory"  class=" border rounded-full shadow-sm font-bold py-2.5 px-8 
                         focus:outline-none
                         bg-blue-500 hover:bg-blue-700 
                         active:bg-blue-600 text-white 
@@ -37,12 +37,12 @@
         </div>
     </header>
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <AdminResourcesTable />
+        <AdminResourcesCategory />
     </div>
 </template>
 
 <script setup>
-import AdminResourcesTable from '~/components/tables/AdminResourcesTable.vue';
+import AdminResourcesCategory from '~/components/tables/AdminResourcesCategory.vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -56,16 +56,9 @@ definePageMeta({
 });
 
 
-const viewCategory = () =>{
+const createCategory = () =>{
     router.push({
-       path: '/admin/resoucesCategory'
-    });
-}
-
-const createResources = () =>{
-    
-    router.push({
-       path: '/admin/resourcesCreateNew'
+       path: '/admin/resourcesCreateCategory'
     });
 }
 </script>

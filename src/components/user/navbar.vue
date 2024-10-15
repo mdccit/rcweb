@@ -99,6 +99,20 @@
                                 </NuxtLink>
                             </li>
                             <li>
+                                <NuxtLink to="/user/resources"
+                                    class="block py-2 px-3 text-periwinkleBlue md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:text-white md:dark:hover:bg-transparent group">
+                                    <div class="flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                            class="size-5 fill-none stroke-periwinkleBlue group-hover:fill-steelBlue group-hover:stroke-steelBlue transition stroke-1.75">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                                        </svg>
+                                    </div>
+                                    <span
+                                        class="text-xs font-normal text-periwinkleBlue group-hover:text-steelBlue transition uppercase">Resources</span>
+                                </NuxtLink>
+                            </li>
+                            <li>
                                 <NuxtLink to="/"
                                     class="block py-2 px-3 text-periwinkleBlue md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:text-white md:dark:hover:bg-transparent group">
                                     <div class="flex items-center justify-center">

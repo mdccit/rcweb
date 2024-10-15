@@ -50,7 +50,7 @@
         </div>
 
         <!-- Immigration/Visa -->
-        <div class="bg-culturedBlue rounded-lg">
+        <!-- <div class="bg-culturedBlue rounded-lg">
             <button
                 class="text-darkSlateBlue bg-culturedBlue rounded text-sm px-2 py-2.5 flex justify-between items-center w-full">
                 <span class="tex-xs mr-2">Immigration/Visas</span>
@@ -60,10 +60,10 @@
                     </path>
                 </svg>
             </button>
-        </div>
+        </div> -->
 
         <!-- Transfer Information -->
-        <div class="bg-culturedBlue rounded-lg">
+        <!-- <div class="bg-culturedBlue rounded-lg">
             <button
                 class="text-darkSlateBlue bg-culturedBlue rounded text-sm px-2 py-2.5 flex justify-between items-center w-full">
                 <span class="tex-xs mr-2">Transfer Information</span>
@@ -73,10 +73,10 @@
                     </path>
                 </svg>
             </button>
-        </div>
+        </div> -->
 
         <!-- Life in the USA -->
-        <div class="bg-culturedBlue rounded-lg">
+        <!-- <div class="bg-culturedBlue rounded-lg">
             <button
                 class="text-darkSlateBlue bg-culturedBlue rounded text-sm px-2 py-2.5 flex justify-between items-center w-full">
                 <span class="tex-xs mr-2">Life in the USA</span>
@@ -86,10 +86,10 @@
                     </path>
                 </svg>
             </button>
-        </div>
+        </div> -->
 
         <!-- NIL Information -->
-        <div class="bg-culturedBlue rounded-lg">
+        <!-- <div class="bg-culturedBlue rounded-lg">
             <button
                 class="text-darkSlateBlue bg-culturedBlue rounded text-sm px-2 py-2.5 flex justify-between items-center w-full">
                 <span class="tex-xs mr-2">NIL Information</span>
@@ -99,10 +99,10 @@
                     </path>
                 </svg>
             </button>
-        </div>
+        </div> -->
 
         <!-- Navigating Recruited -->
-        <div class="bg-culturedBlue rounded-lg">
+        <!-- <div class="bg-culturedBlue rounded-lg">
             <button
                 class="w-full flex justify-between items-center p-3 rounded-lg text-left text-darkSlateBlue bg-culturedBlue">
                 <span  class="tex-xs mr-2">Navigating Recruited</span>
@@ -112,10 +112,10 @@
                     </path>
                 </svg>
             </button>
-        </div>
+        </div> -->
 
         <!-- College Tennis Format -->
-        <div class="bg-culturedBlue rounded-lg">
+        <!-- <div class="bg-culturedBlue rounded-lg">
             <button
                 class="w-full flex justify-between items-center p-3 rounded-lg text-left text-darkSlateBlue bg-culturedBlue">
                 <span class="tex-xs mr-2">College Tennis Format</span>
@@ -125,7 +125,7 @@
                     </path>
                 </svg>
             </button>
-        </div>
+        </div> -->
     </div>
 </div>
 
