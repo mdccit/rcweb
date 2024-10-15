@@ -109,7 +109,7 @@ const fetchData = async () => {
     const current_page = options.value.page;
 
     // Fetch business data
-    const businesses = await $adminService.list_business(current_page, per_page_items);
+    const businesses = await $adminService.list_business(current_page, 0);
     items.value = businesses;  // Current page data
     totalItems.value = businesses.total;  // Set total items for pagination
   } catch (error) {
@@ -117,7 +117,7 @@ const fetchData = async () => {
   } finally {
     loading.value = false;
   }
-  filterView()
+  filterView();
 };
 
 
@@ -156,43 +156,16 @@ const filteredItems = computed(() => {
   const end = start + options.value.itemsPerPage;
   return sorted.slice(start, end);
 });
-// const filteredItems = computed(() => {
-//   let filtered = Array.isArray(items.value) ? [...items.value] : []; // Ensure items.value is an array
-//   console.log('Items value:', items.value);
-//   // Apply search filtering
-//   if (search.value) {
-//     filtered = filtered.filter(item =>
-//       item.name.toLowerCase().includes(search.value.toLowerCase())
-//     );
-//   }
-
-//   // Update total items after filtering
-//   totalItems.value = filtered.length;
-
-//   // Apply pagination
-//   const start = (options.value.page - 1) * options.value.itemsPerPage;
-//   const end = start + options.value.itemsPerPage;
-//   return filtered.slice(start, end);
-// });
-
-
-
 
 const filterView = () => {
-
-
   filterApply.value = false;
 
   if (hasAdmin.value != '') {
     filterApply.value = true;
   }
-
-
   if (hasAdmin.value == '') {
     filterApply.value = false;
   }
-
-  console.log(filterApply.value)
 }
 
 // Watch pagination options and search term to refetch data
