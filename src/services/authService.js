@@ -136,27 +136,27 @@ const createAuthService = (apiService) => {
   const resetPassword = async (password_reset_id, recovery_code, password, password_confirmation) => {
     // Construct the URL with the password_reset_id
     const url = `/auth/reset-password/${password_reset_id}`;
-
+  
     // Prepare the request body
     const body = {
       recovery_code,
       password,
       password_confirmation,
     };
-
+  
     try {
       // Make the API request
       const response = await apiService.putRequest(url, body);
       return response;
     } catch (error) {
-          if (error.response) {
-        throw error.response;  // Throw the entire response to be handled in the frontend
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
       } else {
-        throw new Error('An unexpected error occurred.');
+        throw new Error(error.message || 'Failed to recover');
       }
     }
   };
-
+  
 
   return {
     login,

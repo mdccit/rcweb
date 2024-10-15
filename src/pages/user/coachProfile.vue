@@ -461,7 +461,7 @@ const handleTab = (name) =>{
 
 const fetchCheckConnection = async () =>{
     try {
-       const dataSets = await $userService.get_check_connection_type(coacheId.value);
+       const dataSets = await $userService.get_check_connection_type(coacheSlug.value);
        connectionStatus.value =dataSets.connection
 
        if(connectionStatus.value){

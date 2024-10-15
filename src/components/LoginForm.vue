@@ -90,13 +90,14 @@ const email = ref('');
 const rememberMe = ref(false);
 const password = ref('');
 const error = ref('');
-const notification_type = ref('');
-const successMessage = ref('');
+
 const router = useRouter();
 const userStore = useUserStore();
 
 const errors = ref({});
 const authType = ref('');
+const notification_type = ref('');
+const successMessage = ref('');
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const loading = ref(false);
@@ -120,7 +121,6 @@ const userLogin = async (autoLogin = false) => {
 
     // Make login request to backend
     const response = await $authService.login(email.value, password.value);
-
     if (response.status === 200) {
       nuxtApp.$nprogress.done(); 
 
@@ -132,7 +132,8 @@ const userLogin = async (autoLogin = false) => {
         };     
         saveEncryptedCredentials(credentials);  // Save the credentials
       }
-
+      //set user Slug
+      userStore.setUserSlug(response.data.user_slug??null)
       // Set the user in the Pinia store
       userStore.setUser({
         email: email.value,
@@ -140,11 +141,15 @@ const userLogin = async (autoLogin = false) => {
         token: response.data.token,
         user_permission_type: response.data.user_permission_type,
         user_id:response.data.user_id,
-        user_name:response.data.user_name
+        user_name:response.data.user_name,
+        user_slug:response.data.user_slug
       });
+      const newMedia = response.data.media_info.profile_picture??null
+
+      userStore.setProfilePicture(newMedia)
 
       // Set success notification
-      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+      // nuxtApp.$notification.triggerNotification(response.display_message, 'success');
 
       // Set session cookie (conditionally for remember me)
       if (rememberMe.value) {
@@ -160,6 +165,7 @@ const userLogin = async (autoLogin = false) => {
         } else if (response.data.user_permission_type != 'none' && (response.data.user_role === 'coach' || response.data.user_role === 'business_manager')) {
           router.push('/app');  
         } else if(['player', 'admin', 'parent'].includes(response.data.user_role)){
+          console.log(7895)
           router.push('/app');  // Redirect to Feed
         } else if ((response.data.user_role === 'default')){
           router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
@@ -173,6 +179,7 @@ const userLogin = async (autoLogin = false) => {
       nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
     }
   } catch (error) {
+    console.log(error)
     nuxtApp.$nprogress.done(); 
     nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     handleError(error, errors, notificationMessage, notification_type, showNotification, loading);

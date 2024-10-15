@@ -116,7 +116,7 @@
             <section class=" grid grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 px-4 h-14">
                 <!-- start logo section -->
                 <div class="col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1 xl:col-span-1">
-                    <a href="https://flowbite.com/" class="flex items-center">
+                    <a href="https://flowbite.com/" class="flex items-center mt-4">
                         <img class="w-96 md:w-32" src="@/assets/user/images/logo-recruited.png" alt="">
                     </a>
                 </div>
@@ -127,12 +127,11 @@
                     <div class="flex justify-around pt-2 md:space-x-8">
                         <div class="relative hidden sm:hidden md:block">
 
-                            <input  type="text" id="search-navbar"
+                            <input @change="searchkey" v-model="key" type="text" id="search-navbar"
                                 class="block w-96 p-2 ps-10 text-sm rounded-full border bg-ceil"
                                 style="background-color:#F4F6F9; color:#8CA4CE; border-color: aliceblue;" placeholder="Search...">
-                            
-                        </div>
-                        <!-- <button @click="search1" type="button" class=" absolute inset-y-2.5 end-5 flex ps-3 pointer-events-none cursor-pointer">
+                                
+                        <button  type="button" class=" absolute inset-y-2.5 end-5 flex ps-3 pointer-events-none cursor-pointer">
                                 <span class="mr-2"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="steelBlue" class="size-4">
                                         <path
@@ -143,10 +142,10 @@
                                         <path stroke="steelBlue" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                     </svg></span>
-                            </button> -->
-                            <button @click="search1">
-                                Search 
                             </button>
+                            
+                        </div>
+                            
                         <ul
                             class="font-medium hidden p-4 md:p-0 mt-4 border sm:hidden  md:hidden lg:flex md:space-x-8  md:mt-0 md:border-0 border-poloBlue">
                             <li>
@@ -317,10 +316,31 @@
 </template>
 
 <script setup>
-import {ref, defineProps, defineEmits, defineExpose} from 'vue';
+import {ref, defineProps, defineEmits, defineExpose, onMounted,watch} from 'vue';
+import { useSearchStore } from '~/stores/searchStore';
+
+const searchStore = useSearchStore();
+const key = ref('')
 const emit = defineEmits(['search']);
 
-  const search1 = () =>{
-     emit('search');
+onMounted (()=>{
+    key.value =searchStore.searchKey
+})
+
+watch(
+  () => searchStore.searchKey,
+  () => {
+    setKey() 
+  }
+)
+
+  const searchkey= () =>{
+    searchStore.setSearchKey(key.value)
+    searchStore.setSearchButton(true)
+
+  }
+
+  const setKey = () =>{
+    key.value =searchStore.searchKey
   }
 </script>

@@ -6,7 +6,7 @@
 
                 <div class="w-full h-[400px] rounded-xl">
                     <img class="w-full h-[400px] rounded-xl"
-                        src="../../assets/user/images/porter-raab-gnj9vj--FRY-unsplash.jpg " alt="">
+                        src="@/assets/user/images/porter-raab-gnj9vj--FRY-unsplash.jpg " alt="">
                 </div>
 
                 <span>
@@ -16,7 +16,7 @@
                             <div class="col-span-1">
                                 <div class="text-center flex">
                                     <img class="mx-auto w-[150px] h-[150px] rounded-xl mt-[45px]"
-                                        src="../../assets/user/images/whittier.png" alt="">
+                                        src="@/assets/user/images/whittier.png" alt="">
 
                                     <div class="text-left mt-[80px] ">
                                         <h2 class="text-lg font-semibold  text-white text-3xl">{{  name }}</h2>
@@ -152,7 +152,7 @@
                 <div class="col-span-5 sm:col-span-3 md:col-span-5 lg:col-span-2 xl:col-span-3">
                     <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6">
                         <div class="flex items-center">
-                            <img src="../../assets/user/images/Rectangle 193.png" alt=""
+                            <img src="@/assets/user/images/Rectangle 193.png" alt=""
                                 class="rounded-lg w-12 h-12 mr-4">
                             <input type="text" placeholder="Write your thoughts..."
                                 class="flex-grow text-ceil bg-culturedBlue  rounded-xl py-2 px-4 focus:outline-none focus:border-blue-500">
@@ -383,7 +383,7 @@ onMounted(() => {
 
 const fetchSchooleDatils = async () =>{
     try {
-       const dataSets = await $publicService.get_scool('285006d4-6bfc-11ef-97c7-d8c49745e52b');
+       const dataSets = await $publicService.get_school('285006d4-6bfc-11ef-97c7-d8c49745e52b');
         bio.value =dataSets.school_info.bio
         name.value =dataSets.school_info.name
         members.value =dataSets.school_users_info

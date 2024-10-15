@@ -6,13 +6,19 @@ dotenv.config();
 
 export default defineNuxtConfig({
   // devtools: { enabled: true },
+  head: {
+    title: 'Recruited', // Change this to your website title
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/_nuxt/assets/images/favicon.ico' }      
+    ],
+  },
   srcDir: 'src/',
   ssr: true,
   target: 'server',
   components: true,
   router: {
     base: '/',  // Base URL for your router, assuming your app is served from the root
-    middleware: ['permissions','role'],
+    middleware: ['permissions','role', 'role-based-layout'],
   },
   generate: {
     fallback: true,  // Generates a 404.html for static hosting fallback
@@ -21,7 +27,7 @@ export default defineNuxtConfig({
     '@/assets/css/main.css', // Ensure this is the first CSS file
     'element-plus/dist/index.css',
     // 'flowbite/dist/flowbite.css',
-    '@/assets/css/custom.css'
+    '@/assets/css/custom.css',
   ],
   modules: [
     '@vueuse/nuxt',

@@ -1,6 +1,6 @@
 import { useUserStore } from '~/stores/userStore';
 
-export default defineNuxtRouteMiddleware(async (to, from) => {
+export default defineNuxtRouteMiddleware((to, from) => {
   const userStore = useUserStore();
 
   if (process.client && !userStore.user) {
@@ -10,8 +10,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     }
   }
 
-  await userStore.$patch();
-
+  // Check if user is authenticated
   if (!userStore.isAuthenticated) {
     return navigateTo('/login');
   }

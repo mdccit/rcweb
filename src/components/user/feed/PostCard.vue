@@ -5,7 +5,9 @@
         <div>
           <div class="flex items-center justify-between">
             <div v-if="post.school_id != null" class="flex items-center space-x-3">
-              <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12">
+              <!-- <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12"> -->
+              <img v-if="post.school_profile_picture ==null" src="@/assets/images/user.png" alt="" class="rounded-lg w-12 h-12">
+              <img v-if="post.school_profile_picture !=null" :src="post.school_profile_picture.url" alt="" class="rounded-lg w-12 h-12">
               <div>
                 <div class="text-md font-bold text-black">{{ post.school.name }}</div>
                 <div class="flex space-x-2 items-center">
@@ -33,8 +35,9 @@
             <div class="flex items-center space-x-3">
               <!-- Safely access user profile image and display default image if not available -->
               <!-- <img :src="post?.user?.profile_image || defaultImage" alt="User image" class="rounded-lg w-12 h-12"> -->
-              <img src="@/assets/user/images/Rectangle_117.png" alt="User image" class="rounded-lg w-12 h-12">
-
+              <!-- <img src="@/assets/user/images/Rectangle_117.png" alt="User image" class="rounded-lg w-12 h-12"> -->
+              <img v-if="post.user_profile_picture ==null" src="@/assets/images/user.png" alt="" class="rounded-lg w-10 h-10">
+              <img v-if="post.user_profile_picture !=null" src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
               <div>
                 <!-- Safely access user display name -->
                 <div class="text-md font-bold text-black">{{ post?.user?.display_name || 'Unknown User' }}</div>
@@ -77,7 +80,8 @@
                     </button>
                   </li>
                   <li class="text-red">
-                    <button type="buttton" @click="postDelete(post.id)" class="block px-4 py-2 hover:bg-lightGray flex text-red-500">
+                    <button type="buttton" @click="postDelete(post.id)"
+                      class="block px-4 py-2 hover:bg-lightGray flex text-red-500">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4 mr-2">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -97,17 +101,17 @@
           </h3>
 
 
-              <!-- Media Section -->
-              <PostMedia :media="post.media" :hasMedia="post.has_media" />
+          <!-- Media Section -->
+          <PostMedia :media="post.media" :hasMedia="post.has_media" />
 
 
           <!-- Post description -->
           <!-- <p class="mt-4 text-darkSlateBlue text-base" v-html=" post?.description"></p> -->
           <p v-if="meesge != ''" class="mt-4 text-sm text-red-600 dark:text-red-500">{{ meesge }}</p>
-          <p v-if="!editingPostId || editingPostId !== post.id" class="mt-4 text-darkSlateBlue text-base"
+          <p v-if="!editingPostId || editingPostId !== post.id" class="mt-4 text-darkSlateBlue text-base break-all"
             v-html="post.description"></p>
 
-        
+
 
 
 
@@ -131,7 +135,7 @@
           @click="likePost(post.id, post), post.user_has_liked == true ? post.user_has_liked = false : post.user_has_liked = true">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="size-5"
-            :class="post?.user_has_liked ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
+            :class="post?.user_has_liked ? 'fill-orangeRed stroke-orangeRed transform transition duration-500 ease-in-out' : 'fill-none transform transition duration-500 ease-in-out'">
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
           </svg>
@@ -165,9 +169,14 @@
               :disabled="commentAdd">
               <span v-if="!commentAdd"> Post Comment</span>
               <!-- <LoadingSpinner v-else /> -->
-              <svg v-else  aria-hidden="true" role="status" class="inline w-4 h-4 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/>
-                  <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"/>
+              <svg v-else aria-hidden="true" role="status" class="inline w-4 h-4 text-white animate-spin"
+                viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                  fill="#E5E7EB" />
+                <path
+                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                  fill="currentColor" />
               </svg>
             </button>
           </div>

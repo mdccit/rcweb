@@ -1,3 +1,14 @@
+::selection {
+  background-color: #15a2fa !important; /* Customize the background color */
+  color: white; /* Customize the text color */
+}
+
+/* Firefox-specific */
+::-moz-selection {
+  background-color: #15a2fa !important;
+  color: white;
+}
+
 .radio-input {
   width: 150px !important;
 }
@@ -14,6 +25,42 @@
   margin-top: -3px;
 }
 
-textarea{
+textarea {
   overflow: hidden;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ddd;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: #ddd;
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #0085FF;
+}
+
+
+.z-index-220 {
+  z-index: 220;
+}
+
+.tabs-align {
+  position: relative !important;
+  z-index: 300 !important;
+}
+
+.z-index-320{
+  z-index: 320 !important;
+}
+
+.table-filter-dropDown {
+  margin: auto;
+  position: absolute;
+  inset: 0px auto auto 0px !important;
+  top: 11px !important;
+  left: -45px !important;
 }

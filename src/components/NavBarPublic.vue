@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class="self-center" v-if="!isLoggedIn && !isAuthenticated">
-        <NuxtLink to="/login"
+        <NuxtLink @click="goToMemberArea"
           class="inline-block bg-black bg-opacity-10 text-center hover:opacity-80 active:opacity-60 text-black font-bold py-2.5 px-8 rounded-full">
           Login </NuxtLink>
       </div>
@@ -162,8 +162,14 @@ const resourceRedirect = async () => {
 }
 
 const goToMemberArea = async () => {
-  router.push('/app'); 
-}
+  if (isLoggedIn.value && isAuthenticated.value) {
+    // If the user is logged in and authenticated, go to the member area
+    router.push('/app');
+  } else {
+    // If not logged in, redirect to login page
+    router.push('/login');
+  }
+};
 
 
 

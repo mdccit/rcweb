@@ -21,7 +21,8 @@ module.exports = {
         sans: ['Figtree', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        // primary: '#3D7FFF',
+        highlight: '#0085FF',
+        primary: '#3D7FFF',
         primaryblue: '#3D7FFF',
         secondary:'#DFE4EE',
         black: '#000000',
@@ -41,12 +42,16 @@ module.exports = {
         graySnowDrift: '#F4F6F9', // Page background gray color
         lightGray: '#eeeeee',
         lightGray1: '#ECECEC',
+        gainsboroGray: '#DEDEDE',
         pigeonBlue: '#BBCDEE',
         ceil: '#8CA4CE', // Placeholder color
         limegreen: '#4AC220',
         lightred: '#F9697A',
         mintGreen: '#A4FFA2',
         orangeRed: '#FF0000',
+      
+        redOrange:'#FF3B30',
+        veryPaleRed: '#FFDDDD',
         vividOrange: '#FF6C00',
         lightCreamOrange: '#FFF2C3',
         lightPink: '#FFA9A9',
@@ -60,7 +65,10 @@ module.exports = {
         royalBlue: '#0068c7', // Primary blue button active color // primary-600
         lightAzure: '#52acff', // Primary blue button focus border color // primary-300
         lightPastalBlue: '#7ac0ff80', // Primary blue button focus color // primary-200
-        tealGray:'#3b82f680'
+        tealGray:'#3b82f680',
+        grayishSilver:'#C0C0C0',
+        vividSkyBlue: '#2B9AFF',
+        softGray: '#C8C8C8'
       },
       testred: {
         lightest: '#efdfa4',
@@ -97,7 +105,8 @@ module.exports = {
         '1.75': '1.75px',
       },
       backgroundImage: {
-        'generic': "url('@/assets/images/bg-generic.svg')"
+        'generic': "url('@/assets/images/bg-generic.svg')",
+        'transferTrackerBlur': "url('@/assets/user/images/blur-bg-transfer.png')"
       }
     },
   },

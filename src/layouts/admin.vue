@@ -33,6 +33,7 @@ const userStore = useUserStore();
 const router = useRouter();
 definePageMeta({ 
  colorMode: 'light', 
+ middleware: 'auth'
 });
 
 const nuxtApp = useNuxtApp();
@@ -57,6 +58,6 @@ const closeNotification = () => {
 
 <style scoped>
 main {
-  padding: 20px;
+  /* padding: 20px; */
 }
 </style>
