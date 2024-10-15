@@ -40,8 +40,8 @@
               </div>
 
               <div id="userDropdown"
-                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-              
+                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 dark:divide-gray-600">
+
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                   <li>
                     <NuxtLink to="/admin/users?role=1"
@@ -79,12 +79,6 @@
                       <div class="flex items-center"> Business User </div>
                     </NuxtLink>
                   </li>
-                  <li>
-                    <NuxtLink @click="goto_transfer_tracker"
-                      class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
-                      <div class="flex items-center"> Transfer Tracker </div>
-                    </NuxtLink>
-                  </li>
                 </ul>
               </div>
 
@@ -103,7 +97,7 @@
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               Businesses
             </NuxtLink>
-            
+
             <!-- <div
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
               style="position: relative;">
@@ -137,6 +131,10 @@
                 </div>
               </div>
             </NuxtLink>
+            <NuxtLink @click="goto_transfer_tracker"
+              class="inline-flex items-center px-1 pt-1 border-b-2 cursor-pointer border-transparent text-sm font-medium curs leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+              <div class="flex items-center"> Transfer Tracker </div>
+            </NuxtLink>
 
             <!-- <NuxtLink to="/admin/transcripts"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
@@ -150,7 +148,7 @@
               class="cursor-pointer inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Register </div>
             </NuxtLink>
-      
+
           </div>
           <div class="hidden sm:flex sm:items-center sm:ml-6">
             <div class="ml-3 relative">
@@ -160,10 +158,10 @@
                     class="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                     <!-- <img class="h-8 w-8 rounded-full object-cover"
                       src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin"> -->
-                      <img  v-if="profilePicture == 'null'" class="h-8 w-8 rounded-full object-cover"
-                                        src="@/assets/images/user.png" alt="">
-                      <img v-if="profilePicture != 'null'" class="h-8 w-8 rounded-full object-cover"
-                                        :src="profilePicture" alt="">
+                    <img v-if="profilePicture == 'null'" class="h-8 w-8 rounded-full object-cover"
+                      src="@/assets/images/user.png" alt="">
+                    <img v-if="profilePicture != 'null'" class="h-8 w-8 rounded-full object-cover" :src="profilePicture"
+                      alt="">
                   </button>
                 </div>
                 <div>
@@ -266,7 +264,8 @@
 
           <NuxtLink to="/app">
             <button id="dropdownUserButton" data-dropdown-toggle="dropdownUser"
-              class="cursor-pointer flex items-center text-sm font-medium text-gray-800 hover:text-gray-900" type="button">
+              class="cursor-pointer flex items-center text-sm font-medium text-gray-800 hover:text-gray-900"
+              type="button">
               <img class="h-10 w-10 rounded-full object-cover mr-3"
                 src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin" />
               <span>Admin</span>
@@ -327,7 +326,7 @@ const router = useRouter();
 const $adminService = nuxtApp.$adminService;
 const morderationCount = ref(0);
 const moderationStore = useModerationStore();
-const profilePicture= ref(null)
+const profilePicture = ref(null)
 
 const loggedUserName = ref('');
 
@@ -413,14 +412,14 @@ onMounted(() => {
     }
   }
   useFlowbite(() => {
-        initFlowbite();
+    initFlowbite();
   })
-  if(localStorage.getItem('profile_picture')){
-            profilePicture.value =localStorage.getItem('profile_picture')
-            userStore.setProfilePicture({
-                url:profilePicture.value
-            })
-        }
+  if (localStorage.getItem('profile_picture')) {
+    profilePicture.value = localStorage.getItem('profile_picture')
+    userStore.setProfilePicture({
+      url: profilePicture.value
+    })
+  }
 });
 
 onMounted(() => {
@@ -440,18 +439,18 @@ watch(
 )
 
 watch(
-    () => localStorage.getItem('profile_picture'),
-    () => {
-        if(localStorage.getItem('profile_picture')){
-            profilePicture.value =localStorage.getItem('profile_picture')
-            console.log(1144)
-            console.log(profilePicture.value)
+  () => localStorage.getItem('profile_picture'),
+  () => {
+    if (localStorage.getItem('profile_picture')) {
+      profilePicture.value = localStorage.getItem('profile_picture')
+      console.log(1144)
+      console.log(profilePicture.value)
 
-            userStore.setProfilePicture({
-                url:profilePicture.value
-            })
-        }
+      userStore.setProfilePicture({
+        url: profilePicture.value
+      })
     }
+  }
 );
 
 const login = () => {
