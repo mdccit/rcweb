@@ -24,13 +24,15 @@
               clip-rule="evenodd"></path>
           </svg>
         </button>
+
         <!-- Dropdown Menu -->
         <div id="dropdowntable"
-          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none  hidden p-3 z-10">
+          class="mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none
+           p-3 z-10 block  transform -translate-x-[130.4px] translate-y-[50.4px] table-filter-dropDown">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
             <div class="mb-3">
-              <label for="">Role </label>
+              <label for="text-sm">Role </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" v-model="role" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
@@ -44,7 +46,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <label for="">Last Seen At </label>
+              <label for="text-sm">Last Seen At </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" v-model="lastSeenAt" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
@@ -58,7 +60,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <label for="">Email verified </label>
+              <label for="text-sm">Email verified </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                 <select name="filter-role" v-model="emailVerified" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
@@ -240,17 +242,17 @@ const filterView = () =>{
 // Watch options and search to update filtered items
 watch([options, search], fetchData, { immediate: true })
 
-onMounted(()=>{
+onMounted(() => {
   console.log(route.query.role)
-  if(route.query.role =='1'){
-    role.value =null
-  }{
-    role.value =route.query.role
+  if (route.query.role == '1') {
+    role.value = null
+  } {
+    role.value = route.query.role
   }
   fetchData()
 
   useFlowbite(() => {
-      initFlowbite();
+    initFlowbite();
   })
 })
 
@@ -330,11 +332,13 @@ const viewDetails = (row) => {
 };
 
 const editRecord = (row) => {
+  console.log(row.user_role_id)
   router.push({
     path: '/admin/userAccountDetails',
     query: {
       action: 'edit',
-      user_id: row.id
+      user_id: row.id,
+      role: row.user_role_id
     }
   });
 };
@@ -352,20 +356,20 @@ const formatDate = (dateString) => {
 };
 
 watch(
-    () => route.query.role,
-    () => {
-      console.log(route.query.role)
+  () => route.query.role,
+  () => {
+    console.log(route.query.role)
 
-      if(route.query.role =='1'){
-        console.log(123)
-            role.value =''
-      }{
-        role.value =route.query.role
-      }
-
-        
-        fetchData()
+    if (route.query.role == '1') {
+      console.log(123)
+      role.value = ''
+    } {
+      role.value = route.query.role
     }
+
+
+    fetchData()
+  }
 );
 </script>
 
@@ -384,7 +388,10 @@ export default {
   width: 300px;
   margin-bottom: 20px;
 }
-.active-filter{
+
+.active-filter {
   color: #0085FF !important;
 }
+
+
 </style>

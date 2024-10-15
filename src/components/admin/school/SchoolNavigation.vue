@@ -39,11 +39,11 @@
     </NuxtLink>
 
     <!-- Synchronization Link -->
-    <NuxtLink :to="{ path: '/admin/schools/sync', query: { school_id: schoolId } }">
+    <NuxtLink :to="{ path: '/school/schoolSynchronization', query: { school_id: schoolId } }">
       <button
         :class="{
-          'bg-gray-300': isActive('/admin/schools/sync'),
-          'opacity-50': !isActive('/admin/schools/sync'),
+          'bg-gray-300': isActive('/school/schoolSynchronization'),
+          'opacity-50': !isActive('/school/schoolSynchronization'),
           'text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200': true
         }"
       >

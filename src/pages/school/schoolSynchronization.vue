@@ -1,4 +1,5 @@
 <template>
+
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-black">
         <div class="flex w-full justify-between gap-8">
             <div class="flex items-center gap-4">
@@ -27,28 +28,23 @@
             <SchoolNavigation :schoolId="schoolId" />
 
             <div class="my-8"></div>
-            <div class="">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="border-2 p-4 rounded">
-                            <fieldset> Delete school <div class=""><button type="submit" @click="showModal = true"
-                                        class="border rounded-full shadow-sm font-bold py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-red-500 hover:bg-red-700 text-white border-transparent focus:border-red-700 focus:ring-red-200">
-                                        <div class="flex flex-row items-center justify-center"><!----><span class="">
-                                                Proceed + delete? </span></div>
-                                    </button></div>
-                            </fieldset>
-                        </div>
-                    </div>
+               <ConnectToGovermentSchool  v-if="connectToGovComponent"  @search="search" />
+
+            <div class="my-8"></div>
+            <div class="text-black">
+                <SearchSchool  v-if="searchComponent" :schoolId="schoolId" :schoolName="name" @connectedSchool="connectedSchool" />
+                <div class="my-8"></div>
+                <div  v-if="sysncSchoolComponent">
+                    <SyncSchool :sysncSchoolComponent="sysncSchoolComponent"  :schoolId="schoolId"  :govId="govId" @emitMessage="notification"  @disconnect="disconnect"/>
                 </div>
+              
             </div>
         </div>
 
-        <!-- Admin School delete Modal Component -->
-        <AdminSchoolDeleteModal :isVisible="showModal" @close="showModal = false" :schoolId="schoolId"
-            @emitMessage="notification" />
+      
 
         <!-- Notification Component -->
-        <Notification v-if="showNotification" :message="notificationMessage" :duration="8000" />
+        <Notification  :message="notificationMessage" :duration="8000" />
     </div>
 </template>
 
@@ -59,7 +55,9 @@ import Notification from '~/components/common/Notification.vue';
 import SchoolNavigation from '~/components/admin/school/SchoolNavigation.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
-
+import ConnectToGovermentSchool from '~/components/admin/school/synchtonization/connectToGovermentSchool.vue';
+import SearchSchool from '~/components/admin/school/synchtonization/searchSchool.vue';
+import SyncSchool from '~/components/admin/school/synchtonization/syncSchool.vue';
 
 const userStore = useUserStore()
 const route = useRoute();
@@ -72,10 +70,15 @@ const showNotification = ref(false);
 const showModal = ref(false);
 const email = userStore.user?.email
 const token = userStore.user?.token
+const loading = ref(false)
+const connectToGovComponent = ref(false)
+const searchComponent = ref(false)
+const sysncSchoolComponent = ref(false)
 const slug = ref('')
 
 // Reference to the modal component
 const modalRef = ref(null);
+const govId = ref('')
 
 // Function to open the modal
 const openModal = () => {
@@ -84,9 +87,15 @@ const openModal = () => {
 }
 
 const notification = (message) => {
+    nuxtApp.$notification.triggerNotification(message, 'success');
+//    console.log("message")
+//    console.log(message)
 
-    notificationMessage.value = message;
-    showNotification.value = true
+//     notificationMessage.value = message;
+//     showNotification.value = true
+//     console.log(notificationMessage.value)
+//     console.log(showNotification.value)
+
 }
 
 onMounted(()=>{
@@ -97,15 +106,44 @@ onMounted(()=>{
 const name = ref('')
 const fetchSchoolDetails = async () => {
     try {
+        console.log(4587)
         const data = await $adminService.get_school_details(schoolId.value);
         name.value = data.school_info.name || '';
         slug.value = data.school_info.slug || '';
 
+        connectToGovComponent.value = data.school_info.gov_id == null? true:false
+        if(data.school_info.gov_id != null){
+            sysncSchoolComponent.value =true
+            govId.value = data.school_info.gov_id
+            console.log(41)
+            console.log(sysncSchoolComponent.value)
+
+        }
+       
+        console.log(11222)
      
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     }
 };
+
+const search = async () => {
+    connectToGovComponent.value = false
+    searchComponent.value= true
+};
+
+const disconnect = async () => {
+    connectToGovComponent.value = true
+};
+
+const connectedSchool = (message) =>{
+    notificationMessage.value = message;
+    showNotification.value =true
+    searchComponent.value= false
+    fetchSchoolDetails()
+}
+
+
 
 definePageMeta({
   ssr: false,
