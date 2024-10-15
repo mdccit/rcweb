@@ -159,7 +159,7 @@ const govId =ref("");
 const coordLat =ref("");
 const options = ref({
   page: 1,
-  itemsPerPage: 5,
+  itemsPerPage: 10,
 });
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
@@ -182,7 +182,7 @@ const fetchData = async () => {
     }
 
     // Fetch data from the server with pagination and search parameters
-    const schools = await $adminService.list_schools(current_page, per_page_items, search_term,data);
+    const schools = await $adminService.list_schools(current_page, 0, search_term,data);
     // Update the table data
     items.value = schools; // Update table data
     totalItems.value = schools.length;
