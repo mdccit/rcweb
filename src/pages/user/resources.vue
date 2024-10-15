@@ -108,6 +108,56 @@
 
         <!--/ Resources -->
 
+        <!-- Tutorial -->
+        <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+            <!-- Section Header -->
+            <div class="mb-6">
+                <h2 class="text-2xl text-black font-bold">Tutorial</h2>
+                <p class="text-darkSlateBlue mt-2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.
+                </p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex space-x-8 border-b">
+                <button class="pb-2 border-b-2 border-transparent text-black hover:text-lightSteelBlue hover:border-lightSteelBlue focus:outline-none">
+                    Free Resources
+                </button>
+                <button
+                    class=" pb-2 border-b-2 border-steelBlue text-steelBlue focus:outline-none ">
+                    Tutorial
+                </button>
+            </div>
+
+            <!-- Cards Section -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <!-- Card 1 -->
+                <div class=" p-4 ">
+                    <div class="bg-culturedBlue h-[270px] rounded-lg"></div>
+                    <p class="text-black mt-1">Video name</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class=" p-4 ">
+                    <div class="bg-culturedBlue h-[270px] rounded-lg"></div>
+                    <p class="text-black mt-1">Video name</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class=" p-4 ">
+                    <div class="bg-culturedBlue h-[270px] rounded-lg"></div>
+                    <p class="text-black mt-1">Video name</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class=" p-4 ">
+                    <div class="bg-culturedBlue h-[270px] rounded-lg"></div>
+                    <p class="text-black mt-1">Video name</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Pro Tennis Eligibility Guide -->
 
         <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
