@@ -238,6 +238,17 @@ const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString(undefined, options);
 };
 
+// Function to navigate to edit record
+const editRecord = (row) => {
+  router.push({
+    path: '/school/businessGeneral',
+    query: {
+      action: 'edit',
+      business_id: row.id
+    }
+  });
+};
+
 const handleRowClick = (row) => {
   editRecord(row);
 };
