@@ -71,10 +71,10 @@
                     </div>
 
                 </div>
-                <div class="grid grid-cols-5 gap-4 flex -mt-[85px]">
+                <div class="grid grid-cols-6 gap-4 flex -mt-[85px] tabs-align">
                     <div class="col-span-1">
                     </div>
-                    <div class="col-span-4">
+                    <div class="col-span-5">
                         <div class="">
                             <div
                                 class="mt-[10px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
