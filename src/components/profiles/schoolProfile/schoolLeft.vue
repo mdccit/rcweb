@@ -3,7 +3,7 @@
         <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
             <div class="flex items-center justify-between w-full">
                 <h1 class="text-lg font-semibold text-black">Bio</h1>
-                <div class="cursor-pointer">
+                <div class="cursor-pointer"  @click="toggleModal('bio')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -12,10 +12,13 @@
                 </div>
             </div>
             <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
-                hdhdhgsdgsdgsd
+                {{ bio }}
             </p>
-        </div>
+            <div v-if="seeMoreBtnHide">
+                <button id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
 
+            </div>
+        </div>
         <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 ">
@@ -23,11 +26,11 @@
                             </div>
                         </div>
                         <p class="text-xs text-darkSlateBlue leading-loose mb-4 ">
-                            <span
+                            <span v-for="data in props.data.academicData"
                                 class="bg-blue-100 pb-1 font-light text-blue-800 text-xs  me-2 px-2.5 py-0.5 rounded rounded-full bg-blue-500 text-white ">
-                                Health
+                                {{ data }}
                             </span>
-                            <span
+                            <!-- <span
                                 class="bg-blue-100 pb-1 font-light text-blue-800 text-xs  me-2 px-2.5 py-0.5 rounded rounded-full bg-blue-500 text-white ">
                                 Business Marketing
                             </span>
@@ -35,7 +38,7 @@
                             <span
                                 class="bg-blue-100 pb-1 font-light text-blue-800 text-xs  me-2 px-2.5 py-0.5 rounded rounded-full bg-blue-500 text-white ">
                                 Computer engineering
-                            </span>
+                            </span> -->
                         </p>
                     </div>
 
@@ -47,11 +50,11 @@
                 </div>
                 <div class="col-span-6 ml-2">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Signed up
-                        2021 1 21
+                        {{ props.data.joinAt }}
                     </p>
 
                 </div>
-                <div class="col-span-1">
+                <div class="col-span-1"  @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -69,10 +72,11 @@
                 </div>
                 <div class="col-span-6 ml-2">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">location
+                        {{ props.data.address }}
                     </p>
 
                 </div>
-                <div class="col-span-1">
+                <div class="col-span-1"  @click="toggleModal('cover')" >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -84,9 +88,158 @@
         </div>
 
     </div>
+
+    <!-- Modal Components with Standardized Props -->
+    <BioModal :visible="modals.bio" @close="handleModalClose" :slug="slug" />
+    <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" :schoolData="props.data" />
+    <AcademicModal :visible="modals.academic" @close="handleModalClose" :slug="slug" />
 </template>
 
 <script setup>
+import { ref, onMounted, reactive } from 'vue';
+import { useNuxtApp } from '#app';
+import { useRouter, useRoute } from 'vue-router';
+import { useUserStore } from '~/stores/userStore';
+
+import BioModal from '~/components/profiles/schoolProfile/modals/bioModal.vue';
+import InfoModal from '~/components/profiles/schoolProfile/modals/infoModal.vue';
+import AcademicModal from '~/components/profiles/schoolProfile/modals/academicModal.vue';
+
+const isBioExpanded = ref(false);
+const seeMoreBtnHide = ref(false);
+const bio = ref('');
+const expandBtnName = ref('See More');
+const nuxtApp = useNuxtApp();
+const router = useRouter();
+const loading = ref(false);
+const route = useRoute();
+const userStore = useUserStore();
+const schoolId = ref('');
+
+const $publicService = nuxtApp.$publicService;
+
+const loggedUserSlug = ref(null);
+const slug = ref('');
+
+const props = defineProps({
+    data: {
+        type: Object,
+        required: true,
+    },
+    schoolSlug: {
+        type: String,
+        required: true,
+    }
+});
+onMounted(() => {
+
+    // const fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
+    // console.log(fullBio)
+    // bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
+    // seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
+    // isBioExpanded.value = false
+
+});
+
+watch(
+    () => props.data,
+    () => {
+        setBio()
+    }
+);
+
+// Define reactive state for all modals
+const modals = reactive({
+    bio: false,
+    info: false,
+    academic: false,
+});
+
+// Generic toggle function
+const toggleModal = (modalName) => {
+    if (modals.hasOwnProperty(modalName)) {
+        modals[modalName] = !modals[modalName];
+    } else {
+        console.warn(`Modal "${modalName}" does not exist.`);
+    }
+};
+
+// Generic function to close the modal and fetch user details
+const handleModalClose = (modalName) => {
+    // Defensive check to make sure modalName exists
+    if (modals[modalName] !== undefined) {
+        modals[modalName] = false;  // Close the modal
+        fetchSchoolDetails();         // Fetch updated user details after closing
+    } else {
+        console.error(`Invalid modal name: ${modalName}`);
+    }
+};
+
+const setBio = () => {
+    let fullBio = props.data.bio || ''; // This ensures fullBio is at least an empty string
+    bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
+    seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
+    isBioExpanded.value = false
+}
+
+const toggleText = () => {
+    isBioExpanded.value = !isBioExpanded.value;
+    if (isBioExpanded.value) {
+        bio.value = props.data.bio;
+        expandBtnName.value = 'See Less'
+    } else {
+        bio.value = props.data.bio.substring(0, 100) + '...';
+        expandBtnName.value = 'See More'
+    }
+
+}
+
+const fetchSchoolDetails = async () => {
+    try {
+        const dataSets = await $publicService.get_school(route.params.slug);
+        if(dataSets.school_info){
+            schoolId.value =dataSets.school_info.id || '';
+            bio.value = dataSets.school_info.bio || 'School has not entered bio';
+            props.data.name = dataSets.school_info.name;
+            const date = new Date(dataSets.school_info.joined_at);
+            const monthNames = [
+               'January', 'February', 'March', 'April', 'May', 'June',
+               'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            const year = date.getFullYear();
+            const month = monthNames[date.getMonth()];
+           const day = date.getDate();
+           props.data.joinAt = `${year} ${month} ${day}`
+            divitionId.value = dataSets.school_info.division_id || 'Unknown';
+            conferenceId.value = dataSets.school_info.conference_id || 'Unknown';
+        }
+
+        if(dataSets.school_info.other_data){
+            tuitionInState.value =dataSets.school_info.other_data.tuition_in_state
+            tuitionOutState.value =dataSets.school_info.other_data.tuition_out_state
+            costOfAttendance.value =dataSets.school_info.other_data.cost_of_attendance
+            address.value =dataSets.school_info.other_data.address
+            graduationRate.value =dataSets.school_info.other_data.graduation_rate
+            academic.value =dataSets.school_info.other_data
+        }
+
+        if(dataSets.school_users_info){
+            members.value =dataSets.school_users_info
+            // logUserInTheSchool.value =dataSets.school_users_info.some(user => user.slug == userStore.userSlug);
+        }
+
+    } catch (error) {
+        console.error('Error fetching data:', error.message);
+    }
+}
+
+onMounted(() => {
+    slug.value = props.schoolSlug;
+
+    if (process.client) {
+        loggedUserSlug.value = localStorage.getItem('user_slug')
+    }
+})
 
 </script>
 

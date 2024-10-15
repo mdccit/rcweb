@@ -16,8 +16,8 @@
 
                     </div>
                     <div class="">
-                        <p class="text-lg font-semibold mb-4 text-sm text-normal">Unknown</p>
-                        <p class="text-lg font-semibold mb-4 text-sm text-normal">Unknown</p>
+                        <p class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.divisionId }}</p>
+                        <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ props.data.conferenceId }}</p>
                         <p class="text-lg font-semibold mb-4 text-sm text-normal">Unknown</p>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
 
                     <p class="text-xs text-black leading-relaxed mb-4  ml-2 ">
                         Location
-                        <br><span class="text-sm text-darkSlateBlue"> {{ address }}</span>
+                        <br><span class="text-sm text-darkSlateBlue"> {{ props.data.address }}</span>
 
                     </p>
                 </div>
@@ -65,7 +65,7 @@
 
                     <p class="text-xs text-black leading-relaxed mb-4  ml-2 ">
                         Tuition (In-of-State)
-                        <br><span class="text-sm text-darkSlateBlue"> {{ tuitionInState }} </span>
+                        <br><span class="text-sm text-darkSlateBlue"> {{ props.data.tuitionInState }} </span>
 
                     </p>
                 </div>
@@ -82,7 +82,7 @@
 
                     <p class="text-xs text-black leading-relaxed mb-4  ml-2 ">
                         Tuition (Out-of-State)
-                        <br><span class="text-sm text-darkSlateBlue"> {{ tuitionOutState }}</span>
+                        <br><span class="text-sm text-darkSlateBlue"> {{ props.data.tuitionOutState }}</span>
 
                     </p>
                 </div>
@@ -96,7 +96,7 @@
                     </div>
                     <p class="text-xs text-black leading-relaxed mb-4  ml-2 ">
                         Cost of Attendance
-                        <br><span class="text-sm text-darkSlateBlue"> {{ costOfAttendance }}</span>
+                        <br><span class="text-sm text-darkSlateBlue"> {{ props.data.costOfAttendance }}</span>
 
                     </p>
                 </div>
@@ -111,7 +111,7 @@
                     </div>
                     <p class="text-xs text-black leading-relaxed mb-4  ml-2 ">
                         Graduation Rate
-                        <br><span class="text-sm text-darkSlateBlue">{{ graduationRate }} %</span>
+                        <br><span class="text-sm text-darkSlateBlue">{{ props.data.graduationRate }} %</span>
 
                     </p>
                 </div>
@@ -124,7 +124,20 @@
 </template>
 
 <script setup>
+import { ref, onMounted, reactive } from 'vue';
 
+const props = defineProps({
+
+data: {
+    type: Object,
+    required: true,
+},
+
+schoolSlug: {
+    type: String,
+    required: true,
+}
+});
 </script>
 
 <style scoped>

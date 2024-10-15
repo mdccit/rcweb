@@ -1,5 +1,5 @@
 <template>
-    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
+    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-6 mt-5">
         <div class="flex items-center">
             <img src="@/assets/images/Rectangle 193.png" alt="" class="rounded-lg w-12 h-12 mr-4">
             <input type="text" placeholder="Write your thoughts..."

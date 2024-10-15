@@ -1,6 +1,6 @@
 <template>
     <!-- start header -->
-    <header class="fixed top-0 left-0 right-0 bg-white border-b border-b-poloBlue border-opacity-23 py-3 z-10">
+    <header class="fixed top-0 left-0 right-0 bg-white border-b border-b-poloBlue border-opacity-23 py-3 z-index-320">
         <div class="container-compressed">
             <div class="grid grid-cols-6 gap-4">
                 <div class="flex items-center">
@@ -123,10 +123,10 @@
                         <NuxtLink v-if="userRole != 'admin'" :to="`/app/profile/${userSlug}`">
                             <div class="flex space-x-2 items-center">
                                 <div class="hidden sm:hidden md:hidden lg:block">
-                                    <img v-if="userStore.userProfilePicture == null"class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                    <img v-if="profilePicture == 'null'"class="w-10 h-10 rounded-lg border border-white shadow-lg"
                                         src="@/assets/images/user.png" alt="">
-                                    <img v-if="userStore.userProfilePicture != null" class="w-10 h-10 rounded-lg border border-white shadow-lg"
-                                        :src="userStore.userProfilePicture.url" alt="">
+                                    <img v-if="profilePicture != 'null'" class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                        :src="profilePicture" alt="">
                                 </div>
                                 <div class="hidden sm:hidden md:hidden lg:block">
                                     <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
@@ -134,17 +134,17 @@
                                 </div>
                             </div>
                         </NuxtLink>
-                        <NuxtLink v-else :to="`/app/profile/${userSlug}`">
+                        <NuxtLink v-if="userRole == 'admin'" >
                             <div class="flex space-x-2 items-center">
                                 <div class="hidden sm:hidden md:hidden lg:block">
-                                    <img v-if="userStore.profile_picture == null"class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                    <img v-if="profilePicture == 'null'"class="w-10 h-10 rounded-lg border border-white shadow-lg"
                                         src="@/assets/images/user.png" alt="">
                                         
-                                    <img v-if="userStore.profile_picture != null" class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                    <img v-if="profilePicture != 'null'" class="w-10 h-10 rounded-lg border border-white shadow-lg"
                                         :src="profilePicture" alt="">
                                 </div>
                                 <div class="hidden sm:hidden md:hidden lg:block">
-                                    <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName  }}</h6>
+                                    <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
                                     <p class="text-xs text-limegreen">Online</p>
                                 </div>
                             </div>
@@ -157,19 +157,19 @@
                         </button>
 
                         <!-- Dropdown menu -->
-                        <div id="dropdownUser"  
+                        <div id="dropdownUser"
                             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                             <ul v-if="userRole === 'admin'" class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                 aria-labelledby="dropdownUserAvatarButton">
                                 <li>
                                     <NuxtLink @click="gotoAdminDashboard"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                         Admin Dashboard</NuxtLink>
                                 </li>
                             </ul>
                             <div class="py-2">
                                 <NuxtLink @click="logout"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                    class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                     Sign out</NuxtLink>
                             </div>
                         </div>
@@ -183,7 +183,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, defineProps, defineEmits, defineExpose } from 'vue';
+import { ref, onMounted, defineProps, defineEmits, defineExpose, watch } from 'vue';
 import { useSearchStore } from '~/stores/searchStore';
 import { useFlowbite } from '~/composables/useFlowbite';
 import { useUserStore } from '~/stores/userStore';
@@ -207,7 +207,7 @@ const loggedUserName = ref('');
 const userSlug = ref('');
 const key = ref('');
 const profilePicture= ref('')
-
+const profile_picture= ref('')
 const logout = async (event) => {
     event.preventDefault();
 
@@ -295,14 +295,14 @@ onMounted(() => {
         } else {
             userSlug.value = null; // Handle the absence of user_slug
         }
-        console.log("Media Info")
-        console.log(userStore.userProfilePicture)
         if(localStorage.getItem('profile_picture')){
             profilePicture.value =localStorage.getItem('profile_picture')
+
             userStore.setProfilePicture({
-                url:profilePicture.value
+                url: profilePicture.value
             })
         }
+        // console.log(localStorage.getItem('profile_picture'))
     }
 
 
@@ -310,6 +310,28 @@ onMounted(() => {
         initFlowbite();
     })
 })
+
+
+watch(
+    () => userStore.userProfilePicture,
+    () => {
+        //if(localStorage.getItem('profile_picture')){
+        console.log(userStore.userProfilePicture)
+        if(userStore.userProfilePicture !=null){
+            profilePicture.value =userStore.userProfilePicture.url
+        }else{
+            profilePicture.value = 'null'
+        }
+           
+            // console.log(1144)
+            // console.log(profilePicture.value)
+
+            // userStore.setProfilePicture({
+            //     url:profilePicture.value
+            // })
+        //}
+    }
+);
 
 const searchkey = () => {
     searchStore.setSearchKey(key.value)
@@ -323,3 +345,9 @@ const searchkey = () => {
     });
 }
 </script>
+
+<style>
+.z-index-200 {
+    z-index: 200;
+}
+</style>

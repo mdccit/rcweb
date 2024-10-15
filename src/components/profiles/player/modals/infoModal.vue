@@ -1,6 +1,6 @@
 <template>
     <!-- Info change modal -->
-    <div v-if="visible" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div v-if="visible" class="relative z-index-320" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -72,7 +72,8 @@
                                             <div v-if="weight_in_kg">
                                                 <div
                                                     class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
-                                                    <input type="number" required v-model="weight_kg"
+                                                    <input type="number" required v-model="weight_kg"         step="0.01" 
+
                                                         class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
                                                         placeholder="Weight in kg" />
                                                 </div>
@@ -80,7 +81,7 @@
                                             </div>
                                             <!-- Weight in Pounds -->
                                             <div v-else>
-                                                <input type="number" required v-model="weight_lb"
+                                                <input type="number" required v-model="weight_lb" step="0.01" 
                                                     class="block w-full rounded-lg border-gray-300 shadow-sm"
                                                     placeholder="Weight in lb" />
                                             </div>
@@ -188,7 +189,8 @@
                                         <div>
                                             <label for="preferred_surface"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Preferred
-                                                Surface</label>
+                                                Surface <span
+                                                class="text-red-600">*</span></label>
                                             <div
                                                 class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
                                                 <select v-model="preferred_surface" required
@@ -206,7 +208,8 @@
                                         <div>
                                             <label for="graduation_month_year"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Graduation
-                                                Month/Year</label>
+                                                Month/Year <span
+                                                class="text-red-600">*</span></label>
                                             <div
                                                 class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
                                                 <input type="month" v-model="graduation_month_year" required
@@ -222,8 +225,8 @@
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                             <button type="submit" :disabled="loading"
-                                class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
-                                changes
+                                class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">
+                                Save changes
                                 <svg v-if="loading" aria-hidden="true" role="status"
                                     class="inline w-4 h-4 me-3 text-white animate-spin ml-2 mt-[3px]"
                                     viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
