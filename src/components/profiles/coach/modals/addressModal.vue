@@ -5,141 +5,150 @@
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                 <form @submit.prevent="updatePlayerAddress">
-                <div
-                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                        <div class="sm:flex sm:items-start">
-                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
-                                    Contact Information</h3>
-                                <div class="mt-2">
-                                    <p class="text-sm text-gray-500 mb-3">Please update your contact information below:
-                                    </p>
+                    <div
+                        class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                            <div class="sm:flex sm:items-start">
+                                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change
+                                        your
+                                        Contact Information</h3>
+                                    <div class="mt-2">
+                                        <p class="text-sm text-gray-500 mb-3">Please update your contact information
+                                            below:
+                                        </p>
 
-                                    <div>
-                                        <div class="grid sm:grid-cols-1 grid-cols-1 gap-2 mb-2">
-                                            <!-- Address Line 1 -->
-                                            <div class="mb-2 sm:col-span-2 col-span-1">
-                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Address Line 1
-                                                    <span aria-hidden="true" class="text-red-600"
-                                                        title="This field is required">*</span></label>
-                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <input id="address_line_1" v-model="address_line_1"
-                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                        placeholder="Enter Address Line 1" required>
+                                        <div>
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 gap-2 mb-2">
+                                                <!-- Address Line 1 -->
+                                                <div class="mb-2 sm:col-span-2 col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Address
+                                                        Line 1
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="address_line_1" v-model="address_line_1"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="Enter Address Line 1" required>
+                                                    </div>
+                                                </div>
+                                                <!-- Address Line 2 -->
+                                                <div class="mb-2 sm:col-span-2 col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Address
+                                                        Line
+                                                        2</label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="address_line_2" v-model="address_line_2"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="Enter Address Line 2">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <!-- Address Line 2 -->
-                                            <div class="mb-2 sm:col-span-2 col-span-1">
-                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Address Line
-                                                    2</label>
-                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <input id="address_line_2" v-model="address_line_2"
-                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                        placeholder="Enter Address Line 2">
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
-                                            <!-- City -->
-                                            <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                <label class="block mb-1 text-gray-700 font-sans text-sm">City
-                                                    <span aria-hidden="true" class="text-red-600"
-                                                        title="This field is required">*</span></label>
-                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <input id="city" v-model="city"
-                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                        placeholder="Enter City" required>
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <!-- City -->
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">City
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="city" v-model="city"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="Enter City" required>
+                                                    </div>
+                                                </div>
+                                                <!-- State/Province -->
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label
+                                                        class="block mb-1 text-gray-700 font-sans text-sm">State/Province
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="state_province" v-model="state_province"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="Enter State/Province" required>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <!-- State/Province -->
-                                            <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                <label class="block mb-1 text-gray-700 font-sans text-sm">State/Province
-                                                    <span aria-hidden="true" class="text-red-600"
-                                                        title="This field is required">*</span></label>
-                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <input id="state_province" v-model="state_province"
-                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                        placeholder="Enter State/Province" required>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
-                                            <!-- Postal Code -->
-                                            <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Postal Code
-                                                    <span aria-hidden="true" class="text-red-600"
-                                                        title="This field is required">*</span></label>
-                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <input id="postal_code" v-model="postal_code"
-                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                        placeholder="Enter Postal Code" required>
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <!-- Postal Code -->
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Postal
+                                                        Code
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="postal_code" v-model="postal_code"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="Enter Postal Code" required>
+                                                    </div>
+                                                </div>
+                                                <!-- Country -->
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Country
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <CountryDropdown :countries="countries" v-model="country"
+                                                            id="country" class="mt-0" label="Country *" />
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <!-- Country -->
-                                            <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
-                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Country
-                                                    <span aria-hidden="true" class="text-red-600"
-                                                        title="This field is required">*</span></label>
-                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <CountryDropdown :countries="countries" v-model="country"
-                                                        id="country" class="mt-0" label="Country *" />
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="grid grid-cols-6 gap-2 mb-2">
-                                            <!-- Phone Code and Phone Number on Separate Lines -->
-                                            <div class="mb-2 col-span-2">
-                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Phone
-                                                    Code</label>
-                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <CountryCodeDropdown :country_codes="country_codes"
-                                                        v-model="phone_code_country"
-                                                        class="block w-full h-12 rounded-lg" />
+                                            <div class="grid grid-cols-6 gap-2 mb-2">
+                                                <!-- Phone Code and Phone Number on Separate Lines -->
+                                                <div class="mb-2 col-span-2">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Mobile No
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span>
+                                                    </label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <CountryCodeDropdown :country_codes="country_codes"
+                                                            v-model="phone_code_country"
+                                                            class="block w-full h-12 rounded-lg" />
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 col-span-4">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm"></label>
+                                                    <div
+                                                        class="flex rounded-lg border border-gray-300 shadow-sm mt-[24px]">
+                                                        <input type="text" id="phone_number" v-model="phone_number"
+                                                            class="block w-full h-12 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="Enter Phone Number" required />
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="mb-2 col-span-4">
-                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Phone
-                                                    Number</label>
-                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <input type="text" id="phone_number" v-model="phone_number"
-                                                        class="block w-full h-12 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                        placeholder="Enter Phone Number" required />
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
-                                            <!-- Email Address -->
-                                            <div class="mb-2 sm:col-span-2 col-span-1">
-                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Email Address
-                                                    <span aria-hidden="true" class="text-red-600"
-                                                        title="This field is required">*</span></label>
-                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                    <input id="email" v-model="email"
-                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                        placeholder="Enter Email Address" required>
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <!-- Email Address -->
+                                                <div class="mb-2 sm:col-span-2 col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Email
+                                                        Address
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="email" v-model="email"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="Enter Email Address" required>
+                                                    </div>
                                                 </div>
                                             </div>
+
                                         </div>
 
                                     </div>
-
                                 </div>
                             </div>
                         </div>
+                        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                            <button type="submit"
+                                class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
+                                changes</button>
+                            <button type="button" @click="$emit('close', 'address')"
+                                class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                        </div>
                     </div>
-                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button type="submit"
-                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
-                            changes</button>
-                        <button type="button" @click="$emit('close', 'address')"
-                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
-                    </div>
-                </div>
                 </form>
             </div>
         </div>
@@ -218,7 +227,7 @@ watch(country_codes, (newVal) => {
 const fetchCoachContact = async () => {
     try {
         const dataSets = await $publicService.get_user_profile(props.slug);
-        if (dataSets.user_address_info) {           
+        if (dataSets.user_address_info) {
             console.log(dataSets.user_address_info)
             city.value = dataSets.user_address_info.city ?? 'User has not entered city';
             address_line_1.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01';
