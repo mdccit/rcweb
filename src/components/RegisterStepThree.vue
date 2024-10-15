@@ -93,15 +93,22 @@ const packages = [
     value: 'standard',
     label: 'Standard',
     price: '$0.00',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    description: 'Standard Subscription',
+    features: ['Lorem ipsum dolor', 'Lorem ipsum dolor', 'Lorem ipsum dolor'],
+  },
+  {
+    value: 'trial',
+    label: 'Trial',
+    price: '$0.00',
+    description: 'Recruited Premium 1 month Trial Subscription',
     features: ['Lorem ipsum dolor', 'Lorem ipsum dolor', 'Lorem ipsum dolor'],
   },
   {
     value: 'premium',
     label: 'Premium',
     price: '$100.00',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    features: ['Lorem ipsum dolor', 'Lorem ipsum dolor', 'Lorem ipsum dolor'],
+    description: 'Recruited Premium Monthly Subscription',
+    features: ['Transfer Tracker', 'Transcripts', 'Lorem ipsum dolor'],
   },
 ];
 
