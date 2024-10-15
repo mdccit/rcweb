@@ -2,13 +2,14 @@
     <header class="bg-gray-200">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="flex w-full justify-between gap-8">
-                <div class="flex items-center gap-4"><a href="https://qa1.recruited.qualitapps.com/admin/users"><svg
-                            class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
+                <div class="flex items-center gap-4">
+                    <NuxtLink to="/admin/users"><svg class="w-6 h-6 text-gray-500"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
                             <path d="M15 6l-6 6l6 6"></path>
-                        </svg></a>
-                    <h2 class="font-bold text-lg self-center"> Editing:User Name </h2>
+                        </svg></NuxtLink>
+                    <h2 class="font-bold text-lg self-center"> Editing: {{ ' ' + first_name + ' ' + last_name }} </h2>
                 </div>
                 <div class="">
                     <a href="#"><button type="submit"
@@ -28,7 +29,7 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-7">
         <!-- User Edit Section Component -->
-        <userEditSection />
+        <userEditSection :user_id="user_id" />
 
         <form @submit.prevent="updateUserDetails">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
@@ -85,14 +86,14 @@
                 <!-- First Name Input -->
                 <div class="w-full">
                     <label class="block">
-                        <span class="block mb-1 text-gray-700 font-sans">First Name {{ first_name }}</span>
+                        <span class="block mb-1 text-gray-700 font-sans">First Name <span
+                                class="text-red-500">*</span></span>
                         <div class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
                             <input v-model="first_name" type="text" :disabled="action === 'view'"
                                 class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg border border-gray-300" />
                         </div>
                     </label>
-                    <p v-if="errors.first_name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
-            errors.first_name.join(', ') }}</p>
+                    <InputError :error="errors.first_name ? errors.first_name.join(', ') : ''" />
                 </div>
 
                 <div class="my-8"></div>
@@ -100,15 +101,15 @@
                 <!-- Last Name Input -->
                 <div class="w-full">
                     <label class="block">
-                        <span class="block mb-1 text-gray-700 font-sans">Last Name</span>
+                        <span class="block mb-1 text-gray-700 font-sans">Last Name <span
+                                class="text-red-500">*</span></span>
                         <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
                             <input
                                 class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
                                 v-model="last_name" name="name" type="text" data-validation-key="name"
                                 :disabled="action === 'view'" />
                         </div>
-                        <p v-if="errors.last_name" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
-            errors.last_name.join(', ') }}</p>
+                        <InputError :error="errors.last_name ? errors.last_name.join(', ') : ''" />
                     </label>
                 </div>
 
@@ -124,8 +125,8 @@
                                 v-model="other_names" name="name" type="text" data-validation-key="other-names"
                                 :disabled="action === 'view'" />
                         </div>
-                        <p v-if="errors.other_names" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
-            errors.other_names.join(', ') }}</p>
+               
+                        <InputError :error="errors.other_names ? errors.other_names.join(', ') : ''" />
                     </label>
                 </div>
 
@@ -136,15 +137,15 @@
                 <div class="">
                     <div class="w-full">
                         <label class="block">
-                            <span class="block mb-1 text-gray-700 font-sans">Email address</span>
+                            <span class="block mb-1 text-gray-700 font-sans">Email address <span
+                                    class="text-red-500">*</span></span>
                             <div class="flex rounded-lg border border-gray-300 shadow-sm ">
                                 <input v-model="email"
                                     class="block text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                     name="email" type="text" data-validation-key="email"
                                     :disabled="action === 'view'" />
                             </div>
-                            <p v-if="errors.email" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
-            errors.email.join(', ') }}</p>
+                            <InputError :error="errors.email ? errors.email.join(', ') : ''" />
                         </label>
                     </div>
 
@@ -164,11 +165,13 @@
                                 Email verified
                             </span>
                         </label>
+                        <InputError :error="errors.is_set_email_verified ? errors.is_set_email_verified.join(', ') : ''" />
 
                         <!-- Resend Verification Email Link aligned on the same row to the right -->
                         <div v-if="!is_set_email_verified" class="flex items-center text-black gap-2 ml-4">
                             <span>Or</span>
-                            <button type="submit" @click.prevent="resendVerificationEmail" class="bg-gray-200 p-2 rounded text-black hover:bg-gray-300">
+                            <button type="submit" @click.prevent="resendVerificationEmail"
+                                class="bg-gray-200 p-2 rounded text-black hover:bg-gray-300">
                                 send again
                             </button>
                         </div>
@@ -182,15 +185,15 @@
                 <!-- Password Input -->
                 <div class="w-full">
                     <label class="block">
-                        <span class="block mb-1 text-gray-700 font-sans">Password</span>
+                        <span class="block mb-1 text-gray-700 font-sans">Password <span
+                                class="text-red-500">*</span></span>
                         <div class="flex rounded-lg border border-gray-300 shadow-sm">
                             <input
                                 class="block text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                 name="password" v-model="password" type="text" data-validation-key="password"
                                 :disabled="action === 'view'" />
                         </div>
-                        <p v-if="errors.password" class="mt-2 text-sm text-red-600 dark:text-red-500">{{
-            errors.password.join(', ') }}</p>
+                        <InputError :error="errors.password ? errors.password.join(', ') : ''" />
                     </label>
                 </div>
 
@@ -199,7 +202,8 @@
                 <!-- Approval Dropdown -->
                 <div class="w-full">
                     <label class="block">
-                        <span class="block mb-1 text-gray-700 font-sans">Approved</span>
+                        <span class="block mb-1 text-gray-700 font-sans">Approved <span
+                                class="text-red-500">*</span></span>
                         <div class="relative">
                             <select v-model="is_approved" name="is_approved" data-validation-key="is_approved"
                                 :disabled="action === 'view'"
@@ -207,6 +211,7 @@
                                 <option value="1">Yes</option>
                                 <option value="0">No</option>
                             </select>
+                            <InputError :error="errors.is_approved ? errors.is_approved.join(', ') : ''" />
                         </div>
                     </label>
                 </div>
@@ -215,25 +220,27 @@
 
                 <!-- Phone Number Input -->
                 <div class="relative">
+
                     <div class="absolute right-0 top-0">
-                        <svg id="phoneInputButton" onclick="showPhoneEditTooltip(event,'phoneInputtooltip')"
-                            class="w-4 h-4 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round" style="cursor: pointer;">
-                            <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
-                            <path d="M12 9h.01"></path>
-                            <path d="M11 12h1v4h1"></path>
-                        </svg>
-                        <span id="phoneInputtooltip"
-                            class="fixed text-black hidden z-10 w-72 px-2 py-4 bg-black rounded-lg text-center text-white text-sm before:content-[''] before:absolute before:top-10 before:right-[-16px] before:-translate-y-1/2 before:border-8 before:border-r-transparent before:border-l-gray-700"
-                            hidden="true" style="display: none;">
-                            If you are a player or a parent, your phone number will be visible to coaches.
-                        </span>
+
+                        <div ata-tooltip-target="tooltip-default" class="col-span-1 text-right tooltip"><svg
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-4 ml-[20px]">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                            </svg>
+                            <div class="tooltipDiv">
+                                <span class="tooltiptext">If you are a player or a parent, your phone number
+                                    will be visible to
+                                    coaches.</span>
+                            </div>
+                        </div>
                     </div>
+
 
                     <div class="grid grid-cols-10 gap-4 items-center mt-4 mb-3">
                         <!-- Country Code Dropdown -->
-                        <div class="col-span-4">
+                        <div class="col-span-2">
                             <label class="block">
                                 <span class="block mb-1 text-gray-700 font-sans">
                                     Phone
@@ -246,23 +253,29 @@
                                             name="phone_code" data-validation-key="phone_code"
                                             :disabled="action === 'view'" required />
                                     </div>
+                                    <InputError :error="errors.phone_code_country ? errors.phone_code_country.join(', ') : ''" />
                                 </div>
                             </label>
                         </div>
 
                         <!-- Phone Number Input -->
-                        <div class="col-span-6">
+                        <div class="col-span-8">
                             <div class="w-full no-asterisk">
                                 <label class="block">
-                                    <span class="block mb-1 text-gray-700 font-sans"><span aria-hidden="true"
-                                            class="text-red-600" title="This field is required">*</span></span>
+                                    <span class="block mb-1 text-gray-700 font-sans">
+                                        <span aria-hidden="true" class="text-red-600" title="This field is required">*
+                                        </span>
+                                    </span>
+
                                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
+
                                         <input
                                             class="block text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                             name="phone_number" type="text" data-validation-key="phone_number"
                                             v-model="phone_number" id="phone_number" step="0.01" required
                                             placeholder="123456789" :disabled="action === 'view'" />
                                     </div>
+                                    <InputError :error="errors.phone_number ? errors.phone_number.join(', ') : ''" />
                                 </label>
                             </div>
                         </div>
@@ -274,7 +287,7 @@
                 <!-- Role Dropdown -->
                 <div class="w-full">
                     <label class="block">
-                        <span class="block mb-1 text-gray-700 font-sans">Role</span>
+                        <span class="block mb-1 text-gray-700 font-sans">Role </span>
                         <div class="relative">
 
                             <select v-model="user_role" name="role" data-validation-key="role"
@@ -319,9 +332,9 @@ import userEditSection from '~/components/admin/user/userEditSections.vue';
 import { loadCountryList } from '~/services/commonService';
 import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
 import { handleError } from '@/utils/handleError';
+import InputError from '@/components/common/input/InputError.vue';
 
 const route = useRoute(); // Use useRoute to access query parameters
-
 const first_name = ref('');
 const last_name = ref('');
 const other_names = ref('');
@@ -344,7 +357,9 @@ const notification_type = ref('');
 const errors = ref([]);
 const profile = ref(null)
 const profile_image = ref('')
-const fileError = ref('')
+const fileError = ref('');
+const storedUserName = ref('');
+const display_name =ref('');
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -364,6 +379,7 @@ onMounted(() => {
     // Update the refs directly
     action.value = route.query.action || 'view';
     user_id.value = route.query.user_id || '';
+    storedUserName.value = localStorage.getItem('user_name');
 
     if (action.value === 'view' || action.value === 'edit') {
         fetchUserDetails(user_id.value);
@@ -371,7 +387,6 @@ onMounted(() => {
 });
 
 const resendVerificationEmail = async () => {
-    console.log('adfhjka');
     loading.value = true;
     try {
         const response = await $authService.resendVerificationEmail(user_id.value);
@@ -383,9 +398,9 @@ const resendVerificationEmail = async () => {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
         }
-    }catch(error){
+    } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
-    }finally{
+    } finally {
         loading.value = false;
     }
 }
@@ -426,8 +441,6 @@ const updateUserDetails = async () => {
             phone_code_country: phone_code_country.value,
             phone_number: phone_number.value,
         });
-
-        await updateUserProfile()
         if (response.status === 200) {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
@@ -461,7 +474,7 @@ const fetchUserDetails = async (userId) => {
         phone_number.value = contact_info.phone_number || '';             // Adjust if needed
         is_set_email_verified.value = !!user.email_verified_at;
         profile.value = response.media_info.profile_picture || null;
-
+        display_name.value = response.user_basic_info.display_name
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.message, 'failure');
     }
@@ -523,6 +536,7 @@ const handleFileChange = (event) => {
         // If all validations pass, set the file to the reactive variable
         fileError.value = ''; // Clear any previous errors
         profile_image.value = file; // Store the selected file
+        updateUserProfile()
     }
 };
 
@@ -533,8 +547,13 @@ const updateUserProfile = async () => {
         return;
     }
     try {
-        const response = await $adminService.user_profile(id.value,profile_image.value);
-   
+        const response = await $adminService.user_profile(id.value, profile_image.value);
+        if (response.status === 200) {
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+        } else {
+            nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+        }
+        fetchUserDetails(user_id.value)
     } catch (error) {
         console.log(error)
     }
@@ -560,6 +579,11 @@ const deleyeUserProfilePicture = async () => {
         console.log(error)
     }
 };
+
+const goBack = () =>{
+    router.back();
+}
+
 </script>
 
 <style scoped>
@@ -585,5 +609,38 @@ const deleyeUserProfilePicture = async () => {
 
 .error-item {
     margin-bottom: 5px;
+}
+
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltipDiv {
+    right: 260px;
+    position: absolute;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 250px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 13px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 40;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
 }
 </style>

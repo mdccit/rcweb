@@ -26,7 +26,10 @@
 import { ref, computed, watch , onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { defineProps, defineEmits, defineExpose} from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
+const route = useRoute();
+const router = useRouter();
 
 const error = ref('');
 const successMessage = ref('');
@@ -53,7 +56,7 @@ const openModal = () => {
 const props = defineProps({
     isVisible: Boolean,
     action: String,
-    userId: String,
+    businesslId: String,
 });
 
 watch(() => props.isVisible, (newValue) => {});
@@ -68,11 +71,15 @@ const submit = async () => {
     try {
 
         const response = await $adminService.business_delete(props.businesslId);
+        console.log(6655)
+
+        console.log(response)
         if (response.status === 200) {
             
             successMessage.value = response.display_message;
             emit('emitMessage',response.display_message)
             emit('close');
+            router.push('/admin/business');
         } else {
             
             emit('emitMessage',response.display_message)

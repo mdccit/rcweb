@@ -151,7 +151,7 @@
                   {{ post.title }}
                 </h3>
                 <div class="basis-full flex flex-col  ">
-                <p  v-if="!editingPostId || editingPostId !== post.id"class="mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
+                <p  v-if="!editingPostId || editingPostId !== post.id" class="mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
                 <textarea v-else  type="text" placeholder="Write your thoughts..." v-model="editPost"
                    class="mt-4 text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 ">
                     

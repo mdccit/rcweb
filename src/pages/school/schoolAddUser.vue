@@ -3,14 +3,14 @@
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
       <div class="flex w-full justify-between gap-8">
         <div class="flex items-center gap-4">
-          <NuxtLink to="/school/schoolStaff">
+          <NuxtLink :to="{ path: '/school/schoolStaff', query: { school_id: school_id } }">
             <svg class="w-6 text-black h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
               viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
               stroke-linejoin="round">
               <path d="M15 6l-6 6l6 6"></path>
             </svg>
           </NuxtLink>
-          <h2 class="font-bold text-black text-lg self-center"> Editing: </h2>
+          <h2 class="font-bold text-black text-lg self-center"> Editing: {{ name }}</h2>
         </div>
         <div>
           <NuxtLink to="/school/9c2845cc-7676-45e1-b498-13f930b22e9b">
@@ -127,7 +127,22 @@ const notificationKey = ref(0);
 
 onMounted(() => {
   school_id.value = route.query.school_id || '';
+  fetchSchoolDetails()
+
 });
+
+const name = ref('')
+const fetchSchoolDetails = async () => {
+    try {
+        const data = await $adminService.get_school_details(school_id.value);
+        name.value = data.school_info.name || '';
+     
+    } catch (error) {
+      console.log(error)
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    }
+};
+
 
 const options = {
   page: 1,  // Default page number
@@ -138,7 +153,12 @@ const options = {
 const searchUsers = async () => {
   try {
     const search_key = searchQuery.value || '';  // If searchQuery is empty, use an empty string
+    console.log(search_key)
+
     const response = await $adminService.search_school_users(school_id.value, options.page, options.per_page_items, search_key);
+    console.log(555)
+    console.log(response)
+
     if (response && response.dataSets && response.dataSets.data) {
       users.value = response.dataSets.data || [];  // Set users from the response
     } else {

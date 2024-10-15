@@ -3,7 +3,7 @@
     <!-- Top Navigation Bar -->
     <SocialHubNavbar />
 
-    <main class="bg-graySnowDrift min-h-screen">
+    <main class="bg-graySnowDrift min-h-screen mb-3">
       <div class="container-compressed">
         <div class="grid grid-cols-6 gap-4 mt-16">
           <!-- Left pane -->

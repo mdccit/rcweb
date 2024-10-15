@@ -2,7 +2,7 @@
     <div>
         <!-- Start Invites Section -->
         <div class="flex flex-wrap gap-2 mt-4 mb-2">
-            <div class="flex-1">
+            <div class="flex-1 pl-2">
 
                 <h2 class="text-lg font-semibold text-black">Invites</h2>
             </div>
@@ -14,7 +14,8 @@
         </div>
         <div class="flex">
             <div class="flex-1 p-2">
-                <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+                <div
+                    class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
 
                     <div class="flex-1 p-1">
                         <!-- member card start-->
@@ -23,12 +24,19 @@
                                 <img class=" rounded-2xl w-[85px] h-[85px]" src="../../assets/user/images/avtar.png"
                                     alt="Neil image">
                             </div>
-                            <div class="col-span-6">
-                                <h4 class="text-black font-bold">Ronald Richards</h4>
+                            <div class="col-span-9">
+                                <div class="flex">
+                                    <div class="flex-1">
+                                        <h4 class="text-black font-bold">Ronald Richards</h4>
+                                    </div>
+                                    <div class="flex-3">
+                                        <h4 class="text-black text-sm">UTR <span class="text-blue-500">30.01</span></h4>
+                                    </div>
+                                </div>
                                 <div class="flex">
                                     <div class="flex-1">
 
-                                        <div class="flex items-center space-x-2 mb-2  mt-2">
+                                        <div class="flex items-center space-x-2 my-2">
                                             <div class="bg-lightPale p-1 rounded">
                                                 <img src="@/assets/user/images/playerIcon.png" alt="" class=" w-4 h-4">
                                             </div>
@@ -36,7 +44,7 @@
                                         </div>
                                     </div>
                                     <div class="flex-1">
-                                        <div class="flex items-center space-x-2 mb-2">
+                                        <div class="flex items-center space-x-2  my-2">
                                             <div class="bg-lightCreamOrange p-1 rounded">
                                                 <img src="@/assets/user/images/manage-parent.png" alt=""
                                                     class=" w-4 h-4">
@@ -58,9 +66,6 @@
                                     </div>
                                     <div class="text-xs ml-2 text-black">New Pura, Belgium</div>
                                 </div>
-                            </div>
-                            <div class="col-span-3">
-                                <h4 class="text-black text-sm">UTR <span class="text-blue-500">30.01</span></h4>
                             </div>
                         </div>
                     </div>
@@ -96,7 +101,8 @@
                                 </div>
 
                                 <div>
-                                    <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    <button
+                                        class="bg-blue-500 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                         Connect +
                                     </button>
                                 </div>
@@ -109,7 +115,8 @@
                 </div>
             </div>
             <div class="flex-1 p-2">
-                <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+                <div
+                    class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
                     <div class=" grid grid-cols-12 gap-4">
                         <div class="col-span-3">
                             <img class=" rounded-2xl w-[85px] h-[85px]" src="@/assets/user/images/Rectangle_117.png"
@@ -179,7 +186,8 @@
                                 </div>
 
                                 <div>
-                                    <button class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    <button
+                                        class="bg-blue-500 rounded-full  text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                         Connect +
                                     </button>
                                 </div>
@@ -196,7 +204,7 @@
 
         <!-- Start Connections Section -->
         <div class="flex flex-wrap gap-2 mt-4 mb-2">
-            <div class="flex-1">
+            <div class="flex-1 pl-2">
 
                 <h2 class="text-lg font-semibold text-black">Connecions</h2>
             </div>
@@ -208,7 +216,8 @@
         </div>
         <div class="flex">
             <div class="flex-1 p-2">
-                <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+                <div
+                    class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
 
                     <div class="flex-1 p-1">
                         <!-- member card start-->
@@ -306,7 +315,8 @@
                 </div>
             </div>
             <div class="flex-1 p-2">
-                <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+                <div
+                    class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
                     <div class=" grid grid-cols-12 gap-4">
                         <div class="col-span-3">
                             <img class=" rounded-2xl w-[85px] h-[85px]" src="@/assets/user/images/Rectangle 126.png"
