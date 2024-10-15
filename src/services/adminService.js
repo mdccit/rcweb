@@ -602,6 +602,53 @@ const user_profile_delete = async (media_id) => {
     throw new Error(error.message || 'Failed to register');
   }
 };
+  
+const list_transcripts = async (search, status) => {
+  const url = `/admin/transcript/get-transcripts?search_key=${search}&&status=${status}`;
+
+  try {
+    const response = await apiService.getRequest(url);
+    if (response && response.data) {
+      return response.data;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+const transcript_delete = async (transcript_id) => {
+  const url = `/admin/transcript/delete-transcript/${transcript_id}`;
+
+  try {
+    const response = await apiService.deleteRequest(url);
+    if (response) {
+      return response;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+const transcript_update = async (transcript_id,data) => {
+  const url = `/admin/transcript/update-transcript/${transcript_id}`;
+
+  try {
+    const response = await apiService.putRequest(url, data);
+    if (response) {
+      return response;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+
   return {
     new_user_register,
     list_users,
@@ -642,7 +689,10 @@ const user_profile_delete = async (media_id) => {
     business_profile,
     business_cover,
     user_profile,
-    user_profile_delete
+    user_profile_delete,
+    transcript_delete,
+    list_transcripts,
+    transcript_update
   };
 };
 

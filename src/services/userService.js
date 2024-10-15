@@ -461,6 +461,51 @@ const createUserService = (apiService) => {
       throw new Error(error.message || 'Failed to update');
     }
   };
+  
+  const get_transcript = async () => {
+    const url = `/user/transcript/get-transcript`;
+  
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data) {
+        return response.data;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+  
+  const create_transcript = async (data) => {
+    const url = `/user/transcript/create-transcript`;
+  
+    try {
+      const response = await apiService.postMedia(url,data);
+      if (response && response.data) {
+        return response;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+  
+  const transcript_delete = async (transcript_id) => {
+    const url = `/user/transcript/delete-transcript/${transcript_id}`;
+  
+    try {
+      const response = await apiService.deleteRequest(url);
+      if (response) {
+        return response;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
 
 
 
@@ -500,8 +545,10 @@ const createUserService = (apiService) => {
     upload_coach_profile_picture,
     upload_coach_media,
     upload_coach_cover_photo,
-    delete_coach_media
-
+    delete_coach_media,
+    get_transcript,
+    create_transcript,
+    transcript_delete
   };
 
 
