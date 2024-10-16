@@ -13,7 +13,7 @@
           <div class="card rounded-lg bg-lightGray1 h-[300px] m-2">
             <div class="flex">
               <div class="flex-1 p-3">
-                <div class="card rounded-lg bg-blue-400 h-[270px]">
+                <div class="card rounded-lg bg-blue-400 h-[270px]" @click="handlePreviewClick(transcript)">
                   <img :src="'data:image/jpeg;base64,' + transcript.preview" alt="" srcset="" />
                 </div>
               </div>
@@ -302,5 +302,9 @@ const clearForm = () => {
   language.value = "";
   fileName.value = "";
   file.value = {};
+};
+
+const handlePreviewClick = (transcript) => {
+  window.open(transcript.path, '_blank');
 };
 </script>
