@@ -14,21 +14,46 @@
                                         <h4 class="text-black font-bold mb-1"  v-if="props.chat.first_message_user.id != props.loginUserId">{{ props.chat.first_message_user.display_name }}</h4>
                                         <h4 class="text-black font-bold mb-1"  v-if="props.chat.received_user.id != props.loginUserId">{{ props.chat.received_user.display_name }}</h4>
 
-                                        <div class="flex items-center space-x-2 mb-2">
+                                        <div v-if="props.chat.first_message_user.id != props.loginUserId" class="flex items-center space-x-2 mb-2">
                                             <!-- <div class="bg-lightCreamOrange p-1 rounded">
                                                 <img src="@/assets/user/images/manage-parent.png" alt="" class=" w-4 h-4">
                                             </div>
                                             <div class="text-xs ml-2 text-vividOrange">Manage by parent</div> -->
                                             
-                                            <!-- <div class="bg-blue-200 p-1 rounded">
-                                                <img src="@/assets/images/player-blue.png" alt="" class=" w-4 h-4">
-                                            </div>
-                                            <div class="text-xs ml-2 text-steelBlue">Player</div> -->
+                                            <!-- <div  > -->
+                                                <div v-if="props.chat.first_message_user.user_role_id ==4" class="bg-blue-200 p-1 rounded">
+                                                    <img src="@/assets/images/player-blue.png" alt="" class=" w-4 h-4">
+                                                </div>
+                                                 <div class="text-xs ml-2 text-steelBlue">Player</div>
+                                            <!-- </div> -->
+                                            <!-- <div > -->
+                                                <div v-if="props.chat.first_message_user.user_role_id ==5" class="bg-green-200 p-1 rounded">
+                                                    <img src="@/assets/images/coach-icon-green.png" alt="" class=" w-4 h-4">
+                                                </div>
+                                                  <div class="text-xs ml-2 text-green-500">Coach</div>
+                                            <!-- </div> -->
                                            
-                                            <div class="bg-green-200 p-1 rounded">
-                                                <img src="@/assets/images/coach-icon-green.png" alt="" class=" w-4 h-4">
+
+                                        </div>
+                                        <div v-if="props.chat.received_user.id != props.loginUserId" class="flex items-center space-x-2 mb-2">
+                                            <!-- <div class="bg-lightCreamOrange p-1 rounded">
+                                                <img src="@/assets/user/images/manage-parent.png" alt="" class=" w-4 h-4">
                                             </div>
-                                            <div class="text-xs ml-2 text-green-500">Coach</div>
+                                            <div class="text-xs ml-2 text-vividOrange">Manage by parent</div> -->
+                                            
+                                            <!-- <div  > -->
+                                                <div v-if="props.chat.received_user.user_role_id ==4"  class="bg-blue-200 p-1 rounded">
+                                                    <img src="@/assets/images/player-blue.png" alt="" class=" w-4 h-4">
+                                                </div>
+                                                 <div v-if="props.chat.received_user.user_role_id ==4" class="text-xs ml-2 text-steelBlue">Player</div>
+                                            <!-- </div> -->
+                                            <!-- <div> -->
+                                                <div  v-if="props.chat.received_user.user_role_id ==5" class="bg-green-200 p-1 rounded">
+                                                    <img src="@/assets/images/coach-icon-green.png" alt="" class=" w-4 h-4">
+                                                </div>
+                                                  <div  v-if="props.chat.received_user.user_role_id ==5" class="text-xs ml-2 text-green-500">Coach</div>
+                                            <!-- </div> -->
+                                           
 
                                         </div>
                                         <div class="flex items-center space-x-2 mb-2">
@@ -154,6 +179,7 @@ watch(
 
 onMounted(()=>{
     getChat()
+    console.log(props.data)
 })
 
 const newChat = async () =>{

@@ -33,6 +33,10 @@
                             </button>
                             <hr class="mt-3 mb-3 text-pigeonBlue">
                         </div>
+                        <div v-if="props.listChat.length ==0">
+                            <p class="text-xs text-darkSlateBlue line-clamp-2 text-left"> No chat
+                        </p>
+                        </div>
                        
 <!-- 
                      
