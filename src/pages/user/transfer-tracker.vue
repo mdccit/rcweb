@@ -32,9 +32,12 @@
                 <div class="col-span-3 p-2" v-for="(item, index) in items" :key="index">
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
                         <div class=" grid grid-cols-12 gap-4">
-                            <div class="col-span-4">
-                                <img class=" rounded-2xl w-[80px] h-[80px]" src="@/assets/user/images/Rectangle 193.png"
-                                    alt="Neil image">
+                            <div class="col-span-4">                                
+                                <img v-if="!(item.media && item.media.url)"
+                                    src="https://ui-avatars.com/api/?name=e+e&amp;color=7F9CF5&amp;background=EBF4FF" alt="User Photo"
+                                    class="rounded-full h-20 w-20 object-cover" />
+                                <img v-if="item.media && item.media.url" :src="item.media.url" alt="User Photo"
+                                    class="rounded-full h-20 w-20 object-cover" />
                             </div>
                             <div class="col-span-8">
                                 <div class="flex justify-between items-center">
@@ -162,6 +165,6 @@ onMounted(fetchData);
 definePageMeta({
     layout: 'socialhub-three-column',
     middleware: ['role'],
-    requiredRole: ['admin', 'coach', 'business_manager', 'player', 'parent', 'default'],
+    requiredRole: ['coach'],
 });
 </script>
