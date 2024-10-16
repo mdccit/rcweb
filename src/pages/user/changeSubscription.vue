@@ -103,8 +103,8 @@
                 </div>
             </div>
             <div class="flex-1">
-                <div class="border w-[230px] rounded-lg mx-auto text-center p-3">
-                    <h3 class=" font-medium text-black mb-2">Standard</h3>
+                <div class="border w-[230px] rounded-lg mx-auto text-center p-3 pro-pack">
+                    <h3 class=" font-medium text-black mb-2">Premium</h3>
                     <h1 class="text-3xl font-medium text-black mb-2">$100</h1>
                     <p class="text-xs mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                         eiusmod
@@ -166,9 +166,6 @@
                     </p>
 
                     <div class="mb-4 mt-12">
-                        <div class="mb-3 text-blue-500 text-xs">
-                            <p>Start Free Trial</p>
-                        </div>
                         <label class="inline-flex items-center mb-5 cursor-pointer">
                             <input type="checkbox" value="" class="sr-only peer">
                             <div
@@ -177,6 +174,11 @@
                             <span class="ms-3 text-xs font-medium text-gray-900 dark:text-gray-300">Auto
                                 renew</span>
                         </label>
+                        
+                        <div class="mb-3 text-blue-500 text-xs">
+                            <p>Start Free Trial</p>
+                        </div>
+                        
                         <button type="submit"
                             class="border rounded-lg shadow-sm font-normal py-2 px-4 text-xs bg-steelBlue text-white w-full">
                             <svg v-if="loading" aria-hidden="true" role="status"
@@ -236,5 +238,10 @@ definePageMeta({
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.pro-pack{
+    background: #f9fbff;
+    border: solid 1px #4090dd;
 }
 </style>
