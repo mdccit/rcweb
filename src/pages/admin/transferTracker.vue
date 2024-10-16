@@ -19,8 +19,9 @@
     </header>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">        
+            <TransferTrackerTable></TransferTrackerTable>
+            <TransferTrackerTableCreateModal v-if="showModal" @close="showModal = false" ref="schoolModal" />
         </div>
 
     </div>
@@ -28,6 +29,12 @@
 </template>
 
 <script setup>
+
+import TransferTrackerTable from '~/components/tables/AdminTransferTrackerTable.vue';
+import TransferTrackerTableCreateModal from '~/components/shared/transferTrackerCreateModal.vue';
+
+
+const showModal = ref(false);
 
 // Method to open the modal
 const openCreateTransferTrackerModal = () => {

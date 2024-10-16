@@ -1,7 +1,6 @@
 const createAdminService = (apiService) => {
-
   const new_user_register = async (request_body) => {
-    const url = '/admin/user-register';
+    const url = "/admin/user-register";
     const body = request_body;
 
     try {
@@ -12,14 +11,13 @@ const createAdminService = (apiService) => {
         if (error.response) {
           throw error.response; // Pass the full response for further handling
         } else {
-          throw new Error(error.message || 'Failed to featch user');
+          throw new Error(error.message || "Failed to featch user");
         }
       }
     }
   };
 
   const user_update = async (request_body) => {
-
     const url = `/admin/user-update/${request_body.user_id}`;
     const body = request_body;
 
@@ -27,73 +25,70 @@ const createAdminService = (apiService) => {
       const response = await apiService.putRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to update');
+      throw new Error(error.message || "Failed to update");
     }
   };
-  
+
   const list_users = async (role, lasteenAt, emailVerified) => {
-    let url=''
-    if(role==1){
+    let url = "";
+    if (role == 1) {
       url = `/admin/users?is_email_verified=${emailVerified}&last_seen_at=${lasteenAt}`;
-    }else{
+    } else {
       url = `/admin/users?is_email_verified=${emailVerified}&last_seen_at=${lasteenAt}&user_role=${role}`;
     }
-   
 
     try {
       const response = await apiService.getRequest(url);
       if (response && response.data && response.data && response.data.dataSets) {
         return response.data.dataSets;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
-
 
   const get_user_details = async (user_id) => {
     const url = `/admin/users/${user_id}`;
 
     try {
       const response = await apiService.getRequest(url);
-      if (response && response.data ) {
+      if (response && response.data) {
         return response.data;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
-  
-  const list_schools = async (current_page='',page = 1, per_page_items = 5,data) => {
-    current_page=''
-    const newData ={
-      role:data.role??'',
-      admin:data.admin??'',
-      govId:data.govId??'',
-      coordLat:data.coordLat??''
-    }
+
+  const list_schools = async (current_page = "", page = 1, per_page_items = 5, data) => {
+    current_page = "";
+    const newData = {
+      role: data.role ?? "",
+      admin: data.admin ?? "",
+      govId: data.govId ?? "",
+      coordLat: data.coordLat ?? "",
+    };
 
     const url = `/admin/schools?page=${page}&per_page_items=${per_page_items}&has_admins=${newData.admin}&is_verified=${newData.role}&has_coordinates=${newData.coordLat}&is_connected_to_school=${newData.govId}`;
-   
+
     try {
       const response = await apiService.getRequest(url);
       if (response && response.data && response.data.dataSets) {
         return response.data.dataSets;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to retrieve schools');
+      throw new Error(error.message || "Failed to retrieve schools");
     }
   };
 
-
   const school_register = async (request_body) => {
-    const url = '/admin/school-register';
+    const url = "/admin/school-register";
     const body = request_body;
 
     try {
@@ -103,13 +98,12 @@ const createAdminService = (apiService) => {
       if (error.response) {
         throw error.response; // Pass the full response to be handled in the frontend
       } else {
-        throw new Error(error.message || 'Failed to login');
+        throw new Error(error.message || "Failed to login");
       }
     }
   };
 
   const school_update = async (request_body) => {
-
     const url = `/admin/school-update/${request_body.school_id}`;
     const body = request_body;
 
@@ -117,7 +111,7 @@ const createAdminService = (apiService) => {
       const response = await apiService.putRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to update');
+      throw new Error(error.message || "Failed to update");
     }
   };
 
@@ -129,13 +123,12 @@ const createAdminService = (apiService) => {
       if (response && response.data) {
         return response.data;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to retrieve businesses');
+      throw new Error(error.message || "Failed to retrieve businesses");
     }
   };
-
 
   const get_school_details = async (user_id) => {
     const url = `/admin/schools/${user_id}`;
@@ -145,30 +138,27 @@ const createAdminService = (apiService) => {
       if (response && response.data) {
         return response.data;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to get details');
+      throw new Error(error.message || "Failed to get details");
     }
   };
 
-
-
-  const list_business = async (page = 1, per_page_items = 10,hasAdmin) => {
+  const list_business = async (page = 1, per_page_items = 10, hasAdmin) => {
     const url = `/admin/businesses?page=${page}&per_page_items=${per_page_items}&has_admins=${hasAdmin}`;
-  
+
     try {
       const response = await apiService.getRequest(url);
       if (response && response.data && response.data.dataSets) {
         return response.data.dataSets;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to retrieve businesses');
+      throw new Error(error.message || "Failed to retrieve businesses");
     }
   };
-
 
   const get_business_details = async (business_id) => {
     const url = `/admin/businesses/${business_id}`;
@@ -178,17 +168,15 @@ const createAdminService = (apiService) => {
       if (response && response.data) {
         return response.data;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to get details');
+      throw new Error(error.message || "Failed to get details");
     }
   };
 
-
-
   const business_register = async (request_body) => {
-    const url = '/admin/business-register';
+    const url = "/admin/business-register";
     const body = request_body;
 
     try {
@@ -198,13 +186,12 @@ const createAdminService = (apiService) => {
       if (error.response) {
         throw error.response; // Pass the full response to be handled in the frontend
       } else {
-        throw new Error(error.message || 'Failed to login');
+        throw new Error(error.message || "Failed to login");
       }
     }
   };
 
   const business_update = async (request_body) => {
-
     const url = `/admin/business-update/${request_body.business_id}`;
     const body = request_body;
 
@@ -212,10 +199,9 @@ const createAdminService = (apiService) => {
       const response = await apiService.putRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to update');
+      throw new Error(error.message || "Failed to update");
     }
   };
-
 
   const get_business_members = async (business_id) => {
     const url = `/admin/businesses/users/${business_id}`;
@@ -225,14 +211,14 @@ const createAdminService = (apiService) => {
       if (response) {
         return response;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to retrieve businesses');
+      throw new Error(error.message || "Failed to retrieve businesses");
     }
   };
 
-  const search_business_users = async (business_id, page, per_page_items, search_key = '') => {
+  const search_business_users = async (business_id, page, per_page_items, search_key = "") => {
     // Use 'let' to allow modification of the URL string
     let url = `/admin/businesses/search-users/${business_id}?page=${page}&per_page_items=${per_page_items}`;
 
@@ -246,40 +232,36 @@ const createAdminService = (apiService) => {
       if (response && response.data) {
         return response.data;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to retrieve businesses');
+      throw new Error(error.message || "Failed to retrieve businesses");
     }
   };
-
 
   const add_business_user = async (request_body) => {
-    const url = '/admin/businesses/add-user';
+    const url = "/admin/businesses/add-user";
     const body = request_body;
 
     try {
       const response = await apiService.postRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
-
 
   const add_school_user = async (request_body) => {
-    const url = '/admin/schools/add-user';
+    const url = "/admin/schools/add-user";
     const body = request_body;
 
     try {
       const response = await apiService.postRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
-
-
 
   const get_player_details = async (user_id) => {
     const url = `/admin/player-get/${user_id}`;
@@ -289,15 +271,14 @@ const createAdminService = (apiService) => {
       if (response && response.data && response.data.user_profile_info) {
         return response.data;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
 
   const player_update = async (user_id, request_body) => {
-
     const url = `/admin/player-update/${user_id}`;
     const body = request_body;
 
@@ -305,7 +286,7 @@ const createAdminService = (apiService) => {
       const response = await apiService.putRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to update');
+      throw new Error(error.message || "Failed to update");
     }
   };
 
@@ -317,10 +298,10 @@ const createAdminService = (apiService) => {
       if (response) {
         return response;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
 
@@ -332,10 +313,10 @@ const createAdminService = (apiService) => {
       if (response) {
         return response;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
 
@@ -347,10 +328,10 @@ const createAdminService = (apiService) => {
       if (response) {
         return response;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
 
@@ -362,25 +343,25 @@ const createAdminService = (apiService) => {
       if (response) {
         return response;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
 
-  const morderation_all =async (status) => {
+  const morderation_all = async (status) => {
     const url = `/admin/morderation-get-all?status=${status}`;
-  
+
     try {
       const response = await apiService.getRequest(url);
       if (response && response.data && response.data.dataSets) {
         return response.data.dataSets;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
   const morderation_get = async (morderation_id) => {
@@ -390,10 +371,10 @@ const createAdminService = (apiService) => {
       if (response && response.data) {
         return response.data;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
 
@@ -405,10 +386,10 @@ const createAdminService = (apiService) => {
       if (response && response.data) {
         return response.data;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
 
@@ -417,9 +398,9 @@ const createAdminService = (apiService) => {
     const body = request_body;
     try {
       const response = await apiService.putRequest(url, body);
-      return response
+      return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
 
@@ -428,9 +409,9 @@ const createAdminService = (apiService) => {
     const body = request_body;
     try {
       const response = await apiService.putRequest(url, body);
-      return response
+      return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
 
@@ -440,21 +421,20 @@ const createAdminService = (apiService) => {
     try {
       const response = await apiService.deleteRequest(url);
       return response;
-
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
 
   const morderation_comment_add = async (request_body) => {
-    const url = '/admin/morderation-comment-create';
+    const url = "/admin/morderation-comment-create";
     const body = request_body;
 
     try {
       const response = await apiService.postRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
 
@@ -463,9 +443,9 @@ const createAdminService = (apiService) => {
     const body = request_body;
     try {
       const response = await apiService.putRequest(url, body);
-      return response
+      return response;
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
 
@@ -477,15 +457,14 @@ const createAdminService = (apiService) => {
       if (response && response.data) {
         return response.data;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
 
-
-  const search_school_users = async (school_id, page, per_page_items, search_key = '') => {
+  const search_school_users = async (school_id, page, per_page_items, search_key = "") => {
     // Build the base URL
     let url = `/admin/schools/search-users/${school_id}?page=${page}&per_page_items=${per_page_items}`;
 
@@ -499,10 +478,10 @@ const createAdminService = (apiService) => {
       if (response && response.data) {
         return response.data;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to retrieve businesses');
+      throw new Error(error.message || "Failed to retrieve businesses");
     }
   };
 
@@ -514,216 +493,329 @@ const createAdminService = (apiService) => {
       if (response && response.data) {
         return response.data;
       } else {
-        throw new Error('Unexpected API response structure');
+        throw new Error("Unexpected API response structure");
       }
     } catch (error) {
-      throw new Error(error.message || 'Failed to register');
+      throw new Error(error.message || "Failed to register");
     }
   };
 
-const school_profile =async (school_id,profile_picture) => {
-  const url = `/admin/schools/upload-profile-picture/${school_id}`;
-  const formData = new FormData();
-  if (profile_picture) {
-    formData.append('file', profile_picture); 
-  } else {
-    throw new Error('No file selected'); 
-  }
-  try {
-    const response = await apiService.postMedia(url, formData);
-    return response;
-  } catch (error) {
-    console.log(error)
-    throw new Error(error.message || 'Failed to register');
-  }
-};
-
-const school_cover =async (school_id,cover_image) => {
-  const url = `/admin/schools/upload-cover-picture/${school_id}`;
-  const formData = new FormData();
-  if (cover_image) {
-    formData.append('file', cover_image); 
-  } else {
-    throw new Error('No file selected'); 
-  }
-  try {
-    const response = await apiService.postMedia(url, formData);
-    return response;
-  } catch (error) {
-    throw new Error(error.message || 'Failed to register');
-  }
-};
-
-const business_profile =async (business_id,profile_picture) => {
-  const url = `/admin/businesses/upload-profile-picture/${business_id}`;
-  const formData = new FormData();
-  if (profile_picture) {
-    formData.append('file', profile_picture); 
-  } else {
-    throw new Error('No file selected'); 
-  }
-  try {
-    const response = await apiService.postMedia(url, formData);
-    return response;
-  } catch (error) {
-    throw new Error(error.message || 'Failed to register');
-  }
-};
-
-const business_cover =async (business_id,cover_image) => {
-  const url = `/admin/businesses/upload-cover-picture/${business_id}`;
-  const formData = new FormData();
-  if (cover_image) {
-    formData.append('file', cover_image); 
-  } else {
-    throw new Error('No file selected'); 
-  }
-  try {
-    const response = await apiService.postMedia(url, formData);
-    return response;
-  } catch (error) {
-    throw new Error(error.message || 'Failed to register');
-  }
-};
-
-const user_profile =async (user_id,profile_picture) => {
-  const url = `/admin/users/upload-profile-picture/${user_id}`;
-  const formData = new FormData();
-  if (profile_picture) {
-    formData.append('file', profile_picture); 
-  } else {
-    throw new Error('No file selected'); 
-  }
-  try {
-    const response = await apiService.postMedia(url, formData);
-    return response;
-  } catch (error) {
-    throw new Error(error.message || 'Failed to register');
-  }
-};
-
-const user_profile_delete = async (media_id) => {
-  const url = `/admin/users/remove-media/${media_id}`;
-  try {
-    const response = await apiService.deleteRequest(url);
-
-    if (response) {
+  const school_profile = async (school_id, profile_picture) => {
+    const url = `/admin/schools/upload-profile-picture/${school_id}`;
+    const formData = new FormData();
+    if (profile_picture) {
+      formData.append("file", profile_picture);
+    } else {
+      throw new Error("No file selected");
+    }
+    try {
+      const response = await apiService.postMedia(url, formData);
       return response;
-    } else {
-      throw new Error('Unexpected API response structure');
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.message || "Failed to register");
     }
-  } catch (error) {
-    throw new Error(error.message || 'Failed to register');
-  }
-};
+  };
 
-const upload_user_media = async (formData) => {
-  // Extract user_slug from the formData to build the URL
-  const userId = formData.get('user_id');
-
-  // Ensure userSlug is present
-  if (!userId) {
-    throw new Error('User slug is missing from formData.');
-  }
-
-  const url = `/admin/users/upload-media/${userId}`;
-
-  try {
-    // Send the FormData directly as the body
-    const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
-
-    return response;
-  } catch (error) {
-    // Handle error response from the API
-    if (error.response) {
-      throw error.response; // Pass the full response for further handling
+  const school_cover = async (school_id, cover_image) => {
+    const url = `/admin/schools/upload-cover-picture/${school_id}`;
+    const formData = new FormData();
+    if (cover_image) {
+      formData.append("file", cover_image);
     } else {
-      throw new Error(error.message || 'Failed to upload media');
+      throw new Error("No file selected");
     }
-  }
-};
-
-const upload_school_media = async (formData) => {
-  // Extract user_slug from the formData to build the URL
-  const schoolId = formData.get('school_id');
-
-  // Ensure userSlug is present
-  if (!schoolId) {
-    throw new Error('School Id is missing from formData.');
-  }
-
-  const url = `/admin/schools/upload-media/${schoolId}`;
-
-  try {
-    // Send the FormData directly as the body
-    const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
-
-    return response;
-  } catch (error) {
-    // Handle error response from the API
-    if (error.response) {
-      throw error.response; // Pass the full response for further handling
-    } else {
-      throw new Error(error.message || 'Failed to upload media');
-    }
-  }
-};
-
-const school_media_delete = async (media_id) => {
-  const url = `/admin/schools/remove-media/${media_id}`;
-  try {
-    const response = await apiService.deleteRequest(url);
-
-    if (response) {
+    try {
+      const response = await apiService.postMedia(url, formData);
       return response;
-    } else {
-      throw new Error('Unexpected API response structure');
+    } catch (error) {
+      throw new Error(error.message || "Failed to register");
     }
-  } catch (error) {
-    throw new Error(error.message || 'Failed to register');
-  }
-};
+  };
 
-const upload_business_media = async (formData) => {
-  // Extract user_slug from the formData to build the URL
-  const businessId = formData.get('business_id');
-
-  // Ensure userSlug is present
-  if (!businessId) {
-    throw new Error('Business Id is missing from formData.');
-  }
-
-  const url = `/admin/businesses/upload-media/${businessId}`;
-
-  try {
-    // Send the FormData directly as the body
-    const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
-
-    return response;
-  } catch (error) {
-    // Handle error response from the API
-    if (error.response) {
-      throw error.response; // Pass the full response for further handling
+  const business_profile = async (business_id, profile_picture) => {
+    const url = `/admin/businesses/upload-profile-picture/${business_id}`;
+    const formData = new FormData();
+    if (profile_picture) {
+      formData.append("file", profile_picture);
     } else {
-      throw new Error(error.message || 'Failed to upload media');
+      throw new Error("No file selected");
     }
-  }
-};
-
-const business_media_delete = async (media_id) => {
-  const url = `/admin/businesses/remove-media/${media_id}`;
-  try {
-    const response = await apiService.deleteRequest(url);
-
-    if (response) {
+    try {
+      const response = await apiService.postMedia(url, formData);
       return response;
-    } else {
-      throw new Error('Unexpected API response structure');
+    } catch (error) {
+      throw new Error(error.message || "Failed to register");
     }
-  } catch (error) {
-    throw new Error(error.message || 'Failed to register');
-  }
-};
+  };
+
+  const business_cover = async (business_id, cover_image) => {
+    const url = `/admin/businesses/upload-cover-picture/${business_id}`;
+    const formData = new FormData();
+    if (cover_image) {
+      formData.append("file", cover_image);
+    } else {
+      throw new Error("No file selected");
+    }
+    try {
+      const response = await apiService.postMedia(url, formData);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || "Failed to register");
+    }
+  };
+
+  const user_profile = async (user_id, profile_picture) => {
+    const url = `/admin/users/upload-profile-picture/${user_id}`;
+    const formData = new FormData();
+    if (profile_picture) {
+      formData.append("file", profile_picture);
+    } else {
+      throw new Error("No file selected");
+    }
+    try {
+      const response = await apiService.postMedia(url, formData);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || "Failed to register");
+    }
+  };
+
+  const user_profile_delete = async (media_id) => {
+    const url = `/admin/users/remove-media/${media_id}`;
+    try {
+      const response = await apiService.deleteRequest(url);
+
+      if (response) {
+        return response;
+      } else {
+        throw new Error("Unexpected API response structure");
+      }
+    } catch (error) {
+      throw new Error(error.message || "Failed to register");
+    }
+  };
+
+  const upload_user_media = async (formData) => {
+    // Extract user_slug from the formData to build the URL
+    const userId = formData.get("user_id");
+
+    // Ensure userSlug is present
+    if (!userId) {
+      throw new Error("User slug is missing from formData.");
+    }
+
+    const url = `/admin/users/upload-media/${userId}`;
+
+    try {
+      // Send the FormData directly as the body
+      const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
+
+      return response;
+    } catch (error) {
+      // Handle error response from the API
+      if (error.response) {
+        throw error.response; // Pass the full response for further handling
+      } else {
+        throw new Error(error.message || "Failed to upload media");
+      }
+    }
+  };
+
+  const upload_school_media = async (formData) => {
+    // Extract user_slug from the formData to build the URL
+    const schoolId = formData.get("school_id");
+
+    // Ensure userSlug is present
+    if (!schoolId) {
+      throw new Error("School Id is missing from formData.");
+    }
+
+    const url = `/admin/schools/upload-media/${schoolId}`;
+
+    try {
+      // Send the FormData directly as the body
+      const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
+
+      return response;
+    } catch (error) {
+      // Handle error response from the API
+      if (error.response) {
+        throw error.response; // Pass the full response for further handling
+      } else {
+        throw new Error(error.message || "Failed to upload media");
+      }
+    }
+  };
+
+  const school_media_delete = async (media_id) => {
+    const url = `/admin/schools/remove-media/${media_id}`;
+    try {
+      const response = await apiService.deleteRequest(url);
+
+      if (response) {
+        return response;
+      } else {
+        throw new Error("Unexpected API response structure");
+      }
+    } catch (error) {
+      throw new Error(error.message || "Failed to register");
+    }
+  };
+
+  const upload_business_media = async (formData) => {
+    // Extract user_slug from the formData to build the URL
+    const businessId = formData.get("business_id");
+
+    // Ensure userSlug is present
+    if (!businessId) {
+      throw new Error("Business Id is missing from formData.");
+    }
+
+    const url = `/admin/businesses/upload-media/${businessId}`;
+
+    try {
+      // Send the FormData directly as the body
+      const response = await apiService.postMedia(url, formData); // No need to set Content-Type, the browser handles it
+
+      return response;
+    } catch (error) {
+      // Handle error response from the API
+      if (error.response) {
+        throw error.response; // Pass the full response for further handling
+      } else {
+        throw new Error(error.message || "Failed to upload media");
+      }
+    }
+  };
+
+  const business_media_delete = async (media_id) => {
+    const url = `/admin/businesses/remove-media/${media_id}`;
+    try {
+      const response = await apiService.deleteRequest(url);
+
+      if (response) {
+        return response;
+      } else {
+        throw new Error("Unexpected API response structure");
+      }
+    } catch (error) {
+      throw new Error(error.message || "Failed to register");
+    }
+  };
+
+  const create_transfer_player = async (request_body) => {
+    const url = "/admin/transfer-player-register";
+    const body = request_body;
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      if (error) {
+        if (error.response) {
+          throw error.response; // Pass the full response for further handling
+        } else {
+          throw new Error(error.message || "Failed to create");
+        }
+      }
+    }
+  };
+
+  const get_transfer_players = async (search, utrMin, utrMax) => {
+    const url = `/admin/transfer-player?search_key=${search}&utr_min=${utrMin}&utr_max=${utrMax}`;
+    try {
+      const response = await apiService.getRequest(url);
+      return response;
+    } catch (error) {
+      if (error) {
+        if (error.response) {
+          throw error.response; // Pass the full response for further handling
+        } else {
+          throw new Error(error.message || "Failed to create");
+        }
+      }
+    }
+  };
+
+  const delete_transfer_player = async (id) => {
+    const url = `/admin/transfer-player-delete/${id}`;
+    try {
+      const response = await apiService.deleteRequest(url);
+      return response;
+    } catch (error) {
+      if (error) {
+        if (error.response) {
+          throw error.response; // Pass the full response for further handling
+        } else {
+          throw new Error(error.message || "Failed to create");
+        }
+      }
+    }
+  };
+
+  const get_transfer_player = async (id) => {
+    const url = `/admin/transfer-player/${id}`;
+    try {
+      const response = await apiService.getRequest(url);
+      return response;
+    } catch (error) {
+      if (error) {
+        if (error.response) {
+          throw error.response; // Pass the full response for further handling
+        } else {
+          throw new Error(error.message || "Failed to create");
+        }
+      }
+    }
+  };
+
+  const update_transfer_player = async (id, request_body) => {
+    const url = `/admin/transfer-player-update/${id}`;
+    const body = request_body;
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      if (error) {
+        if (error.response) {
+          throw error.response; // Pass the full response for further handling
+        } else {
+          throw new Error(error.message || "Failed to create");
+        }
+      }
+    }
+  };
+
+  const transfer_player_profile = async (user_id, profile_picture) => {
+    const url = `/admin/transfer-player/upload-profile-picture/${user_id}`;
+    const formData = new FormData();
+    if (profile_picture) {
+      formData.append("file", profile_picture);
+    } else {
+      throw new Error("No file selected");
+    }
+    try {
+      const response = await apiService.postMedia(url, formData);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || "Failed to register");
+    }
+  };
+
+  const transfer_player_profile_delete = async (media_id) => {
+    const url = `/admin/transfer-player/remove-media/${media_id}`;
+    try {
+      const response = await apiService.deleteRequest(url);
+
+      if (response) {
+        return response;
+      } else {
+        throw new Error("Unexpected API response structure");
+      }
+    } catch (error) {
+      throw new Error(error.message || "Failed to register");
+    }
+  };
 
   return {
     new_user_register,
@@ -770,7 +862,14 @@ const business_media_delete = async (media_id) => {
     upload_school_media,
     school_media_delete,
     upload_business_media,
-    business_media_delete
+    business_media_delete,
+    create_transfer_player,
+    get_transfer_players,
+    delete_transfer_player,
+    get_transfer_player,
+    update_transfer_player,
+    transfer_player_profile,
+    transfer_player_profile_delete,
   };
 };
 
