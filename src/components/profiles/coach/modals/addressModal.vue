@@ -280,12 +280,18 @@ const updatePlayerAddress = async () => {
             // Emit close event to parent to close the modal
             emit('close', 'address');
         } else {
+            console.log(response)
             nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
         }
 
     } catch (error) {
+        console.log(error.display_message)
         // Handle error
+        nuxtApp.$notification.triggerNotification("Some error has occur", 'failure');
+
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    }finally{
+        
     }
     loading.value = false;
 
