@@ -201,7 +201,7 @@
                       <button v-if="editingPostId == post.id" @click="startEditPost(post.id)"
                         class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-8 py-2 rounded-lg text-sm min-w-24"
                         :disabled="false">
-                        <svg v-if="false" aria-hidden="true" role="status"
+                        <svg v-if="postEdit" aria-hidden="true" role="status"
                           class="inline w-4 h-4 text-white animate-spin" viewBox="0 0 100 101" fill="none"
                           xmlns="http://www.w3.org/2000/svg">
                           <path
@@ -347,6 +347,7 @@ const $feedService = nuxtApp.$feedService;
 const likeButton = ref(false)
 const likeButtonDisable = ref([])
 const postAdd = ref(false)
+const postEdit = ref(false)
 const model_id = ref('');
 const editingPostId = ref(null)
 const userId = ref('')
@@ -606,6 +607,7 @@ const postEditingShow = (post_id, description) => {
 }
 
 const startEditPost = async (post_id) => {
+  postEdit.value = true;
   editingPostId.value = null
   try {
     nprogress.start();
@@ -624,6 +626,8 @@ const startEditPost = async (post_id) => {
     console.error('Failed to fetch comments:', error.message);
   } finally {
     nprogress.done();
+    postEdit.value = false;
+
   }
 }
 
