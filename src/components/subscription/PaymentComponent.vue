@@ -68,13 +68,16 @@
 import { ref, onMounted } from 'vue';
 import { loadStripe } from '@stripe/stripe-js';
 import { useNuxtApp, useRuntimeConfig } from '#app';
-import { useRouter } from 'vue-router';
+import { useRouter , useRoute} from 'vue-router';
 
 // Access services and configurations from Nuxt context
 const nuxtApp = useNuxtApp();
 const RuntimeConfig = useRuntimeConfig();
 const $authService = nuxtApp.$authService;
 const router = useRouter(); // Initialize router
+const route = useRoute();
+
+const subscriptionType = ref('');
 
 // Refs and state
 const stripe = ref(null);
@@ -130,6 +133,7 @@ onMounted(async () => {
     clientSecret.value = localStorage.getItem('setupIntentClientSecret');
     setupIntentId.value = localStorage.getItem('setupIntentId');
     stripePublicKey.value = RuntimeConfig.public.stripePublicKey;
+    subscriptionType.value = route.query.pacakge || 'monthly';
 
     if (!clientSecret.value || !setupIntentId.value) {
       cardError.value = 'Payment details are missing. Please refresh the page.';
@@ -178,7 +182,7 @@ const confirmPayment = async () => {
 
       // Now create the subscription
       const subscriptionDetails = {
-        subscription_type: 'monthly',
+        subscription_type: subscriptionType.value,
         is_auto_renewal: true,
         payment_method_id: paymentMethodId,
       };

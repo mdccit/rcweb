@@ -21,15 +21,25 @@
       <!-- Package Selection Section -->
       <form @submit.prevent="handleSubmitStep3">
         <div class="flex justify-center space-x-4">
-          <div v-for="pkg in packages" :key="pkg.value"
-            :class="['border w-[230px] rounded-lg text-center p-3 relative cursor-pointer', selectedPackage === pkg.value ? 'border-blue-500 bg-blue-100' : '']"
-            @click="selectedPackage = pkg.value">
+          <div
+            v-for="pkg in packages"
+            :key="pkg.value"
+            :class="[
+              'border w-[230px] rounded-lg text-center p-3 relative cursor-pointer', 
+              selectedPackage === pkg.value 
+                ? pkg.value === 'premium' 
+                  ? 'border-blue-500 bg-gold-100' // Gold color for premium
+                  : 'border-blue-500 bg-blue-100' // Default blue for other packages
+                : ''
+            ]"
+            @click="selectedPackage = pkg.value"
+          >
             <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0 peer" :id="pkg.value" type="radio"
               :value="pkg.value" v-model="selectedPackage" name="pkg" />
             <h3 class="font-medium text-black mb-2">{{ pkg.label }}</h3>
             <h1 class="text-3xl font-medium text-black mb-2">{{ pkg.price }}</h1>
             <p class="text-xs mb-5">{{ pkg.description }}</p>
-
+      
             <!-- Features List -->
             <div v-for="feature in pkg.features" :key="feature" class="text-xs flex text-center justify-center mb-2">
               <span class="text-limegreen ml-1">
@@ -41,8 +51,19 @@
               </span>
               {{ feature }}
             </div>
+      
+            <!-- Trial Toggle Button inside Premium Package -->
+            <div v-if="pkg.value === 'premium'" class="mt-4">
+              <button
+                @click.stop="toggleTrial"
+                class="bg-blue-500 text-white px-4 py-2 rounded-md"
+              >
+                {{ selectedPackage === 'trial' ? 'Switch to Premium' : 'Try Trial' }}
+              </button>
+            </div>
           </div>
         </div>
+
 
         <!-- Submit Button -->
         <div class="flex items-center justify-end mt-6">
@@ -81,7 +102,7 @@ const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 const router = useRouter(); // Initialize router
 const packageStore = usePackageStore();
-const selectedPackage = ref('');
+const selectedPackage = ref('premium');
 const errors = ref({});
 const loading = ref(false);
 const stripeCustomerId = ref('');
@@ -97,13 +118,6 @@ const packages = [
     features: ['Lorem ipsum dolor', 'Lorem ipsum dolor', 'Lorem ipsum dolor'],
   },
   {
-    value: 'trial',
-    label: 'Trial',
-    price: '$0.00',
-    description: 'Recruited Premium 1 month Trial Subscription',
-    features: ['Lorem ipsum dolor', 'Lorem ipsum dolor', 'Lorem ipsum dolor'],
-  },
-  {
     value: 'premium',
     label: 'Premium',
     price: '$100.00',
@@ -112,7 +126,10 @@ const packages = [
   },
 ];
 
-
+// Function to set the package to 'trial' when 'Try Trial' is clicked
+const setTrialPackage = () => {
+  selectedPackage.value = 'trial';
+};
 
 // Fetch Stripe Customer ID on component load
 onMounted(async () => {
@@ -151,7 +168,7 @@ const handleSubmitStep3 = async () => {
           packageStore.setPaymentToken(payment_token);
 
           // Step 4: Redirect to the /payment page
-          router.push(`/payment/${payment_token}`);
+          router.push(`/payment/${payment_token}?package=${selectedPackage.value}`);
 
         } else {
           // Throw error if setupIntent is invalid
@@ -214,5 +231,10 @@ label {
 .size-4 {
   height: 16px;
   width: 16px;
+}
+
+.bg-gold-100 {
+  background-color: #ffd700;
+  /* Gold color */
 }
 </style>
