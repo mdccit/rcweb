@@ -10,7 +10,7 @@
                 <h2 class="font-bold text-lg self-center text-black"> Editing    {{  name }}</h2>
             </div>
             <div>
-                <a href="https://qa1.recruited.qualitapps.com/app/business/9c7d0c22-c388-4383-8da0-4d83319cf4ba">
+                <NuxtLink :to="`/app/profile/business/${slug}`">
                     <button type="submit" class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
                         View
                         <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -18,7 +18,7 @@
                             <path d="M8 7l9 0l0 9"></path>
                         </svg>
                     </button>
-                </a>
+                </NuxtLink>
             </div>
         </div>
     </div>
@@ -77,13 +77,14 @@ const notificationMessage = ref('');
 const loading = ref(false);
 const notification_type = ref('');
 const notificationKey = ref(0);
-
+const slug = ref('')
 // Fetch business details
 const fetchBusinessDetails = async () => {
   try {
     const data = await $adminService.get_business_details(business_id.value);
     business_id.value = data.business_info.id;
     name.value = data.business_info.name;
+    slug.value = data.business_info.slug;
     if( data.media_info){
         setGalleryItems(data.media_info)
     }

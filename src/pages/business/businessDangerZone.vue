@@ -12,7 +12,7 @@
                 <h2 class="font-bold text-lg self-center text-black"> Editing: {{ name }} </h2>
             </div>
             <div class="">
-                <NuxtLink to="/app/u/9c9ad039-6106-40d6-92de-b5c7556b05a7"><button type="submit"
+                <NuxtLink :to="`/app/profile/business/${slug}`"><button type="submit"
                         class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
                         View <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -85,7 +85,7 @@ const notificationMessage = ref('');
 const showNotification = ref(false);
 const showModal = ref(false);
 const userStore = useUserStore()
-
+const slug = ref('')
 const email = userStore.user?.email;
 const token = userStore.user?.token;
 
@@ -114,7 +114,8 @@ const fetchBusinessDetails = async () => {
   try {
     const data = await $adminService.get_business_details(businesslId.value);
     name.value = data.business_info.name;
-   
+    slug.value = data.business_info.slug;
+
   } catch (error) {
     console.error('Error fetching business details:', error.message);
   }
