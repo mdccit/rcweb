@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-3">
+    <div class="mb-3 mt-3">
       <!-- Upload Media Section -->
       <form @submit.prevent="uploadMediaFiles" class="upload-form">
         <div
