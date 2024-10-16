@@ -13,7 +13,7 @@
           <h2 class="font-bold text-black text-lg self-center"> Editing: {{ name }}</h2>
         </div>
         <div>
-          <NuxtLink to="/school/9c2845cc-7676-45e1-b498-13f930b22e9b">
+          <NuxtLink :to="`/app/profile/school/${slug}`">
             <button type="submit"
               class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
               View
@@ -122,6 +122,7 @@ const notificationMessage = ref('');
 const loading = ref(false);
 const notification_type = ref('');
 const notificationKey = ref(0);
+const slug = ref('')
 
 
 
@@ -136,7 +137,7 @@ const fetchSchoolDetails = async () => {
     try {
         const data = await $adminService.get_school_details(school_id.value);
         name.value = data.school_info.name || '';
-     
+        slug.value = data.school_info.slug || '';
     } catch (error) {
       console.log(error)
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');

@@ -10,7 +10,7 @@
                             <path d="M15 6l-6 6l6 6"></path>
                         </svg>
                     </NuxtLink>
-                    <h2 class="font-bold text-black text-lg self-center">Create Resource </h2>
+                    <h2 class="font-bold text-black text-lg self-center">Edit Resource </h2>
                 </div>
                 <div>
 
@@ -92,7 +92,7 @@
                         <div class="my-8"></div>
                         <div class="my-8"></div><button  @click="submit"
                             class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-blue-600 active:bg-blue-600 text-white border-transparent focus:border-blue-300 focus:ring-blue-200">
-                            <div class="flex flex-row items-center justify-center"><!----><span class=""> Create
+                            <div class="flex flex-row items-center justify-center"><!----><span class=""> Save
                                     Resource </span></div>
                         </button>
                         <div class="my-8"></div>
@@ -110,8 +110,10 @@
   import { useRouter } from 'vue-router';
   import { useNuxtApp } from '#app';
   import { useFlowbite } from '~/composables/useFlowbite';
+  import { useRoute } from 'vue-router';
 
   const router = useRouter();
+  const route = useRoute(); 
 
   const nuxtApp = useNuxtApp();
   const $adminService = nuxtApp.$adminService;
@@ -120,6 +122,36 @@
   const title = ref('')
   const weight = ref('')
   const description = ref('')
+  const id = ref('')
+  const props = defineProps({
+    data: {
+       type: Object,
+       required: true,
+   },
+  });
+
+  watch(
+    () => route.query.resource_id,
+    () => {
+        setData()
+    }
+  );
+
+const setData = async() =>{
+    try{
+        const dataSets = await $adminService.get_resource_by_id( route.query.resource_id);
+        console.log(dataSets)
+         id.value = dataSets.data.dataSets.id
+    title.value =dataSets.data.dataSets.title
+    description.value =dataSets.data.dataSets.content
+    weight.value =dataSets.data.dataSets.weight
+    category_id.value =dataSets.data.dataSets.category_id
+
+    }catch(error){
+        console.log(error)
+    }
+   
+}
 definePageMeta({
     ssr: false,
     layout: 'admin',
@@ -128,8 +160,8 @@ definePageMeta({
 });
 
 onMounted(() => {
+    setData();
     fetchData();
-  
     useFlowbite(() => {
         initFlowbite();
     })
@@ -146,18 +178,18 @@ onMounted(() => {
       console.error('Error fetching data:', error.message);
     } finally {
     }
-    filterView()
+   // filterView()
   };
 
   const submit = async() =>{
-    const response = await $adminService.new_resource_create({
+    const response = await $adminService.resource_update({
+            resource_id:id.value,
             title:title.value,
             content:description.value,
             weight:weight.value,
             category_id:category_id.value
         });
-        clear()
-        nuxtApp.$notification.triggerNotification("Resorces Created", 'success');
+        nuxtApp.$notification.triggerNotification("Resorces Updated", 'success');
 
         // router.push({
         //     path: '/admin/resources'

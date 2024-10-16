@@ -324,6 +324,19 @@ const createAdminService = (apiService) => {
     }
   };
 
+  const search_school_sysnchronic_result = async (request_body) => {
+    
+    const url = `/admin/matchResult`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    }catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  }
+  
   const user_delete = async (user_id) => {
     const url = `/admin/user-delete/${user_id}`;
 
@@ -369,6 +382,33 @@ const createAdminService = (apiService) => {
     }
   };
 
+  const school_connect_gov = async (school_id,request_body) => {
+    
+    const url = `/admin/connect/${school_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+  const school_sync_history = async (school_id) => {
+    
+    const url = `/admin/history/${school_id}`;
+    try {
+      const response = await apiService.getRequest(url);
+      if (response  ) {
+        return response;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
   const morderation_all =async (status) => {
     const url = `/admin/morderation-get-all?status=${status}`;
   
@@ -505,6 +545,54 @@ const createAdminService = (apiService) => {
       throw new Error(error.message || 'Failed to retrieve businesses');
     }
   };
+
+      
+
+  const school_sync = async (school_id) => {
+    
+    const url = `/admin/sync/${school_id}`;
+    try {
+      const response = await apiService.getRequest(url);
+      return response
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
+
+  const school_sync_disconnect = async (school_id) => {
+    
+    const url = `/admin/disconnect/${school_id}`;
+    try {
+      const response = await apiService.getRequest(url);
+      return response
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
+
+  const school_sync_settings = async (school_id) => {
+    
+    const url = `/admin/sync-settings/${school_id}`;
+    try {
+      const response = await apiService.getRequest(url);
+      return response
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
+
+  const school_sync_settings_update = async (school_id,request_body) => {
+    
+    const url = `/admin/update-setting/${school_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  }
 
   const morderation_all_open_count = async () => {
     const url = `/admin/morderation-open-count`;
@@ -792,6 +880,92 @@ const get_resource = async () => {
   }
 };
 
+const resource_update = async (request_body) => {
+
+  const url = `/admin/resource-update/${request_body.resource_id}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to update');
+  }
+};
+
+const resource_category_update = async (request_body) => {
+
+  const url = `/admin/resource-categories-update/${request_body.category_id}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to update');
+  }
+};
+
+const resource_delete = async (resource_id) => {
+  const url = `/admin/resource-delete/${resource_id}`;
+  try {
+    const response = await apiService.deleteRequest(url);
+
+    if (response) {
+      return response;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+const resource_category_delete = async (category_id) => {
+  const url = `/admin/resource-categories-delete/${category_id}`;
+  try {
+    const response = await apiService.deleteRequest(url);
+
+    if (response) {
+      return response;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+const get_resource_by_id = async (resource_id) => {
+  const url = `/admin/resource-get/${resource_id}`;
+
+  try {
+    const response = await apiService.getRequest(url);
+    if (response ) {
+      return response;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+const get_resource_category_by_id = async (category_id) => {
+  const url = `/admin/resource-category/${category_id}`;
+
+  try {
+    const response = await apiService.getRequest(url);
+    if (response ) {
+      return response;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
   return {
     new_user_register,
     list_users,
@@ -813,10 +987,18 @@ const get_resource = async () => {
     business_update,
     get_player_details,
     player_update,
+    search_school_sysnchronic_result,
+    search_business_users,
     user_session_delete,
     user_delete,
     school_delete,
     business_delete,
+    school_connect_gov,
+    school_sync_history,
+    school_sync,
+    school_sync_disconnect,
+    school_sync_settings,
+    school_sync_settings_update,
     morderation_all,
     morderation_get,
     morderation_comments,
@@ -841,8 +1023,17 @@ const get_resource = async () => {
     resource_category,
     new_resource_category_create,
     new_resource_create,
-    get_resource
+    get_resource,
+    resource_update,
+    resource_category_update,
+    resource_delete,
+    resource_category_delete,
+    get_resource_by_id,
+    get_resource_category_by_id
   };
-};
+
+
+
+    };
 
 export default createAdminService;

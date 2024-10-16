@@ -59,31 +59,58 @@
 import { ref, computed, watch, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 const router = useRouter();
+const route = useRoute(); 
 
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
-
+const  name = ref('');
+const icon = ref('');
+const  description = ref('');
+const id = ref('')
 definePageMeta({
     ssr: false,
     layout: 'admin',
     middleware: ['role'],
     requiredRole: ['admin'],
 });
+onMounted(()=>{
+    setData()
+})
+watch(
+    () => route.query.cat_id,
+    () => {
+        setData()
+    }
+  );
 
-const  name = ref('');
-const icon = ref('');
-const  description = ref('');
+  const setData = async() =>{
+    try{
+        const dataSets = await $adminService.get_resource_category_by_id( route.query.cat_id);
+        console.log(dataSets)
+         id.value = dataSets.data.dataSets.id
+         name.value =dataSets.data.dataSets.title
+         description.value =dataSets.data.dataSets.description
+         icon.value =dataSets.data.dataSets.icon
+
+    }catch(error){
+        console.log(error)
+    }
+   
+}
+
 
 const handleRequest = async () =>{
     try {
-        const response = await $adminService.new_resource_category_create({
+        const response = await $adminService.resource_category_update({
+            category_id:id.value,
             title:name.value,
             description:description.value,
             icon:icon.value
         });
-        nuxtApp.$notification.triggerNotification("Category Created", 'success');
+        nuxtApp.$notification.triggerNotification("Category Updated", 'success');
         // router.push({
         //     path: '/admin/resoucesCategory'
         // });
