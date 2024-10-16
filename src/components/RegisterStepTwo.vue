@@ -152,8 +152,8 @@
             </div>
             <ul>
               <li> <span v-if="errors.phone_code_country" class="text-red-500 text-sm ">{{
-        errors.phone_code_country.join(',')
-      }}</span> </li>
+                errors.phone_code_country.join(',')
+                  }}</span> </li>
               <li> <span v-if="errors.phone_number" class="text-red-500 text-sm ">{{ errors.phone_number.join(', ')
                   }}</span></li>
             </ul>
@@ -233,7 +233,7 @@
                   class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                   placeholder="In" :required="roleFields.includes('height_in')" />
                 <span v-if="errors.height_in" class="text-red-500 text-sm absolute mt-[50px] ">{{
-        errors.height_in.join(', ') }}</span>
+                  errors.height_in.join(', ') }}</span>
 
               </div>
 
@@ -296,8 +296,8 @@
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 placeholder="Select Month/Year" />
               <span v-if="errors.graduation_month_year" class="text-red-500 text-sm ">{{
-        errors.graduation_month_year.join(', ')
-      }}</span>
+                errors.graduation_month_year.join(', ')
+                }}</span>
 
             </div>
 
@@ -347,8 +347,8 @@
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 placeholder="First Name" required />
               <span v-if="errors.player_first_name" class="text-red-500 text-sm absolute mb-3 mt-[50px] ">{{
-        errors.player_first_name.join(', ')
-      }}</span>
+                errors.player_first_name.join(', ')
+                }}</span>
 
             </div>
           </div>
@@ -361,8 +361,8 @@
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 placeholder="Last Name" required />
               <span v-if="errors.player_last_name" class="text-red-500 text-sm absolute mb-3 mt-[50px]">{{
-        errors.player_last_name.join(', ')
-      }}</span>
+                errors.player_last_name.join(', ')
+                }}</span>
 
             </div>
 
@@ -389,8 +389,8 @@
               <CountryDropdown :countries="countries" v-model="player_country" id="player_country"
                 label="Player Country" :required="roleFields.includes('player_country')" />
               <span v-if="errors.player_country" class="text-red-500 text-sm absolute mt-[50px]">{{
-        errors.player_country.join(', ')
-      }}</span>
+                errors.player_country.join(', ')
+                }}</span>
             </div>
 
 
@@ -419,7 +419,7 @@
                   :required="roleFields.includes('player_phone_code_country')" />
 
                 <span v-if="errors.player_phone_code_country" class="text-red-500 text-sm absolute mt-[50px]">{{
-        errors.player_phone_code_country.join(', ') }}</span>
+                  errors.player_phone_code_country.join(', ') }}</span>
               </div>
               <div class="flex rounded-lg border border-gray-300 shadow-sm col-span-3">
                 <input type="text" id="player_phone_number" v-model="player_phone_number"
@@ -427,8 +427,8 @@
                   placeholder="Player Number" :required="roleFields.includes('player_phone_number')" />
 
                 <span v-if="errors.player_phone_number" class="text-red-500 text-sm absolute mt-[50px]">{{
-        errors.player_phone_number.join(',')
-      }}</span>
+                  errors.player_phone_number.join(',')
+                  }}</span>
               </div>
 
             </div>
@@ -459,8 +459,8 @@
               <HandednessDropdown :handedness="handednesses" v-model="player_handedness" id="player_handedness"
                 :required="roleFields.includes('player_handedness')" label="Player Handedness" />
               <span v-if="errors.player_handedness" class="text-red-500 text-sm absolute mt-[50px]">{{
-        errors.player_handedness.join(', ')
-      }}</span>
+                errors.player_handedness.join(', ')
+                }}</span>
 
             </div>
           </div>
@@ -495,8 +495,8 @@
                   class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                   placeholder="Height in cm" />
                 <span v-if="errors.player_height_cm" class="text-red-500 text-sm absolute mt-[50px]">{{
-        errors.player_height_cm.join(', ')
-      }}</span>
+                  errors.player_height_cm.join(', ')
+                  }}</span>
 
               </div>
 
@@ -510,8 +510,8 @@
                   placeholder="Ft" required />
 
                 <span v-if="errors.player_height_ft" class="text-red-500 text-sm ">{{
-        errors.player_height_ft.join(',')
-      }}</span>
+                  errors.player_height_ft.join(',')
+                  }}</span>
               </div>
 
               <div class="flex rounded-lg border border-gray-300 shadow-sm col-span-5">
@@ -519,8 +519,8 @@
                   class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                   placeholder="In" required />
                 <span v-if="errors.player_height_in" class="text-red-500 text-sm ">{{
-        errors.player_height_in.join(',')
-      }}</span>
+                  errors.player_height_in.join(',')
+                  }}</span>
               </div>
             </div>
             <ul>
@@ -554,8 +554,8 @@
               <BudgetDropdown :player_budgets="budgets" v-model="player_budget" id="player_budget"
                 label="Player Budget" />
               <span v-if="errors.player_budget" class="text-red-500 text-sm absolute mt-[50px]">{{
-        errors.player_budget.join(', ')
-      }}</span>
+                errors.player_budget.join(', ')
+                }}</span>
 
             </div>
 
@@ -569,7 +569,7 @@
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 placeholder="Player UTR" required />
               <span v-if="errors.player_utr" class="text-red-500 text-sm absolute mt-[50px]">{{
-        errors.player_utr.join(', ') }}</span>
+                errors.player_utr.join(', ') }}</span>
 
             </div>
 
@@ -583,7 +583,7 @@
                 class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                 placeholder="Player GPA" required />
               <span v-if="errors.player_gpa" class="text-red-500 text-sm absolute mt-[50px]">{{
-        errors.player_gpa.join(', ') }}</span>
+                errors.player_gpa.join(', ') }}</span>
 
             </div>
 
@@ -599,8 +599,8 @@
                 placeholder="Player Graduation Month/Year"
                 :required="roleFields.includes('player_graduation_month_year')" />
               <span v-if="errors.player_graduation_month_year" class="text-red-500 text-sm absolute mt-[50px]">{{
-        errors.player_graduation_month_year.join(', ')
-      }}</span>
+                errors.player_graduation_month_year.join(', ')
+                }}</span>
             </div>
           </div>
 
@@ -660,7 +660,7 @@
         </div>
 
         <div class="flex items-center justify-end mt-6">
-          <button type="submit"  :disabled="loading"
+          <button type="submit" :disabled="loading"
             class="border rounded-full shadow-sm py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-darkAzureBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue ml-4 !px-8 !py-2.5 transition">
             <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
               viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -683,7 +683,7 @@
 
 
 <script setup>
-import { ref, nextTick  } from 'vue';
+import { ref, nextTick } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useUserStore } from '~/stores/userStore';
 import { loadCountryList, loadNationalityList, loadBudgetList, loadGenderList, loadHandnessList } from '~/services/commonService';

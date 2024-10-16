@@ -16,7 +16,7 @@
             <div class="col-start-6 col-end-7 row-start-2 row-end-3"> 
                 <SchoolRight :data="schoolData"  :schoolSlug="route.params.slug"  />
             </div>
-            <div class="col-start-2 col-end-6 row-start-2 row-end-3">
+            <div class="col-start-2 col-end-6 row-start-2 row-end-3 px-3 pt-3">
                 <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="loadInitfintePost" :commentHidden="isHidddenComment" />
                 <Member v-if="tab == 'member'"  :members="members" :logUserInTheSchool="logUserInTheSchool" @getMember="fetchSchooleDatils" />
                 <Team  v-if="tab == 'team'" :team="team" :members="members" :schoolId="schoolId"  @getSchoolTeam="getSchoolTeam" :logUserInTheSchool="logUserInTheSchool"/>
