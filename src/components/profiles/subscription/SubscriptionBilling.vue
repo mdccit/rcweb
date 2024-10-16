@@ -153,9 +153,12 @@
 import { ref, onMounted } from 'vue';
 import { usePackageStore } from '@/stores/packageStore';
 import { useNuxtApp, useRuntimeConfig } from '#app';
+import { useRouter , useRoute} from 'vue-router';
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const RuntimeConfig = useRuntimeConfig().public;
+const router = useRouter(); // Initialize router
+const route = useRoute();
 
 const $subscriptionService = nuxtApp.$subscriptionService;
 const subscription = ref([]);
