@@ -7,7 +7,7 @@
     <div v-else id="dataContainer" class="infinite-scroll-container">
 
       <div v-for="post in props.posts" :key="post.id"
-        class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-5 mt-3">
+        class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-5 mb-3">
         <div class="flex items-start space-x-4">
           <div class="flex-1">
             <div>
