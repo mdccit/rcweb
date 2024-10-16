@@ -22,7 +22,7 @@
             </svg>
           </button>
           <!-- Dropdown Menu -->
-          <div id="dropdowntable"
+          <!-- <div id="dropdowntable"
             class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 hidden p-3 table-filter-dropDown">
             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
   
@@ -38,7 +38,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
   
         <!-- <button
@@ -57,35 +57,35 @@
   
       <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" class="cursor-pointer min-h-[350px]":default-sort="{ prop: 'joined_at', order: 'descending' }">
       
-        <el-table-column class="tealGaray" prop="total_members" label="TITLE" sortable>
+        <el-table-column class="tealGaray" prop="title" label="TITLE" sortable>
           <template v-slot="scope">
            
           </template>
         </el-table-column>
   
   
-        <el-table-column class="tealGaray" prop="editors" label="CREATE DATE" sortable>
+        <el-table-column class="tealGaray" prop="created_at" label="CREATE DATE" sortable>
           <template v-slot="scope">
-            
+            {{ getTimeAgo(scope.row.created_at) }}
           </template>
         </el-table-column>
   
      
-        <el-table-column class="tealGaray" prop="viewers" label="ACTION" sortable>
+        <!-- <el-table-column class="tealGaray" prop="viewers" label="ACTION" sortable>
           <template v-slot="scope">
            
           </template>
-        </el-table-column>
+        </el-table-column> -->
   
         <!-- Actions Column -->
-        <!-- <el-table-column label="Actions">
+        <el-table-column label="Actions">
             <template v-slot="scope">
               <el-dropdown>
                 <template #dropdown>
                   <el-dropdown-menu>
-                    <el-dropdown-item @click.native="viewDetails(scope.row)">View Details</el-dropdown-item>
-                    <el-dropdown-item @click.native="editRecord(scope.row)">Edit Record</el-dropdown-item>
-                    <el-dropdown-item @click.native="manageMembers(scope.row)">Manage Members</el-dropdown-item>
+                    <!-- <el-dropdown-item @click.native="viewDetails(scope.row)">View Details</el-dropdown-item> -->
+                    <el-dropdown-item @click.native="editRecord(scope.row)">Edit</el-dropdown-item>
+                    <el-dropdown-item @click.native="deleteRecord(scope.row)">Delete</el-dropdown-item>
                   </el-dropdown-menu>
                 </template>
                 <el-button size="small" class="inline-flex items-center text-sm ml-2">
@@ -100,12 +100,14 @@
                 </el-button>
               </el-dropdown>
             </template>
-          </el-table-column> -->
+          </el-table-column>
       </el-table>
   
       <el-pagination v-model:current-page="options.page" :page-size="options.itemsPerPage" :total="totalItems"
         layout="prev, pager, next" @current-change="handlePageChange"></el-pagination>
     </el-card>
+    <adminResourceDelete :isVisible="showModal" @close="showModal = false" :resourceId="resourceId" @setData="fetchData"
+     />
   </template>
   
   <script setup>
@@ -114,11 +116,15 @@
   import { useRouter } from 'vue-router';
   import { useNuxtApp } from '#app';
   import { useFlowbite } from '~/composables/useFlowbite';
-  
+  import adminResourceDelete from '~/components/admin/user/adminResourceDelete.vue';
+
   const router = useRouter();
   const search = ref('');
   const items = ref([]);
   const totalItems = ref(0);
+  const showModal = ref(false)
+  const resourceId = ref('')
+
   const options = ref({
     page: 1,
     itemsPerPage: 10,
@@ -137,10 +143,10 @@
       const search_term = search.value; // Get the search term
   
       // Fetch data from the server with pagination and search parameters
-      const dataSets = await $adminService.list_business(current_page, per_page_items, hasAdmin.value);
+      const dataSets = await $adminService.get_resource();
   
       // Update the table data
-      items.value = dataSets.data; // Data for the current page
+      items.value = dataSets.dataSets; // Data for the current page
       totalItems.value = dataSets.total; // Total number of items across all pages
       options.value.page = dataSets.current_page; // Current page
       options.value.itemsPerPage = dataSets.per_page; // Items per page
@@ -221,28 +227,24 @@
   });
   
   
-  // Function to navigate to view details
-  const viewDetails = (row) => {
-    router.push({
-      path: '/business/businessGeneral',
-      query: {
-        action: 'view',
-        business_id: row.id
-      }
-    });
-  };
+ ;
   
   // Function to navigate to edit record
   const editRecord = (row) => {
     router.push({
-      path: '/business/businessGeneral',
+      path: '/admin/resourcesEdit',
       query: {
         action: 'edit',
-        business_id: row.id
+        resource_id: row.id
       }
     });
   };
   
+  const deleteRecord = (row) => {
+  
+    resourceId.value = row.id
+    showModal.value = true
+  };
   const manageMembers = (row) => {
     router.push({
       path: '/business/businessMembers',
@@ -257,6 +259,23 @@
     editRecord(row);
   };
   
+
+  const getTimeAgo = (date) => {
+    const secondsAgo = Math.floor((new Date() - new Date(date)) / 1000);
+    let interval = Math.floor(secondsAgo / 31536000);
+    if (interval >= 1) return interval === 1 ? '1 year ago' : `${interval} years ago`;
+      interval = Math.floor(secondsAgo / 2592000);
+    if (interval >= 1) return interval === 1 ? '1 month ago' : `${interval} months ago`;
+      interval = Math.floor(secondsAgo / 604800);
+    if (interval >= 1) return interval === 1 ? '1 week ago' : `${interval} weeks ago`;
+       interval = Math.floor(secondsAgo / 86400);
+    if (interval >= 1) return interval === 1 ? '1 day ago' : `${interval} days ago`;
+       interval = Math.floor(secondsAgo / 3600);
+    if (interval >= 1) return interval === 1 ? '1 hour ago' : `${interval} hours ago`;
+       interval = Math.floor(secondsAgo / 60);
+    if (interval >= 1) return interval === 1 ? '1 minute ago' : `${interval} minutes ago`;
+    return secondsAgo === 1 ? '1 second ago' : `${secondsAgo} seconds ago`;
+};
   
   
   </script>

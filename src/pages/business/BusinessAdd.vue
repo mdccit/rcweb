@@ -12,7 +12,7 @@
         <h2 class="font-bold text-black text-lg self-center"> Editing: {{ name }}  </h2>
       </div>
       <div>
-        <NuxtLink :to="{ path: '/business/businessGeneral', query: { action: 'edit', business_id: business_id } }">
+        <NuxtLink :to="`/app/profile/business/${slug}`">
           <button type="submit"
             class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
             View Business
@@ -110,7 +110,7 @@ const showNotification = ref(false);
 const notificationMessage = ref('');
 const notification_type = ref('');
 const notificationKey = ref(0);
-
+const slug = ref('')
 onMounted(() => {
   business_id.value = route.query.business_id || ''; 
   console.log('Business ID:', business_id.value);  // Log business_id to check its value
@@ -123,7 +123,8 @@ const fetchBusinessDetails = async () => {
   try {
     const data = await $adminService.get_business_details(business_id.value);
     name.value = data.business_info.name;
-   
+    slug.value = data.business_info.slug;
+
   } catch (error) {
     console.error('Error fetching business details:', error.message);
   }

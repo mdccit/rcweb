@@ -34,23 +34,32 @@
 
     <div class="space-y-2">
         <!-- Eligibility Dropdown -->
-        <div class="bg-culturedBlue rounded-lg">
-            <button
-                class="text-darkSlateBlue bg-culturedBlue rounded text-sm px-2 py-2.5 flex justify-between items-center w-full">
-                <span class="tex-xs mr-2">Eligibility</span>
-                <svg class="h-4 w-4 text-darkSlateBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
-                    </path>
-                </svg>
-            </button>
+         <div v-for="category in category">
+            <div class="bg-culturedBlue rounded-lg">
+                <button @click="resourceAddDelete(category.id)"
+                    class="text-darkSlateBlue bg-culturedBlue rounded text-sm px-2 py-2.5 flex justify-between items-center w-full">
+                    <span class="tex-xs mr-2">{{ category.title }}</span>
+                    <div v-if="category.resources.length >0">
+                        <svg class="h-4 w-4 text-darkSlateBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                       </path>
+                    </svg>
+                    </div>
+                    
+                </button>
+            </div>
+            <div v-if="resourceView.includes(category.id)" v-for="resource in category.resources" class="bg-culturedBlue rounded-lg">
+                <div @click="redirectResource(resource)">
+                    <span class="cursor-pointer tex-xs mr-2 text-white bg-steelBlue rounded text-sm px-2 py-2.5 flex justify-between items-center w-full">{{ resource.title }}</span>
+                </div>
+               
+            </div>
         </div>
-        <div class="bg-culturedBlue rounded-lg">
-                <span class="tex-xs mr-2 text-white bg-steelBlue rounded text-sm px-2 py-2.5 flex justify-between items-center w-full">Pro Tennis Eligibility Guide</span>
-        </div>
+        
 
         <!-- Immigration/Visa -->
-        <div class="bg-culturedBlue rounded-lg">
+        <!-- <div class="bg-culturedBlue rounded-lg">
             <button
                 class="text-darkSlateBlue bg-culturedBlue rounded text-sm px-2 py-2.5 flex justify-between items-center w-full">
                 <span class="tex-xs mr-2">Immigration/Visas</span>
@@ -60,10 +69,10 @@
                     </path>
                 </svg>
             </button>
-        </div>
+        </div> -->
 
         <!-- Transfer Information -->
-        <div class="bg-culturedBlue rounded-lg">
+        <!-- <div class="bg-culturedBlue rounded-lg">
             <button
                 class="text-darkSlateBlue bg-culturedBlue rounded text-sm px-2 py-2.5 flex justify-between items-center w-full">
                 <span class="tex-xs mr-2">Transfer Information</span>
@@ -73,10 +82,10 @@
                     </path>
                 </svg>
             </button>
-        </div>
+        </div> -->
 
         <!-- Life in the USA -->
-        <div class="bg-culturedBlue rounded-lg">
+        <!-- <div class="bg-culturedBlue rounded-lg">
             <button
                 class="text-darkSlateBlue bg-culturedBlue rounded text-sm px-2 py-2.5 flex justify-between items-center w-full">
                 <span class="tex-xs mr-2">Life in the USA</span>
@@ -86,10 +95,10 @@
                     </path>
                 </svg>
             </button>
-        </div>
+        </div> -->
 
         <!-- NIL Information -->
-        <div class="bg-culturedBlue rounded-lg">
+        <!-- <div class="bg-culturedBlue rounded-lg">
             <button
                 class="text-darkSlateBlue bg-culturedBlue rounded text-sm px-2 py-2.5 flex justify-between items-center w-full">
                 <span class="tex-xs mr-2">NIL Information</span>
@@ -99,10 +108,10 @@
                     </path>
                 </svg>
             </button>
-        </div>
+        </div> -->
 
         <!-- Navigating Recruited -->
-        <div class="bg-culturedBlue rounded-lg">
+        <!-- <div class="bg-culturedBlue rounded-lg">
             <button
                 class="w-full flex justify-between items-center p-3 rounded-lg text-left text-darkSlateBlue bg-culturedBlue">
                 <span  class="tex-xs mr-2">Navigating Recruited</span>
@@ -112,10 +121,10 @@
                     </path>
                 </svg>
             </button>
-        </div>
+        </div> -->
 
         <!-- College Tennis Format -->
-        <div class="bg-culturedBlue rounded-lg">
+        <!-- <div class="bg-culturedBlue rounded-lg">
             <button
                 class="w-full flex justify-between items-center p-3 rounded-lg text-left text-darkSlateBlue bg-culturedBlue">
                 <span class="tex-xs mr-2">College Tennis Format</span>
@@ -125,15 +134,73 @@
                     </path>
                 </svg>
             </button>
-        </div>
+        </div> -->
     </div>
 </div>
 
 </div>
 </template>
 
-<script>
-export default {
-    name: 'network-left'
+<script setup>
+// export default {
+//     name: 'network-left'
+// }
+
+import { ref, onMounted } from 'vue';
+import { useNuxtApp } from '#app';
+import { useUserStore } from '@/stores/userStore';
+
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const userStore = useUserStore();
+
+const nuxtApp = useNuxtApp();
+const $userService = nuxtApp.$userService;
+const category = ref([])
+const resourceView = ref([])
+onMounted(() => {
+    fetchResourcresCategory()
+
+});
+
+const fetchResourcresCategory = async () => {
+  try {
+     const response = await $userService.get_resource_category();
+     category.value = response.dataSets
+    console.log(response)
+    //const filteredData = response.filter(item => item.user_id === coachId.value);
+    // posts.value = response
+   
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
+  }
+}
+
+const resourceAddDelete = (data) =>{
+    let array = resourceView.value
+    if (array.includes(data)) {
+        console.log("The array contains 6.");
+        let index = array.indexOf(data);
+        if (index !== -1) {
+            array.splice(index, 1); // Removes 1 element at the position of index
+        }
+
+        resourceView.value =array
+    } else {
+        console.log("The array does not contain 6.");
+        array.push(data);
+        resourceView.value = array
+    }
+
+    console.log(resourceView.value)
+}
+
+const redirectResource = (resource) =>{
+    userStore.setResourceData(resource)
+    router.push({
+    path: '/user/resources'
+  });
 }
 </script>

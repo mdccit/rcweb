@@ -13,7 +13,7 @@
              <!-- <transfer-tracker-left-bar /> -->
              <!-- <NetworkLeft /> -->
             <!-- <Filter v-if="route.meta.showFilterLeft" /> -->
-            <!-- <resources-left-bar /> -->
+            <ResourcesLeftBar />
              <!-- <userSettingLeftBar /> -->
           </div>
 

@@ -13,17 +13,17 @@
                     <h2 class="font-bold text-black text-lg self-center">Resources </h2>
                 </div>
                 <div>
-                    <button type="submit"
+                    <button @click="viewCategory"
                         class="border rounded-full mr-2 shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
-                        View Post 
+                        Categories
                     </button>
 
-                    <button type="submit" class=" border rounded-full shadow-sm font-bold py-2.5 px-8 
+                    <button  @click="createResources" class=" border rounded-full shadow-sm font-bold py-2.5 px-8 
                         focus:outline-none
                         bg-blue-500 hover:bg-blue-700 
                         active:bg-blue-600 text-white 
                         border-transparent focus:border-primary-300 
-                        focus:ring-blue-700" @click="showModal = true">
+                        focus:ring-blue-700">
                         Create new
                         <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -43,6 +43,9 @@
 
 <script setup>
 import AdminResourcesTable from '~/components/tables/AdminResourcesTable.vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 
 definePageMeta({
@@ -52,5 +55,18 @@ definePageMeta({
     requiredRole: ['admin'],
 });
 
+
+const viewCategory = () =>{
+    router.push({
+       path: '/admin/resoucesCategory'
+    });
+}
+
+const createResources = () =>{
+    
+    router.push({
+       path: '/admin/resourcesCreateNew'
+    });
+}
 </script>
 <style scoped></style>
