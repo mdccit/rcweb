@@ -243,7 +243,7 @@
                         <div class="col-span-2">
                             <label class="block">
                                 <span class="block mb-1 text-gray-700 font-sans">
-                                    Phone
+                                    Mobile no
                                     <span aria-hidden="true" class="text-red-600"
                                         title="This field is required">*</span>
                                 </span>
@@ -262,9 +262,9 @@
                         <div class="col-span-8">
                             <div class="w-full no-asterisk">
                                 <label class="block">
-                                    <span class="block mb-1 text-gray-700 font-sans">
-                                        <span aria-hidden="true" class="text-red-600" title="This field is required">*
-                                        </span>
+                                    <span class="block mb-1 text-gray-700 font-sans mt-[26px]">
+                                        <!-- <span aria-hidden="true" class="text-white" title="This field is required">*
+                                        </span> -->
                                     </span>
 
                                     <div class="flex rounded-lg border border-gray-300 shadow-sm">

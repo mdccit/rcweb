@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-3">
     <!-- Upload Media Section -->
     <form @submit.prevent="uploadMedia" class="upload-form" v-if="loggedUserSlug == props.userSlug">
       <div

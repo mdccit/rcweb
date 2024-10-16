@@ -90,7 +90,7 @@ const items = ref([]);
 const totalItems = ref(0);
 const options = ref({
   page: 1,
-  itemsPerPage: 5,
+  itemsPerPage: 10,
 });
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
@@ -98,6 +98,8 @@ const $adminService = nuxtApp.$adminService;
 const hasAdmin = ref("");
 const filterApply = ref(false);
 const sort = ref({ prop: 'joined_at', order: 'descending' });
+
+
 
 
 // Function to fetch data from the server
@@ -109,7 +111,7 @@ const fetchData = async () => {
     const current_page = options.value.page;
 
     // Fetch business data
-    const businesses = await $adminService.list_business(current_page, per_page_items);
+    const businesses = await $adminService.list_business(current_page, 0);
     items.value = businesses;  // Current page data
     totalItems.value = businesses.total;  // Set total items for pagination
   } catch (error) {
@@ -117,7 +119,7 @@ const fetchData = async () => {
   } finally {
     loading.value = false;
   }
-  filterView()
+  filterView();
 };
 
 
@@ -156,64 +158,27 @@ const filteredItems = computed(() => {
   const end = start + options.value.itemsPerPage;
   return sorted.slice(start, end);
 });
-// const filteredItems = computed(() => {
-//   let filtered = Array.isArray(items.value) ? [...items.value] : []; // Ensure items.value is an array
-//   console.log('Items value:', items.value);
-//   // Apply search filtering
-//   if (search.value) {
-//     filtered = filtered.filter(item =>
-//       item.name.toLowerCase().includes(search.value.toLowerCase())
-//     );
-//   }
-
-//   // Update total items after filtering
-//   totalItems.value = filtered.length;
-
-//   // Apply pagination
-//   const start = (options.value.page - 1) * options.value.itemsPerPage;
-//   const end = start + options.value.itemsPerPage;
-//   return filtered.slice(start, end);
-// });
-
-
-
 
 const filterView = () => {
-
-
   filterApply.value = false;
 
   if (hasAdmin.value != '') {
     filterApply.value = true;
   }
-
-
   if (hasAdmin.value == '') {
     filterApply.value = false;
   }
-
-  console.log(filterApply.value)
 }
-
-// Watch pagination options and search term to refetch data
-watch([options, search], () => {
-  fetchData();
-}, { immediate: true });
-
-// On mount, fetch the initial data
-onMounted(() => {
-  fetchData();
-
-  useFlowbite(() => {
-    initFlowbite();
-  })
-});
-
 
 // Expose the fetchData method
 const refreshTable = () => {
   fetchData();
 };
+
+// Listen for the 'reload' event to refresh table data
+document.addEventListener('reload', () => {
+  fetchData(); // Reload the data
+});
 
 // Handle search submission
 const applySearch = () => {
@@ -253,6 +218,20 @@ const handleRowClick = (row) => {
   editRecord(row);
 };
 
+
+// Watch pagination options and search term to refetch data
+watch([options, search], () => {
+  fetchData();
+}, { immediate: true });
+
+// On mount, fetch the initial data
+onMounted(() => {
+  fetchData();
+
+  useFlowbite(() => {
+    initFlowbite();
+  })
+});
 
 
 </script>

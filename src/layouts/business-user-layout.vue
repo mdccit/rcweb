@@ -6,7 +6,7 @@
       :visible="showNotification" @close="closeNotification" :key="notificationKey" />
   </div>
 
-  <main>
+  <main class=" bg-graySnowDrift">
     <NavBarPublic></NavBarPublic>
     <div class="grid grid-cols-6 grid-rows-1 gap-0 mt-16">
       <div class="col-span-6 row-start-1 row-end-2s">
@@ -20,12 +20,16 @@
         <BusinessUserRight :data="businessUserData" :userSlug="route.params.slug" />
       </div>
       <div class="col-start-2 col-end-6 row-start-2 row-end-3">
+        <div class="px-3 pt-3">
+          <div class="pt-3">
         <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="loadInfinitePost"
           :commentHidden="isHiddenComment" />
+        </div>
         <Connection v-if="tab === 'connection'" :playerId="businessUserId" @profileView="redirectPage" />
         <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug"
           @uploadMedia="fetchUserDetailsBySlug" />
       </div>
+    </div>
     </div>
   </main>
   <FooterPublic></FooterPublic>

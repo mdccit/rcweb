@@ -8,7 +8,7 @@
             <div class="flex-1  text-right">
                 <div class=" text-right">
                     <div >
-                        <button @click="memberAdd" class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[100px]">
+                        <button @click="memberAdd" class="bg-blue-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[100px]">
                             Create Team +
                         </button>
                     </div>

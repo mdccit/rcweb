@@ -29,12 +29,12 @@
 
 
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-       
-        <schoolTable></schoolTable>
+
+        <schoolTable @reload="refreshTable"></schoolTable>
 
 
         <!-- Admin School Create Modal Component -->
-        <schoolCreateModal :isVisible="showModal" @close="showModal = false" ref="schoolModal" />
+        <schoolCreateModal :isVisible="showModal" @close="triggerTableReload" ref="schoolModal" />
 
     </div>
 
@@ -46,12 +46,20 @@ import { ref } from 'vue';
 import schoolTable from '~/components/tables/AdminSchoolTable.vue';
 import schoolCreateModal from '~/components/shared/schoolCreateModal.vue';
 import { useUserStore } from '~/stores/userStore';
-const userStore = useUserStore();
+
+definePageMeta({
+    ssr: true,
+    layout: 'admin',
+    middleware: ['role'],
+    requiredRole: ['admin'],
+});
+
 
 const showModal = ref(false);
 
 // Method to open the modal
 const openCreateSchoolModal = () => {
+    console.log('opening');
     showModal.value = true;
 };
 
@@ -60,12 +68,12 @@ const closeModal = () => {
     showModal.value = false;
 };
 
-definePageMeta({
-    ssr: true,
-    layout: 'admin',
-    middleware: ['role'],
-    requiredRole: ['admin'],
-});
+const triggerTableReload = () => {
+    showModal.value = false;
+    // Emit the custom event to AdminBusinessTable to reload the data
+    const event = new Event('reload');
+    document.dispatchEvent(event);
+};
 
 </script>
 
