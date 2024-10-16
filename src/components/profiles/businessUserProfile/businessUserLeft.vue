@@ -1,6 +1,6 @@
 <template>
-    <div class="p-2">
-        <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white  border-opacity-40 p-3 mt-4">
+        <div class="p-3">
+        <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3">
             <div class="flex items-center justify-between w-full">
                 <h1 class="text-lg font-semibold text-black">Bio</h1>
                 <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue" v-if="loggedUserSlug == props.userSlug" @click="toggleModal('bio')">
@@ -43,7 +43,7 @@
         </div> -->
 
         <div style="height:auto"
-            class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white  border-opacity-40 p-3 mt-3 h-auto">
+            class="  card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3">
             <div class="grid grid-cols-10 gap-2">
                 <div class="col-span-3 mx-auto">
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl" src="@/assets/user/images/Group 79.png" alt="">
@@ -64,6 +64,10 @@
             </div>
 
         </div>
+		
+		
+		
+	
 
         <!-- <div style="height: 60px;"
             class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">

@@ -27,7 +27,7 @@
                                                     <textarea id="user_bio" v-model="user_bio" autocomplete="user_bio"
                                                         class="w-full block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                         placeholder="" required>
-                                                    </textarea>
+                                            </textarea>
                                                 </div>
                                             </div>
 
