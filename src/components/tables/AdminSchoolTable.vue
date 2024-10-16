@@ -16,8 +16,9 @@
 
         <button type="button" aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdowntable"
           class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 ">
-          <svg xmlns="http://www.w3.org/2000/svg" :class="filterApply ==true ?'active-filter h-5 w-5 text-gray-400 mx-auto':'h-5 w-5 text-gray-400 mx-auto'" viewBox="0 0 20 20"
-            fill="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg"
+            :class="filterApply == true ? 'active-filter h-5 w-5 text-gray-400 mx-auto' : 'h-5 w-5 text-gray-400 mx-auto'"
+            viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd"
               d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
               clip-rule="evenodd"></path>
@@ -31,7 +32,7 @@
             <div class="mb-3">
               <label for="text-sm">Role </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
-                <select @change="fetchData" name="role"  v-model="role" 
+                <select @change="fetchData" name="role" v-model="role"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
                   <option value="verified"> Verified </option>
@@ -42,7 +43,7 @@
             <div class="mb-3">
               <label for="text-sm">Has Admin </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
-                <select name="filter-role" v-model="hasAdmin"  @change="fetchData"
+                <select name="filter-role" v-model="hasAdmin" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
                   <option value="has_admins"> Has Admin </option>
@@ -53,7 +54,7 @@
             <div class="mb-3">
               <label for="text-sm">GOV ID </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
-                <select name="filter-role" v-model="govId"  @change="fetchData"
+                <select name="filter-role" v-model="govId" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
                   <option value="connected_to_school"> Connected to school </option>
@@ -64,11 +65,11 @@
             <div class="mb-3">
               <label for="text-sm">Coords Lat </label>
               <div class="flex  border border-gray-300 shadow-sm rounded-[10px]">
-                <select name="filter-role"  v-model="coordLat"  @change="fetchData"
+                <select name="filter-role" v-model="coordLat" @change="fetchData"
                   class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                   <option value=""> - </option>
-                  <option value="has_coordinates">  Has Coordinates -- synced  </option>
-                  <option value="no_coordinates">  No Coordinates -- not synced  </option>
+                  <option value="has_coordinates"> Has Coordinates -- synced </option>
+                  <option value="no_coordinates"> No Coordinates -- not synced </option>
                 </select>
               </div>
             </div>
@@ -90,7 +91,8 @@
     </div>
 
     <!-- Data Table -->
-    <el-table :data="filteredItems" style="width: 100%" stripe  v-loading="loading" class="cursor-pointer min-h-[350px]"  @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
+    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" class="cursor-pointer min-h-[350px]"
+      @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
       <!-- Display Name Column -->
       <el-table-column class="tealGaray" prop="name" label="DISPLAY NAME" sortable></el-table-column>
 
@@ -153,10 +155,10 @@ const router = useRouter();
 const search = ref('');
 const items = ref([]);
 const totalItems = ref(0);
-const role =ref("");
-const hasAdmin =ref("");
-const govId =ref("");
-const coordLat =ref("");
+const role = ref("");
+const hasAdmin = ref("");
+const govId = ref("");
+const coordLat = ref("");
 const options = ref({
   page: 1,
   itemsPerPage: 10,
@@ -174,15 +176,15 @@ const fetchData = async () => {
     const current_page = options.value.page;
     const search_term = search.value; // Get the search term
 
-    const data ={
-      role:role.value,
-      admin:hasAdmin.value,
-      govId:govId.value,
-      coordLat:coordLat.value
+    const data = {
+      role: role.value,
+      admin: hasAdmin.value,
+      govId: govId.value,
+      coordLat: coordLat.value
     }
 
     // Fetch data from the server with pagination and search parameters
-    const schools = await $adminService.list_schools(current_page, 0, search_term,data);
+    const schools = await $adminService.list_schools(current_page, 0, search_term, data);
     // Update the table data
     items.value = schools; // Update table data
     totalItems.value = schools.length;
@@ -194,28 +196,28 @@ const fetchData = async () => {
   filterView()
 };
 
-const filterView = () =>{
- 
+const filterView = () => {
+
 
   filterApply.value = false;
-   if(role.value != ''){
+  if (role.value != '') {
     filterApply.value = true;
-   }
+  }
 
-   if(hasAdmin.value != ''){
+  if (hasAdmin.value != '') {
     filterApply.value = true;
-   }
+  }
 
-   if(govId.value != ''){
-      filterApply.value = true;
-   }
+  if (govId.value != '') {
+    filterApply.value = true;
+  }
 
-   if(coordLat.value != ''){
-      filterApply.value = true;
-   }
-   if(role.value =='' && hasAdmin.value == '' && coordLat.value == ''  &&govId.value == '' ){
+  if (coordLat.value != '') {
+    filterApply.value = true;
+  }
+  if (role.value == '' && hasAdmin.value == '' && coordLat.value == '' && govId.value == '') {
     filterApply.value = false;
-   }
+  }
 
 }
 
@@ -228,10 +230,15 @@ watch([options, search], () => {
 onMounted(() => {
   fetchData();
   useFlowbite(() => {
-      initFlowbite();
-  })
+    initFlowbite();
+  });
 });
 
+
+// Listen for the 'reload' event to refresh table data
+document.addEventListener('reload', () => {
+  fetchData(); // Reload the data
+});
 // Handle search submission
 const applySearch = () => {
   options.value.page = 1; // Reset to first page on new search
@@ -321,7 +328,8 @@ export default {
   width: 300px;
   margin-bottom: 20px;
 }
-.active-filter{
+
+.active-filter {
   color: #0085FF !important;
 }
 </style>

@@ -100,6 +100,8 @@ const filterApply = ref(false);
 const sort = ref({ prop: 'joined_at', order: 'descending' });
 
 
+
+
 // Function to fetch data from the server
 // Fetch data from the API
 const fetchData = async () => {
@@ -168,25 +170,15 @@ const filterView = () => {
   }
 }
 
-// Watch pagination options and search term to refetch data
-watch([options, search], () => {
-  fetchData();
-}, { immediate: true });
-
-// On mount, fetch the initial data
-onMounted(() => {
-  fetchData();
-
-  useFlowbite(() => {
-    initFlowbite();
-  })
-});
-
-
 // Expose the fetchData method
 const refreshTable = () => {
   fetchData();
 };
+
+// Listen for the 'reload' event to refresh table data
+document.addEventListener('reload', () => {
+  fetchData(); // Reload the data
+});
 
 // Handle search submission
 const applySearch = () => {
@@ -226,6 +218,20 @@ const handleRowClick = (row) => {
   editRecord(row);
 };
 
+
+// Watch pagination options and search term to refetch data
+watch([options, search], () => {
+  fetchData();
+}, { immediate: true });
+
+// On mount, fetch the initial data
+onMounted(() => {
+  fetchData();
+
+  useFlowbite(() => {
+    initFlowbite();
+  })
+});
 
 
 </script>
