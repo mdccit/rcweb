@@ -1,8 +1,8 @@
 <template>
-    <div class="p-3">
-        <div
-            class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
-            <div class="">
+  <div class="p-2">
+                    <div
+                        class="h-[80px] card rounded-2xl overflow-hidden border border-lightSteelBlue  border-opacity-40 bg-white p-3 mt-4 h-auto">
+                        <div class="">
 
                 <div class="">
 

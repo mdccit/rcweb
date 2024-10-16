@@ -1,6 +1,6 @@
 <template>
-    <div class="p-2">
-        <div class="bg-white p-4 border rounded-2xl">
+    <div class="p-2 pt-5">
+        <div class="p-4 border border-lightSteelBlue bg-white border-opacity-40 rounded-2xl">
             <div>
                 <H1>Associated with</H1>
             </div>
