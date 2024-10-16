@@ -126,6 +126,10 @@
                    </textarea>
               <!-- </div> -->
               <div class="flex justify-end mt-2">
+                <button v-if="editingPostId == post.id" @click="cancelEdit"
+                  class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-8 py-2 rounded-lg text-sm min-w-24 mr-3">
+                  Cancel
+                </button>
                 <button v-if="editingPostId == post.id" @click="startEditPost(post.id)"
                   class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-8 py-2 rounded-lg text-sm min-w-24">
                   Update
@@ -442,6 +446,9 @@ const postDelete = async (post_id) => {
   }
 }
 
+const cancelEdit = () =>{
+  editingPostId.value = null
+}
 </script>
 
 <style scoped>
