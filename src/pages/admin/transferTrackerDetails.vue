@@ -3,17 +3,20 @@
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
       <div class="flex w-full justify-between gap-8">
         <div class="flex items-center gap-4">
-          <NuxtLink to="/admin/transferTracker"
-            ><svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M15 6l-6 6l6 6"></path></svg
-          ></NuxtLink>
+          <NuxtLink to="/admin/transferTracker"><svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg"
+              width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 6l-6 6l6 6"></path>
+            </svg></NuxtLink>
           <h2 class="font-bold text-lg self-center">Editing Transfer Tracker</h2>
         </div>
         <div class="">
-          <a href="#"
-            ><button @click.prevent="goto_transfer_tracker" type="button" class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
+          <a href="#"><button @click.prevent="goto_transfer_tracker" type="button"
+              class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
               View
-              <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                stroke-linejoin="round">
                 <path d="M17 7l-10 10"></path>
                 <path d="M8 7l9 0l0 9"></path>
               </svg>
@@ -33,28 +36,38 @@
         <div class="col-span-6 sm:col-span-4">
           <span class="block mb-1 text-gray-700 font-sans">Photo</span>
           <div class="mt-2">
-            <img v-if="!(media && media.url)" src="https://ui-avatars.com/api/?name=e+e&amp;color=7F9CF5&amp;background=EBF4FF" alt="User Photo" class="rounded-full h-20 w-20 object-cover" />
-            <img v-if="media && media.url" :src="media.url" alt="User Photo" class="rounded-full h-20 w-20 object-cover" />
+            <img v-if="!(media && media.url)"
+              src="https://ui-avatars.com/api/?name=e+e&amp;color=7F9CF5&amp;background=EBF4FF" alt="User Photo"
+              class="rounded-full h-20 w-20 object-cover" />
+            <img v-if="media && media.url" :src="media.url" alt="User Photo"
+              class="rounded-full h-20 w-20 object-cover" />
           </div>
           <div class="flex mt-2 space-x-2">
             <!-- Select a New Photo -->
             <div>
               <label class="block" v-if="!(media && media.url)">
-                <a class="font-semibold border border-border rounded py-4 px-4 w-full block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center">
-                  <svg class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <a
+                  class="font-semibold border border-border rounded py-4 px-4 w-full block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center">
+                  <svg class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round">
                     <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
                     <path d="M7 9l5 -5l5 5"></path>
                     <path d="M12 4l0 12"></path>
                   </svg>
                   Select A New Photo
-                  <input name="photo" type="file" @change="handleFileChange" class="invisible absolute inset-0 w-full h-full disabled:opacity-50" />
+                  <input name="photo" type="file" @change="handleFileChange"
+                    class="invisible absolute inset-0 w-full h-full disabled:opacity-50" />
                 </a>
               </label>
             </div>
 
             <!-- Remove Photo -->
-            <button @click.prevent="deleyeUserProfilePicture" v-if="media && media.url" class="font-semibold border border-border rounded py-4 px-4 inline-block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center">
-              <svg class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <button @click.prevent="deleyeUserProfilePicture" v-if="media && media.url"
+              class="font-semibold border border-border rounded py-4 px-4 inline-block relative cursor-pointer text-gray-700 focus:outline-none focus:ring focus:ring-opacity-50 focus:border-primary-300 focus:ring-primary-200 text-center">
+              <svg class="w-6 h-6 inline mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                stroke-linejoin="round">
                 <path d="M4 7l16 0"></path>
                 <path d="M10 11l0 6"></path>
                 <path d="M14 11l0 6"></path>
@@ -68,40 +81,64 @@
 
         <div class="my-8"></div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid grid-cols-6 gap-4">
           <!-- First Name -->
-          <div>
-            <label for="first_name" class="block text-sm font-normal text-gray-900 mb-1">First Name <span class="text-red-500">*</span></label>
+          <div class="col-span-3">
+            <label for="first_name" class="block text-sm font-normal text-gray-900 mb-1">First Name <span
+                class="text-red-500">*</span></label>
             <div class="flex border border-gray-300 rounded-lg shadow-sm">
-              <input type="text" :required="true" v-model="firstName" class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" placeholder="Enter Name" required />
+              <input type="text" :required="true" v-model="firstName"
+                class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                placeholder="Enter Name" required />
             </div>
             <InputError :error="errors.first_name ? errors.first_name.join(', ') : ''" />
           </div>
 
           <!-- Last Name -->
-          <div>
-            <label for="last_name" class="block text-sm font-normal text-gray-900 mb-1">Last Name <span class="text-red-500">*</span></label>
+          <div class="col-span-3">
+            <label for="last_name" class="block text-sm font-normal text-gray-900 mb-1">Last Name <span
+                class="text-red-500">*</span></label>
             <div class="flex border border-gray-300 rounded-lg shadow-sm">
-              <input type="text" :required="true" v-model="lastName" class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" placeholder="Enter Name" required />
+              <input type="text" :required="true" v-model="lastName"
+                class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                placeholder="Enter Name" required />
             </div>
             <InputError :error="errors.last_name ? errors.last_name.join(', ') : ''" />
           </div>
+
+          <!-- School -->
+          <div class="mt-4 col-span-3">
+            <label class="block text-sm font-normal text-gray-900 mb-1">School <span
+                class="text-red-500">*</span></label>
+            <div class="flex border border-gray-300 rounded-lg shadow-sm">
+              <input type="text" :required="true" v-model="school"
+                class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                placeholder="Enter School" required />
+            </div>
+            <InputError :error="errors.school ? errors.school.join(', ') : ''" />
+          </div>
+
+          <!-- Handed Fields -->
+          <div class="mt-4 col-span-3">
+            <label class="block text-sm font-normal text-gray-900 mb-1">Handed <span class="text-red-500">*</span></label>
+            <div class="flex border border-gray-300 rounded-lg shadow-sm">
+              <HandednessDropdown :required="true" :handedness="handednesses" v-model="handed" id="player_handedness"
+                label="Player Handedness" />
+            </div>
+            <InputError :error="errors.handedness ? errors.handedness.join(', ') : ''" />
+          </div>
+
         </div>
 
-        <!-- School -->
-        <div class="mt-4">
-          <label class="block text-sm font-normal text-gray-900 mb-1">School <span class="text-red-500">*</span></label>
-          <div class="flex border border-gray-300 rounded-lg shadow-sm">
-            <input type="text" :required="true" v-model="school" class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" placeholder="Enter School" required />
-          </div>
-          <InputError :error="errors.school ? errors.school.join(', ') : ''" />
-        </div>
+
 
         <!-- Email -->
         <div class="mt-4">
           <label class="block text-sm font-normal text-gray-900 mb-1">Email <span class="text-red-500">*</span></label>
           <div class="flex border border-gray-300 rounded-lg shadow-sm">
-            <input type="email" :required="true" v-model="email" class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" placeholder="Enter Email" required />
+            <input type="email" :required="true" v-model="email"
+              class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+              placeholder="Enter Email" required />
           </div>
           <InputError :error="errors.email ? errors.email.join(', ') : ''" />
         </div>
@@ -110,7 +147,8 @@
         <div class="mt-4">
           <label class="block text-sm font-normal text-gray-900 mb-1">Year <span class="text-red-500">*</span></label>
           <div class="flex border border-gray-300 rounded-lg shadow-sm">
-            <select :required="true" v-model="year" class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg">
+            <select :required="true" v-model="year"
+              class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg">
               <option selected>Choose a gender</option>
               <option value="freshman">Freshman</option>
               <option value="sophomore">Sophomore</option>
@@ -121,20 +159,24 @@
           <InputError :error="errors.year ? errors.year.join(', ') : ''" />
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+        <div class="grid grid-cols-6  gap-2 mt-4">
           <!-- UTR Fields -->
-          <div>
-            <label for="phone_code_country" class="block text-sm font-normal text-gray-900">Code <span class="text-red-500">*</span></label>
+          <div class="col-span-2">
+            <label for="phone_code_country" class="block text-sm font-normal text-gray-900">Phone No <span
+                class="text-red-500">*</span></label>
             <div class="flex border border-gray-300 rounded-lg shadow-sm">
-              <CountryCodeDropdown :required="true" :country_codes="countryCodes" v-model="code" name="phone_code" data-validation-key="phone_code" class="col-span-2 h-12" />
+              <CountryCodeDropdown :required="true" :country_codes="countryCodes" v-model="code" name="phone_code"
+                data-validation-key="phone_code" class="col-span-2 h-12" />
             </div>
             <InputError :error="errors.phone_code_country ? errors.phone_code_country.join(', ') : ''" />
           </div>
           <!-- UTR Fields -->
-          <div>
-            <label class="block text-sm font-normal text-gray-900">Number <span class="text-red-500">*</span></label>
+          <div class="col-span-4">
+            <label class="block text-sm font-normal text-gray-900 mt-5"></label>
             <div class="flex border border-gray-300 rounded-lg shadow-sm">
-              <input type="text" :required="true" v-model="number" class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" placeholder="Enter Email" required />
+              <input type="text" :required="true" v-model="number"
+                class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                placeholder="Enter Email" required />
             </div>
             <InputError :error="errors.phone_number ? errors.phone_number.join(', ') : ''" />
           </div>
@@ -145,7 +187,9 @@
           <div>
             <label class="block text-sm font-normal text-gray-900">Win <span class="text-red-500">*</span></label>
             <div class="flex border border-gray-300 rounded-lg shadow-sm">
-              <input :required="true" v-model="win" type="number" class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" placeholder="UTR" required />
+              <input :required="true" v-model="win" type="number"
+                class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                placeholder="UTR" required />
             </div>
             <InputError :error="errors.win ? errors.win.join(', ') : ''" />
           </div>
@@ -153,7 +197,9 @@
           <div>
             <label class="block text-sm font-normal text-gray-900">Loss <span class="text-red-500">*</span></label>
             <div class="flex border border-gray-300 rounded-lg shadow-sm">
-              <input :required="true" v-model="loss" type="number" class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" placeholder="UTR" required />
+              <input :required="true" v-model="loss" type="number"
+                class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                placeholder="UTR" required />
             </div>
             <InputError :error="errors.loss ? errors.loss.join(', ') : ''" />
           </div>
@@ -164,41 +210,36 @@
           <div>
             <label class="block text-sm font-normal text-gray-900">UTR <span class="text-red-500">*</span></label>
             <div class="flex border border-gray-300 rounded-lg shadow-sm">
-              <input :required="true" v-model="utr" type="number" class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" placeholder="UTR" required />
+              <input :required="true" v-model="utr" type="number"
+                class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                placeholder="UTR" required />
             </div>
             <InputError :error="errors.utr_score_manual ? errors.utr_score_manual.join(', ') : ''" />
           </div>
           <!-- UTR Fields -->
           <div>
             <label class="block text-sm font-normal text-gray-900">Gender <span class="text-red-500">*</span></label>
-            <div class="flex border border-gray-300 rounded-lg shadow-sm">
-              <GenderDropDown :required="true" :genders="genders" v-model="gender" id="player_gender" label="Player Gender" />
+            <div class="flex rounded-lg shadow-sm">
+              <GenderDropDown :required="true" :genders="genders" v-model="gender" id="player_gender"
+                label="Player Gender" />
             </div>
             <InputError :error="errors.gender ? errors.gender.join(', ') : ''" />
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
-          <!-- Handed Fields -->
-          <div>
-            <label class="block text-sm font-normal text-gray-900">Handed <span class="text-red-500">*</span></label>
-            <div class="flex border border-gray-300 rounded-lg shadow-sm">
-              <HandednessDropdown :required="true" :handedness="handednesses" v-model="handed" id="player_handedness" label="Player Handedness" />
-            </div>
-            <InputError :error="errors.handedness ? errors.handedness.join(', ') : ''" />
-          </div>
-        </div>
+
 
         <!-- Height Selection with Feet/Inches and Centimeters Toggle -->
         <div>
-          <div class="flex mb-1">
+          <div class="flex mb-1 mt-6">
             <!-- Toggle between Feet/Inches and Centimeters -->
             <div class="flex-1">
-              <label for="height" class="font-normal block text-sm text-gray-900 dark:text-gray mr-[20px]">Height <span class="text-red-600">*</span> </label>
+              <label for="height" class="font-normal block text-sm text-gray-900 dark:text-gray mr-[20px]">Height <span
+                  class="text-red-600">*</span> </label>
             </div>
 
             <div class="flex-1">
-              <div class="flex text-last">
+              <div class="flex justify-end mb-2">
                 <div class="flex items-center">
                   <input type="radio" id="heightInCm" v-model="heightInCm" :value="true" />
                   <label for="heightInCm" class="ml-2 text-sm text-gray-900">Centimeters</label>
@@ -213,19 +254,25 @@
           <!-- Height in Centimeters -->
           <div v-if="heightInCm" class="flex rounded-lg border border-gray-300 shadow-sm w-full">
             <div class="w-full">
-              <input type="number" step="0.01" id="heightCm" :required="true" v-model="heightCm" class="h-12 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" placeholder="Height in cm" />
+              <input type="number" step="0.01" id="heightCm" :required="true" v-model="heightCm"
+                class="h-12 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                placeholder="Height in cm" />
             </div>
             <InputError :error="errors.height_cm ? errors.height_cm.join(', ') : ''" />
           </div>
           <!-- Height in Feet/Inches -->
           <div v-else class="grid grid-cols-10 gap-3 items-center">
             <div class="col-span-5 rounded-lg border border-gray-300 shadow-sm">
-              <input type="number" id="heightFt" :required="true" v-model="heightFt" class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" placeholder="Ft" />
+              <input type="number" id="heightFt" :required="true" v-model="heightFt"
+                class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                placeholder="Ft" />
             </div>
             <InputError :error="errors.height_ft ? errors.height_ft.join(', ') : ''" />
 
             <div class="col-span-5 flex rounded-lg border border-gray-300 shadow-sm">
-              <input type="number" id="heightIn" :required="true" v-model="heightIn" class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" placeholder="In" />
+              <input type="number" id="heightIn" :required="true" v-model="heightIn"
+                class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                placeholder="In" />
             </div>
             <InputError :error="errors.height_in ? errors.height_in.join(', ') : ''" />
           </div>
@@ -234,7 +281,8 @@
         <div class="my-8"></div>
 
         <!-- Submit Button -->
-        <button type="submit" class="border bg-blue-500 hover:bg-blue-700 rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 text-white border-transparent">
+        <button type="submit"
+          class="border bg-blue-500 hover:bg-blue-700 rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 text-white border-transparent">
           <div class="flex flex-row items-center justify-center">
             <span>Save changes </span>
           </div>
@@ -521,9 +569,9 @@ const goto_transfer_tracker = () => {
 };
 
 definePageMeta({
-    ssr: false,
-    layout: 'admin',
-    middleware: ['role'],
-    requiredRole: ['admin'],
+  ssr: false,
+  layout: 'admin',
+  middleware: ['role'],
+  requiredRole: ['admin'],
 });
 </script>

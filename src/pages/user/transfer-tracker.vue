@@ -27,9 +27,9 @@
                 </p>
             </div>
 
-            <div class="flex">
+            <div class="grid grid-cols-6">
                 <!-- card 01 -->
-                <div class="flex-1 p-2" v-for="(item, index) in items" :key="index">
+                <div class="col-span-3 p-2" v-for="(item, index) in items" :key="index">
                     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
                         <div class=" grid grid-cols-12 gap-4">
                             <div class="col-span-4">
