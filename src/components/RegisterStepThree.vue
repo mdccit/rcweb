@@ -87,14 +87,12 @@
   </div>
 </template>
 
-
-
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { loadStripe } from '@stripe/stripe-js';
 import { useNuxtApp } from '#app';
 import { usePackageStore } from '~/stores/packageStore';
+import { usePackages } from '@/composables/usePackages'
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -102,29 +100,11 @@ const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
 const router = useRouter(); // Initialize router
 const packageStore = usePackageStore();
+// Packages array with all required details
+const { packages } = usePackages()
 const selectedPackage = ref('premium');
 const errors = ref({});
 const loading = ref(false);
-const stripeCustomerId = ref('');
-
-
-// Simulating packages - You can fetch this from an API instead
-const packages = [
-  {
-    value: 'standard',
-    label: 'Standard',
-    price: '$0.00',
-    description: 'Standard Subscription',
-    features: ['Lorem ipsum dolor', 'Lorem ipsum dolor', 'Lorem ipsum dolor'],
-  },
-  {
-    value: 'premium',
-    label: 'Premium',
-    price: '$100.00',
-    description: 'Recruited Premium Monthly Subscription',
-    features: ['Transfer Tracker', 'Transcripts', 'Lorem ipsum dolor'],
-  },
-];
 
 // Function to set the package to 'trial' when 'Try Trial' is clicked
 const setTrialPackage = () => {
@@ -133,8 +113,6 @@ const setTrialPackage = () => {
 
 // Fetch Stripe Customer ID on component load
 onMounted(async () => {
-
-
 });
 
 const handleSubmitStep3 = async () => {
