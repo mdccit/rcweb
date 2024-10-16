@@ -278,7 +278,9 @@
               <CommentSection :comments="post.comments" :postId="post.id" @refreshComments="refreshComments" />
               <div class="mt-4">
                 <div class="flex space-x-3">
-                  <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
+                  <img v-if="profilePicture == 'null'" src="@/assets/images/user.png" alt="" class="rounded-lg w-10 h-10">
+                  <img v-if="profilePicture != 'null'" :src="profilePicture" alt="" class="rounded-lg w-10 h-10">
+
                   <div class="grow">
                     <textarea v-model="newComment" type="text" placeholder="Write your comment..."
                       class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4"></textarea>
