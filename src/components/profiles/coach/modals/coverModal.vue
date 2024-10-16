@@ -33,7 +33,6 @@
 
                     </div>
 
-
                   </div>
                   <div class="w-full mt-3">
                     <label class="block mb-1 text-gray-700 font-sans"> Select Cover Picture <span class="text-gray-400">(851 pixels wide by 315 pixels)</span>

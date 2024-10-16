@@ -1,32 +1,34 @@
 <template>
-  <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-    <div class="flex w-full justify-between gap-8">
-      <div class="flex items-center gap-4">
-        <NuxtLink :to="{ path: '/business/businessMembers', query: { business_id: business_id } }">
-          <svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M15 6l-6 6l6 6"></path>
-          </svg>
-        </NuxtLink>
-        <h2 class="font-bold text-black text-lg self-center"> Editing: {{ name }}  </h2>
-      </div>
-      <div>
-        <NuxtLink :to="`/app/profile/business/${slug}`">
-          <button type="submit"
-            class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
-            View Business
-            <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+  <header class="bg-gray-200">
+    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <div class="flex w-full justify-between gap-8">
+        <div class="flex items-center gap-4">
+          <NuxtLink :to="{ path: '/business/businessMembers', query: { business_id: business_id } }">
+            <svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
               viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
               stroke-linejoin="round">
-              <path d="M17 7l-10 10"></path>
-              <path d="M8 7l9 0l0 9"></path>
+              <path d="M15 6l-6 6l6 6"></path>
             </svg>
-          </button>
-        </NuxtLink>
+          </NuxtLink>
+          <h2 class="font-bold text-black text-lg self-center"> Editing: {{ name }} </h2>
+        </div>
+        <div>
+          <NuxtLink :to="{ path: '/business/businessGeneral', query: { action: 'edit', business_id: business_id } }">
+            <button type="submit"
+              class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
+              View
+              <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M17 7l-10 10"></path>
+                <path d="M8 7l9 0l0 9"></path>
+              </svg>
+            </button>
+          </NuxtLink>
+        </div>
       </div>
     </div>
-  </div>
+  </header>
 
   <div class="py-12">
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -112,7 +114,7 @@ const notification_type = ref('');
 const notificationKey = ref(0);
 const slug = ref('')
 onMounted(() => {
-  business_id.value = route.query.business_id || ''; 
+  business_id.value = route.query.business_id || '';
   console.log('Business ID:', business_id.value);  // Log business_id to check its value
   fetchBusinessDetails()
 });
@@ -123,7 +125,6 @@ const fetchBusinessDetails = async () => {
   try {
     const data = await $adminService.get_business_details(business_id.value);
     name.value = data.business_info.name;
-    slug.value = data.business_info.slug;
 
   } catch (error) {
     console.error('Error fetching business details:', error.message);
@@ -147,9 +148,9 @@ const searchBusinessUsers = async () => {
     console.log('Search Key:', searchKeyToSend);
 
     const response = await $adminService.search_business_users(
-      business_id.value, 
-      options.value.page, 
-      options.value.per_page_items, 
+      business_id.value,
+      options.value.page,
+      options.value.per_page_items,
       searchKeyToSend
     );
 

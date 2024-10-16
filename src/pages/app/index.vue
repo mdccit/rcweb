@@ -9,7 +9,7 @@
       <section>
         <!--start card 01 -->
         <div v-if="userRole == 'coach'"
-          class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-3">
+          class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-3 mb-3">
           <div class="flex">
             <!-- <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-14 h-14 mr-4"> -->
             <img v-if="profilePicture == 'null'" class="rounded-lg w-14 h-14 mr-4"
@@ -76,7 +76,7 @@
 
           <!-- Iterate over posts and display them -->
           <div v-for="post in posts" :key="post.id"
-            class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-5 mt-3">
+            class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-5 mb-3">
             <div class="flex items-start space-x-4">
               <div class="flex-1">
                 <div>
