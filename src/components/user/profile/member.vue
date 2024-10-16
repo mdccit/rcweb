@@ -1,5 +1,5 @@
 <template>
-   <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
+   <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-2">
                         <div class="grid grid-cols-4 mb-4">
                             <div class=" col-span-3">
                                 <h1 class="text-lg font-semibold mb-1 text-black">Members</h1>
@@ -16,8 +16,8 @@
                                 </button> -->
                             </div>
                         </div>
-                        <div class="flex">
-                            <div v-for="member in props.members"class="flex-1 p-1">
+                        <div class="grid grid-cols-6">
+                            <div v-for="member in props.members"class="col-span-3 p-1">
                                 <!-- member card start-->
                                 <div class="bg-white p-4 border rounded-2xl">
                                     <div class=" grid grid-cols-12 gap-4">

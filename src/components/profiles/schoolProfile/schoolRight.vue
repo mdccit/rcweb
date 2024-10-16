@@ -1,22 +1,28 @@
 <template>
     <div class="p-2">
-        <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
+        <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1 p-3">
             <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-blue-500 p-3 text-white">
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="">
+                <div class="grid grid-cols-6">
+                    <div class="col-span-7">
                         <h2 class="text-lg font-semibold mb-4 pl-3">Tennis info</h2>
                     </div>
                     <div class="">
                         <h2 class="text-lg font-semibold mb-4"></h2>
                     </div>
+
+                </div>
+
+
+                <div class="grid grid-cols-2 gap-4">
+
                     <div class="pl-3">
                         <p class="text-lg font-semibold mb-4 text-sm font-thin">Division</p>
                         <p class="text-lg font-semibold mb-4 text-sm font-thin">Conference</p>
                         <p class="text-lg font-semibold mb-4 text-sm font-thin">Average UTR</p>
 
                     </div>
-                    <div class="">
-                        <p class="text-lg font-semibold mb-4 text-sm text-normal">{{  props.data.divisionId }}</p>
+                    <div class="text-center">
+                        <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ props.data.divisionId }}</p>
                         <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ props.data.conferenceId }}</p>
                         <p class="text-lg font-semibold mb-4 text-sm text-normal">Unknown</p>
                     </div>
@@ -25,7 +31,7 @@
                     the school.</p>
             </div>
 
-            <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
+            <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3">
                 <div class="flex items-center justify-between">
 
                     <div class="flex items-center space-x-4 w-48">
@@ -128,15 +134,15 @@ import { ref, onMounted, reactive } from 'vue';
 
 const props = defineProps({
 
-data: {
-    type: Object,
-    required: true,
-},
+    data: {
+        type: Object,
+        required: true,
+    },
 
-schoolSlug: {
-    type: String,
-    required: true,
-}
+    schoolSlug: {
+        type: String,
+        required: true,
+    }
 });
 </script>
 
