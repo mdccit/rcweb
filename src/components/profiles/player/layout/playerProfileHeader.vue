@@ -66,13 +66,13 @@
                         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                             aria-labelledby="dropdownDefaultButton">
-                            <li>
+                            <!-- <li>
                                 <a href="#"
                                     class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">More</a>
-                            </li>
+                            </li> -->
                             <li>
-                                <a href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
+                                <button @click="connectRemove"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</button>
                             </li>
                         </ul>
                     </div>
@@ -276,6 +276,18 @@ try {
 } catch (error) {
     console.error('Failed to Connect :', error.message);
 }
+}
+
+const connectRemove = async () => {
+    try {
+        const response = await $userService.connection_remove(connectionType.value.id, {
+            connection_status: "removed"
+        });
+        fetchCheckConnection();
+
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
 }
 </script>
 
