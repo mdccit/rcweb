@@ -1,54 +1,3 @@
-<script setup>
-import { nextTick } from 'vue';
-import AdminBusinessTable from '~/components/tables/AdminBusinessTable.vue';
-import { useUserStore } from '~/stores/userStore';
-import businessCreateModal from '~/components/shared/businessCreateModal.vue';
-const userStore = useUserStore();
-
-
-const showModal = ref(false);
-
-// Reference to AdminBusinessTable component
-const businessTableRef = ref(null);
-
-// Method to open the modal
-const openCreateBusinessModal = () => {
-    showModal.value = true;
-};
-
-// Method to close the modal
-const closeModal = () => {
-    showModal.value = false;
-};
-
-const reloadTable = () => {
-   closeModal();
-
-   console.log('businessTableRef:', businessTableRef.value);
-   nextTick(() => {
-        if (businessTableRef.value) {
-            console.log('Refreshing table...');
-            businessTableRef.value.refreshTable();
-        } else {
-            console.error('Table ref not available after nextTick');
-        }
-    });
-};
-
-definePageMeta({
-    ssr: false,
-    layout: 'admin',
-    middleware: ['role'],
-    requiredRole: ['admin'],
-});
-</script>
-
-<style scoped>
-.container {
-    max-width: 600px;
-}
-</style>
-
 <template>
     <header class="bg-gray-200">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -71,13 +20,60 @@ definePageMeta({
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <AdminBusinessTable ref="businessTableRef"></AdminBusinessTable>
+            <AdminBusinessTable ref="businessTableRef"  @reload="refreshTable"></AdminBusinessTable>
         </div>
 
     </div>
 
     <!-- Admin Bsuienss Create Modal Component -->
-    <businessCreateModal :isVisible="showModal" @close="reloadTable" ref="businessModal" />
+    <businessCreateModal :isVisible="showModal" @close="triggerTableReload" ref="businessModal" />
 
 
 </template>
+
+
+<script setup>
+import { nextTick ,} from 'vue';
+import AdminBusinessTable from '~/components/tables/AdminBusinessTable.vue';
+import { useUserStore } from '~/stores/userStore';
+import businessCreateModal from '~/components/shared/businessCreateModal.vue';
+
+
+const showModal = ref(false);
+
+// Reference to AdminBusinessTable component
+const businessTableRef = ref(null);
+
+// Method to open the modal
+const openCreateBusinessModal = () => {
+    showModal.value = true;
+};
+
+// Method to close the modal
+const closeModal = () => {
+    showModal.value = false;
+};
+
+
+const triggerTableReload = () => {
+  closeModal();
+  // Emit the custom event to AdminBusinessTable to reload the data
+  const event = new Event('reload');
+  document.dispatchEvent(event);
+};
+
+
+definePageMeta({
+    ssr: false,
+    layout: 'admin',
+    middleware: ['role'],
+    requiredRole: ['admin'],
+});
+</script>
+
+<style scoped>
+.container {
+    max-width: 600px;
+}
+</style>
+
