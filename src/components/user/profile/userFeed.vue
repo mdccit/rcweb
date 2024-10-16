@@ -233,7 +233,7 @@ const userRole = ref('')
 const router = useRouter();
 const likeButtonDisable = ref([])
 const likeButton = ref(false)
-const emit = defineEmits(['profileView', 'listpost']);
+const emit = defineEmits(['profileView', 'listpost','newPost']);
 const newComment = ref('');
 const editPost = ref('')
 const model_id = ref('');
@@ -417,7 +417,7 @@ const startEditPost = async (post_id) => {
       title: 'Post',
     }
     const response = await nuxtApp.$feedService.update_post(post_id, newValue);
-    emit('listpost')
+    emit('newPost')
   } catch (error) {
     console.error('Failed to fetch comments:', error.message);
   } finally {
@@ -434,7 +434,7 @@ const postDelete = async (post_id) => {
     //nprogress.start();
     model_id.value = ""
     const response = await nuxtApp.$feedService.delete_post(post_id);
-    loadPosts();
+    emit('newPost')
   } catch (error) {
     console.error('Failed to fetch comments:', error.message);
   } finally {
