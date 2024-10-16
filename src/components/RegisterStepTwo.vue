@@ -933,12 +933,12 @@ const handleSubmitStep2 = async () => {
             return;  // Return early if token is missing to avoid undefined behavior
           }
 
-          if (role.value === 'coach') {
+          if(['player', 'coach'].includes(role.value)) {
             console.log('Coach registered successfully.');
             await router.push(`/register-step-three/${user_token}`);
           } else if (role.value === 'business_manager') {
             await router.push('/user/approval-pending');
-          } else if (['player', 'parent', 'admin'].includes(role.value)) {
+          } else if (['parent', 'admin'].includes(role.value)) {
             await router.push('/app');
           } else {
             await router.push('/');

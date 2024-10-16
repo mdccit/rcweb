@@ -48,7 +48,8 @@
 <script setup>
 import { ref } from 'vue';
 import ButtonSpinner from '@/components/common/ButtonSpinner.vue';
-import { usePackages } from '@/composables/usePackages'
+import { usePackages } from '@/composables/usePackages';
+import { useFlowbite } from '~/composables/useFlowbite';
 
 const loading = ref(false);
 const autoRenew = ref(false);
@@ -73,6 +74,14 @@ const handleSubmit = async (pkgName) => {
 const selectPackage = (pkgName) => {
   selectedPackage.value = pkgName;
 };
+
+
+onMounted(() => {
+
+  useFlowbite(() => {
+    initFlowbite();
+  })
+});
 </script>
 
 <style scoped>

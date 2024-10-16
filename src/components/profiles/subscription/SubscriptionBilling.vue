@@ -282,13 +282,13 @@ function formatDate(dateString) {
 const getCardBrandLogo = (brand) => {
   switch (brand) {
     case 'visa':
-      return 'https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png';
+      return '/_nuxt/assets/images/visa-img.png';
     case 'mastercard':
-      return 'https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.png';
+      return '/_nuxt/assets/images/mastercard-img.png';
     case 'amex':
-      return 'https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo.svg';
+      return '/_nuxt/assets/images/amex-img.png';
     default:
-      return 'https://via.placeholder.com/100x50.png?text=Card';
+      return '/_nuxt/assets/images/default-card-img.png';
   }
 };
 

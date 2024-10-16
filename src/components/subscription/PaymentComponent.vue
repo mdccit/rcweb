@@ -1,6 +1,16 @@
 <template>
   <div class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
+      <!-- Trial Subscription Notice -->
+      <div v-if="subscriptionType === 'trial'"
+        class="mb-4 p-3 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700">
+        <p class="text-sm">
+          Please note that a payment method is required for trial subscriptions because Payment Processing needs it to
+          create a
+          subscription, even for a free trial to continue later. No amount will be charged from your card
+        </p>
+      </div>
+
 
       <!-- Name Input Field -->
       <div class="mb-4">
@@ -9,16 +19,16 @@
       </div>
 
       <!-- Email Input Field -->
-      <div class="mb-4">
+      <!-- <div class="mb-4">
         <label for="customer-email" class="block text-sm font-medium text-gray-700">Email</label>
         <input v-model="customerEmail" type="email" id="customer-email" class="mt-1 p-2 border rounded-md w-full" />
-      </div>
+      </div> -->
 
       <!-- Phone Input Field -->
-      <div class="mb-4">
+      <!-- <div class="mb-4">
         <label for="customer-phone" class="block text-sm font-medium text-gray-700">Phone</label>
         <input v-model="customerPhone" type="tel" id="customer-phone" class="mt-1 p-2 border rounded-md w-full" />
-      </div>
+      </div> -->
 
       <!-- Address Input Fields -->
 
@@ -68,7 +78,7 @@
 import { ref, onMounted } from 'vue';
 import { loadStripe } from '@stripe/stripe-js';
 import { useNuxtApp, useRuntimeConfig } from '#app';
-import { useRouter , useRoute} from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 // Access services and configurations from Nuxt context
 const nuxtApp = useNuxtApp();
@@ -117,7 +127,18 @@ const mountCardElement = async (stripePublicKey) => {
       throw new Error('Stripe Elements not initialized.');
     }
 
-    cardElement.value = elements.create('card');
+    // Card element without ZIP code
+    const cardElementOptions = {
+      style: {
+        base: {
+          fontSize: '16px',
+          color: '#32325d',
+        },
+      },
+      hidePostalCode: true,  // Hide the postal/ZIP code field
+    };
+
+    cardElement.value = elements.create('card', cardElementOptions);
     cardElement.value.mount('#card-element');
     console.log('Card element mounted successfully');
   } catch (error) {
@@ -133,7 +154,7 @@ onMounted(async () => {
     clientSecret.value = localStorage.getItem('setupIntentClientSecret');
     setupIntentId.value = localStorage.getItem('setupIntentId');
     stripePublicKey.value = RuntimeConfig.public.stripePublicKey;
-    subscriptionType.value = route.query.pacakge || 'monthly';
+    subscriptionType.value = route.query.package || 'monthly';
 
     if (!clientSecret.value || !setupIntentId.value) {
       cardError.value = 'Payment details are missing. Please refresh the page.';
@@ -157,7 +178,7 @@ const confirmPayment = async () => {
         billing_details: {
           name: customerName.value,
           email: customerEmail.value,
-          phone: customerPhone.value       
+          phone: customerPhone.value
         }
       },
     });
@@ -192,12 +213,14 @@ const confirmPayment = async () => {
       if (subscription.status === 'success') {
         paymentRedirect.value = true;
         console.log('Subscription created successfully');
-        router.push(`/app`);
+        router.push('/payment-success');
       } else {
-        throw new Error(subscription.message);
+        // throw new Error(subscription.message);
+        router.push('/payment-fail');
       }
     } else {
-      throw new Error('Failed to complete payment process.');
+      router.push('/payment-fail');
+      //throw new Error('Failed to complete payment process.');
     }
 
   } catch (error) {

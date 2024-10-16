@@ -19,27 +19,23 @@
       </div>
 
       <!-- Package Selection Section -->
-      <form @submit.prevent="handleSubmitStep3">
-        <div class="flex justify-center space-x-4">
-          <div
-            v-for="pkg in packages"
-            :key="pkg.value"
-            :class="[
-              'border w-[230px] rounded-lg text-center p-3 relative cursor-pointer', 
-              selectedPackage === pkg.value 
-                ? pkg.value === 'premium' 
-                  ? 'border-blue-500 bg-gold-100' // Gold color for premium
-                  : 'border-blue-500 bg-blue-100' // Default blue for other packages
-                : ''
-            ]"
-            @click="selectedPackage = pkg.value"
-          >
-            <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0 peer" :id="pkg.value" type="radio"
-              :value="pkg.value" v-model="selectedPackage" name="pkg" />
+      <div class="flex justify-center space-x-4">
+        <div v-for="pkg in packages" :key="pkg.value" :class="[
+          'flex-1 flex flex-col justify-between border w-[300px] rounded-lg text-center p-3 relative cursor-pointer',
+          selectedPackage === pkg.value
+            ? pkg.value === 'premium'
+              ? 'border-blue-500 bg-gold-100'  // Gold color for premium package
+              : 'border-blue-500 bg-blue-100'  // Default blue for other packages
+            : ''  // Not selected
+        ]" @click="selectPackage(pkg.value)">
+          <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0 peer" :id="pkg.value" type="radio"
+            :value="pkg.value" v-model="selectedPackage" name="pkg" />
+
+          <div>
             <h3 class="font-medium text-black mb-2">{{ pkg.label }}</h3>
             <h1 class="text-3xl font-medium text-black mb-2">{{ pkg.price }}</h1>
             <p class="text-xs mb-5">{{ pkg.description }}</p>
-      
+
             <!-- Features List -->
             <div v-for="feature in pkg.features" :key="feature" class="text-xs flex text-center justify-center mb-2">
               <span class="text-limegreen ml-1">
@@ -51,37 +47,49 @@
               </span>
               {{ feature }}
             </div>
-      
-            <!-- Trial Toggle Button inside Premium Package -->
-            <div v-if="pkg.value === 'premium'" class="mt-4">
-              <button
-                @click.stop="toggleTrial"
-                class="bg-blue-500 text-white px-4 py-2 rounded-md"
-              >
-                {{ selectedPackage === 'trial' ? 'Switch to Premium' : 'Try Trial' }}
-              </button>
-            </div>
+          </div>
+
+          <!-- Standard Package -->
+          <div v-if="pkg.value === 'standard'" class="mt-auto">
+            <!-- Subscribe Button (more prominent) -->
+            <button @click.stop="subscribeStandard"
+              class="bg-blue-600 text-white font-bold px-4 py-2 rounded-md mt-4 w-full">
+              Subscribe
+            </button>
+          </div>
+
+          <!-- Premium Package -->
+          <div v-else-if="pkg.value === 'premium'" class="mt-auto">
+           <!-- Auto-Renew Toggle -->
+             <!-- 
+            <div class="flex items-center justify-center mb-4">
+              <input type="checkbox" id="autoRenew" v-model="autoRenew" class="hidden" />
+              <label for="autoRenew" class="flex items-center cursor-pointer space-x-3">
+                <div class="relative">
+                  <div class="block w-14 h-8 rounded-full" :class="autoRenew ? 'bg-blue-600' : 'bg-gray-300'"></div>
+                  <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition transform"
+                    :class="autoRenew ? 'translate-x-full' : ''"></div>
+                </div>
+                <span class="text-sm font-medium text-gray-900 dark:text-gray-300">Auto renew</span>
+              </label>
+            </div> -->
+
+            <!-- Try Trial Button (less prominent) -->
+            <button @click.stop="subscribeTrial" class="bg-gray-400 text-white px-4 py-2 rounded-md mt-4 w-full">
+              Try Trial
+            </button>
+
+            <!-- Subscribe Button (more prominent) -->
+            <button @click.stop="subscribePremium"
+              class="bg-blue-600 text-white font-bold px-4 py-2 rounded-md mt-4 w-full">
+              Subscribe
+            </button>
           </div>
         </div>
+      </div>
 
 
-        <!-- Submit Button -->
-        <div class="flex items-center justify-end mt-6">
-          <button type="submit"
-            class="border rounded-full shadow-sm py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-darkAzureBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue ml-4 !px-8 !py-2.5 transition">
-            <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
-              viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                fill="#E5E7EB" />
-              <path
-                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                fill="currentColor" />
-            </svg>
-            Continue to Payment
-          </button>
-        </div>
-      </form>
+      <!-- // Package Selection Section -->
     </div>
 
   </div>
@@ -92,7 +100,8 @@ import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 import { usePackageStore } from '~/stores/packageStore';
-import { usePackages } from '@/composables/usePackages'
+import { usePackages } from '@/composables/usePackages';
+import { useFlowbite } from '~/composables/useFlowbite';
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -101,21 +110,76 @@ const $authService = nuxtApp.$authService;
 const router = useRouter(); // Initialize router
 const packageStore = usePackageStore();
 // Packages array with all required details
-const { packages } = usePackages()
-const selectedPackage = ref('premium');
+const { packages } = usePackages();
 const errors = ref({});
 const loading = ref(false);
+const autoRenew = ref(false);
+const selectedPackage = ref('premium');
 
-// Function to set the package to 'trial' when 'Try Trial' is clicked
-const setTrialPackage = () => {
-  selectedPackage.value = 'trial';
+const selectPackage = (pkgName) => {
+  selectedPackage.value = pkgName;
 };
 
 // Fetch Stripe Customer ID on component load
 onMounted(async () => {
+
+  selectedPackage.value = 'premium';
+  autoRenew.value = true;
+  useFlowbite(() => {
+    initFlowbite();
+  })
 });
 
-const handleSubmitStep3 = async () => {
+const subscribeStandard = () => {
+  router.push(`/app`);
+};
+
+
+const subscribeTrial = async () => {
+  if (!selectedPackage.value) {
+    nuxtApp.$notification.triggerNotification('Please select a package!', 'warning');
+  } else {
+    errors.value.pkg = '';
+
+    if (selectedPackage.value === 'premium') {
+      try {
+        loading.value = true;
+        // Step 1: Get Stripe customer ID
+        const customerId = await $authService.getStripeCustomerId();
+        packageStore.setStripeCustomerId(customerId);
+        // Step 2: Create SetupIntent on the backend
+        const setupIntent = await createSetupIntent(customerId);
+
+        // Check if setupIntent has client_secret and setup_intent_id
+        if (setupIntent && setupIntent.client_secret && setupIntent.setup_intent_id) {
+          // Store the setup intent data in Pinia store
+          packageStore.setSetupIntentData(setupIntent.client_secret, setupIntent.setup_intent_id);
+
+          // Generate a unique reference (e.g., using token or customerId) and store it
+          const payment_token = customerId; // For example, you can use customerId or a generated token
+          packageStore.setPaymentToken(payment_token);
+
+          // Step 4: Redirect to the /payment page
+          router.push(`/payment/${payment_token}?package=trial`);
+
+        } else {
+          // Throw error if setupIntent is invalid
+          throw new Error('Invalid SetupIntent response from the backend.');
+        }
+      } catch (error) {
+        // nuxtApp.$notification.triggerNotification('Error during subscription process', 'failure');
+        console.error('Error during payment method setup:', error);
+      } finally {
+        loading.value = false;
+      }
+    } else {
+      console.log('Standard package selected, no payment needed.');
+    }
+  }
+};
+
+
+const subscribePremium = async () => {
   if (!selectedPackage.value) {
     nuxtApp.$notification.triggerNotification('Please select a package!', 'warning');
   } else {
@@ -146,7 +210,7 @@ const handleSubmitStep3 = async () => {
           packageStore.setPaymentToken(payment_token);
 
           // Step 4: Redirect to the /payment page
-          router.push(`/payment/${payment_token}?package=${selectedPackage.value}`);
+          router.push(`/payment/${payment_token}?package=premium`);
 
         } else {
           // Throw error if setupIntent is invalid
