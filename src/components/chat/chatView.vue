@@ -1,6 +1,6 @@
 <template>
    <div class="col-span-3 my-6" :style="{ height: contentHeight + 'px' }">
-                <div class="rounded-2xl bg-white h-full">
+                <div class="rounded-2xl bg-white vh-80">
                     <div class="grid grid-rows-[130px_auto_110px] h-full">
                         <div>
                             <div class="px-6 pt-6">
@@ -19,6 +19,17 @@
                                                 <img src="@/assets/user/images/manage-parent.png" alt="" class=" w-4 h-4">
                                             </div>
                                             <div class="text-xs ml-2 text-vividOrange">Manage by parent</div> -->
+                                            
+                                            <!-- <div class="bg-blue-200 p-1 rounded">
+                                                <img src="@/assets/images/player-blue.png" alt="" class=" w-4 h-4">
+                                            </div>
+                                            <div class="text-xs ml-2 text-steelBlue">Player</div> -->
+                                           
+                                            <div class="bg-green-200 p-1 rounded">
+                                                <img src="@/assets/images/coach-icon-green.png" alt="" class=" w-4 h-4">
+                                            </div>
+                                            <div class="text-xs ml-2 text-green-500">Coach</div>
+
                                         </div>
                                         <div class="flex items-center space-x-2 mb-2">
                                             <!-- <p class="text-xs text-limegreen">Online</p> -->
@@ -195,3 +206,9 @@ const getTimeAgo = (date) => {
   return secondsAgo === 1 ? '1 second ago' : `${secondsAgo} seconds ago`;
 };
 </script>
+
+<style>
+.vh-80{
+    height: 80vh;
+}
+</style>
