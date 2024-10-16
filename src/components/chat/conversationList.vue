@@ -12,7 +12,15 @@
                             <button @click="chatShow(chat)" class="flex items-center px-3 py-2 rounded-xl  space-x-4  cursor-pointer w-full">
                                 <!-- active : bg-white -->
                                 <div class="basis-[56px] shrink-0 grow-0">
-                                    <img src="@/assets/user/images/Rectangle_117.png" alt="" class="w-14 h-14 rounded-lg">
+                                    <!-- <img src="@/assets/user/images/Rectangle_117.png" alt="" class="w-14 h-14 rounded-lg"> -->
+                                    <img v-if="(chat.first_message_user.id != props.loginUserId) && chat.user_1_profile_picture==null" class="w-14 h-14 rounded-lg"
+                                    src="@/assets/images/user.png" alt="">
+                                    <img v-if="(chat.first_message_user.id != props.loginUserId) && chat.user_1_profile_picture !=null" class="w-14 h-14 rounded-lg"
+                                    :src="chat.user_1_profile_picture.url" alt="">
+                                    <img v-if="(chat.received_user.id != props.loginUserId) && chat.user_2_profile_picture==null" class="w-14 h-14 rounded-lg"
+                                    src="@/assets/images/user.png" alt="">
+                                    <img v-if="(chat.received_user.id != props.loginUserId) && chat.user_2_profile_picture !=null" class="w-14 h-14 rounded-lg"
+                                    :src="chat.user_2_profile_picture.url" alt="">
                                 </div>
                                 <div>
                                     <h3 class="text-base mb-1 text-black font-bold text-left" v-if="chat.first_message_user.id != props.loginUserId">{{ chat.first_message_user.display_name }}</h3>

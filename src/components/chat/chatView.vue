@@ -6,8 +6,15 @@
                             <div class="px-6 pt-6">
                                 <div class="flex items-center space-x-4 border-b border-softGray pb-3">
                                     <div>
-                                        <img class=" rounded-2xl w-[80px] h-[80px]" src="@/assets/user/images/Rectangle 193.png"
-                                            alt="Neil image">
+                                        <img v-if="(props.chat.first_message_user.id != props.loginUserId) && props.chat.user_1_profile_picture==null" class=" rounded-2xl w-[80px] h-[80px]" src="@/assets/images/user.png"
+                                            alt="Neil image"> 
+                                        <img v-if="(props.chat.first_message_user.id != props.loginUserId) && props.chat.user_1_profile_picture!=null" class=" rounded-2xl w-[80px] h-[80px]" :src="props.chat.user_1_profile_picture.url"
+                                            alt="Neil image"> 
+                                        <img v-if="(props.chat.received_user.id != props.loginUserId) && props.chat.user_2_profile_picture==null" class=" rounded-2xl w-[80px] h-[80px]" src="@/assets/images/user.png"
+                                            alt="Neil image"> 
+                                        <img v-if="(props.chat.received_user.id != props.loginUserId) && props.chat.user_2_profile_picture!=null" class=" rounded-2xl w-[80px] h-[80px]" :src="props.chat.user_2_profile_picture.url"
+                                            alt="Neil image"> 
+
                                     </div>
                                     <div v-if="props.chat.first_message_user">
 
