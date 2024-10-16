@@ -220,6 +220,7 @@ const saveProfilePicture = async () => {
     try {
         const user_slug = props.slug; // Assuming you have user_slug available in props
         const response = await $userService.upload_player_profile_picture(profile_picture.value, user_slug); // Call the upload function
+        console.log(response)
         const data = {
             url: response.data.url,
             media_type: response.data.media_type,
@@ -306,7 +307,10 @@ const removeProfile = async () => {
     try {
         const dataSets = await $publicService.delete_media_player(profile_picture_exit.value.media_id);
         nuxtApp.$notification.triggerNotification(dataSets.display_message, 'success');
-        fetchPlayerNames(props.slug);
+        //fetchPlayerNames(props.slug);
+        userStore.setProfilePicture(null)
+
+        profile_picture_exit.value = null
     } catch (error) {
         console.log(error)
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');

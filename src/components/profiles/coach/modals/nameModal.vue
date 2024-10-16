@@ -303,7 +303,8 @@ const removeProfile = async () => {
         // }
 
         userStore.setProfilePicture(null)
-        emit('updateData')
+        profile_picture_exit.value = null;
+       // emit('updateData')
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     }
