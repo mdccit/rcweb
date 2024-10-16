@@ -64,7 +64,7 @@
 
       </div>
       <div>
-        <button :id="'post-button-' + comment.id" :aria-labelledby="'post-dropdown-' + comment.id"
+        <button v-if="comment.user_id ==userId" :id="'post-button-' + comment.id" :aria-labelledby="'post-dropdown-' + comment.id"
           data-dropdown-toggle="'post-dropdown-' + post.id" data-dropdown-delay="500" data-dropdown-trigger="hover"
           class="text-white bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
           type="button" @click="modelShow(comment.id)">
