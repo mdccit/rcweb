@@ -102,11 +102,12 @@
                                 <NuxtLink to="/user/resources"
                                     class="block py-2 px-3 text-periwinkleBlue md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:text-white md:dark:hover:bg-transparent group">
                                     <div class="flex items-center justify-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                            class="size-5 fill-none stroke-periwinkleBlue group-hover:fill-steelBlue group-hover:stroke-steelBlue transition stroke-1.75">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-5 fill-none stroke-periwinkleBlue group-hover:fill-steelBlue group-hover:stroke-steelBlue transition stroke-1.75">>
                                             <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                                                d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
                                         </svg>
+
                                     </div>
                                     <span
                                         class="text-xs font-normal text-periwinkleBlue group-hover:text-steelBlue transition uppercase">Resources</span>
@@ -137,10 +138,12 @@
                         <NuxtLink v-if="userRole != 'admin'" :to="`/app/profile/${userSlug}`">
                             <div class="flex space-x-2 items-center">
                                 <div class="hidden sm:hidden md:hidden lg:block">
-                                    <img v-if="profilePicture == 'null'"class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                    <img v-if="profilePicture == 'null'"
+                                        class="w-10 h-10 rounded-lg border border-white shadow-lg"
                                         src="@/assets/images/user.png" alt="">
-                                    <img v-if="profilePicture != 'null'" class="w-10 h-10 rounded-lg border border-white shadow-lg"
-                                        :src="profilePicture" alt="">
+                                    <img v-if="profilePicture != 'null'"
+                                        class="w-10 h-10 rounded-lg border border-white shadow-lg" :src="profilePicture"
+                                        alt="">
                                 </div>
                                 <div class="hidden sm:hidden md:hidden lg:block">
                                     <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
@@ -148,14 +151,16 @@
                                 </div>
                             </div>
                         </NuxtLink>
-                        <NuxtLink v-if="userRole == 'admin'" >
+                        <NuxtLink v-if="userRole == 'admin'">
                             <div class="flex space-x-2 items-center">
                                 <div class="hidden sm:hidden md:hidden lg:block">
-                                    <img v-if="profilePicture == 'null'"class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                    <img v-if="profilePicture == 'null'"
+                                        class="w-10 h-10 rounded-lg border border-white shadow-lg"
                                         src="@/assets/images/user.png" alt="">
-                                        
-                                    <img v-if="profilePicture != 'null'" class="w-10 h-10 rounded-lg border border-white shadow-lg"
-                                        :src="profilePicture" alt="">
+
+                                    <img v-if="profilePicture != 'null'"
+                                        class="w-10 h-10 rounded-lg border border-white shadow-lg" :src="profilePicture"
+                                        alt="">
                                 </div>
                                 <div class="hidden sm:hidden md:hidden lg:block">
                                     <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
@@ -220,8 +225,8 @@ const loggedUserMail = computed(() => userStore.loggedUserEmail);
 const loggedUserName = ref('');
 const userSlug = ref('');
 const key = ref('');
-const profilePicture= ref('')
-const profile_picture= ref('')
+const profilePicture = ref('')
+const profile_picture = ref('')
 const logout = async (event) => {
     event.preventDefault();
 
@@ -309,8 +314,8 @@ onMounted(() => {
         } else {
             userSlug.value = null; // Handle the absence of user_slug
         }
-        if(localStorage.getItem('profile_picture')){
-            profilePicture.value =localStorage.getItem('profile_picture')
+        if (localStorage.getItem('profile_picture')) {
+            profilePicture.value = localStorage.getItem('profile_picture')
 
             userStore.setProfilePicture({
                 url: profilePicture.value
@@ -331,18 +336,18 @@ watch(
     () => {
         //if(localStorage.getItem('profile_picture')){
         console.log(userStore.userProfilePicture)
-        if(userStore.userProfilePicture !=null){
-            profilePicture.value =userStore.userProfilePicture.url
-        }else{
+        if (userStore.userProfilePicture != null) {
+            profilePicture.value = userStore.userProfilePicture.url
+        } else {
             profilePicture.value = 'null'
         }
-           
-            // console.log(1144)
-            // console.log(profilePicture.value)
 
-            // userStore.setProfilePicture({
-            //     url:profilePicture.value
-            // })
+        // console.log(1144)
+        // console.log(profilePicture.value)
+
+        // userStore.setProfilePicture({
+        //     url:profilePicture.value
+        // })
         //}
     }
 );
