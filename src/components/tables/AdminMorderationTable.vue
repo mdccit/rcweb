@@ -172,15 +172,15 @@ const formatDate = (dateString) => {
 };
 
 const filteredItems = computed(() => {
-  // let filtered = items.value;
+let filtered = items.value;
 
-  if (!search.value) return items.value;
+ // if (!search.value) return items.value;
 
-return items.value.filter(item =>
-  item.priority.toLowerCase().includes(search.value.toLowerCase()) ||
-  (item.display_name && item.display_name.toLowerCase().includes(search.value.toLowerCase())) ||
-  (item.email && item.email.toLowerCase().includes(search.value.toLowerCase()))
-);
+// return items.value.filter(item =>
+//   item.priority.toLowerCase().includes(search.value.toLowerCase()) ||
+//   (item.display_name && item.display_name.toLowerCase().includes(search.value.toLowerCase())) ||
+//   (item.email && item.email.toLowerCase().includes(search.value.toLowerCase()))
+// );
 
   // Paginate items
   const start = (options.value.page - 1) * options.value.itemsPerPage;
