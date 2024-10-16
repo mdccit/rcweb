@@ -61,26 +61,26 @@
 
         <!-- Pro Tennis Eligibility Guide -->
 
-        <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
-            <h1 class="text-3xl font-bold mb-6 text-black">Pro Tennis Eligibility Guide</h1>
+        <div v-if="userStore.resource != null" class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+            <h1 class="text-3xl font-bold mb-6 text-black">{{userStore.resource.title  }}</h1>
 
             <section class="mb-8">
-                <h2 class="text-lg font-semibold mb-2 text-black">NCAA Eligibility and Professionalism Rules</h2>
-                <h3 class="font-medium mb-2 text-black text-md">Professional Play:</h3>
+                <!-- <h2 class="text-lg font-semibold mb-2 text-black">NCAA Eligibility and Professionalism Rules</h2>
+                <h3 class="font-medium mb-2 text-black text-md">Professional Play:</h3> -->
                 <ul class="list-disc ml-5 mb-4 text-darkSlateBlue">
-                    <li>Athletes lose their NCAA amateur status if they declare for a professional sports draft (with
-                        some exceptions in basketball), sign with an agent, or sign a contract with a professional team.
+                    <li>
+                        {{ userStore.resource.content }}
                     </li>
                 </ul>
-                <h3 class="font-medium mb-2 text-black text-md">Prize Money:</h3>
+                <!-- <h3 class="font-medium mb-2 text-black text-md">Prize Money:</h3>
                 <ul class="list-disc ml-5 mb-4 text-darkSlateBlue">
                     <li>As of the latest updates, NCAA athletes can accept prize money up to an amount covering their
                         actual and necessary expenses for the competition, such as travel, lodging, equipment, and
                         apparel.</li>
-                </ul>
+                </ul> -->
             </section>
 
-            <section class="mb-8">
+            <!-- <section class="mb-8">
                 <h2 class="text-lg font-semibold mb-2 text-black">NAIA Eligibility and Professionalism Rules</h2>
                 <h3 class="font-medium mb-2 text-black text-md">Professional Play:</h3>
                 <ul class="list-disc ml-5 mb-4 text-darkSlateBlue">
@@ -116,8 +116,8 @@
                     <li>Advice and Guidance: Seek advice from compliance officers at prospective colleges or sports
                         organizations.</li>
                 </ul>
-            </section>
-        </div> -->
+            </section> -->
+        </div>
         <!-- / Pro Tennis Eligibility Guide -->
 
     </div>
@@ -136,6 +136,8 @@ import { useNuxtApp } from '#app';
 import { useUserStore } from '@/stores/userStore';
 import Category from '~/components/resources/category.vue';
 import Tutorial from '~/components/resources/tutorial.vue';
+
+
 const userStore = useUserStore();
 const tab = ref(1)
 const nuxtApp = useNuxtApp();
@@ -144,7 +146,8 @@ const category = ref([])
 
 onMounted(() => {
     fetchResourcresCategory()
-
+    console.log("Resouce Store")
+    console.log(userStore.resourceData)
 });
 
 const fetchResourcresCategory = async () => {

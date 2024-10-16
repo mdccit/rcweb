@@ -78,14 +78,13 @@
         </el-table-column> -->
   
         <!-- Actions Column -->
-        <!-- <el-table-column label="Actions">
+        <el-table-column label="Actions">
             <template v-slot="scope">
               <el-dropdown>
                 <template #dropdown>
                   <el-dropdown-menu>
-                    <el-dropdown-item @click.native="viewDetails(scope.row)">View Details</el-dropdown-item>
-                    <el-dropdown-item @click.native="editRecord(scope.row)">Edit Record</el-dropdown-item>
-                    <el-dropdown-item @click.native="manageMembers(scope.row)">Manage Members</el-dropdown-item>
+                    <el-dropdown-item @click.native="editRecord(scope.row)">Edit </el-dropdown-item>
+                    <el-dropdown-item @click.native="deleteRecord(scope.row)">Delete</el-dropdown-item>
                   </el-dropdown-menu>
                 </template>
                 <el-button size="small" class="inline-flex items-center text-sm ml-2">
@@ -100,12 +99,14 @@
                 </el-button>
               </el-dropdown>
             </template>
-          </el-table-column> -->
+          </el-table-column>
       </el-table>
   
       <el-pagination v-model:current-page="options.page" :page-size="options.itemsPerPage" :total="totalItems"
         layout="prev, pager, next" @current-change="handlePageChange"></el-pagination>
     </el-card>
+    <AdminResourceCategoryDeleteModal :isVisible="showModal" @close="showModal = false" :categoryId="categoryId" @setData="fetchData"/>
+
   </template>
   
   <script setup>
@@ -114,7 +115,8 @@
   import { useRouter } from 'vue-router';
   import { useNuxtApp } from '#app';
   import { useFlowbite } from '~/composables/useFlowbite';
-  
+  import AdminResourceCategoryDeleteModal from '~/components/admin/user/adminResourceCategoryDeleteModal.vue';
+
   const router = useRouter();
   const search = ref('');
   const items = ref([]);
@@ -128,6 +130,8 @@
   const $adminService = nuxtApp.$adminService;
   const hasAdmin = ref("");
   const filterApply = ref(false)
+  const showModal = ref(false)
+  const categoryId = ref('')
   // Function to fetch data from the server
   const fetchData = async () => {
     loading.value = true;
@@ -221,37 +225,25 @@
   });
   
   
-  // Function to navigate to view details
-  const viewDetails = (row) => {
-    router.push({
-      path: '/business/businessGeneral',
-      query: {
-        action: 'view',
-        business_id: row.id
-      }
-    });
-  };
+
   
   // Function to navigate to edit record
   const editRecord = (row) => {
     router.push({
-      path: '/business/businessGeneral',
+      path: '/admin/resourcesEditCategory',
       query: {
-        action: 'edit',
-        business_id: row.id
+        cat_id: row.id
       }
     });
   };
+
+  const deleteRecord = (row) => {
   
-  const manageMembers = (row) => {
-    router.push({
-      path: '/business/businessMembers',
-      query: {
-        action: 'manage',
-        business_id: row.id
-      }
-    });
-  };
+  categoryId.value = row.id
+  showModal.value = true
+};
+  
+  
   
   const handleRowClick = (row) => {
     editRecord(row);
