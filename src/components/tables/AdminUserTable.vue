@@ -7,12 +7,6 @@
       <!-- Search Input for Filtering -->
       <el-input v-model="search" class="h-[40px] mr-2 focus:border-none" placeholder="Search..." clearable></el-input>
 
-      <!--  Search Button -->
-      <!-- <button id="searchButton" @click="applySearch"
-        class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 p-2 border rounded h-[40px] mr-1 mx-auto"
-        type="button">
-        <span class=" mx-auto">Search</span>
-      </button> -->
       <div class="relative inline-block text-left">
 
         <button type="button" aria-haspopup="true" id="dropdownButtonUserTable" data-dropdown-toggle="dropdowntable2"
@@ -73,18 +67,6 @@
           </div>
         </div>
       </div>
-
-      <!-- <button
-        class="text-white bg-gray-200 hover:bg-gray-300 focus:ring-4 p-2 border rounded h-[40px] w-[50px] mr-1 mx-auto">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mx-auto" viewBox="0 0 20 20"
-          fill="currentColor">
-          <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-          <path fill-rule="evenodd"
-            d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-            clip-rule="evenodd"></path>
-        </svg>
-      </button> -->
-
     </div>
 
     <!-- Data Table -->
@@ -202,7 +184,6 @@ const fetchData = async () => {
   loading.value = true
   try {
     const users = await $adminService.list_users(role.value, lastSeenAt.value, emailVerified.value);
-    console.log(users)
     items.value = users;
     totalItems.value = users.length
   } catch (error) {
@@ -216,9 +197,7 @@ const fetchData = async () => {
 }
 
 const filterView = () =>{
- 
-
-  filterApply.value = false;
+   filterApply.value = false;
    if(role.value != '' || role.value !=1){
     filterApply.value = true;
    }
@@ -226,18 +205,13 @@ const filterView = () =>{
    if(emailVerified.value != ''){
     filterApply.value = true;
    }
-
    if(lastSeenAt.value != ''){
       filterApply.value = true;
    }
-
    if(role.value == '' && lastSeenAt.value == '' && emailVerified.value == '' ||role.value == 1 ){
     filterApply.value = false;
    }
-
-   console.log(filterApply.value)
 }
-
 
 // Watch options and search to update filtered items
 watch([options, search], fetchData, { immediate: true })
@@ -254,26 +228,7 @@ onMounted(() => {
   useFlowbite(() => {
     initFlowbite();
   })
-})
-
-
-
-// const filteredItems = computed(() => {
-//   let filtered = items.value;
-
-//   if (search.value) {
-//     filtered = filtered.filter(item =>
-//       item.display_name.toLowerCase().includes(search.value.toLowerCase()) ||
-//       item.email.toLowerCase().includes(search.value.toLowerCase()) ||
-//       item.user_role.toLowerCase().includes(search.value.toLowerCase())
-//     );
-//   }
-
-//   // Paginate items
-//   const start = (options.value.page - 1) * options.value.itemsPerPage;
-//   const end = start + options.value.itemsPerPage;
-//   return filtered.slice(start, end);
-// });
+});
 
 // Computed property for filtered, sorted, and paginated items
 const filteredItems = computed(() => {
@@ -320,17 +275,6 @@ const handleSortChange = (newSort) => {
   sort.value = newSort;
 };
 
-
-const viewDetails = (row) => {
-  router.push({
-    path: '/admin/userAccountDetails',
-    query: {
-      action: 'view',
-      user_id: row.id
-    }
-  });
-};
-
 const editRecord = (row) => {
   router.push({
     path: '/admin/userAccountDetails',
@@ -356,16 +300,12 @@ const formatDate = (dateString) => {
 watch(
   () => route.query.role,
   () => {
-    console.log(route.query.role)
-
     if (route.query.role == '1') {
       console.log(123)
       role.value = ''
     } {
       role.value = route.query.role
     }
-
-
     fetchData()
   }
 );

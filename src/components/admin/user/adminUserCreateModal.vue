@@ -109,7 +109,6 @@
                                     class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                     :disabled="props.action === 'view'">
                                     <option selected>Choose a Role</option>
-                                    <option value="1">Default</option>
                                     <option value="2">Admin</option>
                                     <option value="3">Operator</option>
                                     <option value="4">Player</option>
@@ -253,6 +252,7 @@ const submitRegistration = async () => {
 
     if (password.value !== password_confirmation.value) {
         nuxtApp.$notification.triggerNotification('Passwords do not match', 'warning');
+        loading.value = false;
         return;
     }
     try {
