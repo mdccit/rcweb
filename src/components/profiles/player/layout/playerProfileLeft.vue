@@ -45,12 +45,12 @@
                     </h1>
                 </div>
             </div>
-            <p class="text-sm text-darkSlateBlue leading-relaxed">
+            <p class="text-sm text-darkSlateBlue leading-relaxed break-all">
                 {{ bio }}
 
             </p>
             <div v-if="seeMoreBtnHide">
-                <button id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
+                <button id="seeMoreBtn" class="text-steelBlue text-xs" @click="toggleText">{{ expandBtnName }}</button>
 
             </div>
         </div>

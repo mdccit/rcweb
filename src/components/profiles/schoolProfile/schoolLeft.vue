@@ -1,9 +1,10 @@
 <template>
     <div class="p-2">
-        <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
+        <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3">
             <div class="flex items-center justify-between w-full">
                 <h1 class="text-lg font-semibold text-black">Bio</h1>
-                <div class="cursor-pointer"  @click="toggleModal('bio')">
+                <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"
+                    @click="toggleModal('bio')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -14,23 +15,23 @@
             <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
                 {{ bio }}
             </p>
-            <div v-if="seeMoreBtnHide">
+            <div class="text-blue-500 text-xs" v-if="seeMoreBtnHide">
                 <button id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
 
             </div>
         </div>
-        <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-4 w-48 ">
-                                <h1 class="text-lg font-semibold mb-4 text-black ">Acedemics</h1>
-                            </div>
-                        </div>
-                        <p class="text-xs text-darkSlateBlue leading-loose mb-4 ">
-                            <span v-for="data in props.data.academicData"
-                                class="bg-blue-100 pb-1 font-light text-blue-800 text-xs  me-2 px-2.5 py-0.5 rounded rounded-full bg-blue-500 text-white ">
-                                {{ data }}
-                            </span>
-                            <!-- <span
+        <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4 w-48 ">
+                    <h1 class="text-lg font-semibold mb-4 text-black ">Acedemics</h1>
+                </div>
+            </div>
+            <p class="text-xs text-darkSlateBlue leading-loose mb-4 ">
+                <span v-for="data in props.data.academicData"
+                    class="bg-blue-100 pb-1 font-light text-blue-800 text-xs  me-2 px-2.5 py-0.5 rounded rounded-full bg-blue-500 text-white ">
+                    {{ data }}
+                </span>
+                <!-- <span
                                 class="bg-blue-100 pb-1 font-light text-blue-800 text-xs  me-2 px-2.5 py-0.5 rounded rounded-full bg-blue-500 text-white ">
                                 Business Marketing
                             </span>
@@ -39,49 +40,53 @@
                                 class="bg-blue-100 pb-1 font-light text-blue-800 text-xs  me-2 px-2.5 py-0.5 rounded rounded-full bg-blue-500 text-white ">
                                 Computer engineering
                             </span> -->
-                        </p>
-                    </div>
+            </p>
+        </div>
 
-        <div style="height: 60px;"
-            class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+        <div style="height:auto"
+            class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
             <div class="grid grid-cols-10 gap-2">
-                <div class="col-span-3">
+                <div class="col-span-3 mx-auto">
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl" src="@/assets/user/images/Group 79.png" alt="">
                 </div>
                 <div class="col-span-6 ml-2">
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">Signed up
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">Signed up
                         {{ props.data.joinAt }}
                     </p>
 
                 </div>
-                <div class="col-span-1"  @click="toggleModal('info')">
+                <!-- <div class="col-span-1" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                     </svg>
-                </div>
+                </div> -->
             </div>
 
         </div>
-        <div style="height: 60px;"
-            class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
-            <div class="grid grid-cols-10 gap-2">
-                <div class="col-span-3">
+
+        <div style="height:auto"
+            class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
+            <div class="grid grid-cols-8 gap-2">
+                <div class="col-span-2 mx-auto">
                     <img class="mx-auto w-[35px] h-[35px] rounded-xl" src="@/assets/images/pin.png" alt="">
                 </div>
-                <div class="col-span-6 ml-2">
+                <div class="col-span-5 ml-2 mx-auto">
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto mt-3">location
                         {{ props.data.address }}
                     </p>
 
                 </div>
-                <div class="col-span-1"  @click="toggleModal('cover')" >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                    </svg>
+                <div class="col-span-1">
+                    <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"
+                        @click="toggleModal('address')">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                        </svg>
+                    </div>
                 </div>
             </div>
 
@@ -197,34 +202,34 @@ const toggleText = () => {
 const fetchSchoolDetails = async () => {
     try {
         const dataSets = await $publicService.get_school(route.params.slug);
-        if(dataSets.school_info){
-            schoolId.value =dataSets.school_info.id || '';
+        if (dataSets.school_info) {
+            schoolId.value = dataSets.school_info.id || '';
             bio.value = dataSets.school_info.bio || 'School has not entered bio';
             props.data.name = dataSets.school_info.name;
             const date = new Date(dataSets.school_info.joined_at);
             const monthNames = [
-               'January', 'February', 'March', 'April', 'May', 'June',
-               'July', 'August', 'September', 'October', 'November', 'December'
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
             ];
             const year = date.getFullYear();
             const month = monthNames[date.getMonth()];
-           const day = date.getDate();
-           props.data.joinAt = `${year} ${month} ${day}`
+            const day = date.getDate();
+            props.data.joinAt = `${year} ${month} ${day}`
             divitionId.value = dataSets.school_info.division_id || 'Unknown';
             conferenceId.value = dataSets.school_info.conference_id || 'Unknown';
         }
 
-        if(dataSets.school_info.other_data){
-            tuitionInState.value =dataSets.school_info.other_data.tuition_in_state
-            tuitionOutState.value =dataSets.school_info.other_data.tuition_out_state
-            costOfAttendance.value =dataSets.school_info.other_data.cost_of_attendance
-            address.value =dataSets.school_info.other_data.address
-            graduationRate.value =dataSets.school_info.other_data.graduation_rate
-            academic.value =dataSets.school_info.other_data
+        if (dataSets.school_info.other_data) {
+            tuitionInState.value = dataSets.school_info.other_data.tuition_in_state
+            tuitionOutState.value = dataSets.school_info.other_data.tuition_out_state
+            costOfAttendance.value = dataSets.school_info.other_data.cost_of_attendance
+            address.value = dataSets.school_info.other_data.address
+            graduationRate.value = dataSets.school_info.other_data.graduation_rate
+            academic.value = dataSets.school_info.other_data
         }
 
-        if(dataSets.school_users_info){
-            members.value =dataSets.school_users_info
+        if (dataSets.school_users_info) {
+            members.value = dataSets.school_users_info
             // logUserInTheSchool.value =dataSets.school_users_info.some(user => user.slug == userStore.userSlug);
         }
 
