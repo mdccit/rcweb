@@ -309,7 +309,8 @@ const createUserService = (apiService) => {
       const response = await apiService.putRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || "Failed to update");
+    
+      throw new Error(error.message || 'Failed to update');
     }
   };
 

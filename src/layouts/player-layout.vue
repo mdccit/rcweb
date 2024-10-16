@@ -170,8 +170,9 @@ const fetchUserDetails = async () => {
     try {
         const dataSets = await $publicService.get_player(route.params.slug);
         console.log(dataSets)
-        playerID.value = dataSets.user_basic_info.id || null;
+       
         if (dataSets.user_basic_info) {
+           playerID.value = dataSets.user_basic_info.id || null;
             bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"
             name.value = dataSets.user_basic_info.display_name ?? "User has not entered name";
 
@@ -218,11 +219,13 @@ const fetchUserDetails = async () => {
         if (dataSets.player_info) {
             heigth.value = dataSets.player_info.height ?? 'User has not entered height'
             weight.value = dataSets.player_info.weight ?? 'User has not entered weight'
-            utr.value = dataSets.player_info.other_data.utr ?? 0
+           
             gpa.value = dataSets.player_info.gpa ?? "Unknown"
             sportName.value = dataSets.player_info.sport_name ?? 'User has not entered sport'
 
       if (dataSets.player_info.other_data) {
+        utr.value = dataSets.player_info.other_data.utr ?? 0
+
         budgetMin.value = dataSets.player_info.other_data.budget_max ?? 'User has not entered budget min value'
         budgetMax.value = dataSets.player_info.other_data.budget_min ?? 'User has not entered budget max value'
         sat.value = dataSets.player_info ? dataSets.player_info.other_data.sat_score : "Unknown"

@@ -156,6 +156,38 @@ const createAuthService = (apiService) => {
       }
     }
   };
+
+  const updatePassword = async (data) => {
+    const url = `/auth/update-password`;
+  
+    try {
+      // Make the API request
+      const response = await apiService.postRequest(url, data);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to recover');
+      }
+    }
+  };
+
+  const browserOtherTokensLogout = async () => {
+    const url = `/auth/browser-other-tokens-logout`;
+  
+    try {
+      // Make the API request
+      const response = await apiService.getRequest(url);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to recover');
+      }
+    }
+  };
   
 
   return {
@@ -169,6 +201,8 @@ const createAuthService = (apiService) => {
     resetPasswordRequest,
     resetPassword,
     resendVerificationEmail,
+    updatePassword,
+    browserOtherTokensLogout
   };
 };
 
