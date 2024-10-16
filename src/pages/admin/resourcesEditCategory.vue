@@ -10,7 +10,7 @@
                             <path d="M15 6l-6 6l6 6"></path>
                         </svg>
                     </NuxtLink>
-                    <h2 class="font-bold text-black text-lg self-center">Create Category </h2>
+                    <h2 class="font-bold text-black text-lg self-center">Edit Category </h2>
                 </div>
                 <div>
 
@@ -42,7 +42,7 @@
                                     Description </span><textarea name="description" data-validation-key="description" required v-model="description"
                                     class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50"></textarea></label><!---->
                         </div>
-                        <div class="my-8"></div><button @click="handleRequest"
+                        <div class="my-8"></div><button @click="handleRequest" type="button"
                             class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-blue-600 active:bg-blue-600 text-white border-transparent focus:border-blue-300 focus:ring-blue-200">
                             <div class="flex flex-row items-center justify-center"><!----><span class=""> Save changes
                                 </span></div>
