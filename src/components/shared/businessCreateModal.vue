@@ -83,8 +83,6 @@ const $adminService = nuxtApp.$adminService;
 // Reference to the modal component
 const emit = defineEmits(['close']);
 
-// Computed property to split error messages by comma
-const splitErrors = computed(() => errors.value.flatMap((error) => error.split(',')));
 const props = defineProps({
     isVisible: {
         type: Boolean,
