@@ -12,10 +12,15 @@
           visual form of a document or a typeface without relying on meaningful content.</p>
 
         <div class="flex gap-4 bg-white p-6">
+
           <div class="border border-gainsboroGray rounded-lg p-6 flex-1 text-center">
             <p class="text-black mb-2 text-md font-semibold">Current Subscription plan</p>
-            <p class="text-4xl font-bold text-steelBlue mb-4 mt-2">${{ Price }}</p>
-            <p class="text-xl font-semibold text-black">PREMIUM</p>
+
+            <ButtonSpinner v-if="loading" class="inline-block" />
+
+            <p v-if="Price" class="text-4xl font-bold text-steelBlue mb-4 mt-2">${{ Price }}</p>
+            
+            <p v-if="Price" class="text-xl font-semibold text-black">PREMIUM</p>
             <p class="text-darkSlateBlue mt-4 text-sm">
               Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a
               typeface
@@ -25,13 +30,16 @@
               class="bg-green-100 text-green-600 font-semibold mt-4 text-xl px-4 py-2 rounded-full">
               Activated
             </p>
-            <p v-else class="bg-red-100 text-red-600 font-semibold mt-4 text-xl px-4 py-2 rounded-full">
+            <p v-else-if="activeStatus === 'trailing'" class="bg-red-100 text-red-600 font-semibold mt-4 text-xl px-4 py-2 rounded-full">
+              Trial
+            </p>
+            <p v-else-if="!loading" class="bg-red-100 text-red-600 font-semibold mt-4 text-xl px-4 py-2 rounded-full">
               Inactive
             </p>
           </div>
 
 
-          <div class="flex-1">
+          <div class="flex-1" v-if="!loading">
             <div class="border border-gainsboroGray rounded-lg p-4 flex justify-between mb-10">
               <div>
                 <p class="text-darkSlateBlue text-sm font-semibold mb-2">Last subscribed date</p>
@@ -67,16 +75,7 @@
         <div class="flex-1">
           <div
             class="bg-gradient-to-r from-blue-900 to-gray-800 text-white p-6 rounded-lg w-85 shadow-lg h-60 flex flex-col justify-end">
-            <!-- <div class="text-right">
-              <button class="text-gray-400 hover:text-red-500" @click="">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" class="size-6">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                </svg>
-              </button>
-            </div> -->
-            <div class="mt-auto flex justify-between items-center">
+            <div class="mt-auto flex justify-between items-center" v-if="!loading">
               <div class="mt-4">
                 <span class="font-semibold">Selected card</span>
                 <!-- Display dynamic card details -->
@@ -154,6 +153,9 @@ import { ref, onMounted } from 'vue';
 import { usePackageStore } from '@/stores/packageStore';
 import { useNuxtApp, useRuntimeConfig } from '#app';
 import { useRouter , useRoute} from 'vue-router';
+import ButtonSpinner from '@/components/common/ButtonSpinner.vue';
+
+
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const RuntimeConfig = useRuntimeConfig().public;
@@ -169,10 +171,12 @@ const activeStatus = ref('');
 const subscriptionType = ref('');
 const paymentMethods = ref([]);
 const selectedCard = ref(null);
+const loading = ref(false);
 
 onMounted(async () => {
   try {
     // Fetch user subscription information
+    loading.value = true;
     const response = await $subscriptionService.get_subscription();
     subscription.value = response;
 
@@ -195,6 +199,8 @@ onMounted(async () => {
 
   } catch (error) {
     console.error('Error fetching subscription data:', error);
+  }finally{
+    loading.value = false;
   }
 });
 
