@@ -46,7 +46,7 @@
                         </div> 
                         <div v-if="connectionButtonName =='Invite sent'" class="text-white">
                             <button @click="connectCancel" class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
-                               Cancel Request
+                               Cancel
                             </button>
                         </div>
                     </div>
