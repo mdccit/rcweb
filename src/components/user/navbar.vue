@@ -4,7 +4,7 @@
         <div class="container-compressed">
             <div class="grid grid-cols-6 gap-4">
                 <div class="flex items-center">
-                    <NuxtLink to="/app"><img class="w-96 md:w-32" src="@/assets/images/logo-recruited.png" alt="">
+                    <NuxtLink to="/"><img class="w-96 md:w-32" src="@/assets/images/logo-recruited.png" alt="">
                     </NuxtLink>
                 </div>
 
