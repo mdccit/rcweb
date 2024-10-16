@@ -204,6 +204,7 @@ const handleFileChange = (event) => {
         // If all validations pass, set the file to the reactive variable
         fileError.value = ''; // Clear any previous errors
         profile_picture.value = file; // Store the selected file
+        saveProfilePicture()
     }
 };
 
@@ -227,7 +228,7 @@ const saveProfilePicture = async () => {
             media_id: response.data.media_id
         }
         userStore.setProfilePicture(data)
-
+        profile_picture_exit.value = response.data ?? null
         if (response.status == '200') {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
@@ -294,7 +295,7 @@ const updatePlayerNames = async (firstName, lastName, otherNames) => {
 const saveName = async () => {
 
     try {
-        await saveProfilePicture();
+       // await saveProfilePicture();
         await updatePlayerNames(first_name.value, last_name.value, other_names.value); // Call the API to update the player's names
         emit('close', 'name'); // Emit close event after successfully updating the names
     } catch (error) {

@@ -190,6 +190,7 @@ const handleFileChange = (event) => {
         // If all validations pass, set the file to the reactive variable
         fileError.value = ''; // Clear any previous errors
         profile_picture.value = file; // Store the selected file
+        saveProfilePicture()
     }
 };
 
@@ -213,6 +214,7 @@ const saveProfilePicture = async () => {
             media_id: response.data.media_id
         }
         userStore.setProfilePicture(data)
+        profile_picture_exit.value = response.data?? null;
 
         if (response.status == '200') {
             loading.value = false;
@@ -285,7 +287,7 @@ const saveName = async () => {
     // First, call updatePlayerNames and store the result
     await updatePlayerNames(first_name.value, last_name.value, other_names.value);
 
-    await saveProfilePicture(); // Save profile picture if available
+    //await saveProfilePicture(); // Save profile picture if available
 
     // Emit close event regardless of whether profile picture save was successful
     emit('close', 'name');
