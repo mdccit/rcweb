@@ -9,15 +9,16 @@
                     <div class="pe-5 flex flex-col space-y-3">
 
                         <div v-for="chat in props.listChat">
-                            <button @click="chatShow(chat)" class="flex items-center px-3 py-2 rounded-xl bg-white space-x-4 hover:bg-white transition cursor-pointer">
+                            <button @click="chatShow(chat)" class="flex items-center px-3 py-2 rounded-xl  space-x-4  cursor-pointer w-full">
+                                <!-- active : bg-white -->
                                 <div class="basis-[56px] shrink-0 grow-0">
                                     <img src="@/assets/user/images/Rectangle_117.png" alt="" class="w-14 h-14 rounded-lg">
                                 </div>
                                 <div>
-                                    <h3 class="text-base mb-1 text-black font-bold" v-if="chat.first_message_user.id != props.loginUserId">{{ chat.first_message_user.display_name }}</h3>
-                                    <h3 class="text-base mb-1 text-black font-bold" v-if="chat.received_user.id != props.loginUserId">{{ chat.received_user.display_name }}</h3>
+                                    <h3 class="text-base mb-1 text-black font-bold text-left" v-if="chat.first_message_user.id != props.loginUserId">{{ chat.first_message_user.display_name }}</h3>
+                                    <h3 class="text-base mb-1 text-black font-bold text-left" v-if="chat.received_user.id != props.loginUserId">{{ chat.received_user.display_name }}</h3>
 
-                                        <p class="text-xs text-darkSlateBlue line-clamp-2">{{ lastMessage(chat.messages) }}
+                                        <p class="text-xs text-darkSlateBlue line-clamp-2 text-left">{{ lastMessage(chat.messages) }}
                                         </p>
                                 </div>
                                 <!-- <div class="text-center basis-[55px] shrink-0 grow-0 self-stretch">
