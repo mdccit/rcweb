@@ -12,7 +12,7 @@
                     <div class="flex justify-between items-center space-x-3">
 
                         <div class="relative hidden sm:hidden md:block basis-1/2">
-                            <input type="text" @change="searchkey" v-model="key"
+                            <input type="text" @keyup.enter="searchkey" v-model="key"
                                 class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-full border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 ps-4 pe-12"
                                 placeholder="Search..." />
                             <div class="absolute right-0 top-0 bottom-0 flex items-center pe-4 space-x-2">
@@ -84,7 +84,7 @@
                                 </NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink to="/"
+                                <NuxtLink to="/user/chat"
                                     class="block py-2 px-3 text-periwinkleBlue rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white  dark:hover:text-white md:dark:hover:bg-transparent group">
                                     <div class="flex items-center justify-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -168,11 +168,18 @@
                                 </li>
                             </ul>
                             <div class="py-2">
+                                <NuxtLink to="/user/user-setting"   @click.stop
+                                    class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                    Settings</NuxtLink>
+                            </div>
+                            <div class="py-2">
                                 <NuxtLink @click="logout"
                                     class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                     Sign out</NuxtLink>
                             </div>
                         </div>
+                        
+                        <!-- / Dropdown menu -->
                     </div>
 
                 </div>
@@ -195,19 +202,16 @@ const nuxtApp = useNuxtApp();
 const nprogress = nuxtApp.$nprogress;
 const $authService = nuxtApp.$authService;
 const searchStore = useSearchStore();
-const isLoggedIn = computed(() => userStore.isLoggedIn);
 const isAuthenticated = computed(() => userStore.isAuthenticated);
 
 const router = useRouter();
 // Get the user's role from the store
 const userRole = userStore.getRole();
 
-const loggedUserMail = computed(() => userStore.loggedUserEmail);
 const loggedUserName = ref('');
 const userSlug = ref('');
 const key = ref('');
 const profilePicture= ref('')
-const profile_picture= ref('')
 const logout = async (event) => {
     event.preventDefault();
 
@@ -315,28 +319,18 @@ onMounted(() => {
 watch(
     () => userStore.userProfilePicture,
     () => {
-        //if(localStorage.getItem('profile_picture')){
-        console.log(userStore.userProfilePicture)
         if(userStore.userProfilePicture !=null){
             profilePicture.value =userStore.userProfilePicture.url
         }else{
             profilePicture.value = 'null'
         }
-           
-            // console.log(1144)
-            // console.log(profilePicture.value)
-
-            // userStore.setProfilePicture({
-            //     url:profilePicture.value
-            // })
-        //}
     }
 );
+
 
 const searchkey = () => {
     searchStore.setSearchKey(key.value)
     searchStore.setSearchButton(true)
-    router.push('/user/search/search');
     router.push({
         path: '/user/search/search',
         query: {

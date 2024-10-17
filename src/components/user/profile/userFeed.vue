@@ -126,6 +126,10 @@
                    </textarea>
               <!-- </div> -->
               <div class="flex justify-end mt-2">
+                <button v-if="editingPostId == post.id" @click="cancelEdit"
+                  class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-8 py-2 rounded-lg text-sm min-w-24 mr-3">
+                  Cancel
+                </button>
                 <button v-if="editingPostId == post.id" @click="startEditPost(post.id)"
                   class="bg-steelBlue hover:bg-darkAzureBlue transition text-white px-8 py-2 rounded-lg text-sm min-w-24">
                   Update
@@ -178,7 +182,11 @@
           <CommentSection :comments="post.comments" :postId="post.id" @refreshComments="refreshComments" />
           <div class="mt-4">
             <div class="flex space-x-3">
-              <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
+              <!-- <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10"> -->
+              <img v-if="profilePicture == 'null'" src="@/assets/images/user.png" alt="" class="rounded-lg w-10 h-10">
+              <img v-if="profilePicture != 'null'" :src="profilePicture" alt="" class="rounded-lg w-10 h-10">
+
+
               <div class="grow">
                 <textarea v-model="newComment" type="text" placeholder="Write your comment..."
                   class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4"></textarea>
@@ -233,14 +241,16 @@ const userRole = ref('')
 const router = useRouter();
 const likeButtonDisable = ref([])
 const likeButton = ref(false)
-const emit = defineEmits(['profileView', 'listpost']);
+const emit = defineEmits(['profileView', 'listpost','newPost']);
 const newComment = ref('');
 const editPost = ref('')
 const model_id = ref('');
 const editingPostId = ref(null)
 const isLoading = ref(false);
 const loading = ref(true);
-const tabValue = ref('')
+const tabValue = ref('');
+const profilePicture= ref('')
+
 const props = defineProps({
   posts: Array,
   commentHidden: Array,
@@ -272,6 +282,13 @@ onMounted(async () => {
   await loadInitialPosts();
 
   window.addEventListener('scroll', onScroll);
+
+  if(localStorage.getItem('profile_picture')){
+      profilePicture.value =localStorage.getItem('profile_picture')
+      userStore.setProfilePicture({
+        url: profilePicture.value
+      })
+  }
 });
 
 
@@ -417,7 +434,7 @@ const startEditPost = async (post_id) => {
       title: 'Post',
     }
     const response = await nuxtApp.$feedService.update_post(post_id, newValue);
-    emit('listpost')
+    emit('newPost')
   } catch (error) {
     console.error('Failed to fetch comments:', error.message);
   } finally {
@@ -434,7 +451,7 @@ const postDelete = async (post_id) => {
     //nprogress.start();
     model_id.value = ""
     const response = await nuxtApp.$feedService.delete_post(post_id);
-    loadPosts();
+    emit('newPost')
   } catch (error) {
     console.error('Failed to fetch comments:', error.message);
   } finally {
@@ -442,6 +459,9 @@ const postDelete = async (post_id) => {
   }
 }
 
+const cancelEdit = () =>{
+  editingPostId.value = null
+}
 </script>
 
 <style scoped>

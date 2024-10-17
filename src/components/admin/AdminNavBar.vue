@@ -132,29 +132,29 @@
               </div>
             </NuxtLink>
 
+
             <NuxtLink to="/admin/transferTracker"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Transfer Tracker </div>
             </NuxtLink>
 
-
-            <!-- <NuxtLink @click="goto_transfer_tracker"
-              class="inline-flex items-center px-1 pt-1 border-b-2 cursor-pointer border-transparent text-sm font-medium curs leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-              <div class="flex items-center"> Transfer Tracker </div>
-            </NuxtLink> -->
-
-            <!-- <NuxtLink to="/admin/transcripts"
+            <NuxtLink to="/admin/subscriptions"
+              class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+              Subscriptions
+            </NuxtLink>
+            <NuxtLink to="/admin/transcript"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Transcripts </div>
-            </NuxtLink> -->
-            <NuxtLink @click="login" v-if="!isLoggedIn"
+            </NuxtLink>
+            <!--   <NuxtLink @click="login" v-if="!isLoggedIn"
               class="cursor-pointer inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Login </div>
             </NuxtLink>
             <NuxtLink @click="register" v-if="!isLoggedIn"
               class="cursor-pointer inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Register </div>
-            </NuxtLink>
+            </NuxtLink> -->
+
 
           </div>
           <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -163,12 +163,16 @@
                 <div>
                   <button type="button" aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdown"
                     class="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                    <!-- <img class="h-8 w-8 rounded-full object-cover"
+                    <<<<<<< HEAD <!-- <img class="h-8 w-8 rounded-full object-cover"
                       src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin"> -->
-                    <img v-if="profilePicture == 'null'" class="h-8 w-8 rounded-full object-cover"
-                      src="@/assets/images/user.png" alt="">
-                    <img v-if="profilePicture != 'null'" class="h-8 w-8 rounded-full object-cover" :src="profilePicture"
-                      alt="">
+                      =======
+                      <img class="h-8 w-8 rounded-full object-cover"
+                        src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin">
+                      >>>>>>> b0d470d0ef31e4c92fc4aba92e5981db4a6dd38e
+                      <img v-if="profilePicture == 'null'" class="h-8 w-8 rounded-full object-cover"
+                        src="@/assets/images/user.png" alt="">
+                      <img v-if="profilePicture != 'null'" class="h-8 w-8 rounded-full object-cover"
+                        :src="profilePicture" alt="">
                   </button>
                 </div>
                 <div>

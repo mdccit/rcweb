@@ -30,7 +30,7 @@ module.exports = {
         azureblue: '#0284c7',
         steelBlue: '#0085FF', // Primary color
         lightSteelBlue: '#779BD8',
-        steelBlueLight79: '#F1F6FF',
+        steelBlueLight79: '#2B9AFF',
         veryPaleBlue: '#EFEFFD',
         snowBlue: '#FBFBFB',
         periwinkleBlue: '#6288C9',

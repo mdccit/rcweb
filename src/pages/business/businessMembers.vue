@@ -3,8 +3,8 @@
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="flex w-full justify-between gap-8">
                 <div class="flex items-center gap-4">
-                    <NuxtLink
-                        :to="{ path: '/business/businessGeneral', query: { action: 'edit', business_id: business_id } }">
+                    <NuxtLink to="/admin/business"
+                       >
                         <svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
@@ -80,6 +80,7 @@ const business_id = ref('');
 const members = ref([]); // Array to store members
 const errors = ref([]);  // Array to handle error messages
 const name = ref('')
+const slug = ref('')
 // Fetch business members on component mount
 onMounted(() => {
     business_id.value = route.query.business_id || '';
@@ -121,7 +122,8 @@ const fetchBusinessDetails = async () => {
   try {
     const data = await $adminService.get_business_details(business_id.value);
     name.value = data.business_info.name;
-    
+    slug.value = data.business_info.slug;
+
   } catch (error) {
     console.error('Error fetching business details:', error.message);
   }

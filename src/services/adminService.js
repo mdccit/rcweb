@@ -305,6 +305,19 @@ const createAdminService = (apiService) => {
     }
   };
 
+  const search_school_sysnchronic_result = async (request_body) => {
+
+    const url = `/admin/matchResult`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  }
+
   const user_delete = async (user_id) => {
     const url = `/admin/user-delete/${user_id}`;
 
@@ -350,6 +363,33 @@ const createAdminService = (apiService) => {
     }
   };
 
+  const school_connect_gov = async (school_id, request_body) => {
+
+    const url = `/admin/connect/${school_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  };
+
+  const school_sync_history = async (school_id) => {
+
+    const url = `/admin/history/${school_id}`;
+    try {
+      const response = await apiService.getRequest(url);
+      if (response) {
+        return response;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
   const morderation_all = async (status) => {
     const url = `/admin/morderation-get-all?status=${status}`;
 
@@ -484,6 +524,54 @@ const createAdminService = (apiService) => {
       throw new Error(error.message || "Failed to retrieve businesses");
     }
   };
+
+
+
+  const school_sync = async (school_id) => {
+
+    const url = `/admin/sync/${school_id}`;
+    try {
+      const response = await apiService.getRequest(url);
+      return response
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
+
+  const school_sync_disconnect = async (school_id) => {
+
+    const url = `/admin/disconnect/${school_id}`;
+    try {
+      const response = await apiService.getRequest(url);
+      return response
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
+
+  const school_sync_settings = async (school_id) => {
+
+    const url = `/admin/sync-settings/${school_id}`;
+    try {
+      const response = await apiService.getRequest(url);
+      return response
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
+
+  const school_sync_settings_update = async (school_id, request_body) => {
+
+    const url = `/admin/update-setting/${school_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to update');
+    }
+  }
 
   const morderation_all_open_count = async () => {
     const url = `/admin/morderation-open-count`;
@@ -817,6 +905,69 @@ const createAdminService = (apiService) => {
     }
   };
 
+
+  const list_transcripts = async (search, status) => {
+    const url = `/admin/transcript/get-transcripts?search_key=${search}&&status=${status}`;
+
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data) {
+        return response.data;
+      } else {
+        throw new Error("Unexpected API response structure");
+      }
+    } catch (error) {
+      throw new Error(error.message || "Failed to register");
+    }
+  };
+
+  const transcript_delete = async (transcript_id) => {
+    const url = `/admin/transcript/delete-transcript/${transcript_id}`;
+
+    try {
+      const response = await apiService.deleteRequest(url);
+      if (response) {
+        return response;
+      } else {
+        throw new Error("Unexpected API response structure");
+      }
+    } catch (error) {
+      throw new Error(error.message || "Failed to register");
+    }
+  };
+
+  const transcript_update = async (transcript_id, data) => {
+    const url = `/admin/transcript/update-transcript/${transcript_id}`;
+
+    try {
+      const response = await apiService.putRequest(url, data);
+      if (response) {
+        return response;
+      } else {
+        throw new Error("Unexpected API response structure");
+      }
+    } catch (error) {
+      throw new Error(error.message || "Failed to register");
+    }
+  };
+
+
+  const list_subscriptions = async (page = 1, per_page_items = 10, hasAdmin) => {
+    const url = `/admin/subscriptions`;
+
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data) {
+        return response.data;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to retrieve businesses');
+    }
+  };
+
+
   return {
     new_user_register,
     list_users,
@@ -838,10 +989,18 @@ const createAdminService = (apiService) => {
     business_update,
     get_player_details,
     player_update,
+    search_school_sysnchronic_result,
+    search_business_users,
     user_session_delete,
     user_delete,
     school_delete,
     business_delete,
+    school_connect_gov,
+    school_sync_history,
+    school_sync,
+    school_sync_disconnect,
+    school_sync_settings,
+    school_sync_settings_update,
     morderation_all,
     morderation_get,
     morderation_comments,
@@ -870,7 +1029,12 @@ const createAdminService = (apiService) => {
     update_transfer_player,
     transfer_player_profile,
     transfer_player_profile_delete,
+    transcript_delete,
+    list_transcripts,
+    transcript_update,
+    list_subscriptions
   };
+
 };
 
 export default createAdminService;

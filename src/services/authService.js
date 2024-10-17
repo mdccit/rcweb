@@ -156,6 +156,101 @@ const createAuthService = (apiService) => {
       }
     }
   };
+
+  const updatePassword = async (data) => {
+    const url = `/auth/update-password`;
+  
+    try {
+      // Make the API request
+      const response = await apiService.postRequest(url, data);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to recover');
+      }
+    }
+  };
+
+  const browserOtherTokensLogout = async () => {
+    const url = `/auth/browser-other-tokens-logout`;
+  
+    try {
+      // Make the API request
+      const response = await apiService.getRequest(url);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to recover');
+      }
+    }
+  };
+  const createSetupIntent = async (customerDetails) => {
+    const url = '/subscription/stripe/create-setup-intent';
+    const body = customerDetails;
+  
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw new Error(error.message || 'Failed to create setup intent');
+      }
+    }
+  };
+  
+  const confirmSetupIntent = async (setupIntentId, paymentMethodId, clientSecret) => {
+    const url = '/subscription/stripe/confirm-setup-intent';
+    const body = { setup_intent_id: setupIntentId, payment_method_id: paymentMethodId, client_secret: clientSecret };
+  
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw new Error(error.message || 'Failed to confirm setup intent');
+      }
+    }
+  };
+  
+  const createSubscription = async (subscriptionDetails) => {
+    const url = '/subscription/stripe/confirm-payment-and-create-subscription';
+    const body = subscriptionDetails;
+  
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw new Error(error.message || 'Failed to create subscription');
+      }
+    }
+  };
+  
+  const getStripeCustomerId = async () => {
+    const url = '/subscription/stripe/get-stripe-customer-id';
+  
+    try {
+      const response = await apiService.getRequest(url);
+      return response.stripe_customer_id;
+    } catch (error) {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw new Error(error.message || 'Failed to retrieve Stripe customer ID');
+      }
+    }
+  };
+
   
 
   return {
@@ -169,6 +264,12 @@ const createAuthService = (apiService) => {
     resetPasswordRequest,
     resetPassword,
     resendVerificationEmail,
+    updatePassword,
+    browserOtherTokensLogout,
+    createSetupIntent,
+    confirmSetupIntent,
+    createSubscription,
+    getStripeCustomerId
   };
 };
 

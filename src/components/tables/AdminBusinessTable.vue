@@ -206,7 +206,7 @@ const formatDate = (dateString) => {
 // Function to navigate to edit record
 const editRecord = (row) => {
   router.push({
-    path: '/school/businessGeneral',
+    path: '/business/businessGeneral',
     query: {
       action: 'edit',
       business_id: row.id

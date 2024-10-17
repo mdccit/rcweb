@@ -2,15 +2,15 @@
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-black">
         <div class="flex w-full justify-between gap-8">
             <div class="flex items-center gap-4">
-                <button @click="goBack"><svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                <NuxtLink to="/admin/schools"><svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg"
                         width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M15 6l-6 6l6 6"></path>
-                    </svg></button>
+                    </svg></NuxtLink>
                 <h2 class="font-bold text-lg self-center"> Editing:{{  name }} </h2>
             </div>
             <div class="">
-                <NuxtLink to="/app/u/9cdaff61-a976-48f6-96e1-efbe4ad8b2b7"><button type="submit"
+                <NuxtLink :to="`/app/profile/school/${slug}`"><button type="submit"
                         class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
                         View <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -24,7 +24,7 @@
 
     <div class="py-12 text-black">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <SchoolNavigation :schoolId="school_id" />
+            <SchoolNavigation :schoolId="schoolId" />
 
             <div class="my-8"></div>
             <div class="">
@@ -72,6 +72,7 @@ const showNotification = ref(false);
 const showModal = ref(false);
 const email = userStore.user?.email
 const token = userStore.user?.token
+const slug = ref('')
 
 // Reference to the modal component
 const modalRef = ref(null);
@@ -98,6 +99,8 @@ const fetchSchoolDetails = async () => {
     try {
         const data = await $adminService.get_school_details(schoolId.value);
         name.value = data.school_info.name || '';
+        slug.value = data.school_info.slug || '';
+
      
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
