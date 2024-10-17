@@ -52,7 +52,7 @@
 </template>
 
 <script setup>
-import TranscriptCard from '~/components/user/userSettings/TranscriptCard.vue';
+import TranscriptCard from '~/components/user/userSettings/transcriptCard.vue';
 import SecurityCard from '~/components/user/userSettings/securityCard.vue';
 
 
