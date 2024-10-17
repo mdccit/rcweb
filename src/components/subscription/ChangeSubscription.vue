@@ -8,7 +8,7 @@
         'border w-[230px] rounded-lg text-center p-3 relative flex flex-col cursor-pointer',
         pkg.name === 'Premium' ? 'pro-pack' : '',
         selectedPackage === pkg.name ? 'highlighted-package' : ''
-      ]" @click="selectPackage(pkg.name)">
+      ]" @click="selectPackage(pkg.value)">
           <h3 :class="pkg.name === 'Premium' ? 'premium-text' : ''" class="font-medium text-black mb-2">{{ pkg.name }}
           </h3>
 
@@ -136,6 +136,8 @@ const subscription = ref([]);
 const activeStatus = ref('');
 const isModalVisible = ref(false);
 const isSetToCancel = ref(false);
+const paymentMethods = ref([]);
+const selectedCard = ref(null);
 
 // Open the confirmation modal
 const openModal = () => {
@@ -148,8 +150,8 @@ const closeModal = () => {
 }
 
 // Handle package selection
-const selectPackage = (pkgName) => {
-  selectedPackage.value = pkgName;
+const selectPackage = (pkgValue) => {
+  selectedPackage.value = pkgValue;
 };
 
 const subscribeStandard = () => {
@@ -157,10 +159,11 @@ const subscribeStandard = () => {
 };
 
 const subscribePremium = async () => {
+
+  
   if (!selectedPackage.value) {
     nuxtApp.$notification.triggerNotification('Please select a package!', 'warning');
   } else {
-    errors.value.pkg = '';
 
     if (selectedPackage.value === 'premium') {
       try {
@@ -224,6 +227,16 @@ const cancelSubscription = async () => {
 };
 
 
+// Create Setup Intent (called by PaymentComponent)
+const createSetupIntent = async (customerId) => {
+  try {
+    const setupIntent = await $authService.createSetupIntent({ customer_id: customerId });
+    return setupIntent; // Return setupIntent to PaymentComponent
+  } catch (error) {
+    console.error('Error creating setup intent:', error);
+  }
+};
+
 onMounted(async () => {
 
   useFlowbite(() => {
@@ -237,6 +250,12 @@ onMounted(async () => {
     subscription.value = response;
     activeStatus.value = response.status;
     isSetToCancel.value = response.cancel_at_period_end;
+
+    if(activeStatus == 'active' && isSetToCancel != false){
+      selectedPackage.value = 'premium';
+    }else{
+      selectedPackage.value = 'standard';
+    }
 
     const payment_methods = await $subscriptionService.get_customer_payment_methods();
 
