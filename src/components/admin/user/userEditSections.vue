@@ -1,7 +1,7 @@
 <template>
 
     <div class="flex gap-x-4">
-        <NuxtLink :to="{ path: '/admin/userAccountDetails', query: { action: 'edit', user_id: user_id } }">
+        <NuxtLink :to="{ path: '/admin/userAccountDetails', query: { action: 'edit', user_id: user_id, role:role } }">
 
         <button 
           :class="{
@@ -11,7 +11,15 @@
           }"
          > Account Details </button>
         </NuxtLink>
-        <NuxtLink :to="{ path: '/admin/userMedia', query: { action: 'edit', user_id: user_id } }">
+        <NuxtLink v-if="role== 4"  :to="{ path: '/admin/userPlayerProfile', query: { action: 'edit', user_id: user_id , role:role} }">
+            <button 
+               :class="{
+                'bg-gray-300': isActive('/admin/userPlayerProfile'),
+                'opacity-50': !isActive('/admin/userPlayerProfile'),
+                'text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200': true
+               }">Profile </button>
+        </NuxtLink>
+        <NuxtLink :to="{ path: '/admin/userMedia', query: { action: 'edit', user_id: user_id , role:role} }">
             <button 
                :class="{
                 'bg-gray-300': isActive('/admin/userMedia'),
@@ -27,7 +35,7 @@
                 class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50"> Lists
             </button>
         </NuxtLink>
-        <NuxtLink :to="{ path: '/admin/userDangerZone', query: { action: 'edit', user_id: user_id } }">
+        <NuxtLink :to="{ path: '/admin/userDangerZone', query: { action: 'edit', user_id: user_id , role:role } }">
           <button
               :class="{
                 'bg-gray-300': isActive('/admin/userDangerZone'),
@@ -51,10 +59,13 @@ const router = useRouter();
 const route = useRoute(); 
 const  action =ref('view')
 const user_id = ref('')
+const role = ref('')
 onMounted(() => {
     
     action.value = route.query.action || 'view';
     user_id.value = route.query.user_id || '';
+    role.value =  route.query.role || '';
+    console.log("Role" + role.value)
     console.log("User Id"+user_id.value)
     console.log("User type"+ action.value)
 
@@ -65,25 +76,7 @@ const props = defineProps({
     required: true
   }
 });
-const accountMedia = () =>{
-  router.push({
-    path: '/admin/userMedia',
-    query: {
-      action: 'edit',
-      user_id: user_id.value
-    }
-  });
-}
 
-const accountDetails = () =>{
-  router.push({
-    path: '/admin/userAccountDetails',
-    query: {
-      action: 'edit',
-      user_id: user_id.value
-    }
-  });
-}
 
 const isActive = (path) => {
   return route.path === path && route.query.user_id === props.user_id;

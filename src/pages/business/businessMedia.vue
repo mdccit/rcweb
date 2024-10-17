@@ -84,13 +84,14 @@ const notificationMessage = ref('');
 const loading = ref(false);
 const notification_type = ref('');
 const notificationKey = ref(0);
-
+const slug = ref('')
 // Fetch business details
 const fetchBusinessDetails = async () => {
   try {
     const data = await $adminService.get_business_details(business_id.value);
     business_id.value = data.business_info.id;
     name.value = data.business_info.name;
+    slug.value = data.business_info.slug;
     if( data.media_info){
         setGalleryItems(data.media_info)
     }

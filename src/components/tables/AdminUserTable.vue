@@ -276,11 +276,13 @@ const handleSortChange = (newSort) => {
 };
 
 const editRecord = (row) => {
+  console.log(row.user_role_id)
   router.push({
     path: '/admin/userAccountDetails',
     query: {
       action: 'edit',
-      user_id: row.id
+      user_id: row.id,
+      role: row.user_role_id
     }
   });
 };
