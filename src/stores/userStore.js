@@ -17,7 +17,8 @@ export const useUserStore = defineStore('user', {
     user_name: null,
     user_slug: null,
     profile_picture:{},
-    resource:null
+    resource:null,
+    user_setting_active_tab: "security"
   }),
   getters: {
     isAuthenticated: (state) => !!state.user && !!state.token,
@@ -31,7 +32,8 @@ export const useUserStore = defineStore('user', {
     resourceData: (state) => state.resource || null,
     // user: (state) => state.user || null
 
-    userProfilePicture:(state)=> state.profile_picture || null
+    userProfilePicture:(state)=> state.profile_picture || null,
+    userSettingActiveTab:(state)=> state.user_setting_active_tab || "security"
   },
   actions: {
     setResourceData(resouces) {
@@ -128,6 +130,9 @@ export const useUserStore = defineStore('user', {
     setTempUser(role, token) {
       this.token = token;
       this.user_role = role || 'default';
+    },
+    setUserSettingActiveTab(tab) {
+      this.user_setting_active_tab = tab;
     },
     clearRole() {
       this.user_role = null;

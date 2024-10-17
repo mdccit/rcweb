@@ -8,13 +8,15 @@
         <div class="grid grid-cols-6 gap-4 mt-16">
           <!-- Left pane -->
           <div>
-            <Filter />
-            <CallCard/>
+            <!-- <Filter /> -->
+            <!-- <CallCard/> -->
              <!-- <transfer-tracker-left-bar /> -->
              <!-- <NetworkLeft /> -->
             <!-- <Filter v-if="route.meta.showFilterLeft" /> -->
             <ResourcesLeftBar />
              <!-- <userSettingLeftBar /> -->
+            <!-- <resources-left-bar /> -->
+             <userSettingLeftBar v-if="route.meta.showUserSettingLeftBar" />
           </div>
 
           <!-- Middle pane -->
