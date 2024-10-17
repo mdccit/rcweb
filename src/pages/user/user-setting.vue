@@ -53,7 +53,7 @@
 
 <script setup>
 import TranscriptCard from '~/components/user/userSettings/TranscriptCard.vue';
-import SecurityCard from '~/components/user/userSettings/SecurityCard.vue';
+import SecurityCard from '~/components/user/userSettings/securityCard.vue';
 
 
 definePageMeta({
