@@ -318,7 +318,7 @@ import { useUserStore } from '~/stores/userStore'
 import AdminUserCreateModal from '~/components/admin/user/adminUserCreateModal.vue';
 import NationalityDropdown from '~/components/common/select/NationalityDropdown.vue';
 import { loadCountryList, loadNationalityList, loadGenderList, loadHandnessList } from '~/services/commonService';
-import GenderDropdown from '~/components/common/select/GenderDropdown.vue';
+import GenderDropdown from '~/components/common/select/GenderDropDown.vue';
 import HandednessDropdown from '~/components/common/select/HandednessDropdown.vue';
 import CountryDropdown from '~/components/common/select/CountryDropdown.vue';
 import { useNuxtApp } from '#app';
