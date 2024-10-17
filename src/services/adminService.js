@@ -968,6 +968,159 @@ const createAdminService = (apiService) => {
   };
 
 
+const resource_category = async () => {
+  const url = `/admin/resource-categories`;
+
+  try {
+    const response = await apiService.getRequest(url);
+    if (response && response.data) {
+      return response.data;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+
+const new_resource_category_create= async (request_body) => {
+  const url = '/admin/resource-categories-create';
+  const body = request_body;
+
+  try {
+    const response = await apiService.postRequest(url, body);
+    return response;
+  } catch (error) {
+    if (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response for further handling
+      } else {
+        throw new Error(error.message || 'Failed to featch user');
+      }
+    }
+  }
+};
+
+const new_resource_create= async (request_body) => {
+  const url = '/admin/resource-create';
+  const body = request_body;
+
+  try {
+    const response = await apiService.postRequest(url, body);
+    return response;
+  } catch (error) {
+    if (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response for further handling
+      } else {
+        throw new Error(error.message || 'Failed to featch user');
+      }
+    }
+  }
+};
+
+const get_resource = async () => {
+  const url = `/admin/resource`;
+
+  try {
+    const response = await apiService.getRequest(url);
+    if (response && response.data) {
+      return response.data;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+const resource_update = async (request_body) => {
+
+  const url = `/admin/resource-update/${request_body.resource_id}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to update');
+  }
+};
+
+const resource_category_update = async (request_body) => {
+
+  const url = `/admin/resource-categories-update/${request_body.category_id}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to update');
+  }
+};
+
+const resource_delete = async (resource_id) => {
+  const url = `/admin/resource-delete/${resource_id}`;
+  try {
+    const response = await apiService.deleteRequest(url);
+
+    if (response) {
+      return response;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+const resource_category_delete = async (category_id) => {
+  const url = `/admin/resource-categories-delete/${category_id}`;
+  try {
+    const response = await apiService.deleteRequest(url);
+
+    if (response) {
+      return response;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+const get_resource_by_id = async (resource_id) => {
+  const url = `/admin/resource-get/${resource_id}`;
+
+  try {
+    const response = await apiService.getRequest(url);
+    if (response ) {
+      return response;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
+const get_resource_category_by_id = async (category_id) => {
+  const url = `/admin/resource-category/${category_id}`;
+
+  try {
+    const response = await apiService.getRequest(url);
+    if (response ) {
+      return response;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to register');
+  }
+};
+
   return {
     new_user_register,
     list_users,
@@ -1029,6 +1182,16 @@ const createAdminService = (apiService) => {
     update_transfer_player,
     transfer_player_profile,
     transfer_player_profile_delete,
+    resource_category,
+    new_resource_category_create,
+    new_resource_create,
+    get_resource,
+    resource_update,
+    resource_category_update,
+    resource_delete,
+    resource_category_delete,
+    get_resource_by_id,
+    get_resource_category_by_id,
     transcript_delete,
     list_transcripts,
     transcript_update,

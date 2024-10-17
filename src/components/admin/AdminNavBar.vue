@@ -132,10 +132,13 @@
               </div>
             </NuxtLink>
 
-
             <NuxtLink to="/admin/transferTracker"
               class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               <div class="flex items-center"> Transfer Tracker </div>
+            </NuxtLink>
+            <NuxtLink to="/admin/resources"
+              class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+              <div class="flex items-center"> Resoucres </div>
             </NuxtLink>
 
             <NuxtLink to="/admin/subscriptions"
@@ -163,16 +166,12 @@
                 <div>
                   <button type="button" aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdown"
                     class="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                    <<<<<<< HEAD <!-- <img class="h-8 w-8 rounded-full object-cover"
-                      src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin"> -->
-                      =======
-                      <img class="h-8 w-8 rounded-full object-cover"
-                        src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin">
-                      >>>>>>> b0d470d0ef31e4c92fc4aba92e5981db4a6dd38e
-                      <img v-if="profilePicture == 'null'" class="h-8 w-8 rounded-full object-cover"
-                        src="@/assets/images/user.png" alt="">
-                      <img v-if="profilePicture != 'null'" class="h-8 w-8 rounded-full object-cover"
-                        :src="profilePicture" alt="">
+                    <img class="h-8 w-8 rounded-full object-cover"
+                      src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin">
+                    <img v-if="profilePicture == 'null'" class="h-8 w-8 rounded-full object-cover"
+                      src="@/assets/images/user.png" alt="">
+                    <img v-if="profilePicture != 'null'" class="h-8 w-8 rounded-full object-cover" :src="profilePicture"
+                      alt="">
                   </button>
                 </div>
                 <div>

@@ -309,7 +309,7 @@ const createUserService = (apiService) => {
       const response = await apiService.putRequest(url, body);
       return response;
     } catch (error) {
-    
+
       throw new Error(error.message || 'Failed to update');
     }
   };
@@ -677,7 +677,20 @@ const createUserService = (apiService) => {
     }
   };
 
-
+  const get_resource_category = async () => {
+    const url = `/user/resource-category`;
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data) {
+        return response.data;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      console.log(error)
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
 
 
 
@@ -727,6 +740,7 @@ const createUserService = (apiService) => {
     update_business_user_other_info,
     upload_business_user_profile_picture,
     get_transfer_players,
+    get_resource_category,
     get_transcript,
     create_transcript,
     transcript_delete,

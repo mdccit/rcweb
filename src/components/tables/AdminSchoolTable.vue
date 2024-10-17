@@ -161,7 +161,7 @@ const govId = ref("");
 const coordLat = ref("");
 const options = ref({
   page: 1,
-  itemsPerPage: 10,
+  itemsPerPage: 5,
 });
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
