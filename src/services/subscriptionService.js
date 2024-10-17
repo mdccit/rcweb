@@ -94,13 +94,27 @@ const createSubscriptionService = (apiService) => {
   };
 
 
+  const stop_premium_cancellation = async (request_body) => {
+    const url = '/subscription/stop_cancel';
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+
   return {
     get_subscription,
     get_stripe_payment_history,
     get_customer_payment_methods,
     get_customer_active_payment_method,
     cancel_subscription,
-    delete_stripe_payment_method
+    delete_stripe_payment_method,
+    stop_premium_cancellation
   };
 
 
