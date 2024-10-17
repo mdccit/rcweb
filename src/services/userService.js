@@ -607,6 +607,22 @@ const createUserService = (apiService) => {
     }
   };
 
+  const get_transfer_players = async () => {
+    const url = `/user/transfer-players`;
+    try {
+      const response = await apiService.getRequest(url);
+      return response;
+    } catch (error) {
+      if (error) {
+        if (error.response) {
+          throw error.response; // Pass the full response for further handling
+        } else {
+          throw new Error(error.message || "Failed to create");
+        }
+      }
+    }
+  };
+
   const get_all_conversiontion = async () => {
     const url = `/user/get-all-conversation`;
     try {
@@ -723,6 +739,7 @@ const createUserService = (apiService) => {
     delete_business_user_media,
     update_business_user_other_info,
     upload_business_user_profile_picture,
+    get_transfer_players,
     get_resource_category,
     get_transcript,
     create_transcript,
