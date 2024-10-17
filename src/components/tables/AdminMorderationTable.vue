@@ -116,7 +116,7 @@ const fetchData = async () => {
     const search_term = search.value; // Get the search term
     
     // Fetch data from the server with pagination and search parameters
-    const dataSets = await $adminService.morderation_all(status.value);
+    const dataSets = await $adminService.morderation_all(current_page,status.value,search_term);
     // Update the table data
     items.value = dataSets; // Data for the current page
     totalItems.value = dataSets.length
@@ -172,15 +172,15 @@ const formatDate = (dateString) => {
 };
 
 const filteredItems = computed(() => {
-  // let filtered = items.value;
+let filtered = items.value;
 
-  if (!search.value) return items.value;
+ // if (!search.value) return items.value;
 
-return items.value.filter(item =>
-  item.priority.toLowerCase().includes(search.value.toLowerCase()) ||
-  (item.display_name && item.display_name.toLowerCase().includes(search.value.toLowerCase())) ||
-  (item.email && item.email.toLowerCase().includes(search.value.toLowerCase()))
-);
+// return items.value.filter(item =>
+//   item.priority.toLowerCase().includes(search.value.toLowerCase()) ||
+//   (item.display_name && item.display_name.toLowerCase().includes(search.value.toLowerCase())) ||
+//   (item.email && item.email.toLowerCase().includes(search.value.toLowerCase()))
+// );
 
   // Paginate items
   const start = (options.value.page - 1) * options.value.itemsPerPage;
