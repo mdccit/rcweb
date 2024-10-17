@@ -64,7 +64,7 @@
                             <div
                                 class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
                                 <div class=" flex">
-                                    <img class="w-40 h-30 rounded-md" src="@/assets/css/images/rectangle-117.png"
+                                    <img class="w-40 h-30 rounded-md" src="@/assets/user/images/rectangle_117.png"
                                         alt="Profile Picture">
                                     <div class="ml-4 flex-1">
                                         <div class="flex justify-between items-center">

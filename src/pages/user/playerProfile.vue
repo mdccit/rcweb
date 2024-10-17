@@ -344,7 +344,7 @@
                                     </div>
                                 </div>
                                 <div class="flex items-center space-x-4 mt-3">
-                                    <img style="margin-bottom: 42px;" src="@/assets/user/images/Rectangle 117.png"
+                                    <img style="margin-bottom: 42px;" src="@/assets/user/images/Rectangle_117.png"
                                         alt="" class="rounded-lg w-12 h-12 mr-4">
                                     <div>
                                         <div class="text-lg font-semibold">Kristin Watson</div>
@@ -357,7 +357,7 @@
                                     </div>
                                 </div>
                                 <div class="flex items-center space-x-4 mt-4">
-                                    <img style="margin-bottom: 42px;" src="@/assets/user/images/Rectangle 117.png"
+                                    <img style="margin-bottom: 42px;" src="@/assets/user/images/Rectangle_117.png"
                                         alt="" class="rounded-lg w-12 h-12 mr-4">
                                     <div>
                                         <div class="text-lg font-semibold">Kristin Watson</div>
@@ -376,7 +376,7 @@
                         </div>
                         <hr class="mt-3 mb-3 text-pigeonBlue">
                         <div class="mt-4 flex items-start space-x-4">
-                            <img src="@/assets/user/images/Rectangle 117.png" alt="User Image"
+                            <img src="@/assets/user/images/Rectangle_117.png" alt="User Image"
                                 class="w-12 h-12 rounded-lg">
                             <div class="relative  w-full ">
                                 <input type="text" placeholder="Write your comment..."
