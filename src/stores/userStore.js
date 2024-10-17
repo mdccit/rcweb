@@ -17,6 +17,7 @@ export const useUserStore = defineStore('user', {
     user_name: null,
     user_slug: null,
     profile_picture:{},
+    resource:null,
     user_setting_active_tab: "security"
   }),
   getters: {
@@ -28,12 +29,17 @@ export const useUserStore = defineStore('user', {
     loggedUserName: (state) => state.user_name,
     userSlug: (state) => state.user_slug || null,
     userPermissionType:(state) => state.user_permission_type || null,
+    resourceData: (state) => state.resource || null,
     // user: (state) => state.user || null
 
     userProfilePicture:(state)=> state.profile_picture || null,
     userSettingActiveTab:(state)=> state.user_setting_active_tab || "security"
   },
   actions: {
+    setResourceData(resouces) {
+      this.resource = resouces;
+      
+    },
     setToken(token) {
       this.token = token;
       if (process.client) {
