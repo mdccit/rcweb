@@ -112,7 +112,7 @@ const showNotification = ref(false);
 const notificationMessage = ref('');
 const notification_type = ref('');
 const notificationKey = ref(0);
-
+const slug = ref('')
 onMounted(() => {
   business_id.value = route.query.business_id || '';
   console.log('Business ID:', business_id.value);  // Log business_id to check its value

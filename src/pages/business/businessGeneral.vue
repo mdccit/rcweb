@@ -226,7 +226,7 @@ const cover =ref(null)
 const profile_image = ref('')
 const cover_image = ref('')
 const fileError =ref('')
-
+const slug = ref('')
 // Fetch business details
 const fetchBusinessDetails = async () => {
   try {
@@ -238,6 +238,7 @@ const fetchBusinessDetails = async () => {
     is_approved.value = data.business_info.is_approved === 1;
     profile.value = data.media_info.profile_picture || null;
     cover.value = data.media_info.cover_picture || null;
+    slug.value =data.business_info.slug;
   } catch (error) {
     console.error('Error fetching business details:', error.message);
   }

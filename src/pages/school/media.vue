@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="">
-                    <NuxtLink to="/school/9c2845cc-7676-45e1-b498-13f930b22e9b"><button type="submit"
+                    <NuxtLink :to="`/app/profile/school/${slug}`"><button type="submit"
                             class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-blue-300 focus:ring-blue-200">
                             View <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24"
                                 height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -59,7 +59,7 @@ const errors = ref([]);
 const name = ref('');
 const action = ref(route.params.action || 'view'); // default to 'view' if action not provided
 const school_id = ref(route.params.school_id || '');
-
+const slug = ref('')
 onMounted(() => {
 
     // Update the refs directly
@@ -77,6 +77,7 @@ const fetchSchoolDetails = async () => {
     try {
         const data = await $adminService.get_school_details(school_id.value);
         name.value = data.school_info.name || '';
+        slug.value = data.school_info.slug || '';
         if( data.media_info){
             setGalleryItems(data.media_info)
         }

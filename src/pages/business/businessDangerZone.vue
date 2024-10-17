@@ -86,7 +86,7 @@ const notificationMessage = ref('');
 const showNotification = ref(false);
 const showModal = ref(false);
 const userStore = useUserStore()
-
+const slug = ref('')
 const email = userStore.user?.email;
 const token = userStore.user?.token;
 
