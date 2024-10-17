@@ -813,6 +813,22 @@ const business_media_delete = async (media_id) => {
   }
 };
 
+
+const list_subscriptions = async (page = 1, per_page_items = 10,hasAdmin) => {
+  const url = `/admin/subscriptions`;
+
+  try {
+    const response = await apiService.getRequest(url);
+    if (response && response.data) {
+      return response.data;
+    } else {
+      throw new Error('Unexpected API response structure');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'Failed to retrieve businesses');
+  }
+};
+
   return {
     new_user_register,
     list_users,
@@ -866,7 +882,8 @@ const business_media_delete = async (media_id) => {
     upload_school_media,
     school_media_delete,
     upload_business_media,
-    business_media_delete
+    business_media_delete,
+    list_subscriptions
   };
 
 

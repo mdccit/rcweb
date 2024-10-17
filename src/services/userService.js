@@ -331,6 +331,7 @@ const createUserService = (apiService) => {
       const response = await apiService.putRequest(url, body);
       return response;
     } catch (error) {
+    
       throw new Error(error.message || 'Failed to update');
     }
   };
@@ -597,6 +598,61 @@ const createUserService = (apiService) => {
     }
   };
 
+  const get_all_conversiontion = async () => {
+    const url = `/user/get-all-conversation`;
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data) {
+        return response.data;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      console.log(error)
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const create_conversiontion = async (request_body) => {
+    const url = `/user/create-conversation`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const send_to_message = async (request_body) => {
+    const url = `/user/send-message`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const get_conversation_chat = async (id) => {
+    const url = `/user/get-message/${id}`;
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data) {
+        return response.data;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      console.log(error)
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+
 
 
 
@@ -645,6 +701,10 @@ const createUserService = (apiService) => {
     delete_business_user_media,
     update_business_user_other_info,
     upload_business_user_profile_picture,
+    get_all_conversiontion,
+    create_conversiontion,
+    send_to_message,
+    get_conversation_chat
   };
 
 

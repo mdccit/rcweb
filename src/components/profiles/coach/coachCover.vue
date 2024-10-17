@@ -99,6 +99,11 @@
                                                     Reject
                                                 </button>
                                             </div>
+                                            <div v-if="connectionButtonName =='Invite sent'" class="text-white">
+                                                <button @click="connectCancel" class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                    Cancel Request
+                                               </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -443,6 +448,19 @@ onMounted(() => {
     }
 
 })
+
+const connectCancel = async () => {
+try {
+    await $userService.connection_cancelle(connectionType.value.id, {
+        connection_status: "cancelled"
+    });
+    
+    fetchCheckConnection();
+
+} catch (error) {
+    console.error('Failed to Connect :', error.message);
+}
+}
 </script>
 
 <style scoped>

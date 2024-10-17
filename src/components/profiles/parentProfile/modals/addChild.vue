@@ -6,7 +6,7 @@
             <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                 <form @submit.prevent="playerAdd">
                     <div
-                        class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                        class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-20 sm:w-full sm:max-w-lg">
                         <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                             <div class="sm:flex sm:items-start">
                                 <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
@@ -75,7 +75,8 @@
                                                 <!-- Phone Code and Phone Number on Separate Lines -->
                                                 <div class="mb-2 sm:col-span-2 col-span-1">
                                                     <label class="block mb-1 text-gray-700 font-sans text-sm">Phone
-                                                        Code</label>
+                                                        Code <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
                                                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
                                                         <CountryCodeDropdown :country_codes="country_codes"
                                                             v-model="phone_code_country"
@@ -84,7 +85,8 @@
                                                 </div>
                                                 <div class="mb-2  col-span-4">
                                                     <label class="block mb-1 text-gray-700 font-sans text-sm">Phone
-                                                        Number</label>
+                                                        Number <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
                                                     <div class="flex rounded-lg border border-gray-300 shadow-sm">
                                                         <input type="text" id="phone_number" v-model="phone_number"
                                                             class="block w-full h-12 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"

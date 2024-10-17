@@ -1,5 +1,5 @@
 <template>
-    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
+    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white border-opacity-40 w-full p-6">
         <div class="grid grid-cols-4 mb-4">
             <div class=" col-span-3">
                 <h1 class="text-lg font-semibold mb-1 text-black">Child</h1>

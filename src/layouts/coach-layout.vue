@@ -16,8 +16,8 @@
             <div class="col-start-6 col-end-7 row-start-2 row-end-3"> 
                 <CoachRight :data="coachData"   :userSlug="route.params.slug"  />
             </div>
-            <div class="col-start-2 col-end-6 row-start-2 row-end-3 px-3 pt-3">
-                <UserFeed v-if="tab == 'feed'" :posts="posts" @profileView="redirectPage" @listpost="newLoader" :commentHidden="isHidddenComment" />
+            <div class="col-start-2 col-end-6 row-start-2 row-end-3 px-3 pt-6">
+                <UserFeed v-if="tab == 'feed'" :posts="posts" @profileView="redirectPage" @listpost="newLoader" :commentHidden="isHidddenComment" @newPost="newPost" />
                 <Connection v-if="tab == 'connection'" :playerId="coachId" @profileView="redirectPage"/>
                 <mediaTab v-if="tab == 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" :commentHidden="isHidddenComment" :coacheId="coachId" />
             </div>
@@ -218,6 +218,38 @@ const newLoader = ()=>{
   }
 }
 
+const newPost = () =>{
+  currentPage.value =1
+  console.log(8888)
+  loadInitfintePost2()
+}
+
+const loadInitfintePost2 = async () =>{
+  load.value = true
+    try {
+      //  isLoading.value = true;
+      posts.value =[]
+      const response = await $feedService.list_posts(currentPage.value);
+      const filteredData = response.data.filter(item => item.user_id === coachId.value);
+       posts.value.push(...filteredData);
+
+      lastPage.value =response.last_page
+      currentPage.value =response.current_page +1
+      const idsArray = [];
+      for (const post of posts.value) {
+        idsArray[post.id] = false
+      }
+      isHidddenComment.value = idsArray
+      //  isLoading.value = false;
+    } catch (error) {
+       //isLoading.value = false;
+      console.error('Failed to load posts:', error.message);
+    }
+    setTimeout(()=>{
+      load.value =false
+    },10000)
+  }
+
 const loadInitfintePost = async () =>{
   load.value = true
     try {
@@ -242,6 +274,8 @@ const loadInitfintePost = async () =>{
       load.value =false
     },10000)
   }
+
+
 
 const redirectPage = (url) =>{
     router.push({
