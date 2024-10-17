@@ -100,8 +100,8 @@
 
                                 </button>
                                
-
-                                <button v-if="connection.connection_status == 'accepted'"
+ 
+                                <button v-if="connection.connection_status == 'accepted'"  @click="chatStart(connection)"
                                     class="bg-lighterGray text-white rounded-full w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
@@ -163,12 +163,15 @@
 import { defineProps, ref, onMounted, defineEmits } from 'vue';
 import { useNuxtApp } from '#app';
 import { useUserStore } from '~/stores/userStore';
+import { useRoute, useRouter } from 'vue-router';
 
 const emit = defineEmits(['profileView']);
 const dropdownId = ref('')
 const nuxtApp = useNuxtApp();
 const $userService = nuxtApp.$userService;
 const userStore = useUserStore();
+const route = useRoute();
+const router = useRouter();
 
 const props = defineProps({
     playerId: String
@@ -271,6 +274,18 @@ const view = (id) => {
 // }
 
 
+const chatStart = async (data) =>{
+    try {
+        const response = await $userService.create_conversiontion( {
+            user2_id: data.id
+        });
+        console.log(response)
+        router.push('/user/chat');
+
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
+}
 </script>
 
 <style>
