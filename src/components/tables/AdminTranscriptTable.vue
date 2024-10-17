@@ -148,7 +148,7 @@
 import { ref, watch, computed, onMounted, defineEmits } from "vue";
 import { useRouter } from "vue-router";
 import { useNuxtApp } from "#app";
-import AdminTranscriptEditModal from '~/components/admin/transcript/adminTranscriptEditModal.vue';
+import AdminTranscriptEditModal from '~/components/admin/transcript/AdminTranscriptEditModal.vue';
 
 const emit = defineEmits(["open-modal"]);
 const router = useRouter();
