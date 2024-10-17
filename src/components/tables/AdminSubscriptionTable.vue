@@ -41,34 +41,56 @@
 
     <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" class="cursor-pointer min-h-[350px]"
       @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
-      <el-table-column class="text-tealGray" prop="name" label="NAME" sortable></el-table-column>
-      <!-- Total Members Column -->
-      <el-table-column class="tealGaray" prop="total_members" label="Total Members" sortable>
+
+      <!-- NAME Column -->
+      <el-table-column class="tealGaray" prop="user.display_name" label="NAME" sortable>
         <template v-slot="scope">
-          {{ scope.row.total_members !== null ? scope.row.total_members : 0 }}
+          {{ scope.row.user.display_name !== null ? scope.row.user.display_name : 0 }}
         </template>
       </el-table-column>
 
-      <!-- Editor Column -->
-      <el-table-column class="tealGaray" prop="editors" label="Admin Members" sortable>
+      <!-- STATUS Column -->
+      <el-table-column class="tealGaray" prop="status" label="STATUS" sortable>
         <template v-slot="scope">
-          {{ scope.row.editors !== null ? scope.row.editors : 0 }}
+          <span :class="{
+        'bg-green-100 text-green-800': scope.row.status === 'active',
+        'bg-red-100 text-red-800': scope.row.status === 'inactive',
+        'bg-gray-100 text-gray-800': scope.row.status !== 'active' && scope.row.status !== 'inactive'
+      }" class="text-xs font-medium mr-2 px-2.5 py-0.5 rounded capitalize">
+            {{ scope.row.status !== null ? scope.row.status : 'inactive' }}
+          </span>
         </template>
       </el-table-column>
 
-      <!-- Viewer Column -->
-      <el-table-column class="tealGaray" prop="viewers" label="NON Admin Members" sortable>
+
+
+      <!-- SUBSCRIPTION START DATE Column -->
+      <el-table-column class="text-tealGray" prop="start_date" label="START DATE" sortable>
         <template v-slot="scope">
-          {{ scope.row.viewers !== null ? scope.row.viewers : 0 }}
+          <span>{{ formatDate(scope.row.start_date) }}</span>
         </template>
       </el-table-column>
 
-      <!-- Joined At Column -->
-      <el-table-column class="text-tealGray" prop="joined_at" label="JOINED DATE" sortable>
+      <!-- SUBSCRIPTION END DATE Column -->
+      <el-table-column class="text-tealGray" prop="end_date" label="END DATE" sortable>
         <template v-slot="scope">
-          <span>{{ formatDate(scope.row.joined_at) }}</span>
+          <span>{{ formatDate(scope.row.end_date) }}</span>
         </template>
       </el-table-column>
+
+      <!-- SUBSCRIPTION Column -->
+      <el-table-column class="tealGaray" prop="subscription_type" label="SUBSCRIPTION" sortable>
+        <template v-slot="scope">
+          <span :class="{
+        'bg-black bg-opacity-50 text-amber-800': scope.row.subscription_type === 'monthly',
+        'bg-red-100 text-red-800': scope.row.subscription_type === 'annual',
+        'bg-gray-100 text-gray-800': scope.row.subscription_type !== 'trial'
+      }" class="text-xs font-medium mr-2 px-2.5 py-0.5 rounded capitalize">
+            {{ scope.row.subscription_type !== null ? scope.row.subscription_type : 'N/A' }}
+          </span>
+        </template>
+      </el-table-column>
+
     </el-table>
 
     <!-- Pagination -->
@@ -90,7 +112,7 @@ const items = ref([]);
 const totalItems = ref(0);
 const options = ref({
   page: 1,
-  itemsPerPage: 10,
+  itemsPerPage: 5,
 });
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
@@ -99,10 +121,6 @@ const hasAdmin = ref("");
 const filterApply = ref(false);
 const sort = ref({ prop: 'joined_at', order: 'descending' });
 
-
-
-
-// Function to fetch data from the server
 // Fetch data from the API
 const fetchData = async () => {
   loading.value = true;
@@ -111,15 +129,15 @@ const fetchData = async () => {
     const current_page = options.value.page;
 
     // Fetch business data
-    const businesses = await $adminService.list_business(current_page, 0);
-    items.value = businesses;  // Current page data
-    totalItems.value = businesses.total;  // Set total items for pagination
+    const subscriptions = await $adminService.list_subscriptions(current_page, per_page_items);
+    items.value = subscriptions;  // Current page data
+    totalItems.value = subscriptions.total;  // Set total items for pagination
   } catch (error) {
     console.error('Error fetching data:', error.message);
   } finally {
     loading.value = false;
   }
-  filterView();
+  filterView()
 };
 
 
@@ -147,7 +165,7 @@ const filteredItems = computed(() => {
   // Apply search filtering
   if (search.value) {
     sorted = sorted.filter(item =>
-      item.name.toLowerCase().includes(search.value.toLowerCase()));
+      item.status.toLowerCase().includes(search.value.toLowerCase()));
   }
 
   // Update total items after filtering
@@ -158,6 +176,8 @@ const filteredItems = computed(() => {
   const end = start + options.value.itemsPerPage;
   return sorted.slice(start, end);
 });
+
+
 
 const filterView = () => {
   filterApply.value = false;
@@ -170,15 +190,25 @@ const filterView = () => {
   }
 }
 
+// Watch pagination options and search term to refetch data
+watch([options, search], () => {
+  fetchData();
+}, { immediate: true });
+
+// On mount, fetch the initial data
+onMounted(() => {
+  fetchData();
+
+  useFlowbite(() => {
+    initFlowbite();
+  })
+});
+
+
 // Expose the fetchData method
 const refreshTable = () => {
   fetchData();
 };
-
-// Listen for the 'reload' event to refresh table data
-document.addEventListener('reload', () => {
-  fetchData(); // Reload the data
-});
 
 // Handle search submission
 const applySearch = () => {
@@ -203,10 +233,10 @@ const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString(undefined, options);
 };
 
-// Function to navigate to edit record
+
 const editRecord = (row) => {
   router.push({
-    path: '/business/businessGeneral',
+    path: '/subscription/subscriptionEdit',
     query: {
       action: 'edit',
       business_id: row.id
@@ -218,20 +248,6 @@ const handleRowClick = (row) => {
   editRecord(row);
 };
 
-
-// Watch pagination options and search term to refetch data
-watch([options, search], () => {
-  fetchData();
-}, { immediate: true });
-
-// On mount, fetch the initial data
-onMounted(() => {
-  fetchData();
-
-  useFlowbite(() => {
-    initFlowbite();
-  })
-});
 
 
 </script>

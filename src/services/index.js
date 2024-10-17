@@ -4,6 +4,7 @@ import createAdminService from './adminService';
 import createFeedService from './feedService';
 import createPublicService from './publicService';
 import createUserService from './userService';
+import createSubscriptionService from './subscriptionService';
 
 import { useRuntimeConfig } from '#app';
 
@@ -15,10 +16,11 @@ export const initializeServices = () => {
 
   const apiService = createApiService(config);
   const authService = createAuthService(apiService);
-  const adminService = createAdminService(apiService);
-  const feedService = createFeedService(apiService);
-  const publicService = createPublicService(apiService);
-  const userService = createUserService(apiService);
+  // const adminService = createAdminService(apiService);
+  // const feedService = createFeedService(apiService);
+  // const publicService = createPublicService(apiService);
+  // const userService = createUserService(apiService);
+  // const subscriptionService = createSubscriptionService(apiService);
 
-  return { apiService, authService , adminService, feedService, publicService, userService };
+  return { apiService, authService };
 };

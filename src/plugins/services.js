@@ -3,6 +3,7 @@ import createAdminService from '@/services/adminService';
 import createFeedService from '@/services/feedService';
 import createPublicService from '@/services/publicService';
 import createUserService from '@/services/userService';
+import createSubscriptionService from '@/services/subscriptionService';
 
 export default defineNuxtPlugin((nuxtApp) => {
     const { apiService, authService } = initializeServices();
@@ -12,6 +13,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     const feedService = createFeedService(apiService);
     const publicService = createPublicService(apiService);
     const userService= createUserService(apiService);
+    const subscriptonService= createSubscriptionService(apiService);
+
 
     nuxtApp.provide('apiService', apiService);
     nuxtApp.provide('authService', authService);
@@ -19,6 +22,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.provide('feedService', feedService);
     nuxtApp.provide('publicService', publicService);
     nuxtApp.provide('userService', userService);
+    nuxtApp.provide('subscriptionService', subscriptonService);
 
     console.debug(' Application Running.......')
 
