@@ -8,8 +8,7 @@
                     <div class="group">
                         <div class="text-center">
                             <div class="w-[200px] h-[200px] relative"> -->
-                                <!-- <img class="mx-auto w-[180px] h-[180px] rounded-xl"
-                                    src="@/assets/user/images/Rectangle 193.png" alt=""> -->
+                              
                                 <!-- <div
                                     class="absolute top-0 right-0 m-2 rounded-lg flex justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
