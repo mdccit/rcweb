@@ -131,7 +131,13 @@ onMounted(async () => {
 });
 
 const subscribeStandard = () => {
-  router.push(`/app`);
+  const userRole = localStorage.getItem('user_role');
+  if(userRole == 'coach'){
+    router.push(`/user/approval-pending`);
+  }else{
+    router.push(`/app`);
+  }
+
 };
 
 

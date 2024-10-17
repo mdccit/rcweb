@@ -3,12 +3,12 @@
 
     <div class="flex">
       <!-- Iterate through the packages array -->
-      <div v-for="(pkg, index) in packages" :key="index" class="flex-1 flex justify-center">
-        <div :class="[
+      <div v-for="(pkg, index) in packages" :key="pkg.value" class="flex-1 flex justify-center">
+        <div :key="refreshKey" :class="[
         'border w-[230px] rounded-lg text-center p-3 relative flex flex-col cursor-pointer',
         pkg.name === 'Premium' ? 'pro-pack' : '',
         selectedPackage === pkg.name ? 'highlighted-package' : ''
-      ]" @click="selectPackage(pkg.name)">
+      ]" @click="selectPackage(pkg.value)">
           <h3 :class="pkg.name === 'Premium' ? 'premium-text' : ''" class="font-medium text-black mb-2">{{ pkg.name }}
           </h3>
 
@@ -51,7 +51,7 @@
             </button>
 
             <button v-else-if="activeStatus == 'active' && pkg.value === 'premium' && isSetToCancel === true"
-              @click="subscribePremium()" :value="pkg.value"
+              @click="stopPremiumCancellation()" :value="pkg.value"
               class="border rounded-lg shadow-sm font-normal py-2 px-4 text-xs bg-steelBlue text-white w-full">
               <ButtonSpinner v-if="loading" />
               Subscribe to {{ pkg.name }} Again
@@ -136,6 +136,9 @@ const subscription = ref([]);
 const activeStatus = ref('');
 const isModalVisible = ref(false);
 const isSetToCancel = ref(false);
+const paymentMethods = ref([]);
+const selectedCard = ref(null);
+const refreshKey = ref(0);
 
 // Open the confirmation modal
 const openModal = () => {
@@ -148,8 +151,8 @@ const closeModal = () => {
 }
 
 // Handle package selection
-const selectPackage = (pkgName) => {
-  selectedPackage.value = pkgName;
+const selectPackage = (pkgValue) => {
+  selectedPackage.value = pkgValue;
 };
 
 const subscribeStandard = () => {
@@ -157,52 +160,49 @@ const subscribeStandard = () => {
 };
 
 const subscribePremium = async () => {
-  if (!selectedPackage.value) {
-    nuxtApp.$notification.triggerNotification('Please select a package!', 'warning');
-  } else {
-    errors.value.pkg = '';
+  selectedPackage.value = 'premium';
 
-    if (selectedPackage.value === 'premium') {
-      try {
-        loading.value = true;
+  if (selectedPackage.value === 'premium') {
+    try {
+      loading.value = true;
 
-        // Step 1: Get Stripe customer ID
-        const customerId = await $authService.getStripeCustomerId();
-        packageStore.setStripeCustomerId(customerId);
+      // Step 1: Get Stripe customer ID
+      const customerId = await $authService.getStripeCustomerId();
+      packageStore.setStripeCustomerId(customerId);
 
-        // Step 2: Create SetupIntent on the backend
-        const setupIntent = await createSetupIntent(customerId);
+      // Step 2: Create SetupIntent on the backend
+      const setupIntent = await createSetupIntent(customerId);
 
-        // Log setupIntent to verify its structure
-        console.log('SetupIntent Response:', setupIntent.client_secret);
+      // Log setupIntent to verify its structure
+      console.log('SetupIntent Response:', setupIntent.client_secret);
 
-        // Check if setupIntent has client_secret and setup_intent_id
-        if (setupIntent && setupIntent.client_secret && setupIntent.setup_intent_id) {
-          console.log('entered redirection');
-          // Store the setup intent data in Pinia store
-          packageStore.setSetupIntentData(setupIntent.client_secret, setupIntent.setup_intent_id);
+      // Check if setupIntent has client_secret and setup_intent_id
+      if (setupIntent && setupIntent.client_secret && setupIntent.setup_intent_id) {
+        console.log('entered redirection');
+        // Store the setup intent data in Pinia store
+        packageStore.setSetupIntentData(setupIntent.client_secret, setupIntent.setup_intent_id);
 
-          // Generate a unique reference (e.g., using token or customerId) and store it
-          const payment_token = customerId; // For example, you can use customerId or a generated token
-          packageStore.setPaymentToken(payment_token);
+        // Generate a unique reference (e.g., using token or customerId) and store it
+        const payment_token = customerId; // For example, you can use customerId or a generated token
+        packageStore.setPaymentToken(payment_token);
 
-          // Step 4: Redirect to the /payment page
-          router.push(`/payment/${payment_token}?package=premium`);
+        // Step 4: Redirect to the /payment page
+        router.push(`/payment/${payment_token}?package=premium`);
 
-        } else {
-          // Throw error if setupIntent is invalid
-          throw new Error('Invalid SetupIntent response from the backend.');
-        }
-      } catch (error) {
-        // nuxtApp.$notification.triggerNotification('Error during subscription process', 'failure');
-        console.error('Error during payment method setup:', error);
-      } finally {
-        loading.value = false;
+      } else {
+        // Throw error if setupIntent is invalid
+        throw new Error('Invalid SetupIntent response from the backend.');
       }
-    } else {
-      console.log('Standard package selected, no payment needed.');
+    } catch (error) {
+      // nuxtApp.$notification.triggerNotification('Error during subscription process', 'failure');
+      console.error('Error during payment method setup:', error);
+    } finally {
+      loading.value = false;
     }
+  } else {
+    console.log('Standard package selected, no payment needed.');
   }
+
 };
 
 
@@ -220,6 +220,76 @@ const cancelSubscription = async () => {
     }
   } catch (error) {
     console.error('Error canceling subscription:', error);
+  } finally {
+    loading.value = false;
+    refreshButtons();
+  }
+};
+
+
+const reloadPage = () => {
+  window.location.reload(); // Reload the full page
+};
+
+// Function to refresh buttons
+const refreshButtons = () => {
+  refreshKey.value++;  // Update the key to trigger reactivity
+};
+
+const stopPremiumCancellation = async () => {
+  try {
+    const response = await $subscriptionService.stop_premium_cancellation();
+    if (response && response.status === 200) {
+
+      // Success case
+      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+    } else {
+      // Handle non-success status codes
+      nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+    }
+  } catch (error) {
+    console.error('Error canceling subscription:', error);
+  } finally {
+    reloadPage();
+  }
+};
+
+
+const getCustomerActiveCard = async () => {
+  try {
+    // Fetch the active payment method (active card)
+    const activeCardResponse = await $subscriptionService.get_customer_active_payment_method();
+
+    // Assuming the response has the card details, map the relevant data to selectedCard
+    if (activeCardResponse && activeCardResponse.status === 200) {
+      selectedCard.value = {
+        brand: activeCardResponse.data.brand,
+        last4: activeCardResponse.data.last4,
+        exp_month: activeCardResponse.data.exp_month,
+        exp_year: activeCardResponse.data.exp_year,
+        billing_details: {
+          name: activeCardResponse.data.billing_details.name,
+          email: activeCardResponse.data.billing_details.email,
+          phone: activeCardResponse.data.billing_details.phone,
+          address: activeCardResponse.data.billing_details.address,
+        }
+      };
+    } else {
+      console.error('No active card found.');
+    }
+  } catch (error) {
+    console.error('Error fetching active payment method:', error);
+  }
+};
+
+
+// Create Setup Intent (called by PaymentComponent)
+const createSetupIntent = async (customerId) => {
+  try {
+    const setupIntent = await $authService.createSetupIntent({ customer_id: customerId });
+    return setupIntent; // Return setupIntent to PaymentComponent
+  } catch (error) {
+    console.error('Error creating setup intent:', error);
   }
 };
 
@@ -237,6 +307,12 @@ onMounted(async () => {
     subscription.value = response;
     activeStatus.value = response.status;
     isSetToCancel.value = response.cancel_at_period_end;
+
+    if (activeStatus == 'active' && isSetToCancel != false) {
+      selectedPackage.value = 'premium';
+    } else {
+      selectedPackage.value = 'standard';
+    }
 
     const payment_methods = await $subscriptionService.get_customer_payment_methods();
 
