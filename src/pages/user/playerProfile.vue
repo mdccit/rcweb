@@ -376,7 +376,7 @@
                         </div>
                         <hr class="mt-3 mb-3 text-pigeonBlue">
                         <div class="mt-4 flex items-start space-x-4">
-                            <img src="@/assets/user/images/Rectangle 117.pn" alt="User Image"
+                            <img src="@/assets/user/images/Rectangle 117.png" alt="User Image"
                                 class="w-12 h-12 rounded-lg">
                             <div class="relative  w-full ">
                                 <input type="text" placeholder="Write your comment..."
