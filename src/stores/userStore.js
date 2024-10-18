@@ -16,6 +16,7 @@ export const useUserStore = defineStore('user', {
     user_id: '',
     user_name: null,
     user_slug: null,
+    user_type_id: null,
     profile_picture:{},
     resource:null,
     user_setting_active_tab: "security"
@@ -33,7 +34,8 @@ export const useUserStore = defineStore('user', {
     // user: (state) => state.user || null
 
     userProfilePicture:(state)=> state.profile_picture || null,
-    userSettingActiveTab:(state)=> state.user_setting_active_tab || "security"
+    userSettingActiveTab:(state)=> state.user_setting_active_tab || "security",
+    userTypeId:(state)=> state.user_type_id || ""
   },
   actions: {
     setResourceData(resouces) {
@@ -91,6 +93,12 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem('user_name', name);
       }
     },
+    setUserTypeId(user_type_id) {
+      this.user_type_id = user_type_id;
+      if (process.client) {
+        localStorage.setItem('user_type_id', user_type_id);
+      }
+    },
 
     
     setUser(user) {
@@ -105,6 +113,7 @@ export const useUserStore = defineStore('user', {
       this.user_id = user.user_id || '';
       this.user_name = user.user_name || '';
       this.user_slug = user.user_slug || '';
+      this.user_type_id = user.user_type_id || '';
 
       // Set the token and role
       this.setToken(user.token);
@@ -113,6 +122,7 @@ export const useUserStore = defineStore('user', {
       this.setUserId(user.id);
       this.setUserName(user.user_name);
       this.setUserSlug(user.user_slug);
+      this.setUserTypeId(user.user_type_id);
       if (process.client) {
         // Remove session cookie by setting it to an expired date
         document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -147,6 +157,7 @@ export const useUserStore = defineStore('user', {
       this.permissions = [];
       this.user_id = '';
       this.user_id = null;
+      this.user_type_id = null;
       this.user_slug = null;
       this.profile_picture = null
       // Remove session cookie
@@ -160,6 +171,7 @@ export const useUserStore = defineStore('user', {
         localStorage.removeItem('user_id');
         localStorage.removeItem('email');
         localStorage.removeItem('user_name');
+        localStorage.removeItem('user_type_id');
         localStorage.removeItem('user_slug');
         localStorage.removeItem('authType');
         localStorage.removeItem('password_reset_id');
@@ -212,6 +224,7 @@ export const useUserStore = defineStore('user', {
         const token = localStorage.getItem('token');
         const user_role = localStorage.getItem('user_role');
         const user_name = localStorage.getItem('user_name'); 
+        const user_type_id = localStorage.getItem('user_type_id'); 
 
         // Handle non-logged-in users gracefully
         if (userData) {
@@ -230,6 +243,10 @@ export const useUserStore = defineStore('user', {
         // Set user_name from localStorage
         if (user_name) {
           this.user_name = user_name;  // Set user_name in the store
+        }
+        // Set user_type_id from localStorage
+        if (user_type_id) {
+          this.user_type_id = user_type_id;  // Set user_type_id in the store
         }
       }
     },
