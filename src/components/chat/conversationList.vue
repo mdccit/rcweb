@@ -1,5 +1,5 @@
 <template>
-    <div class="my-6 border-r-4" :style="{ height: contentHeight + 'px' }">
+    <div class="my-6 border-r-4 custom-min-h-185" :style="{ height: contentHeight + 'px' }">
                 <div class="pe-4 pb-4" ref="leftHeaderSection">
                     <h2 class="text-2xl font-semibold text-black">Chat</h2>
                     <p class="text-sm text-darkSlateBlue">Lorem ipsum is a placeholder text commonly used to</p>
