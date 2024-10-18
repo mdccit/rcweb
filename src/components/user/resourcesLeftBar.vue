@@ -49,7 +49,7 @@
                     
                 </button>
             </div>
-            <div v-if="resourceView.includes(category.id)" v-for="resource in category.resources" class="bg-culturedBlue rounded-lg">
+            <div v-if="resourceView.includes(category.id)" v-for="resource in category.resources" class="bg-culturedBlue rounded-lg mt-2">
                 <div @click="redirectResource(resource)">
                     <span class="cursor-pointer tex-xs mr-2 text-white bg-steelBlue rounded text-sm px-2 py-2.5 flex justify-between items-center w-full">{{ resource.title }}</span>
                 </div>
