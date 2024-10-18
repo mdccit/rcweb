@@ -190,7 +190,8 @@ const handleSubmit = async () => {
           user_permission_type: response.data.user_permission_type? response.data.user_permission_type:'none',
           user_id:response.data.user_id,
           user_name:response.data.user_name,
-          user_slug:response.data.user_slug
+          user_slug:response.data.user_slug,
+          user_type_id:response.data.user_type_id
          });
          userStore.setUserSlug(response.data.user_slug??null)
 
