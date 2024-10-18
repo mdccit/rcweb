@@ -3,7 +3,8 @@
                 <!-- Card 1 -->
                 <div v-for="data in props.data" class="bg-culturedBlue p-4 rounded-lg flex items-center space-x-4">
                     <div class="bg-lightGray1 p-3 rounded-full">
-                        <img src="@/assets/images/elegibility.png" alt="" class="w-6 h-4">
+                        <!-- <img src="@/assets/images/elegibility.png" alt="" class="w-6 h-4"> -->
+                        <img :src="data.icon" alt="" class="w-6 h-4">
                     </div>
                     <div>
                         <h3 class="font-bold text-black">{{  data.title }}</h3>
