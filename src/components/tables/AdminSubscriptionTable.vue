@@ -62,7 +62,12 @@
         </template>
       </el-table-column>
 
-
+      <!-- Email Column -->
+      <el-table-column class="tealGaray" prop="user.display_name" label="Email" sortable>
+        <template v-slot="scope">
+          {{ scope.row.user.email !== null ? scope.row.user.email : 0 }}
+        </template>
+      </el-table-column>
 
       <!-- SUBSCRIPTION START DATE Column -->
       <el-table-column class="text-tealGray" prop="start_date" label="START DATE" sortable>
@@ -98,6 +103,55 @@
       layout="prev, pager, next" @current-change="handlePageChange"></el-pagination>
 
   </el-card>
+
+  <!-- Flowbite Modal -->
+  <div id="subscriptionModal" tabindex="-1" aria-hidden="true"
+    class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full hidden">
+    <div class="relative w-full max-w-md max-h-full">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <!-- Modal header -->
+        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            Subscription Details
+          </h3>
+          <button type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            @click="closeModal">
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <!-- Modal body -->
+        <div class="p-6 space-y-6">
+          <p v-if="selectedSubscription">
+            <strong>Name:</strong> {{ selectedSubscription.user.display_name }}
+          </p>
+          <p><strong>Email:</strong> {{ selectedSubscription.user.email }}</p>
+          <p><strong>Status:</strong> {{ selectedSubscription.status }}</p>
+          <p><strong>Subscription Type:</strong> {{ selectedSubscription.subscription_type }}</p>
+          <p><strong>Start Date:</strong> {{ formatDate(selectedSubscription.start_date) }}</p>
+          <p><strong>End Date:</strong> {{ formatDate(selectedSubscription.end_date) }}</p>
+          <p><strong>Auto Renewal:</strong> {{ selectedSubscription.is_auto_renewal ? 'Yes' : 'No' }}</p>
+          <p v-if="selectedSubscription.next_billing_date">
+            <strong>Next Billing Date:</strong> {{ formatDate(selectedSubscription.next_billing_date) }}
+          </p>
+        </div>
+        <!-- Modal footer -->
+        <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <button @click="closeModal" type="button"
+            class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <script setup>
@@ -140,7 +194,6 @@ const fetchData = async () => {
   filterView()
 };
 
-
 const filteredItems = computed(() => {
   let sorted = [...items.value];
 
@@ -149,6 +202,17 @@ const filteredItems = computed(() => {
     sorted.sort((a, b) => {
       let aVal = a[sort.value.prop];
       let bVal = b[sort.value.prop];
+
+      // Handle nested fields (like user names and emails)
+      if (sort.value.prop.includes('.')) {
+        const props = sort.value.prop.split('.');
+        aVal = a;
+        bVal = b;
+        props.forEach(prop => {
+          aVal = aVal ? aVal[prop] : null;
+          bVal = bVal ? bVal[prop] : null;
+        });
+      }
 
       // Handle date fields
       if (sort.value.prop.includes('date') || sort.value.prop.includes('at')) {
@@ -162,10 +226,18 @@ const filteredItems = computed(() => {
     });
   }
 
-  // Apply search filtering
+  // Apply search filtering based on multiple fields
   if (search.value) {
-    sorted = sorted.filter(item =>
-      item.status.toLowerCase().includes(search.value.toLowerCase()));
+    sorted = sorted.filter(item => {
+      const searchTerm = search.value.toLowerCase();
+      return (
+        item.status.toLowerCase().includes(searchTerm) ||
+        (item.user && item.user.display_name.toLowerCase().includes(searchTerm)) || // Search by name
+        (item.user && item.user.email.toLowerCase().includes(searchTerm)) || // Search by email
+        item.subscription_type.toLowerCase().includes(searchTerm) || // Search by subscription type
+        item.price && item.price.toString().includes(searchTerm) // Search by price
+      );
+    });
   }
 
   // Update total items after filtering
@@ -244,10 +316,20 @@ const editRecord = (row) => {
   });
 };
 
+const selectedSubscription = ref(null); // This will hold the details of the clicked row
+
+// Function to open the modal and set the selected row data
 const handleRowClick = (row) => {
-  editRecord(row);
+  selectedSubscription.value = row;
+  const modal = document.getElementById('subscriptionModal');
+  modal.classList.remove('hidden');
 };
 
+// Function to close the modal
+const closeModal = () => {
+  const modal = document.getElementById('subscriptionModal');
+  modal.classList.add('hidden');
+};
 
 
 </script>
