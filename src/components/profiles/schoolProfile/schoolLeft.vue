@@ -25,6 +25,14 @@
                 <div class="flex items-center space-x-4 w-48 ">
                     <h1 class="text-lg font-semibold mb-4 text-black ">Acedemics</h1>
                 </div>
+                <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"
+                    @click="toggleModal('academic')">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-4">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                    </svg>
+                </div>
             </div>
             <p class="text-xs text-darkSlateBlue leading-loose mb-4 ">
                 <span v-for="data in props.data.academicData"
@@ -79,8 +87,8 @@
 
                 </div>
                 <div class="col-span-1">
-                    <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"
-                        @click="toggleModal('address')">
+                    <div  @click="toggleModal('info')"
+                        class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-4">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -95,9 +103,9 @@
     </div>
 
     <!-- Modal Components with Standardized Props -->
-    <BioModal :visible="modals.bio" @close="handleModalClose" :slug="slug" />
+    <BioModal :visible="modals.bio" @close="handleModalClose" :slug="slug" :schoolData="props.data" />
     <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" :schoolData="props.data" />
-    <AcademicModal :visible="modals.academic" @close="handleModalClose" :slug="slug" />
+    <AcademicModal :visible="modals.academic" @close="handleModalClose" :slug="slug" :schoolData="props.data" />
 </template>
 
 <script setup>
@@ -137,12 +145,6 @@ const props = defineProps({
     }
 });
 onMounted(() => {
-
-    // const fullBio =  props.data.bio || ''; // This ensures fullBio is at least an empty string
-    // console.log(fullBio)
-    // bio.value = fullBio.length > 100 ? fullBio.substring(0, 100) + '...' : fullBio;
-    // seeMoreBtnHide.value = fullBio.length > 100 ? true + '...' : false;
-    // isBioExpanded.value = false
 
 });
 
@@ -205,6 +207,7 @@ const fetchSchoolDetails = async () => {
         if (dataSets.school_info) {
             schoolId.value = dataSets.school_info.id || '';
             bio.value = dataSets.school_info.bio || 'School has not entered bio';
+            props.data.bio = dataSets.school_info.bio || 'N/A';
             props.data.name = dataSets.school_info.name;
             const date = new Date(dataSets.school_info.joined_at);
             const monthNames = [
