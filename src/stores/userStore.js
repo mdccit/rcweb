@@ -176,6 +176,9 @@ export const useUserStore = defineStore('user', {
         localStorage.removeItem('authType');
         localStorage.removeItem('password_reset_id');
         localStorage.removeItem('profile_picture');
+        localStorage.removeItem('setupIntentClientSecret');
+        localStorage.removeItem('setupIntentId');
+        localStorage.removeItem('stripeCustomerId');
       }
     },
 

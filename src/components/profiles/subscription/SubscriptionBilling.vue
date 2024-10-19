@@ -1,12 +1,12 @@
 <template>
 
-  <div>
+  <div  v-if="(userRole === 'coach') || (userRole === 'player')">
     <h2 class="text-2xl font-bold mb-6 text-black">Subscription & Billing</h2>
     <hr class="mt-5 mb-3 text-pigeonBlue">
     <div>
 
       <!-- Subscription Section -->
-      <div class="mt-6">
+      <div class="mt-6" >
         <h3 class="font-semibold text-xl mb-4 text-black">Subscription</h3>
         <p class="text-sm text-darkSlateBlue mb-4"> Lorem ipsum is a placeholder text commonly used to demonstrate the
           visual form of a document or a typeface without relying on meaningful content.</p>
@@ -51,7 +51,7 @@
               </div>
             </div>
 
-            <div class="border border-gainsboroGray rounded-lg p-4">
+            <div class="border border-gainsboroGray rounded-lg p-4"  v-if="(userRole == 'coach') || (userRole == 'player')">
               <p class="font-semibold text-black mb-2">Change plan</p>
               <p class="text-darkSlateBlue mb-4 text-sm">
                 Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document.
@@ -134,7 +134,7 @@
             visual form of a documentLorem ipsum is a placeholder text commonly used to demonstrate the visual form
             of a document or a typeface without relying on meaningful content.</p>
 
-          <div class="mt-6">
+          <div class="mt-6" v-if="(userRole == 'coach') || (userRole == 'player')">
             <button @click="cancelSubscription"
               class="w-50 py-3 px-2 bg-redOrange text-white  text-xs font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Cancel
               Subscription</button>
@@ -172,11 +172,14 @@ const subscriptionType = ref('');
 const paymentMethods = ref([]);
 const selectedCard = ref(null);
 const loading = ref(false);
+const userRole = ref('');
 
 onMounted(async () => {
+  userRole.value = localStorage.getItem('user_role');
   try {
     // Fetch user subscription information
     loading.value = true;
+   
     const response = await $subscriptionService.get_subscription();
     subscription.value = response;
 
@@ -187,8 +190,6 @@ onMounted(async () => {
 
       // Fetch the active card and set it in selectedCard
       await getCustomerActiveCard();
-
-
       startDate.value = formatDate(response.start_date);
       endDate.value = formatDate(response.end_date);
       Price.value = response.price;
