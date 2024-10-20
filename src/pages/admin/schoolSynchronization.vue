@@ -1,7 +1,7 @@
 <template>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex gap-x-4"><a
+            <!-- <div class="flex gap-x-4"><a
                     href="https://qa1.recruited.qualitapps.com/admin/schools/9c0a3542-8593-429e-b703-2e6afdf86c63"><button
                         class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
                         General Details </button></a><a
@@ -13,7 +13,7 @@
                         Synchronization </button></a><a
                     href="https://qa1.recruited.qualitapps.com/admin/schools/9c0a3542-8593-429e-b703-2e6afdf86c63/danger-zone"><button
                         class="text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200 opacity-50">
-                        Danger Zone </button></a></div>
+                        Danger Zone </button></a></div> -->
             <div class="my-8"></div>
 
             <ConnectToGovermentSchool  v-if="connectToGovComponent"  @search="search" />
