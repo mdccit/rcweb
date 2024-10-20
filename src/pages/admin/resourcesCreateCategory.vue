@@ -86,6 +86,7 @@ const handleRequest = async () =>{
         });
         console.log(response)
         nuxtApp.$notification.triggerNotification("Category Created", 'success');
+        clear()
         // router.push({
         //     path: '/admin/resoucesCategory'
         // });
@@ -94,6 +95,12 @@ const handleRequest = async () =>{
         console.log(error)
        // nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     } 
+}
+
+const clear= () =>{
+    name.value = "";
+    description.value="";
+    icon.value =""
 }
 
 </script>
