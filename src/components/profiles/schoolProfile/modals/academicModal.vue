@@ -24,11 +24,11 @@
                                                     title="This field is required">*</span>
                                             </label>
                                             <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                <textarea id="" v-model="school_adcademic" autocomplete=""
+                                                <input type="text" id="" v-model="academic" autocomplete=""
                                                     class="w-full block px-5 py-3 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                    placeholder="" required>
-                                              </textarea>
+                                                    placeholder="" required />
                                             </div>
+                                            <InputError :error="errors.academic ? errors.academic.join(', ') : ''" />
                                         </div>
                                     </div>
                                 </div>
@@ -60,7 +60,12 @@ const $publicService = nuxtApp.$publicService;
 
 const academic = ref('');
 const loading = ref(false);
-const school_adcademic = ref(false);
+
+const error = ref('');
+const errors = ref({});
+const showNotification = ref(false);
+const notificationMessage = ref('');
+const notification_type = ref(0);
 
 const props = defineProps({
     visible: Boolean,
@@ -76,10 +81,39 @@ const props = defineProps({
 // Define emits to handle custom events like close
 const emit = defineEmits(['close']);
 
+// Function to update school academics
+
+const updateAcademic = async () => {
+    error.value = '';
+    errors.value = {};
+    loading.value = true;
+    notification_type.value = '';
+    notificationMessage.value = '';
+    showNotification.value = false;
+    try {
+        const request_body = { school_slug: props.slug, academic: academic.value };  // Construct request body with bio
+        const response = await $publicService.school_add_new_academic(request_body);  // Pass slug and request body
+        if (response.status == '200') {
+            clearAcademic();
+            // Trigger success notification
+            nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+            // Emit close event to parent to close the modal
+            emit('close', 'academic');  // Close the modal after successfully updating the bio
+        } else {
+            nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
+        }
+
+    } catch (error) {
+        // Handle error
+        handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
+    } finally {
+        loading.value = false;
+    }
+};
 
 // Save bio when the user clicks "Save changes"
 const saveAcademic = () => {
-    updateAcademic(academic.value);
+    updateAcademic();
 }
 
 const clearAcademic = () => {

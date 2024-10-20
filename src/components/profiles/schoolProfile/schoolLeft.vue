@@ -35,9 +35,9 @@
                 </div>
             </div>
             <p class="text-xs text-darkSlateBlue leading-loose mb-4 ">
-                <span v-for="data in props.data.academicData"
+                <span v-for="(academic, index) in props.data.academicData"  :key="index"
                     class="bg-blue-100 pb-1 font-light text-blue-800 text-xs  me-2 px-2.5 py-0.5 rounded rounded-full bg-blue-500 text-white ">
-                    {{ data }}
+                    {{ academic }}
                 </span>
                 <!-- <span
                                 class="bg-blue-100 pb-1 font-light text-blue-800 text-xs  me-2 px-2.5 py-0.5 rounded rounded-full bg-blue-500 text-white ">
@@ -228,7 +228,7 @@ const fetchSchoolDetails = async () => {
             costOfAttendance.value = dataSets.school_info.other_data.cost_of_attendance
             address.value = dataSets.school_info.other_data.address
             graduationRate.value = dataSets.school_info.other_data.graduation_rate
-            academic.value = dataSets.school_info.other_data
+            data.academicData = dataSets.school_info.other_data.academics || [];
         }
 
         if (dataSets.school_users_info) {

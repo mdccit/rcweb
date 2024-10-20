@@ -557,7 +557,7 @@ const update_school_bio = async (request_body) => {
 
 const update_school_basic_info = async (request_body) => {
 
-  const url = `/public/schools/update-basic-info/${request_body.user_slug}`;
+  const url = `/public/schools/update-basic-info/${request_body.school_slug}`;
   const body = request_body;
 
   try {
@@ -574,7 +574,7 @@ const update_school_basic_info = async (request_body) => {
 
 const school_add_new_academic = async (request_body) => {
 
-  const url = `/public/schools/add-new-academic/${request_body.user_slug}`;
+  const url = `/public/schools/add-new-academic/${request_body.school_slug}`;
   const body = request_body;
 
   try {
@@ -625,7 +625,7 @@ const update_school_tennis_info = async (request_body) => {
 
 const update_school_status_info = async (request_body) => {
 
-  const url = `/public/schools/update-status-info/${request_body.user_slug}`;
+  const url = `/public/schools/update-status-info/${request_body.school_slug}`;
   const body = request_body;
 
   try {
