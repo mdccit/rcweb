@@ -104,7 +104,7 @@ const fetchPlayerBio = async (slug) => {
 
         if (dataSets.user_basic_info) {
             console.log(dataSets.user_basic_info);
-            user_bio.value = dataSets.user_basic_info.bio ?? "N/A";
+            user_bio.value = dataSets.user_basic_info.bio ?? "";
 
         }
     } catch (error) {

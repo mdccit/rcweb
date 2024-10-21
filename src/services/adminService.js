@@ -390,8 +390,8 @@ const createAdminService = (apiService) => {
       throw new Error(error.message || 'Failed to retrieve businesses');
     }
   };
-  const morderation_all = async (status) => {
-    const url = `/admin/morderation-get-all?status=${status}`;
+  const morderation_all = async (status, search) => {
+    const url = `/admin/morderation-get-all?status=${status}&search_key=${search}`;
 
     try {
       const response = await apiService.getRequest(url);

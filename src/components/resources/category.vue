@@ -15,7 +15,7 @@
             <div class="grid grid-cols-10">
                 <div class="col-span-2">
                     <div class="bg-lightGray1 p-3 rounded-full w-[60px] h-[60px]">
-                        <img src="@/assets/images/elegibility.png" alt="" class="w-[35px] h-[35px] m-auto">
+                        <img :src="data.icon" alt="" class="w-[35px] h-[35px] m-auto">
                     </div>
                 </div>
                 <div class="col-span-8 pl-1">

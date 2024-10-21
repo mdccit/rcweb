@@ -246,6 +246,8 @@ const initiateGoogleAuth = async () => {
     localStorage.removeItem('authType');
     localStorage.setItem('authType', 'register');
     const authUrl = await $authService.getGoogleAuthUrl();
+    userStore.setProfilePicture(null)
+
     window.location.href = authUrl; // Redirect to Google authentication URL
   } catch (err) {
     nuxtApp.$notification.triggerNotification(err.display_message,'failure');

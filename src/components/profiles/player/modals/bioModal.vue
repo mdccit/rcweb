@@ -95,7 +95,7 @@ const fetchPlayerBio = async (slug) => {
         const dataSets = await $publicService.get_user_profile(props.slug);
 
         if (dataSets.user_basic_info) {
-            user_bio.value = dataSets.user_basic_info.bio ?? "N/A";
+            user_bio.value = dataSets.user_basic_info.bio ?? "";
 
         }
     } catch (error) {

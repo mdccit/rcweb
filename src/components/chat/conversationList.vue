@@ -9,9 +9,9 @@
                     <div class="pe-5 flex flex-col space-y-3">
 
                         <div v-for="chat in props.listChat">
-                            <button @click="chatShow(chat)" class="flex items-center px-3 py-2 rounded-xl  space-x-4  cursor-pointer w-full">
+                            <button @click="chatShow(chat)" :class="active == chat.id ?'bg-white flex items-center px-3 py-2 rounded-xl  space-x-4  cursor-pointer w-full':'flex items-center px-3 py-2 rounded-xl  space-x-4  cursor-pointer w-full'">
                                 <!-- active : bg-white -->
-                                <div class="basis-[56px] shrink-0 grow-0">
+                                <div class="basis-[56px] shrink-0 grow-0 ">
                                     <!-- <img src="@/assets/user/images/Rectangle_117.png" alt="" class="w-14 h-14 rounded-lg"> -->
                                     <img v-if="(chat.first_message_user.id != props.loginUserId) && chat.user_1_profile_picture==null" class="w-14 h-14 rounded-lg"
                                     src="@/assets/images/user.png" alt="">
@@ -240,7 +240,7 @@
 import { ref, computed, watch, onMounted ,inject  } from 'vue';
 
 const emit = defineEmits(['chat']);
-
+const active = ref('')
 
 const props = defineProps({
     listChat: {
@@ -255,6 +255,8 @@ const props = defineProps({
 
 const chatShow = (data) =>{
   emit('chat', data)
+  active.value = data.id
+  console.log( active.value)
 }
 
 const lastMessage = (messages) =>{
