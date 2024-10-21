@@ -21,7 +21,7 @@
                 <Member v-if="tab == 'member'"  :members="members" :logUserInTheSchool="logUserInTheSchool" @getMember="fetchSchooleDatils" />
                 <Team  v-if="tab == 'team'" :team="team" :members="members" :schoolId="schoolId"  @getSchoolTeam="getSchoolTeam" :logUserInTheSchool="logUserInTheSchool"/>
                 <Academic v-if="tab == 'academic'" :academic="academic" />
-                <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug"  />
+                <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :schoolSlug="route.params.slug"  />
 
 
             </div>
@@ -45,7 +45,7 @@ import Academic from '~/components/user/profile/academic.vue';
 import Team from '~/components/user/profile/team.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
 import { useRoute } from 'vue-router'
-import mediaTab from '~/components/profiles/schoolProfile/mediaTab.vue';
+import mediaTab from '~/components/profiles/schoolProfile/Tabs/mediaTab.vue';
 import { useUserStore } from '~/stores/userStore'
 
 
@@ -71,7 +71,6 @@ const closeNotification = () => {
 };
 
 const $publicService = nuxtApp.$publicService;
-const $userService = nuxtApp.$userService;
 const $feedService = nuxtApp.$feedService; 
 
 const bio =ref('');

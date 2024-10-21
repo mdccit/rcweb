@@ -55,7 +55,7 @@
           </div>
 
           <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-            <button type="button" @click="saveName"
+            <button type="button" @click="saveCover"
               class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
               :disabled="loading">Save
               changes
@@ -93,7 +93,6 @@ const props = defineProps({
 const emit = defineEmits(['close']); // Emit close event with the modal name
 
 const nuxtApp = useNuxtApp();
-const $userService = nuxtApp.$userService;
 
 const error = ref('');
 const errors = ref('');
@@ -113,23 +112,23 @@ onMounted(() => {
 });
 
 watch(() => props.visible, (newVal) => {
-    if (newVal && props.slug) {
-      fetchSchoolDetails(props.slug);
-    }
+  if (newVal && props.slug) {
+    fetchSchoolDetails(props.slug);
+  }
 });
 
-const fetchSchoolDetails = async () =>{
-    try {
-       const dataSets = await $publicService.get_school(route.params.slug);
+const fetchSchoolDetails = async () => {
+  try {
+    const dataSets = await $publicService.get_school(route.params.slug);
 
-        if(dataSets.media_info){
-            profilePicture.value = dataSets.media_info.profile_picture
-            coverPicture.value = dataSets.media_info.cover_picture 
-            setGalleryItems(dataSets.media_info);
-        }        
-    } catch (error) {
-       console.error('Error fetching data:', error.message);
-    } 
+    if (dataSets.media_info) {
+      profilePicture.value = dataSets.media_info.profile_picture
+      cover_picture.value = dataSets.media_info.cover_picture
+      setGalleryItems(dataSets.media_info);
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+  }
 }
 
 
@@ -161,7 +160,7 @@ const handleFileChange = (event) => {
 };
 
 // Function to handle the profile picture upload
-const saveProfilePicture = async () => {
+const saveCoverPhoto = async () => {
 
   if (!cover_picture.value) {
     // Handle case where no file is selected
@@ -170,8 +169,8 @@ const saveProfilePicture = async () => {
   }
   try {
     loading.value = true;
-    const user_slug = props.slug; // Assuming you have user_slug available in props
-    const response = await $userService.upload_school_cover_photo(cover_picture.value, user_slug); // Call the upload function
+    const school_slug = props.slug; // Assuming you have user_slug available in props
+    const response = await $publicService.upload_school_cover_photo(cover_picture.value, school_slug); // Call the upload function
 
     if (response.status == '200') {
       loading.value = false;
@@ -188,8 +187,8 @@ const saveProfilePicture = async () => {
 
 
 // Save names when the user clicks "Save changes"
-const saveName = async () => {
-  await saveProfilePicture(); // Save profile picture if available
+const saveCover = async () => {
+  await saveCoverPhoto(); // Save profile picture if available
 
   // Emit close event regardless of whether profile picture save was successful
   emit('close', 'cover');

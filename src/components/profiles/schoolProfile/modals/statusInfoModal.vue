@@ -12,28 +12,30 @@
               <div class="sm:flex sm:items-start">
                 <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                   <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">
-                    Update School Tennis Info
+                    Update School Status Info
                   </h3>
                   <div class="mt-2 grid grid-cols-2 gap-4">
-                    
+
                     <!--Tution (In-of-state)-->
                     <div class="mb-2 sm:col-span-2 col-span-1">
                       <label class="block mb-1 text-gray-700 font-sans text-sm"> Tution (In-of-state)</label>
                       <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                        <input id="address_line_2" v-model="average_utr"
+                        <input id="address_line_2" v-model="tuition_in_of_state"
                           class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                           placeholder="Enter Address Line 2">
                       </div>
+                      <InputError :error="errors.tuition_in_of_state ? errors.tuition_in_of_state.join(', ') : ''" />
                     </div>
 
                     <!-- Tution (Out-of-state) -->
                     <div class="mb-2 sm:col-span-2 col-span-1">
                       <label class="block mb-1 text-gray-700 font-sans text-sm">Tution (Out-of-state)</label>
                       <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                        <input id="address_line_2" v-model="average_utr"
+                        <input id="address_line_2" v-model="tuition_out_of_state"
                           class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                           placeholder="Enter Address Line 2">
                       </div>
+                      <InputError :error="errors.tuition_out_of_state ? errors.tuition_out_of_state.join(', ') : ''" />
                     </div>
 
 
@@ -41,20 +43,22 @@
                     <div class="mb-2 sm:col-span-2 col-span-1">
                       <label class="block mb-1 text-gray-700 font-sans text-sm"> Cost of Attendence </label>
                       <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                        <input id="address_line_2" v-model="average_utr"
+                        <input id="address_line_2" v-model="cost_of_attendance"
                           class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                           placeholder="Enter Address Line 2">
                       </div>
+                      <InputError :error="errors.cost_of_attendance ? errors.cost_of_attendance.join(', ') : ''" />
                     </div>
 
                     <!--  Graduation Rate-->
                     <div class="mb-2 sm:col-span-2 col-span-1">
                       <label class="block mb-1 text-gray-700 font-sans text-sm"> Graduation Rate </label>
                       <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                        <input id="address_line_2" v-model="average_utr"
+                        <input id="address_line_2" v-model="graduation_rate"
                           class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                           placeholder="Enter Address Line 2">
                       </div>
+                      <InputError :error="errors.graduation_rate ? errors.graduation_rate.join(', ') : ''" />
                     </div>
 
                   </div>
@@ -76,7 +80,7 @@
                     fill="currentColor" />
                 </svg>
               </button>
-              <button type="button" @click="$emit('close', 'info')"
+              <button type="button" @click="$emit('close', 'statusinfo')"
                 class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
             </div>
           </div>
@@ -123,7 +127,7 @@ const props = defineProps({
 const emit = defineEmits(['close']);
 
 onMounted(() => {
-  name.value = props.schoolData.name;
+  console.log(props.slug);
 });
 
 
@@ -139,17 +143,20 @@ const saveInfo = async () => {
   try {
     nprogress.start();
     const request_body = {
-      user_slug: props.slug,
-      name: name.value
+      school_slug: props.slug,
+      tuition_in_of_state: tuition_in_of_state.value,
+      tuition_out_of_state: tuition_out_of_state.value,
+      cost_of_attendance: cost_of_attendance.value,
+      graduation_rate: graduation_rate.value,
     };
 
-    const response = await $publicService.update_school_basic_info(request_body);
+    const response = await $publicService.update_school_status_info(request_body);
 
-    if (response.status == '200') {
+    if (response.status === 200) {
       loading.value = false;
-      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
       clearSchoolInfo();
-      emit('close', 'info'); // Emit close event after successfully updating the names
+      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+      emit('close', 'statusinfo'); // Emit close event after successfully updating 
     } else {
       loading.value = false;
       nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
@@ -165,7 +172,10 @@ const saveInfo = async () => {
 
 
 const clearSchoolInfo = () => {
-  name.value = '';
+  tuition_in_of_state.value = '';
+  tuition_out_of_state.value = '';
+  cost_of_attendance.value = '';
+  graduation_rate.value = '';
 
 };
 
