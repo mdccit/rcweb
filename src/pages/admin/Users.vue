@@ -34,10 +34,10 @@
   
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
 
-        <AdminUserTable></AdminUserTable>
+        <AdminUserTable  @reload="refreshTable"></AdminUserTable>
 
         <!-- Admin User Create Modal Component -->
-        <AdminUserCreateModal :isVisible="showModal" @close="showModal = false" />
+        <AdminUserCreateModal :isVisible="showModal"  @close="triggerTableReload"  />
     </div>
 
 
@@ -79,6 +79,19 @@ definePageMeta({
     middleware: ['role'],
     requiredRole: ['admin'],
 });
+
+
+const closeModal = () => {
+    showModal.value = false;
+};
+
+const triggerTableReload = () => {
+  closeModal();
+  // Emit the custom event to AdminBusinessTable to reload the data
+  const event = new Event('reload');
+  document.dispatchEvent(event);
+};
+
 
 watch(
     () => route.query.role,

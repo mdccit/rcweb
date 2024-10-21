@@ -177,7 +177,13 @@ const role = ref('')
 const lastSeenAt = ref('')
 const emailVerified = ref('')
 const sort = ref({ prop: 'joined_at', order: 'descending' })
-const filterApply = ref(false)
+const filterApply = ref(false);
+
+document.addEventListener('reload', () => {
+  fetchData(); // Reload the data
+});
+
+
 // Fetch data from the API
 const fetchData = async () => {
   console.log(4587)

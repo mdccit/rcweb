@@ -100,7 +100,6 @@ const logUserInTheSchool =ref(false)
 const academicData = ref([])
 onMounted(() => {
     fetchSchooleDatils();
-   //fetchPost();
 });
 
 const fetchSchooleDatils = async () =>{
@@ -162,7 +161,9 @@ const fetchSchooleDatils = async () =>{
             conferenceId:conferenceId.value,
             profile: profilePicture.value,
             cover:coverPicture.value,
-            academicData:academicData.value
+            academicData:academicData.value,
+            media_info: dataSets.media_info,
+
         }
         loadInitfintePost
         //fetchPost()
@@ -171,16 +172,6 @@ const fetchSchooleDatils = async () =>{
        console.error('Error fetching data:', error.message);
     } 
 }
-
-// const fetchPost = async () =>{
-//       try {
-//         const response = await $feedService.list_posts({});
-//         const filteredData = response.filter(item => item.user_id === schoolId.value);
-//         posts.value = filteredData || [];
-//     } catch (error) {
-//        console.error('Failed to load posts:', error.message);
-//     }
-// }
 
 const loadInitfintePost = async () =>{
     try {

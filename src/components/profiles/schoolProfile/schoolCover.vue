@@ -116,8 +116,6 @@ import defaultProfilePicture from '@/assets/images/user.png';
 
 const emit = defineEmits(['changeTab']);
 const nuxtApp = useNuxtApp();
-const router = useRouter();
-const userStore = useUserStore();
 
 const $publicService = nuxtApp.$publicService;
 
@@ -186,9 +184,12 @@ const coverPictureUrl = computed(() => cover_picture.value);
 watch(
     () => data,
     (newVal) => {
+        console.log('dodfdaf');
         if (newVal && newVal.media_info) {
+            console.log(newVal.media_info);
             profile_picture.value = newVal.media_info.profile_picture?.url || defaultProfilePicture;
         } else {
+            console.log('not available');
             profile_picture.value = defaultProfilePicture; // Fallback to default if media_info is undefined
         }
     },
@@ -213,8 +214,8 @@ const fetchSchoolDetails = async () => {
         const dataSets = await $publicService.get_school(route.params.slug);
 
         if (dataSets.media_info) {
-            profilePicture.value = dataSets.media_info.profile_picture
-            coverPicture.value = dataSets.media_info.cover_picture
+            profilePictureUrl.value = dataSets.media_info.profile_picture
+            profilePictureUrl.value = dataSets.media_info.cover_picture
             setGalleryItems(dataSets.media_info);
         }
     } catch (error) {
@@ -232,12 +233,10 @@ onMounted(() => {
 
     // Set profile picture when data becomes available
     if (data && data.media_info) {
-        console.log('media available');
         profile_picture.value = data.media_info.profile_picture?.url || defaultProfilePicture;
         cover_picture.value = data.media_info.cover_picture?.url || defaultProfilePicture;
     } else {
         console.log('media not available');
-        profile_picture.value = defaultProfilePicture;
         cover_picture.value = defaultCoverPicture;
     }
 
