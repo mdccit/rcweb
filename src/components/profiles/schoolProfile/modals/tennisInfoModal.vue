@@ -166,7 +166,6 @@ const clearTennisInfo = () => {
 const loadDivisions = async () => {
   try {
     divisions.value = await loadDivisionList();
-    console.log(divisions.value);
   } catch (err) {
     console.error('Error loading country codes:', err);
   }
@@ -175,7 +174,6 @@ const loadDivisions = async () => {
 const loadConferences = async () => {
   try {
     conferences.value = await loadConferenceList();
-    console.log(conferences.value);
   } catch (err) {
     console.error('Error loading country codes:', err);
   }

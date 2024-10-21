@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Upload Media Section -->
-    <form  @submit.prevent="uploadMedia" class="upload-form" >
+    <form @submit.prevent="uploadMedia" class="upload-form">
       <div
         class="upload-section mb-4 border-2 border-dashed border-blue-500 rounded-lg p-4 bg-blue-50 hover:bg-blue-100">
         <label for="media-upload" class="cursor-pointer flex flex-col items-center justify-center">
@@ -60,8 +60,7 @@
           Your browser does not support the video tag.
         </video>
         <button @click="removeMediaItem(item.media_id, $event)"
-          class="remove-btn text-white px-2 py-1 mt-2 rounded text-sm "
-          :disabled="loadingStates[item.media_id]">
+          class="remove-btn text-white px-2 py-1 mt-2 rounded text-sm " :disabled="loadingStates[item.media_id]">
           Remove
           <svg v-if="loadingStates[item.media_id]" aria-hidden="true" role="status"
             class="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101" fill="none"
@@ -97,23 +96,21 @@ import '@fancyapps/ui/dist/fancybox/fancybox.css';
 const nuxtApp = useNuxtApp();
 const router = useRouter();
 const $publicService = nuxtApp.$publicService;
-const $userService = nuxtApp.$userService;
 const userStore = useUserStore();
 const files = ref([]); // To hold the uploaded files
 const loggedUserSlug = ref('');
 const loadingStates = ref({});
-const user_id = ref('')
 const emit = defineEmits(['uploadCompleted']); // Define the event
 
 const loading = ref(false);
 
 // Props
 const props = defineProps({
-  userSlug: {
+  schoolSlug: {
     type: String,
     required: true,
   },
-  coacheId:String
+  coacheId: String
 });
 
 
@@ -123,8 +120,8 @@ const galleryItems = ref([]);
 const isImageCropping = ref(false); // Toggle for image cropping
 const cropperImage = ref(null); // Image to be cropped
 
-watch(() => props.userSlug, (newVal) => {
-  if (newVal && props.userSlug) {
+watch(() => props.schoolSlug, (newVal) => {
+  if (newVal && props.schoolSlug) {
     fetchGalleryBySlug();
   }
 });
@@ -147,7 +144,7 @@ const removeMediaItem = async (media_id, event) => {
   event.stopPropagation();
   loadingStates.value[media_id] = true;
   try {
-    const response = await $userService.delete_coach_media(media_id);
+    const response = await $publicService.delete_school_media(media_id);
     if (response.status === 200) {
       loading.value = false;
       nuxtApp.$notification.triggerNotification(response.display_message, 'success');
@@ -170,7 +167,7 @@ const uploadMedia = async () => {
   const formData = new FormData();
   loading.value = true;
   // Append user_slug to FormData
-  formData.append('user_slug', props.userSlug);
+  formData.append('school_slug', props.schoolSlug);
 
   // Append each file in files[] to FormData
   files.value.forEach((file) => {
@@ -179,7 +176,7 @@ const uploadMedia = async () => {
 
   try {
     // Send FormData directly in the POST request
-    const response = await $userService.upload_coach_media(formData);
+    const response = await $publicService.upload_school_media(formData);
 
     if (response.status == 200) {
       // Clear files array
@@ -218,7 +215,7 @@ const uploadMedia = async () => {
 
 const fetchGalleryBySlug = async () => {
   try {
-    const dataSets = await $publicService.get_user_profile(props.userSlug);
+    const dataSets = await $publicService.get_school(props.schoolSlug);
 
     if (dataSets.media_info) {
       setGalleryItems(dataSets.media_info); // Update the gallery items
@@ -285,8 +282,6 @@ onMounted(() => {
       },
     },
   });
-
-  user_id.value = userStore.user.user_id
 
   if (process.client) {
     loggedUserSlug.value = localStorage.getItem('user_slug');
@@ -356,10 +351,11 @@ button[disabled] {
   cursor: not-allowed;
 }
 
-.remove-btn{
+.remove-btn {
   background-color: rgb(240, 22, 22) !important;
 }
-.remove-btn :hover{
+
+.remove-btn :hover {
   background-color: rgb(199, 18, 18) !important;
 }
 </style>
