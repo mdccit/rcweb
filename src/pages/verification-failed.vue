@@ -50,6 +50,10 @@ import LoadingSpinner from '~/components/LoadingSpinner.vue';
 definePageMeta({ colorMode: 'light', layout: 'outer'} );
 import { handleError } from '@/utils/handleError';
 
+useHead({
+  title: 'Recruited verification failed',
+})
+
 const nuxtApp = useNuxtApp();
 const route = useRoute();
 const showNotification = ref(false); // To control the visibility of the notification

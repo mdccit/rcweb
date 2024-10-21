@@ -7,7 +7,7 @@
       <div class="container-compressed">
         <div class="grid grid-cols-6 gap-4 mt-16">
           <!-- Left pane -->
-          <div>
+          <div class=" md:col-span-1 lg:col-span-1 sm:col-span-6 sx:col-span-6">
             <!-- <Filter /> -->
             <!-- <CallCard/> -->
              <!-- <transfer-tracker-left-bar /> -->

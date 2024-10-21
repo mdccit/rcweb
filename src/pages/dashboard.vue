@@ -6,6 +6,9 @@
 
 <script setup>
 definePageMeta({ colorMode: 'light', })
+useHead({
+  title: 'Recruited Dashboard',
+})
 </script>
 
 <style scoped>

@@ -24,7 +24,7 @@
           'flex-1 flex flex-col justify-between border w-[300px] rounded-lg text-center p-3 relative cursor-pointer',
           selectedPackage === pkg.value
             ? pkg.value === 'premium'
-              ? 'border-blue-500 bg-gold-100'  // Gold color for premium package
+              ? 'border-blue-500 bg-blue-100'  // Gold color for premium package
               : 'border-blue-500 bg-blue-100'  // Default blue for other packages
             : ''  // Not selected
         ]" @click="selectPackage(pkg.value)">
@@ -53,7 +53,7 @@
           <div v-if="pkg.value === 'standard'" class="mt-auto">
             <!-- Subscribe Button (more prominent) -->
             <button @click.stop="subscribeStandard"
-              class="bg-blue-600 text-white font-bold px-4 py-2 rounded-md mt-4 w-full">
+              class="bg-blue-600 text-white font-light px-4 py-2 rounded-md mt-4 w-full">
               Subscribe
             </button>
           </div>
@@ -75,13 +75,13 @@
             </div> -->
 
             <!-- Try Trial Button (less prominent) -->
-            <button @click.stop="subscribeTrial" class="bg-gray-400 text-white px-4 py-2 rounded-md mt-4 w-full">
+            <button @click.stop="subscribeTrial" class="mt-3 text-blue-700">
               Try Trial
             </button>
 
             <!-- Subscribe Button (more prominent) -->
             <button @click.stop="subscribePremium"
-              class="bg-blue-600 text-white font-bold px-4 py-2 rounded-md mt-4 w-full">
+              class="bg-blue-600 text-white font-light px-4 py-2 rounded-md mt-4 w-full">
               Subscribe
             </button>
           </div>
