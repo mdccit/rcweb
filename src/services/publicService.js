@@ -608,7 +608,7 @@ const school_remove_academic = async (request_body) => {
 
 const update_school_tennis_info = async (request_body) => {
 
-  const url = `/public/schools/update-tennis-info/${request_body.user_slug}`;
+  const url = `/public/schools/update-tennis-info/${request_body.school_slug}`;
   const body = request_body;
 
   try {

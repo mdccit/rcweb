@@ -5,7 +5,7 @@
 
     <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
       <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-        <form @submit.prevent="saveInfo">
+        <form @submit.prevent="saveTennisInfo">
           <div
             class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
             <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
@@ -19,7 +19,8 @@
                     <div>
                       <label for="conference" class="block mb-1 text-sm font-normal text-gray-900">Conference<span
                           class="text-red-600">*</span></label>
-                      <NationalityDropdown :conferences="conferences" v-model="conference" id="conference" required />
+
+                      <ConferenceDropdown :conferences="conferences" v-model="conference" id="division" required />
                       <InputError :error="errors.conference ? errors.conference.join(', ') : ''" />
 
                     </div>
@@ -28,7 +29,7 @@
                     <div>
                       <label for="gender" class="block mb-1 text-sm font-normal text-gray-900">Division <span
                           class="text-red-600">*</span></label>
-                      <GenderDropDown :divisions="divisions" v-model="division" id="gender" />
+                      <DivisionDropdown :divisions="divisions" v-model="division" id="division" required />
                       <InputError :error="errors.division ? errors.division.join(', ') : ''" />
                     </div>
 
@@ -42,6 +43,7 @@
                           class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                           placeholder="Enter Address Line 2">
                       </div>
+                      <InputError :error="errors.average_utr ? errors.average_utr.join(', ') : ''" />
                     </div>
 
                   </div>
@@ -77,6 +79,10 @@
 <script setup>
 import { ref } from 'vue';
 import { useNuxtApp } from '#app';
+import DivisionDropdown from '~/components/common/select/DivisionDropdown.vue';
+import ConferenceDropdown from '~/components/common/select/ConferenceDropdown.vue';
+import { loadDivisionList } from '~/services/commonService';
+import { loadConferenceList } from '~/services/commonService';
 import { handleError } from '@/utils/handleError';
 import InputError from '@/components/common/input/InputError.vue';
 
@@ -92,6 +98,8 @@ const notificationMessage = ref('');
 const notification_type = ref(0);
 
 // Form state
+const divisions = ref([]);
+const conferences = ref([]);
 const conference = ref('');
 const division = ref('');
 const average_utr = ref('');
@@ -108,12 +116,8 @@ const props = defineProps({
 
 const emit = defineEmits(['close']);
 
-onMounted(() => {
-});
-
-
-// Save player info
-const saveInfo = async () => {
+// Save Tennis info
+const saveTennisInfo = async () => {
 
   error.value = '';
   errors.value = {};
@@ -124,17 +128,19 @@ const saveInfo = async () => {
   try {
     nprogress.start();
     const request_body = {
-      user_slug: props.slug,
-      name: name.value
+      school_slug: props.slug,
+      conference: conference.value,
+      division: division.value,
+      average_utr: average_utr.value
     };
 
-    const response = await $publicService.update_school_basic_info(request_body);
+    const response = await $publicService.update_school_tennis_info(request_body);
 
     if (response.status == '200') {
       loading.value = false;
       nuxtApp.$notification.triggerNotification(response.display_message, 'success');
-      clearSchoolInfo();
-      emit('close', 'info'); // Emit close event after successfully updating the names
+      clearTennisInfo();
+      emit('close', 'tennisinfo'); // Emit close event after successfully updating the names
     } else {
       loading.value = false;
       nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
@@ -149,10 +155,38 @@ const saveInfo = async () => {
 };
 
 
-const clearSchoolInfo = () => {
-  name.value = '';
+const clearTennisInfo = () => {
+  average_utr.value = '';
+  division.value = '';
+  conference.value = '';
 
 };
+
+
+const loadDivisions = async () => {
+  try {
+    divisions.value = await loadDivisionList();
+    console.log(divisions.value);
+  } catch (err) {
+    console.error('Error loading country codes:', err);
+  }
+};
+
+const loadConferences = async () => {
+  try {
+    conferences.value = await loadConferenceList();
+    console.log(conferences.value);
+  } catch (err) {
+    console.error('Error loading country codes:', err);
+  }
+};
+
+onMounted(() => {
+  loadDivisions();
+  loadConferences();
+});
+
+
 
 
 </script>
