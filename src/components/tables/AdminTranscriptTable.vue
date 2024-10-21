@@ -58,7 +58,7 @@
       <!-- Status Column -->
       <el-table-column prop="status" label="STATE" sortable>
         <template v-slot="scope">
-          <span>{{ scope.row.processed_at ? formatDate(scope.row.processed_at) : '' }}</span>
+          <span class="text-xs">{{ scope.row.processed_at ? formatDate(scope.row.processed_at) : '' }}</span>
           <p class="text-sm text-darkSlateBlue mb-4 flex" v-if="scope.row.status == 'ai_approved'">
             <span class="text-green-500 mr-1">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">

@@ -184,12 +184,10 @@ const coverPictureUrl = computed(() => cover_picture.value);
 watch(
     () => data,
     (newVal) => {
-        console.log('dodfdaf');
         if (newVal && newVal.media_info) {
             console.log(newVal.media_info);
             profile_picture.value = newVal.media_info.profile_picture?.url || defaultProfilePicture;
         } else {
-            console.log('not available');
             profile_picture.value = defaultProfilePicture; // Fallback to default if media_info is undefined
         }
     },

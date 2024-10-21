@@ -166,8 +166,8 @@
                 <div>
                   <button type="button" aria-haspopup="true" id="dropdownButton" data-dropdown-toggle="dropdown"
                     class="cursor-pointer flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                    <img class="h-8 w-8 rounded-full object-cover"
-                      src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin">
+                    <!-- <img class="h-8 w-8 rounded-full object-cover"
+                      src="https://ui-avatars.com/api/?name=A&amp;color=7F9CF5&amp;background=EBF4FF" alt="Admin"> -->
                     <img v-if="profilePicture == 'null'" class="h-8 w-8 rounded-full object-cover"
                       src="@/assets/images/user.png" alt="">
                     <img v-if="profilePicture != 'null'" class="h-8 w-8 rounded-full object-cover" :src="profilePicture"

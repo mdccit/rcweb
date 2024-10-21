@@ -4,7 +4,7 @@
     <SkeletonLoader v-if="isLoading" />
 
     <!-- BEGIN FEED -->
-    <div v-else>
+    <div v-else class="mt-3">
 
       <section>
         <!--start card 01 -->
