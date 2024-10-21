@@ -27,11 +27,9 @@ onMounted(() => {
   const userRole = localStorage.getItem('user_role'); // Retrieve user role
 
   if (token) {
-    console.log('token exist');
     if (userRole == 'coach') {
-      console.log('coach user found');
       if (token) {
-        router.push(`/register-step-three/${token}`);
+        // router.push(`/register-step-three/${token}`);
       } else {
         console.error('Token is missing.');
       }
