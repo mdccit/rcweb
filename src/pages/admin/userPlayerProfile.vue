@@ -11,7 +11,7 @@
             </div>
             <div class=""><NuxtLink :to="`/app/profile/${slug}`"><button
                         type="submit"
-                        class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
+                        class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-blue-300 focus:ring-blue-200">
                         View <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
@@ -70,28 +70,28 @@
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> Height (cm) </span>
                                             <div class="  text-black flex rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="height" type="number" data-validation-key="height" v-model="height"
                                                     step="0.01"></div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> Date of Birth </span>
                                             <div class="flex rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="date_of_birth" type="date" v-model="date_of_birth"
                                                     data-validation-key="date_of_birth"></div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> Weight (kg) </span>
                                             <div class="flex rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="weight" type="number" data-validation-key="weight" v-model="weight"
                                                     step="0.01"></div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> Nationality </span>
                                             <div class="relative">
-                                                <div class="">
+                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
                                                     <NationalityDropdown :nationalities="nationalities" v-model="nationality" id="nationality"
                                                     label="Nationality *" />
                                                     <!-- <select name="nationality"
@@ -109,7 +109,7 @@
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> Bio </span><textarea
                                                 name="bio" data-validation-key="bio"  v-model="bio"
-                                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"></textarea></label><!---->
+                                                class="block h-12 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50"></textarea></label><!---->
                                     </div>
                                 </div>
                             </div>
@@ -120,28 +120,28 @@
                                                 class="block mb-1 text-gray-700 font-sans"> Graduation Month/Year
                                             </span>
                                             <div class="flex rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block  text-gray-700 px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block  text-gray-700 px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="graduation_month_year" type="month" v-model="graduation_month_year"
                                                     data-validation-key="graduation_month_year"></div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> GPA </span>
                                             <div class="flex  text-gray-700 rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="gpa" v-model="gpa" type="number" data-validation-key="gpa" step="0.01">
                                             </div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> Budget (Min) </span>
                                             <div class="flex  text-gray-700 rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5   text-gray-700 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5   text-gray-700 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="budget_min" v-model="budget_min" type="number" data-validation-key="budget_min"
                                                     step="0.01"></div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> Budget (Max) </span>
                                             <div class="flex  text-gray-700 rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5  text-gray-700 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5  text-gray-700 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="budget_max" v-model="budget_max" type="number" data-validation-key="budget_max"
                                                     step="0.01"></div>
                                         </label><!----></div>
@@ -153,7 +153,7 @@
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> Handedness </span>
                                             <div class="relative">
-                                                <div class="">
+                                                <div class="flex  text-gray-700 rounded-lg border border-gray-300 shadow-sm">
                                                     <HandednessDropdown :handedness="handednesses" v-model="handedness" id="handedness"
                                                     label="Handness *" />
                                                     <!-- <select name="handedness" data-validation-key="handedness"
@@ -170,7 +170,7 @@
                                             <div class="relative">
                                                 <div class=""><select name="preferred_surface"
                                                         data-validation-key="preferred_surface" v-model="preferred_surface"
-                                                        class="block  text-gray-700 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
+                                                        class="block  text-gray-700 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 px-5 py-3 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50">
                                                         <option value="hard"> Hard </option>
                                                         <option value="clay"> Clay </option>
                                                         <option value="grass"> Grass </option>
@@ -186,34 +186,34 @@
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> Address Line 1 </span>
                                             <div class="flex rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block  text-gray-700 px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block  text-gray-700 px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="address_line_1" type="text" v-model="address_line_1"
                                                     data-validation-key="address_line_1"></div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> Address Line 2 </span>
                                             <div class="flex  text-gray-700 rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="address_line_2" type="text" v-model="address_line_2"
                                                     data-validation-key="address_line_2"></div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> City </span>
                                             <div class="flex  text-gray-700 rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="city" v-model="city" type="text" data-validation-key="city"></div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> State/Province </span>
                                             <div class="flex  text-gray-700 rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="state_province_int" type="text" v-model="state_province_int"
                                                     data-validation-key="state_province_int"></div>
                                         </label><!----></div> <!---->
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> Country </span>
                                             <div class="relative">
-                                                <div class="">
+                                                <div class="flex  text-gray-700 rounded-lg border border-gray-300 shadow-sm">
                                                     <CountryDropdown :countries="countries" v-model="country" id="country" label="Country *" />
                                                     <!-- <select name="country" data-validation-key="country"
                                                         class="block w-full  text-gray-700 rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
@@ -229,7 +229,7 @@
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> Postal Code </span>
                                             <div class="flex  text-gray-700 rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="postal_code"  v-model="postal_code" type="text" data-validation-key="postal_code">
                                             </div>
                                         </label><!----></div>
@@ -241,63 +241,63 @@
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> SAT Score </span>
                                             <div class="flex text-gray-700 rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="sat_score"  v-model="sat_score" type="number" data-validation-key="sat_score">
                                             </div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> ACT Score </span>
                                             <div class="flex text-gray-700 rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="act_score" v-model="act_score" type="number" data-validation-key="act_score">
                                             </div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> TOEFL Score </span>
                                             <div class="flex text-gray-700 rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="toefl_score"  v-model="toefl_score" type="number" data-validation-key="toefl_score">
                                             </div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> ATP Ranking </span>
                                             <div class="flex text-gray-700 rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="atp_ranking" v-model="atp_ranking" type="number" data-validation-key="atp_ranking">
                                             </div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> ITF Ranking </span>
                                             <div class="flex text-gray-700 rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="itf_ranking" v-model="itf_ranking" type="number" data-validation-key="itf_ranking">
                                             </div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> National Ranking </span>
                                             <div class="flex text-gray-700 rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="national_ranking"  v-model="national_ranking" type="number"
                                                     data-validation-key="national_ranking"></div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> UTR Score (Manual) </span>
                                             <div class="flex  text-gray-700 rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="utr_score_manual" type="text" v-model="utr_score_manual"
                                                     data-validation-key="utr_score_manual" step="0.01"></div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> WTN Score (Manual) </span>
                                             <div class="flex text-gray-700 rounded-lg border border-gray-300 shadow-sm"><input
-                                                    class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                    class="block px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="wtn_score_manual" type="text" v-model="wtn_score_manual"
                                                     data-validation-key="wtn_score_manual"></div>
                                         </label><!----></div>
                                 </div>
                             </div>
                             <div class="my-24 mt-5"></div><button type="submit"
-                                class="border bg-blue-500 rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-primary-500 hover:bg-primary-400 active:bg-primary-600 text-white border-transparent focus:border-primary-300 focus:ring-primary-200">
+                                class="border bg-blue-500 rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-blue-700 active:bg-blue-600 text-white border-transparent focus:border-blue-300 focus:ring-blue-200">
                                 <div class="flex flex-row items-center justify-center"><!----><span class=""> Save
                                         changes </span></div>
                             </button>

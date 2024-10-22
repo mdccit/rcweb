@@ -11,7 +11,7 @@
                     </svg>
                 </div>
             </div>
-            <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
+            <p class="text-xs text-darkSlateBlue leading-relaxed mb-4 break-all">
                 {{ bio }}
             </p>
             <div class="text-blue-500 text-xs" v-if="seeMoreBtnHide">
