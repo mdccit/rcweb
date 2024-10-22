@@ -5,9 +5,9 @@
 
     <main class="bg-graySnowDrift min-h-screen mb-3">
       <div class="container-compressed">
-        <div class="grid grid-cols-6 gap-4 mt-16">
+        <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-6 gap-4 mt-16">
           <!-- Left pane -->
-          <div>
+          <div class="contents sm:contents lg:block">
             <!-- <Filter /> -->
             <!-- <CallCard/> -->
              <!-- <transfer-tracker-left-bar /> -->
