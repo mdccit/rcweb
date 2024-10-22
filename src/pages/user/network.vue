@@ -1,5 +1,25 @@
 <template>
     <div>
+          <!-- Start Connections Section -->
+          <div class="flex flex-wrap gap-2 mt-4 mb-2">
+            <div class="flex-1 pl-2">
+
+                <h2 class="text-lg font-semibold text-black">Connecions</h2>
+            </div>
+            <div class="flex-3">
+                <div class="flex items-center px-3 divide-x">
+                    <!-- <a class="text-steelBlue text-sm hover:underline">Show all</a> -->
+                </div>
+            </div>
+        </div>
+        <div class="flex">
+            <!-- Accepted Connection Start -->
+                <Accepted :data="connection.acccept_list" @updatedData="fetConnection" :userId="userId"/>
+            <!-- Accepted Connection End -->
+           
+        </div>
+        <!-- End Connections Section -->
+         
         <!-- Start Invites Section -->
         <div class="flex flex-wrap gap-2 mt-4 mb-2">
             <div class="flex-1 pl-2">
@@ -20,25 +40,7 @@
         </div>
         <!-- End Invites Section -->
 
-        <!-- Start Connections Section -->
-        <div class="flex flex-wrap gap-2 mt-4 mb-2">
-            <div class="flex-1 pl-2">
-
-                <h2 class="text-lg font-semibold text-black">Connecions</h2>
-            </div>
-            <div class="flex-3">
-                <div class="flex items-center px-3 divide-x">
-                    <!-- <a class="text-steelBlue text-sm hover:underline">Show all</a> -->
-                </div>
-            </div>
-        </div>
-        <div class="flex">
-            <!-- Accepted Connection Start -->
-                <Accepted :data="connection.acccept_list" @updatedData="fetConnection" :userId="userId"/>
-            <!-- Accepted Connection End -->
-           
-        </div>
-        <!-- End Connections Section -->
+      
          <!-- Start Invitation Section -->
         <div class="flex flex-wrap gap-2 mt-4 mb-2">
             <div class="flex-1 pl-2">

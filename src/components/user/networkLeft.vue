@@ -10,21 +10,12 @@
     <p class="text-lg font-medium text-black">Connections</p>
     <!-- Profile Avatars -->
     <div class="flex space-x-2">
-        <!-- <div v-for="data in connection">
-            <div v-if="props.userId == data.sender_id ">
-                <img v-if="data.receiver_profile_picture == null" class="w-10 h-10 rounded-full"
-                    src="@/assets/images/user.png" alt="Profile 1">
-                <img v-if="data.receiver_profile_picture != null" class="w-10 h-10 rounded-full"
-                    :src="data.receiver_profile_picture.url" alt="Profile 1">
-            </div>
-            <div v-if="props.userId == data.receiver_id ">
-                <img v-if="data.sender_profile_picture == null" class="w-10 h-10 rounded-full"
-                    src="@/assets/images/user.png" alt="Profile 1">
-                <img v-if="data.sender_profile_picture != null" class="w-10 h-10 rounded-full"
-                    :src="data.sender_profile_picture.url" alt="Profile 1">
-
-            </div>
-        </div> -->
+        <div v-for="data in connection">
+            <img v-if=" data.receiver_profile_picture == null" class="w-10 h-10 rounded-full"
+                src="@/assets/images/user.png" alt="Profile 1">
+            <img v-if=" data.receiver_profile_picture != null" class="w-10 h-10 rounded-full"
+                :src="data.receiver_profile_picture.url" alt="Profile 1">
+        </div>
       <!-- <img class="w-10 h-10 rounded-full" src="../../assets/user/images/avtar.png" alt="Profile 1">
       <img class="w-10 h-10 rounded-full" src="../../assets/user/images/Rectangle_117.png" alt="Profile 2">
       <img class="w-10 h-10 rounded-full" src="../../assets/user/images/Rectangle 193.png" alt="Profile 3">
@@ -35,7 +26,7 @@
   </div>
      </div>
     <!-- start call card -->
-    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue p-3 mt-3 bg-steelBlue text-white">
+    <!-- <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue p-3 mt-3 bg-steelBlue text-white">
         <div class="flex items-center justify-between">
 
             <div class="flex items-center space-x-4 w-48">
@@ -57,7 +48,7 @@
         <div class="flex justify-center mt-3">
             <button class="bg-white text-darkSlateBlue px-8 py-2 rounded-lg text-sm font-semibold">Book a call</button>
         </div>
-    </div>
+    </div> -->
     <!-- end call card -->
 </template>
 
