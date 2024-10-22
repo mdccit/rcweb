@@ -1,10 +1,10 @@
 <template>
 
   <!-- common full screen loader -->
-  <ScreenLoader />
+  <ScreenLoader v-if="loadingStore.isLoading" />
   <!-- / common full screen loader -->
    
-  <div>
+  <div v-if="!loadingStore.isLoading">
     <!-- Top Navigation Bar -->
     <SocialHubNavbar />
 
@@ -66,7 +66,7 @@ import ResourcesLeftBar from '~/components/user/resourcesLeftBar.vue';
 import userSettingLeftBar from '~/components/user/userSettingLeftBar.vue';
 import CallCard from '~/components/user/feed/CallCard.vue';
 import ScreenLoader from './screen_loader.vue';
-
+import { useLoadingStore } from '@/stores/loadingStore';
 
 defineNuxtRouteMiddleware(checkSession);
 const nuxtApp = useNuxtApp();
@@ -75,6 +75,7 @@ const router = useRouter();
 const route = useRoute();
 
 const showFilterLeft = ref(false);
+const loadingStore = useLoadingStore();
 
 router.beforeEach((to, from, next) => {
   loading.value = true;
