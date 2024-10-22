@@ -13,7 +13,7 @@
              <!-- <transfer-tracker-left-bar /> -->
              <!-- <NetworkLeft /> -->
             <!-- <Filter v-if="route.meta.showFilterLeft" /> -->
-            <ResourcesLeftBar />
+            <ResourcesLeftBar v-if="resourceView"/>
              <!-- <userSettingLeftBar /> -->
             <!-- <resources-left-bar /> -->
              <userSettingLeftBar v-if="route.meta.showUserSettingLeftBar" />
@@ -85,7 +85,17 @@ router.afterEach(() => {
   loading.value = false;
 });
 
+const resourceView = ref(false)
+watch(()=>{
+  console.log("Route meta")
+  console.log(route.fullPath)
+  resourceView.value = false
+   if(route.fullPath =='/user/resources'){
+    resourceView.value = true
+  }
 
+  
+})
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const notificationType = ref('');
