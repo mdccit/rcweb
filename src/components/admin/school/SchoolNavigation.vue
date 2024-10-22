@@ -25,13 +25,25 @@
         Staff & Teams
       </button>
     </NuxtLink>
-
-    <!-- Synchronization Link -->
-    <NuxtLink :to="{ path: '/admin/schools/sync', query: { school_id: schoolId } }">
+     <!-- School media Link -->
+    <NuxtLink :to="{ path: '/school/media', query: { school_id: schoolId } }">
       <button
         :class="{
-          'bg-gray-300': isActive('/admin/schools/sync'),
-          'opacity-50': !isActive('/admin/schools/sync'),
+          'bg-gray-300': isActive('/school/media'),
+          'opacity-50': !isActive('/school/media'),
+          'text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200': true
+        }"
+      >
+        Media
+      </button>
+    </NuxtLink>
+
+    <!-- Synchronization Link -->
+    <NuxtLink :to="{ path: '/school/schoolSynchronization', query: { school_id: schoolId } }">
+      <button
+        :class="{
+          'bg-gray-300': isActive('/school/schoolSynchronization'),
+          'opacity-50': !isActive('/school/schoolSynchronization'),
           'text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200': true
         }"
       >
@@ -40,11 +52,11 @@
     </NuxtLink>
 
     <!-- Danger Zone Link -->
-    <NuxtLink :to="{ path: '/admin/schools/danger-zone', query: { school_id: schoolId } }">
+    <NuxtLink :to="{ path: '/school/schoolDangerZone', query: { school_id: schoolId } }">
       <button
         :class="{
-          'bg-gray-300': isActive('/admin/schools/danger-zone'),
-          'opacity-50': !isActive('/admin/schools/danger-zone'),
+          'bg-gray-300': isActive('/school/schoolDangerZone'),
+          'opacity-50': !isActive('/school/schoolDangerZone'),
           'text-black px-4 py-2 rounded hover:bg-gray-200 transition duration-200': true
         }"
       >

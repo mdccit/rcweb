@@ -31,6 +31,7 @@ const notificationKey = ref(0);
 // Access authService from the context
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
+const nprogress = nuxtApp.$nprogress;
 
 
 
@@ -41,17 +42,20 @@ const handleGoogleAuthCallback = async () => {
   const type = localStorage.getItem('authType');
 
   if (!type) {
+    nprogress.start();
     // If authType is not set in localStorage
     nuxtApp.$notification.triggerNotification('User not found. Redirecting to login.', 'failure');
     // Wait for the notification to be displayed and then redirect to the login page
     setTimeout(() => {
       router.push('/login');
     }, 2000); // Adjust delay as necessary to ensure the user sees the notification
+    nprogress.done();
     return;
   }
 
   if (code) {
     try {
+      nprogress.start();
       let response;
       if (type === 'login') {
         response = await $authService.googleLogin(code);
@@ -71,7 +75,9 @@ const handleGoogleAuthCallback = async () => {
         token: token,
         user_permission_type: response.data.user_permission_type,
         user_id: response.data.user_id,
-        user_name:response.data.user_name
+        user_name:response.data.user_name,
+        user_slug:response.data.user_slug,
+        user_type_id:response.data.user_type_id
       });
 
       if(type === 'login'){
@@ -83,18 +89,22 @@ const handleGoogleAuthCallback = async () => {
             router.push('/app');
         }else{
           nuxtApp.$notification.triggerNotification(response.display_message, 'success');
-           router.push('/login');
+          router.push('/login');
         }
       }else{
-        setTimeout(() => {
         router.push({ name: 'register-step-two-token', params: { token: response.data.token } });
-        }, 2000);
       }
    
     } catch (error) {
       nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    }finally{
+      nprogress.done();
     }
-  }
+  }else if (!code) {
+  nuxtApp.$notification.triggerNotification('Authorization code not found. Redirecting to login.', 'failure');
+  router.push('/login');  // Redirect to login if no authorization code is found
+  loading.value = false;  // Stop loading in case of error
+}
 };
 
 // Ensure the callback is handled when the component is mounted

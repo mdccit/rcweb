@@ -4,30 +4,36 @@
         <div>
             <!-- start cover photo section -->
             <section class="w-full mb-5">
-                <img class="w-full h-[400px] rounded-xl" src="../../assets/user/images/coach-cover.jpg " alt="">
+                <img class="w-full h-[400px] rounded-xl" src="@/assets/user/images/coach-cover.jpg " alt="">
                 <span>
                     <div class="-mt-[144px]">
                         <div class="grid grid-cols-5 gap-4 flex">
-
                             <div class="col-span-1">
                                 <div class="text-center flex">
                                     <img class="mx-auto w-[150px] h-[150px] rounded-xl mt-[45px]"
-                                        src="../../assets/user/images/coachProPic.png" alt="">
+                                        src="@/assets/user/images/coachProPic.png" alt="">
 
-                                    <div class="text-left mt-[80px] ">
-                                        <h2 class="text-lg font-semibold  text-white text-3xl">{{ name }}</h2>
-                                        <h5 class=" text-md  text-white font-normal text-black text-primaryblue">Tennis
-                                            {{ role }}
-                                        </h5>
+                                    <!-- Wrapper for the SVG to position it absolutely -->
+                                    <div
+                                        class="absolute bottom-0 right-0 transform translate-x-1/2 translate-y-1/2 cursor-pointer mr-[85px] mb-[20px] bg-white p-1 rounded-md">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                        </svg>
+                                    </div>
+
+                                    <div class="text-left mt-[80px]">
+                                        <h2 class="text-lg font-semibold text-white text-3xl">{{ name }} coach</h2>
+                                        <h5 class="text-md text-white font-normal text-black text-primaryblue">Tennis
+                                            {{ role }}</h5>
                                     </div>
                                 </div>
 
                             </div>
 
-                            <div class="col-span-3">
+                            <div class="col-span-3"> </div>
 
-
-                            </div>
                             <div class="col-span-1 mt-[70px]">
                                 <div>
                                     <div class="flex">
@@ -67,7 +73,6 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                                 </svg>
-
                                             </button>
                                         </div>
                                     </div>
@@ -77,26 +82,28 @@
                         </div>
                     </div>
                 </span>
-
             </section>
             <section class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
-                <!-- Start Profile pic section  -->
-                <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
-
-
-                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3">
-                        <div class="flex items-center justify-between">
-
-                            <div class="flex items-center space-x-4 w-48">
-
-                                <h1 class="text-lg font-semibold mb-4 text-black">Bio</h1>
-                            </div>
+                <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
+                            <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
+                            <h1 class="text-lg font-semibold mb-4 text-black col-span-2">
+                                <div class="cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                    </svg>
+                                </div>
+                            </h1>
                         </div>
-                        <p class="text-xs text-darkSlateBlue leading-relaxed">
-                            {{ bio }}
-                        </p>
                     </div>
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
+                        {{ bio }}dadadasdasdas
+                    </p>
                 </div>
+
                 <!-- End Profile pic section  -->
 
                 <!-- Start post Section -->
@@ -109,7 +116,7 @@
 
                     <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
                       <div class="flex items-center">
-                          <img src="../../assets/user/images/Rectangle 193.png" alt=""
+                          <img src="@/assets/user/images/Rectangle 193.png" alt=""
                               class="rounded-lg w-12 h-12 mr-4">
                           <input type="text" placeholder="Write your thoughts..."
                               class="flex-grow text-ceil bg-culturedBlue  rounded-xl py-2 px-4 focus:outline-none focus:border-blue-500">
@@ -163,9 +170,9 @@
                     <!-- Posts section End -->
                     <Connection v-if="tab == 'connection'" :connections="connections" />
 
-                     <!-- Media Gallery Section -->
-                    <mediaGalleryComponent v-if="tab === 'media'" :galleryItems="galleryItems" />             
-     
+                    <!-- Media Gallery Section -->
+                    <mediaGalleryComponent v-if="tab === 'media'" :galleryItems="galleryItems" />
+
                     <!--start card 03 -->
                     <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-3">
                       <div class="flex items-start space-x-4">
@@ -173,13 +180,13 @@
                               <div class="flex items-center justify-between">
 
                                   <div class="flex items-center space-x-4">
-                                      <img src="../../assets/user/images/Rectangle 193.png" alt=""
+                                      <img src="@/assets/user/images/Rectangle 193.png" alt=""
                                           class="rounded-lg w-12 h-12 mr-4">
                                       <div>
                                           <div class="text-lg font-semibold">Jane Cooper</div>
                                           <div class="flex items-center space-x-2">
                                               <div class="bg-mintGreen p-1 rounded">
-                                                  <img src="../../assets/user/images/man-medal.png" alt=""
+                                                  <img src="@/assets/user/images/man-medal.png" alt=""
                                                       class=" w-4 h-4">
                                               </div>
                                               <div class="text-sm ml-2">4 hour ago</div>
@@ -212,7 +219,7 @@
                                   document or a typeface without relying on meaningful content.
                               </p>
                               <div class="relative w-82 h-82 pt-4">
-                                  <img src="../../assets/user/images/Rectangle 128.png" alt=""
+                                  <img src="@/assets/user/images/Rectangle 128.png" alt=""
                                       class="rounded-lg mr-4 w-full h-full object-cover">
                                   <div class="absolute inset-0 flex items-center justify-center">
                                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -257,7 +264,7 @@
                                   </div>
                               </div>
                               <div class="flex items-center space-x-4 mt-3">
-                                  <img style="margin-bottom: 42px;" src="../../assets/user/images/Rectangle 117.png"
+                                  <img style="margin-bottom: 42px;" src="@/assets/user/images/Rectangle 117.png"
                                       alt="" class="rounded-lg w-12 h-12 mr-4">
                                   <div>
                                       <div class="text-lg font-semibold">Kristin Watson</div>
@@ -270,7 +277,7 @@
                                   </div>
                               </div>
                               <div class="flex items-center space-x-4 mt-4">
-                                  <img style="margin-bottom: 42px;" src="../../assets/user/images/Rectangle 117.png"
+                                  <img style="margin-bottom: 42px;" src="@/assets/user/images/Rectangle 117.png"
                                       alt="" class="rounded-lg w-12 h-12 mr-4">
                                   <div>
                                       <div class="text-lg font-semibold">Kristin Watson</div>
@@ -289,7 +296,7 @@
                       </div>
                       <hr class="mt-3 mb-3 text-pigeonBlue">
                       <div class="mt-4 flex items-start space-x-4">
-                          <img src="../../assets/user/images/Rectangle 117.pn" alt="User Image"
+                          <img src="@/assets/user/images/Rectangle 117.pn" alt="User Image"
                               class="w-12 h-12 rounded-lg">
                           <div class="relative  w-full ">
                               <input type="text" placeholder="Write your comment..."
@@ -322,11 +329,11 @@
                 <!-- Start UTR Section -->
                 <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
                     <div
-                        class="h-[80px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 h-auto">
+                        class="h-[80px] card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 h-auto">
                         <div class="grid grid-cols-3 gap-4">
                             <div class="... text-center">
                                 <img class="mx-auto w-[60px] h-[60px] rounded-full "
-                                    src="../../assets/user/images/whitter collage.png" alt="">
+                                    src="@/assets/user/images/whitter collage.png" alt="">
                             </div>
                             <div class="col-span-2 ...">
                                 <p class="text-black text-sm">Coach at {{ colleage }}</p>
@@ -340,11 +347,11 @@
                     </div>
 
                     <div
-                        class="h-[70px] card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                        class="h-[70px] card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
                         <div class="grid grid-cols-3 gap-4">
                             <div class="...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl "
-                                    src="../../assets/user/images/Group 348.png" alt="">
+                                    src="@/assets/user/images/Group 348.png" alt="">
                             </div>
                             <div class="col-span-2 ...">
                                 <p class="text-xs text-black leading-relaxed mx-auto mt-3">{{ city }},  {{ country }}
@@ -363,6 +370,1064 @@
             </section>
         </div>
     </main>
+
+
+
+    <!-- Name change modal -->
+    <!-- <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:items-start">
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">User Name
+                                    change</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want todeactivate</p>
+                                    <div class="">
+                                        <label class="block mb-1 text-gray-700 font-sans">Name
+                                            <span aria-hidden="true" class="text-red-600"
+                                                title="This field is required">*</span></label>
+                                        <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                            <input id="first_name" v-model="first_name" autocomplete="given-name" class="block px-5 py-3 w-full border-0 focus:border-lightAzure
+                                                         focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50
+                                                         disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                placeholder="" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button"
+                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
+                            changes</button>
+                        <button type="button"
+                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Bio change modal -->
+    <!-- <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+
+                <div
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
+                                    Bio</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want to
+                                        deactivate
+                                        your account? All of your data will be permanently removed.
+                                    </p>
+
+                                    <div>
+                                        <div class="">
+                                            <div class="">
+                                                <label class="block mb-1 text-gray-700 font-sans">Bio
+                                                    <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
+                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                    <textarea id="first_name" v-model="first_name"
+                                                        autocomplete="given-name"
+                                                        class="w-full block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                        placeholder="" required>
+                                            </textarea>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button"
+                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
+                            changes</button>
+                        <button type="button"
+                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Info change modal -->
+    <!-- <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
+                                    Info</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want to
+                                        deactivate
+                                        your account? All of your data will be permanently removed.
+                                    </p>
+
+                                    <div>
+                                        <div class="">
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Height
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Weight
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Handness
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <Select id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                            <option value="">gg</option>
+                                                        </Select>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Gender
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <Select id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                            <option value="">gg</option>
+                                                        </Select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="mb-2">
+                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Graduation
+                                                    month
+                                                    <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
+                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                    <input id="first_name" v-model="first_name"
+                                                        autocomplete="given-name"
+                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                        placeholder="" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-2">
+                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Email
+                                                    <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
+                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                    <input id="first_name" v-model="first_name"
+                                                        autocomplete="given-name"
+                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                        placeholder="" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-2 grid grid-cols-10 gap-4">
+                                                <div class="col-span-3">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Code
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-7">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Number
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span>
+                                                    </label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-2">
+                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Age
+                                                    <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
+                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                    <input id="first_name" v-model="first_name"
+                                                        autocomplete="given-name"
+                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                        placeholder="" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-2">
+                                                <label class="block mb-1 text-gray-700 font-sans text-sm">Budget
+                                                    <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
+                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                    <select id="first_name" v-model="first_name"
+                                                        autocomplete="given-name"
+                                                        class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                        placeholder="" required>
+                                                        <option value="">ggg</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button"
+                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
+                            changes</button>
+                        <button type="button"
+                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- UTR change modal -->
+    <!-- <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
+                                    Info</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want to
+                                        deactivate
+                                        your account? All of your data will be permanently removed.
+                                    </p>
+
+                                    <div>
+                                        <div class="">
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">UTR
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">WTN
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">SAT Score
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">ACT Score
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">SAT Score
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">TOEFL
+                                                        Score
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">ATP
+                                                        Ranking
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">National
+                                                        Ranking
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button"
+                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
+                            changes</button>
+                        <button type="button"
+                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Address change modal -->
+    <!-- <div v-if="false" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your
+                                    Address</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want to
+                                        deactivate
+                                        your account? All of your data will be permanently removed.
+                                    </p>
+
+                                    <div>
+                                        <div class="">
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Address
+                                                        line 1
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">Address
+                                                        line 2
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid sm:grid-cols-1 grid-cols-1 lg:grid-cols-2 gap-2 mb-2">
+                                                <div class="mb-2 sm:col-span-2 col-span-1 lg:col-span-1">
+                                                    <label class="block mb-1 text-gray-700 font-sans text-sm">City
+                                                        <span aria-hidden="true" class="text-red-600"
+                                                            title="This field is required">*</span></label>
+                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                        <input id="first_name" v-model="first_name"
+                                                            autocomplete="given-name"
+                                                            class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                            placeholder="" required>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button"
+                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Save
+                            changes</button>
+                        <button type="button"
+                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Budget change modal -->
+    <!-- <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:items-start">
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Budget
+                                    change</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500 mb-3">Are you sure you want todeactivate</p>
+                                    <div class="">
+                                        <label class="block mb-1 text-gray-700 font-sans">Budget
+                                            <span aria-hidden="true" class="text-red-600"
+                                                title="This field is required">*</span></label>
+                                        <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                            <select id="first_name" v-model="first_name" autocomplete="given-name"
+                                                class="block px-5 py-3 w-full border-0 focus:border-lightAzure
+                                                         focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50
+                                                         disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                placeholder="" required>
+                                                <option>dsd</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button"
+                            class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
+                            changes</button>
+                        <button type="button"
+                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Create team modal -->
+ 
+    <!-- <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="bg-white w-full max-w-5xl h-[80vh] md:h-[60vh] p-6 rounded-lg shadow-lg relative overflow-auto">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:items-start">
+                            <div class="mt-3 text-center  sm:mt-0 sm:text-left">
+                                <h1 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Create Team
+                                </h1>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500 mb-3">Here you can manage the requests that have
+                                        been made to your school.</p>
+                                    <div class="flex bp-1">
+                                        <div class="flex-1 p-1">
+                                            <div class="">
+                                                <label class="block mb-1 text-gray-700 font-sans">Team name
+                                                    <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
+                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                    <input id="first_name" v-model="first_name"
+                                                        autocomplete="given-name" class="block px-5 py-3 w-full border-0 focus:border-lightAzure
+                                                         focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50
+                                                         disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                        placeholder="" required>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-1 p-1">
+                                            <div class="">
+                                                <label class="block mb-1 text-gray-700 font-sans">Select members
+                                                    <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
+                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                    <input id="first_name" v-model="first_name"
+                                                        autocomplete="given-name" class="block px-5 py-3 w-full border-0 focus:border-lightAzure
+                                                         focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50
+                                                         disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                        placeholder="" required>
+                                                    <button type="button"
+                                                        class="inline-flex w-full justify-center rounded-full text-steelBlue px-3 py-2 active:bg-blue-100 transition-all text-sm font-normal text-white shadow-sm  sm:ml-3 sm:w-auto">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                            class="size-6 mx-auto text-steelBlue">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                                        </svg>
+
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="w-[full] grid grid-cols-2">
+
+                                            <div class="col-span-1 p-2 w-[450px]">
+                                                <div class="bg-white p-4 border rounded-2xl">
+                                                    <div class=" grid grid-cols-12 gap-4 w-[400px]">
+                                                        <div class="col-span-3">
+                                                            <img class=" rounded-2xl w-[85px] h-[85px]"
+                                                                src="@/assets/user/images/Rectangle 193.png"
+                                                                alt="Neil image">
+                                                        </div>
+                                                        <div class="col-span-6">
+                                                            <h4 class="text-black font-normal">Ronald Richards</h4>
+                                                            <div class="flex items-center space-x-2 mb-2">
+                                                                <div class="bg-blue-200 p-1 rounded">
+                                                                    <img src="@/assets/images/player-blue.png" alt=""
+                                                                        class=" w-4 h-4">
+                                                                </div>
+                                                                <div class="text-sm ml-2 text-blue-500">Tennis Player
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex items-center space-x-2">
+                                                                <div class=" rounded">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                        viewBox="0 0 24 24" stroke-width="1.5"
+                                                                        stroke="currentColor"
+                                                                        class="size-5 text-black mr-1">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                                                                    </svg>
+
+                                                                </div>
+                                                                <div class="text-sm ml-2 text-black">New Pura, Belgium
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-span-3">
+                                                            <h4 class="text-black">UTR <span
+                                                                    class="text-blue-500">30.01</span></h4>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="flex mt-2">
+                                                        <div class="flex-1">
+                                                            <div class="flex items-center space-x-2 mb-2">
+                                                                <div class="bg-blue-100 p-1 rounded">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                        viewBox="0 0 24 24" stroke-width="1.5"
+                                                                        stroke="currentColor"
+                                                                        class="size-4 text-blue-700">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                                                                    </svg>
+
+                                                                </div>
+                                                                <div class="text-xs ml-2 text-black"><span
+                                                                        class="text-blue-700">Ralph,Cameron</span> 3
+                                                                    more
+                                                                    mutual connections
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="flex-1 text-right">
+                                                            <div class="flex">
+                                                                <div class="flex-1 text-right">
+
+                                                                </div>
+
+                                                                <div>
+                                                                    <button
+                                                                        class="bg-blue-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                                        Selected
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-span-1 p-2  w-[500px]">
+                                                <div class="bg-white p-4 border rounded-2xl w-[450px]">
+                                                    <div class=" grid grid-cols-12 gap-4">
+                                                        <div class="col-span-3">
+                                                            <img class=" rounded-2xl w-[85px] h-[85px]"
+                                                                src="@/assets/user/images/Rectangle 193.png"
+                                                                alt="Neil image">
+                                                        </div>
+                                                        <div class="col-span-6">
+                                                            <h4 class="text-black font-normal">Ronald Richards</h4>
+                                                            <div class="flex items-center space-x-2 mb-2">
+                                                                <div class="bg-blue-200 p-1 rounded">
+                                                                    <img src="@/assets/images/player-blue.png" alt=""
+                                                                        class=" w-4 h-4">
+                                                                </div>
+                                                                <div class="text-sm ml-2 text-blue-500">Tennis Player
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex items-center space-x-2">
+                                                                <div class=" rounded">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                        viewBox="0 0 24 24" stroke-width="1.5"
+                                                                        stroke="currentColor"
+                                                                        class="size-5 text-black mr-1">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                                                                    </svg>
+
+                                                                </div>
+                                                                <div class="text-sm ml-2 text-black">New Pura, Belgium
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-span-3">
+                                                            <h4 class="text-black">UTR <span
+                                                                    class="text-blue-500">30.01</span></h4>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="flex mt-2">
+                                                        <div class="flex-1">
+                                                            <div class="flex items-center space-x-2 mb-2">
+                                                                <div class="bg-blue-100 p-1 rounded">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                        viewBox="0 0 24 24" stroke-width="1.5"
+                                                                        stroke="currentColor"
+                                                                        class="size-4 text-blue-700">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                                                                    </svg>
+
+                                                                </div>
+                                                                <div class="text-xs ml-2 text-black"><span
+                                                                        class="text-blue-700">Ralph,Cameron</span> 3
+                                                                    more
+                                                                    mutual connections
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="flex-1 text-right">
+                                                            <div class="flex">
+                                                                <div class="flex-1 text-right">
+                                                                    <button
+                                                                        class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                            fill="none" viewBox="0 0 24 24"
+                                                                            stroke-width="1.5" stroke="currentColor"
+                                                                            class="size-5 text-blue-500 m-auto">
+                                                                            <path stroke-linecap="round"
+                                                                                stroke-linejoin="round"
+                                                                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                                                        </svg>
+                                                                    </button>
+                                                                </div>
+
+                                                                <div>
+                                                                    <button
+                                                                        class="bg-blue-100 rounded-full text-blue-500 p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                                        Select
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button"
+                            class="inline-flex w-full justify-center rounded-full bg-steelBlue px-3 py-2 text-sm font-normal text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">
+                            Create Team</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+     <!-- Create team modal -->
+ 
+     <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="bg-white w-full max-w-5xl h-[80vh] md:h-[60vh] p-6 rounded-lg shadow-lg relative overflow-auto">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:items-start">
+                            <div class="mt-3 text-center  sm:mt-0 sm:text-left">
+                                <h1 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Add member
+                                </h1>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500 mb-3">Here you can manage the requests that have
+                                        been made to your school.</p>
+                                    <div class="flex bp-1">
+                                        <div class="flex-1 p-1">
+                                            <div class="">
+                                                <label class="block mb-1 text-gray-700 font-sans">Select members
+                                                    <span aria-hidden="true" class="text-red-600"
+                                                        title="This field is required">*</span></label>
+                                                <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                    <input id="first_name" v-model="first_name"
+                                                        autocomplete="given-name" class="block px-5 py-3 w-full border-0 focus:border-lightAzure
+                                                         focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50
+                                                         disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
+                                                        placeholder="" required>
+                                                    <button type="button"
+                                                        class="inline-flex w-full justify-center rounded-full text-steelBlue px-3 py-2 active:bg-blue-100 transition-all text-sm font-normal text-white shadow-sm  sm:ml-3 sm:w-auto">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                            class="size-6 mx-auto text-steelBlue">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                                        </svg>
+
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="flex-1"></div>
+                                    </div>
+
+                                    <div>
+                                        <div class="w-[full] grid grid-cols-2">
+
+                                            <div class="col-span-1 p-2 w-[450px]">
+                                                <div class="bg-white p-4 border rounded-2xl">
+                                                    <div class=" grid grid-cols-12 gap-4 w-[400px]">
+                                                        <div class="col-span-3">
+                                                            <img class=" rounded-2xl w-[85px] h-[85px]"
+                                                                src="@/assets/user/images/Rectangle 193.png"
+                                                                alt="Neil image">
+                                                        </div>
+                                                        <div class="col-span-6">
+                                                            <h4 class="text-black font-normal">Ronald Richards</h4>
+                                                            <div class="flex items-center space-x-2 mb-2">
+                                                                <div class="bg-blue-200 p-1 rounded">
+                                                                    <img src="@/assets/images/player-blue.png" alt=""
+                                                                        class=" w-4 h-4">
+                                                                </div>
+                                                                <div class="text-sm ml-2 text-blue-500">Tennis Player
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex items-center space-x-2">
+                                                                <div class=" rounded">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                        viewBox="0 0 24 24" stroke-width="1.5"
+                                                                        stroke="currentColor"
+                                                                        class="size-5 text-black mr-1">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                                                                    </svg>
+
+                                                                </div>
+                                                                <div class="text-sm ml-2 text-black">New Pura, Belgium
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-span-3">
+                                                            <h4 class="text-black">UTR <span
+                                                                    class="text-blue-500">30.01</span></h4>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="flex mt-2">
+                                                        <div class="flex-1">
+                                                            <div class="flex items-center space-x-2 mb-2">
+                                                                <div class="bg-blue-100 p-1 rounded">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                        viewBox="0 0 24 24" stroke-width="1.5"
+                                                                        stroke="currentColor"
+                                                                        class="size-4 text-blue-700">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                                                                    </svg>
+
+                                                                </div>
+                                                                <div class="text-xs ml-2 text-black"><span
+                                                                        class="text-blue-700">Ralph,Cameron</span> 3
+                                                                    more
+                                                                    mutual connections
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="flex-1 text-right">
+                                                            <div class="flex">
+                                                                <div class="flex-1 text-right">
+
+                                                                </div>
+
+                                                                <div>
+                                                                    <button
+                                                                        class="bg-blue-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                                        Selected
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-span-1 p-2  w-[500px]">
+                                                <div class="bg-white p-4 border rounded-2xl w-[450px]">
+                                                    <div class=" grid grid-cols-12 gap-4">
+                                                        <div class="col-span-3">
+                                                            <img class=" rounded-2xl w-[85px] h-[85px]"
+                                                                src="@/assets/user/images/Rectangle 193.png"
+                                                                alt="Neil image">
+                                                        </div>
+                                                        <div class="col-span-6">
+                                                            <h4 class="text-black font-normal">Ronald Richards</h4>
+                                                            <div class="flex items-center space-x-2 mb-2">
+                                                                <div class="bg-blue-200 p-1 rounded">
+                                                                    <img src="@/assets/images/player-blue.png" alt=""
+                                                                        class=" w-4 h-4">
+                                                                </div>
+                                                                <div class="text-sm ml-2 text-blue-500">Tennis Player
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex items-center space-x-2">
+                                                                <div class=" rounded">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                        viewBox="0 0 24 24" stroke-width="1.5"
+                                                                        stroke="currentColor"
+                                                                        class="size-5 text-black mr-1">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                                                                    </svg>
+
+                                                                </div>
+                                                                <div class="text-sm ml-2 text-black">New Pura, Belgium
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-span-3">
+                                                            <h4 class="text-black">UTR <span
+                                                                    class="text-blue-500">30.01</span></h4>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="flex mt-2">
+                                                        <div class="flex-1">
+                                                            <div class="flex items-center space-x-2 mb-2">
+                                                                <div class="bg-blue-100 p-1 rounded">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                        viewBox="0 0 24 24" stroke-width="1.5"
+                                                                        stroke="currentColor"
+                                                                        class="size-4 text-blue-700">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                                                                    </svg>
+
+                                                                </div>
+                                                                <div class="text-xs ml-2 text-black"><span
+                                                                        class="text-blue-700">Ralph,Cameron</span> 3
+                                                                    more
+                                                                    mutual connections
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="flex-1 text-right">
+                                                            <div class="flex">
+                                                                <div class="flex-1 text-right">
+                                                                    <button
+                                                                        class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                            fill="none" viewBox="0 0 24 24"
+                                                                            stroke-width="1.5" stroke="currentColor"
+                                                                            class="size-5 text-blue-500 m-auto">
+                                                                            <path stroke-linecap="round"
+                                                                                stroke-linejoin="round"
+                                                                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                                                        </svg>
+                                                                    </button>
+                                                                </div>
+
+                                                                <div>
+                                                                    <button
+                                                                        class="bg-blue-100 rounded-full text-blue-500 p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                                        Select
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button"
+                            class="inline-flex w-full justify-center rounded-full bg-steelBlue px-3 py-2 text-sm font-normal text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">
+                           Add member</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+
 </template>
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue';

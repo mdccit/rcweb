@@ -136,27 +136,122 @@ const createAuthService = (apiService) => {
   const resetPassword = async (password_reset_id, recovery_code, password, password_confirmation) => {
     // Construct the URL with the password_reset_id
     const url = `/auth/reset-password/${password_reset_id}`;
-
+  
     // Prepare the request body
     const body = {
       recovery_code,
       password,
       password_confirmation,
     };
-
+  
     try {
       // Make the API request
       const response = await apiService.putRequest(url, body);
       return response;
     } catch (error) {
-          if (error.response) {
-        throw error.response;  // Throw the entire response to be handled in the frontend
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
       } else {
-        throw new Error('An unexpected error occurred.');
+        throw new Error(error.message || 'Failed to recover');
       }
     }
   };
 
+  const updatePassword = async (data) => {
+    const url = `/auth/update-password`;
+  
+    try {
+      // Make the API request
+      const response = await apiService.postRequest(url, data);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to recover');
+      }
+    }
+  };
+
+  const browserOtherTokensLogout = async () => {
+    const url = `/auth/browser-other-tokens-logout`;
+  
+    try {
+      // Make the API request
+      const response = await apiService.getRequest(url);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response to be handled in the frontend
+      } else {
+        throw new Error(error.message || 'Failed to recover');
+      }
+    }
+  };
+  const createSetupIntent = async (customerDetails) => {
+    const url = '/subscription/stripe/create-setup-intent';
+    const body = customerDetails;
+  
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw new Error(error.message || 'Failed to create setup intent');
+      }
+    }
+  };
+  
+  const confirmSetupIntent = async (setupIntentId, paymentMethodId, clientSecret) => {
+    const url = '/subscription/stripe/confirm-setup-intent';
+    const body = { setup_intent_id: setupIntentId, payment_method_id: paymentMethodId, client_secret: clientSecret };
+  
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw new Error(error.message || 'Failed to confirm setup intent');
+      }
+    }
+  };
+  
+  const createSubscription = async (subscriptionDetails) => {
+    const url = '/subscription/stripe/confirm-payment-and-create-subscription';
+    const body = subscriptionDetails;
+  
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw new Error(error.message || 'Failed to create subscription');
+      }
+    }
+  };
+  
+  const getStripeCustomerId = async () => {
+    const url = '/subscription/stripe/get-stripe-customer-id';
+  
+    try {
+      const response = await apiService.getRequest(url);
+      return response.stripe_customer_id;
+    } catch (error) {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw new Error(error.message || 'Failed to retrieve Stripe customer ID');
+      }
+    }
+  };
+
+  
 
   return {
     login,
@@ -169,6 +264,12 @@ const createAuthService = (apiService) => {
     resetPasswordRequest,
     resetPassword,
     resendVerificationEmail,
+    updatePassword,
+    browserOtherTokensLogout,
+    createSetupIntent,
+    confirmSetupIntent,
+    createSubscription,
+    getStripeCustomerId
   };
 };
 

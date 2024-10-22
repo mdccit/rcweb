@@ -1,16 +1,15 @@
 <template>
-    <main class="flex-1 bg-graySnowDrift overflow-y-auto mt-14">
+    <!-- <main class="flex-1 bg-graySnowDrift overflow-y-auto mt-14">
         <div>
-            <section class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5">
+            <section class="grid gap-4 grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5"> -->
                 <!-- Start Profile pic section  -->
-                <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
+                <!-- <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1">
 
                     <div class="group">
                         <div class="text-center">
-                            <div class="w-[200px] h-[200px] relative">
-                                <img class="mx-auto w-[180px] h-[180px] rounded-xl"
-                                    src="../../assets/user/images/Rectangle 193.png" alt="">
-                                <div
+                            <div class="w-[200px] h-[200px] relative"> -->
+                              
+                                <!-- <div
                                     class="absolute top-0 right-0 m-2 rounded-lg flex justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor"
@@ -34,11 +33,11 @@
                             <h5 class="text-normal text-md text-center text-black text-primaryblue">{{ sportName }}
                                 player</h5>
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <!-- BIO SECTION  -->
-                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
+                    <!-- <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8">Bio</h1>
@@ -57,11 +56,11 @@
                         <p class="text-xs text-darkSlateBlue leading-relaxed mb-4">
                             {{ bio }}
                         </p>
-                    </div>
+                    </div> -->
 
 
                     <!-- INFO SECTION  -->
-                    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
+                    <!-- <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
@@ -75,7 +74,7 @@
                                     </div>
                                 </h1>
                             </div>
-                        </div>
+                        </div> -->
 
 
                         <!-- <div v-if="userRole !='coach'|| userRole!='admin'||userRole !='player'|| userRole!='parent'|| " class="grid grid-cols-10">
@@ -90,7 +89,7 @@
                                 <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{ email }}</b> </p>
                             </div>
                         </div> -->
-
+<!-- 
                         <div v-if="userRole == 'coach' || userRole == 'admin'" class="grid grid-cols-10">
                             <div v-if="userId.value == playerID.value" class="col-span-2 mx-auto" @click="toggleModal('info')">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -138,7 +137,7 @@
                                     <b>Graduation {{ graduationDate }}</b>
                                 </p>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- <div  v-if="userRole !='coach'|| userRole!='admin'"  class="grid grid-cols-10">
                             <div class="col-span-2 mx-auto">
@@ -173,7 +172,7 @@
                             </div>
                         </div> -->
 
-                        <div class="grid grid-cols-10">
+                        <!-- <div class="grid grid-cols-10">
                             <div class="col-span-2 mx-auto">
                                 <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/bday.png" alt="">
                             </div>
@@ -182,7 +181,7 @@
                                         <span v-if="birthday != 'User has not entered birthday'">Years Old</span> </b>
                                 </p>                             
                             </div>
-                        </div>
+                        </div> -->
                         <!-- <div  v-if="userRole !='coach'|| userRole!='admin'" class="grid grid-cols-10">
                             <div class="col-span-2 mx-auto">
                                 <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/bday.png" alt="">
@@ -199,12 +198,12 @@
                                 <p class="text-xs text-darkSlateBlue leading-relaxed mb-4  ml-2"> <b>{{  gender }}</b></p>
                             </div>
                         </div> -->
-                    </div>
+                    <!-- </div> -->
 
 
                     <!-- ADDRESS SECTION  -->
-                    <div style="height: 70px;"
-                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                    <!-- <div style="height: 70px;"
+                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
                         <div class="grid grid-cols-5 gap-4">
                             <div class="col-span-1...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl " src="@/assets/images/pin.png" alt="">
@@ -229,7 +228,7 @@
                     </div>
 
                     <div v-if="userRole == 'coach' || userRole == 'admin'" style="height: 70px;"
-                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
                         <div class="grid grid-cols-5 gap-4" @click="toggleModal('budget')">
                             <div class="col-span-1...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl "
@@ -255,7 +254,7 @@
                     </div>
 
                     <div style="height: 70px;"
-                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3 h-auto">
+                        class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 mt-3 h-auto">
                         <div class="grid grid-cols-3 gap-4">
                             <div class="...">
                                 <img class="mx-auto w-[45px] h-[45px] rounded-xl"
@@ -271,17 +270,17 @@
 
                     </div>
                 </div>
-            
+             -->
                 <!-- <PlayerProfileLeft/> -->
 
                 <!-- End Profile pic section  -->
 
                 <!-- Start post Section -->
 
-                <div class="col-span-5 sm:col-span-3 md:col-span-5 lg:col-span-2 xl:col-span-3 mb-5">
+                <!-- <div class="col-span-5 sm:col-span-3 md:col-span-5 lg:col-span-2 xl:col-span-3 mb-5"> -->
 
                     <!-- Tab Navigation Component -->
-                    <PlayerTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
+                    <!-- <PlayerTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" /> -->
 
                     <!--start card 01 -->
                     <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-6 mt-5">
@@ -334,7 +333,7 @@
                     </div> -->
                     <!--end card 01 -->
                     <!-- Posts section -->
-                    <UserFeed v-if="tab == 'feed'" :posts="posts" />
+                    <!-- <UserFeed v-if="tab == 'feed'" :posts="posts" /> -->
                     <!-- Posts section End -->
 
                     <!--start card 02 -->
@@ -553,12 +552,12 @@
                     </div> -->
 
                     <!--end card 02 -->
-                    <Connection v-if="tab == 'connection'" :playerId="playerID" />
+                    <!-- <Connection v-if="tab == 'connection'" :playerId="playerID" /> -->
                     <!--start card 03 -->
 
                     <!-- Media Gallery Section -->
 
-                    <mediaTab v-if="tab == 'media'" :galleryItems="galleryItems" />
+                    <!-- <mediaTab v-if="tab == 'media'" :galleryItems="galleryItems" /> -->
                     <!-- <div v-if="tab === 'media'" class="media-gallery grid">
                         <a v-for="(item, index) in galleryItems" :key="index" data-fancybox="gallery" :href="item.href"
                             class="media-item">
@@ -575,14 +574,14 @@
 
 
                     <!--end card 04 -->
-                </div>
+                <!-- </div> -->
                 <!-- End post Section -->
 
                 <!-- Start UTR Section -->
-                <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1 mt-4 text-white">
+                <!-- <div class="col-span-5 sm:col-span-1 md:col-span-5 lg:col-span-1 xl:col-span-1 mt-4 text-white">
                     <div>
                         <div class="flex">
-                            <div class="">
+                            <div class=""> -->
                                 <!-- <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
@@ -590,7 +589,7 @@
                                             d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                     </svg>
                                 </button> -->
-                            </div>
+                            <!-- </div>
                             <div class="">
                                 <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -613,12 +612,12 @@
                                     Accept
                                 </button>
                             </div>
-                            <!-- <div>
+                            <div>
                                 <button  
                                     class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
                                     Regect
                                 </button>
-                            </div> -->
+                            </div>
                             <div class="">
                                 <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -642,12 +641,9 @@
                                 </ul>
                             </div>
                             </div>
-
-                          
-
                         </div>
                     </div>
-                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-blue-500 p-3 mt-2">
+                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-blue-500 p-3 mt-2">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4 w-48 grid grid-cols-10">
                                 <h1 class="text-lg font-semibold mb-4 text-black col-span-8"></h1>
@@ -655,7 +651,7 @@
                                     <div v-if="userId.value == playerID.value" class="cursor-pointer mr-[20px]" @click="toggleModal('utr')">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor"
-                                            class="size-4 bg-white rounded-sm m-2">
+                                            class="size-4 text-white rounded-sm m-2">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                         </svg>
@@ -686,8 +682,8 @@
                                     class="text-lg font-semibold mb-4 text-sm text-normal">TOEFL Score</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ATP Ranking</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">ITF Ranking</p>
-                                <!-- <p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">WTN</p> -->
-                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                               <p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">WTN</p> -->
+                              <!--    <p v-if="userRole == 'coach' || userRole == 'admin'"
                                     class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
                                 <p v-if="userRole == 'coach' || userRole == 'admin'"
                                     class="text-lg font-semibold mb-4 text-sm text-normal">ACT</p>
@@ -708,8 +704,8 @@
                                     class="text-lg font-semibold mb-4 text-sm text-normal">{{ toefl }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ atp }}</p>
                                 <p class="text-lg font-semibold mb-4 text-sm text-normal">{{ itf }}</p>
-                                <!-- <p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ wtn }}</p> -->
-                                <p v-if="userRole == 'coach' || userRole == 'admin'"
+                              <p  v-if="userRole !='coach'|| userRole!='admin'" class="text-lg font-semibold mb-4 text-sm text-normal">{{ wtn }}</p> -->
+                               <!--    <p v-if="userRole == 'coach' || userRole == 'admin'"
                                     class="text-lg font-semibold mb-4 text-sm text-normal">{{ act }}</p>
                                 <p v-if="userRole == 'coach' || userRole == 'admin'"
                                     class="text-lg font-semibold mb-4 text-sm text-normal">{{ act }}</p>
@@ -717,28 +713,21 @@
 
                             </div>
                         </div>
-
-
-
-
                     </div>
-
-                </div>
-
-
+                </div> -->
                 <!-- End Pending Req. Section -->
-            </section>
-        </div>
-    </main>
+            <!-- </section> -->
+        <!-- </div> -->
+    <!-- </main> -->
 
 
     <!-- Modal Components with Standardized Props -->
-    <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
+    <!-- <NameModal :visible="modals.name" @close="handleModalClose" :slug="slug" />
     <BioModal :visible="modals.bio" @close="handleModalClose" :slug="slug" />
     <InfoModal :visible="modals.info" @close="handleModalClose" :slug="slug" />
     <BudgetModal :visible="modals.budget" @close="handleModalClose" :slug="slug" />
     <UTRModal :visible="modals.utr" @close="handleModalClose" :slug="slug" />
-    <AddressModal :visible="modals.address" @close="handleModalClose" :slug="slug" />
+    <AddressModal :visible="modals.address" @close="handleModalClose" :slug="slug" /> -->
 </template>
 
 <script setup>
@@ -751,7 +740,7 @@ import { useUserStore } from '~/stores/userStore';
 import PlayerTabNavigation from '~/components/profiles/navigation/PlayerTabNavigation.vue';
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
-import PlayerProfileLeft from './playerProfileLeft.vue';
+import PlayerProfileLeft from '~/components/profiles/player/layout/playerProfileLeft.vue';
 import NameModal from '~/components/profiles/player/modals/nameModal.vue';
 import BioModal from '~/components/profiles/player/modals/bioModal.vue';
 import InfoModal from '~/components/profiles/player/modals/infoModal.vue';
@@ -879,7 +868,7 @@ onMounted(() => {
 
 const fetchUserDetails = async (slug) => {
     try {
-        const dataSets = await $publicService.get_player(route.params.slug);
+        const dataSets = await $publicService.get_user_profile(route.params.slug);
         if (dataSets.user_basic_info) {
             bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"
             name.value = dataSets.user_basic_info.display_name ?? "User has not entered name";
@@ -915,7 +904,7 @@ const fetchUserDetails = async (slug) => {
             country.value = dataSets.user_address_info.country ?? 'User has not entered country'
             city.value = dataSets.user_address_info.city ?? 'User has not entered city'
             addressLine01.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
-            addressLine02.value = dataSets.user_address_info.address_line_2 ?? 'User has not entered address line 02'
+            addressLine02.value = dataSets.user_address_info.address_line_2 ?? ''
             stateProvince.value = dataSets.user_address_info.state_province ?? 'User has not entered stare provice'
         }
 
@@ -977,7 +966,7 @@ const fetchCheckConnection = async () => {
                 if ((dataSets.type.connection_status == 'pending') && (dataSets.type.receiver_id == userId.value)) {
                     buttonHide.value = false
 
-                    connectionButtonName.value = "Accept connection"
+                    connectionButtonName.value = "Accept"
                 }
 
                 if (dataSets.type.connection_status == 'accepted') {

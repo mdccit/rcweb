@@ -1,18 +1,23 @@
 import { defineNuxtConfig } from 'nuxt/config';
 import { resolve } from 'path';
 import dotenv from 'dotenv';
-import customRoutes from './src/config/routes'
 dotenv.config();
 
 export default defineNuxtConfig({
   // devtools: { enabled: true },
+  head: {
+    title: 'Recruited', // Change this to your website title
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/_nuxt/assets/images/favicon.ico' }      
+    ],
+  },
   srcDir: 'src/',
   ssr: true,
   target: 'server',
   components: true,
   router: {
     base: '/',  // Base URL for your router, assuming your app is served from the root
-    middleware: ['permissions','role'],
+    middleware: ['permissions','role', 'role-based-layout'],
   },
   generate: {
     fallback: true,  // Generates a 404.html for static hosting fallback
@@ -55,15 +60,15 @@ export default defineNuxtConfig({
     ],
   },
   runtimeConfig: {
-    public: {
-      
+    public: {      
       apiUrl: process.env.NUXT_PUBLIC_API_URL,
       accessKey: process.env.ACCESS_KEY,
       defaultLang: process.env.DEFAULT_LANG,
+      stripePublicKey: process.env.STRIPE_PUBLIC_KEY,// Client-side key
     },
+    stripeSecretKey: process.env.STRIPE_SECRET_KEY, // Server-side key
   },
   plugins: [
-    '~/plugins/runtimeConfig.js',
     '~/plugins/router.plugin.ts',
     '~/plugins/services.js',
     '~/plugins/pinia.js',        

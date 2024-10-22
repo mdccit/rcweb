@@ -151,7 +151,7 @@
                   {{ post.title }}
                 </h3>
                 <div class="basis-full flex flex-col  ">
-                <p  v-if="!editingPostId || editingPostId !== post.id"class="mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
+                <p  v-if="!editingPostId || editingPostId !== post.id" class="mt-4 text-darkSlateBlue text-base"  v-html="post.description"></p>
                 <textarea v-else  type="text" placeholder="Write your thoughts..." v-model="editPost"
                    class="mt-4 text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4 ">
                     
@@ -169,7 +169,7 @@
             <div class="flex items-center space-x-4">
               <button class="flex items-center space-x-1" :disabled="likeButton" @click="likePost(post.id,post), post.user_has_liked== true? post.likes_count-1 : post.likes_count = post.likes_count+1">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" class="size-5" :class="post.user_has_liked ? 'fill-orangeRed stroke-orangeRed' : 'fill-none'">
+                  stroke="currentColor" class="size-5" :class="post.user_has_liked ? 'fill-orangeRed stroke-orangeRed transform transition duration-500 ease-in-out' : 'fill-none transform transition duration-500 ease-in-out'">
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                 </svg>
@@ -243,6 +243,9 @@
 definePageMeta({
   layout: 'socialhub-three-column',
 });
+useHead({
+  title: 'Recruited Feed',
+})
 
 import { ref, onMounted } from 'vue';
 import { useNuxtApp } from '#app';

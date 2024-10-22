@@ -1,120 +1,10 @@
-<!-- <template>
-    <div>
-        <nav class="bg-clearwhite drop-shadow-md border-b border-b-poloBlue">
-            <div class="grid grid-cols-12 px-4 h-14">
-                <div class="col-span-2 ">
-                    <img class="w-32" src="@/assets/css/images/logo-recruited.png" alt="logo-recruited">
-                </div>
-                <div class="col-span-3">
-                    <div
-                        class="border border-b-poloBlue border-poloBlue rounded-3xl bg-graySnowDrift w-75 h-8 mt-2.5">
-                        <div class="flex">
-                            <div class="flex-auto w-96">
-                                <span class="pl-3.5 text-ceil">Search</span>
-                            </div>
-                            <div class="flex-auto w-8 pt-1.5">
-                                <span class="flex"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                        fill="steelBlue" class="size-4">
-                                        <path
-                                            d="M6 12a.75.75 0 0 1-.75-.75v-7.5a.75.75 0 1 1 1.5 0v7.5A.75.75 0 0 1 6 12ZM18 12a.75.75 0 0 1-.75-.75v-7.5a.75.75 0 0 1 1.5 0v7.5A.75.75 0 0 1 18 12ZM6.75 20.25v-1.5a.75.75 0 0 0-1.5 0v1.5a.75.75 0 0 0 1.5 0ZM18.75 18.75v1.5a.75.75 0 0 1-1.5 0v-1.5a.75.75 0 0 1 1.5 0ZM12.75 5.25v-1.5a.75.75 0 0 0-1.5 0v1.5a.75.75 0 0 0 1.5 0ZM12 21a.75.75 0 0 1-.75-.75v-7.5a.75.75 0 0 1 1.5 0v7.5A.75.75 0 0 1 12 21ZM3.75 15a2.25 2.25 0 1 0 4.5 0 2.25 2.25 0 0 0-4.5 0ZM12 11.25a2.25 2.25 0 1 1 0-4.5 2.25 2.25 0 0 1 0 4.5ZM15.75 15a2.25 2.25 0 1 0 4.5 0 2.25 2.25 0 0 0-4.5 0Z" />
-                                    </svg></span>
-                            </div>
-                            <div class="flex-auto w-8 pt-1.5">
-                                <span> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="steelBlue"
-                                        class="size-4">
-                                        <path fill-rule="evenodd"
-                                            d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
-                                            clip-rule="evenodd" />
-                                    </svg></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-span-5">
-                    <div class="flex justify-end">
-                        <div class="py-1 px-7">
-                            <div class="flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="steelBlue"
-                                    class="size-5 justify-end">
-                                    <path
-                                        d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
-                                    <path
-                                        d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
-                                </svg>
-                            </div>
-                            <span class="text-xs  text-steelBlue">HOME</span>
-                        </div>
-                        <div class="py-1 px-7">
-                            <div class="flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="steelBlue" class="size-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                                </svg>
-                            </div>
-                            <span class="text-xs  text-steelBlue">RESOURCES</span>
-                        </div>
-                        <div class="py-1 px-7">
-                            <div class="flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="steelBlue" class="size-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
-                                </svg>
-                            </div>
-                            <span class="text-xs  text-steelBlue">NETWORK</span>
-                        </div>
-                        <div class="py-1 px-7">
-                            <div class="flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="steelBlue" class="size-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.068.157 2.148.279 3.238.364.466.037.893.281 1.153.671L12 21l2.652-3.978c.26-.39.687-.634 1.153-.67 1.09-.086 2.17-.208 3.238-.365 1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
-                                </svg>
-                            </div>
-                            <span class="text-xs  text-steelBlue">CHAT</span>
-                        </div>
-                        <div class="py-1 px-7">
-                            <div class="flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="steelBlue" class="size-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-                                </svg>
-                            </div>
-                            <span class="text-xs text-steelBlue">NOTICES</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-span-2 flex">
-                    <div class="p-2">
-                        <img class="w-10 h-10 rounded-lg border border-white shadow-lg"
-                            src="https://via.placeholder.com/150" alt="Profile Picture">
-                    </div>
-                    <div class="p-2">
-                        <h6 class="text-sm">Jacob Johnes</h6>
-                        <p class="text-xs text-limegreen">Online</p>
-                    </div>
-                    <button class="pl-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                        </svg>
-
-                    </button>
-                </div>
-            </div>
-        </nav>
-    </div>
-</template> -->
-
 <template>
     <!-- start header -->
-    <header class="fixed top-0 left-0 right-0 bg-white border-b border-b-poloBlue border-opacity-23 py-3">
+    <header class="fixed top-0 left-0 right-0 bg-white border-b border-b-poloBlue border-opacity-23 py-3 z-index-320">
         <div class="container-compressed">
             <div class="grid grid-cols-6 gap-4">
                 <div class="flex items-center">
-                    <NuxtLink to="/app"><img class="w-96 md:w-32" src="@/assets/images/logo-recruited.png" alt="">
+                    <NuxtLink to="/"><img class="w-96 md:w-32" src="@/assets/images/logo-recruited.png" alt="">
                     </NuxtLink>
                 </div>
 
@@ -122,9 +12,9 @@
                     <div class="flex justify-between items-center space-x-3">
 
                         <div class="relative hidden sm:hidden md:block basis-1/2">
-                            <input type="text"
+                            <input type="text" @keyup.enter="searchkey" v-model="key"
                                 class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-full border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 ps-4 pe-12"
-                                placeholder="Search...">
+                                placeholder="Search..." />
                             <div class="absolute right-0 top-0 bottom-0 flex items-center pe-4 space-x-2">
                                 <!-- <span> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="steelBlue" class="size-4">
@@ -145,7 +35,7 @@
                         <ul
                             class="font-medium hidden p-4 md:p-0 mt-4 border sm:hidden  md:hidden lg:flex items-center md:space-x-8  md:mt-0 md:border-0 border-poloBlue">
                             <li>
-                                <NuxtLink to="/"
+                                <NuxtLink to="/app"
                                     class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 dark:text-white group"
                                     aria-current="page">
                                     <div class="flex items-center justify-center">
@@ -176,7 +66,7 @@
                                 </a>
                             </li> -->
                             <li>
-                                <NuxtLink to="/"
+                                <NuxtLink to="/user/network"
                                     class="block py-2 px-3 text-periwinkleBluerounded md:hover:bg-transparent md:border-0 md:p-0 dark:text-white dark:hover:text-white md:dark:hover:bg-transparent group">
                                     <div class="flex items-center justify-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -192,9 +82,9 @@
                                     <span
                                         class="text-xs font-normal text-periwinkleBlue group-hover:text-steelBlue transition uppercase">Network</span>
                                 </NuxtLink>
-                            </li>
+                            </li> 
                             <li>
-                                <NuxtLink to="/"
+                                <NuxtLink to="/user/chat"
                                     class="block py-2 px-3 text-periwinkleBlue rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white  dark:hover:text-white md:dark:hover:bg-transparent group">
                                     <div class="flex items-center justify-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -209,6 +99,39 @@
                                 </NuxtLink>
                             </li>
                             <li>
+                                <NuxtLink to="/user/resources"
+                                    class="block py-2 px-3 text-periwinkleBlue md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:text-white md:dark:hover:bg-transparent group">
+                                    <div class="flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor"
+                                            class="size-5 fill-none stroke-periwinkleBlue group-hover:fill-steelBlue group-hover:stroke-steelBlue transition stroke-1.75">>
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+                                        </svg>
+
+                                    </div>
+                                    <span
+                                        class="text-xs font-normal text-periwinkleBlue group-hover:text-steelBlue transition uppercase">Resources</span>
+                                </NuxtLink>
+                            </li>
+                            <li>
+                                <!-- v-if="role === 'coach' && userTypeId == 3" -->
+                                <NuxtLink to="/user/transfer-tracker"  v-if="role === 'coach' && userTypeId == 3"
+                                    class="block py-2 px-3 text-periwinkleBlue md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:text-white md:dark:hover:bg-transparent group">
+                                    <div class="flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor"  class="size-5 fill-none stroke-periwinkleBlue group-hover:fill-steelBlue group-hover:stroke-steelBlue transition stroke-1.75">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                                        </svg>
+
+
+                                    </div>
+                                    <span
+                                        class="text-xs font-normal text-periwinkleBlue group-hover:text-steelBlue transition uppercase">Transfer</span>
+                                </NuxtLink>
+                            </li>
+                            <!-- <li>
                                 <NuxtLink to="/"
                                     class="block py-2 px-3 text-periwinkleBlue md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:text-white md:dark:hover:bg-transparent group">
                                     <div class="flex items-center justify-center">
@@ -221,26 +144,47 @@
                                     <span
                                         class="text-xs font-normal text-periwinkleBlue group-hover:text-steelBlue transition uppercase">Notices</span>
                                 </NuxtLink>
-                            </li>
+                            </li> -->
                         </ul>
 
                     </div>
                 </div>
 
-                <div class="flex justify-end">
+                <div class="flex justify-end" v-if="isAuthenticated">
 
                     <div class="flex space-x-3">
-                        <NuxtLink :to="`/app/profile/${userSlug}`">
-                        <div class="flex space-x-2 items-center">
-                            <div class="hidden sm:hidden md:hidden lg:block">
-                                <img class="w-10 h-10 rounded-lg border border-white shadow-lg"
-                                    src="@/assets/user/images/Rectangle_117.png" alt="">
+                        <NuxtLink v-if="userRole != 'admin'" :to="`/app/profile/${userSlug}`">
+                            <div class="flex space-x-2 items-center">
+                                <div class="hidden sm:hidden md:hidden lg:block">
+                                    <img v-if="profilePicture == 'null'"
+                                        class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                        src="@/assets/images/user.png" alt="">
+                                    <img v-if="profilePicture != 'null'"
+                                        class="w-10 h-10 rounded-lg border border-white shadow-lg" :src="profilePicture"
+                                        alt="">
+                                </div>
+                                <div class="hidden sm:hidden md:hidden lg:block">
+                                    <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
+                                    <p class="text-xs text-limegreen">Online</p>
+                                </div>
                             </div>
-                            <div class="hidden sm:hidden md:hidden lg:block">
-                                <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
-                                <p class="text-xs text-limegreen">Online</p>
+                        </NuxtLink>
+                        <NuxtLink v-if="userRole == 'admin'">
+                            <div class="flex space-x-2 items-center">
+                                <div class="hidden sm:hidden md:hidden lg:block">
+                                    <img v-if="profilePicture == 'null'"
+                                        class="w-10 h-10 rounded-lg border border-white shadow-lg"
+                                        src="@/assets/images/user.png" alt="">
+
+                                    <img v-if="profilePicture != 'null'"
+                                        class="w-10 h-10 rounded-lg border border-white shadow-lg" :src="profilePicture"
+                                        alt="">
+                                </div>
+                                <div class="hidden sm:hidden md:hidden lg:block">
+                                    <h6 class="text-sm text-black max-w-24 truncate">{{ loggedUserName }}</h6>
+                                    <p class="text-xs text-limegreen">Online</p>
+                                </div>
                             </div>
-                        </div>
                         </NuxtLink>
                         <button data-dropdown-toggle="dropdownUser" data-dropdown-placement="bottom-end" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -256,16 +200,23 @@
                                 aria-labelledby="dropdownUserAvatarButton">
                                 <li>
                                     <NuxtLink @click="gotoAdminDashboard"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                         Admin Dashboard</NuxtLink>
                                 </li>
                             </ul>
                             <div class="py-2">
-                                <NuxtLink  @click="logout"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                <NuxtLink to="/user/user-setting" @click.stop
+                                    class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                    Settings</NuxtLink>
+                            </div>
+                            <div class="py-2">
+                                <NuxtLink @click="logout"
+                                    class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                     Sign out</NuxtLink>
                             </div>
                         </div>
+
+                        <!-- / Dropdown menu -->
                     </div>
 
                 </div>
@@ -276,7 +227,8 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { ref, onMounted, defineProps, defineEmits, defineExpose, watch } from 'vue';
+import { useSearchStore } from '~/stores/searchStore';
 import { useFlowbite } from '~/composables/useFlowbite';
 import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore();
@@ -284,21 +236,26 @@ import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 
 const nuxtApp = useNuxtApp();
-const nprogress = nuxtApp.$nprogress; 
+const nprogress = nuxtApp.$nprogress;
 const $authService = nuxtApp.$authService;
+const searchStore = useSearchStore();
+const isAuthenticated = computed(() => userStore.isAuthenticated);
+const userTypeId = computed(() => userStore.userTypeId);
+const role = computed(() => userStore.role);
 
 const router = useRouter();
 // Get the user's role from the store
 const userRole = userStore.getRole();
 
-const loggedUserMail = computed(() => userStore.loggedUserEmail);
-const loggedUserName = computed(() => userStore.loggedUserName);
-const userSlug = ref(null)
+const loggedUserName = ref('');
+const userSlug = ref('');
+const key = ref('');
+const profilePicture = ref('')
 const logout = async (event) => {
     event.preventDefault();
 
     try {
-nprogress.start();
+        nprogress.start();
         const token = localStorage.getItem('token');  // Retrieve the token from local storage
 
         if (!token) {
@@ -319,8 +276,8 @@ nprogress.start();
 
             if (response.status === 200) {
                 nuxtApp.$notification.triggerNotification(response.display_message, 'success');
-               
-                userStore.clearUser(); 
+
+                userStore.clearUser();
                 nprogress.done();
                 setTimeout(() => {
                     router.push('/login');
@@ -333,8 +290,8 @@ nprogress.start();
                 }, 2000);
             }
         }
-        } catch (err) {
-            nprogress.done();
+    } catch (err) {
+        nprogress.done();
         if (err.response && err.response.status === 401) {
             // Handle 401 error and redirect to login
             nuxtApp.$notification.triggerNotification('Session expired. Please log in again.', 'failure');
@@ -364,9 +321,66 @@ const gotoAdminDashboard = async (event) => {
 
 // initialize components based on data attribute selectors
 onMounted(() => {
-    userSlug.value = userStore.userSlug??null
+
+    if (process.client) {  // Ensure this runs only on the client-side
+        const storedUserName = localStorage.getItem('user_name');  // Get value from localStorage
+        const storedSlug = localStorage.getItem('user_slug');
+
+        if (storedUserName) {
+            // Set the loggedUserName in the store with the value from localStorage
+            loggedUserName.value = storedUserName;
+        } else {
+            console.log('No user_name found in localStorage.');
+        }
+
+        if (storedSlug) {
+            userSlug.value = storedSlug;
+        } else {
+            userSlug.value = null; // Handle the absence of user_slug
+        }
+        if (localStorage.getItem('profile_picture')) {
+            profilePicture.value = localStorage.getItem('profile_picture')
+
+            userStore.setProfilePicture({
+                url: profilePicture.value
+            })
+        }
+        // console.log(localStorage.getItem('profile_picture'))
+    }
+
+
     useFlowbite(() => {
         initFlowbite();
     })
 })
+
+
+watch(
+    () => userStore.userProfilePicture,
+    () => {
+        if (userStore.userProfilePicture != null) {
+            profilePicture.value = userStore.userProfilePicture.url
+        } else {
+            profilePicture.value = 'null'
+        }
+    }
+);
+
+
+const searchkey = () => {
+    searchStore.setSearchKey(key.value)
+    searchStore.setSearchButton(true)
+    router.push({
+        path: '/user/search/search',
+        query: {
+            searchKey: key.value
+        }
+    });
+}
 </script>
+
+<style>
+.z-index-200 {
+    z-index: 200;
+}
+</style>

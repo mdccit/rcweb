@@ -3,15 +3,20 @@
     <!-- Top Navigation Bar -->
     <SocialHubNavbar />
 
-    <main class="bg-graySnowDrift min-h-screen">
+    <main class="bg-graySnowDrift min-h-screen mb-3">
       <div class="container-compressed">
-        <div class="grid grid-cols-6 gap-4 mt-16">
+        <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-6 gap-4 mt-16">
           <!-- Left pane -->
-          <div>
+          <div class=" md:col-span-1 lg:col-span-1 sm:col-span-6 sx:col-span-6">
             <!-- <Filter /> -->
-             <NetworkLeft />
-            <Filter v-if="route.meta.showFilterLeft" />
+            <!-- <CallCard/> -->
+             <!-- <transfer-tracker-left-bar /> -->
+             <NetworkLeft v-if="networkView" />
+            <!-- <Filter v-if="route.meta.showFilterLeft" /> -->
+            <ResourcesLeftBar />
+             <!-- <userSettingLeftBar /> -->
             <!-- <resources-left-bar /> -->
+             <userSettingLeftBar v-if="route.meta.showUserSettingLeftBar" />
           </div>
 
           <!-- Middle pane -->
@@ -23,6 +28,7 @@
           <!-- Right pane -->
           <div>
             <!-- <Filter /> -->
+             <!-- <transfer-tracker-right-bar /> -->
           </div>
         </div>
       </div>
@@ -54,8 +60,12 @@ import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import checkSession from '~/middleware/checkSession';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
+import TransferTrackerLeftBar from '~/components/user/transferTrackerLeftBar.vue';
+import TransferTrackerRightBar from '~/components/user/transferTrackerRightBar.vue';
 import NetworkLeft from '~/components/user/networkLeft.vue';
 import ResourcesLeftBar from '~/components/user/resourcesLeftBar.vue';
+import userSettingLeftBar from '~/components/user/userSettingLeftBar.vue';
+import CallCard from '~/components/user/feed/CallCard.vue';
 
 
 defineNuxtRouteMiddleware(checkSession);
@@ -74,8 +84,17 @@ router.beforeEach((to, from, next) => {
 router.afterEach(() => {
   loading.value = false;
 });
+const networkView = ref(false)
+watch(()=>{
+  console.log("Route meta")
+  console.log(route.fullPath)
+   networkView.value = false
+   if(route.fullPath =='/user/network'){
+    networkView.value = true
+  }
 
-
+  
+})
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const notificationType = ref('');

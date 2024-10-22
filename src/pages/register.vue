@@ -1,8 +1,13 @@
 <template>
       <RegisterForm />
+      <!-- <RegisterStepThree/> -->
 </template>
 
 <script setup>
 import RegisterForm from '~/components/RegisterForm.vue';
-definePageMeta({ colorMode: 'light', layout: 'outer'});
+import RegisterStepThree from '~/components/RegisterStepThree.vue';
+definePageMeta({ colorMode: 'light', layout: 'outer' });
+useHead({
+  title: 'Recruited Register',
+})
 </script>
