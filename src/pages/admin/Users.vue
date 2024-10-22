@@ -88,6 +88,7 @@ watch(
         }
 
         if(route.query.role ==2){
+            console.log(route.query.role)
             role.value ="Admin"
         }
 
