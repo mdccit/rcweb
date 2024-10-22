@@ -19,7 +19,7 @@
            
         </div>
         <!-- End Connections Section -->
-         
+
         <!-- Start Invites Section -->
         <div class="flex flex-wrap gap-2 mt-4 mb-2">
             <div class="flex-1 pl-2">

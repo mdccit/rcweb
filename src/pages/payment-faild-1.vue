@@ -1,5 +1,5 @@
 <template>
-<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="min-h-screen flex items-center justify-center bg-gray-100">
         <div class="bg-white rounded-lg shadow-md text-center w-[390px] h-[450px]">
             <div class="w-full h-[150px] bg-red-600 rounded-t-lg flex items-center justify-center">
                 <img src="@/assets/images/closePayment.png" class="m-auto" alt="">
@@ -28,10 +28,7 @@
     </div>
 </template>
 
-<script setup>
-// No specific logic needed for now
-</script>
 
-<style scoped>
-/* Optional: add some styles */
-</style>
+<script setup>
+
+</script>

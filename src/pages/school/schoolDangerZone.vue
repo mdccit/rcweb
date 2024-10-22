@@ -7,7 +7,7 @@
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M15 6l-6 6l6 6"></path>
                     </svg></NuxtLink>
-                <h2 class="font-bold text-lg self-center"> Editing:{{  name }} </h2>
+                <h2 class="font-bold text-lg self-center"> Editing: {{name}} </h2>
             </div>
             <div class="">
                 <NuxtLink :to="`/app/profile/school/${slug}`"><button type="submit"
