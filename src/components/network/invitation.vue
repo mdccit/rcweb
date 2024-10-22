@@ -1,5 +1,6 @@
 <template>
-    <div v-for="data in props.data" class="flex-1 p-2">
+      <div class="grid gap-4 grid-cols-6  w-full">
+    <div v-for="data in props.data" class="col-span-3 p-2">
      <div
        class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
            <div class="cursor-pointer flex-1 p-1" @click="redirect(`/app/profile/${data.slug}`)">
@@ -90,18 +91,18 @@
                       </div>
                       <div>
                            <button @click="connectAccept(data.id)" 
-                               class="bg-blue-500 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
+                               class="bg-steelBlue rounded-md shadow-sm hover:bg-blue-700 text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                   Accept
                            </button>
                        </div>
                        <div>
                            <button @click="connectReject(data.id)"
-                               class="bg-blue-500 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
+                               class="bg-red-600 hover:bg-red-700 rounded-md text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                   Reject
                            </button>
                        </div>
                    </div>
-                  
+                </div>
                </div>
            </div>
        </div>

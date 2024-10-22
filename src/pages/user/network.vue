@@ -4,11 +4,11 @@
           <div class="flex flex-wrap gap-2 mt-4 mb-2">
             <div class="flex-1 pl-2">
 
-                <h2 class="text-lg font-semibold text-black">Connecions</h2>
+                <h2 class="text-lg font-semibold text-black">Connections</h2>
             </div>
             <div class="flex-3">
                 <div class="flex items-center px-3 divide-x">
-                    <!-- <a class="text-steelBlue text-sm hover:underline">Show all</a> -->
+                    <a class="text-steelBlue text-sm hover:underline">Show all</a>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
             </div>
             <div class="flex-3">
                 <div class="flex items-center px-3 divide-x">
-                    <!-- <a class="text-steelBlue text-sm hover:underline">Show all</a> -->
+                    <a class="text-steelBlue text-sm hover:underline">Show all</a>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
             </div>
             <div class="flex-3">
                 <div class="flex items-center px-3 divide-x">
-                    <!-- <a class="text-steelBlue text-sm hover:underline">Show all</a> -->
+                    <a class="text-steelBlue text-sm hover:underline">Show all</a>
                 </div>
             </div>
         </div>
