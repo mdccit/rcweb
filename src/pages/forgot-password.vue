@@ -60,7 +60,7 @@
                     <div class="flex items-center justify-end mt-4">
 
                         <button type="submit"
-                            class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-brightSkyBlue active:bg-royalBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue min-w-44"
+                            class="border rounded-md shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-brightSkyBlue active:bg-royalBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue min-w-44"
                             :disabled="loading">
                             <svg v-if="loading" aria-hidden="true" role="status"
                                 class="inline w-4 h-4 text-white animate-spin" viewBox="0 0 100 101" fill="none"

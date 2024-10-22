@@ -428,4 +428,7 @@ definePageMeta({
     middleware: ['role'],
     requiredRole: ['admin', 'coach', 'business_manager', 'player', 'parent', 'default'],
 });
+useHead({
+  title: 'Recruited Network',
+})
 </script>

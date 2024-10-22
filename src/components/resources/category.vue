@@ -12,7 +12,7 @@
         </div> -->
 
         <div v-for="data in props.data" class="bg-culturedBlue p-4 rounded-lg flex items-center space-x-4 col-span-3">
-            <div class="grid grid-cols-10">
+            <div class="grid grid-cols-10 w-full">
                 <div class="col-span-2">
                     <div class="bg-lightGray1 p-3 rounded-full w-[60px] h-[60px]">
                         <img src="@/assets/images/elegibility.png" alt="" class="w-[35px] h-[35px] m-auto">

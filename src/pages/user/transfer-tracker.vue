@@ -3,7 +3,7 @@
 
         <!-- Resources -->
 
-        <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+        <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
             <!-- Section Header -->
             <div class="mb-6">
                 <div class="flex">
