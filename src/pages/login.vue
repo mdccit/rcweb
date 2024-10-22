@@ -22,6 +22,9 @@
 <script setup>
 import LoginForm from '~/components/LoginForm.vue'
 definePageMeta({ colorMode: 'light', layout: 'outer'},)
+useHead({
+  title: 'Recruited Login',
+})
 
 </script>
 
