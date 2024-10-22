@@ -66,7 +66,7 @@
                                 </a>
                             </li> -->
                             <li>
-                                <NuxtLink to="/"
+                                <NuxtLink to="/user/network"
                                     class="block py-2 px-3 text-periwinkleBluerounded md:hover:bg-transparent md:border-0 md:p-0 dark:text-white dark:hover:text-white md:dark:hover:bg-transparent group">
                                     <div class="flex items-center justify-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"

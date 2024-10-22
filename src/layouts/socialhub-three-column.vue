@@ -11,7 +11,7 @@
             <!-- <Filter /> -->
             <!-- <CallCard/> -->
              <!-- <transfer-tracker-left-bar /> -->
-             <!-- <NetworkLeft /> -->
+             <NetworkLeft v-if="networkView" />
             <!-- <Filter v-if="route.meta.showFilterLeft" /> -->
             <ResourcesLeftBar />
              <!-- <userSettingLeftBar /> -->
@@ -84,8 +84,17 @@ router.beforeEach((to, from, next) => {
 router.afterEach(() => {
   loading.value = false;
 });
+const networkView = ref(false)
+watch(()=>{
+  console.log("Route meta")
+  console.log(route.fullPath)
+   networkView.value = false
+   if(route.fullPath =='/user/network'){
+    networkView.value = true
+  }
 
-
+  
+})
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const notificationType = ref('');
