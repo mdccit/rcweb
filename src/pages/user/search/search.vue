@@ -52,7 +52,11 @@
                                         <div class="flex-1">
                                             <h4 class="text-black text-left font-bold">{{ user.display_name }}</h4>
                                         </div>
-                                        <div class="flex-3"></div>
+                                        <div v-if="user.user_role == 'Player'" class="flex-3">
+                                            <h4 class="text-black">UTR <span v-if="user.other_data != null" class="text-blue-500">{{
+                                                JSON.parse(user.other_data).utr ?? '' }}</span></h4>
+                                           
+                                        </div>
                                     </div>
                                     <div class="flex mt-2">
                                         <div class="flex-1">
@@ -69,9 +73,9 @@
                                     <div v-if="user.user_role == 'Player'"
                                         class="flex items-center mt-2 text-sm text-black bg-muteGray rounded-md p-2">
                                         <div class="mr-4">
-                                            <p class="text-xs">UTR Score</p>
+                                            <!-- <p class="text-xs">UTR Score</p>
                                             <p v-if="user.other_data != null" class="text-base font-bold">{{
-                                                JSON.parse(user.other_data).utr ?? '' }}</p>
+                                                JSON.parse(user.other_data).utr ?? '' }}</p> -->
                                         </div>
                                         <p v-if="user.other_data != null" class="text-xs mr-3">ATP Score : <span>{{
                                             JSON.parse(user.other_data).atp_score ?? '' }}</span></p>
