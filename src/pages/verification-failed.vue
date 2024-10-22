@@ -27,7 +27,7 @@
 
                 <div class="flex items-center justify-end mt-4">
                     <button @click="resendVerification"
-                        class="border rounded-full text-white shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700">
+                        class="border rounded-md text-white shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-blue-500 hover:bg-blue-700">
                         <div class="flex flex-row items-center justify-center"><span v-if="!loading" class="">
                                 Resend</span>
                             <LoadingSpinner v-else />
@@ -49,6 +49,10 @@ import Notification from '~/components/common/Notification.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';  
 definePageMeta({ colorMode: 'light', layout: 'outer'} );
 import { handleError } from '@/utils/handleError';
+
+useHead({
+  title: 'Recruited verification failed',
+})
 
 const nuxtApp = useNuxtApp();
 const route = useRoute();

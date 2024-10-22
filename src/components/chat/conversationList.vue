@@ -1,8 +1,8 @@
 <template>
-    <div class="my-6 border-r-4" :style="{ height: contentHeight + 'px' }">
+    <div class="my-6 border-r-4 custom-min-h-185" :style="{ height: contentHeight + 'px' }">
                 <div class="pe-4 pb-4" ref="leftHeaderSection">
                     <h2 class="text-2xl font-semibold text-black">Chat</h2>
-                    <p class="text-sm text-darkSlateBlue">Lorem ipsum is a placeholder text commonly used to</p>
+                    <p class="text-sm text-darkSlateBlue pt-2">Chats are only available with your connections</p>
                 </div>
 
                 <div :style="{ height: leftListHeight + 'px' }" class="overflow-y-auto -me-1">
@@ -42,7 +42,7 @@
                             <hr class="mt-3 mb-3 text-pigeonBlue">
                         </div>
                         <div v-if="props.listChat.length ==0">
-                            <p class="text-xs text-darkSlateBlue line-clamp-2 text-left"> No chat
+                            <p class="text-xs text-ceil line-clamp-2 text-center"> No messages, in your inbox yet !
                         </p>
                         </div>
                        

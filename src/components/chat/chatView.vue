@@ -160,6 +160,7 @@ import { useNuxtApp } from '#app';
 import { useUserStore } from '~/stores/userStore';
 
 
+const emit = defineEmits(['chat']);
 
 const nuxtApp = useNuxtApp();
 const $userService = nuxtApp.$userService;
@@ -196,7 +197,7 @@ const newChat = async () =>{
             conversation_id:props.chat.id
         });
         text.value =''
- 
+        emit('chat')
         console.log(response)
         getChat()
     } catch (error) {

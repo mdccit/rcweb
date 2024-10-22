@@ -10,17 +10,18 @@
             <div class="col-span-6 row-start-1 row-end-2s">
                 <CoachCover :data="coachData"  @changeTab="setSelectedTab" :coachId="coachId" :userSlug="route.params.slug"/>
             </div>
-            <div class="col-start-1 col-end-2 row-start-2 row-end-3">
+            <div class="lg:col-span-1 md:col-span-6  sm:col-span-6">
                 <CoachLeft :data="coachData"  :userSlug="route.params.slug"  />
             </div>
-            <div class="col-start-6 col-end-7 row-start-2 row-end-3"> 
-                <CoachRight :data="coachData"   :userSlug="route.params.slug"  />
-            </div>
-            <div class="col-start-2 col-end-6 row-start-2 row-end-3 px-3 pt-6">
+            <div class="lg:col-span-4 md:col-span-6  sm:col-span-6 px-3 pt-6">
                 <UserFeed v-if="tab == 'feed'" :posts="posts" @profileView="redirectPage" @listpost="newLoader" :commentHidden="isHidddenComment" @newPost="newPost" />
                 <Connection v-if="tab == 'connection'" :playerId="coachId" @profileView="redirectPage"/>
                 <mediaTab v-if="tab == 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug" @uploadMedia="fetchUserDetailsBySlug" :commentHidden="isHidddenComment" :coacheId="coachId" />
             </div>
+            <div class="lg:col-span-1 md:col-span-6  sm:col-span-6"> 
+                <CoachRight :data="coachData"   :userSlug="route.params.slug"  />
+            </div>
+            
         </div>
     </main>
     <FooterPublic></FooterPublic>
@@ -77,7 +78,8 @@ const isHidddenComment = ref([])
 const load = ref(false)
 const nationality_id =ref('')
 const gender =ref('none')
-const dateOfBirth =ref('')
+const dateOfBirth =ref('');
+const schoolProfilePicture = ref(null)
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
     showNotification.value = nuxtApp.$notification.showNotification.value;
@@ -136,6 +138,7 @@ const fetchUserDetailsBySlug = async () => {
     if(dataSets.profile_info){
         colleage.value = dataSets?.profile_info?.school_name || '';
         sportName.value = dataSets?.profile_info?.sport_name || '';
+        schoolProfilePicture.value = dataSets?.profile_info?.school_profile_picture || null;
     }
 
     if(dataSets.user_address_info){
@@ -159,7 +162,8 @@ const fetchUserDetailsBySlug = async () => {
         birth_day :birthDay.value,
         gender:gender.value,
         nationality_id:nationality_id.value,
-        dateOfBirth:dateOfBirth.value
+        dateOfBirth:dateOfBirth.value,
+        schoolProfilePicture:schoolProfilePicture.value
     }
     
     if (dataSets.media_info) {

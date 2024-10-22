@@ -125,7 +125,7 @@
                         <div class="grid grid-cols-5 gap-4 mt-4 mb-4">
                             <div class="col-span-2">
                                 <label for="phone_code_country"
-                                    class="block text-sm font-normal text-gray-900">Code <span class="text-red-500">*</span></label>
+                                    class="block text-sm font-normal text-gray-900">Mobile No <span class="text-red-500">*</span></label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <ModalCountryCodeDropdown :country_codes="country_codes"
                                         v-model="phone_code_country" name="phone_code_country"
@@ -137,7 +137,8 @@
                             </div>
 
                             <div class="col-span-3">
-                                <label for="phone_number" class="block text-sm font-normal text-gray-900">Number <span class="text-red-500">*</span></label>
+                                <label for="phone_number" class="block text-sm font-normal text-gray-900 mb-3">
+                                   </label>
                                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                                     <input type="text" id="phone_number" v-model="phone_number"
                                         class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"

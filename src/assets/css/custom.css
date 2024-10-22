@@ -67,3 +67,7 @@ textarea {
   top: 11px !important;
   left: -45px !important;
 }
+
+.custom-min-h-185{
+min-height: calc(100vh - 185px);
+}

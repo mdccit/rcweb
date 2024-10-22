@@ -12,7 +12,7 @@
                     class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                     <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                         <div class="sm:items-start">
-                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                            <div class="mt-3 text-center sm:mt-0 sm:text-left">
                                 <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change Your
                                     Bio</h3>
                                 <div class="mt-2">
@@ -26,7 +26,7 @@
                                                 <div class="flex rounded-lg border border-gray-300 shadow-sm">
                                                     <textarea id="user_bio" v-model="user_bio" autocomplete="user_bio"
                                                         class="w-full block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                        placeholder="" required>
+                                                        placeholder="N/A" required>
                                             </textarea>
                                                 </div>
                                             </div>

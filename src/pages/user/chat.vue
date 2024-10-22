@@ -5,7 +5,7 @@
                 <ConversationList :listChat="listChat" :loginUserId="loginUserId" @chat="chatViewList"/>
             <!-- conversation list end -->
             <!-- chat View start -->
-                <ChatView v-if="chat !=null" :chat="chat" :loginUserId="loginUserId"  />
+                <ChatView v-if="chat !=null" :chat="chat" :loginUserId="loginUserId" @chat="conversation"  />
             <!-- chat view end -->
          
         </div>
@@ -22,6 +22,9 @@ import { useUserStore } from '~/stores/userStore';
 definePageMeta({
   layout: 'chat',
 });
+useHead({
+  title: 'Recruited Chat',
+})
 
 const nuxtApp = useNuxtApp();
 const $userService = nuxtApp.$userService;
