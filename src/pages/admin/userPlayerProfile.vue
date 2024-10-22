@@ -119,10 +119,14 @@
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> Graduation Month/Year
                                             </span>
-                                            <div class="flex rounded-lg border border-gray-300 shadow-sm"><input
+                                            <div class="flex rounded-lg border border-gray-300 shadow-sm">
+                                                <!-- <input
                                                     class="block  text-gray-700 px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                     name="graduation_month_year" type="month" v-model="graduation_month_year"
-                                                    data-validation-key="graduation_month_year"></div>
+                                                    data-validation-key="graduation_month_year"> -->
+                                                    <input type="month" v-model="graduation_month_year" required
+                                                    class="block  text-gray-700 px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg" />
+                                                </div>
                                         </label><!----></div>
                                     <div class="w-full"><label class="block"><span
                                                 class="block mb-1 text-gray-700 font-sans"> GPA </span>
@@ -425,7 +429,8 @@ const loadCountries = async () => {
 
 const handleSubmit = async () => {
   try {
-
+    console.log("month 5")
+    console.log(graduation_month_year.value)
     const response = await $adminService.player_update(userId.value,{
       nationality_id: nationality.value,
       weight: weight.value,
@@ -457,6 +462,8 @@ const handleSubmit = async () => {
 
     if (response.status === 200) {
         notificationMessage.value = response.display_message;
+        nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+
         showNotification.value = true;
 
     } else {
@@ -484,6 +491,7 @@ watch([() => route.query.action, () => route.query.user_id], ([newAction, newUse
 // Fetch player details function
 const fetchPlayerDetails = async (userId) => {
     try {
+    
         const data = await $adminService.get_player_details(userId);
         const other_data = JSON.parse(data.user_profile_info.other_data)
         nationality.value =data.user_profile_info.nationality_id || ''
@@ -493,7 +501,7 @@ const fetchPlayerDetails = async (userId) => {
         gender.value = data.user_profile_info.gender || ''
         bio.value = other_data.bio
         gpa.value = data.user_profile_info.gpa || ''
-        graduation_month_year.value = data.user_profile_info.graduation_month_year || ''
+        // graduation_month_year.value = data.user_profile_info.graduation_month_year || ''
         budget_min.value  = other_data.budget_min
         budget_max.value = other_data.budget_max
         handedness.value = other_data.handedness
@@ -504,7 +512,9 @@ const fetchPlayerDetails = async (userId) => {
         state_province_int.value = data.user_address_info.state_province || ''
         country.value = data.user_address_info.country_id || ''
         postal_code.value = data.user_address_info.postal_code || ''
+        const fullDate = data.user_profile_info.graduation_month_year
 
+        graduation_month_year.value = fullDate.slice(0, 7);
        act_score.value = other_data.act_score
        sat_score.value = other_data.sat_score
        toefl_score.value = other_data.toefl_score
@@ -513,7 +523,8 @@ const fetchPlayerDetails = async (userId) => {
        national_ranking.value = other_data.national_ranking
        utr_score_manual.value = other_data.utr
        wtn_score_manual.value = other_data.wtn_score_manual
-        
+       console.log("month")
+       console.log(graduation_month_year.value)
     } catch (error) {
         console.log(error)
         console.error('Failed to load user details:', error.message);
