@@ -150,7 +150,8 @@ onMounted(() => {
   };
 
   const submit = async() =>{
-    const response = await $adminService.new_resource_create({
+    try{
+        const response = await $adminService.new_resource_create({
             title:title.value,
             content:description.value,
             weight:weight.value,
@@ -158,10 +159,11 @@ onMounted(() => {
         });
         clear()
         nuxtApp.$notification.triggerNotification("Resorces Created", 'success');
-
-        // router.push({
-        //     path: '/admin/resources'
-        // });
+    }catch(error){
+        console.log(error)
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    }
+   
   }
 
   const clear = () =>{
