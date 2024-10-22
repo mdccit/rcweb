@@ -14,6 +14,18 @@
                     <h2 class="font-bold text-lg self-center text-black"> Editing: {{ name }} </h2>
                 </div>
             </div>
+            <NuxtLink :to="`/app/profile/business/${slug}`">
+            <button type="submit"
+              class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
+              View
+              <svg class="w-5 h-5 -mr-1 inline" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M17 7l-10 10"></path>
+                <path d="M8 7l9 0l0 9"></path>
+              </svg>
+            </button>
+          </NuxtLink>
         </div>
     </header>
 
@@ -94,6 +106,7 @@ const fetchBusinessMembers = async (businessId) => {
     try {
         const data = await $adminService.get_business_members(businessId);
         members.value = data.data || []; // Set the fetched members
+        slug.value =data.business_info.slug;
     } catch (error) {
         console.error('Failed to load business members:', error.message);
         errors.value.push('Failed to load business members.');
