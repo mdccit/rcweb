@@ -26,7 +26,7 @@
     </div>
     <!-- end call card -->
 
-    <div class="rounded-2xl overflow-hidden border border-lightSteelBlue p-3 mt-3 bg-white">
+    <div class="rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 p-3 mt-3 bg-white">
 
 <div class="max-w-xs bg-white p-2 rounded-lg">
     <h2 class="text-xl font-bold mb-2 text-black">Resources</h2>
