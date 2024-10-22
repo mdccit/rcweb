@@ -1,6 +1,18 @@
 <template>
+     <div class="flex flex-wrap gap-2 mt-4 mb-2">
+            <div class="flex-1 pl-2">
+
+                <h2 class="text-lg font-semibold text-black">Invitations</h2>
+            </div>
+            <div v-if="props.data.length > 4" class="flex-3">
+                <div class="flex items-center px-3 divide-x">
+                    <div  @click="showAll = !showAll" class="text-steelBlue text-sm hover:underline"> {{ showAll ? "Show Less" : "Show All" }}</div>
+                </div>
+            </div>
+        </div>
+      <div class="flex">
       <div class="grid gap-4 grid-cols-6  w-full">
-    <div v-for="data in props.data" class="col-span-3 p-2">
+    <div v-for="data in limitedArray" class="col-span-3 p-2">
      <div
        class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
            <div class="cursor-pointer flex-1 p-1" @click="redirect(`/app/profile/${data.slug}`)">
@@ -19,6 +31,8 @@
                                <h4 class="text-black font-bold">{{ data.name }}</h4>
                            </div>
                            <div v-if="data.role_id == 4" class="flex-3">
+                            <h4 class="text-black text-sm">UTR <span v-if="data.other_data != null" class="text-blue-500">{{
+                                                JSON.parse(data.other_data).utr ?? '' }}</span></h4>
                                <!-- <h4 class="text-black text-sm">UTR <span class="text-blue-500">{{JSON.parse(data.other_data).utr  }}</span></h4> -->
                            </div>
                        </div>
@@ -107,10 +121,11 @@
            </div>
        </div>
    </div>
+</div>
 </template>
 
 <script setup>
-import { ref, defineEmits, onMounted } from 'vue';
+import { ref, defineEmits, onMounted , computed} from 'vue';
 import { defineProps, defineExpose } from 'vue';
 import { useNuxtApp } from '#app';
 import { useRoute, useRouter } from 'vue-router';
@@ -128,7 +143,12 @@ const props = defineProps({
        required: true,
    }
 });
+const showAll = ref(false)
 
+const limitedArray = computed(() => {
+    
+     return showAll.value ? props.data : props.data.slice(0, 4);  
+});
 const connectCancelle = async (id) => {
    try {
        const response = await $userService.connection_cancelle(id, {
