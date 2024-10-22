@@ -9,7 +9,7 @@
         pkg.name === 'Premium' ? 'pro-pack' : '',
         selectedPackage === pkg.name ? 'highlighted-package' : ''
       ]" @click="selectPackage(pkg.value)">
-          <h3 :class="pkg.name === 'Premium' ? 'premium-text' : ''" class="font-medium text-black mb-2">{{ pkg.name }}
+          <h3 class="font-medium text-black mb-2">{{ pkg.name }}
           </h3>
 
           <h1 class="text-3xl font-medium text-black mb-2">{{ pkg.price }}</h1>
@@ -381,5 +381,10 @@ onMounted(async () => {
   background: linear-gradient(90deg, #1e40af, #60a5fa);
   /* Blue gradient */
   border-radius: 2px;
+}
+
+.pro-pack{
+    background: #f9fbff;
+    border: solid 1px #4090dd;
 }
 </style>
