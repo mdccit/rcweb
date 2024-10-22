@@ -4,8 +4,12 @@
             <div class="h-[80px] card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white p-3 h-auto">
                 <div class="grid grid-cols-3 gap-4">
                     <div class="... text-center">
-                        <img class="mx-auto w-[60px] h-[60px] rounded-full " src="@/assets/user/images/whittier.png"
-                            alt="">
+                        <!-- <img class="mx-auto w-[60px] h-[60px] rounded-full " src="@/assets/user/images/whittier.png"
+                            alt=""> -->
+                        <img v-if="props.data.schoolProfilePicture == null" src="@/assets/images/user.png" alt=""
+                            class="mx-auto w-[60px] h-[60px] rounded-full ">
+                        <img v-if="props.data.schoolProfilePicture != null" :src="props.data.schoolProfilePicture.url" alt=""
+                            class="mx-auto w-[60px] h-[60px] rounded-full ">
                     </div>
                     <div class="col-span-2">
                         <p class="text-black text-sm cursor-pointer" @click="redirectToManage(props.data.school_slug)">

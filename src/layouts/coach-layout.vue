@@ -78,7 +78,8 @@ const isHidddenComment = ref([])
 const load = ref(false)
 const nationality_id =ref('')
 const gender =ref('none')
-const dateOfBirth =ref('')
+const dateOfBirth =ref('');
+const schoolProfilePicture = ref(null)
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
     showNotification.value = nuxtApp.$notification.showNotification.value;
@@ -137,6 +138,7 @@ const fetchUserDetailsBySlug = async () => {
     if(dataSets.profile_info){
         colleage.value = dataSets?.profile_info?.school_name || '';
         sportName.value = dataSets?.profile_info?.sport_name || '';
+        schoolProfilePicture.value = dataSets?.profile_info?.school_profile_picture || null;
     }
 
     if(dataSets.user_address_info){
@@ -160,7 +162,8 @@ const fetchUserDetailsBySlug = async () => {
         birth_day :birthDay.value,
         gender:gender.value,
         nationality_id:nationality_id.value,
-        dateOfBirth:dateOfBirth.value
+        dateOfBirth:dateOfBirth.value,
+        schoolProfilePicture:schoolProfilePicture.value
     }
     
     if (dataSets.media_info) {
