@@ -11,17 +11,17 @@
         <div class="space-y-4">
           <div>
             <label class="block text-sm font-medium text-black">Current Password</label>
-            <input v-model="currentPassword" type="password" placeholder="Password" class="w-full mt-1 p-3 border border-secondary rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+            <input v-model="currentPassword" type="password" placeholder="Current Password" class="w-full mt-1 p-3 border border-secondary rounded-lg focus:ring-blue-500 focus:border-blue-500" />
             <InputError :error="errors.current_password ? errors.current_password.join(', ') : ''" />
           </div>
           <div>
             <label class="block text-sm font-medium text-black">New Password</label>
-            <input v-model="password" type="password" placeholder="Password" class="w-full h-12 mt-1 p-3 border border-secondary rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+            <input v-model="password" type="password" placeholder="New Password" class="w-full h-12 mt-1 p-3 border border-secondary rounded-lg focus:ring-blue-500 focus:border-blue-500" />
             <InputError :error="errors.password ? errors.password.join(', ') : ''" />
           </div>
           <div>
             <label class="block text-sm font-medium text-black">Confirm Password</label>
-            <input v-model="passwordConfirmation" type="password" placeholder="Password" class="w-full h-12 mt-1 p-3 border border-secondary rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+            <input v-model="passwordConfirmation" type="password" placeholder="Confirm Password" class="w-full h-12 mt-1 p-3 border border-secondary rounded-lg focus:ring-blue-500 focus:border-blue-500" />
             <InputError :error="errors.password_confirmation ? errors.password_confirmation.join(', ') : ''" />
           </div>
         </div>
@@ -31,7 +31,7 @@
       </div>
 
       <!-- Two Factor Authentication Section -->
-      <div class="border-t pt-8 mb-8">
+      <!-- <div class="border-t pt-8 mb-8">
         <h3 class="font-semibold text-xl mb-4 text-black">Two Factor Authentication</h3>
         <p class="text-sm text-darkSlateBlue mb-4">Add additional security to your account using two factor authentication.</p>
 
@@ -45,7 +45,7 @@
         <div class="mt-6">
           <button class="w-60 py-3 px-4 bg-steelBlue text-white text-sm font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Enable</button>
         </div>
-      </div>
+      </div> -->
 
       <!-- Browser sessions -->
       <div class="border-t pt-8 mb-8">
@@ -69,7 +69,7 @@
           <p class="text-sm text-black mb-6">Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.</p>
         </div>
         <div class="mt-6">
-          <button class="w-60 py-3 px-4 bg-red text-white text-sm font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Delet Account</button>
+          <button class="w-60 py-3 px-4 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-orangeRed focus:outline-none focus:ring-2 focus:ring-blue-500">Delete Account</button>
         </div>
       </div>
     </div>

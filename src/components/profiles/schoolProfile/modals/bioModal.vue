@@ -22,7 +22,7 @@
                                           <div class="flex rounded-lg border border-gray-300 shadow-sm">
                                               <textarea id="school_bio" v-model="school_bio" autocomplete="school_bio"
                                                   class="w-full block px-5 py-3 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                  placeholder="" required>
+                                                  placeholder="N/A" required>
                                               </textarea>
                                           </div>
                                       </div>

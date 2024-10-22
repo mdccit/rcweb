@@ -243,6 +243,9 @@
 definePageMeta({
   layout: 'socialhub-three-column',
 });
+useHead({
+  title: 'Recruited Feed',
+})
 
 import { ref, onMounted } from 'vue';
 import { useNuxtApp } from '#app';

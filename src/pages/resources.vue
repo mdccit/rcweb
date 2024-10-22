@@ -13,7 +13,9 @@ definePageMeta({
     middleware: ['role'],
     requiredRole: ['admin'],
 });
-
+useHead({
+  title: 'Recruited Resources',
+})
 </script>
 
 <style scoped>
