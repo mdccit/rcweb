@@ -1,18 +1,16 @@
 <template>
-  <div>
+
+  <ScreenLoader v-if="loadingStore.isLoading" />
+  <div v-if="!loadingStore.isLoading">
     <main class="min-h-screen bg-gray-100 p-[0px]">
-      <NuxtPage />
+      <!-- common full screen loader -->
+    
+      <NuxtPage  />
     </main>
 
     <!-- Notification component -->
-    <Notification 
-      v-if="showNotification" 
-      :message="notificationMessage" 
-      :type="notificationType" 
-      :visible="showNotification" 
-      @close="closeNotification" 
-      :key="notificationKey"
-    />
+    <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType"
+      :visible="showNotification" @close="closeNotification" :key="notificationKey" />
   </div>
 </template>
 
@@ -20,10 +18,11 @@
 import { ref, watchEffect } from 'vue';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue'; // <-- Ensure this path is correct!
-
+import { useLoadingStore } from '@/stores/loadingStore';
 const nuxtApp = useNuxtApp();
+import ScreenLoader from './screen_loader.vue';
 
-
+const loadingStore = useLoadingStore();
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const notificationType = ref('');
