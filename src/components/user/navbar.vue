@@ -82,7 +82,7 @@
                                     <span
                                         class="text-xs font-normal text-periwinkleBlue group-hover:text-steelBlue transition uppercase">Network</span>
                                 </NuxtLink>
-                            </li> -->
+                            </li> 
                             <li>
                                 <NuxtLink to="/user/chat"
                                     class="block py-2 px-3 text-periwinkleBlue rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white  dark:hover:text-white md:dark:hover:bg-transparent group">
