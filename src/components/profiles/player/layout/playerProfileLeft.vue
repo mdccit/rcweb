@@ -284,13 +284,13 @@
                     </svg>
 
                 </div>
-                <div class="col-span-8">
+                <div  class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4"> <span
                             v-if="userRole == 'coach' || userRole == 'admin'">
                             {{ props.data.addressLine01 }} {{ props.data.addressLine02 }} {{ props.data.stateProvince }}
                         </span>
                         {{ props.data.city }}
-                        <span v-if="props.data.country">, </span>{{ props.data.country }}
+                        <span v-if="props.data.city "> , </span>{{ props.data.country }}
                     </p>
                 </div>
             </div>
