@@ -1,5 +1,6 @@
 <template>
-     <div v-for="data in props.data" class="flex-1 p-2">
+        <div class="grid gap-4 grid-cols-6  w-full">
+     <div v-for="data in props.data" class="col-span-3 p-2">
       <div
         class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
             <div class="flex-1 p-1">
@@ -90,18 +91,18 @@
                        </div>
                        <div>
                             <button
-                                class="bg-blue-500 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
-                                   Invite Sent
+                                class="bg-steelBlue rounded-md shadow-sm hover:bg-blue-700 text-white p-2 m-1 text-xs h-[35px] w-[85px]">
+                                   Invite sent
                             </button>
                         </div>
                         <div>
                             <button @click="connectCancelle(data.id)"
-                                class="bg-blue-500 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
+                                class="bg-white hover:bg-gray-50 rounded-md font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 p-2 m-1 text-xs h-[35px] w-[85px]">
                                    Cancel
                             </button>
                         </div>
                     </div>
-                   
+                </div>
                 </div>
             </div>
         </div>
