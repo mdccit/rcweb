@@ -1,3 +1,4 @@
+import { useLoadingStore } from '@/stores/loadingStore';
 
 const createApiService = (config) => {
 
@@ -22,24 +23,24 @@ const createApiService = (config) => {
   };
 
 
- const getAuthHeaders = () => {
-  if (process.client) {
-    const token = localStorage.getItem('token');
+  const getAuthHeaders = () => {
+    if (process.client) {
+      const token = localStorage.getItem('token');
 
-    return {
-      'Content-Type': 'application/json',
-      'AccessKey': accessKey,
-      'Lang': defaultLang,
-      'Authorization': token ? `Bearer ${token}` : '', // Include the token if it exists
-    };
-  }else{
-    
-    return {
-      'Content-Type': 'application/json',
-      'AccessKey': accessKey,
-      'Lang': defaultLang,
-    };
-  }
+      return {
+        'Content-Type': 'application/json',
+        'AccessKey': accessKey,
+        'Lang': defaultLang,
+        'Authorization': token ? `Bearer ${token}` : '', // Include the token if it exists
+      };
+    } else {
+
+      return {
+        'Content-Type': 'application/json',
+        'AccessKey': accessKey,
+        'Lang': defaultLang,
+      };
+    }
   };
 
   const getRequest = async (url) => {
@@ -56,16 +57,23 @@ const createApiService = (config) => {
   };
 
   const postRequest = async (url, body) => {
+    const loadingStore = useLoadingStore();
     try {
+      // Start loading
+      loadingStore.startLoading();
       const response = await fetch(`${apiUrl}${url}`, {
         method: 'POST',
         headers: getAuthHeaders(),
         body: JSON.stringify(body),
       });
 
+      // Stop loading after request
+      loadingStore.stopLoading();
       // Handle the response (check for errors)
       return await handleResponse(response);
     } catch (error) {
+      // Stop loading after request
+      loadingStore.stopLoading();
       throw error;
     }
   };
@@ -74,28 +82,30 @@ const createApiService = (config) => {
   const postMedia = async (url, body) => {
     try {
       const headers = getAuthHeaders();
-  
+
       // If body is FormData, remove 'Content-Type' to let the browser set it
       if (body instanceof FormData) {
         delete headers['Content-Type'];
       }
-  
+
       const response = await fetch(`${apiUrl}${url}`, {
         method: 'POST',
         headers: headers,
         body: body,
       });
-  
+
       // Handle the response (check for errors)
       return await handleResponse(response);
     } catch (error) {
       throw error;
     }
   };
-  
-  const putRequest = async (url, body) => {
 
+  const putRequest = async (url, body) => {
+    const loadingStore = useLoadingStore();
     try {
+      // Stop loading after request
+      loadingStore.startLoading();
       const response = await fetch(`${apiUrl}${url}`, {
         method: 'PUT',
         headers: getAuthHeaders(),
@@ -106,8 +116,12 @@ const createApiService = (config) => {
       //   const errorData = await response.json(); // Parse the error response
       //   throw { status: response.status, ...errorData }; // Throw the entire error response
       // }
+      // Stop loading after request
+      loadingStore.stopLoading();
       return await handleResponse(response);
     } catch (error) {
+      // Stop loading after request
+      loadingStore.stopLoading();
       throw error;
     }
   };
