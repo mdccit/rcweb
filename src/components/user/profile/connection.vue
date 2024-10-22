@@ -185,6 +185,14 @@ onMounted(() => {
 
 });
 
+watch(
+    () =>props.playerId,
+    () => {
+        console.log('458744')
+        fetchConnections()
+    }
+);
+
 const fetchConnections = async () => {
     try {
 

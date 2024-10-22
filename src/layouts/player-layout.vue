@@ -17,9 +17,9 @@
         </div>
         <div class="col-start-2 col-span-4 bg-brown-500">
           <!-- Content changes based on the selected tab -->
-          <UserFeed v-if="tab === 'feed'" :posts="posts" @listpost="newLoader" :commentHidden="isHidddenComment"/>
-          <Connection v-if="tab === 'connection'" :playerId="playerID" @profileView="redirectPage" />
-          <mediaTab v-if="tab === 'media'" :userSlug="route.params.slug" @uploadCompleted="refreshGallery" :playerId="playerID" />
+          <UserFeed v-if="tab == 'feed'" :posts="posts" @listpost="newLoader" :commentHidden="isHidddenComment"/>
+          <Connection v-if="tab == 'connection'" :playerId="playerID" @profileView="redirectPage" />
+          <mediaTab v-if="tab == 'media'" :userSlug="route.params.slug" @uploadCompleted="refreshGallery" :playerId="playerID" />
 
         </div>
         <div>
@@ -75,6 +75,7 @@ const tab = ref('feed'); // Default tab is 'feed'
 
 // Function to update the selected tab
 const setSelectedTab = (selectedTab) => {
+  console.log(selectedTab)
     tab.value = selectedTab;
 };
 
@@ -171,7 +172,7 @@ watch(
     () => route.params.slug,
     () => {
       fetchUserDetails()
-      tab.value = 'feed'
+     setSelectedTab('feed')
     }
 );
 
