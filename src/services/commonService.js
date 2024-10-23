@@ -92,3 +92,35 @@ export const loadLanguagesList = async () => {
     throw error;
   }
 };
+
+
+export const loadDivisionList = async () => {
+  try {
+    const { $apiService } = useNuxtApp();
+    const response = await $apiService.getRequest('/common/load-combo-list');
+    if (response.status === 200) {
+      return response.data.divisions;
+    } else {
+      throw new Error(response.display_message);
+    }
+  } catch (error) {
+    console.error('Error loading country list:', error);
+    throw error;
+  }
+};
+
+
+export const loadConferenceList = async () => {
+  try {
+    const { $apiService } = useNuxtApp();
+    const response = await $apiService.getRequest('/common/load-combo-list');
+    if (response.status === 200) {
+      return response.data.conferences;
+    } else {
+      throw new Error(response.display_message);
+    }
+  } catch (error) {
+    console.error('Error loading country list:', error);
+    throw error;
+  }
+};

@@ -320,7 +320,6 @@ const fetchUserDetails = async () => {
             phone:phone.value,
             phoneCode:phoneCode.value,
             email: email.value,
-            media_info:dataSets.media_info,
             ft_value :height_ft.value,
             in_value:height_in.value
 
