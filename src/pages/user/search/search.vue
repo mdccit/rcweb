@@ -138,7 +138,7 @@
                                             </button>
                                             <button v-if="loginUserId == user.connection.sender_id"
                                                 @click="cancel(user.connection.id)"
-                                                class="bg-red-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                class="bg-white hover:bg-gray-50 rounded-full font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Cancel
                                             </button>
                                             <button @click="accept(user.connection.id)"
