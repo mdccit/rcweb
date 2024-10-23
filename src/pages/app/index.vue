@@ -326,7 +326,9 @@ definePageMeta({
   middleware: ['role'],
   requiredRole: ['admin', 'coach', 'business_manager', 'player', 'parent', 'default'],
 });
-
+useHead({
+  title: 'Recruited News Feed',
+})
 import { ref, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 

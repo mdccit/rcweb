@@ -9,7 +9,7 @@
     
     <div class="container-compressed pb-3">
       <div class="grid grid-cols-6 gap-4 temp-row grid-rows-[70px_auto] mt-16 pt-4">
-        <div class="row-span-2 col-span-1 ">
+        <div class="row-span-2 lg:col-span-1  md:col-span-6 :col-span-1">
           <playerProfileLeft :data="leftData"  :userSlug="route.params.slug"  @updateData="fetchUserDetails" />
         </div>
         <div class="col-start-2 col-span-5 mt-4">
@@ -22,7 +22,7 @@
           <mediaTab v-if="tab === 'media'" :userSlug="route.params.slug" @uploadCompleted="refreshGallery" :playerId="playerID" />
 
         </div>
-        <div>
+        <div class="row-span-2 lg:col-span-1  md:col-span-6 :col-span-1">
           <playerProfileRight :data="utrData"  :userSlug="route.params.slug" />
         </div>
       </div>
@@ -48,6 +48,8 @@ import UserFeed from '~/components/user/profile/userFeed.vue';
 // import Connection from '~/components/user/profile/connection.vue';
 import mediaTab from '~/components/profiles/player/tabs/mediaTab.vue';
 import Connection from '~/components/user/profile/connection.vue';
+
+
 
 const router = useRouter();
 
@@ -140,6 +142,9 @@ const lastPage  =ref('')
 const isHidddenComment = ref([]);
 const childKey = ref(0);
 const load = ref(false)
+
+
+
 onMounted(() => {
     slug.value = route.params.slug;
 

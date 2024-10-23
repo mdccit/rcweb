@@ -110,7 +110,6 @@
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                                         </svg>
-
                                     </div>
                                     <!-- <div class="text-xs ml-2 text-gray-500"><span
                                             class="text-blue-700">Ralph,Cameron</span> 3 more mutual connections
@@ -131,26 +130,59 @@
                                         </button>
                                     </div>
                                     <div v-if="user.connection != null">
-                                        <div v-if="user.connection.connection_status == 'pending'">
+                                        <div class="flex item-center justify-center" v-if="user.connection.connection_status == 'pending'">
+                                            <!-- Cancel btn -->
+                                            <button v-if="loginUserId == user.connection.sender_id"
+                                                @click="cancel(user.connection.id)"
+                                                class="bg-red-200 text-orangeRed rounded-full w-[35px] h-[35px] p-0 m-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="size-5 m-auto">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 18 18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+
+                                            <!-- Invite sent btn -->
                                             <button v-if="loginUserId == user.connection.sender_id"
                                                 class="bg-blue-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Invite Sent
                                             </button>
-                                            <button v-if="loginUserId == user.connection.sender_id"
+
+                                            <!-- <button v-if="loginUserId == user.connection.sender_id"
                                                 @click="cancel(user.connection.id)"
-                                                class="bg-red-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                                Cancel
+                                                class="bg-red-200 text-orangeRed rounded-full w-[35px] h-[35px] p-0 m-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="size-5 m-auto">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 18 18 6M6 6l12 12" />
+                                                </svg>
+                                            </button> -->
+                                            <!-- reject btn -->
+                                            <button v-if="loginUserId == user.connection.receiver_id"
+                                                 @click="reject(user.connection.id)"
+                                                class="bg-red-200 text-orangeRed rounded-full w-[35px] h-[35px] p-0 m-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="size-5 m-auto">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 18 18 6M6 6l12 12" />
+                                                </svg>
                                             </button>
+                                            <!-- Accept btn -->
                                             <button @click="accept(user.connection.id)"
                                                 v-if="loginUserId == user.connection.receiver_id"
                                                 class="bg-blue-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Accept
                                             </button>
-                                            <button @click="reject(user.connection.id)"
+                                            <!-- <button @click="reject(user.connection.id)"
                                                 v-if="loginUserId == user.connection.receiver_id"
-                                                class="bg-blue-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
-                                                Reject
-                                            </button>
+                                                class="bg-red-200 text-orangeRed rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="size-5 m-auto">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 18 18 6M6 6l12 12" />
+                                                </svg>
+                                            </button> -->
+                                            
                                         </div>
                                     </div>
                                     <div v-if="user.connection == null">
@@ -195,6 +227,9 @@ definePageMeta({
     layout: 'user',
     middleware: ['role'],
     requiredRole: ['admin', 'coach', 'business_manager', 'player', 'parent', 'default'],
+})
+useHead({
+  title: 'Recruited Search',
 })
 import PopupModal from '~/pages/user/search/saveSearchModal.vue';
 import { ref, computed, watch, onMounted, inject } from 'vue';
