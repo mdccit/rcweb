@@ -109,6 +109,9 @@ onMounted(() => {
   fetchSchooleDatils();
   //fetchPost();
 });
+useHead({
+  title: 'Recruited '+route.params.slug,
+})
 
 const fetchSchooleDatils = async () => {
   try {

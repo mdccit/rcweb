@@ -1,55 +1,57 @@
 <template>
-     <div class="flex flex-wrap gap-2 mt-4 mb-2">
-            <div class="flex-1 pl-2">
+    <div class="flex flex-wrap gap-2 mt-4 mb-2">
+        <div class="flex-1 pl-2">
 
-                <h2 class="text-lg font-semibold text-black">Invites</h2>
-            </div>
-            <div class="flex-3">
-                <div v-if="props.data.length > 4" class="flex items-center px-3 divide-x">
-                    <div  @click="showAll = !showAll" class="text-steelBlue text-sm hover:underline"> {{ showAll ? "Show Less" : "Show All" }}</div>
-                </div>
+            <h2 class="text-lg font-semibold text-black">Invites</h2>
+        </div>
+        <div class="flex-3">
+            <div v-if="props.data.length > 4" class="flex items-center px-3 divide-x">
+                <div @click="showAll = !showAll" class="text-steelBlue text-sm hover:underline"> {{ showAll ? "Show Less" : "Show All" }}</div>
             </div>
         </div>
+    </div>
     <div class="flex">
         <div class="grid gap-4 grid-cols-6  w-full">
-     <div v-for="data in limitedArray" class="col-span-3 p-2">
-      <div
-        class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
-            <div class="flex-1 p-1">
-                <div class="cursor-pointer grid grid-cols-12 gap-4" @click="redirect(`/app/profile/${data.slug}`)">
-                    <div class="col-span-3">
-                        <img v-if="data.profile_picture == null" class=" rounded-2xl w-[85px] h-[85px]"
-                            src="@/assets/images/user.png" alt="Neil image">
-                        <img v-if="data.profile_picture != null" class=" rounded-2xl w-[85px] h-[85px]"
-                            :src="data.profile_picture.url" alt="Neil image">
-                        </div>
-                    <div class="col-span-9">
-                        <div class="flex">
-                            <div class="flex-1">
-                                <h4 class="text-black font-bold">{{ data.name }}</h4>
+            <div v-for="data in limitedArray" class="col-span-3 p-2">
+                <div
+                    class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
+                    <div class="flex-1 p-1">
+                        <div class="cursor-pointer grid grid-cols-12 gap-4"
+                            @click="redirect(`/app/profile/${data.slug}`)">
+                            <div class="col-span-3">
+                                <img v-if="data.profile_picture == null" class=" rounded-2xl w-[85px] h-[85px]"
+                                    src="@/assets/images/user.png" alt="Neil image">
+                                <img v-if="data.profile_picture != null" class=" rounded-2xl w-[85px] h-[85px]"
+                                    :src="data.profile_picture.url" alt="Neil image">
                             </div>
-                            <div v-if="data.role_id == 4" class="flex-3">
-                                <h4 class="text-black text-sm">UTR <span v-if="data.other_data != null" class="text-blue-500">{{
-                                                JSON.parse(data.other_data).utr ?? '' }}</span></h4>
-                                <!-- <h4 class="text-black text-sm">UTR <span class="text-blue-500">{{JSON.parse(data.other_data).utr  }}</span></h4> -->
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="flex-1">
-                                <div v-if="data.role_id == 4" class="flex items-center space-x-2 my-2">
-                                    <div class="bg-lightPale p-1 rounded">
-                                        <img src="@/assets/user/images/playerIcon.png" alt="" class=" w-4 h-4">
+                            <div class="col-span-9">
+                                <div class="flex">
+                                    <div class="flex-1">
+                                        <h4 class="text-black font-bold">{{ data.name }}</h4>
                                     </div>
-                                    <div class="text-xs ml-2 text-steelBlue">Tennis Player</div>
-                                </div>
-                                <div v-if="data.role_id == 5" class="flex items-center space-x-2 mb-2">
-                                    <div class="bg-mintGreen p-1 rounded">
-                                        <img src="@/assets/user/images/man-medal.png" alt="" class=" w-4 h-4">
+                                    <div v-if="data.role_id == 4" class="flex-3">
+                                        <h4 class="text-black text-sm">UTR <span v-if="data.other_data != null"
+                                                class="text-blue-500">{{
+                                                    JSON.parse(data.other_data).utr ?? '' }}</span></h4>
+                                        <!-- <h4 class="text-black text-sm">UTR <span class="text-blue-500">{{JSON.parse(data.other_data).utr  }}</span></h4> -->
                                     </div>
-                                    <div class="text-xs ml-2 text-green-500">Tennis Coach</div>
                                 </div>
-                            </div>
-                            <!-- <div class="flex-1">
+                                <div class="flex">
+                                    <div class="flex-1">
+                                        <div v-if="data.role_id == 4" class="flex items-center space-x-2 my-2">
+                                            <div class="bg-lightPale p-1 rounded">
+                                                <img src="@/assets/user/images/playerIcon.png" alt="" class=" w-4 h-4">
+                                            </div>
+                                            <div class="text-xs ml-2 text-steelBlue">Tennis Player</div>
+                                        </div>
+                                        <div v-if="data.role_id == 5" class="flex items-center space-x-2 mb-2">
+                                            <div class="bg-mintGreen p-1 rounded">
+                                                <img src="@/assets/user/images/man-medal.png" alt="" class=" w-4 h-4">
+                                            </div>
+                                            <div class="text-xs ml-2 text-green-500">Tennis Coach</div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="flex-1">
                                 <div class="flex items-center space-x-2  my-2">
                                     <div class="bg-lightCreamOrange p-1 rounded">
                                         <img src="@/assets/user/images/manage-parent.png" alt=""
@@ -58,25 +60,26 @@
                                     <div class="text-xs ml-2 text-vividOrange">Manage by parent</div>
                                 </div>
                             </div> -->
-                        </div>
-                        <div  v-if="data.country != null" class="flex items-center space-x-2">
-                            <div class=" rounded">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-5 text-black mr-1">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                                </svg>
+                                </div>
+                                <div v-if="data.country != null" class="flex items-center space-x-2">
+                                    <div class=" rounded">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-5 text-black mr-1">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                                        </svg>
+                                    </div>
+                                    <div class="text-xs ml-2 text-black">{{ data.city }} {{ data.city != null ? ',' : '' }}
+                                        {{ data.country }}</div>
+                                </div>
                             </div>
-                            <div class="text-xs ml-2 text-black">{{ data.city }} {{ data.city !=null ?',':'' }}  {{ data.country }}</div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="flex mt-2">
-                <div class="flex-1">
-                    <!-- <div class="flex items-center space-x-2 mb-2">
+                    <div class="flex mt-2">
+                        <div class="flex-1">
+                            <!-- <div class="flex items-center space-x-2 mb-2">
                         <div class="bg-blue-100 p-1 rounded">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="size-4 text-blue-700">
@@ -88,42 +91,48 @@
                             3 more mutual connections
                         </div>
                     </div> -->
-                </div>
-                <div class="flex-1 text-right">
-                    <div class="flex">
-                        <div class="flex-1 text-right">
-                            <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor"
-                                    class="size-5 text-blue-500 m-auto">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                                </svg>
-                            </button>
-                       </div>
-                       <div>
-                            <button
-                                class="bg-steelBlue rounded-full shadow-sm hover:bg-blue-700 text-white p-2 m-1 text-xs h-[35px] w-[85px]">
-                                   Invite sent
-                            </button>
                         </div>
-                        <div>
-                            <button @click="connectCancelle(data.id)"
-                                class="bg-white hover:bg-gray-50 rounded-full font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 p-2 m-1 text-xs h-[35px] w-[85px]">
-                                   Cancel
-                            </button>
+                        <div class="flex-1 text-right">
+                            <div class="flex">
+                                <div class="flex-1 text-right">
+                                    <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor"
+                                            class="size-5 text-blue-500 m-auto">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div>
+                                    <button @click="connectCancelle(data.id)"
+                                        class="bg-red-200 rounded-full font-semibold text-orangeRed p-2 m-1 text-xs h-[35px] w-[35px]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18 18 6M6 6l12 12" />
+                                        </svg>
+
+                                    </button>
+                                </div>
+                                <div>
+                                    <button
+                                        class="bg-steelBlue rounded-full shadow-sm hover:bg-blue-700 text-white p-2 m-1 text-xs h-[35px] w-[85px]">
+                                        Invite sent
+                                    </button>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </template>
 
 <script setup>
-import { ref, defineEmits,computed, onMounted } from 'vue';
+import { ref, defineEmits, computed, onMounted } from 'vue';
 import { defineProps, defineExpose } from 'vue';
 import { useNuxtApp } from '#app';
 import { useRoute, useRouter } from 'vue-router';
@@ -145,8 +154,8 @@ const props = defineProps({
 const showAll = ref(false)
 
 const limitedArray = computed(() => {
-    
-     return showAll.value ? props.data : props.data.slice(0, 4);  
+
+    return showAll.value ? props.data : props.data.slice(0, 4);
 });
 
 const connectCancelle = async (id) => {

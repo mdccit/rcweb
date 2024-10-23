@@ -27,7 +27,9 @@ definePageMeta({
   requiredRole: ["admin", "coach", "business_manager", "player", "parent", "default"],
   showUserSettingLeftBar: true,
 });
-
+useHead({
+  title: 'sSettings',
+})
 const userStore = useUserStore();
 const userSettingActiveTab = computed(() => userStore.userSettingActiveTab);
 </script>

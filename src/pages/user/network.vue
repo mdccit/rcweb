@@ -23,6 +23,10 @@ definePageMeta({
     requiredRole: ['admin', 'coach', 'business_manager', 'player', 'parent', 'default'],
 });
 
+useHead({
+  title: 'Recruited Network',
+})
+
 import { ref, watchEffect ,onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { useUserStore } from '@/stores/userStore';

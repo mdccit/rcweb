@@ -11,11 +11,11 @@
       <!-- Iterate through the packages array -->
       <div v-for="(pkg, index) in packages" :key="pkg.value" class="flex-1 flex justify-center">
         <div :key="refreshKey" :class="[
-    'border w-[230px] rounded-lg text-center p-3 relative flex flex-col cursor-pointer',
-    pkg.name === 'Premium' ? '' : '',
-    selectedPackage === pkg.name ? '' : ''
-  ]" @click="selectPackage(pkg.value)">
-          <h3>{{ pkg.name }}
+        'border w-[230px] rounded-lg text-center p-3 relative flex flex-col cursor-pointer',
+        pkg.name === 'Premium' ? 'pro-pack' : '',
+        selectedPackage === pkg.name ? 'highlighted-package' : ''
+      ]" @click="selectPackage(pkg.value)">
+          <h3 class="font-medium text-black mb-2">{{ pkg.name }}
           </h3>
 
           <h1 class="text-3xl font-medium text-black mb-2">{{ pkg.price }}</h1>
@@ -385,5 +385,38 @@ onMounted(async () => {
   /* Adds shadow highlight */
   border-color: #007bff;
   /* Blue border for the highlighted package */
+}
+
+/* Highlight "Premium" word with blue-themed styling */
+.premium-text {
+  color: #1e40af;
+  /* Bold blue color */
+  font-size: 1.75rem;
+  /* Larger font size */
+  font-weight: bold;
+  text-transform: uppercase;
+  /* Make text uppercase */
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 8px rgba(30, 64, 175, 0.5);
+  /* Subtle blue shadow */
+  position: relative;
+}
+
+/* Optional: Add a gradient underline for more emphasis */
+.premium-text::before {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1e40af, #60a5fa);
+  /* Blue gradient */
+  border-radius: 2px;
+}
+
+.pro-pack{
+    background: #f9fbff;
+    border: solid 1px #4090dd;
 }
 </style>

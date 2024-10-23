@@ -62,7 +62,7 @@
 
                                     <!-- Profile Picture Upload -->
                                     <div class="w-full mt-3">
-                                        <label class="block mb-1 text-gray-700 font-sans">Profile Picture
+                                        <label class="block mb-1 text-gray-700 font-sans">Profile Picture <span class="text-gray-300">Size (400 x 400px)</span>
                                             <span aria-hidden="true" class="text-red-600"
                                                 title="This field is optional"></span>
                                         </label>

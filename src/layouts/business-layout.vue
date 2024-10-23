@@ -86,6 +86,10 @@ const closeNotification = () => {
     showNotification.value = false; // Hide the notification
 };
 
+useHead({
+  title: 'Recruited '+route.params.slug,
+})
+
 onMounted(() => {
     fetchbusinessDetatils();
    fetchPost();
