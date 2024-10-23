@@ -136,7 +136,7 @@
             of a document or a typeface without relying on meaningful content.</p>
 
           <div class="mt-6">
-            <button @click="cancelSubscription"
+            <button @click="cancelSubscription" :disabled="loading"
               class="w-50 py-3 px-2 bg-redOrange text-white  text-xs font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Cancel
               Subscription {{isSetToCancel}}</button>
           </div>
@@ -144,7 +144,13 @@
       </div>
     </div>
 
-
+    <div class="mt-6 bg-red-100 p-6 rounded-lg shadow-md border border-red-300" v-else-if="isSetToCancel">
+      <h3 class="font-semibold text-2xl mb-4 text-red-800">Subscription Cancellation Scheduled</h3>
+      <p class="text-sm text-red-700 mb-4">
+        Your subscription is set to be cancelled at the end of your current billing cycle. You will continue to have access to the premium features until then. If you wish to continue your subscription, you can reactivate it at any time before the cancellation date.
+      </p>
+    </div>
+     
   </div>
 
 </template>
@@ -236,8 +242,11 @@ const getCustomerActiveCard = async () => {
 
 const cancelSubscription = async () => {
   try {
+    loading.value = true;
     const response = await $subscriptionService.cancel_subscription();
     if (response && response.status === 200) {
+      activeStatus.value = 'cancelled';
+      isSetToCancel = true;
       // Success case
       nuxtApp.$notification.triggerNotification(response.display_message, 'success');
     } else {
@@ -246,6 +255,8 @@ const cancelSubscription = async () => {
     }
   } catch (error) {
     console.error('Error canceling subscription:', error);
+  }finally{
+    loading.value = false;
   }
 };
 
