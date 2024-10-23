@@ -110,7 +110,9 @@ import { handleError } from '@/utils/handleError';
 const nuxtApp = useNuxtApp();
 const router = useRouter();
 definePageMeta({ colorMode: 'light', layout: 'outer' });
-
+useHead({
+  title: 'Recruited Reset Password',
+})
 // State variables
 const recovery_code = ref('');
 const password = ref('');

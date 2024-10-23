@@ -3,13 +3,12 @@
 
         <!-- Resources -->
 
-        <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+        <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
             <!-- Section Header -->
             <div class="mb-6">
                 <h2 class="text-2xl text-black font-bold">{{ tab==1?'Resources':'Tutorial'}}</h2>
                 <p class="text-darkSlateBlue mt-2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.
+                    Access a range of free tutorials and resources to help you learn, grow, and succeed at your own pace.
                 </p>
             </div>
 
@@ -61,7 +60,7 @@
 
         <!-- Pro Tennis Eligibility Guide -->
 
-        <div v-if="userStore.resource != null" class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
+        <div v-if="userStore.resource != null" class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
             <h1 class="text-3xl font-bold mb-6 text-black">{{userStore.resource.title  }}</h1>
 
             <section class="mb-8">

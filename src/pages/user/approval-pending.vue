@@ -21,6 +21,10 @@ definePageMeta({
   requiredRole: ['default', 'undefined', 'coach', 'business-manager'],
 });
 
+useHead({
+  title: 'Recruited Approval pending',
+})
+
 onMounted(() => {
 
   const token = localStorage.getItem('token'); // Retrieve token from localStorage
