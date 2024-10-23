@@ -59,6 +59,9 @@ textarea {
 .z-index-400{
   z-index: 400 !important;
 }
+.z-index-450{
+  z-index: 450 !important;
+}
 
 .table-filter-dropDown {
   margin: auto;

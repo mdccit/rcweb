@@ -182,7 +182,8 @@ onMounted(() => {
   };
 
   const submit = async() =>{
-    const response = await $adminService.resource_update({
+    try{
+        const response = await $adminService.resource_update({
             resource_id:id.value,
             title:title.value,
             content:description.value,
@@ -190,10 +191,11 @@ onMounted(() => {
             category_id:category_id.value
         });
         nuxtApp.$notification.triggerNotification("Resorces Updated", 'success');
-
-        // router.push({
-        //     path: '/admin/resources'
-        // });
+    }catch(error){
+        console.log(error)
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    }
+  
   }
 
   const clear = () =>{

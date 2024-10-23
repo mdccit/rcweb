@@ -79,6 +79,10 @@ const handleGoogleAuthCallback = async () => {
         user_slug:response.data.user_slug,
         user_type_id:response.data.user_type_id
       });
+      const newMedia = response.data.media_info.profile_picture??null
+
+      userStore.setProfilePicture(newMedia)
+
 
       if(type === 'login'){
         if(userRole === 'default' || userRole === 'undefined' || userRole === undefined){

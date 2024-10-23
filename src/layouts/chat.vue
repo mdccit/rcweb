@@ -1,5 +1,9 @@
 <template>
-    <div>
+    <!-- common full screen loader -->
+    <ScreenLoader v-if="loadingStore.isLoading" />
+    <!-- / common full screen loader -->
+  
+    <div >
       <!-- Top Navigation Bar -->
       <SocialHubNavbar />
   
@@ -20,4 +24,7 @@
 <script setup>
 import SocialHubNavbar from '~/components/user/navbar.vue';
 import FooterBar from '~/components/user/user-footer.vue';
+import ScreenLoader from '@/layouts/screen_loader.vue';
+import { useLoadingStore } from '@/stores/loadingStore';
+const loadingStore = useLoadingStore();
 </script>

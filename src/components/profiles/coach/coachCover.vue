@@ -87,20 +87,20 @@
 
                                         </button>
                                     </div>
-                                    <div v-if="coachId != userId">
+                                    <div v-if="props.coachId != userId">
                                         <div class="flex text-white" v-if="buttonHide == false">
                                             <button @click="connectAcceptOrConnect"
-                                                class="bg-blue-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                class="bg-blue-500 rounded-full p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 {{ connectionButtonName }}
                                             </button>
                                             <div v-if="connectionButtonName == 'Accept'" class="text-white">
                                                 <button @click="connectReject"
-                                                    class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                    class="bg-red-600 rounded-full p-2 m-1 text-xs h-[35px] w-[85px]">
                                                     Reject
                                                 </button>
                                             </div>
                                             <div v-if="connectionButtonName =='Invite sent'" class="text-white">
-                                                <button @click="connectCancel" class="bg-red-500 rounded-full  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                <button @click="connectCancel" class="bg-red-500 rounded-full p-2 m-1 text-xs h-[35px] w-[85px]">
                                                     Cancel Request
                                                </button>
                                             </div>
@@ -314,6 +314,10 @@ const fetchUserDetails = async () => {
 
             props.data.bio = dataSets.user_basic_info.bio ?? "User has not entered bio"
             props.data.name = dataSets.user_basic_info.display_name ?? "User has not entered name";
+
+            if(userId.value == props.coachId){
+                 userStore.setUserName(props.data.name)
+            }
 
             const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
             const today = new Date();

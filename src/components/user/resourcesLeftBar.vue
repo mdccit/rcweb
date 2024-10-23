@@ -30,7 +30,7 @@
 
 <div class="max-w-xs bg-white p-2 rounded-lg">
     <h2 class="text-xl font-bold mb-2 text-black">Resources</h2>
-    <p class="text-darkSlateBlue mb-4 text-sm">Manage all your account settings here</p>
+    <p class="text-darkSlateBlue mb-4 text-sm">Access a wealth of information to enhance your experience.</p>
 
     <div class="space-y-2">
         <!-- Eligibility Dropdown -->

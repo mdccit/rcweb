@@ -15,7 +15,7 @@
                             <input type="text" @keyup.enter="searchkey" v-model="key"
                                 class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-full border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 ps-4 pe-12"
                                 placeholder="Search..." />
-                            <div class="absolute right-0 top-0 bottom-0 flex items-center pe-4 space-x-2">
+                            <div @click="searchkey" class="absolute right-0 top-0 bottom-0 flex items-center pe-4 space-x-2">
                                 <!-- <span> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="steelBlue" class="size-4">
                                         <path
@@ -65,8 +65,8 @@
                                     <span class="text-xs font-normal text-steelBlue">RESOURCES</span>
                                 </a>
                             </li> -->
-                            <!-- <li>
-                                <NuxtLink to="/"
+                            <li>
+                                <NuxtLink to="/user/network"
                                     class="block py-2 px-3 text-periwinkleBluerounded md:hover:bg-transparent md:border-0 md:p-0 dark:text-white dark:hover:text-white md:dark:hover:bg-transparent group">
                                     <div class="flex items-center justify-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -82,7 +82,7 @@
                                     <span
                                         class="text-xs font-normal text-periwinkleBlue group-hover:text-steelBlue transition uppercase">Network</span>
                                 </NuxtLink>
-                            </li> -->
+                            </li> 
                             <li>
                                 <NuxtLink to="/user/chat"
                                     class="block py-2 px-3 text-periwinkleBlue rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white  dark:hover:text-white md:dark:hover:bg-transparent group">
@@ -366,6 +366,22 @@ watch(
     }
 );
 
+watch(
+    () => userStore.loggedUserName,
+    () => {
+       console.log(userStore.loggedUserName)
+       loggedUserName.value = userStore.loggedUserName;
+    }
+);
+
+watch(
+    () => searchStore.searchKey,
+    () => {
+        key.value = searchStore.searchKey
+    }
+);
+
+
 
 const searchkey = () => {
     searchStore.setSearchKey(key.value)
@@ -376,6 +392,8 @@ const searchkey = () => {
             searchKey: key.value
         }
     });
+     
+   
 }
 </script>
 

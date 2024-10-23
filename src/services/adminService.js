@@ -390,8 +390,8 @@ const createAdminService = (apiService) => {
       throw new Error(error.message || 'Failed to retrieve businesses');
     }
   };
-  const morderation_all = async (status) => {
-    const url = `/admin/morderation-get-all?status=${status}`;
+  const morderation_all = async (status, search) => {
+    const url = `/admin/morderation-get-all?status=${status}&search_key=${search}`;
 
     try {
       const response = await apiService.getRequest(url);
@@ -1042,9 +1042,16 @@ const resource_update = async (request_body) => {
 
   try {
     const response = await apiService.putRequest(url, body);
+    console.log(response)
     return response;
   } catch (error) {
-    throw new Error(error.message || 'Failed to update');
+    if (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response for further handling
+      } else {
+        throw new Error(error.message || 'Failed to featch user');
+      }
+    }
   }
 };
 
@@ -1057,7 +1064,13 @@ const resource_category_update = async (request_body) => {
     const response = await apiService.putRequest(url, body);
     return response;
   } catch (error) {
-    throw new Error(error.message || 'Failed to update');
+    if (error) {
+      if (error.response) {
+        throw error.response; // Pass the full response for further handling
+      } else {
+        throw new Error(error.message || 'Failed to featch user');
+      }
+    }
   }
 };
 

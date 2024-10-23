@@ -1,5 +1,5 @@
 <template>
-    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue px-3 pt-3 pb-8 mt-3 bg-white">
+    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 px-3 pt-3 pb-8 mt-3 bg-white">
         <h2 class="font-bold text-lg mb-4 text-black">Settings</h2>
         <p class="text-darkSlateBlue text-sm mb-4">Manage all your account settings here</p>
 

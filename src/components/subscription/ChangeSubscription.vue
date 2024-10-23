@@ -1,25 +1,31 @@
 <template>
+
+  <!-- common full screen loader -->
+  <ScreenLoader v-if="loading" />
+  <!-- / common full screen loader -->
+
+
   <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl mx-auto">
 
     <div class="flex">
       <!-- Iterate through the packages array -->
       <div v-for="(pkg, index) in packages" :key="pkg.value" class="flex-1 flex justify-center">
         <div :key="refreshKey" :class="[
-        'border w-[230px] rounded-lg text-center p-3 relative flex flex-col cursor-pointer',
-        pkg.name === 'Premium' ? 'pro-pack' : '',
-        selectedPackage === pkg.name ? 'highlighted-package' : ''
-      ]" @click="selectPackage(pkg.value)">
-          <h3 :class="pkg.name === 'Premium' ? 'premium-text' : ''" class="font-medium text-black mb-2">{{ pkg.name }}
+    'border w-[230px] rounded-lg text-center p-3 relative flex flex-col cursor-pointer',
+    pkg.name === 'Premium' ? '' : '',
+    selectedPackage === pkg.name ? '' : ''
+  ]" @click="selectPackage(pkg.value)">
+          <h3>{{ pkg.name }}
           </h3>
 
           <h1 class="text-3xl font-medium text-black mb-2">{{ pkg.price }}</h1>
           <p class="text-xs mb-5">{{ pkg.description }}</p>
 
           <!-- Features List -->
-          <div class="flex-grow">
+          <div class="grid justify-center">
             <p v-for="(feature, fIndex) in pkg.features" :key="fIndex"
-              class="text-xs flex text-center justify-center mb-2">
-              <span class="text-limegreen ml-1">
+              class="text-xs flex text-left mb-2">
+              <span class="text-limegreen ml-1 me-2">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
                   <path fill-rule="evenodd"
                     d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
@@ -31,28 +37,26 @@
           </div>
 
           <!-- Subscription Button -->
-          <div class="mb-4 mt-auto">
+          <div class="mb-4 mt-auto" v-if="!loading">
             <!-- Show this button if activeStatus is 'active' -->
             <button v-if="activeStatus === 'active' && pkg.value === 'standard' && isSetToCancel === false"
               @click="openModal()" :value="pkg.value"
-              class="border rounded-lg shadow-sm font-normal py-2 px-4 text-xs bg-steelBlue text-white w-full">
+              class="border rounded-full shadow-sm font-normal py-2 px-4 text-xs bg-steelBlue text-white w-full">
               <ButtonSpinner v-if="loading" />
               Change Plan to {{ pkg.name }}
             </button>
 
-
-
             <!-- Show this button if activeStatus is NOT 'active' -->
             <button v-else-if="activeStatus !== 'active' && pkg.value === 'premium'" @click="subscribePremium()"
               :value="pkg.value"
-              class="border rounded-lg shadow-sm font-normal py-2 px-4 text-xs bg-steelBlue text-white w-full">
+              class="border shadow-sm rounded-full font-normal py-2 px-4 text-xs bg-steelBlue text-white w-full">
               <ButtonSpinner v-if="loading" />
               Subscribe to {{ pkg.name }}
             </button>
 
             <button v-else-if="activeStatus == 'active' && pkg.value === 'premium' && isSetToCancel === true"
               @click="stopPremiumCancellation()" :value="pkg.value"
-              class="border rounded-lg shadow-sm font-normal py-2 px-4 text-xs bg-steelBlue text-white w-full">
+              class="border shadow-sm font-normal rounded-full py-2 px-4 text-xs bg-steelBlue text-white w-full">
               <ButtonSpinner v-if="loading" />
               Subscribe to {{ pkg.name }} Again
             </button>
@@ -119,6 +123,8 @@ import ButtonSpinner from '@/components/common/ButtonSpinner.vue';
 import { usePackageStore } from '~/stores/packageStore';
 import { usePackages } from '@/composables/usePackages';
 import { useFlowbite } from '~/composables/useFlowbite';
+import ScreenLoader from '@/layouts/screen_loader.vue';
+
 
 const nuxtApp = useNuxtApp();
 const loading = ref(false);
@@ -197,7 +203,9 @@ const subscribePremium = async () => {
       // nuxtApp.$notification.triggerNotification('Error during subscription process', 'failure');
       console.error('Error during payment method setup:', error);
     } finally {
+      await fetchSubscriptionDetails();
       loading.value = false;
+      refreshButtons();
     }
   } else {
     console.log('Standard package selected, no payment needed.');
@@ -212,6 +220,7 @@ const cancelSubscription = async () => {
     isModalVisible.value = false;
     const response = await $subscriptionService.cancel_subscription();
     if (response && response.status === 200) {
+      activeStatus.value = 'cancelled'; 
       // Success case
       nuxtApp.$notification.triggerNotification(response.display_message, 'success');
     } else {
@@ -221,8 +230,9 @@ const cancelSubscription = async () => {
   } catch (error) {
     console.error('Error canceling subscription:', error);
   } finally {
-    loading.value = false;
+    await fetchSubscriptionDetails();
     refreshButtons();
+    loading.value = false;
   }
 };
 
@@ -234,10 +244,17 @@ const reloadPage = () => {
 // Function to refresh buttons
 const refreshButtons = () => {
   refreshKey.value++;  // Update the key to trigger reactivity
+  // Update activeStatus or isSetToCancel based on the updated subscription state
+  if (activeStatus.value === 'active') {
+    isSetToCancel.value = false;
+  } else {
+    isSetToCancel.value = true;
+  }
 };
 
 const stopPremiumCancellation = async () => {
   try {
+    loading.value = true;
     const response = await $subscriptionService.stop_premium_cancellation();
     if (response && response.status === 200) {
 
@@ -250,7 +267,9 @@ const stopPremiumCancellation = async () => {
   } catch (error) {
     console.error('Error canceling subscription:', error);
   } finally {
-    reloadPage();
+    await fetchSubscriptionDetails();
+    refreshButtons();
+    loading.value = false;
   }
 };
 
@@ -293,44 +312,57 @@ const createSetupIntent = async (customerId) => {
   }
 };
 
+let hasFetchedData = false; // Non-reactive flag
+
+const fetchSubscriptionDetails = async () => {
+
+  if (!hasFetchedData) {
+    try {
+      hasFetchedData = true;
+
+      // Fetch user subscription information
+      loading.value = true;
+      const response = await $subscriptionService.get_subscription();
+      subscription.value = response;
+      activeStatus.value = response.status;
+      isSetToCancel.value = response.cancel_at_period_end;
+
+      if (activeStatus == 'active' && isSetToCancel != false) {
+        selectedPackage.value = 'premium';
+      } else {
+        selectedPackage.value = 'standard';
+      }
+
+      const payment_methods = await $subscriptionService.get_customer_payment_methods();
+
+      if (payment_methods && payment_methods.status == 200) {
+        paymentMethods.value = payment_methods.data;
+
+        // Fetch the active card and set it in selectedCard
+        await getCustomerActiveCard();
+      } else {
+        console.error('No payment mehods found.');
+
+      }
+
+    } catch (error) {
+      console.error('Error fetching subscription data:', error);
+    } finally {
+      loading.value = false;
+    }
+  }
+};
 
 onMounted(async () => {
 
   useFlowbite(() => {
     initFlowbite();
   });
+  await fetchSubscriptionDetails();
 
-  try {
-    // Fetch user subscription information
-    loading.value = true;
-    const response = await $subscriptionService.get_subscription();
-    subscription.value = response;
-    activeStatus.value = response.status;
-    isSetToCancel.value = response.cancel_at_period_end;
-
-    if (activeStatus == 'active' && isSetToCancel != false) {
-      selectedPackage.value = 'premium';
-    } else {
-      selectedPackage.value = 'standard';
-    }
-
-    const payment_methods = await $subscriptionService.get_customer_payment_methods();
-
-    if (payment_methods && payment_methods.status == 200) {
-      paymentMethods.value = payment_methods.data;
-
-      // Fetch the active card and set it in selectedCard
-      await getCustomerActiveCard();
-    } else {
-      console.error('No payment mehods found.');
-    }
-
-  } catch (error) {
-    console.error('Error fetching subscription data:', error);
-  } finally {
-    loading.value = false;
-  }
 });
+
+
 
 </script>
 
@@ -353,33 +385,5 @@ onMounted(async () => {
   /* Adds shadow highlight */
   border-color: #007bff;
   /* Blue border for the highlighted package */
-}
-
-/* Highlight "Premium" word with blue-themed styling */
-.premium-text {
-  color: #1e40af;
-  /* Bold blue color */
-  font-size: 1.75rem;
-  /* Larger font size */
-  font-weight: bold;
-  text-transform: uppercase;
-  /* Make text uppercase */
-  letter-spacing: 1px;
-  text-shadow: 2px 2px 8px rgba(30, 64, 175, 0.5);
-  /* Subtle blue shadow */
-  position: relative;
-}
-
-/* Optional: Add a gradient underline for more emphasis */
-.premium-text::before {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #1e40af, #60a5fa);
-  /* Blue gradient */
-  border-radius: 2px;
 }
 </style>

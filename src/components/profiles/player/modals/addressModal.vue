@@ -1,4 +1,7 @@
 <template>
+
+    <!-- common full screen loader -->
+    <ScreenLoader v-if="loading" />
     <!-- Address change modal -->
     <div v-if="visible" class="relative z-index-320" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -125,7 +128,8 @@
                                                 <div class="mb-2  col-span-4">
                                                     <!-- <label class="block mb-1 text-gray-700 font-sans text-sm">Phone
                                                         Number</label> -->
-                                                    <div class="flex rounded-lg border border-gray-300 shadow-sm mt-[24px]">
+                                                    <div
+                                                        class="flex rounded-lg border border-gray-300 shadow-sm mt-[24px]">
                                                         <input type="text" id="phone_number" v-model="phone_number"
                                                             class="block w-full h-12 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                                             placeholder="Enter Phone Number" required />
@@ -163,8 +167,8 @@
                                 class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 sm:ml-3 sm:w-auto">Save
                                 changes
                                 <svg v-if="loading" aria-hidden="true" role="status"
-                                    class="inline w-4 h-4 me-3 text-white animate-spin mt-[3px] ml-[5px]" viewBox="0 0 100 101"
-                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    class="inline w-4 h-4 me-3 text-white animate-spin mt-[3px] ml-[5px]"
+                                    viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
                                         fill="#E5E7EB" />
@@ -194,6 +198,7 @@ import InputError from '@/components/common/input/InputError.vue';
 import { loadCountryList } from '~/services/commonService';
 import CountryCodeDropdown from '~/components/common/select/CountryCodeDropdown.vue';
 import CountryDropdown from '~/components/common/select/CountryDropdown.vue';
+import ScreenLoader from '@/layouts/screen_loader.vue';
 
 const nuxtApp = useNuxtApp();
 const nprogress = nuxtApp.$nprogress;
@@ -230,7 +235,12 @@ const props = defineProps({
 const emit = defineEmits(['close']);
 
 onMounted(async () => {
+    loading.value = true;
     const results = await Promise.allSettled([loadCountryCodes(), loadCountries()]);
+    if (results) {
+        loading.value = false;
+    }
+
     if (props.slug) {
         // Use Promise.all to wait for all async operations to complete
         await fetchPlayerContact();
@@ -238,6 +248,7 @@ onMounted(async () => {
     } else {
         console.log('no slug');
     }
+
 });
 
 watch(() => props.visible, (newVal) => {
@@ -262,6 +273,7 @@ watch(country_codes, (newVal) => {
 
 const fetchPlayerContact = async () => {
     try {
+        loading.value = true;
         const dataSets = await $publicService.get_user_profile(props.slug);
         if (dataSets.user_address_info) {
             city.value = dataSets.user_address_info.city ?? 'User has not entered city';
@@ -282,6 +294,8 @@ const fetchPlayerContact = async () => {
         }
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+    } finally {
+        loading.value = false;
     }
 }
 
@@ -313,11 +327,11 @@ const updatePlayerAddress = async () => {
             // Emit close event to parent to close the modal
             emit('close', 'address');
         } else {
-            nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
+            nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
         }
 
     } catch (error) {
-        //   nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+           nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
     } finally {
         loading.value = false;

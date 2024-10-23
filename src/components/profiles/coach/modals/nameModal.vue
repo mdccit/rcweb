@@ -297,7 +297,7 @@ const saveName = async () => {
 const removeProfile = async () => {
     try {
         const dataSets = await $publicService.delete_media_coache(profile_picture_exit.value.media_id);
-        fetchCoachNames(props.slug);
+        //fetchCoachNames(props.slug);
         // const data = {
         //     url: response.data.url,
         //     media_type: response.data.media_type,
