@@ -1,5 +1,6 @@
 <template>
-
+  <!-- common full screen loader -->
+  <ScreenLoader v-if="loading" />
   <div>
     <h2 class="text-2xl font-bold mb-6 text-black">Subscription & Billing</h2>
     <hr class="mt-5 mb-3 text-pigeonBlue">
@@ -116,7 +117,7 @@
 
 
     <!-- Cancel subscription -->
-    <div class="mt-6" v-if="activeStatus === 'active'">
+    <div class="mt-6" v-if="activeStatus === 'active' && !isSetToCancel">
       <hr class="mt-5 mb-3 text-pigeonBlue">
       <h3 class="font-semibold text-xl mb-4 text-black">Cancel subscription</h3>
       <p class="text-sm text-darkSlateBlue mb-4">Once your account is canceled, you can re-add any subscription you need.
@@ -127,15 +128,21 @@
           <p class="text-sm text-darkSlateBlue mb-6">Your cancellation will take effect from the next renewal date. You can continue to enjoy all premium features until the end of your current paid period.</p>
 
           <div class="mt-6">
-            <button @click="cancelSubscription"
+            <button @click="cancelSubscription" :disabled="loading"
               class="w-50 py-3 px-2 bg-redOrange text-white  text-xs font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Cancel
-              Subscription</button>
+              Subscription {{isSetToCancel}}</button>
           </div>
         </div>
       </div>
     </div>
 
-
+    <div class="mt-6 bg-red-100 p-6 rounded-lg shadow-md border border-red-300" v-else-if="isSetToCancel">
+      <h3 class="font-semibold text-2xl mb-4 text-red-800">Subscription Cancellation Scheduled</h3>
+      <p class="text-sm text-red-700 mb-4">
+        Your subscription is set to be cancelled at the end of your current billing cycle. You will continue to have access to the premium features until then. If you wish to continue your subscription, you can reactivate it at any time before the cancellation date.
+      </p>
+    </div>
+     
   </div>
 
 </template>
@@ -146,7 +153,7 @@ import { usePackageStore } from '@/stores/packageStore';
 import { useNuxtApp, useRuntimeConfig } from '#app';
 import { useRouter , useRoute} from 'vue-router';
 import ButtonSpinner from '@/components/common/ButtonSpinner.vue';
-
+import ScreenLoader from '@/layouts/screen_loader.vue';
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -164,6 +171,7 @@ const subscriptionType = ref('');
 const paymentMethods = ref([]);
 const selectedCard = ref(null);
 const loading = ref(false);
+const isSetToCancel = ref(false);
 
 onMounted(async () => {
   try {
@@ -180,11 +188,11 @@ onMounted(async () => {
       // Fetch the active card and set it in selectedCard
       await getCustomerActiveCard();
 
-
       startDate.value = formatDate(response.start_date);
       endDate.value = formatDate(response.end_date);
       Price.value = response.price;
       activeStatus.value = response.status;
+      isSetToCancel.value = response.cancel_at_period_end || null;
     }else{
       console.error('No payment mehods found.');
     }
@@ -226,8 +234,11 @@ const getCustomerActiveCard = async () => {
 
 const cancelSubscription = async () => {
   try {
+    loading.value = true;
     const response = await $subscriptionService.cancel_subscription();
     if (response && response.status === 200) {
+      activeStatus.value = 'cancelled';
+      isSetToCancel = true;
       // Success case
       nuxtApp.$notification.triggerNotification(response.display_message, 'success');
     } else {
@@ -236,6 +247,8 @@ const cancelSubscription = async () => {
     }
   } catch (error) {
     console.error('Error canceling subscription:', error);
+  }finally{
+    loading.value = false;
   }
 };
 
