@@ -8,8 +8,7 @@
       <!-- Subscription Section -->
       <div class="mt-6">
         <h3 class="font-semibold text-xl mb-4 text-black">Subscription</h3>
-        <p class="text-sm text-darkSlateBlue mb-4"> Lorem ipsum is a placeholder text commonly used to demonstrate the
-          visual form of a document or a typeface without relying on meaningful content.</p>
+        <p class="text-sm text-darkSlateBlue mb-4">Enjoy uninterrupted access to premium features and services with our flexible subscription plans. Manage your plan easily, and stay up to date with the latest benefits. Upgrade, downgrade, or cancel anytime you're in control!</p>
 
         <div class="flex gap-4 bg-white p-6">
 
@@ -22,9 +21,7 @@
             
             <p v-if="Price" class="text-xl font-semibold text-black">PREMIUM</p>
             <p class="text-darkSlateBlue mt-4 text-sm">
-              Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a
-              typeface
-              without relying on meaningful content.
+              You're all set with your active plan ! Upgrade, switch plans, or manage payments anytime to fit your needs.
             </p>
             <p v-if="activeStatus === 'active'"
               class="bg-green-100 text-green-600 font-semibold mt-4 text-xl px-4 py-2 rounded-full">
@@ -54,9 +51,9 @@
             <div class="border border-gainsboroGray rounded-lg p-4">
               <p class="font-semibold text-black mb-2">Change plan</p>
               <p class="text-darkSlateBlue mb-4 text-sm">
-                Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document.
+                Upgrade, downgrade, or switch your subscription to better suit your needs. Review the available plans and adjust your subscription effortlessly.
               </p>
-              <button class="bg-steelBlue text-white px-4 py-2 rounded-lg text-sm" @click="changeSubscription">change plan</button>
+              <button class="bg-steelBlue text-white px-4 py-2 rounded-full text-sm" @click="changeSubscription">Change plan</button>
             </div>
           </div>
         </div>
@@ -67,8 +64,7 @@
     <div class="mt-6">
       <hr class="mt-5 mb-3 text-pigeonBlue">
       <h3 class="font-semibold text-xl mb-4 text-black">Card details</h3>
-      <p class="text-sm text-darkSlateBlue mb-4"> Lorem ipsum is a placeholder text commonly used to demonstrate the
-        visual form of a document or a typeface without relying on meaningful content.</p>
+      <p class="text-sm text-darkSlateBlue mb-4"> Securely manage your saved payment methods. Update card information, add a new card, or remove existing ones to ensure seamless billing and uninterrupted service.</p>
 
       <div class="flex space-x-4">
 
