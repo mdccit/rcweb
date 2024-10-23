@@ -1,7 +1,7 @@
 <template>
 
   <ScreenLoader v-if="loadingStore.isLoading" />
-  <div v-if="!loadingStore.isLoading">
+  <div >
     <main class="min-h-screen bg-gray-100 p-[0px]">
       <!-- common full screen loader -->
     

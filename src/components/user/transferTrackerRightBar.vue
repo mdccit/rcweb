@@ -30,4 +30,11 @@
 export default {
     name: 'transfer-tracker-right-bar'
 }
+
+import { useUserStore } from '~/stores/userStore';
+
+const userStore = useUserStore();
+
+const userTypeId = computed(() => userStore.userTypeId);
+const role = computed(() => userStore.role);
 </script>
