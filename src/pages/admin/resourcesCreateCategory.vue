@@ -93,7 +93,7 @@ const handleRequest = async () =>{
        
     } catch (error) {
         console.log(error)
-       // nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     } 
 }
 

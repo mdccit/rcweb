@@ -145,9 +145,7 @@
       console.log(dataSets)
       // Update the table data
       items.value = dataSets.dataSets; // Data for the current page
-      totalItems.value = dataSets.total; // Total number of items across all pages
-      options.value.page = dataSets.current_page; // Current page
-      options.value.itemsPerPage = dataSets.per_page; // Items per page
+      totalItems.value = dataSets.dataSets.length
     } catch (error) {
       console.error('Error fetching data:', error.message);
     } finally {
@@ -211,17 +209,19 @@
   };
   
   const filteredItems = computed(() => {
-    if (!search.value) return items.value;
+    let filtered = items.value;
+
+    // if (!search.value) return items.value;
   
-    return items.value.filter(item =>
-      item.name.toLowerCase().includes(search.value.toLowerCase()) ||
-      (item.bio && item.bio.toLowerCase().includes(search.value.toLowerCase()))
-    );
+    // return items.value.filter(item =>
+    //   item.name.toLowerCase().includes(search.value.toLowerCase()) ||
+    //   (item.bio && item.bio.toLowerCase().includes(search.value.toLowerCase()))
+    // );
   
     // Paginate items
     const start = (options.value.page - 1) * options.value.itemsPerPage
     const end = start + options.value.itemsPerPage
-    return filtered.slice(start, end)
+    return filtered.slice(start, end);
   });
   
   

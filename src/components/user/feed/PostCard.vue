@@ -37,7 +37,7 @@
               <!-- <img :src="post?.user?.profile_image || defaultImage" alt="User image" class="rounded-lg w-12 h-12"> -->
               <!-- <img src="@/assets/user/images/Rectangle_117.png" alt="User image" class="rounded-lg w-12 h-12"> -->
               <img v-if="post.user_profile_picture ==null" src="@/assets/images/user.png" alt="" class="rounded-lg w-10 h-10">
-              <img v-if="post.user_profile_picture !=null" src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
+              <img v-if="post.user_profile_picture !=null" :src="post.user_profile_picture.url" alt="" class="rounded-lg w-10 h-10">
               <div>
                 <!-- Safely access user display name -->
                 <div class="text-md font-bold text-black">{{ post?.user?.display_name || 'Unknown User' }}</div>
@@ -159,7 +159,9 @@
       @refreshComments="refreshComments" />
     <div class="mt-4">
       <div class="flex space-x-3">
-        <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10">
+        <!-- <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10"> -->
+        <img v-if="profilePicture == 'null'" src="@/assets/images/user.png" alt="" class="rounded-lg w-10 h-10">
+        <img v-if="profilePicture != 'null'" :src="profilePicture" alt="" class="rounded-lg w-10 h-10">
         <div class="grow">
           <textarea v-model="newComment" type="text" placeholder="Write your comment..."
             class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-xl border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 px-4"></textarea>
@@ -189,7 +191,7 @@
 <script setup>
 import CommentSection from '@/components/user/feed/CommentSection.vue';
 import { useNuxtApp } from '#app';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted ,watch } from 'vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import PostMedia from '~/components/user/feed/PostMedia.vue';
 import { useUserStore } from '~/stores/userStore'
@@ -205,7 +207,9 @@ const likeButton = ref(false)
 const model = ref(false)
 const editingPostId = ref(null)
 const editPost = ref('')
-const meesge = ref('')
+const meesge = ref('');
+const profilePicture= ref('')
+
 // Props
 const props = defineProps({
   post: Object,  // Post object passed as a prop
@@ -226,9 +230,22 @@ const newComment = ref('');
 onMounted(() => {
 
   userId.value = userStore.user.user_id
-
+  if(localStorage.getItem('profile_picture')){
+      profilePicture.value =localStorage.getItem('profile_picture')
+      userStore.setProfilePicture({
+        url: profilePicture.value
+      })
+  }
 
 });
+
+watch(
+    () => userStore.userProfilePicture,
+    () => {
+            profilePicture.value =userStore.userProfilePicture.url
+            
+    }
+);
 
 
 const likePost = async (post_id, post) => {

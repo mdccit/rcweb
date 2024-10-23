@@ -1,5 +1,8 @@
 <template>
-    <div>
+   <!-- common full screen loader -->
+   <ScreenLoader v-if="loadingStore.isLoading" />
+ 
+  <div>
         <!-- Notification component -->
         <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType"
             :visible="showNotification" @close="closeNotification" :key="notificationKey" />
@@ -41,7 +44,10 @@ import { useUserStore } from '~/stores/userStore';
 import mediaTab from '~/components/profiles/coach/tabs/mediaTab.vue';
 import Connection from '~/components/user/profile/connection.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
-import { useRoute } from 'vue-router'
+import { useRoute } from 'vue-router';
+import ScreenLoader from '@/layouts/screen_loader.vue';
+import { useLoadingStore } from '@/stores/loadingStore';
+const loadingStore = useLoadingStore();
 
 const route = useRoute();
 
@@ -80,6 +86,7 @@ const nationality_id =ref('')
 const gender =ref('none')
 const dateOfBirth =ref('');
 const schoolProfilePicture = ref(null)
+const addressValue = ref(null)
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
     showNotification.value = nuxtApp.$notification.showNotification.value;
@@ -100,6 +107,14 @@ onMounted(() => {
   
 });
 
+watch(
+    () => route.params.slug,
+    () => {
+      fetchUserDetailsBySlug()
+      tab.value = 'feed'
+    }
+);
+
 const fetchUserDetailsBySlug = async () => {
   try {
     const dataSets = await $publicService.get_user_profile(route.params.slug);
@@ -119,6 +134,8 @@ const fetchUserDetailsBySlug = async () => {
             'January', 'February', 'March', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'
         ];
+
+        
         const year = date.getFullYear();
         const month = monthNames[date.getMonth()];
         const day = date.getDate();

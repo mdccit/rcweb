@@ -232,7 +232,13 @@ const createUserService = (apiService) => {
       const response = await apiService.putRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || "Failed to update");
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        throw new Error("No response received from server");
+      } else {
+        throw new Error(error.message || "Error in request setup");
+      }
     }
   };
 
@@ -692,7 +698,20 @@ const createUserService = (apiService) => {
     }
   };
 
-
+  const get_connection_list = async () => {
+    const url = `/user/connections-list`;
+    try {
+      const response = await apiService.getRequest(url);
+      if (response && response.data) {
+        return response.data;
+      } else {
+        throw new Error("Unexpected API response structure");
+      }
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.message || "Failed to register");
+    }
+  };
 
   return {
     get_connection,
@@ -747,7 +766,8 @@ const createUserService = (apiService) => {
     get_all_conversiontion,
     create_conversiontion,
     send_to_message,
-    get_conversation_chat
+    get_conversation_chat,
+    get_connection_list
   };
 };
 
