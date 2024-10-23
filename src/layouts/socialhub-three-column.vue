@@ -1,4 +1,9 @@
 <template>
+
+  <!-- common full screen loader -->
+  <ScreenLoader v-if="loadingStore.isLoading" />
+  <!-- / common full screen loader -->
+   
   <div>
     <!-- Top Navigation Bar -->
     <SocialHubNavbar />
@@ -11,12 +16,12 @@
             <!-- <Filter /> -->
             <!-- <CallCard/> -->
              <!-- <transfer-tracker-left-bar /> -->
-             <!-- <NetworkLeft /> -->
+             <NetworkLeft v-if="networkView" />
             <!-- <Filter v-if="route.meta.showFilterLeft" /> -->
-            <ResourcesLeftBar />
+            <ResourcesLeftBar v-if="resourceView"/>
              <!-- <userSettingLeftBar /> -->
             <!-- <resources-left-bar /> -->
-             <userSettingLeftBar v-if="route.meta.showUserSettingLeftBar" />
+            <userSettingLeftBar v-if="route.meta.showUserSettingLeftBar" />
           </div>
 
           <!-- Middle pane -->
@@ -28,7 +33,7 @@
           <!-- Right pane -->
           <div>
             <!-- <Filter /> -->
-             <!-- <transfer-tracker-right-bar /> -->
+            <!-- <transfer-tracker-right-bar /> -->
           </div>
         </div>
       </div>
@@ -37,22 +42,16 @@
     <!-- Footer -->
     <FooterBar />
 
-              <!-- Notification component -->
-              <Notification 
-              v-if="showNotification" 
-              :message="notificationMessage" 
-              :type="notificationType" 
-              :visible="showNotification" 
-              @close="closeNotification" 
-              :key="notificationKey"
-            />
+    <!-- Notification component -->
+    <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType"
+      :visible="showNotification" @close="closeNotification" :key="notificationKey" />
 
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import { useRouter, useRoute  } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import SocialHubNavbar from '~/components/user/navbar.vue';
 import Filter from '~/components/user/feed/filter.vue';
 import FooterBar from '~/components/user/user-footer.vue';
@@ -66,15 +65,18 @@ import NetworkLeft from '~/components/user/networkLeft.vue';
 import ResourcesLeftBar from '~/components/user/resourcesLeftBar.vue';
 import userSettingLeftBar from '~/components/user/userSettingLeftBar.vue';
 import CallCard from '~/components/user/feed/CallCard.vue';
+import ScreenLoader from '@/layouts/screen_loader.vue';
+import { useLoadingStore } from '@/stores/loadingStore';
+const loadingStore = useLoadingStore();
 
 
 defineNuxtRouteMiddleware(checkSession);
 const nuxtApp = useNuxtApp();
 const loading = ref(false);
 const router = useRouter();
-const route = useRoute();  
+const route = useRoute();
 
-const showFilterLeft = ref(false); 
+const showFilterLeft = ref(false);
 
 router.beforeEach((to, from, next) => {
   loading.value = true;
@@ -84,8 +86,26 @@ router.beforeEach((to, from, next) => {
 router.afterEach(() => {
   loading.value = false;
 });
+const networkView = ref(false)
+watch(()=>{
+  console.log("Route meta")
+  console.log(route.fullPath)
+   networkView.value = false
+   if(route.fullPath =='/user/network'){
+    networkView.value = true
+  }
+})
+const resourceView = ref(false)
+watch(()=>{
+  console.log("Route meta")
+  console.log(route.fullPath)
+  resourceView.value = false
+   if(route.fullPath =='/user/resources'){
+    resourceView.value = true
+  }
 
-
+  
+})
 const showNotification = ref(false);
 const notificationMessage = ref('');
 const notificationType = ref('');

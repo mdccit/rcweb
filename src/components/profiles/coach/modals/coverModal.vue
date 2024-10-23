@@ -40,12 +40,19 @@
                     </label>
                     <div class="flex rounded-lg border border-gray-300 shadow-sm w-full">
 
-                      <label for="profile_picture"
+                      <!-- <label for="profile_picture"
                         class="absolute pt-[13px] img-inputblock h-[49px] w-[110px] px-4 py-2 text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input">
                         Choose file
-                      </label>
-                      <input id="cover_picture" type="file" @change="handleFileChange" accept="image/jpeg, image/png"
-                        class="lock pt-1 text-black h-12 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
+                      </label> -->
+                      <label for="profile_picture"
+                          class="absolute pt-[13px] h-[49px] img-inputblock w-[110px] px-4 py-2 text-sm font-medium text-black bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none img-input">
+                            Choose file
+                        </label>
+                      <!-- <input id="cover_picture" type="file" @change="handleFileChange" accept="image/jpeg, image/png"
+                        class="lock pt-1 text-black h-12 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"> -->
+                        <input id="profile_picture" type="file" @change="handleFileChange"
+                              accept="image/jpeg, image/png"
+                             class="lock pt-1 text-black h-12 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                     </div>
                     <span v-if="fileError" class="text-red-500">{{ fileError }}</span>
                     <!-- Show validation error -->

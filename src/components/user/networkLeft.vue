@@ -4,23 +4,29 @@
  <div class="flex flex-col items-center space-y-2">
     <!-- Circle with number -->
     <div class="bg-lightPale rounded-full w-20 h-20 flex items-center justify-center">
-      <p class="text-steelBlue text-4xl font-bold">510</p>
+      <p class="text-steelBlue text-4xl font-bold">{{  connection.length }}</p>
     </div>
     <!-- Connections text -->
     <p class="text-lg font-medium text-black">Connections</p>
     <!-- Profile Avatars -->
     <div class="flex space-x-2">
-      <img class="w-10 h-10 rounded-full" src="../../assets/user/images/avtar.png" alt="Profile 1">
+        <div v-for="data in connection">
+            <img v-if=" data.receiver_profile_picture == null" class="w-10 h-10 rounded-full"
+                src="@/assets/images/user.png" alt="Profile 1">
+            <img v-if=" data.receiver_profile_picture != null" class="w-10 h-10 rounded-full"
+                :src="data.receiver_profile_picture.url" alt="Profile 1">
+        </div>
+      <!-- <img class="w-10 h-10 rounded-full" src="../../assets/user/images/avtar.png" alt="Profile 1">
       <img class="w-10 h-10 rounded-full" src="../../assets/user/images/Rectangle_117.png" alt="Profile 2">
       <img class="w-10 h-10 rounded-full" src="../../assets/user/images/Rectangle 193.png" alt="Profile 3">
-      <img class="w-10 h-10 rounded-full" src="../../assets/user/images/Rectangle 126.png" alt="Profile 4">
+      <img class="w-10 h-10 rounded-full" src="../../assets/user/images/Rectangle 126.png" alt="Profile 4"> -->
     </div>
     <!-- See all connections link -->
-    <a href="#" class="text-steelBlue hover:underline">See All Connections</a>
+    <!-- <a href="#" class="text-steelBlue hover:underline">See All Connections</a> -->
   </div>
      </div>
     <!-- start call card -->
-    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue p-3 mt-3 bg-steelBlue text-white">
+    <!-- <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue p-3 mt-3 bg-steelBlue text-white">
         <div class="flex items-center justify-between">
 
             <div class="flex items-center space-x-4 w-48">
@@ -42,12 +48,39 @@
         <div class="flex justify-center mt-3">
             <button class="bg-white text-darkSlateBlue px-8 py-2 rounded-lg text-sm font-semibold">Book a call</button>
         </div>
-    </div>
+    </div> -->
     <!-- end call card -->
 </template>
 
-<script>
-export default {
-    name: 'network-left'
+<script setup>
+
+
+import { ref, watchEffect ,onMounted } from 'vue';
+import { useNuxtApp } from '#app';
+import { useUserStore } from '@/stores/userStore';
+
+const nuxtApp = useNuxtApp();
+const $userService = nuxtApp.$userService;
+
+const userStore = useUserStore();
+
+const userId = ref('')
+onMounted(() => {
+    fetConnection()
+    userId.value = userStore.user?.user_id || null;
+
+    
+});
+
+const connection = ref('')
+
+const fetConnection  = async () => {
+  try {
+     const response = await $userService.get_connection_list();
+    connection.value = response.dataSets.acccept_list
+    
+  } catch (error) {
+    console.error('Failed to load posts:', error.message);
+  }
 }
 </script>

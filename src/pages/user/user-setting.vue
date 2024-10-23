@@ -2,7 +2,7 @@
   <div>
     <SecurityCard v-if="userSettingActiveTab == 'security'"></SecurityCard>
 
-    <div v-if="userSettingActiveTab === 'subscription'" class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-8 mt-3">
+    <div v-if="userSettingActiveTab === 'subscription'" class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-8 mt-3">
       <!-- Subscription & Billing Card -->
       <SubscriptionBilling />
 
@@ -27,7 +27,9 @@ definePageMeta({
   requiredRole: ["admin", "coach", "business_manager", "player", "parent", "default"],
   showUserSettingLeftBar: true,
 });
-
+useHead({
+  title: 'sSettings',
+})
 const userStore = useUserStore();
 const userSettingActiveTab = computed(() => userStore.userSettingActiveTab);
 </script>

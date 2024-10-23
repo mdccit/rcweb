@@ -1,4 +1,6 @@
 <template>
+    <!-- common full screen loader -->
+    <ScreenLoader v-if="loading" />
     <!-- Info change modal -->
     <div v-if="visible" class="relative z-index-320" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -72,8 +74,7 @@
                                             <div v-if="weight_in_kg">
                                                 <div
                                                     class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
-                                                    <input type="number" required v-model="weight_kg"         step="0.01" 
-
+                                                    <input type="number" required v-model="weight_kg" step="0.01"
                                                         class="lock text-black px-5 py-3 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
                                                         placeholder="Weight in kg" />
                                                 </div>
@@ -81,7 +82,7 @@
                                             </div>
                                             <!-- Weight in Pounds -->
                                             <div v-else>
-                                                <input type="number" required v-model="weight_lb" step="0.01" 
+                                                <input type="number" required v-model="weight_lb" step="0.01"
                                                     class="block w-full rounded-lg border-gray-300 shadow-sm"
                                                     placeholder="Weight in lb" />
                                             </div>
@@ -153,7 +154,7 @@
                                                     </div>
 
                                                     <span v-if="errors.height_cm" class="text-red-500 text-sm">{{
-                                                        errors.player_height_cm.join(', ') }}</span>
+        errors.player_height_cm.join(', ') }}</span>
                                                 </div>
                                             </div>
 
@@ -168,7 +169,7 @@
                                                     </div>
 
                                                     <span v-if="errors.player_height_ft" class="text-red-500 text-sm">{{
-                                                        errors.player_height_ft.join(',') }}</span>
+        errors.player_height_ft.join(',') }}</span>
                                                 </div>
                                                 <div class="relative">
                                                     <div
@@ -179,7 +180,7 @@
                                                     </div>
 
                                                     <span v-if="errors.player_height_in" class="text-red-500 text-sm">{{
-                                                        errors.height_in.join(',') }}</span>
+        errors.height_in.join(',') }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -189,8 +190,7 @@
                                         <div>
                                             <label for="preferred_surface"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Preferred
-                                                Surface <span
-                                                class="text-red-600">*</span></label>
+                                                Surface <span class="text-red-600">*</span></label>
                                             <div
                                                 class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
                                                 <select v-model="preferred_surface" required
@@ -208,8 +208,7 @@
                                         <div>
                                             <label for="graduation_month_year"
                                                 class="block mb-1 text-sm font-normal text-gray-900">Graduation
-                                                Month/Year <span
-                                                class="text-red-600">*</span></label>
+                                                Month/Year <span class="text-red-600">*</span></label>
                                             <div
                                                 class="flex rounded-lg border border-gray-300 shadow-sm rounded-[10px]">
                                                 <input type="month" v-model="graduation_month_year" required
@@ -259,6 +258,7 @@ import HandednessDropdown from '@/components/common/select/HandednessDropdown.vu
 import GenderDropDown from '@/components/common/select/GenderDropDown.vue';
 import { handleError } from '@/utils/handleError';
 import InputError from '@/components/common/input/InputError.vue';
+import ScreenLoader from '@/layouts/screen_loader.vue';
 
 const nuxtApp = useNuxtApp();
 const nprogress = nuxtApp.$nprogress;
@@ -302,6 +302,8 @@ const emit = defineEmits(['close']);
 
 // Fetch player data
 onMounted(async () => {
+
+    loading.value = true;
     // Use Promise.all to wait for all async operations to complete
     await Promise.all([
         loadNationalities(),
@@ -309,6 +311,7 @@ onMounted(async () => {
         loadHandness(),
 
     ]);
+    loading.value = false;
 });
 // Function to get today's date in 'YYYY-MM-DD' format
 const getTodayDate = () => {
@@ -330,6 +333,7 @@ watch(() => props.visible, (newVal) => {
 
 const fetchPlayerInfo = async () => {
     try {
+        loading.value = true;
         const dataSets = await $publicService.get_player(props.slug);
 
         if (dataSets.user_basic_info) {
@@ -352,37 +356,39 @@ const fetchPlayerInfo = async () => {
         }
 
         if (dataSets.player_info) {
-      // Set Height
-      if (dataSets.player_info.height) {
-        height_in_cm.value = true; // Assuming height is stored in cm
-        height_cm.value = parseFloat(dataSets.player_info.height); // Convert height to cm if available
-        if(height_cm.value){
-            let totalFeet = (height_cm.value / 30.48).toFixed(2);
-             height_ft.value = Math.floor(totalFeet);
-             height_in.value = Math.floor((totalFeet - height_ft.value) * 12)
+            // Set Height
+            if (dataSets.player_info.height) {
+                height_in_cm.value = true; // Assuming height is stored in cm
+                height_cm.value = parseFloat(dataSets.player_info.height); // Convert height to cm if available
+                if (height_cm.value) {
+                    let totalFeet = (height_cm.value / 30.48).toFixed(2);
+                    height_ft.value = Math.floor(totalFeet);
+                    height_in.value = Math.floor((totalFeet - height_ft.value) * 12)
+                }
+            }
+
+            // Set Weight
+            if (dataSets.player_info.weight) {
+                weight_in_kg.value = true; // Assuming weight is in kg
+                weight_kg.value = parseFloat(dataSets.player_info.weight); // Convert weight to kg if available
+                if (weight_kg.value) {
+                    weight_lb.value = (2.20462 * weight_kg.value).toFixed(2)
+                }
+
+
+            }
+
+            // Set Handedness
+            handedness.value = dataSets.player_info.other_data.handedness ?? null;
+
+            // Set Preferred Surface
+            preferred_surface.value = dataSets.player_info.other_data.preferred_surface ?? null;
         }
-      }
-
-      // Set Weight
-      if (dataSets.player_info.weight) {
-        weight_in_kg.value = true; // Assuming weight is in kg
-        weight_kg.value = parseFloat(dataSets.player_info.weight); // Convert weight to kg if available
-        if(weight_kg.value){
-            weight_lb.value = (2.20462 * weight_kg.value).toFixed(2)
-        }
-       
-
-      }
-
-      // Set Handedness
-      handedness.value = dataSets.player_info.other_data.handedness ?? null;
-
-      // Set Preferred Surface
-      preferred_surface.value = dataSets.player_info.other_data.preferred_surface ?? null;
-    }
     } catch (error) {
         console.error('Error fetching player info:', error);  // Debug: log the error
 
+    }finally{
+        loading.value = false;
     }
 
 };
@@ -426,10 +432,10 @@ const saveInfo = async () => {
             loading.value = false;
             nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
         }
-    } catch (error) {       
+    } catch (error) {
         //   nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
         handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
-    } finally{
+    } finally {
         loading.value = false;
     }
 };

@@ -1,4 +1,6 @@
 <template>
+    <!-- common full screen loader -->
+    <ScreenLoader v-if="loading"/>
   <div
     class="min-h-screen w-full bg-generic bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4">
     <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl">
@@ -661,7 +663,7 @@
 
         <div class="flex items-center justify-end mt-6">
           <button type="submit" :disabled="loading"
-            class="border rounded-md shadow-sm py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-darkAzureBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue ml-4 !px-8 !py-2.5 transition">
+            class="border rounded-full shadow-sm py-2 px-4 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-darkAzureBlue text-white border-transparent focus:border-lightAzure focus:ring-lightPastalBlue ml-4 !px-8 !py-2.5 transition">
             <svg v-if="loading" aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
               viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -695,6 +697,7 @@ import BudgetDropdown from '~/components/common/select/BudgetDropdown.vue';
 import HandednessDropdown from '~/components/common/select/HandednessDropdown.vue';
 import { handleError } from '@/utils/handleError';
 import { useNuxtApp } from '#app';
+import ScreenLoader from '@/layouts/screen_loader.vue';
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();

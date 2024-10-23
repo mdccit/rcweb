@@ -54,8 +54,9 @@
 
     </div>
 
-    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick"
-      class="cursor-pointer min-h-[350px]" :default-sort="{ prop: 'created_at', order: 'descending' }">
+    <!-- <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" @row-click="handleRowClick"
+      class="cursor-pointer min-h-[350px]" :default-sort="{ prop: 'created_at', order: 'descending' }"> -->
+      <el-table :data="filteredItems" stripe style="width: 100%" v-loading="loading" class="cursor-pointer min-h-[350px]"  @row-click="handleRowClick"  :default-sort="{ prop: 'joined_at', order: 'descending' }"  @sort-change="handleSortChange">
       <el-table-column prop="priority" label="PRIORITY" sortable></el-table-column>
       <!-- <el-table-column style="display: none;" prop="display_name" label="Display Name" sortable></el-table-column> -->
 
@@ -104,6 +105,8 @@ const filterApply = ref(false)
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
+const sort = ref({ prop: 'joined_at', order: 'descending' })
+
 const handleRowClick = (row) => {
   viewDetails(row);
 };
@@ -116,7 +119,7 @@ const fetchData = async () => {
     const search_term = search.value; // Get the search term
     console.log(status.value)
     // Fetch data from the server with pagination and search parameters
-    const dataSets = await $adminService.morderation_all(status.value);
+    const dataSets = await $adminService.morderation_all(status.value ,search_term);
     console.log(dataSets)
     // Update the table data
     items.value = dataSets; // Data for the current page
@@ -173,8 +176,33 @@ const formatDate = (dateString) => {
 };
 
 const filteredItems = computed(() => {
-let filtered = items.value;
+// let filtered = items.value;
+let sorted = [...items.value];
 
+  // Apply sorting
+  if (sort.value.prop) {
+    sorted.sort((a, b) => {
+      let aVal = a[sort.value.prop];
+      let bVal = b[sort.value.prop];
+
+      // Handle date fields
+      if (sort.value.prop.includes('date') || sort.value.prop.includes('at')) {
+        aVal = new Date(aVal);
+        bVal = new Date(bVal);
+      }
+
+      if (aVal < bVal) return sort.value.order === 'ascending' ? -1 : 1;
+      if (aVal > bVal) return sort.value.order === 'ascending' ? 1 : -1;
+      return 0;
+    });
+  }
+  if (search.value) {
+    sorted = sorted.filter(item =>
+    item.priority.toLowerCase().includes(search.value.toLowerCase())||
+    (item.display_name && item.display_name.toLowerCase().includes(search.value.toLowerCase()))||
+    (item.email && item.email.toLowerCase().includes(search.value.toLowerCase()))
+  );
+  }
  // if (!search.value) return items.value;
 
 // return items.value.filter(item =>
@@ -184,12 +212,21 @@ let filtered = items.value;
 // );
 
   // Paginate items
-  const start = (options.value.page - 1) * options.value.itemsPerPage;
-  const end = start + options.value.itemsPerPage;
-  return filtered.slice(start, end);
+  // const start = (options.value.page - 1) * options.value.itemsPerPage;
+  // const end = start + options.value.itemsPerPage;
+  // return filtered.slice(start, end);
+   // Update total items after filtering
+   totalItems.value = sorted.length;
+
+// Apply pagination
+const start = (options.value.page - 1) * options.value.itemsPerPage;
+const end = start + options.value.itemsPerPage;
+return sorted.slice(start, end);
 });
 
-
+const handleSortChange = (newSort) => {
+  sort.value = newSort;
+};
 // Function to navigate to view details
 const viewDetails = (row) => {
   moderationStore.setModeration(row);

@@ -39,8 +39,9 @@
     </div>
 
 
-    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" class="cursor-pointer min-h-[350px]"
-      @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
+    <!-- <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" class="cursor-pointer min-h-[350px]"
+      @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }"> -->
+      <el-table :data="filteredItems" stripe style="width: 100%" v-loading="loading" class="cursor-pointer min-h-[350px]"  @row-click="handleRowClick"  :default-sort="{ prop: 'joined_at', order: 'descending' }"  @sort-change="handleSortChange">
       <el-table-column class="text-tealGray" prop="name" label="NAME" sortable></el-table-column>
       <!-- Total Members Column -->
       <el-table-column class="tealGaray" prop="total_members" label="Total Members" sortable>
@@ -79,7 +80,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onMounted } from 'vue';
+import { ref, watch, computed, onMounted, defineEmits } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 import { useFlowbite } from '~/composables/useFlowbite';
@@ -90,14 +91,14 @@ const items = ref([]);
 const totalItems = ref(0);
 const options = ref({
   page: 1,
-  itemsPerPage: 5,
+  itemsPerPage: 10,
 });
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
 const hasAdmin = ref("");
 const filterApply = ref(false);
-const sort = ref({ prop: 'joined_at', order: 'descending' });
+const sort = ref({ prop: 'joined_at', order: 'descending' })
 
 
 
@@ -159,6 +160,10 @@ const filteredItems = computed(() => {
   return sorted.slice(start, end);
 });
 
+const handleSortChange = (newSort) => {
+  sort.value = newSort;
+};
+
 const filterView = () => {
   filterApply.value = false;
 
@@ -192,10 +197,6 @@ const handlePageChange = (newPage) => {
   fetchData();
 };
 
-// Handle sort change event
-const handleSortChange = (newSort) => {
-  sort.value = newSort;
-};
 
 // Format date function
 const formatDate = (dateString) => {

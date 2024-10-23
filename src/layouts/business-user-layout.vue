@@ -1,39 +1,42 @@
 <template>
-  <div>
-  <div>
-    <!-- Notification component -->
-    <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType"
-      :visible="showNotification" @close="closeNotification" :key="notificationKey" />
-  </div>
+  <!-- common full screen loader -->
+  <ScreenLoader v-if="loadingStore.isLoading" />
 
-  <main class=" bg-graySnowDrift">
-    <NavBarPublic></NavBarPublic>
-    <div class="grid grid-cols-6 grid-rows-1 gap-0 mt-16">
-      <div class="col-span-6 row-start-1 row-end-2s">
-        <BusinessUserCover :data="businessUserData" @changeTab="setSelectedTab" :businessUserId="businessUserId"
-          :userSlug="route.params.slug" />
-      </div>
-      <div class="col-start-1 col-end-2 row-start-2 row-end-3">
-        <BusinessUserLeft :data="businessUserData" :userSlug="route.params.slug" />
-      </div>
-      <div class="col-start-6 col-end-7 row-start-2 row-end-3">
-        <BusinessUserRight :data="businessUserData" :userSlug="route.params.slug" />
-      </div>
-      <div class="col-start-2 col-end-6 row-start-2 row-end-3">
-        <div class="px-3 pt-3">
-          <div class="pt-3">
-        <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="loadInfinitePost"
-          :commentHidden="isHiddenComment" />
+  <div>
+    <div>
+      <!-- Notification component -->
+      <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType"
+        :visible="showNotification" @close="closeNotification" :key="notificationKey" />
+    </div>
+
+    <main class=" bg-graySnowDrift">
+      <NavBarPublic></NavBarPublic>
+      <div class="grid grid-cols-6 grid-rows-1 gap-0 mt-16">
+        <div class="col-span-6 row-start-1 row-end-2s">
+          <BusinessUserCover :data="businessUserData" @changeTab="setSelectedTab" :businessUserId="businessUserId"
+            :userSlug="route.params.slug" />
         </div>
-        <Connection v-if="tab === 'connection'" :playerId="businessUserId" @profileView="redirectPage" />
-        <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug"
-          @uploadMedia="fetchUserDetailsBySlug" />
+        <div class="col-start-1 col-end-2 row-start-2 row-end-3">
+          <BusinessUserLeft :data="businessUserData" :userSlug="route.params.slug" />
+        </div>
+        <div class="col-start-6 col-end-7 row-start-2 row-end-3">
+          <BusinessUserRight :data="businessUserData" :userSlug="route.params.slug" />
+        </div>
+        <div class="col-start-2 col-end-6 row-start-2 row-end-3">
+          <div class="px-3 pt-3">
+            <div class="pt-3">
+              <UserFeed v-if="tab === 'feed'" :posts="posts" @profileView="redirectPage" @listpost="loadInfinitePost"
+                :commentHidden="isHiddenComment" />
+            </div>
+            <Connection v-if="tab === 'connection'" :playerId="businessUserId" @profileView="redirectPage" />
+            <mediaTab v-if="tab === 'media'" :galleryItems="galleryItems" :userSlug="route.params.slug"
+              @uploadMedia="fetchUserDetailsBySlug" />
+          </div>
+        </div>
       </div>
-    </div>
-    </div>
-  </main>
-  <FooterPublic></FooterPublic>
-</div>
+    </main>
+    <FooterPublic></FooterPublic>
+  </div>
 </template>
 
 <script setup>
@@ -50,6 +53,10 @@ import Connection from '~/components/user/profile/connection.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
 import { useRoute } from 'vue-router'
 import mediaTab from '~/components/profiles/businessUserProfile/tabs/mediaTab.vue';
+import ScreenLoader from '@/layouts/screen_loader.vue';
+import { useLoadingStore } from '@/stores/loadingStore';
+const loadingStore = useLoadingStore();
+
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -107,6 +114,10 @@ onMounted(() => {
 
 });
 
+useHead({
+  title: 'Recruited '+route.params.slug,
+})
+
 const fetchBusinessUserDetails = async () => {
   try {
     const response = await $publicService.get_business_user(route.params.slug); // Replaced 'dataSets' with 'response'
@@ -116,7 +127,7 @@ const fetchBusinessUserDetails = async () => {
       bio.value = response.user_basic_info.bio || 'User has not entered bio';
       name.value = response.user_basic_info.display_name;
       role.value = response.user_basic_info.user_role;
-      
+
       const date = new Date(response.user_basic_info.joined_at);
       const monthNames = [
         'January', 'February', 'March', 'April', 'May', 'June',
@@ -203,11 +214,11 @@ const setGalleryItems = (mediaInfo) => {
   });
 };
 
-const redirectPage = (url) =>{
-    router.push({
-      path: url,
+const redirectPage = (url) => {
+  router.push({
+    path: url,
 
-    });
+  });
 }
 
 const fetchConnections = async () => {
@@ -232,7 +243,7 @@ const fetchConnections = async () => {
 //   }
 // }
 
-const loadInfinitePost  = async () => {
+const loadInfinitePost = async () => {
   try {
     //  isLoading.value = true;
     const response = await $feedService.list_posts(currentPage.value);

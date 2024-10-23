@@ -177,12 +177,27 @@ const role = ref('')
 const lastSeenAt = ref('')
 const emailVerified = ref('')
 const sort = ref({ prop: 'joined_at', order: 'descending' })
-const filterApply = ref(false)
+const filterApply = ref(false);
+
+document.addEventListener('reload', () => {
+  fetchData(); // Reload the data
+});
+
+
 // Fetch data from the API
 const fetchData = async () => {
   console.log(4587)
   loading.value = true
   try {
+    console.log("Role")
+    console.log(role.value)
+  //   if (route.query.role == '1') {
+  //   console.log(41)
+  //    role.value = ''
+  // } else{
+  //   console.log(42)
+  //    role.value = route.query.role
+  // }
     const users = await $adminService.list_users(role.value, lastSeenAt.value, emailVerified.value);
     items.value = users;
     totalItems.value = users.length
@@ -219,8 +234,10 @@ watch([options, search], fetchData, { immediate: true })
 onMounted(() => {
   console.log(route.query.role)
   if (route.query.role == '1') {
-    role.value = null
-  } {
+    console.log(41)
+    role.value = ''
+  } else{
+    console.log(42)
     role.value = route.query.role
   }
   fetchData()
@@ -229,6 +246,7 @@ onMounted(() => {
     initFlowbite();
   })
 });
+
 
 // Computed property for filtered, sorted, and paginated items
 const filteredItems = computed(() => {
@@ -302,10 +320,10 @@ const formatDate = (dateString) => {
 watch(
   () => route.query.role,
   () => {
-    if (route.query.role == '1') {
+    if (route.query.role =='1') {
       console.log(123)
       role.value = ''
-    } {
+    }else {
       role.value = route.query.role
     }
     fetchData()

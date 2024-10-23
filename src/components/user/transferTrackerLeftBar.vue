@@ -1,6 +1,6 @@
 <template>
     <!-- Start Filter Section  -->
-    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
+    <div v-if="userTypeId == 3 && role == 'coach'" class=" card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white p-3 mt-3">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-semibold text-black">Filters</h2>
             <button class="flex text-ceil text-sm">
@@ -49,4 +49,11 @@
 export default {
     name: 'transfer-tracker-left-bar'
 }
+import { useUserStore } from '~/stores/userStore';
+
+const userStore = useUserStore();
+
+
+const userTypeId = computed(() => userStore.userTypeId);
+const role = computed(() => userStore.role);
 </script>

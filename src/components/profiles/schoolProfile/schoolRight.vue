@@ -6,8 +6,14 @@
                     <div class="col-span-7">
                         <h2 class="text-lg font-semibold mb-4 pl-3">Tennis info</h2>
                     </div>
-                    <div class="">
-                        <h2 class="text-lg font-semibold mb-4"></h2>
+
+                    <div class="w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"
+                        @click="toggleModal('tennisinfo')">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                        </svg>
                     </div>
 
                 </div>
@@ -35,10 +41,21 @@
                 <div class="flex items-center justify-between">
 
                     <div class="flex items-center space-x-4 w-48">
-
                         <h1 class="text-lg font-semibold mb-4 text-black">Status</h1>
+
+                         <!-- Edit button next to status -->
+        <div class="ml-2 w-5 h-5 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"
+        @click="toggleModal('statusinfo')">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" class="size-4">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+        </svg>
+      </div>
+
                     </div>
                 </div>
+
 
                 <div class="flex">
                     <div class="text-black">
@@ -127,11 +144,22 @@
         </div>
 
     </div>
+    <!-- Modal Components with Standardized Props -->
+    <StatusInfoModal :visible="modals.statusinfo" @close="handleModalClose" :slug="slug" :schoolData="props.data" />
+    <TennisInfoModal :visible="modals.tennisinfo" @close="handleModalClose" :slug="slug" :schoolData="props.data" />
+
 </template>
 
 <script setup>
 import { ref, onMounted, reactive } from 'vue';
+import { useNuxtApp } from '#app';
+import StatusInfoModal from '~/components/profiles/schoolProfile/modals/statusInfoModal.vue';
+import TennisInfoModal from '~/components/profiles/schoolProfile/modals/tennisInfoModal.vue';
 
+const slug = ref('');
+const loggedUserSlug = ref('');
+const nuxtApp = useNuxtApp();
+const $publicService = nuxtApp.$publicService;
 const props = defineProps({
 
     data: {
@@ -144,6 +172,55 @@ const props = defineProps({
         required: true,
     }
 });
+
+// Define reactive state for all modals
+const modals = reactive({
+    statusinfo: false,
+    tennisinfo: false
+});
+
+// Generic toggle function
+const toggleModal = (modalName) => {
+    if (modals.hasOwnProperty(modalName)) {
+        modals[modalName] = !modals[modalName];
+    } else {
+        console.warn(`Modal "${modalName}" does not exist.`);
+    }
+};
+
+// Generic function to close the modal and fetch user details
+const handleModalClose = (modalName) => {
+    // Defensive check to make sure modalName exists
+    if (modals[modalName] !== undefined) {
+        modals[modalName] = false;  // Close the modal
+        fetchSchoolDetails();         // Fetch updated user details after closing
+    } else {
+        console.error(`Invalid modal name: ${modalName}`);
+    }
+};
+
+
+const fetchSchoolDetails = async () => {
+    try {
+        const dataSets = await $publicService.get_school(props.schoolSlug);
+
+        if (dataSets.school_users_info) {
+
+        }
+
+    } catch (error) {
+        console.error('Error fetching data:', error.message);
+    }
+}
+
+onMounted(() => {
+    slug.value = props.schoolSlug;
+
+    if (process.client) {
+        loggedUserSlug.value = localStorage.getItem('user_slug')
+    }
+})
+
 </script>
 
 <style scoped>

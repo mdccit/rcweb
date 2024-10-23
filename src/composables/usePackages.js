@@ -7,17 +7,38 @@ export const usePackages = () => {
       name: 'Standard',
       value: 'standard',
       price: '$0.00',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-      features: ['Feature 1', 'Feature 2', 'Feature 3'],
-    },
+      description: 'Enjoy a hassle-free experience as you explore our offerings without any commitment.',
+      features: ['Profile Page Access', 'Newsfeed', 'Chat', 'Search', 'Network'
+      , 'Resources' ]   },
     {
       label: 'Premium',
       name: 'Premium',
       value: 'premium',
       price: '$100.00',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-      features: ['Feature 1', 'Feature 2', 'Feature 3', 'Feature 4', 'Feature 5'],
+      description: 'Unlock advanced features and enjoy enhanced services, priority support, and exclusive content for a seamless experience, all at an affordable monthly.',
+      features: ['Profile Page Access', 'Manage school', 'Newsfeed', 'Chat', 'Search', 'Network'
+      , 'Resources' ],
     },
+    // {
+    //   role: 'coach',
+    //   label: 'Standard',
+    //   name: 'Standard',
+    //   value: 'standard',
+    //   price: '$0.00',
+    //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+    //   features: ['Profile Page Access', 'Manage School', 'Newsfeed', 'Chat', 'Search', 'Network'
+    //   , 'Resources'],
+    // },
+    // {
+    //   role: 'coach',
+    //   label: 'Premium',
+    //   name: 'Premium',
+    //   value: 'premium',
+    //   price: '$100.00',
+    //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+    //   features: ['Profile Page Access', 'Manage School', 'Newsfeed', 'Chat', 'Search', 'Network'
+    //   , 'Resources', 'Transfer Tacker'],
+    // },
   ])
 
   return {

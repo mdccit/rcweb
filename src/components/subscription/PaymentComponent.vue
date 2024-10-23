@@ -1,5 +1,9 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen bg-gray-100">
+
+    <!-- common full screen loader -->
+    <ScreenLoader v-if="loading"/>
+    <!-- / common full screen loader -->
+    <div class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
       <!-- Trial Subscription Notice -->
       <div v-if="subscriptionType === 'trial'"
@@ -79,6 +83,7 @@ import { ref, onMounted } from 'vue';
 import { loadStripe } from '@stripe/stripe-js';
 import { useNuxtApp, useRuntimeConfig } from '#app';
 import { useRouter, useRoute } from 'vue-router';
+import ScreenLoader from '@/layouts/screen_loader.vue';
 
 // Access services and configurations from Nuxt context
 const nuxtApp = useNuxtApp();

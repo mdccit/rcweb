@@ -110,6 +110,9 @@
                     </span>
                 </div>
             </div>
+            <div  v-if=" props.saveSearch.length  ==0">
+                  <p>No Save Search</p>
+            </div>
             <!-- <div class="card rounded-2xl overflow-hidden border border-timberwolf bg-white w-full p-4 mt-3">
                 <div class="flex justify-between items-center mb-4">
                     <h4 class="text-sm font-bold text-black">Search name</h4>
