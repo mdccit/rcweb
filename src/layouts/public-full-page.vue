@@ -3,7 +3,7 @@
   <ScreenLoader v-if="loadingStore.isLoading" />
   <!-- / common full screen loader -->
 
-  <div v-if="!loadingStore.isLoading">
+  <div>
     <LoadingSpinner v-if="loading" />
     <main class="min-h-screen p-[0px]" v-else>
       <div class="container-compact px-8">

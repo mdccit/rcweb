@@ -3,7 +3,7 @@
     <ScreenLoader v-if="loadingStore.isLoading" />
     <!-- / common full screen loader -->
   
-    <div v-if="!loadingStore.isLoading">
+    <div >
     <!-- Top Navigation Bar -->
     <SocialHubNavbar />
 

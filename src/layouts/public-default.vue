@@ -3,7 +3,7 @@
   <ScreenLoader v-if="loadingStore.isLoading" />
   <!-- / common full screen loader -->
 
-  <div v-if="!loadingStore.isLoading">
+  <div>
     <NavBarPublic></NavBarPublic>
     <LoadingSpinner v-if="loading" />
     <main class="min-h-screen" v-else>

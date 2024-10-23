@@ -3,7 +3,7 @@
     <ScreenLoader v-if="loadingStore.isLoading" />
     <!-- / common full screen loader -->
   
-    <div v-if="!loadingStore.isLoading">
+    <div>
     <!-- Notification component -->
     <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType"
       :visible="showNotification" @close="closeNotification" :key="notificationKey" />

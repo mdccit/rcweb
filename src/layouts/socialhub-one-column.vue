@@ -3,7 +3,7 @@
     <ScreenLoader v-if="loadingStore.isLoading" />
     <!-- / common full screen loader -->
 
-  <div v-if="!loadingStore.isLoading" class="flex flex-col min-h-screen">
+  <div class="flex flex-col min-h-screen">
     <Navbar /> <!-- Top Navigation Bar -->
     
     <div class="flex flex-grow">

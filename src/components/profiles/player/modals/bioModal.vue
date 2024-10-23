@@ -3,9 +3,9 @@
 
 
     <!-- common full screen loader -->
-    <ScreenLoader v-if="loadingStore.isLoading" />
+    <ScreenLoader v-if="loading" />
     <!-- Bio change modal -->
-    <div v-if="visible && (!loadingStore.isLoading)" class="relative z-index-320" aria-labelledby="modal-title"
+    <div  class="relative z-index-320" aria-labelledby="modal-title"
         role="dialog" aria-modal="true">
 
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -104,10 +104,8 @@ watch(() => props.visible, (newVal) => {
 });
 
 const fetchPlayerBio = async (slug) => {
-    const loadingStore = useLoadingStore();
     try {
-        // Stop loading after request
-        loadingStore.startLoading();
+        loading.value = true;
         const dataSets = await $publicService.get_user_profile(props.slug);
 
         if (dataSets.user_basic_info) {
@@ -117,8 +115,7 @@ const fetchPlayerBio = async (slug) => {
     } catch (error) {
         nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     } finally {
-        // Stop loading after request
-        loadingStore.stopLoading();
+        loading.value = false;
     }
 }
 

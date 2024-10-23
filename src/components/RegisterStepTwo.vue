@@ -1,4 +1,6 @@
 <template>
+    <!-- common full screen loader -->
+    <ScreenLoader v-if="loading"/>
   <div
     class="min-h-screen w-full bg-generic bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4">
     <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl">
@@ -695,6 +697,7 @@ import BudgetDropdown from '~/components/common/select/BudgetDropdown.vue';
 import HandednessDropdown from '~/components/common/select/HandednessDropdown.vue';
 import { handleError } from '@/utils/handleError';
 import { useNuxtApp } from '#app';
+import ScreenLoader from '@/layouts/screen_loader.vue';
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
