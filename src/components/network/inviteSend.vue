@@ -105,13 +105,13 @@
                        </div>
                        <div>
                             <button
-                                class="bg-steelBlue rounded-md shadow-sm hover:bg-blue-700 text-white p-2 m-1 text-xs h-[35px] w-[85px]">
+                                class="bg-steelBlue rounded-full shadow-sm hover:bg-blue-700 text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                    Invite sent
                             </button>
                         </div>
                         <div>
                             <button @click="connectCancelle(data.id)"
-                                class="bg-white hover:bg-gray-50 rounded-md font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 p-2 m-1 text-xs h-[35px] w-[85px]">
+                                class="bg-white hover:bg-gray-50 rounded-full font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 p-2 m-1 text-xs h-[35px] w-[85px]">
                                    Cancel
                             </button>
                         </div>

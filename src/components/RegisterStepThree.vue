@@ -53,7 +53,7 @@
           <div v-if="pkg.value === 'standard'" class="mt-auto">
             <!-- Subscribe Button (more prominent) -->
             <button @click.stop="subscribeStandard"
-              class="bg-blue-600 text-white font-light px-4 py-2 rounded-md mt-4 w-full">
+              class="bg-blue-600 text-white font-light px-4 py-2 rounded-full mt-4 w-full">
               Subscribe
             </button>
           </div>
@@ -81,7 +81,7 @@
 
             <!-- Subscribe Button (more prominent) -->
             <button @click.stop="subscribePremium"
-              class="bg-blue-600 text-white font-light px-4 py-2 rounded-md mt-4 w-full">
+              class="bg-blue-600 text-white font-light px-4 py-2 rounded-full mt-4 w-full">
               Subscribe
             </button>
           </div>

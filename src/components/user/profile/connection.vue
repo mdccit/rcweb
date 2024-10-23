@@ -77,12 +77,12 @@
                                 </button>
                                 <button  v-if="connection.connection_status == 'connect'"  @click="connectRequestSend(connection.id)"
                                    
-                                    class="long-btn-card bg-blue-500 rounded-md p-2 m-1 text-white text-xs h-[35px] w-[85px]">
+                                    class="long-btn-card bg-blue-500 rounded-full p-2 m-1 text-white text-xs h-[35px] w-[85px]">
                                     Connect +
                                 </button>
                                
                                 <button v-if="connection.connection_status == 'pending'"
-                                    class=" long-btn-card bg-blue-500 rounded-md shadow-sm hover:bg-blue-700 text-white p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    class=" long-btn-card bg-blue-500 rounded-full shadow-sm hover:bg-blue-700 text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                     Invite sent
                                 </button>
                                 <!-- <button v-if="connection.connection_status == 'pending'"

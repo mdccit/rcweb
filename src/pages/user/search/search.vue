@@ -133,22 +133,22 @@
                                     <div v-if="user.connection != null">
                                         <div v-if="user.connection.connection_status == 'pending'">
                                             <button v-if="loginUserId == user.connection.sender_id"
-                                                class="bg-blue-500 rounded-md text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                class="bg-blue-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Invite Sent
                                             </button>
                                             <button v-if="loginUserId == user.connection.sender_id"
                                                 @click="cancel(user.connection.id)"
-                                                class="bg-white hover:bg-gray-50 rounded-md font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                class="bg-white hover:bg-gray-50 rounded-full font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Cancel
                                             </button>
                                             <button @click="accept(user.connection.id)"
                                                 v-if="loginUserId == user.connection.receiver_id"
-                                                class="bg-blue-500 rounded-md text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                class="bg-blue-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Accept
                                             </button>
                                             <button @click="reject(user.connection.id)"
                                                 v-if="loginUserId == user.connection.receiver_id"
-                                                class="bg-blue-500 rounded-md text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
+                                                class="bg-blue-500 rounded-full text-white  p-2 m-1 text-xs h-[35px] w-[85px]">
                                                 Reject
                                             </button>
                                         </div>
