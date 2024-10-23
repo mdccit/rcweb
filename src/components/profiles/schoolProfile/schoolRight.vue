@@ -154,7 +154,7 @@
 import { ref, onMounted, reactive } from 'vue';
 import { useNuxtApp } from '#app';
 import StatusInfoModal from '~/components/profiles/schoolProfile/modals/statusInfoModal.vue';
-import TennisInfoModal from '~/components/profiles/schoolProfile/modals/tennisinfoModal.vue';
+import TennisInfoModal from '~/components/profiles/schoolProfile/modals/tennisInfoModal.vue';
 
 const slug = ref('');
 const loggedUserSlug = ref('');
