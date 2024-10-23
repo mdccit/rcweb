@@ -1,5 +1,9 @@
 <template>
- <div>
+    <!-- common full screen loader -->
+    <ScreenLoader v-if="loadingStore.isLoading" />
+    <!-- / common full screen loader -->
+  
+    <div v-if="!loadingStore.isLoading">
     <!-- Top Navigation Bar -->
     <SocialHubNavbar />
 
@@ -59,10 +63,10 @@ import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import SocialHubNavbar from '~/components/user/navbar.vue';
 import TransferTrackerLeftBar from '~/components/user/transferTrackerLeftBar.vue';
 import TransferTrackerRightBar from '~/components/user/transferTrackerRightBar.vue';
+import ScreenLoader from '@/layouts/screen_loader.vue';
+import { useLoadingStore } from '@/stores/loadingStore';
+const loadingStore = useLoadingStore();
 
-// import checkSession from '~/middleware/checkSession';
-
-// defineNuxtRouteMiddleware(checkSession);
 
 const loading = ref(false);
 const router = useRouter();

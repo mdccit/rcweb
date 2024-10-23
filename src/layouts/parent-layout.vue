@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <!-- common full screen loader -->
+  <ScreenLoader v-if="loadingStore.isLoading" />
+  <!-- / common full screen loader -->
+
+  <div v-if="!loadingStore.isLoading">
     <!-- Notification component -->
     <Notification v-if="showNotification" :message="notificationMessage" :type="notificationType"
       :visible="showNotification" @close="closeNotification" :key="notificationKey" />
@@ -59,6 +63,9 @@ import UserFeed from '~/components/user/profile/userFeed.vue';
 import mediaTab from '~/components/profiles/parentProfile/tabs/mediaTab.vue';
 import Connection from '~/components/user/profile/connection.vue';
 import ChilTab from '~/components/profiles/parentProfile/tabs/childTab.vue';
+import ScreenLoader from '@/layouts/screen_loader.vue';
+import { useLoadingStore } from '@/stores/loadingStore';
+const loadingStore = useLoadingStore();
 
 const router = useRouter();
 

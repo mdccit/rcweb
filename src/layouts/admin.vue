@@ -1,5 +1,9 @@
 <template>
-  <div>
+    <!-- common full screen loader -->
+    <ScreenLoader v-if="loadingStore.isLoading" />
+    <!-- / common full screen loader -->
+  
+    <div v-if="!loadingStore.isLoading">
     <AdminNavBar />
     <LoadingSpinner v-if="loading" />
     <main class="min-h-screen bg-gray-100" v-else>
@@ -26,6 +30,9 @@ import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import AdminNavBar from '~/components/admin/AdminNavBar.vue';
+import ScreenLoader from '@/layouts/screen_loader.vue';
+import { useLoadingStore } from '@/stores/loadingStore';
+const loadingStore = useLoadingStore();
 
 const loading = ref(false);
 const userStore = useUserStore();

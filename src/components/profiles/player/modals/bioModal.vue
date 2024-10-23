@@ -71,7 +71,7 @@ import { handleError } from '@/utils/handleError';
 import InputError from '@/components/common/input/InputError.vue';
 import ScreenLoader from '@/layouts/screen_loader.vue';
 import { useLoadingStore } from '@/stores/loadingStore';
-const loadingStore = useLoadingStore();
+
 
 const nuxtApp = useNuxtApp();
 const $userService = nuxtApp.$userService;
@@ -104,6 +104,7 @@ watch(() => props.visible, (newVal) => {
 });
 
 const fetchPlayerBio = async (slug) => {
+    const loadingStore = useLoadingStore();
     try {
         // Stop loading after request
         loadingStore.startLoading();

@@ -5,11 +5,17 @@ export const useLoadingStore = defineStore('loading', () => {
   const isLoading = ref(false);
 
   const startLoading = () => {
-    isLoading.value = true;
+    // Only start loading if it's not already in a loading state
+    if (!isLoading.value) {
+      isLoading.value = true;
+    }
   };
 
   const stopLoading = () => {
-    isLoading.value = false;
+    // Only stop loading if it is currently in a loading state
+    if (isLoading.value) {
+      isLoading.value = false;
+    }
   };
 
   return { isLoading, startLoading, stopLoading };
