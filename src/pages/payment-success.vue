@@ -1,9 +1,9 @@
 <template>
 
   <!-- common full screen loader -->
-  <ScreenLoader v-if="!isDataFetched" />
+  <ScreenLoader v-if="loading" />
 
-  <div v-if="isDataFetched" class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="min-h-screen flex items-center justify-center bg-gray-100">
     <div class="bg-white rounded-lg shadow-md text-center w-[390px] h-[500px]">
       <div class="w-full h-[150px] bg-limegreen rounded-t-lg flex items-center justify-center">
         <img src="@/assets/images/icons8-correct-60.png" class="m-auto" alt="">
@@ -43,8 +43,6 @@ import { ref, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { format } from 'date-fns';
 import ScreenLoader from '@/layouts/screen_loader.vue';
-import { useLoadingStore } from '@/stores/loadingStore';
-const loadingStore = useLoadingStore();
 
 const stripe_subscription_id = ref('');
 const currency = ref('');
@@ -54,6 +52,7 @@ const end_date = ref('');
 const status = ref('');
 const is_auto_renew = ref('');
 const isDataFetched = ref(false);
+const loading = ref(false);
 
 const nuxtApp = useNuxtApp();
 
@@ -68,39 +67,37 @@ const formatDate = (dateString) => {
 
 // Fetch subscription details when the component is mounted
 onMounted(async () => {
+  await fetchData();
 
-  try {
-    // loadingStore.startLoading();
-    console.log('start loading');
-
-    await fetchData();
-
-  } catch (error) {
-    console.error('Failed to fetch subscription details:', error);
-  } finally {
-    loadingStore.stopLoading();
-    console.log('loading stop');
-  }
 });
 
 
 const fetchData = async () => {
-  const response = await nuxtApp.$subscriptionService.get_subscription();
 
-  if (response) {
-    // Set the subscription details from the response
-    stripe_subscription_id.value = response.stripe_subscription_id || '';
-    status.value = response.status || '';
-    price.value = response.price || '';
-    currency.value = response.currency || '';
-    start_date.value = response.start_date || '';
-    end_date.value = response.end_date || '';
-    is_auto_renew.value = response.cancel_at_period_end || null;
-    isDataFetched.value = true;
+  try {
+    loading.value = true;
+    const response = await nuxtApp.$subscriptionService.get_subscription();
 
-  } else {
-    throw new Error('Failed to retrieve subscription data.');
+    if (response) {
+      // Set the subscription details from the response
+      stripe_subscription_id.value = response.stripe_subscription_id || '';
+      status.value = response.status || '';
+      price.value = response.price || '';
+      currency.value = response.currency || '';
+      start_date.value = response.start_date || '';
+      end_date.value = response.end_date || '';
+      is_auto_renew.value = response.cancel_at_period_end || null;
+      isDataFetched.value = true;
+
+    } else {
+      throw new Error('Failed to retrieve subscription data.');
+    }
+  }catch(error){
+
+  }finally{
+    loading.value = false;
   }
+
 }
 
 </script>
