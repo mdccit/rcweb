@@ -119,16 +119,12 @@
     <div class="mt-6" v-if="activeStatus === 'active'">
       <hr class="mt-5 mb-3 text-pigeonBlue">
       <h3 class="font-semibold text-xl mb-4 text-black">Cancel subscription</h3>
-      <p class="text-sm text-darkSlateBlue mb-4">Lorem ipsum is a placeholder text commonly used to demonstrate the
-        visual form of a document or a typeface without relying on meaningful content.
+      <p class="text-sm text-darkSlateBlue mb-4">Once your account is canceled, you can re-add any subscription you need.
       </p>
 
       <div class="space-y-4">
         <div class="card rounded-2xl overflow-hidden border border-gainsboroGray bg-white w-full p-3 mt-3">
-          <p class="text-sm text-darkSlateBlue mb-6">Lorem ipsum is a placeholder text commonly used to demonstrate
-            the
-            visual form of a documentLorem ipsum is a placeholder text commonly used to demonstrate the visual form
-            of a document or a typeface without relying on meaningful content.</p>
+          <p class="text-sm text-darkSlateBlue mb-6">Your cancellation will take effect from the next renewal date. You can continue to enjoy all premium features until the end of your current paid period.</p>
 
           <div class="mt-6">
             <button @click="cancelSubscription"
