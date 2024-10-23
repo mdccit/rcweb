@@ -35,17 +35,17 @@
                 <div v-if="playerId != userId">
                     <div class="flex" v-if="buttonHide == false">
                         <button @click="connectAcceptOrConnect"
-                           class="bg-blue-500 rounded-md shadow-sm hover:bg-blue-700 p-2 m-1 text-white text-xs h-[35px] w-[85px]">
+                           class="bg-blue-500 rounded-full shadow-sm hover:bg-blue-700 p-2 m-1 text-white text-xs h-[35px] w-[85px]">
                             {{ connectionButtonName }}
                         </button>
                         
                         <div v-if="connectionButtonName =='Accept'" class="text-white">
-                            <button @click="connectReject" class="bg-red-600 hover:bg-red-700 rounded-md p-2 m-1 text-xs h-[35px] w-[85px]">
+                            <button @click="connectReject" class="bg-red-600 hover:bg-red-700 rounded-full p-2 m-1 text-xs h-[35px] w-[85px]">
                                Reject
                             </button>
                         </div> 
                         <div v-if="connectionButtonName =='Invite sent'" class="text-white">
-                            <button @click="connectCancel" class="bg-white hover:bg-gray-50 rounded-md font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 p-2 m-1 text-xs h-[35px] w-[85px]">
+                            <button @click="connectCancel" class="bg-white hover:bg-gray-50 rounded-full font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 p-2 m-1 text-xs h-[35px] w-[85px]">
                                Cancel
                             </button>
                         </div>

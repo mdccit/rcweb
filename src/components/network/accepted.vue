@@ -132,7 +132,7 @@
                                     </svg>
                                 </button>
                                 <button @click="connectRemove(data.id)"
-                                    class="bg-red-600 rounded-md hover:bg-red-700 text-white p-2 m-1 text-xs h-[35px] w-[85px]">
+                                    class="bg-red-600 rounded-full hover:bg-red-700 text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                     Remove
                                 </button>
 

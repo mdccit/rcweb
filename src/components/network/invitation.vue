@@ -105,13 +105,13 @@
                       </div>
                       <div>
                            <button @click="connectAccept(data.id)" 
-                               class="bg-steelBlue rounded-md shadow-sm hover:bg-blue-700 text-white p-2 m-1 text-xs h-[35px] w-[85px]">
+                               class="bg-steelBlue rounded-full shadow-sm hover:bg-blue-700 text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                   Accept
                            </button>
                        </div>
                        <div>
                            <button @click="connectReject(data.id)"
-                               class="bg-red-600 hover:bg-red-700 rounded-md text-white p-2 m-1 text-xs h-[35px] w-[85px]">
+                               class="bg-red-600 hover:bg-red-700 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                   Reject
                            </button>
                        </div>
