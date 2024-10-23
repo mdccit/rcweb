@@ -5,18 +5,17 @@
   <!-- / common full screen loader -->
 
 
-  <div v-if="!loading"
-    class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl mx-auto">
+  <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl mx-auto">
 
     <div class="flex">
       <!-- Iterate through the packages array -->
       <div v-for="(pkg, index) in packages" :key="pkg.value" class="flex-1 flex justify-center">
         <div :key="refreshKey" :class="[
     'border w-[230px] rounded-lg text-center p-3 relative flex flex-col cursor-pointer',
-    pkg.name === 'Premium' ? 'pro-pack' : '',
-    selectedPackage === pkg.name ? 'highlighted-package' : ''
+    pkg.name === 'Premium' ? '' : '',
+    selectedPackage === pkg.name ? '' : ''
   ]" @click="selectPackage(pkg.value)">
-          <h3 :class="pkg.name === 'Premium' ? 'premium-text' : ''" class="font-medium text-black mb-2">{{ pkg.name }}
+          <h3>{{ pkg.name }}
           </h3>
 
           <h1 class="text-3xl font-medium text-black mb-2">{{ pkg.price }}</h1>
@@ -38,7 +37,7 @@
           </div>
 
           <!-- Subscription Button -->
-          <div class="mb-4 mt-auto">
+          <div class="mb-4 mt-auto" v-if="!loading">
             <!-- Show this button if activeStatus is 'active' -->
             <button v-if="activeStatus === 'active' && pkg.value === 'standard' && isSetToCancel === false"
               @click="openModal()" :value="pkg.value"
@@ -46,8 +45,6 @@
               <ButtonSpinner v-if="loading" />
               Change Plan to {{ pkg.name }}
             </button>
-
-
 
             <!-- Show this button if activeStatus is NOT 'active' -->
             <button v-else-if="activeStatus !== 'active' && pkg.value === 'premium'" @click="subscribePremium()"
@@ -206,7 +203,9 @@ const subscribePremium = async () => {
       // nuxtApp.$notification.triggerNotification('Error during subscription process', 'failure');
       console.error('Error during payment method setup:', error);
     } finally {
+      await fetchSubscriptionDetails();
       loading.value = false;
+      refreshButtons();
     }
   } else {
     console.log('Standard package selected, no payment needed.');
@@ -221,6 +220,7 @@ const cancelSubscription = async () => {
     isModalVisible.value = false;
     const response = await $subscriptionService.cancel_subscription();
     if (response && response.status === 200) {
+      activeStatus.value = 'cancelled'; 
       // Success case
       nuxtApp.$notification.triggerNotification(response.display_message, 'success');
     } else {
@@ -230,8 +230,9 @@ const cancelSubscription = async () => {
   } catch (error) {
     console.error('Error canceling subscription:', error);
   } finally {
-    loading.value = false;
+    await fetchSubscriptionDetails();
     refreshButtons();
+    loading.value = false;
   }
 };
 
@@ -243,10 +244,17 @@ const reloadPage = () => {
 // Function to refresh buttons
 const refreshButtons = () => {
   refreshKey.value++;  // Update the key to trigger reactivity
+  // Update activeStatus or isSetToCancel based on the updated subscription state
+  if (activeStatus.value === 'active') {
+    isSetToCancel.value = false;
+  } else {
+    isSetToCancel.value = true;
+  }
 };
 
 const stopPremiumCancellation = async () => {
   try {
+    loading.value = true;
     const response = await $subscriptionService.stop_premium_cancellation();
     if (response && response.status === 200) {
 
@@ -259,7 +267,9 @@ const stopPremiumCancellation = async () => {
   } catch (error) {
     console.error('Error canceling subscription:', error);
   } finally {
-    reloadPage();
+    await fetchSubscriptionDetails();
+    refreshButtons();
+    loading.value = false;
   }
 };
 
@@ -375,33 +385,5 @@ onMounted(async () => {
   /* Adds shadow highlight */
   border-color: #007bff;
   /* Blue border for the highlighted package */
-}
-
-/* Highlight "Premium" word with blue-themed styling */
-.premium-text {
-  color: #1e40af;
-  /* Bold blue color */
-  font-size: 1.75rem;
-  /* Larger font size */
-  font-weight: bold;
-  text-transform: uppercase;
-  /* Make text uppercase */
-  letter-spacing: 1px;
-  text-shadow: 2px 2px 8px rgba(30, 64, 175, 0.5);
-  /* Subtle blue shadow */
-  position: relative;
-}
-
-/* Optional: Add a gradient underline for more emphasis */
-.premium-text::before {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #1e40af, #60a5fa);
-  /* Blue gradient */
-  border-radius: 2px;
 }
 </style>
