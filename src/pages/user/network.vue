@@ -1,64 +1,16 @@
 <template>
     <div>
-          <!-- Start Connections Section -->
-          <div class="flex flex-wrap gap-2 mt-4 mb-2">
-            <div class="flex-1 pl-2">
-
-                <h2 class="text-lg font-semibold text-black">Connections</h2>
-            </div>
-            <div class="flex-3">
-                <div class="flex items-center px-3 divide-x">
-                    <a class="text-steelBlue text-sm hover:underline">Show all</a>
-                </div>
-            </div>
-        </div>
-        <div class="flex">
-            <!-- Accepted Connection Start -->
-                <Accepted :data="connection.acccept_list" @updatedData="fetConnection" :userId="userId"/>
-            <!-- Accepted Connection End -->
-           
-        </div>
+        <!-- Start Connections Section -->
+            <Accepted :data="acceptConnection" @updatedData="fetConnection" :userId="userId"/>
         <!-- End Connections Section -->
 
         <!-- Start Invites Section -->
-        <div class="flex flex-wrap gap-2 mt-4 mb-2">
-            <div class="flex-1 pl-2">
-
-                <h2 class="text-lg font-semibold text-black">Invites</h2>
-            </div>
-            <div class="flex-3">
-                <div class="flex items-center px-3 divide-x">
-                    <a class="text-steelBlue text-sm hover:underline">Show all</a>
-                </div>
-            </div>
-        </div>
-        <div class="flex">
-            <!-- invite Send -->
-                <InviteSend :data="connection.invite_list" @updatedData="fetConnection" />
-            <!-- invite Send End-->
-           
-        </div>
+            <InviteSend :data="inviteSend" @updatedData="fetConnection" />
         <!-- End Invites Section -->
 
       
-         <!-- Start Invitation Section -->
-        <div class="flex flex-wrap gap-2 mt-4 mb-2">
-            <div class="flex-1 pl-2">
-
-                <h2 class="text-lg font-semibold text-black">Invitations</h2>
-            </div>
-            <div class="flex-3">
-                <div class="flex items-center px-3 divide-x">
-                    <a class="text-steelBlue text-sm hover:underline">Show all</a>
-                </div>
-            </div>
-        </div>
-        <div class="flex">
-            <!-- Invitation  Start -->
-              <Invitation :data="connection.invitation_list" @updatedData="fetConnection"/>
-            <!-- Invitation  End -->
-           
-        </div>
+        <!-- Start Invitation Section -->
+            <Invitation :data="connection" @updatedData="fetConnection"/>
         <!-- End Invitation Section -->
     </div>
 </template>
@@ -91,12 +43,18 @@ onMounted(() => {
 });
 
 const connection = ref('')
+const acceptConnection = ref([])
+const inviteSend = ref([])
 
 const fetConnection  = async () => {
   try {
      const response = await $userService.get_connection_list();
+     console.log(5022)
+
     console.log(response.dataSets)
-    connection.value = response.dataSets
+    connection.value = response.dataSets.invitation_list
+    acceptConnection.value = response.dataSets.acccept_list
+    inviteSend.value = response.dataSets.invite_list
     console.log( connection.value.invite_list)
   } catch (error) {
     console.error('Failed to load posts:', error.message);
