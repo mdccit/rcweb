@@ -16,10 +16,10 @@
           <p class="text-xs mb-5">{{ pkg.description }}</p>
 
           <!-- Features List -->
-          <div class="flex-grow">
+          <div class="grid justify-center">
             <p v-for="(feature, fIndex) in pkg.features" :key="fIndex"
-              class="text-xs flex text-center justify-center mb-2">
-              <span class="text-limegreen ml-1">
+              class="text-xs flex text-left mb-2">
+              <span class="text-limegreen ml-1 me-2">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
                   <path fill-rule="evenodd"
                     d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
@@ -35,7 +35,7 @@
             <!-- Show this button if activeStatus is 'active' -->
             <button v-if="activeStatus === 'active' && pkg.value === 'standard' && isSetToCancel === false"
               @click="openModal()" :value="pkg.value"
-              class="border rounded-lg shadow-sm font-normal py-2 px-4 text-xs bg-steelBlue text-white w-full">
+              class="border rounded-full shadow-sm font-normal py-2 px-4 text-xs bg-steelBlue text-white w-full">
               <ButtonSpinner v-if="loading" />
               Change Plan to {{ pkg.name }}
             </button>
@@ -45,14 +45,14 @@
             <!-- Show this button if activeStatus is NOT 'active' -->
             <button v-else-if="activeStatus !== 'active' && pkg.value === 'premium'" @click="subscribePremium()"
               :value="pkg.value"
-              class="border rounded-lg shadow-sm font-normal py-2 px-4 text-xs bg-steelBlue text-white w-full">
+              class="border shadow-sm rounded-full font-normal py-2 px-4 text-xs bg-steelBlue text-white w-full">
               <ButtonSpinner v-if="loading" />
               Subscribe to {{ pkg.name }}
             </button>
 
             <button v-else-if="activeStatus == 'active' && pkg.value === 'premium' && isSetToCancel === true"
               @click="stopPremiumCancellation()" :value="pkg.value"
-              class="border rounded-lg shadow-sm font-normal py-2 px-4 text-xs bg-steelBlue text-white w-full">
+              class="border shadow-sm font-normal rounded-full py-2 px-4 text-xs bg-steelBlue text-white w-full">
               <ButtonSpinner v-if="loading" />
               Subscribe to {{ pkg.name }} Again
             </button>
