@@ -518,6 +518,7 @@ const likePost = async (post_id, post) => {
     } else {
       await $feedService.like_post(post_id);
     }
+   
     loadInitfintePost();
 
     likeButtonDisable.value = likeButtonDisable.value.filter(item => item !== post_id);
