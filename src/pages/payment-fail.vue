@@ -13,11 +13,11 @@
             </div>
            
             <div class="mt-4">
-                <Button class="m-2 bg-gray-100 px-7 py-2 rounded-md mt-8 m-2">
+                <!-- <Button class="m-2 bg-gray-100 px-7 py-2 rounded-md mt-8 m-2">
                     <NuxtLink to="/retry-payment">
                         Retry
                     </NuxtLink>
-                </Button>
+                </Button> -->
                 <Button class="bg-red-600 text-white px-7 py-2 rounded-md mt-8 m-2">
                     <NuxtLink to="/">
                         Exit
