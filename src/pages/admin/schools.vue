@@ -47,6 +47,9 @@ import schoolTable from '~/components/tables/AdminSchoolTable.vue';
 import schoolCreateModal from '~/components/shared/schoolCreateModal.vue';
 import { useUserStore } from '~/stores/userStore';
 
+const role = ref('All')
+
+
 definePageMeta({
     ssr: true,
     layout: 'admin',

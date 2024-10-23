@@ -91,8 +91,10 @@
     </div>
 
     <!-- Data Table -->
-    <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" class="cursor-pointer min-h-[350px]"
-      @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }">
+    <!-- <el-table :data="filteredItems" style="width: 100%" stripe v-loading="loading" class="cursor-pointer min-h-[350px]"
+      @row-click="handleRowClick" :default-sort="{ prop: 'joined_at', order: 'descending' }" @current-change="handlePageChange"> -->
+      <el-table :data="filteredItems" stripe style="width: 100%" v-loading="loading" class="cursor-pointer min-h-[350px]"  @row-click="handleRowClick"  :default-sort="{ prop: 'joined_at', order: 'descending' }"  @sort-change="handleSortChange">
+
       <!-- Display Name Column -->
       <el-table-column class="tealGaray" prop="name" label="DISPLAY NAME" sortable></el-table-column>
 
@@ -140,13 +142,13 @@
 
     <!-- Pagination -->
     <el-pagination v-model:current-page="options.page" :page-size="options.itemsPerPage" :total="totalItems"
-      layout="prev, pager, next" @current-change="handlePageChange" />
+      layout="prev, pager, next" @sort-change="handleSortChange" />
 
   </el-card>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, watch, computed, onMounted, defineEmits } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNuxtApp } from '#app';
 import { useFlowbite } from '~/composables/useFlowbite';
@@ -167,7 +169,7 @@ const loading = ref(false);
 const nuxtApp = useNuxtApp();
 const $adminService = nuxtApp.$adminService;
 const filterApply = ref(false);
-const sort = ref({ prop: 'joined_at', order: 'descending' });
+const sort = ref({ prop: 'joined_at', order: 'descending' })
 // Function to fetch data from the server
 const fetchData = async () => {
   loading.value = true;
@@ -262,6 +264,7 @@ const filteredItems = computed(() => {
   let sorted = [...items.value];
 
   // Apply sorting
+  // Apply sorting
   if (sort.value.prop) {
     sorted.sort((a, b) => {
       let aVal = a[sort.value.prop];
@@ -280,9 +283,18 @@ const filteredItems = computed(() => {
   }
 
   // Apply search filtering
+  // if (search.value) {
+  //   sorted = sorted.filter(item =>
+  //     item.name.toLowerCase().includes(search.value.toLowerCase()));
+  // }
   if (search.value) {
     sorted = sorted.filter(item =>
-      item.name.toLowerCase().includes(search.value.toLowerCase()));
+    item.name.toLowerCase().includes(search.value.toLowerCase()
+
+      // item.display_name.toLowerCase().includes(search.value.toLowerCase()) ||
+      // item.email.toLowerCase().includes(search.value.toLowerCase()) ||
+      // item.user_role.toLowerCase().includes(search.value.toLowerCase())
+    ));
   }
 
   // Update total items after filtering
@@ -294,6 +306,9 @@ const filteredItems = computed(() => {
   return sorted.slice(start, end);
 });
 
+const handleSortChange = (newSort) => {
+  sort.value = newSort;
+};
 
 // Function to navigate to edit record
 const editRecord = (row) => {
