@@ -111,13 +111,11 @@ const handleRequest = async () =>{
             icon:icon.value
         });
         nuxtApp.$notification.triggerNotification("Category Updated", 'success');
-        // router.push({
-        //     path: '/admin/resoucesCategory'
-        // });
+        
        
     } catch (error) {
         console.log(error)
-       // nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
     } 
 }
 

@@ -232,7 +232,13 @@ const createUserService = (apiService) => {
       const response = await apiService.putRequest(url, body);
       return response;
     } catch (error) {
-      throw new Error(error.message || "Failed to update");
+      if (error.response) {
+        return error.response;
+      } else if (error.request) {
+        throw new Error("No response received from server");
+      } else {
+        throw new Error(error.message || "Error in request setup");
+      }
     }
   };
 

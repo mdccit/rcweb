@@ -21,9 +21,9 @@
         </div>
         <div class="col-start-2 col-span-4 bg-brown-500">
           <!-- Content changes based on the selected tab -->
-          <UserFeed v-if="tab === 'feed'" :posts="posts" @listpost="newLoader" :commentHidden="isHidddenComment"/>
-          <Connection v-if="tab === 'connection'" :playerId="playerID" @profileView="redirectPage" />
-          <mediaTab v-if="tab === 'media'" :userSlug="route.params.slug" @uploadCompleted="refreshGallery" :playerId="playerID" />
+          <UserFeed v-if="tab == 'feed'" :posts="posts" @listpost="newLoader" :commentHidden="isHidddenComment"/>
+          <Connection v-if="tab == 'connection'" :playerId="playerID" @profileView="redirectPage" />
+          <mediaTab v-if="tab == 'media'" :userSlug="route.params.slug" @uploadCompleted="refreshGallery" :playerId="playerID" />
 
         </div>
         <div>
@@ -43,7 +43,7 @@ import playerProfileHedarer from '~/components/profiles/player/layout/playerProf
 import playerProfileFeed from '~/components/profiles/player/layout/playerProfileFeed.vue';
 import NavBarPublic from '~/components/user/navbar.vue';
 import FooterPublic from '~/components/user/user-footer.vue';
-import { ref, watchEffect, onMounted } from 'vue';
+import { ref, watchEffect, onMounted,watch } from 'vue';
 import { useNuxtApp } from '#app';
 import Notification from '~/components/common/Notification.vue'; // <-- Ensure this path is correct!
 import { useRoute } from 'vue-router';
@@ -82,6 +82,7 @@ const tab = ref('feed'); // Default tab is 'feed'
 
 // Function to update the selected tab
 const setSelectedTab = (selectedTab) => {
+  console.log(selectedTab)
     tab.value = selectedTab;
 };
 
@@ -136,6 +137,7 @@ const leftData = ref({})
 const media_info = ref();
 const height_ft = ref('')
 const height_in = ref('')
+const addressValue = ref(null)
 const props = defineProps({
     user: {
         type: Object,
@@ -173,26 +175,45 @@ const refreshGallery = () => {
   childKey.value++;
 };
 
+watch(
+    () => route.params.slug,
+    () => {
+      fetchUserDetails()
+     setSelectedTab('feed')
+    }
+);
+
+
 const fetchUserDetails = async () => {
     try {
         const dataSets = await $publicService.get_player(route.params.slug);
-        console.log(dataSets)
-       
+        console.log(1)
+        console.log(dataSets.user_basic_info)
+        console.log(3)
+
         if (dataSets.user_basic_info) {
-           playerID.value = dataSets.user_basic_info.id || null;
+            playerID.value = dataSets.user_basic_info.id || null;
             bio.value = dataSets.user_basic_info.bio ?? "User has not entered bio"
             name.value = dataSets.user_basic_info.display_name ?? "User has not entered name";
-
-
-            const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
-            const today = new Date();
-            let age = today.getFullYear() - birthDate.getFullYear();
-            const monthDifference = today.getMonth() - birthDate.getMonth();
-            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-                age--;
+            country.value = dataSets.user_basic_info.country ?? 'User has not entered country';
+            console.log(dataSets.user_basic_info.country)
+            if(userId.value == playerID.value){
+              console.log(name.value)
+               userStore.setUserName(name.value)
             }
-            birthday.value = age ?? 'User has not entered birthday'
+            birthday.value = null;
+            if(dataSets.user_basic_info.date_of_birth != null){
+              const birthDate = new Date(dataSets.user_basic_info.date_of_birth);
+              const today = new Date();
+              let age = today.getFullYear() - birthDate.getFullYear();
+              const monthDifference = today.getMonth() - birthDate.getMonth();
+              if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+              }
+              birthday.value = age ?? 'User has not entered birthday'
 
+            
+            }
             const date = new Date(dataSets.user_basic_info.joined_at);
             const monthNames = [
                 'January', 'February', 'March', 'April', 'May', 'June',
@@ -208,10 +229,8 @@ const fetchUserDetails = async () => {
             gender.value = dataSets.user_basic_info.gender ?? "User has not entered gender"
 
         }
-
-
+         
         if (dataSets.user_address_info) {
-            country.value = dataSets.user_address_info.country ?? 'User has not entered country'
             city.value = dataSets.user_address_info.city ?? 'User has not entered city'
             addressLine01.value = dataSets.user_address_info.address_line_1 ?? 'User has not entered address line 01'
             addressLine02.value = dataSets.user_address_info.address_line_2 ?? ''

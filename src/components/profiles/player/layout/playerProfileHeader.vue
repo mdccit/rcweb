@@ -53,7 +53,7 @@
                 </div>
                 
 
-                <div class="">
+                <div v-if="playerId != userId">
                     <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
                         class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

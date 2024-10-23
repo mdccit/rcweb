@@ -86,6 +86,7 @@ const nationality_id =ref('')
 const gender =ref('none')
 const dateOfBirth =ref('');
 const schoolProfilePicture = ref(null)
+const addressValue = ref(null)
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
     showNotification.value = nuxtApp.$notification.showNotification.value;
@@ -106,6 +107,14 @@ onMounted(() => {
   
 });
 
+watch(
+    () => route.params.slug,
+    () => {
+      fetchUserDetailsBySlug()
+      tab.value = 'feed'
+    }
+);
+
 const fetchUserDetailsBySlug = async () => {
   try {
     const dataSets = await $publicService.get_user_profile(route.params.slug);
@@ -125,6 +134,8 @@ const fetchUserDetailsBySlug = async () => {
             'January', 'February', 'March', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'
         ];
+
+        
         const year = date.getFullYear();
         const month = monthNames[date.getMonth()];
         const day = date.getDate();

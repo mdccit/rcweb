@@ -18,8 +18,6 @@
                     <div v-if="props.userId == data.receiver_id" class="cursor-pointer grid grid-cols-12 gap-4"
                         @click="redirect(`/app/profile/${data.sender_slug}`)">
                         <div class="col-span-3">
-                            <!-- <img class=" rounded-2xl w-[85px] h-[85px]"
-                            src="../../assets/user/images/Rectangle 193.png" alt="Neil image"> -->
                             <img v-if="data.sender_profile_picture == null" class=" rounded-2xl w-[85px] h-[85px]"
                                 src="@/assets/images/user.png" alt="Neil image">
                             <img v-if="data.sender_profile_picture != null" class=" rounded-2xl w-[85px] h-[85px]"
@@ -63,8 +61,7 @@
                     <div v-if="props.userId == data.sender_id" class="cursor-pointer grid grid-cols-12 gap-4"
                         @click="redirect(`/app/profile/${data.receiver_slug}`)">
                         <div class="col-span-3">
-                            <!-- <img class=" rounded-2xl w-[85px] h-[85px]"
-                            src="../../assets/user/images/Rectangle 193.png" alt="Neil image"> -->
+                           
                             <img v-if="data.receiver_profile_picture == null" class=" rounded-2xl w-[85px] h-[85px]"
                                 src="@/assets/images/user.png" alt="Neil image">
                             <img v-if="data.receiver_profile_picture != null" class=" rounded-2xl w-[85px] h-[85px]"

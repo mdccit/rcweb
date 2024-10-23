@@ -181,7 +181,7 @@
                 </div>
             </div> -->
 
-            <div class="grid grid-cols-10">
+            <div v-if="props.data.birthday != null" class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto">
                     <img class="mx-auto  rounded-xl w-[20px]" src="@/assets/images/bday.png" alt="">
                 </div>
@@ -273,7 +273,7 @@
                         props.data.phone }}</b> </p>
                 </div>
             </div>
-            <div class="grid grid-cols-10">
+            <div  class="grid grid-cols-10">
                 <div class="col-span-2 mx-auto" @click="toggleModal('info')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-5">
@@ -284,13 +284,13 @@
                     </svg>
 
                 </div>
-                <div class="col-span-8">
+                <div  class="col-span-8">
                     <p class="text-sm text-black leading-relaxed mb-4"> <span
                             v-if="userRole == 'coach' || userRole == 'admin'">
                             {{ props.data.addressLine01 }} {{ props.data.addressLine02 }} {{ props.data.stateProvince }}
                         </span>
                         {{ props.data.city }}
-                        <span v-if="props.data.country">, </span>{{ props.data.country }}
+                        <span v-if="props.data.city "> , </span>{{ props.data.country }}
                     </p>
                 </div>
             </div>

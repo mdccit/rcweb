@@ -18,8 +18,8 @@
              <!-- <transfer-tracker-left-bar /> -->
              <NetworkLeft v-if="networkView" />
             <!-- <Filter v-if="route.meta.showFilterLeft" /> -->
-            <ResourcesLeftBar />
-            <!-- <userSettingLeftBar /> -->
+            <ResourcesLeftBar v-if="resourceView"/>
+             <!-- <userSettingLeftBar /> -->
             <!-- <resources-left-bar /> -->
             <userSettingLeftBar v-if="route.meta.showUserSettingLeftBar" />
           </div>
@@ -93,6 +93,15 @@ watch(()=>{
    networkView.value = false
    if(route.fullPath =='/user/network'){
     networkView.value = true
+  }
+})
+const resourceView = ref(false)
+watch(()=>{
+  console.log("Route meta")
+  console.log(route.fullPath)
+  resourceView.value = false
+   if(route.fullPath =='/user/resources'){
+    resourceView.value = true
   }
 
   

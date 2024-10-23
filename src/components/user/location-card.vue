@@ -33,6 +33,7 @@ const address = ref('')
 const filter = ref([])
 
 const cityChange = () =>{
+    console.log("City")
     searchStore.setCity(city.value)
     searchStore.setSearchButton(true)
     filter.value =searchStore.searchFilter
