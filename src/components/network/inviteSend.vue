@@ -18,8 +18,6 @@
             <div class="flex-1 p-1">
                 <div class="cursor-pointer grid grid-cols-12 gap-4" @click="redirect(`/app/profile/${data.slug}`)">
                     <div class="col-span-3">
-                        <!-- <img class=" rounded-2xl w-[85px] h-[85px]" src="../../assets/user/images/avtar.png"
-                            alt="Neil image"> -->
                         <img v-if="data.profile_picture == null" class=" rounded-2xl w-[85px] h-[85px]"
                             src="@/assets/images/user.png" alt="Neil image">
                         <img v-if="data.profile_picture != null" class=" rounded-2xl w-[85px] h-[85px]"
