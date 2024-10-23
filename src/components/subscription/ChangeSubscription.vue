@@ -1,14 +1,21 @@
 <template>
-  <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl mx-auto">
+
+  <!-- common full screen loader -->
+  <ScreenLoader v-if="loading" />
+  <!-- / common full screen loader -->
+
+
+  <div v-if="!loading"
+    class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl mx-auto">
 
     <div class="flex">
       <!-- Iterate through the packages array -->
       <div v-for="(pkg, index) in packages" :key="pkg.value" class="flex-1 flex justify-center">
         <div :key="refreshKey" :class="[
-        'border w-[230px] rounded-lg text-center p-3 relative flex flex-col cursor-pointer',
-        pkg.name === 'Premium' ? 'pro-pack' : '',
-        selectedPackage === pkg.name ? 'highlighted-package' : ''
-      ]" @click="selectPackage(pkg.value)">
+    'border w-[230px] rounded-lg text-center p-3 relative flex flex-col cursor-pointer',
+    pkg.name === 'Premium' ? 'pro-pack' : '',
+    selectedPackage === pkg.name ? 'highlighted-package' : ''
+  ]" @click="selectPackage(pkg.value)">
           <h3 :class="pkg.name === 'Premium' ? 'premium-text' : ''" class="font-medium text-black mb-2">{{ pkg.name }}
           </h3>
 
@@ -119,6 +126,8 @@ import ButtonSpinner from '@/components/common/ButtonSpinner.vue';
 import { usePackageStore } from '~/stores/packageStore';
 import { usePackages } from '@/composables/usePackages';
 import { useFlowbite } from '~/composables/useFlowbite';
+import ScreenLoader from '@/layouts/screen_loader.vue';
+
 
 const nuxtApp = useNuxtApp();
 const loading = ref(false);
@@ -293,44 +302,57 @@ const createSetupIntent = async (customerId) => {
   }
 };
 
+let hasFetchedData = false; // Non-reactive flag
+
+const fetchSubscriptionDetails = async () => {
+
+  if (!hasFetchedData) {
+    try {
+      hasFetchedData = true;
+
+      // Fetch user subscription information
+      loading.value = true;
+      const response = await $subscriptionService.get_subscription();
+      subscription.value = response;
+      activeStatus.value = response.status;
+      isSetToCancel.value = response.cancel_at_period_end;
+
+      if (activeStatus == 'active' && isSetToCancel != false) {
+        selectedPackage.value = 'premium';
+      } else {
+        selectedPackage.value = 'standard';
+      }
+
+      const payment_methods = await $subscriptionService.get_customer_payment_methods();
+
+      if (payment_methods && payment_methods.status == 200) {
+        paymentMethods.value = payment_methods.data;
+
+        // Fetch the active card and set it in selectedCard
+        await getCustomerActiveCard();
+      } else {
+        console.error('No payment mehods found.');
+
+      }
+
+    } catch (error) {
+      console.error('Error fetching subscription data:', error);
+    } finally {
+      loading.value = false;
+    }
+  }
+};
 
 onMounted(async () => {
 
   useFlowbite(() => {
     initFlowbite();
   });
+  await fetchSubscriptionDetails();
 
-  try {
-    // Fetch user subscription information
-    loading.value = true;
-    const response = await $subscriptionService.get_subscription();
-    subscription.value = response;
-    activeStatus.value = response.status;
-    isSetToCancel.value = response.cancel_at_period_end;
-
-    if (activeStatus == 'active' && isSetToCancel != false) {
-      selectedPackage.value = 'premium';
-    } else {
-      selectedPackage.value = 'standard';
-    }
-
-    const payment_methods = await $subscriptionService.get_customer_payment_methods();
-
-    if (payment_methods && payment_methods.status == 200) {
-      paymentMethods.value = payment_methods.data;
-
-      // Fetch the active card and set it in selectedCard
-      await getCustomerActiveCard();
-    } else {
-      console.error('No payment mehods found.');
-    }
-
-  } catch (error) {
-    console.error('Error fetching subscription data:', error);
-  } finally {
-    loading.value = false;
-  }
 });
+
+
 
 </script>
 

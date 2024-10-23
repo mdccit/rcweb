@@ -1,4 +1,8 @@
 <template>
+    <!-- common full screen loader -->
+    <ScreenLoader v-if="loadingStore.isLoading" />
+    <!-- / common full screen loader -->
+
   <div class="flex flex-col min-h-screen">
     <Navbar /> <!-- Top Navigation Bar -->
     
@@ -25,11 +29,10 @@ import FooterBar from '~/components/user/user-footer.vue';
 import LoadingSpinner from '~/components/LoadingSpinner.vue';
 import TransferTrackerLeftBar from '~/components/user/transferTrackerLeftBar.vue';
 import TransferTrackerRightBar from '~/components/user/transferTrackerRightBar.vue';
-import ScreenLoader from './screen_loader.vue';
+import ScreenLoader from '@/layouts/screen_loader.vue';
 import { useLoadingStore } from '@/stores/loadingStore';
-// import checkSession from '~/middleware/checkSession';
-
 const loadingStore = useLoadingStore();
+
 const loading = ref(false);
 const router = useRouter();
 
