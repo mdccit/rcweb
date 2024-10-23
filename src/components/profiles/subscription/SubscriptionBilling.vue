@@ -1,13 +1,12 @@
 <template>
-  <!-- common full screen loader -->
-  <ScreenLoader v-if="loading" />
-  <div>
+
+  <div  v-if="(userRole === 'coach') || (userRole === 'player')">
     <h2 class="text-2xl font-bold mb-6 text-black">Subscription & Billing</h2>
     <hr class="mt-5 mb-3 text-pigeonBlue">
     <div>
 
       <!-- Subscription Section -->
-      <div class="mt-6">
+      <div class="mt-6" >
         <h3 class="font-semibold text-xl mb-4 text-black">Subscription</h3>
         <p class="text-sm text-darkSlateBlue mb-4">Enjoy uninterrupted access to premium features and services with our flexible subscription plans. Manage your plan easily, and stay up to date with the latest benefits. Upgrade, downgrade, or cancel anytime you're in control!</p>
 
@@ -49,7 +48,7 @@
               </div>
             </div>
 
-            <div class="border border-gainsboroGray rounded-lg p-4">
+            <div class="border border-gainsboroGray rounded-lg p-4"  v-if="(userRole == 'coach') || (userRole == 'player')">
               <p class="font-semibold text-black mb-2">Change plan</p>
               <p class="text-darkSlateBlue mb-4 text-sm">
                 Upgrade, downgrade, or switch your subscription to better suit your needs. Review the available plans and adjust your subscription effortlessly.
@@ -127,8 +126,8 @@
         <div class="card rounded-2xl overflow-hidden border border-gainsboroGray bg-white w-full p-3 mt-3">
           <p class="text-sm text-darkSlateBlue mb-6">Your cancellation will take effect from the next renewal date. You can continue to enjoy all premium features until the end of your current paid period.</p>
 
-          <div class="mt-6">
-            <button @click="cancelSubscription" :disabled="loading"
+          <div class="mt-6" v-if="(userRole == 'coach') || (userRole == 'player')">
+            <button @click="cancelSubscription"
               class="w-50 py-3 px-2 bg-redOrange text-white  text-xs font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Cancel
               Subscription {{isSetToCancel}}</button>
           </div>
@@ -171,12 +170,15 @@ const subscriptionType = ref('');
 const paymentMethods = ref([]);
 const selectedCard = ref(null);
 const loading = ref(false);
+const userRole = ref('');
 const isSetToCancel = ref(false);
 
 onMounted(async () => {
+  userRole.value = localStorage.getItem('user_role');
   try {
     // Fetch user subscription information
     loading.value = true;
+   
     const response = await $subscriptionService.get_subscription();
     subscription.value = response;
 
