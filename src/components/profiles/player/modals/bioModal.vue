@@ -5,7 +5,7 @@
     <!-- common full screen loader -->
     <ScreenLoader v-if="loading" />
     <!-- Bio change modal -->
-    <div  class="relative z-index-320" aria-labelledby="modal-title"
+    <div v-if="visible"  class="relative z-index-320" aria-labelledby="modal-title"
         role="dialog" aria-modal="true">
 
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>

@@ -59,12 +59,12 @@
                                 <p class="opacity-75 line-clamp-1 text-black">Role title: {{ member.user_role }}</p>
                             </div>
                             <div class="self-center flex flex-wrap gap-2">
-                                <a :href="`/admin/businesses/${business_id}/users/${member.id}/edit`">
+                                <NuxtLink :to="`/admin/userAccountDetails?action=edit&user_id=${member.user_id}`">
                                     <button type="submit"
                                         class="border rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-blue-300 focus:ring-blue-200">
                                         Manage
                                     </button>
-                                </a>
+                                </NuxtLink>
                             </div>
                         </div>
                     </div>

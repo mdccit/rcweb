@@ -9,7 +9,7 @@
                             stroke-linejoin="round">
                             <path d="M15 6l-6 6l6 6"></path>
                         </svg></a>
-                    <h2 class="font-bold text-lg self-center text-black"> Editing: DEF Business </h2>
+                    <h2 class="font-bold text-lg self-center text-black"> Editing: </h2>
                 </div>
                 <div class="">
                     <NuxtLink to="/business/9c7d0c22-c388-4383-8da0-4d83319cf4ba">
