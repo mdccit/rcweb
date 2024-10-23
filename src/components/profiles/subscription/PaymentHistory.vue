@@ -1,5 +1,5 @@
 <template>
-  <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-8 mt-3">
+  <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue  border-opacity-40 bg-white w-full p-8 mt-3">
     <h3 class="font-semibold text-xl mb-4 text-black">Payment history</h3>
     <p class="text-sm text-darkSlateBlue mb-4">Your subscription payment history is listed below.</p>
 
