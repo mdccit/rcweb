@@ -51,7 +51,7 @@
 
           <!-- Standard Package -->
           <div v-if="pkg.value === 'standard'" class="mt-auto">
-            <!-- Subscribe Button (more prominent) -->
+            <!-- Subscribe Button (more promineddddddddddddddddddddddddddddddddnt) -->
             <button @click.stop="subscribeStandard"
               class="bg-blue-600 text-white font-light px-4 py-2 rounded-md mt-4 w-full">
               Subscribe

@@ -55,7 +55,7 @@
           </div>
 
           <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-            <button type="button" @click="saveName"
+            <button type="button" @click="saveCoverPhoto"
               class="inline-flex w-full justify-center rounded-md bg-steelBlue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
               :disabled="loading">Save
               changes
@@ -161,7 +161,7 @@ const handleFileChange = (event) => {
 };
 
 // Function to handle the profile picture upload
-const saveProfilePicture = async () => {
+const saveCoverPicture = async () => {
 
   if (!cover_picture.value) {
     // Handle case where no file is selected
@@ -169,6 +169,7 @@ const saveProfilePicture = async () => {
     return;
   }
   try {
+    console.log('ipldafd');
     loading.value = true;
     const user_slug = props.slug; // Assuming you have user_slug available in props
     const response = await $userService.upload_school_cover_photo(cover_picture.value, user_slug); // Call the upload function
@@ -188,8 +189,8 @@ const saveProfilePicture = async () => {
 
 
 // Save names when the user clicks "Save changes"
-const saveName = async () => {
-  await saveProfilePicture(); // Save profile picture if available
+const saveCoverPhoto = async () => {
+  await saveCoverPicture(); // Save profile picture if available
 
   // Emit close event regardless of whether profile picture save was successful
   emit('close', 'cover');

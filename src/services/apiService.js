@@ -80,7 +80,9 @@ const createApiService = (config) => {
 
 
   const postMedia = async (url, body) => {
+    const loadingStore = useLoadingStore();
     try {
+      loadingStore.startLoading();
       const headers = getAuthHeaders();
 
       // If body is FormData, remove 'Content-Type' to let the browser set it
@@ -98,13 +100,15 @@ const createApiService = (config) => {
       return await handleResponse(response);
     } catch (error) {
       throw error;
+    } finally {
+      loadingStore.stopLoading();
     }
   };
 
   const putRequest = async (url, body) => {
     const loadingStore = useLoadingStore();
     try {
-      // Stop loading after request
+      // Start loading after request
       loadingStore.startLoading();
       const response = await fetch(`${apiUrl}${url}`, {
         method: 'PUT',
@@ -112,10 +116,6 @@ const createApiService = (config) => {
         body: JSON.stringify(body),
       });
 
-      // if (!response.ok) {
-      //   const errorData = await response.json(); // Parse the error response
-      //   throw { status: response.status, ...errorData }; // Throw the entire error response
-      // }
       // Stop loading after request
       loadingStore.stopLoading();
       return await handleResponse(response);
@@ -127,7 +127,10 @@ const createApiService = (config) => {
   };
 
   const deleteRequest = async (url) => {
+    const loadingStore = useLoadingStore();
     try {
+      // Start loading after request
+      loadingStore.startLoading();
       const response = await fetch(`${apiUrl}${url}`, {
         method: 'DELETE',
         headers: getAuthHeaders(),
@@ -135,11 +138,17 @@ const createApiService = (config) => {
       return await handleResponse(response);
     } catch (error) {
       throw error;
+    } finally {
+      // Stop loading after request
+      loadingStore.stopLoading();
     }
   };
 
   const patchRequest = async (url, body) => {
+    const loadingStore = useLoadingStore();
     try {
+      // Start loading after request
+      loadingStore.startLoading();
       const response = await fetch(`${apiUrl}${url}`, {
         method: 'PATCH',
         headers: getAuthHeaders(),
@@ -148,6 +157,9 @@ const createApiService = (config) => {
       return await handleResponse(response);
     } catch (error) {
       throw error;
+    } finally {
+      // Stop loading after request
+      loadingStore.stopLoading();
     }
   };
 

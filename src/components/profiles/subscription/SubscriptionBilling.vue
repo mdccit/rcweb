@@ -61,7 +61,7 @@
     </div>
 
     <!-- Card Details Section -->
-    <div class="mt-6">
+    <div class="mt-6" v-if="!loading">
       <hr class="mt-5 mb-3 text-pigeonBlue">
       <h3 class="font-semibold text-xl mb-4 text-black">Card details</h3>
       <p class="text-sm text-darkSlateBlue mb-4"> Securely manage your saved payment methods. Update card information, add a new card, or remove existing ones to ensure seamless billing and uninterrupted service.</p>
@@ -89,7 +89,7 @@
         </div>
 
 
-        <div class="flex-1">
+        <div class="flex-1"  v-if="!loading" >
           <div class="space-y-4 w-full">
             <!-- Loop through the payment methods and display each one -->
             <div v-for="(method, index) in paymentMethods" :key="method.id"
