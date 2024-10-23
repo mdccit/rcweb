@@ -377,7 +377,7 @@ const likePost = async (post_id, post) => {
     } else {
       await $feedService.like_post(post_id);
     }
-    emit('listpost')
+    emit('newPost')
 
     likeButtonDisable.value = likeButtonDisable.value.filter(item => item !== post_id);
 
@@ -404,9 +404,10 @@ const addComment = async (postId) => {
   commentAdd.value = true;
 
   try {
-    await $feedService.create_comment(postId, { content: newComment.value });
+    const res =await $feedService.create_comment(postId, { content: newComment.value });
+    console.log(res)
     newComment.value = ''; // Clear the comment input after submission
-    emit('listpost')
+    emit('newPost')
   } catch (error) {
     console.error('Failed to add comment:', error.message);
   }
@@ -414,7 +415,7 @@ const addComment = async (postId) => {
 };
 
 const refreshComments = async () => {
-  emit('listpost')
+  emit('newPost')
 
 };
 
