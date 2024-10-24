@@ -74,3 +74,8 @@ textarea {
 .custom-min-h-185{
 min-height: calc(100vh - 185px);
 }
+
+.default-card-select{
+  border: 1px solid #0085FF;
+  border-radius: 10px;
+}
