@@ -102,17 +102,22 @@
                            </button>
                       </div>
                       <div>
+                           <button @click="connectReject(data.id)"
+                               class="bg-red-600 rounded-full font-semibold text-white p-2 m-1 text-xs h-[35px] w-[35px]">
+                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18 18 6M6 6l12 12" />
+                                        </svg>
+                           </button>
+                       </div>
+                      <div>
                            <button @click="connectAccept(data.id)" 
                                class="bg-steelBlue rounded-full shadow-sm hover:bg-blue-700 text-white p-2 m-1 text-xs h-[35px] w-[85px]">
                                   Accept
                            </button>
                        </div>
-                       <div>
-                           <button @click="connectReject(data.id)"
-                               class="bg-red-600 hover:bg-red-700 rounded-full text-white p-2 m-1 text-xs h-[35px] w-[85px]">
-                                  Reject
-                           </button>
-                       </div>
+                       
                    </div>
                 </div>
                </div>

@@ -24,11 +24,11 @@
                                                     title="This field is required">*</span>
                                             </label>
                                             <div class="flex rounded-lg border border-gray-300 shadow-sm">
-                                                <textarea id="user_bio" v-model="user_bio" autocomplete="user_bio"
+                                                <input type="text" id="" v-model="academic" autocomplete=""
                                                     class="w-full block px-5 py-3 border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                                    placeholder="" required>
-                                              </textarea>
+                                                    placeholder="" required />
                                             </div>
+                                            <InputError :error="errors.academic ? errors.academic.join(', ') : ''" />
                                         </div>
                                     </div>
                                 </div>
@@ -59,63 +59,53 @@ const nuxtApp = useNuxtApp();
 const $publicService = nuxtApp.$publicService;
 
 const academic = ref('');
-const user_slug = ref('');
 const loading = ref(false);
+
+const error = ref('');
+const errors = ref({});
+const showNotification = ref(false);
+const notificationMessage = ref('');
+const notification_type = ref(0);
 
 const props = defineProps({
     visible: Boolean,
-    slug: String
+    slug: String,
+    schoolData: {
+        type: Object,
+        required: true,
+    },
+
 });
 
 
 // Define emits to handle custom events like close
 const emit = defineEmits(['close']);
 
-onMounted(() => {
-    if (props.slug) {
-        user_slug.value = props.slug;
-        fetchPlayerBio(props.slug);
-    }
-});
+// Function to update school academics
 
-watch(() => props.visible, (newVal) => {
-    if (newVal && props.slug) {
-        fetchPlayerBio(props.slug);
-    }
-});
-
-const fetchPlayerBio = async (slug) => {
+const updateAcademic = async () => {
+    error.value = '';
+    errors.value = {};
+    loading.value = true;
+    notification_type.value = '';
+    notificationMessage.value = '';
+    showNotification.value = false;
     try {
-        const dataSets = await $publicService.get_user_profile(props.slug);
-
-        if (dataSets.user_basic_info) {
-            user_bio.value = dataSets.user_basic_info.bio ?? "N/A";
-
-        }
-    } catch (error) {
-        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
-    }
-}
-
-// Function to update player bio
-const updateAcademic = async (bio) => {
-    try {
-        loading.value = true;
-        const request_body = { user_slug: props.slug, bio: bio };  // Construct request body with bio
+        const request_body = { school_slug: props.slug, academic: academic.value };  // Construct request body with bio
         const response = await $publicService.school_add_new_academic(request_body);  // Pass slug and request body
         if (response.status == '200') {
             clearAcademic();
             // Trigger success notification
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
             // Emit close event to parent to close the modal
-            emit('close', 'bio');  // Close the modal after successfully updating the bio
+            emit('close', 'academic');  // Close the modal after successfully updating the bio
         } else {
             nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
         }
 
     } catch (error) {
         // Handle error
-        nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
+        handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
     } finally {
         loading.value = false;
     }
@@ -123,7 +113,7 @@ const updateAcademic = async (bio) => {
 
 // Save bio when the user clicks "Save changes"
 const saveAcademic = () => {
-    updateAcademic(academic.value);
+    updateAcademic();
 }
 
 const clearAcademic = () => {

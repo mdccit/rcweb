@@ -114,6 +114,10 @@ onMounted(() => {
 
 });
 
+useHead({
+  title: 'Recruited '+route.params.slug,
+})
+
 const fetchBusinessUserDetails = async () => {
   try {
     const response = await $publicService.get_business_user(route.params.slug); // Replaced 'dataSets' with 'response'

@@ -265,4 +265,8 @@ definePageMeta({
   colorMode: 'light', 
 })
 
+useHead({
+  title: 'Recruited',
+})
+
 </script>

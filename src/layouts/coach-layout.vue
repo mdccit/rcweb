@@ -107,6 +107,10 @@ onMounted(() => {
   
 });
 
+useHead({
+  title: 'Recruited '+route.params.slug,
+})
+
 watch(
     () => route.params.slug,
     () => {

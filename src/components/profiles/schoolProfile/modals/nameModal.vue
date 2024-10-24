@@ -97,7 +97,6 @@ const props = defineProps({
 const emit = defineEmits(['close']); // Emit close event with the modal name
 
 const nuxtApp = useNuxtApp();
-const $userService = nuxtApp.$userService;
 const $publicService = nuxtApp.$publicService;
 
 // Local state for the user's name details
@@ -115,23 +114,13 @@ const profile_picture = ref('');
 
 // On mounted, fetch the current user names using the slug
 onMounted(() => {
-  if (props.slug) {
-      fetchSchool(props.slug);
-  }
+
 });
-
-watch(() => props.visible, (newVal) => {
-  if (newVal && props.slug) {
-      fetchPlayerNames(props.slug);
-  }
-});
-
-
 
 const handleFileChange = (event) => {
   const file = event.target.files[0];
   const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-  const maxSize = 30 * 1024 * 1024; // 30MB
+  const maxSize = 5 * 1024 * 1024; // 5MB
 
   // Check if a file is selected
   if (file) {
@@ -144,7 +133,7 @@ const handleFileChange = (event) => {
 
       // Validate the file size
       if (file.size > maxSize) {
-          fileError.value = 'File size must be less than 30MB';
+          fileError.value = 'File size must be less than 5MB';
           event.target.value = ''; // Clear the file input
           return;
       }
@@ -166,17 +155,11 @@ const saveProfilePicture = async () => {
       return;
   }
   try {
-      const user_slug = props.slug; // Assuming you have user_slug available in props
-      const response = await $userService.upload_player_profile_picture(profile_picture.value, user_slug); // Call the upload function
-      const data = {
-          url: response.data.url,
-          media_type: response.data.media_type,
-          media_id: response.data.media_id
-      }
-      userStore.setProfilePicture(data)
-
-      if (response.status == '200') {
+      const school_slug = props.slug; // Assuming you have user_slug available in props
+      const response = await $publicService.upload_school_profile_picture(profile_picture.value, school_slug); // Call the upload function
+      if (response.status === 200) {
           loading.value = false;
+          emit('close','name');
           nuxtApp.$notification.triggerNotification(response.display_message, 'success');
       } else {
           nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
@@ -186,64 +169,12 @@ const saveProfilePicture = async () => {
   }
 };
 
-// Function to fetch the player names based on the slug
-const fetchSchool = async (slug) => {
-  try {
-      const dataSets = await $publicService.get_user_profile(slug);
-      if (dataSets.user_basic_info) {
-          first_name.value = dataSets.user_basic_info.first_name ?? "";
-          last_name.value = dataSets.user_basic_info.last_name ?? "";
-          other_names.value = dataSets.user_basic_info.other_names ?? "";
-      }
-
-      if (dataSets.media_info) {
-          profile_picture_exit.value = dataSets.media_info.profile_picture ?? null
-      }
-  } catch (error) {
-      nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
-  }
-};
-
-// Function to update player names
-const updatePlayerNames = async (firstName, lastName, otherNames) => {
-
-  error.value = '';
-  errors.value = {};
-  loading.value = true;
-  notification_type.value = '';
-  notificationMessage.value = '';
-  showNotification.value = false;
-  try {
-      const request_body = {
-          user_slug: props.slug,
-          first_name: firstName,
-          last_name: lastName,
-          other_names: otherNames,
-      }; // Construct request body with all names
-      const response = await $userService.update_player_name(request_body); // Call the API to update the names
-
-      if (response.status == '200') {
-          loading.value = false;
-          nuxtApp.$notification.triggerNotification(response.display_message, 'success');
-      } else {
-          loading.value = false;
-          nuxtApp.$notification.triggerNotification(response.display_message, 'warning');
-      }
-  } catch (error) {
-      loading.value = false;
-      //   nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
-      handleError(error, errors, notificationMessage, notification_type, showNotification, loading);
-  }
-};
-
 
 
 const removeProfile = async () => {
   try {
-      const dataSets = await $publicService.delete_media_player(profile_picture_exit.value.media_id);
-      fetchPlayerNames(props.slug);
+      await $publicService.delete_school_media(profile_picture_exit.value.media_id);
   } catch (error) {
-      console.log(error)
       nuxtApp.$notification.triggerNotification(error.display_message, 'failure');
   }
 }

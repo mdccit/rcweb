@@ -105,10 +105,9 @@
                         <div class="mt-4">
                             <label for="role" class="block text-sm font-normal text-gray-900 mb-1">Role <span class="text-red-500">*</span></label>
                             <div class="flex border border-gray-300 rounded-lg shadow-sm">
-                                <select id="role" v-model="user_role"
+                                <select id="role" v-model="user_role" required
                                     class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
                                     :disabled="props.action === 'view'">
-                                    <option selected>Choose a Role</option>
                                     <option value="2">Admin</option>
                                     <option value="3">Operator</option>
                                     <option value="4">Player</option>

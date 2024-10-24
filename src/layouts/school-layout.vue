@@ -51,7 +51,7 @@ import Academic from '~/components/user/profile/academic.vue';
 import Team from '~/components/user/profile/team.vue';
 import UserFeed from '~/components/user/profile/userFeed.vue';
 import { useRoute } from 'vue-router'
-import mediaTab from '~/components/profiles/schoolProfile/mediaTab.vue';
+import mediaTab from '~/components/profiles/schoolProfile/Tabs/mediaTab.vue';
 import { useUserStore } from '~/stores/userStore'
 import ScreenLoader from '@/layouts/screen_loader.vue';
 import { useLoadingStore } from '@/stores/loadingStore';
@@ -109,6 +109,9 @@ onMounted(() => {
   fetchSchooleDatils();
   //fetchPost();
 });
+useHead({
+  title: 'Recruited '+route.params.slug,
+})
 
 const fetchSchooleDatils = async () => {
   try {

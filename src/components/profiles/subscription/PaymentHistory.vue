@@ -1,5 +1,5 @@
 <template>
-  <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue  border-opacity-40 bg-white w-full p-8 mt-3">
+  <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-8 mt-3"  v-if="(userRole === 'coach') || (userRole === 'player')">
     <h3 class="font-semibold text-xl mb-4 text-black">Payment history</h3>
     <p class="text-sm text-darkSlateBlue mb-4">Your subscription payment history is listed below.</p>
 
@@ -43,15 +43,15 @@ import { useNuxtApp } from '#app';
 // Access services from the context
 const nuxtApp = useNuxtApp();
 const $subscriptionService = nuxtApp.$subscriptionService;
-
+const userRole = ref('');
 // Refs to store payment history
 const paymentHistory = ref([]);
 
 onMounted(async () => {
+  userRole.value = localStorage.getItem('user_role');
   try {
     // Fetch user payment history
     const response = await $subscriptionService.get_stripe_payment_history();
-    console.log(response);
     paymentHistory.value = response;
   } catch (error) {
     console.error('Error fetching payment history:', error);

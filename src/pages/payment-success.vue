@@ -19,7 +19,13 @@
       </div>
       <div class="mt-4">
 
-        <Button class="bg-limegreen text-white px-7 py-2 rounded-md mt-8">
+
+        <Button v-if="userRole == 'coach'" class="bg-limegreen text-white px-7 py-2 rounded-md mt-8">
+          <NuxtLink to="/user/approval-pending">
+            Continue
+          </NuxtLink>
+        </Button>
+        <Button v-if="userRole == 'player'" class="bg-limegreen text-white px-7 py-2 rounded-md mt-8">
           <NuxtLink to="/app">
             Continue
           </NuxtLink>
@@ -53,6 +59,7 @@ const status = ref('');
 const is_auto_renew = ref('');
 const isDataFetched = ref(false);
 const loading = ref(false);
+const userRole = ref('');
 
 const nuxtApp = useNuxtApp();
 
@@ -67,6 +74,7 @@ const formatDate = (dateString) => {
 
 // Fetch subscription details when the component is mounted
 onMounted(async () => {
+  userRole.value = localStorage.getItem('user_role');
   await fetchData();
 
 });

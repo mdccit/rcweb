@@ -129,6 +129,9 @@ definePageMeta({
     middleware: ['role'],
     requiredRole: ['admin', 'coach', 'business_manager', 'player', 'parent', 'default'],
 });
+useHead({
+  title: 'Recruited Resources',
+})
 
 import { ref, watchEffect ,onMounted } from 'vue';
 import { useNuxtApp } from '#app';

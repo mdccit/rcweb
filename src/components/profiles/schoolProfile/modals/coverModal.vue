@@ -93,7 +93,6 @@ const props = defineProps({
 const emit = defineEmits(['close']); // Emit close event with the modal name
 
 const nuxtApp = useNuxtApp();
-const $userService = nuxtApp.$userService;
 
 const error = ref('');
 const errors = ref('');
@@ -113,23 +112,23 @@ onMounted(() => {
 });
 
 watch(() => props.visible, (newVal) => {
-    if (newVal && props.slug) {
-      fetchSchoolDetails(props.slug);
-    }
+  if (newVal && props.slug) {
+    fetchSchoolDetails(props.slug);
+  }
 });
 
-const fetchSchoolDetails = async () =>{
-    try {
-       const dataSets = await $publicService.get_school(route.params.slug);
+const fetchSchoolDetails = async () => {
+  try {
+    const dataSets = await $publicService.get_school(route.params.slug);
 
-        if(dataSets.media_info){
-            profilePicture.value = dataSets.media_info.profile_picture
-            coverPicture.value = dataSets.media_info.cover_picture 
-            setGalleryItems(dataSets.media_info);
-        }        
-    } catch (error) {
-       console.error('Error fetching data:', error.message);
-    } 
+    if (dataSets.media_info) {
+      profilePicture.value = dataSets.media_info.profile_picture
+      cover_picture.value = dataSets.media_info.cover_picture
+      setGalleryItems(dataSets.media_info);
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+  }
 }
 
 
@@ -171,8 +170,8 @@ const saveCoverPicture = async () => {
   try {
     console.log('ipldafd');
     loading.value = true;
-    const user_slug = props.slug; // Assuming you have user_slug available in props
-    const response = await $userService.upload_school_cover_photo(cover_picture.value, user_slug); // Call the upload function
+    const school_slug = props.slug; // Assuming you have user_slug available in props
+    const response = await $publicService.upload_school_cover_photo(cover_picture.value, school_slug); // Call the upload function
 
     if (response.status == '200') {
       loading.value = false;

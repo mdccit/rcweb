@@ -107,6 +107,10 @@ onMounted(() => {
 
 });
 
+useHead({
+  title: 'Recruited '+route.params.slug,
+})
+
 const fetchUserDetailsBySlug = async () => {
   try {
     const dataSets = await $publicService.get_parent(route.params.slug);
