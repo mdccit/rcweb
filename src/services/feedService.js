@@ -162,6 +162,38 @@ const createFeedService = (apiService) => {
     }
   };
 
+
+  const list_school_posts = async (shool_id,request_body) => {
+    const url = `/feed/school-posts/${shool_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.getRequest(url, body);
+      if (response && response.message) {
+        return response.message;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+  const list_business_posts = async (business_id,request_body) => {
+    const url = `/feed/business-posts/${business_id}`;
+    const body = request_body;
+
+    try {
+      const response = await apiService.getRequest(url, body);
+      if (response && response.message) {
+        return response.message;
+      } else {
+        throw new Error('Unexpected API response structure');
+      }
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
  
 
  
@@ -179,6 +211,8 @@ const createFeedService = (apiService) => {
     get_all_post_comment,
     get_single_post,
     get_single_post_with_like_boolean,
+    list_school_posts,
+    list_business_posts
 
   };
 
