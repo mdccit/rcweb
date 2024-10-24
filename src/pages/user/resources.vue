@@ -3,7 +3,7 @@
 
         <!-- Resources -->
 
-        <div v-if="userStore.resource == null" class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
+        <div v-if="userStore.resourceId == null" class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
             <!-- Section Header -->
             <div class="mb-6">
                 <h2 class="text-2xl text-black font-bold">{{ tab==1?'Resources':'Tutorial'}}</h2>

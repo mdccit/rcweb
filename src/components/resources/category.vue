@@ -109,9 +109,7 @@ const props = defineProps({
 });
 
 const redirectResource = (resource) =>{
-    console.log(resource.id)
     userStore.setResourceId(resource.id)
-    console.log(userStore.resourceId)
     if(resource.resources.length > 0){
 
         userStore.setResourceData(resource.resources[0])
