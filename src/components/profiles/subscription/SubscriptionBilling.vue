@@ -112,11 +112,10 @@
                 <span class="font-semibold text-black">XXXX XXXX XXXX 234</span>
                 <div class="flex w-full">
                   <div class="flex-1">
-
                     <p class="text-xs text-gray-500">Expires 12/24</p>
                   </div>
                   <div class="flex-3">
-                    <span class="text-xs text-steelBlue ">Default</span>
+                    <button class="bg-white text-steelBlue text-xs pt-1">Default</button>
                   </div>
                 </div>
               </div>
@@ -144,11 +143,10 @@
                 <span class="font-semibold text-black">XXXX XXXX XXXX 234</span>
                 <div class="flex w-full">
                   <div class="flex-1">
-
-                    <p class="text-xs text-gray-500">Expires 12/24</p>
+                    <p class="text-xs text-gray-500 pt-1">Expires 12/24</p>
                   </div>
                   <div class="flex-3">
-                    <span class="text-xs text-steelBlue block">Set as default</span>
+                    <button class="bg-white text-steelBlue text-xs">Set as default</button>
                   </div>
                 </div>
               </div>
