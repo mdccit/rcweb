@@ -71,7 +71,7 @@
         <div class="flex-1">
           <div
             class="bg-gradient-to-r from-blue-900 to-gray-800 text-white p-6 rounded-lg w-85 shadow-lg h-60 flex flex-col justify-end">
-            <span class="text-xs text-blue-200 font-semibold">Defalt</span>
+            <span class="text-xs text-blue-200 font-semibold">Default</span>
             <div class="mt-auto flex justify-between items-center" v-if="!loading">
               <div class="mt-4">
                 <span class="font-semibold">Selected card</span>
@@ -116,7 +116,7 @@
                     <p class="text-xs text-gray-500">Expires 12/24</p>
                   </div>
                   <div class="flex-3">
-                    <span class="text-xs text-steelBlue ">Defalt</span>
+                    <span class="text-xs text-steelBlue ">Default</span>
                   </div>
                 </div>
               </div>
@@ -148,7 +148,7 @@
                     <p class="text-xs text-gray-500">Expires 12/24</p>
                   </div>
                   <div class="flex-3">
-                    <span class="text-xs text-steelBlue block">Set as defalt</span>
+                    <span class="text-xs text-steelBlue block">Set as default</span>
                   </div>
                 </div>
               </div>
