@@ -123,7 +123,7 @@ const category = ref([])
 
 onMounted(() => {
     userStore.setResourceData(null)
-
+    
     fetchResourcresCategory()
     console.log(userStore.resourceData)
 });
