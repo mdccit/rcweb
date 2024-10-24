@@ -99,7 +99,7 @@
                                 </NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink to="/user/resources"
+                                <div @click="resourcePageReidrect"
                                     class="block py-2 px-3 text-periwinkleBlue md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:text-white md:dark:hover:bg-transparent group">
                                     <div class="flex items-center justify-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -112,7 +112,7 @@
                                     </div>
                                     <span
                                         class="text-xs font-normal text-periwinkleBlue group-hover:text-steelBlue transition uppercase">Resources</span>
-                                </NuxtLink>
+                                </div>
                             </li>
                             <li>
                                 <!-- v-if="role === 'coach' && userTypeId == 3" -->
@@ -392,6 +392,14 @@ const searchkey = () => {
             searchKey: key.value
         }
     });
+     
+   
+}
+
+const resourcePageReidrect = () => {
+    userStore.setResourceId(null)
+    userStore.setResourceData(null)
+    router.push('/user/resources');
      
    
 }
