@@ -44,37 +44,37 @@
 
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                   <li>
-                    <NuxtLink to="/admin/users?role=1"
+                    <NuxtLink to="/admin/users?role=1" @click="dropDownHiddiden"
                       class=" cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> All </div>
                     </NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink to="/admin/users?role=4"
+                    <NuxtLink to="/admin/users?role=4" @click="dropDownHiddiden"
                       class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> Players </div>
                     </NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink to="/admin/users?role=5"
+                    <NuxtLink to="/admin/users?role=5" @click="dropDownHiddiden"
                       class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> Coaches </div>
                     </NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink to="/admin/users?role=7"
+                    <NuxtLink to="/admin/users?role=7" @click="dropDownHiddiden"
                       class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> Parent </div>
                     </NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink to="/admin/users?role=2"
+                    <NuxtLink to="/admin/users?role=2" @click="dropDownHiddiden"
                       class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> Admin </div>
                     </NuxtLink>
                   </li>
                   <li>
-                    <NuxtLink to="/admin/users?role=6"
+                    <NuxtLink to="/admin/users?role=6" @click="dropDownHiddiden"
                       class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded">
                       <div class="flex items-center"> Business User </div>
                     </NuxtLink>
@@ -493,6 +493,13 @@ const fetchMorderationCount = async () => {
 const goto_transfer_tracker = () => {
   router.push('/admin/transferTracker');
 };
+
+const dropDownHiddiden = () =>{
+  const dropdown = document.getElementById('userDropdown');
+  dropdown.classList.add('hidden');
+
+}
+
 
 </script>
 
