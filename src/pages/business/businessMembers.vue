@@ -91,8 +91,14 @@ const $adminService = nuxtApp.$adminService;
 const business_id = ref('');
 const members = ref([]); // Array to store members
 const errors = ref([]);  // Array to handle error messages
-const name = ref('')
-const slug = ref('')
+const name = ref('');
+const slug = ref('');
+
+// User role and type
+const userRole = ref('');
+const userType = ref('');
+const isModalVisible = ref(false);
+
 // Fetch business members on component mount
 onMounted(() => {
     business_id.value = route.query.business_id || '';
@@ -149,6 +155,57 @@ definePageMeta({
     middleware: ['role'],
     requiredRole: ['admin'],
 });
+
+// Function to open the modal
+const openModal = (userData) => {
+  userRole.value = userData.role || '';
+  userType.value = userData.type || '';
+  isModalVisible.value = true;
+};
+
+// Function to close the modal
+const closeModal = () => {
+  isModalVisible.value = false;
+};
+
+
+
+
+const changeBusinessUserType = async () => {
+  try {
+    loading.value = true;
+    const response = await $adminService.change_business_member_type();
+    if (response && response.status === 200) {
+      // Success case
+      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+    } else {
+      // Handle non-success status codes
+      nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+    }
+  } catch (error) {
+    console.error('Error change user type:', error);
+  }finally{
+    loading.value = false;
+  }
+};
+
+const removeBusinessUser = async () => {
+  try {
+    loading.value = true;
+    const response = await $adminService.remove_business_member();
+    if (response && response.status === 200) {
+      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+    } else {
+      // Handle non-success status codes
+      nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+    }
+  } catch (error) {
+    console.error('Error remove user from school:', error);
+  }finally{
+    loading.value = false;
+  }
+};
+
 </script>
 
 

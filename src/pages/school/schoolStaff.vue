@@ -136,8 +136,14 @@ const notificationMessage = ref('');  // Message for the notification
 const action = ref('');  // Action type (e.g., manage, view)
 const school_id = ref('');  // School ID
 const staff_members = ref([]);  // Array to hold staff data
-const name = ref('')
-const slug = ref('')
+const name = ref('');
+const slug = ref('');
+
+// User role and type
+const userRole = ref('');
+const userType = ref('');
+const isModalVisible = ref(false);
+
 
 onMounted(() => {
     // Set initial values for action and school_id from route query parameters
@@ -150,6 +156,56 @@ onMounted(() => {
     fetchSchoolDetails(school_id.value)
     // }
 });
+
+
+// Function to open the modal
+const openModal = (userData) => {
+  userRole.value = userData.role || '';
+  userType.value = userData.type || '';
+  isModalVisible.value = true;
+};
+
+// Function to close the modal
+const closeModal = () => {
+  isModalVisible.value = false;
+};
+
+
+const changeSchoolUserType = async () => {
+  try {
+    loading.value = true;
+    const response = await $adminService.change_school_user_type();
+    if (response && response.status === 200) {
+      // Success case
+      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+    } else {
+      // Handle non-success status codes
+      nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+    }
+  } catch (error) {
+    console.error('Error change user type:', error);
+  }finally{
+    loading.value = false;
+  }
+};
+
+const removeSchoolUser = async () => {
+  try {
+    loading.value = true;
+    const response = await $adminService.remove_school_user();
+    if (response && response.status === 200) {
+      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+    } else {
+      // Handle non-success status codes
+      nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+    }
+  } catch (error) {
+    console.error('Error remove user from school:', error);
+  }finally{
+    loading.value = false;
+  }
+};
+
 
 // Fetch School Staff
 const fetchSchoolStaff = async (schoolId) => {
