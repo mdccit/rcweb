@@ -1,13 +1,15 @@
 <template>
+
     <section class="w-full mb-5 p-3">
         <div class="relative">
-            <img v-if="props.data.cover ==null" class="w-full h-[400px] rounded-xl" src="@/assets/images/covrss.jpg" alt="">
-            <img v-if="props.data.cover !=null" class="w-full h-[400px] rounded-xl" :src="props.data.cover.url" alt="">
+            <img v-if="props.data.cover == null" class="w-full h-[400px] rounded-xl" src="@/assets/images/covrss.jpg"
+                alt="">
+            <img v-if="props.data.cover != null" class="w-full h-[400px] rounded-xl" :src="props.data.cover.url" alt="">
 
-            <!-- Wrapper for the SVG to position it absolutely -->
-            <div v-if="props.data.editor==true" @click="toggleModal('cover')" class="absolute top-0 right-0 mt-[8px] mr-[8px] cursor-pointer bg-white p-1 rounded-md">
+            <div class="absolute top-0 right-0 mt-[8px] mr-[8px] w-6 h-6 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue"
+                v-if="props.data.editor == true" @click="toggleModal('cover')">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
-                    stroke="currentColor" class="size-3">
+                    stroke="currentColor" class="size-4">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                 </svg>
@@ -16,18 +18,20 @@
 
         <span>
             <div class="-mt-[144px]">
-                <div class="grid grid-cols-5 gap-4 flex">
-                    <div class="col-span-1">
+                <div class="grid grid-cols-10 gap-4 flex">
+                    <div class="col-span-3">
                         <div class="text-center flex relative">
                             <div class="relative ml-5">
-                                <img v-if="props.data.profile ==null" class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
+                                <img v-if="props.data.profile == null"
+                                    class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
                                     src="@/assets/images/user.png" alt="">
-                                <img v-if="props.data.profile !=null" class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
+                                <img v-if="props.data.profile != null"
+                                    class="mx-auto w-[180px] h-[180px] rounded-xl mt-[45px]"
                                     :src="props.data.profile.url" alt="">
 
                                 <!-- SVG Wrapper positioned at the bottom right of the image -->
-                                <div v-if="props.data.editor==true"  @click="toggleModal('profile')"
-                                    class="absolute bottom-0 right-0 mb-[10px] mr-[10px] cursor-pointer bg-white p-1 rounded-md">
+                                <div v-if="props.data.editor == true" @click="toggleModal('profile')"
+                                    class="absolute bottom-0 right-0 mb-[10px] mr-[10px]  w-6 h-6 bg-timberwolf rounded-full flex justify-center items-center cursor-pointer text-steelBlue">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -35,39 +39,20 @@
                                     </svg>
                                 </div>
                             </div>
-
 
                             <!-- Wrapper for the SVG to position it absolutely at the bottom right corner -->
-
-
                             <div class="text-left mt-[80px] ml-5">
-                                <div v-if="props.data.editor==true"  @click="toggleModal('name')"
-                                    class="absolute bottom-0 right-0 mb-[10px] mr-[10px] cursor-pointer bg-white p-1 rounded-md">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                    </svg>
-                                </div>
-                                <h2 class="text-lg font-semibold text-white text-3xl">{{  props.data.name }}
-                                    
-                                </h2>
-                               
+                                <h2 class="text-lg font-semibold text-white text-3xl">{{ data.name }} </h2>
+                                <h5 class="text-md text-white font-normal text-black text-primaryblue"> {{ data.role }}
+                                </h5>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-span-3">
-                        <div class="col-span-3">
-                            <div
-                                class="mt-[140px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                                <BusinessTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
-
-                            </div>
-                        </div>
+                    <div class="col-span-5">
                     </div>
 
-                    <div class="col-span-1 mt-[70px] z-10 text-right mr-[20px]">
+                    <div class="col-span-2 mt-[70px] z-10 text-right mr-[20px]">
                         <div class="w-full flex justify-end">
                             <div class="flex space-x-2">
                                 <!-- <div class="text-white">
@@ -91,9 +76,28 @@
                     </div>
 
                 </div>
+                <div class="grid grid-cols-6 gap-4 flex -mt-[85px] tabs-align">
+                    <div class="col-span-1">
+                    </div>
+                    <div class="col-span-5">
+                        <div class="">
+                            <div
+                                class=" text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
+                                <BusinessTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </span>
+        <CoverModal :visible="modals.cover" @close="handleModalClose" :slug="props.userSlug"
+            :coverPicture="props.data.cover_picture" @dataUpdate="dataUpdate" />
+        <NameModal :visible="modals.name" @close="handleModalClose" :slug="props.userSlug" :data="props.data"
+            @dataUpdate="dataUpdate" />
+
     </section>
+
     <CoverModal :visible="modals.cover" @close="handleModalClose" :slug="props.businessSlug" :data="props.data" />
     <ProfileModal :visible="modals.profile" @close="handleModalClose" :slug="props.businessSlug" :data="props.data" />
     <NameModal :visible="modals.name" @close="handleModalClose" :slug="props.businessSlug" :data="props.data" />
@@ -107,19 +111,19 @@ import CoverModal from '~/components/profiles/businessProfile/modals/coverModal.
 import ProfileModal from '~/components/profiles/businessProfile/modals/profileModal.vue';
 import NameModal from '~/components/profiles/businessProfile/modals/nameModal.vue';
 
-const emit = defineEmits(['changeTab','updateData']);
+const emit = defineEmits(['changeTab', 'updateData']);
 
 const props = defineProps({
 
-data: {
-    type: Object,
-    required: true,
-},
+    data: {
+        type: Object,
+        required: true,
+    },
 
-businessSlug: {
-    type: String,
-    required: true,
-}
+    businessSlug: {
+        type: String,
+        required: true,
+    }
 });
 
 const tab = ref('feed');
@@ -131,9 +135,9 @@ const handleTab = (selectedTab) => {
 };
 
 const tabs = ref([
-  { name: 'feed', label: 'Post' },
-  { name: 'member', label: 'Member' },
-  { name: 'media', label: 'Media' }
+    { name: 'feed', label: 'Post' },
+    { name: 'member', label: 'Member' },
+    { name: 'media', label: 'Media' }
 ]);
 
 const modals = reactive({
@@ -156,7 +160,7 @@ const handleModalClose = (modalName) => {
         modals[modalName] = false;  // Close the modal
         emit('updateData')
         //fetchUserDetails();
-                 // Fetch updated user details after closing
+        // Fetch updated user details after closing
     } else {
         console.error(`Invalid modal name: ${modalName}`);
     }

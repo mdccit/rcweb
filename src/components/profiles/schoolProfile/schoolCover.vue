@@ -65,7 +65,7 @@
 
                     <div class="col-span-2 mt-[70px] z-10 text-right">
                         <div class="">
-                            <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1"
+                            <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1 mr-2"
                                >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
@@ -83,7 +83,7 @@
                     <div class="col-span-5">
                         <div class="pl-3">
                             <div
-                                class="-mt-[10px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
+                                class="mt-2 text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
                                 <SchoolTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
                             </div>
                         </div>
