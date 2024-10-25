@@ -97,7 +97,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M3 16l4-4m0 0l4 4m-4-4v12M21 12v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6m4-6h12M5 10h14" />
               </svg>
-              <span class="text-blue-700 font-semibold text-lg mb-2">Click to Upload Image or Video</span>
+              <span class="text-blue-700 font-semibold text-lg mb-2">Click to Upload File</span>
             </label>
             <!-- Input for file selection -->
             <input id="media-upload" type="file" accept="application/pdf" multiple @change="handleFileUpload"

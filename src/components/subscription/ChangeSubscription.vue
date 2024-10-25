@@ -6,15 +6,21 @@
 
 
   <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl mx-auto">
-
+    <div class="">
+      <button class="flex mb-4 text-sm rounded-full bg-gray-100 p-1"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" class="size-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        </svg> 
+      </button>
+    </div>
     <div class="flex">
       <!-- Iterate through the packages array -->
       <div v-for="(pkg, index) in packages" :key="pkg.value" class="flex-1 flex justify-center">
         <div :key="refreshKey" :class="[
-        'border w-[230px] rounded-lg text-center p-3 relative flex flex-col cursor-pointer',
-        pkg.name === 'Premium' ? 'pro-pack' : '',
-        selectedPackage === pkg.name ? 'highlighted-package' : ''
-      ]" @click="selectPackage(pkg.value)">
+          'border w-[230px] rounded-lg text-center p-3 relative flex flex-col cursor-pointer',
+          pkg.name === 'Premium' ? 'pro-pack' : '',
+          selectedPackage === pkg.name ? 'highlighted-package' : ''
+        ]" @click="selectPackage(pkg.value)">
           <h3 class="font-medium text-black mb-2">{{ pkg.name }}
           </h3>
 
@@ -23,8 +29,7 @@
 
           <!-- Features List -->
           <div class="grid justify-center">
-            <p v-for="(feature, fIndex) in pkg.features" :key="fIndex"
-              class="text-xs flex text-left mb-2">
+            <p v-for="(feature, fIndex) in pkg.features" :key="fIndex" class="text-xs flex text-left mb-2">
               <span class="text-limegreen ml-1 me-2">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
                   <path fill-rule="evenodd"
@@ -220,7 +225,7 @@ const cancelSubscription = async () => {
     isModalVisible.value = false;
     const response = await $subscriptionService.cancel_subscription();
     if (response && response.status === 200) {
-      activeStatus.value = 'cancelled'; 
+      activeStatus.value = 'cancelled';
       // Success case
       nuxtApp.$notification.triggerNotification(response.display_message, 'success');
     } else {
@@ -415,8 +420,8 @@ onMounted(async () => {
   border-radius: 2px;
 }
 
-.pro-pack{
-    background: #f9fbff;
-    border: solid 1px #4090dd;
+.pro-pack {
+  background: #f9fbff;
+  border: solid 1px #4090dd;
 }
 </style>
