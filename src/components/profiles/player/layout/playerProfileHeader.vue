@@ -6,7 +6,7 @@
                 <div
                     class="text-sm font-medium text-center text-gray-500 text-gray-400 border-gray-400">
                   
-                    <PlayerTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
+                    <PlayerTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" :userSlug="props.userSlug" />
 
                 </div>
             </div>
@@ -158,6 +158,8 @@ const props = defineProps({
         required: true,
     },
 }); 
+
+
 
 const userStore = useUserStore();
 

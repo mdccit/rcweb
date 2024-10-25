@@ -145,7 +145,7 @@
                         <div class="pl-3">
                             <div
                                 class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400 z-10">
-                                <CoachTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
+                                <CoachTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" :userSlug="props.userSlug" />
                             </div>
                         </div>
                     </div>

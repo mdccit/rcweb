@@ -12,7 +12,7 @@
                     <div class="flex justify-between items-center space-x-3">
 
                         <div class="relative hidden sm:hidden md:block basis-1/2">
-                            <input type="text" @keyup.enter="searchkey" v-model="key"
+                            <input type="text" @keyup.enter="searchkey" v-model="key" autocomplete="off"
                                 class="w-full text-darkSlateBlue bg-culturedBlue placeholder-ceil rounded-full border-0 focus:ring focus:ring-offset-2 focus:ring-steelBlue focus:ring-opacity-50 transition py-2 ps-4 pe-12"
                                 placeholder="Search..." />
                             <div @click="searchkey" class="absolute right-0 top-0 bottom-0 flex items-center pe-4 space-x-2">

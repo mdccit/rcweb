@@ -31,9 +31,19 @@
     initialTab: {
       type: String,
       default: ''
-    }
+    },
+    businessSlug: {
+      type: String,
+      required: true,
+}
   });
   
+  watch(
+    () => props.businessSlug,
+    () => {
+      activeTab.value = 'feed'
+    }
+  );
   // Emits event to parent component when tab is changed
   const emit = defineEmits(['tabChanged']);
   

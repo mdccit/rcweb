@@ -78,7 +78,7 @@
                         <div class="">
                             <div
                                 class="mt-[10px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                                <BusinessUserTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
+                                <BusinessUserTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" :userSlug="props.userSlug" />
                             </div>
                         </div>
                     </div>

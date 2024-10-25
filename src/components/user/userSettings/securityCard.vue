@@ -69,11 +69,13 @@
           <p class="text-sm text-black mb-6">Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.</p>
         </div>
         <div class="mt-6">
-          <button class="w-60 py-3 px-4 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-orangeRed focus:outline-none focus:ring-2 focus:ring-blue-500">Delete Account</button>
+          <button @click="showModal =true" class="w-60 py-3 px-4 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-orangeRed focus:outline-none focus:ring-2 focus:ring-blue-500">Delete Account</button>
         </div>
+       
       </div>
     </div>
   </div>
+  <AccountDeleteModel :isVisible="showModal" @close="showModal = false" />
 </template>
 
 <script setup>
@@ -81,7 +83,7 @@ import { ref, watch, computed, onMounted, defineEmits } from "vue";
 import { useNuxtApp } from "#app";
 import { handleError } from "@/utils/handleError";
 import InputError from "@/components/common/input/InputError.vue";
-
+import AccountDeleteModel from '~/components/user/userSettings/accountDeleteModel.vue';
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
@@ -93,7 +95,7 @@ const errors = ref({});
 const notification_type = ref("");
 const showNotification = ref(false);
 const notificationMessage = ref("");
-
+const showModal = ref(false)
 // Fetch data from the API
 const fetchData = async () => {
   try {
