@@ -1134,6 +1134,84 @@ const get_resource_category_by_id = async (category_id) => {
   }
 };
 
+
+const change_school_user_type = async (request_body) => {
+
+  const url = `/admin/schools/manage-user-permission/${request_body.user_id}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    if (error) {
+      if (error.response) {
+        throw error.response; 
+      } else {
+        throw new Error(error.message || 'Failed to featch user');
+      }
+    }
+  }
+};
+
+
+const remove_school_user = async (request_body) => {
+
+  const url = `/admin/schools/remove-user/${request_body.user_id}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    if (error) {
+      if (error.response) {
+        throw error.response; 
+      } else {
+        throw new Error(error.message || 'Failed to featch user');
+      }
+    }
+  }
+};
+
+const change_business_member_type = async (request_body) => {
+
+  const url = `/admin/businesses/manage-user-permission/${request_body.user_id}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    if (error) {
+      if (error.response) {
+        throw error.response; 
+      } else {
+        throw new Error(error.message || 'Failed to featch user');
+      }
+    }
+  }
+};
+
+const remove_business_member = async (request_body) => {
+
+  const url = `/admin/businesses/remove-user/${request_body.user_id}`;
+  const body = request_body;
+
+  try {
+    const response = await apiService.putRequest(url, body);
+    return response;
+  } catch (error) {
+    if (error) {
+      if (error.response) {
+        throw error.response; 
+      } else {
+        throw new Error(error.message || 'Failed to featch user');
+      }
+    }
+  }
+};
+
   return {
     new_user_register,
     list_users,
@@ -1208,7 +1286,11 @@ const get_resource_category_by_id = async (category_id) => {
     transcript_delete,
     list_transcripts,
     transcript_update,
-    list_subscriptions
+    list_subscriptions,
+    change_school_user_type,
+    remove_school_user,
+    change_business_member_type,
+    remove_business_member
   };
 
 };

@@ -11,7 +11,7 @@
       <div class="mb-4 p-2">
         <h1 class="text-2xl font-light text-green-600 mb-1 mt-4">Payment Successful!</h1>
         <p class="text-gray-400 mb-4">Your subscription has been activated.</p>
-        <p class="text-gray-700 mb-2">Price: {{ price || 'Free' }} {{ currency || 'USD' }}</p>
+        <p class="text-gray-700 mb-2">Price: {{ price || '0' }} {{ currency || 'USD' }}</p>
         <p class="text-gray-700 mb-2">Start Date: {{ start_date ? formatDate(start_date) : 'Not available' }}</p>
         <p class="text-gray-700 mb-2">End Date: {{ end_date ? formatDate(end_date) : 'Not available' }}</p>
         <p class="text-gray-700 mb-2">Status: {{ status || 'Unknown' }}</p>
