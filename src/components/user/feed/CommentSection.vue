@@ -2,6 +2,7 @@
   <div>
     <hr class="my-3 text-pigeonBlue">
     <div v-for="comment in comments" :key="comment.id" class="flex space-x-3 my-5">
+      <div></div>
       <button @click="userProfile(comment)">
         <!-- <img src="@/assets/user/images/Rectangle_117.png" alt="" class="rounded-lg w-10 h-10"> -->
         <img v-if="comment.user_profile_picture == null" src="@/assets/images/user.png" alt="" class="rounded-lg w-10 h-10">

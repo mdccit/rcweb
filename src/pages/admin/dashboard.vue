@@ -20,19 +20,19 @@
             <ul class="list-disc list-inside">
               <li>
                 <a href="https://docs.google.com/document/d/1d5PpzRerGT3kHNmuX-OeRuXqFPN3jzTQSrZwkQVFUCA/edit?usp=drive_link"
-                  class="text-primary-500 hover:underline">
+                  class="text-blue-500 hover:underline">
                   [Doc] Company handbook
                 </a>
               </li>
               <li>
                 <a href="https://drive.google.com/drive/folders/18vUxFSKUwlmSyMTZ-UQG4Oqd6x3rWWAj?usp=drive_link"
-                  class="text-primary-500 hover:underline">
+                  class="text-blue-500 hover:underline">
                   Resources for everyone
                 </a>
               </li>
               <li>
                 <a href="https://drive.google.com/drive/folders/1NE1jwYNCckNy40uzYrVutCFHW-VBunh6?usp=drive_link"
-                  class="text-primary-500 hover:underline">Marketing resources</a>
+                  class="text-blue-500 hover:underline">Marketing resources</a>
               </li>
             </ul>
           </div>

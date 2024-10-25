@@ -53,7 +53,7 @@
         <p class="text-sm text-darkSlateBlue mb-4">Manage and log out your active sessions on other browsers and devices.</p>
 
         <div class="space-y-4">
-          <p class="text-sm text-black mb-6">When two-factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone's Google Authenticator application.</p>
+          <p class="text-sm text-black mb-6">You can easily manage and log out of your active sessions across other browsers and devices. This helps maintain security and control over where your account is being accessed.</p>
         </div>
         <div class="mt-6">
           <button @click.prevent="handleBrowserOtherTokensLogout" class="w-60 py-3 px-4 bg-steelBlue text-white text-sm font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Log Out Other Browser</button>
