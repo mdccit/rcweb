@@ -70,14 +70,26 @@
     <!-- Card Details Section -->
     <div class="mt-6" v-if="!loading">
       <hr class="mt-5 mb-3 text-pigeonBlue">
-      <h3 class="font-semibold text-xl mb-4 text-black">Card details</h3>
-      <p class="text-sm text-darkSlateBlue mb-4"> Securely manage your saved payment methods. Update card information,
-        add a new card, or remove existing ones to ensure seamless billing and uninterrupted service.</p>
 
-      <!-- Button to trigger the add card modal -->
-      <button @click="isAddCardModalVisible = true" class="bg-blue-500 text-white px-4 py-2 rounded mt-4">
-        Add New Card
-      </button>
+      <!-- Flex container to align heading and button -->
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-semibold text-xl text-black">Card details</h3>
+        <!-- Button with styled plus icon -->
+        <button @click="isAddCardModalVisible = true" class="flex items-center justify-center w-10 h-10 rounded-full bg-transparent border border-gray-300 
+                       hover:bg-red-50 transition duration-200 shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 text-darkRed transition-colors duration-200 hover:text-red-700" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+        </button>
+      </div>
+
+      <p class="text-sm text-darkSlateBlue mb-4">
+        Securely manage your saved payment methods. Update card information, add a new card, or remove existing ones to
+        ensure seamless billing and uninterrupted service.
+      </p>
+
       <div class="flex space-x-4">
 
         <div class="flex-1">
@@ -101,134 +113,47 @@
           </div>
         </div>
 
-        <!-- Default & set as defalt cards -->
-        <!-- <div class="flex-1">
-          <div class="space-y-4 w-full">
-            <div class="relative items-center justify-between p-4 bg-white rounded-lg shadow border default-card-select">
-              <div>
-                <div class="flex w-full">
-                  <div class="flex-1">
-                    <span class="text-xs text-darkSlateBlue block">Card Brand: fff</span>
-                  </div>
-                  <div class="flex-3">
-
-                    <button class="text-red hover:text-red-700">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                          d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                <span class="font-semibold text-black">XXXX XXXX XXXX 234</span>
-                <div class="flex w-full">
-                  <div class="flex-1">
-                    <p class="text-xs text-gray-500">Expires 12/24</p>
-                  </div>
-                  <div class="flex-3">
-                    <button class="bg-white text-steelBlue text-xs pt-1">Default</button>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-          <div class="space-y-4 w-full mt-2">
-            <div class="relative items-center justify-between p-4 bg-white rounded-lg shadow border">
-              <div>
-                <div class="flex w-full">
-                  <div class="flex-1">
-                    <span class="text-xs text-darkSlateBlue block">Card Brand: fff</span>
-                  </div>
-                  <div class="flex-3">
-
-                    <button class="text-red hover:text-red-700">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                          d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                <span class="font-semibold text-black">XXXX XXXX XXXX 234</span>
-                <div class="flex w-full">
-                  <div class="flex-1">
-                    <p class="text-xs text-gray-500 pt-1">Expires 12/24</p>
-                  </div>
-                  <div class="flex-3">
-                    <button class="bg-white text-steelBlue text-xs">Set as default</button>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div> -->
-        <!--/ Default & set as defalt cards -->
-
-        <!-- <div class="flex-1"  v-if="!loading" >
-          <div class="space-y-4 w-full">
-            <div v-for="(method, index) in paymentMethods" :key="method.id"
-              class="relative flex items-center justify-between p-4 bg-white rounded-lg shadow border">
-              <div>
-                <span class="text-xs text-darkSlateBlue block">Card Brand: {{ method.card.brand }} </span>
-                <span class="font-semibold text-black">XXXX XXXX XXXX {{ method.card.last4 }}</span>
-                <p class="text-xs text-gray-500">Expires {{ method.card.exp_month }}/{{ method.card.exp_year }}</p>
-              </div>
-              <button @click="deletePaymentMethod(method.id)" class="text-red hover:text-red-700">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" class="size-4">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div> -->
-
-
         <div class="flex-1">
           <div class="space-y-4 w-full">
             <!-- Loop through the payment methods and display the default and other cards separately -->
             <div v-for="(method, index) in paymentMethods" :key="method.id"
-              class="relative flex items-center justify-between p-4 bg-white rounded-lg shadow border"
-              :class="{ 'default-card-select': method.is_default }">
-              <div>
-                <div class="flex w-full">
-                  <div class="flex-1">
-                    <span class="text-xs text-darkSlateBlue block">Card Brand: {{ method.brand }}</span>
-                  </div>
-                  <div class="flex-3">
-                    <button @click="deletePaymentMethod(method.id)" class="text-red hover:text-red-700">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                          d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                      </svg>
-                    </button>
-                  </div>
+                 class="relative flex items-center justify-between p-4 bg-white rounded-lg shadow border"
+                 :class="{ 'default-card-select': method.is_default }">
+              
+              <div class="flex w-full">
+                <!-- Card Details on the left -->
+                <div class="flex-1">
+                  <span class="text-xs text-darkSlateBlue block">Card Brand: {{ method.brand }}</span>
+                  <span class="font-semibold text-black">XXXX XXXX XXXX {{ method.last4 }}</span>
+                  <p class="text-xs text-gray-500">Expires {{ method.exp_month }}/{{ method.exp_year }}</p>
                 </div>
-                <span class="font-semibold text-black">XXXX XXXX XXXX {{ method.last4 }}</span>
-                <div class="flex w-full">
-                  <div class="flex-1">
-                    <p class="text-xs text-gray-500">Expires {{ method.exp_month }}/{{ method.exp_year }}</p>
-                  </div>
-                  <div class="flex-3">
-                    <button v-if="method.is_default" class="bg-white text-steelBlue text-xs pt-1">
+                
+                <!-- Actions on the right -->
+                <div class="flex items-center space-x-4">
+                  <!-- Default/Set as Default Button -->
+                  <div>
+                    <button v-if="method.is_default" class="bg-green-100 text-green-700 text-xs py-1 px-2 rounded-full">
                       Default
                     </button>
                     <button v-else @click="setDefaultPaymentMethod(method.id)"
-                      class="bg-white text-steelBlue text-xs pt-1 hover:underline">
+                            class="text-steelBlue text-xs pt-1 hover:underline">
                       Set as default
                     </button>
                   </div>
+                  
+                  <!-- Remove Button (only visible if the card is not default) -->
+                  <button v-if="!method.is_default" @click="deletePaymentMethod(method.id)" class="text-red-500 hover:text-red-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21a47.63 47.63 0 00-1.022.166L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0V4.884c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        
 
       </div>
 
@@ -267,7 +192,7 @@
     </div>
 
     <!-- Add Card Modal -->
-    <AddCardModal :isVisible="isAddCardModalVisible" @close="isAddCardModalVisible" />
+    <AddCardModal :isVisible="isAddCardModalVisible" @close="closeModal" />
 
   </div>
 
@@ -337,10 +262,11 @@ onMounted(async () => {
   }
 });
 
-// const showAddCardModal = () => {
-//   console.log('showiofd');
-//   isAddCardModalVisible.value = true;
-// };
+
+
+const closeModal = () => {
+  isAddCardModalVisible.value = false;
+};
 
 const getCustomerActiveCard = async () => {
   try {

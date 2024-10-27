@@ -118,6 +118,18 @@ const createSubscriptionService = (apiService) => {
     }
   };
 
+  const add_new_card = async (request_body) => {
+    const url = '/subscription/add-new-card';
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
 
 
   return {
@@ -128,7 +140,8 @@ const createSubscriptionService = (apiService) => {
     cancel_subscription,
     delete_stripe_payment_method,
     stop_premium_cancellation,
-    update_default_payment_method
+    update_default_payment_method,
+    add_new_card,
   };
 
 

@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export default defineNuxtConfig({
-  // devtools: { enabled: true },
+  devtools: { enabled: false },
   buildAssetsDir: '/assets/',
   head: {
     title: 'Recruited', // Change this to your website title
