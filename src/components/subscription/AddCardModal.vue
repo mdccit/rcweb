@@ -1,12 +1,16 @@
 <template>
   <div v-if="isVisible" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div class="relative bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
-      <!-- X Close Button -->
+      <!-- Close Button with SVG -->
       <button @click="emitClose" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
-        &times;
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
       </button>
 
-      <h2 class="text-lg font-semibold mb-4">Add New Card</h2>
+      <h2 class="text-lg font-semibold mb-4">Add New Payment Method</h2>
+      <p class="text-sm text-gray-600 mb-4">We use Stripe to process your payment information securely.</p>
+
       <form @submit.prevent="handleAddCard">
         <div id="card-element" class="border rounded p-4 mb-4"></div> <!-- Larger padding for card input -->
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded w-full" :disabled="isLoading">
@@ -16,13 +20,22 @@
       </form>
       <p v-if="errorMessage" class="text-red-500 mt-2">{{ errorMessage }}</p>
 
-      <!-- Cancel Button -->
-      <button @click="emitClose" class="text-gray-500 mt-4 hover:text-gray-700">
+      <!-- Cancel Button with SVG -->
+      <button @click="emitClose"
+        class="mt-4 px-4 py-2 text-gray-500 border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 transition duration-200">
         Cancel
       </button>
+
+      <!-- Stripe Branding -->
+      <div class="flex items-center justify-center mt-6">
+        <span class="text-xs text-gray-400">Powered by</span>
+        <img src="https://stripe.com/img/v3/home/twitter.png" alt="Stripe" class="h-5 ml-2">
+      </div>
+
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref, watch, nextTick, onMounted } from 'vue';
@@ -49,6 +62,12 @@ const errorMessage = ref('');
 const emitClose = () => {
   emit('close');
   errorMessage.value = '';
+
+  // Properly unmount the card element to avoid duplicates
+  if (cardElement.value) {
+    cardElement.value.destroy(); // Safely destroys the element
+    cardElement.value = null;
+  }
 };
 
 // Handle adding card
@@ -102,26 +121,32 @@ onMounted(async () => {
 watch(
   () => props.isVisible,
   async (visible) => {
-    if (visible && !cardElement.value && elements.value) {
-      await nextTick();
-      cardElement.value = elements.value.create('card', {
-        style: {
-          base: {
-            fontSize: '18px', // Make the font larger to match PaymentComponent
-            padding: '10px 15px', // Add padding for larger input size
+    if (visible) {
+      // If the modal is opened and cardElement is null, create and mount it
+      if (!cardElement.value && elements.value) {
+        await nextTick();
+        cardElement.value = elements.value.create('card', {
+          style: {
+            base: {
+              fontSize: '18px',
+              padding: '10px 15px',
+            },
           },
-        },
-      });
-      cardElement.value.mount('#card-element');
+          hidePostalCode: true, // Hide ZIP code if desired
+        });
+        cardElement.value.mount('#card-element');
+      }
     }
   }
 );
+
 </script>
 
 <style scoped>
 /* Modal-specific styling for consistent card input size */
 #card-element {
-  font-size: 18px; /* Consistent font size with PaymentComponent */
+  font-size: 18px;
+  /* Consistent font size with PaymentComponent */
   padding: 10px 15px;
 }
 </style>

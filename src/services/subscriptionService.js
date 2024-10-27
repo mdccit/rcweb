@@ -107,7 +107,7 @@ const createSubscriptionService = (apiService) => {
   };
 
   const update_default_payment_method = async (request_body) => {
-    const url = '/subscription/update-payment-method';
+    const url = '/subscription/set-default-payment-method';
     const body = request_body;
 
     try {
