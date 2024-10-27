@@ -106,6 +106,19 @@ const createSubscriptionService = (apiService) => {
     }
   };
 
+  const update_default_payment_method = async (request_body) => {
+    const url = '/subscription/update-payment-method';
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+
 
   return {
     get_subscription,
@@ -114,7 +127,8 @@ const createSubscriptionService = (apiService) => {
     get_customer_active_payment_method,
     cancel_subscription,
     delete_stripe_payment_method,
-    stop_premium_cancellation
+    stop_premium_cancellation,
+    update_default_payment_method
   };
 
 
