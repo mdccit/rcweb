@@ -9,16 +9,17 @@ export default defineNuxtConfig({
   head: {
     title: 'Recruited', // Change this to your website title
     link: [
-      { rel: 'icon', type: 'image/png', href: '/_nuxt/assets/images/favicon.ico' }  
+
+      { rel: 'icon', type: 'image/x-icon', href: '/src/favicon.ico' },
     ],
   },
   srcDir: 'src/',
-  ssr: true,
+  ssr: false,
   target: 'server',
   components: true,
   router: {
     base: '/',  // Base URL for your router, assuming your app is served from the root
-    middleware: ['permissions','role', 'role-based-layout'],
+    middleware: ['permissions', 'role', 'role-based-layout'],
   },
   generate: {
     fallback: true,  // Generates a 404.html for static hosting fallback
@@ -61,7 +62,7 @@ export default defineNuxtConfig({
     ],
   },
   runtimeConfig: {
-    public: {      
+    public: {
       apiUrl: process.env.NUXT_PUBLIC_API_URL,
       accessKey: process.env.ACCESS_KEY,
       defaultLang: process.env.DEFAULT_LANG,
@@ -72,7 +73,7 @@ export default defineNuxtConfig({
   plugins: [
     '~/plugins/router.plugin.ts',
     '~/plugins/services.js',
-    '~/plugins/pinia.js',        
+    '~/plugins/pinia.js',
     '~/plugins/initUser.js',
     '~/plugins/element-plus.ts',
     '~/plugins/flowbite.client.ts',
@@ -110,7 +111,7 @@ export default defineNuxtConfig({
       ],
       onError: (route, error) => {
         console.error(`Error prerendering route ${route}:`, error);
-      },      
+      },
       ignore: [
         '/admin',         // Ignore all admin routes
         '/admin/**',      // Ignore all nested admin routes

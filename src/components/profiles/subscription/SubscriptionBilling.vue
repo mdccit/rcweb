@@ -114,7 +114,7 @@
         </div>
 
         <div class="flex-1">
-          <div class="space-y-4 w-full">
+          <div class="space-y-4 w-full h-80 overflow-y-auto"> <!-- Set height and enable vertical scroll -->
             <!-- Loop through the payment methods and display the default and other cards separately -->
             <div v-for="(method, index) in paymentMethods" :key="method.id"
               class="relative flex items-center justify-between p-4 bg-white rounded-lg shadow border"
@@ -155,6 +155,7 @@
             </div>
           </div>
         </div>
+
 
 
       </div>
@@ -359,6 +360,9 @@ const setDefaultPaymentMethod = async (id) => {
       // Success case
       nuxtApp.$notification.triggerNotification(response.display_message, 'success');
       refreshCards();
+      // Fetch the active card and set it in selectedCard
+      await getCustomerActiveCard();
+
     } else {
       // Handle non-success status codes
       nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
@@ -396,15 +400,15 @@ const getCardBrandLogo = (brand) => {
   }
 };
 
-const refreshCards = async () =>{
-    // Re-fetch the payment methods to refresh the list
-    const payment_methods = await $subscriptionService.get_customer_payment_methods();
-      if (payment_methods && payment_methods.status === 200) {
-        paymentMethods.value = payment_methods.data.original.data;
-      }
+const refreshCards = async () => {
+  // Re-fetch the payment methods to refresh the list
+  const payment_methods = await $subscriptionService.get_customer_payment_methods();
+  if (payment_methods && payment_methods.status === 200) {
+    paymentMethods.value = payment_methods.data.original.data;
+  }
 
-      // Optionally, re-fetch the active card if necessary
-      await getCustomerActiveCard();
+  // Optionally, re-fetch the active card if necessary
+  await getCustomerActiveCard();
 }
 
 const changeSubscription = async () => {

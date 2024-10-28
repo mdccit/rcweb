@@ -11,29 +11,31 @@
       <div class="mb-4 p-2">
         <h1 class="text-2xl font-light text-green-600 mb-1 mt-4">Payment Successful!</h1>
         <p class="text-gray-400 mb-4">Your subscription has been activated.</p>
-        <p class="text-gray-700 mb-2">Price: {{ price || 'Free' }} {{ currency || 'USD' }}</p>
+        
+        <!-- Price Display with Condition for Trialing Status -->
+        <p class="text-gray-700 mb-2">
+          Price: {{ status === 'trialing' ? '0' : price || 'Free' }} {{ currency || 'USD' }}
+        </p>
+  
         <p class="text-gray-700 mb-2">Start Date: {{ start_date ? formatDate(start_date) : 'Not available' }}</p>
         <p class="text-gray-700 mb-2">End Date: {{ end_date ? formatDate(end_date) : 'Not available' }}</p>
-        <p class="text-gray-700 mb-2">Status: {{ status || 'Unknown' }}</p>
-
+        
+        <!-- Status Display with Condition for Trialing Status -->
+        <p class="text-gray-700 mb-2">
+          Status: {{ status === 'trialing' ? 'Trial' : status || 'Unknown' }}
+        </p>
       </div>
       <div class="mt-4">
-
-
         <Button v-if="userRole == 'coach'" class="bg-limegreen text-white px-7 py-2 rounded-md mt-8">
-          <NuxtLink to="/user/approval-pending">
-            Continue
-          </NuxtLink>
+          <NuxtLink to="/user/approval-pending">Continue</NuxtLink>
         </Button>
         <Button v-if="userRole == 'player'" class="bg-limegreen text-white px-7 py-2 rounded-md mt-8">
-          <NuxtLink to="/app">
-            Continue
-          </NuxtLink>
+          <NuxtLink to="/app">Continue</NuxtLink>
         </Button>
       </div>
     </div>
   </div>
-
+  
 
 </template>
 
