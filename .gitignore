@@ -38,3 +38,9 @@ package-lock.json
 coverage/*
 
 .github/*
+.env
+.env.dev
+.env.qa
+.env.uat
+.env.production
+.env.*
