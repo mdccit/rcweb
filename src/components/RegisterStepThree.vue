@@ -51,7 +51,7 @@
 
           <!-- Standard Package -->
           <div v-if="pkg.value === 'standard'" class="mt-auto">
-            <!-- Subscribe Button (more promineddddddddddddddddddddddddddddddddnt) -->
+            <!-- Subscribe Button (more prominent) -->
             <button @click.stop="subscribeStandard"
               class="bg-blue-600 text-white font-light px-4 py-2 rounded-full mt-4 w-full">
               Subscribe
@@ -61,7 +61,7 @@
           <!-- Premium Package -->
           <div v-else-if="pkg.value === 'premium'" class="mt-auto">
            <!-- Auto-Renew Toggle -->
-             <!-- 
+             
             <div class="flex items-center justify-center mb-4">
               <input type="checkbox" id="autoRenew" v-model="autoRenew" class="hidden" />
               <label for="autoRenew" class="flex items-center cursor-pointer space-x-3">
@@ -72,7 +72,7 @@
                 </div>
                 <span class="text-sm font-medium text-gray-900 dark:text-gray-300">Auto renew</span>
               </label>
-            </div> -->
+            </div>
 
             <!-- Try Trial Button (less prominent) -->
             <button @click.stop="subscribeTrial" class="mt-3 text-blue-700">
@@ -166,7 +166,7 @@ const subscribeTrial = async () => {
           packageStore.setPaymentToken(payment_token);
 
           // Step 4: Redirect to the /payment page
-          router.push(`/payment/${payment_token}?package=trial`);
+          router.push(`/payment/${payment_token}?package=trial&is_auto_renewal=${autoRenew.value}`);
 
         } else {
           // Throw error if setupIntent is invalid
@@ -216,7 +216,7 @@ const subscribePremium = async () => {
           packageStore.setPaymentToken(payment_token);
 
           // Step 4: Redirect to the /payment page
-          router.push(`/payment/${payment_token}?package=premium`);
+          router.push(`/payment/${payment_token}?package=premium&is_auto_renewal=${autoRenew.value}`);
 
         } else {
           // Throw error if setupIntent is invalid
