@@ -23,11 +23,11 @@
             </div>
             <div class="mt-2">
                 <label class="text-black text-sm font-bold">Filters</label>
-                <div class="flex h-8 mt-2">
-                    <span v-if="searchStore.searchKey !=''" class="items-center bg-steelBlue text-white px-2.5 py-0.5 rounded-md mr-2">
+                <div class="flex flex-wrap mt-2">
+                    <span v-if="searchStore.searchKey !=''" class="items-center bg-steelBlue text-white px-2.5 py-0.5 rounded-md mb-2 mr-2">
                         <span class="text-xs">{{searchStore.searchKey}}</span>
                     </span>
-                    <span v-for="filter in searchStore.searchFilter" class="bg-steelBlue text-white px-2.5 py-0.5 rounded-md mr-2">
+                    <span v-for="filter in searchStore.searchFilter" class="bg-steelBlue text-white px-2.5 py-0.5 rounded-md mb-2 mr-2">
                         <span class="text-xs">{{ filter.display_value }}</span>
                     </span> 
                    

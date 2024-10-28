@@ -7,7 +7,7 @@
         <img v-if="comment.user_profile_picture == null" src="@/assets/images/user.png" alt="" class="rounded-lg w-10 h-10">
         <img v-if="comment.user_profile_picture != null" :src="comment.user_profile_picture.url" alt="" class="rounded-lg w-10 h-10">
       </button>
-      <div class="flex-grow">
+      <div class="flex-grow w-fit">
         <!-- Display the user's display name -->
         <button @click="userProfile(comment)">
           <div class="text-black">{{ comment.user.display_name }}</div>
