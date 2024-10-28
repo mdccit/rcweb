@@ -1,5 +1,5 @@
 <template>
-     <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue p-3 mt-3 bg-white">
+     <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 p-3 mt-3 bg-white">
 
  <div class="flex flex-col items-center space-y-2">
     <!-- Circle with number -->
@@ -22,7 +22,7 @@
       <img class="w-10 h-10 rounded-full" src="../../assets/user/images/Rectangle 126.png" alt="Profile 4"> -->
     </div>
     <!-- See all connections link -->
-    <!-- <a href="#" class="text-steelBlue hover:underline">See All Connections</a> -->
+    <a href="#" class="text-steelBlue hover:underline text-xs">See All Connections</a>
   </div>
      </div>
     <!-- start call card -->
