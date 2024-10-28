@@ -82,9 +82,28 @@
                         <label class="block mb-1 text-black text-sm">Grad Year</label>
                         <div class="flex rounded-lg border border-gray-300 shadow-sm">
                         
-                                <input type="month" @change="changeGraduationYear" v-model="graduation_year"
+                                <!-- <input type="number"  @change="changeGraduationYear" v-model="graduation_year"  min="1900" max="2099" step="1"
                                     class="h-12 block text-gray-700 px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                    placeholder="Player Graduation Month/Year" />
+                                    placeholder="Player Graduation Year" /> -->
+                                    <select 
+                                        v-model="graduation_year" 
+                                        @change="changeGraduationYear" 
+                                        placeholder="Grad Year" 
+                                         class="h-12 block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg text-black" 
+                                        id="budget" 
+      
+                                    >
+                                     <option value="">-Any-</option>
+                                     <option value="2022">2022</option>
+                                     <option value="2023">2023</option>
+                                     <option value="2024">2024</option>
+                                     <option value="2025">2025</option>
+                                     <option value="2026">2026</option>
+                                     <option value="2027">2027</option>
+                                     <option value="2028">2028</option>
+                                     <option value="2029">2029</option>
+                                     <option value="2030">2030</option>
+                                    </select>
            
                         </div>
 
@@ -281,10 +300,10 @@ const changeGraduationYear = () => {
     data.value = {
         name: 'year',
         value: graduation_year.value,
-        display_value: "Year | " + graduation_month.value
+        display_value: "Year | " + graduation_year.value
 
     }
-    // dataFilter(data.value)
+     dataFilter(data.value)
 }
 
 const dataFilter = (data) => {

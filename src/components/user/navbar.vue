@@ -251,6 +251,8 @@ const loggedUserName = ref('');
 const userSlug = ref('');
 const key = ref('');
 const profilePicture = ref('')
+const filter = ref([])
+
 const logout = async (event) => {
     event.preventDefault();
 
@@ -384,6 +386,20 @@ watch(
 
 
 const searchkey = () => {
+     
+    let data = {
+        name: 'key',
+        value: key.value,
+        display_value: "Key | " + key.value
+    }
+    filter.value = searchStore.searchFilter
+    const exists = filter.value.some(item => item.name == data.name);
+    if (exists) {
+        filter.value = filter.value.map(item => item.name === data.name ? { ...item, value: data, display_value: data.display_value } : item);
+    } else {
+        filter.value.push({ name: data.name, value: data, display_value: data.display_value });
+    }
+    searchStore.setSearchFilter(filter.value)
     searchStore.setSearchKey(key.value)
     searchStore.setSearchButton(true)
     router.push({
