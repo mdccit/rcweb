@@ -11,10 +11,14 @@
     <!-- Profile Avatars -->
     <div class="flex space-x-2">
         <div v-for="data in connection">
-            <img v-if=" data.receiver_profile_picture == null" class="w-10 h-10 rounded-full"
+            <img v-if="userId != data.receiver_id && data.receiver_profile_picture == null" class="w-10 h-10 rounded-full"
                 src="@/assets/images/user.png" alt="Profile 1">
-            <img v-if=" data.receiver_profile_picture != null" class="w-10 h-10 rounded-full"
+            <img v-if="userId != data.receiver_id && data.receiver_profile_picture != null" class="w-10 h-10 rounded-full"
                 :src="data.receiver_profile_picture.url" alt="Profile 1">
+            <img v-if="userId != data.sender_id && data.sender_profile_picture == null" class="w-10 h-10 rounded-full"
+                src="@/assets/images/user.png" alt="Profile 1">
+            <img v-if="userId != data.sender_id && data.sender_profile_picture != null" class="w-10 h-10 rounded-full"
+                :src="data.sender_profile_picture.url" alt="Profile 1">
         </div>
       <!-- <img class="w-10 h-10 rounded-full" src="../../assets/user/images/avtar.png" alt="Profile 1">
       <img class="w-10 h-10 rounded-full" src="../../assets/user/images/Rectangle_117.png" alt="Profile 2">
@@ -22,7 +26,7 @@
       <img class="w-10 h-10 rounded-full" src="../../assets/user/images/Rectangle 126.png" alt="Profile 4"> -->
     </div>
     <!-- See all connections link -->
-    <!-- <a href="#" class="text-steelBlue hover:underline">See All Connections</a> -->
+    <div class="text-steelBlue hover:underline">See All Connections</div>
   </div>
      </div>
     <!-- start call card -->
