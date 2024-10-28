@@ -77,7 +77,7 @@
                                 </div>
                                 <div v-if="sameUser == false">
                                     <div v-if="buttonHide == true" class="">
-                                        <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                        <button  @click="chatStart(props.coachId)"  class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor"
                                                 class="size-5 text-blue-500 m-auto">
@@ -464,6 +464,19 @@ try {
 } catch (error) {
     console.error('Failed to Connect :', error.message);
 }
+}
+
+const chatStart = async (data) =>{
+    try {
+        const response = await $userService.create_conversiontion( {
+            user2_id: data
+        });
+        console.log(response)
+        router.push('/user/chat');
+
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
 }
 </script>
 
