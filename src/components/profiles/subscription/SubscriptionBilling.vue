@@ -108,6 +108,7 @@
               </div>
               <div class="right-4">
                 <img :src="getCardBrandLogo(selectedCard?.brand)" alt="" class="rounded-lg w-8 h-8 mr-4">
+                <!-- <img :src=""  class="rounded-lg w-8 h-8 mr-4"/> -->
               </div>
             </div>
           </div>
@@ -211,6 +212,19 @@ import { useRouter, useRoute } from 'vue-router';
 import ButtonSpinner from '@/components/common/ButtonSpinner.vue';
 import ScreenLoader from '@/layouts/screen_loader.vue';
 import AddCardModal from '@/components/subscription/AddCardModal.vue';
+
+import VisaImg from '@/assets/images/visa-img.png';
+import AmexImg from '@/assets/images/amex-img.png';
+import MasterCardImg from '@/assets/images/mastercard-img.png';
+import DefaultCardImg from '@/assets/images/default-card-img.png';
+
+const cards = {
+  visa: VisaImg,
+  amex: AmexImg,
+  mastercard: MasterCardImg,
+  default: DefaultCardImg
+};
+
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -387,16 +401,16 @@ function formatDate(dateString) {
 /**
  * Get the logo for the card brand
  */
-const getCardBrandLogo = (brand) => {
-  switch (brand) {
+ const getCardBrandLogo = (brand) => {
+  switch (brand.toLowerCase()) {
     case 'visa':
-      return '/_nuxt/assets/images/visa-img.png';
+      return cards.visa;
     case 'mastercard':
-      return '/_nuxt/assets/images/mastercard-img.png';
+      return cards.mastercard;
     case 'amex':
-      return '/_nuxt/assets/images/amex-img.png';
+      return cards.amex;
     default:
-      return '/_nuxt/assets/images/default-card-img.png';
+      return cards.default;
   }
 };
 

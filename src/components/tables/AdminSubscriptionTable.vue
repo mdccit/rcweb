@@ -45,7 +45,7 @@
       <!-- NAME Column -->
       <el-table-column class="tealGaray" prop="user.display_name" label="NAME" sortable>
         <template v-slot="scope">
-          {{ scope.row.user.display_name !== null ? scope.row.user.display_name : 0 }}
+          {{ scope.row.user?.display_name ?? 'N/A' }}
         </template>
       </el-table-column>
 
@@ -57,29 +57,29 @@
         'bg-red-100 text-red-800': scope.row.status === 'inactive',
         'bg-gray-100 text-gray-800': scope.row.status !== 'active' && scope.row.status !== 'inactive'
       }" class="text-xs font-medium mr-2 px-2.5 py-0.5 rounded capitalize">
-            {{ scope.row.status !== null ? scope.row.status : 'inactive' }}
+            {{ scope.row.status ?? 'inactive' }}
           </span>
         </template>
       </el-table-column>
 
       <!-- Email Column -->
-      <el-table-column class="tealGaray" prop="user.display_name" label="Email" sortable>
+      <el-table-column class="tealGaray" prop="user.email" label="Email" sortable>
         <template v-slot="scope">
-          {{ scope.row.user.email !== null ? scope.row.user.email : 0 }}
+          {{ scope.row.user?.email ?? 'N/A' }}
         </template>
       </el-table-column>
 
       <!-- SUBSCRIPTION START DATE Column -->
       <el-table-column class="text-tealGray" prop="start_date" label="START DATE" sortable>
         <template v-slot="scope">
-          <span>{{ formatDate(scope.row.start_date) }}</span>
+          <span>{{ scope.row.start_date ? formatDate(scope.row.start_date) : 'N/A' }}</span>
         </template>
       </el-table-column>
 
       <!-- SUBSCRIPTION END DATE Column -->
       <el-table-column class="text-tealGray" prop="end_date" label="END DATE" sortable>
         <template v-slot="scope">
-          <span>{{ formatDate(scope.row.end_date) }}</span>
+          <span>{{ scope.row.end_date ? formatDate(scope.row.end_date) : 'N/A' }}</span>
         </template>
       </el-table-column>
 
@@ -91,7 +91,7 @@
         'bg-red-100 text-red-800': scope.row.subscription_type === 'annual',
         'bg-gray-100 text-gray-800': scope.row.subscription_type !== 'trial'
       }" class="text-xs font-medium mr-2 px-2.5 py-0.5 rounded capitalize">
-            {{ scope.row.subscription_type !== null ? scope.row.subscription_type : 'N/A' }}
+            {{ scope.row.subscription_type ?? 'N/A' }}
           </span>
         </template>
       </el-table-column>
@@ -117,30 +117,44 @@
           <button type="button"
             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
             @click="closeModal">
-            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg">
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L4.293 5.707a1 1 0 010-1.414z"
-                clip-rule="evenodd"></path>
+                clip-rule="evenodd">
+              </path>
             </svg>
+            
             <span class="sr-only">Close modal</span>
           </button>
         </div>
         <!-- Modal body -->
         <div class="p-6 space-y-6">
-          <p v-if="selectedSubscription">
+          <p v-if="selectedSubscription?.user?.display_name">
             <strong>Name:</strong> {{ selectedSubscription.user.display_name }}
           </p>
-          <p><strong>Email:</strong> {{ selectedSubscription.user.email }}</p>
-          <p><strong>Status:</strong> {{ selectedSubscription.status }}</p>
-          <p><strong>Subscription Type:</strong> {{ selectedSubscription.subscription_type }}</p>
-          <p><strong>Start Date:</strong> {{ formatDate(selectedSubscription.start_date) }}</p>
-          <p><strong>End Date:</strong> {{ formatDate(selectedSubscription.end_date) }}</p>
-          <p><strong>Auto Renewal:</strong> {{ selectedSubscription.is_auto_renewal ? 'Yes' : 'No' }}</p>
-          <p v-if="selectedSubscription.next_billing_date">
+          <p v-if="selectedSubscription?.user?.email">
+            <strong>Email:</strong> {{ selectedSubscription.user.email }}
+          </p>
+          <p v-if="selectedSubscription?.status">
+            <strong>Status:</strong> {{ selectedSubscription.status }}
+          </p>
+          <p v-if="selectedSubscription?.subscription_type">
+            <strong>Subscription Type:</strong> {{ selectedSubscription.subscription_type }}
+          </p>
+          <p v-if="selectedSubscription?.start_date">
+            <strong>Start Date:</strong> {{ formatDate(selectedSubscription.start_date) }}
+          </p>
+          <p v-if="selectedSubscription?.end_date">
+            <strong>End Date:</strong> {{ formatDate(selectedSubscription.end_date) }}
+          </p>
+          <p v-if="selectedSubscription?.is_auto_renewal !== undefined">
+            <strong>Auto Renewal:</strong> {{ selectedSubscription.is_auto_renewal ? 'Yes' : 'No' }}
+          </p>
+          <p v-if="selectedSubscription?.next_billing_date">
             <strong>Next Billing Date:</strong> {{ formatDate(selectedSubscription.next_billing_date) }}
           </p>
         </div>
+
         <!-- Modal footer -->
         <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
           <button @click="closeModal" type="button"
@@ -166,7 +180,7 @@ const items = ref([]);
 const totalItems = ref(0);
 const options = ref({
   page: 1,
-  itemsPerPage: 5,
+  itemsPerPage: 10,
 });
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
@@ -231,14 +245,15 @@ const filteredItems = computed(() => {
     sorted = sorted.filter(item => {
       const searchTerm = search.value.toLowerCase();
       return (
-        item.status.toLowerCase().includes(searchTerm) ||
-        (item.user && item.user.display_name.toLowerCase().includes(searchTerm)) || // Search by name
-        (item.user && item.user.email.toLowerCase().includes(searchTerm)) || // Search by email
-        item.subscription_type.toLowerCase().includes(searchTerm) || // Search by subscription type
-        item.price && item.price.toString().includes(searchTerm) // Search by price
+        item.status?.toLowerCase().includes(searchTerm) ||
+        item.user?.display_name?.toLowerCase().includes(searchTerm) || // Search by name
+        item.user?.email?.toLowerCase().includes(searchTerm) || // Search by email
+        item.subscription_type?.toLowerCase().includes(searchTerm) || // Search by subscription type
+        item.price?.toString().includes(searchTerm) // Search by price
       );
     });
   }
+
 
   // Update total items after filtering
   totalItems.value = sorted.length;

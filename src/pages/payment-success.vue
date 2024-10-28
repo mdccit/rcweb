@@ -51,7 +51,9 @@ import { ref, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { format } from 'date-fns';
 import ScreenLoader from '@/layouts/screen_loader.vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const stripe_subscription_id = ref('');
 const currency = ref('');
 const price = ref('');
@@ -102,12 +104,22 @@ const fetchData = async () => {
     } else {
       throw new Error('Failed to retrieve subscription data.');
     }
-  }catch(error){
+  } catch (error) {
 
-  }finally{
+  } finally {
     loading.value = false;
   }
 
 }
 
+
+const navigateTo = async (path) => {
+  loading.value = true; // Show loader
+
+  try {
+    await router.push(path); // Navigate to the route
+  } finally {
+    loading.value = false; // Hide loader after navigation completes
+  }
+};
 </script>
