@@ -55,7 +55,7 @@
 <script setup>
 
 
-import { ref, watchEffect ,onMounted } from 'vue';
+import { ref, watchEffect ,onMounted ,watch} from 'vue';
 import { useNuxtApp } from '#app';
 import { useUserStore } from '@/stores/userStore';
 
@@ -71,6 +71,15 @@ onMounted(() => {
 
     
 });
+watch(
+    () =>  userStore.connectionUpdate,
+    () => {
+        if(userStore.connectionUpdate){
+            fetConnection()
+        }
+        
+    }
+);
 
 const connection = ref('')
 
@@ -78,7 +87,8 @@ const fetConnection  = async () => {
   try {
      const response = await $userService.get_connection_list();
     connection.value = response.dataSets.acccept_list
-    
+    userStore.setConnection(false)
+
   } catch (error) {
     console.error('Failed to load posts:', error.message);
   }

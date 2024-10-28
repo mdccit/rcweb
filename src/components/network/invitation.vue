@@ -132,7 +132,9 @@ import { ref, defineEmits, onMounted , computed} from 'vue';
 import { defineProps, defineExpose } from 'vue';
 import { useNuxtApp } from '#app';
 import { useRoute, useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/userStore';
 
+const userStore = useUserStore();
 const route = useRoute();
 const router = useRouter();
 const emit = defineEmits(['updatedData']);
@@ -170,6 +172,8 @@ const connectReject = async (id) => {
         const response = await $userService.connection_reject(id, {
             connection_status: "rejected"
         });
+        userStore.setConnection(true)
+
         emit('updatedData')
     } catch (error) {
         console.error('Failed to load posts:', error.message);
@@ -181,6 +185,8 @@ const connectAccept = async (id) => {
         await $userService.connection_accept(id, {
             connection_status: "accepted"
         });
+        userStore.setConnection(true)
+
         emit('updatedData')
     } catch (error) {
         console.error('Failed to load posts:', error.message);

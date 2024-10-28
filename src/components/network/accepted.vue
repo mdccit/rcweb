@@ -158,6 +158,9 @@ import { ref, defineEmits, onMounted ,computed } from 'vue';
 import { defineProps, defineExpose } from 'vue';
 import { useNuxtApp } from '#app';
 import { useRoute, useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/userStore';
+
+const userStore = useUserStore();
 
 const route = useRoute();
 const router = useRouter();
@@ -187,7 +190,7 @@ const connectRemove = async (id) => {
         const response = await $userService.connection_remove(id, {
             connection_status: "removed"
         });
-
+        userStore.setConnection(true)
         emit('updatedData')
 
     } catch (error) {

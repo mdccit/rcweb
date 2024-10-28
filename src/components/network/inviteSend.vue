@@ -136,7 +136,9 @@ import { ref, defineEmits, computed, onMounted } from 'vue';
 import { defineProps, defineExpose } from 'vue';
 import { useNuxtApp } from '#app';
 import { useRoute, useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/userStore';
 
+const userStore = useUserStore();
 const route = useRoute();
 const router = useRouter();
 const emit = defineEmits(['updatedData']);
@@ -163,6 +165,7 @@ const connectCancelle = async (id) => {
         const response = await $userService.connection_cancelle(id, {
             connection_status: "cancelled"
         });
+        userStore.setConnection(true)
 
         emit('updatedData')
 

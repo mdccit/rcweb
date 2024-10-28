@@ -20,7 +20,8 @@ export const useUserStore = defineStore('user', {
     profile_picture:{},
     resource:null,
     resource_id:null,
-    user_setting_active_tab: "security"
+    user_setting_active_tab: "security",
+    connection_update:false
   }),
   getters: {
     isAuthenticated: (state) => !!state.user && !!state.token,
@@ -37,7 +38,8 @@ export const useUserStore = defineStore('user', {
 
     userProfilePicture:(state)=> state.profile_picture || null,
     userSettingActiveTab:(state)=> state.user_setting_active_tab || "security",
-    userTypeId:(state)=> state.user_type_id || ""
+    userTypeId:(state)=> state.user_type_id || "",
+    connectionUpdate:(state)=> state.connection_update || false,
   },
   actions: {
     setResourceData(resouces) {
@@ -107,7 +109,10 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem('user_type_id', user_type_id);
       }
     },
-
+    
+    setConnection(data){
+      this.connection_update = data
+    },
     
     setUser(user) {
       if (!user) return;
