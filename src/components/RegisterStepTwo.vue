@@ -1001,6 +1001,7 @@ const loadBudgets = async () => {
 const loadHandness = async () => {
   try {
     handednesses.value = await loadHandnessList();
+    console.log( handednesses.value)
   } catch (err) {
     console.error('Error loading handess:', err);
   }
