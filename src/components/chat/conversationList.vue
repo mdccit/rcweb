@@ -26,7 +26,7 @@
                                     <h3 class="text-base mb-1 text-black font-bold text-left" v-if="chat.first_message_user.id != props.loginUserId">{{ chat.first_message_user.display_name }}</h3>
                                     <h3 class="text-base mb-1 text-black font-bold text-left" v-if="chat.received_user.id != props.loginUserId">{{ chat.received_user.display_name }}</h3>
 
-                                        <p class="text-xs text-darkSlateBlue line-clamp-2 text-left">{{ lastMessage(chat.messages) }}
+                                        <p class="text-xs text-darkSlateBlue line-clamp-2 text-left break-all">{{ lastMessage(chat.messages) }}
                                         </p>
                                 </div>
                                 <!-- <div class="text-center basis-[55px] shrink-0 grow-0 self-stretch">
