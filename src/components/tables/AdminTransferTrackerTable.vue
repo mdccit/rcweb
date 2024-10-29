@@ -99,6 +99,13 @@ import { ref, watch, computed, onMounted, defineEmits } from "vue";
 import { useRouter } from "vue-router";
 import { useNuxtApp } from "#app";
 
+const props = defineProps({
+  showModal: {
+        type: Boolean,
+        required: true,
+    },
+   
+});
 const router = useRouter();
 const search = ref("");
 const utrMin = ref("");
@@ -118,6 +125,7 @@ const fetchData = async () => {
   loading.value = true;
   try {
     const transferPlayers = await $adminService.get_transfer_players(search.value, utrMin.value, utrMax.value);
+    console.log(transferPlayers)
     items.value = transferPlayers.data.dataSets;
     totalItems.value = transferPlayers.length;
   } catch (error) {
@@ -126,6 +134,13 @@ const fetchData = async () => {
     loading.value = false;
   }
 };
+
+watch(
+    () => props.showModal,
+  () => {
+    fetchData()
+  },
+)
 
 const handleRowClick = (row) => {
   router.push({
