@@ -22,52 +22,51 @@
                 </div>
 
                 <p class="text-darkSlateBlue mt-2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.
+                    Awaiting transfer, pending further action, approval, or processing to complete the transfer.
                 </p>
             </div>
 
             <div class="grid grid-cols-6">
                 <!-- card 01 -->
                 <div class="col-span-3 p-2" v-for="(item, index) in items" :key="index">
-                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
-                        <div class=" grid grid-cols-12 gap-4">
-                            <div class="col-span-4">                                
+                    <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
+                        <div class=" grid grid-cols-12 gap-2">
+                            <div class="col-span-3">                                
                                 <img v-if="!(item.media && item.media.url)"
                                     src="https://ui-avatars.com/api/?name=e+e&amp;color=7F9CF5&amp;background=EBF4FF" alt="User Photo"
-                                    class="rounded-full h-20 w-20 object-cover" />
+                                    class="rounded-xl h-20 w-20 object-cover" />
                                 <img v-if="item.media && item.media.url" :src="item.media.url" alt="User Photo"
-                                    class="rounded-full h-20 w-20 object-cover" />
+                                    class="rounded-xl h-20 w-20 object-cover" />
                             </div>
-                            <div class="col-span-8">
-                                <div class="flex justify-between items-center">
-                                    <div class="flex-1">
-                                        <h4 class="text-black font-bold">{{ item.first_name}} {{ item.last_name}}</h4>
+                            <div class="col-span-9">
+                                <div class="grid grid-cols-12 gap-4 justify-between items-center">
+                                    <div class="col-span-8">
+                                        <h4 class="text-black font-bold break-all">{{ item.first_name}} {{ item.last_name}}</h4>
                                     </div>
-                                    <div class="flex-3">
+                                    <div class="col-span-4 text-right">
                                         <span
                                             class="text-black text-xs p-1 bg-muteGray text-sm rounded-md text-right"><span>UTR</span>
                                             <span class="text-steelBlue ml-2">{{ item.utr_score_manual}}</span> </span>
                                     </div>
                                 </div>
-                                <div class="flex mt-2">
-                                    <div class="flex-1">
+                                <div class="grid grid-cols-12 gap-4 mt-2">
+                                    <div class="col-span-5">
                                         <div class="flex items-center space-x-2 mb-2">
                                             <div class="bg-lightPale p-1 rounded">
-                                                <img src="@/assets/user/images/playerIcon.png" alt="" class=" w-4 h-4">
+                                                <img src="@/assets/user/images/playerIcon.png" alt="" class="w-4 h-4">
                                             </div>
                                             <div class="text-xs ml-2 text-steelBlue">{{ item.sport_name}} Player</div>
                                         </div>
                                     </div>
-                                    <div class="flex-3">
+                                    <div class="col-span-7 text-right">
                                         <span class="text-black text-xs p-1 text-sm text-right">L
                                             - {{ item.loss}}</span>
                                         <span
                                             class="text-steelBlue ml-2text-xs text-sm rounded-md text-right">W-{{ item.win}}</span>
                                     </div>
                                 </div>
-                                <div class="flex mt-2">
-                                    <div class="flex-1">
+                                <div class="grid grid-cols-12 gap-4 mt-2">
+                                    <div class="col-span-7">
                                         <div class="flex items-center space-x-2 mb-2">
                                             <div class="bg-lightGray p-1 rounded">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -77,16 +76,16 @@
                                                 </svg>
 
                                             </div>
-                                            <div class="text-xs ml-2 text-darkSlateBlue">{{ item.school}}</div>
+                                            <div class="text-xs ml-2 text-darkSlateBlue break-all">{{ item.school}}</div>
                                         </div>
                                     </div>
-                                    <div class="flex-3">
-                                        <span class="text-darkSlateBlue text-xs p-1 text-sm text-right">({{ item.phone_code}})
+                                    <div class="col-span-5 text-right">
+                                        <span class="text-darkSlateBlue text-xs p-1 text-sm text-right break-all">({{ item.phone_code}})
                                             {{ item.phone_number}}</span>
                                     </div>
                                 </div>
-                                <div class="flex mt-2">
-                                    <div class="flex-1">
+                                <div class="grid grid-cols-12 gap-4 mt-2">
+                                    <div class="col-span-4">
                                         <div class="flex items-center space-x-2 mb-2">
                                             <div class="bg-lightGray p-1 rounded">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -96,29 +95,24 @@
                                                 </svg>
 
                                             </div>
-                                            <div class="text-xs ml-2 text-darkSlateBlue">{{ item.handedness}} handed</div>
+                                            <div class="text-xs ml-2 text-darkSlateBlue whitespace-nowrap">{{ item.handedness}} handed</div>
                                         </div>
                                     </div>
-                                    <div class="flex-3">
+                                    <div class="col-span-8 text-right">
                                         <span
-                                            class="text-darkSlateBlue text-xs p-1 text-sm text-right">{{ item.email}}</span>
+                                            class="text-darkSlateBlue text-xs p-1 text-sm text-right break-all pl-3">{{ item.email}}</span>
                                     </div>
                                 </div>
-                                <div class="flex mt-2">
-                                    <div class="flex-1">
+                                <div class="grid grid-cols-12 gap-4 mt-2">
+                                    <div class="col-span-6">
                                         <div class="flex items-center space-x-2 mb-2">
                                             <div class="bg-lightGray p-1 rounded">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" class="size-4 text-black">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
-                                                </svg>
-
+                                                <img class="w-4 h-4" src="@/assets/images/ruler.png" alt="">
                                             </div>
                                             <div class="text-xs ml-2 text-darkSlateBlue">{{ item.height}} cm</div>
                                         </div>
                                     </div>
-                                    <div class="flex-3">
+                                    <div class="col-span-6 text-right">
                                         <span class="text-darkSlateBlue text-xs p-1 text-sm text-right">{{ item.gender}}</span>
                                     </div>
                                 </div>
