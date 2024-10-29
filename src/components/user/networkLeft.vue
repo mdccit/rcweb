@@ -10,7 +10,7 @@
     <p class="text-lg font-medium text-black">Connections</p>
     <!-- Profile Avatars -->
     <div class="flex space-x-2">
-        <div v-for="data in connection">
+        <div v-for="data in limitedArray">
             <img v-if="userId != data.receiver_id && data.receiver_profile_picture == null" class="w-10 h-10 rounded-full"
                 src="@/assets/images/user.png" alt="Profile 1">
             <img v-if="userId != data.receiver_id && data.receiver_profile_picture != null" class="w-10 h-10 rounded-full"
@@ -26,7 +26,7 @@
       <img class="w-10 h-10 rounded-full" src="../../assets/user/images/Rectangle 126.png" alt="Profile 4"> -->
     </div>
     <!-- See all connections link -->
-    <div class="text-steelBlue hover:underline">See All Connections</div>
+    <div v-if="connection.length > 4" @click="showAll = !showAll" class="text-steelBlue hover:underline">See All Connections</div>
   </div>
      </div>
     <!-- start call card -->
@@ -97,4 +97,10 @@ const fetConnection  = async () => {
     console.error('Failed to load posts:', error.message);
   }
 }
+const showAll = ref(false)
+
+const limitedArray = computed(() => {
+    
+    return showAll.value ? connection.value : connection.value.slice(0, 4);  
+});
 </script>
