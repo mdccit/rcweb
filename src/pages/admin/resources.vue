@@ -14,7 +14,7 @@
                 </div>
                 <div>
                     <button @click="viewCategory"
-                        class="border rounded-full mr-2 shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300 focus:border-primary-300 focus:ring-primary-200">
+                        class="border rounded-full mr-2 mb-2  shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-700 border-gray-300">
                         Categories
                     </button>
 

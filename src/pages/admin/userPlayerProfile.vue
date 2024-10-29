@@ -47,8 +47,8 @@
             <div class="my-8"></div>
             <div class="">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
-                    <form   @submit.prevent="handleSubmit" data-splade-id="n7XZOpiuJjmb68c9" 
-                        action="https://qa1.recruited.qualitapps.com/admin/users/9c9ad039-6106-40d6-92de-b5c7556b05a7/player/profile">
+                    <form   @submit.prevent="handleSubmit"
+                        action="/">
                         <fieldset>
                             <div class="">
                                 <h2 class="text-2xl font-bold mb-8">Personal Information</h2>

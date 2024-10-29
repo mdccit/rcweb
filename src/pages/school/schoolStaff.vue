@@ -117,11 +117,42 @@
                 <div class="mb-6">
                     <label for="userType" class="block text-sm font-medium text-gray-700 mb-2">User Name : {{
                         firstName + ' ' + lastName }}</label>
-                </div <!-- User Type Selection -->
+                </div>
+                <!-- User Type Selection -->
                 <div class="mb-6">
                     <label for="userType" class="block text-sm font-medium text-gray-700 mb-2"> Role : {{ userRole
                         }}</label>
                 </div>
+
+                <!-- <div class="my-8"></div>
+                <h2 class="font-bold text-xl mb-3">Assigned teams</h2> -->
+                <!-- <div class="flex flex-col gap-2">
+                    <div><label class="flex items-center"><input name="teams[]" type="checkbox"
+                                data-validation-key="teams[]"
+                                class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
+                                checked="" true-value="2023" false-value="false" value="2023"><span
+                                class="ml-4">QATest_Team1</span></label></div>
+                    <div><label class="flex items-center"><input name="teams[]" type="checkbox"
+                                data-validation-key="teams[]"
+                                class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
+                                checked="" true-value="2024" false-value="false" value="2024"
+                                data-gtm-form-interact-field-id="2"><span class="ml-4">QATest_Team2</span></label></div>
+                    <div><label class="flex items-center"><input name="teams[]" type="checkbox"
+                                data-validation-key="teams[]"
+                                class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
+                                checked="" true-value="2027" false-value="false" value="2027"><span
+                                class="ml-4">teamnew</span></label></div>
+                    <div><label class="flex items-center"><input name="teams[]" type="checkbox"
+                                data-validation-key="teams[]"
+                                class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
+                                checked="" true-value="2028" false-value="false" value="2028"><span
+                                class="ml-4">wwww</span></label></div>
+                    <div><label class="flex items-center"><input name="teams[]" type="checkbox"
+                                data-validation-key="teams[]"
+                                class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
+                                checked="" true-value="2029" false-value="false" value="2029"><span class="ml-4">Test
+                                User</span></label></div>
+                </div> -->
 
                 <!-- User Type Selection -->
                 <div class="mb-6">
@@ -160,88 +191,6 @@
 
     </div>
 
-<!-- manage modal -->
-    <div class="w-full sm:max-w-md md:max-w-xl lg:max-w-2xl">
-        <div id="headlessui-dialog-panel-32" data-headlessui-state="open" unmount="true" dusk="modal-dialog">
-            <div class="bg-white p-8 md:p-12 rounded-xl relative">
-                <div class="absolute top-0 right-0 pt-8 pr-8 md:pt-12 md:pr-12"><button dusk="close-modal-button"
-                        type="button" class="text-gray-400 hover:text-gray-500"><span class="sr-only">Close</span><svg
-                            class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 6l-12 12"></path>
-                            <path d="M6 6l12 12"></path>
-                        </svg></button></div>
-                <h1 class="font-bold text-2xl mb-3">Updating CoachTeste1</h1>
-                <form data-splade-id="MCM7Skx2BuZbh8PK" method="PUT"
-                    action="https://qa1.recruited.qualitapps.com/admin/schools/9c0a3542-8593-429e-b703-2e6afdf86c63/users/9c265602-d6ae-4e45-a8ce-1b1599f49e6a"
-                    data-gtm-form-interact-id="1">
-                    <fieldset>
-                        <div class=""><label class="block"><span class="block mb-1 text-gray-700 font-sans"> Role name
-                                </span>
-                                <div class="flex rounded-lg border border-gray-300 shadow-sm"><input
-                                        class="block px-5 py-3 w-full border-0 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg"
-                                        name="role" type="text" data-validation-key="role"></div>
-                            </label><!----></div>
-                        <div class="my-8"></div>
-                        <h2 class="font-bold text-xl mb-3">Assigned teams</h2>
-                        <div class="flex flex-col gap-2">
-                            <div><label class="flex items-center"><input name="teams[]" type="checkbox"
-                                        data-validation-key="teams[]"
-                                        class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                                        checked="" true-value="2023" false-value="false" value="2023"><span
-                                        class="ml-4">QATest_Team1</span></label><!----></div>
-                            <div><label class="flex items-center"><input name="teams[]" type="checkbox"
-                                        data-validation-key="teams[]"
-                                        class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                                        checked="" true-value="2024" false-value="false" value="2024"
-                                        data-gtm-form-interact-field-id="2"><span
-                                        class="ml-4">QATest_Team2</span></label><!----></div>
-                            <div><label class="flex items-center"><input name="teams[]" type="checkbox"
-                                        data-validation-key="teams[]"
-                                        class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                                        checked="" true-value="2027" false-value="false" value="2027"><span
-                                        class="ml-4">teamnew</span></label><!----></div>
-                            <div><label class="flex items-center"><input name="teams[]" type="checkbox"
-                                        data-validation-key="teams[]"
-                                        class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                                        checked="" true-value="2028" false-value="false" value="2028"><span
-                                        class="ml-4">wwww</span></label><!----></div>
-                            <div><label class="flex items-center"><input name="teams[]" type="checkbox"
-                                        data-validation-key="teams[]"
-                                        class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
-                                        checked="" true-value="2029" false-value="false" value="2029"><span
-                                        class="ml-4">Test User</span></label><!----></div>
-                        </div>
-                        <div class="my-8"></div>
-                        <div class="w-full"><label class="block"><span class="block mb-1 text-gray-700 font-sans">
-                                    Account type </span>
-                                <div class="relative">
-                                    <div class=""><select name="is_admin" data-validation-key="is_admin"
-                                            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 px-5 py-3 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50">
-                                            <option value="1"> Admin (can manage users and posts) </option>
-                                            <option value="0"> Member (can post) </option>
-                                        </select></div><!---->
-                                </div>
-                            </label><!----></div>
-                        <div class="my-8"></div>
-                        <div class="self-center">
-                            <button type="submit"
-                                class="border mr-2 text-white rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-steelBlue hover:bg-blue-600">
-                                <div class="flex flex-row items-center justify-center"><!----><span class=""> Save
-                                    </span></div>
-                            </button>
-                            <button type="submit"
-                                class="border  text-white rounded-full shadow-sm font-bold py-2.5 px-8 focus:outline-none focus:ring focus:ring-opacity-50 bg-red-500 hover:bg-red-600">
-                                <div class="flex flex-row items-center justify-center"><!----><span class=""> Remove from School
-                                    </span></div>
-                            </button>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-        </div>
-    </div>
 </template>
 
 <script setup>
