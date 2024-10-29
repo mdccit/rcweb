@@ -76,11 +76,11 @@
                                     <!-- Left-aligned message -->
                                     <div v-if="chat.created_by != props.loginUserId" class="flex justify-start mb-3">
                                         <div class="bg-lighterGray p-3 lg rounded-b-lg rounded-tr-lg max-w-md">
-                                            <p class="text-sm text-black">{{ chat.content }}</p>
+                                            <p class="text-sm text-black break-all">{{ chat.content }}</p>
                                         </div>
                                     </div>
                                     <div v-if="chat.created_by != props.loginUserId"  class="flex justify-start mb-3">
-                                        <p class="text-xs text-ceil">{{  getTimeAgo(chat.created_at) }}</p>
+                                        <p class="text-xs text-ceil break-all">{{  getTimeAgo(chat.created_at) }}</p>
                                     </div>
 
                                     <!-- Left-aligned message (Short) -->
@@ -96,11 +96,11 @@
                                     <!-- Right-aligned message -->
                                     <div v-if="chat.created_by == props.loginUserId" class="flex justify-end mb-3">
                                         <div class="bg-steelBlue text-white p-3 rounded-b-lg rounded-tl-lg max-w-md">
-                                            <p class="text-sm">{{ chat.content  }}</p>
+                                            <p class="text-sm break-all">{{ chat.content  }}</p>
                                         </div>
                                     </div>
                                     <div v-if="chat.created_by == props.loginUserId"  class=" flex justify-end mb-3">
-                                        <p class="text-xs text-ceil">{{  getTimeAgo(chat.created_at) }}</p>
+                                        <p class="text-xs text-ceil break-all">{{  getTimeAgo(chat.created_at) }}</p>
                                     </div>
 
                                     <!-- Right-aligned message (Short) -->
