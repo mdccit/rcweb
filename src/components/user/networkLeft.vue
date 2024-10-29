@@ -1,34 +1,33 @@
 <template>
-     <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 p-3 mt-3 bg-white">
+    <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 p-3 mt-3 bg-white">
 
- <div class="flex flex-col items-center space-y-2">
-    <!-- Circle with number -->
-    <div class="bg-lightPale rounded-full w-20 h-20 flex items-center justify-center">
-      <p class="text-steelBlue text-4xl font-bold">{{  connection.length }}</p>
-    </div>
-    <!-- Connections text -->
-    <p class="text-lg font-medium text-black">Connections</p>
-    <!-- Profile Avatars -->
-    <div class="flex space-x-2">
-        <div v-for="data in limitedArray">
-            <img v-if="userId != data.receiver_id && data.receiver_profile_picture == null" class="w-10 h-10 rounded-full"
-                src="@/assets/images/user.png" alt="Profile 1">
-            <img v-if="userId != data.receiver_id && data.receiver_profile_picture != null" class="w-10 h-10 rounded-full"
-                :src="data.receiver_profile_picture.url" alt="Profile 1">
-            <img v-if="userId != data.sender_id && data.sender_profile_picture == null" class="w-10 h-10 rounded-full"
-                src="@/assets/images/user.png" alt="Profile 1">
-            <img v-if="userId != data.sender_id && data.sender_profile_picture != null" class="w-10 h-10 rounded-full"
-                :src="data.sender_profile_picture.url" alt="Profile 1">
+        <div class="flex flex-col items-center space-y-2">
+            <!-- Circle with number -->
+            <div class="bg-lightPale rounded-full w-20 h-20 flex items-center justify-center">
+                <p class="text-steelBlue text-4xl font-bold">{{ connection.length }}</p>
+            </div>
+            <!-- Connections text -->
+            <p class="text-lg font-medium text-black">Connections</p>
+            <!-- Profile Avatars -->
+            <div class="flex">
+                <div class="grid gap-4 grid-cols-12">
+                    <div v-for="data in limitedArray" class="col-span-3 ">
+                        <img v-if="userId != data.receiver_id && data.receiver_profile_picture == null"
+                            class="w-10 h-10 rounded-full" src="@/assets/images/user.png" alt="Profile 1">
+                        <img v-if="userId != data.receiver_id && data.receiver_profile_picture != null"
+                            class="w-10 h-10 rounded-full" :src="data.receiver_profile_picture.url" alt="Profile 1">
+                        <img v-if="userId != data.sender_id && data.sender_profile_picture == null"
+                            class="w-10 h-10 rounded-full" src="@/assets/images/user.png" alt="Profile 1">
+                        <img v-if="userId != data.sender_id && data.sender_profile_picture != null"
+                            class="w-10 h-10 rounded-full" :src="data.sender_profile_picture.url" alt="Profile 1">
+                    </div>
+                </div>
+            </div>
+            <!-- See all connections link -->
+            <div v-if="connection.length > 4" @click="showAll = !showAll" class="text-steelBlue hover:underline">See All
+                Connections</div>
         </div>
-      <!-- <img class="w-10 h-10 rounded-full" src="../../assets/user/images/avtar.png" alt="Profile 1">
-      <img class="w-10 h-10 rounded-full" src="../../assets/user/images/Rectangle_117.png" alt="Profile 2">
-      <img class="w-10 h-10 rounded-full" src="../../assets/user/images/Rectangle 193.png" alt="Profile 3">
-      <img class="w-10 h-10 rounded-full" src="../../assets/user/images/Rectangle 126.png" alt="Profile 4"> -->
     </div>
-    <!-- See all connections link -->
-    <div v-if="connection.length > 4" @click="showAll = !showAll" class="text-steelBlue hover:underline">See All Connections</div>
-  </div>
-     </div>
     <!-- start call card -->
     <!-- <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue p-3 mt-3 bg-steelBlue text-white">
         <div class="flex items-center justify-between">
@@ -59,7 +58,7 @@
 <script setup>
 
 
-import { ref, watchEffect ,onMounted ,watch} from 'vue';
+import { ref, watchEffect, onMounted, watch } from 'vue';
 import { useNuxtApp } from '#app';
 import { useUserStore } from '@/stores/userStore';
 
@@ -73,34 +72,34 @@ onMounted(() => {
     fetConnection()
     userId.value = userStore.user?.user_id || null;
 
-    
+
 });
 watch(
-    () =>  userStore.connectionUpdate,
+    () => userStore.connectionUpdate,
     () => {
-        if(userStore.connectionUpdate){
+        if (userStore.connectionUpdate) {
             fetConnection()
         }
-        
+
     }
 );
 
 const connection = ref('')
 
-const fetConnection  = async () => {
-  try {
-     const response = await $userService.get_connection_list();
-    connection.value = response.dataSets.acccept_list
-    userStore.setConnection(false)
+const fetConnection = async () => {
+    try {
+        const response = await $userService.get_connection_list();
+        connection.value = response.dataSets.acccept_list
+        userStore.setConnection(false)
 
-  } catch (error) {
-    console.error('Failed to load posts:', error.message);
-  }
+    } catch (error) {
+        console.error('Failed to load posts:', error.message);
+    }
 }
 const showAll = ref(false)
 
 const limitedArray = computed(() => {
-    
-    return showAll.value ? connection.value : connection.value.slice(0, 4);  
+
+    return showAll.value ? connection.value : connection.value.slice(0, 4);
 });
 </script>
