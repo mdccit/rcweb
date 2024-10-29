@@ -120,7 +120,7 @@
 
           <!-- Handed Fields -->
           <div class="mt-4 col-span-3">
-            <label class="block text-sm font-normal text-gray-900 mb-1">Handed <span class="text-red-500">*</span></label>
+            <label class="block text-sm font-normal text-gray-900 mb-1">Handedness <span class="text-red-500">*</span></label>
             <div class="flex border border-gray-300 rounded-lg shadow-sm">
               <HandednessDropdown :required="true" :handedness="handednesses" v-model="handed" id="player_handedness"
                 label="Player Handedness" />
@@ -149,7 +149,7 @@
           <div class="flex border border-gray-300 rounded-lg shadow-sm">
             <select :required="true" v-model="year"
               class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg">
-              <option selected>Choose a gender</option>
+              <!-- <option selected>Choose a gender</option> -->
               <option value="freshman">Freshman</option>
               <option value="sophomore">Sophomore</option>
               <option value="junior">Junior</option>
@@ -493,6 +493,12 @@ const fetchDetails = async (userId) => {
       heightCm.value = player.height;
       heightInCm.value = true;
       media.value = player.media;
+      // heightCm.value = parseFloat(dataSets.player_info.height); // Convert height to cm if available
+          if (heightCm.value) {
+              let totalFeet = (heightCm.value / 30.48).toFixed(2);
+              heightFt.value = Math.floor(totalFeet);
+              heightIn.value = Math.floor((totalFeet - heightFt.value) * 12)
+          }
     } else {
       nuxtApp.$notification.triggerNotification(response.display_message, "failure");
     }
@@ -565,7 +571,7 @@ const deleyeUserProfilePicture = async () => {
 };
 
 const goto_transfer_tracker = () => {
-  router.push('/admin/transferTracker');
+  router.push('/user/transfer-tracker');
 };
 
 definePageMeta({

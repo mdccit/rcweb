@@ -20,8 +20,8 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">        
-            <TransferTrackerTable></TransferTrackerTable>
-            <TransferTrackerTableCreateModal v-if="showModal" @close="showModal = false" ref="schoolModal" />
+            <TransferTrackerTable :showModal="showModal"></TransferTrackerTable>
+            <TransferTrackerTableCreateModal v-if="showModal" @close="triggerTableReload" ref="schoolModal" />
         </div>
 
     </div>
@@ -52,4 +52,11 @@ definePageMeta({
     middleware: ['role'],
     requiredRole: ['admin'],
 });
+
+const triggerTableReload = () => {
+    showModal.value = false;
+    // Emit the custom event to AdminBusinessTable to reload the data
+    const event = new Event('reload');
+    document.dispatchEvent(event);
+};
 </script>
