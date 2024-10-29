@@ -29,11 +29,13 @@
 import { ref, computed, watch , onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { defineProps, defineEmits, defineExpose} from 'vue';
+import { useRouter } from 'vue-router';
 
 
 const error = ref('');
 const successMessage = ref('');
 const errors = ref([]);
+const router = useRouter();
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -74,7 +76,7 @@ const submit = async () => {
         if (response.status === 200) {
             successMessage.value = response.display_message;
             emit('emitMessage',response.display_message)
-            emit('close');
+            router.push('/admin/users?role=1');
         } else {
             
             emit('emitMessage',response.display_message)

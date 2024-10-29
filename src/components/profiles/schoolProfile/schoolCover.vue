@@ -83,8 +83,8 @@
                     <div class="col-span-5">
                         <div class="pl-3">
                             <div
-                                class="mt-2 text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
-                                <SchoolTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab" />
+                                class="-mt-[10px] text-sm font-medium text-center text-gray-500 border-b border-gray-200 text-gray-400 border-gray-400">
+                                <SchoolTabNavigation :tabs="tabs" :initialTab="tab" @tabChanged="handleTab"  />
                             </div>
                         </div>
                     </div>

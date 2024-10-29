@@ -97,7 +97,7 @@ const createUserService = (apiService) => {
 
   const search_user = async (request_body) => {
     const { user_role, search_key, state, city, tuition_in_state_min, tuition_in_state_max, tuition_out_state_min, tuition_out_state_max, gender, graduation_month, graduation_year, country_id, handedness, utr_min, utr_max, wtn_min, wtn_max, atp_ranking, itf_ranking, national_ranking } = request_body;
-    const url = `/user/search?user_role=${user_role}&search_key=${search_key}&state=${state}&city=${city}&tuition_in_state_min=${tuition_in_state_min}&tuition_in_state_max=${tuition_in_state_max}&tuition_out_state_min=${tuition_out_state_min}&tuition_out_state_max=${tuition_out_state_max}&gender=${gender}&graduation_month=${graduation_month}&country_id=${country_id}&handedness=${handedness}&utr_min=${utr_min}&utr_max=${utr_max}&wtn_min=${wtn_min}&wtn_max=${wtn_max}&atp_ranking=${atp_ranking}&itf_ranking=${itf_ranking}&national_ranking=${national_ranking}`;
+    const url = `/user/search?user_role=${user_role}&search_key=${search_key}&state=${state}&city=${city}&tuition_in_state_min=${tuition_in_state_min}&tuition_in_state_max=${tuition_in_state_max}&tuition_out_state_min=${tuition_out_state_min}&tuition_out_state_max=${tuition_out_state_max}&gender=${gender}&graduation_month=${graduation_month}&country_id=${country_id}&handedness=${handedness}&utr_min=${utr_min}&utr_max=${utr_max}&wtn_min=${wtn_min}&wtn_max=${wtn_max}&atp_ranking=${atp_ranking}&itf_ranking=${itf_ranking}&national_ranking=${national_ranking}&graduation_year=${graduation_year}`;
     try {
       const response = await apiService.getRequest(url);
       console.log(response);

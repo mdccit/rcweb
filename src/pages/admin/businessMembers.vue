@@ -57,7 +57,7 @@
                     </div>
                     <div class="grid gap-4">
                         <div class="flex flex-col lg:flex-row gap-6 py-2">
-                            <img src="https://qa1.recruited.qualitapps.com/storage/profile-photos/JuWLtk75Qtv2Wj9i3CMfbZYxZ9kgH8JJJhPivyZn.png"
+                            <img src="@/assets/images/avataruser.png"
                                 alt="User profile picture" class="h-12 w-12 rounded-full">
                             <div class="self-center flex-1"><strong
                                     class="capitalize text-black">QATest_Player01</strong>
@@ -74,7 +74,7 @@
                         </div>
 
                         <div class="flex flex-col lg:flex-row gap-6 py-2">
-                            <img src="https://qa1.recruited.qualitapps.com/storage/profile-photos/JuWLtk75Qtv2Wj9i3CMfbZYxZ9kgH8JJJhPivyZn.png"
+                            <img src="@/assets/images/avataruser.png"
                                 alt="User profile picture" class="h-12 w-12 rounded-full">
                             <div class="self-center flex-1"><strong
                                     class="capitalize text-black">QATest_Player01</strong>

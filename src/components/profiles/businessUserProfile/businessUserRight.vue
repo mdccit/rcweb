@@ -9,8 +9,12 @@
                     <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto text-center mb-3">{{
                         position }} with </p>
                     <div class="... text-center">
-                        <img class="mx-auto w-[85px] h-[85px] rounded-[20px] mb-3"
-                            src="@/assets/user/images/whitter collage.png" alt="">
+                        <!-- <img class="mx-auto w-[85px] h-[85px] rounded-[20px] mb-3"
+                            src="@/assets/user/images/whitter collage.png" alt=""> -->
+                        <img v-if="props.data.businessProfilePicture == null" src="@/assets/images/user.png" alt=""
+                            class="mx-auto w-[60px] h-[60px] rounded-full ">
+                        <img v-if="props.data.businessProfilePicture != null" :src="props.data.businessProfilePicture.url" alt=""
+                            class="mx-auto w-[60px] h-[60px] rounded-full ">
                         <p class="text-black text-sm text-center font-normal mb-3 w-[200px] mx-auto">
                             <b>{{ props.data.business }}</b>
                         </p>

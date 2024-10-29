@@ -93,6 +93,7 @@ const router = useRouter(); // Initialize router
 const route = useRoute();
 
 const subscriptionType = ref('');
+const is_auto_renewal = ref(false);
 
 // Refs and state
 const stripe = ref(null);
@@ -160,6 +161,7 @@ onMounted(async () => {
     setupIntentId.value = localStorage.getItem('setupIntentId');
     stripePublicKey.value = RuntimeConfig.public.stripePublicKey;
     subscriptionType.value = route.query.package || 'monthly';
+    is_auto_renewal.value = route.query.is_auto_renewal || false;
 
     if (!clientSecret.value || !setupIntentId.value) {
       cardError.value = 'Payment details are missing. Please refresh the page.';
@@ -209,7 +211,7 @@ const confirmPayment = async () => {
       // Now create the subscription
       const subscriptionDetails = {
         subscription_type: subscriptionType.value,
-        is_auto_renewal: true,
+        is_auto_renewal: is_auto_renewal.value === 'true',
         payment_method_id: paymentMethodId,
       };
 
@@ -229,6 +231,7 @@ const confirmPayment = async () => {
     }
 
   } catch (error) {
+    router.push('/payment-fail');
     cardError.value = error.message || 'An error occurred during payment processing.';
     console.error('Error during payment process:', error);
   } finally {

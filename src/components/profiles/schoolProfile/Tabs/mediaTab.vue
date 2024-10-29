@@ -75,7 +75,12 @@
         </button>
       </div>
     </div>
-
+    <div class="mx-auto text-center w-full">
+        <div v-if="galleryItems.length ==0">
+            <h4 class="text-black font-normal"> No Media</h4>
+            <p>This user has not added  media.</p>
+        </div>
+    </div>
 
   </div>
 </template>
@@ -202,9 +207,9 @@ const uploadMedia = async () => {
       // Redirect to the login page if the error status is 401
       nuxtApp.$notification.triggerNotification(error.display_message || 'An error occurred', 'failure');
       userStore.clearUser();
-      setTimeout(() => {
-        router.push('/login');
-      }, 2000);
+      // setTimeout(() => {
+      //   router.push('/login');
+      // }, 2000);
     } else {
       // Trigger notification for other errors
       nuxtApp.$notification.triggerNotification(error.display_message || 'An error occurred', 'failure');
