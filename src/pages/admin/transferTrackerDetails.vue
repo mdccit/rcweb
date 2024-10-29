@@ -571,7 +571,7 @@ const deleyeUserProfilePicture = async () => {
 };
 
 const goto_transfer_tracker = () => {
-  router.push('/admin/transferTracker');
+  router.push('/user/transfer-tracker');
 };
 
 definePageMeta({
