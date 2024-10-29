@@ -11,29 +11,31 @@
       <div class="mb-4 p-2">
         <h1 class="text-2xl font-light text-green-600 mb-1 mt-4">Payment Successful!</h1>
         <p class="text-gray-400 mb-4">Your subscription has been activated.</p>
-        <p class="text-gray-700 mb-2">Price: {{ price || '0' }} {{ currency || 'USD' }}</p>
+        
+        <!-- Price Display with Condition for Trialing Status -->
+        <p class="text-gray-700 mb-2">
+          Price: {{ status === 'trialing' ? '0' : price || 'Free' }} {{ currency || 'USD' }}
+        </p>
+  
         <p class="text-gray-700 mb-2">Start Date: {{ start_date ? formatDate(start_date) : 'Not available' }}</p>
         <p class="text-gray-700 mb-2">End Date: {{ end_date ? formatDate(end_date) : 'Not available' }}</p>
-        <p class="text-gray-700 mb-2">Status: {{ status || 'Unknown' }}</p>
-
+        
+        <!-- Status Display with Condition for Trialing Status -->
+        <p class="text-gray-700 mb-2">
+          Status: {{ status === 'trialing' ? 'Trial' : status || 'Unknown' }}
+        </p>
       </div>
       <div class="mt-4">
-
-
         <Button v-if="userRole == 'coach'" class="bg-limegreen text-white px-7 py-2 rounded-md mt-8">
-          <NuxtLink to="/user/approval-pending">
-            Continue
-          </NuxtLink>
+          <NuxtLink to="/user/approval-pending">Continue</NuxtLink>
         </Button>
         <Button v-if="userRole == 'player'" class="bg-limegreen text-white px-7 py-2 rounded-md mt-8">
-          <NuxtLink to="/app">
-            Continue
-          </NuxtLink>
+          <NuxtLink to="/app">Continue</NuxtLink>
         </Button>
       </div>
     </div>
   </div>
-
+  
 
 </template>
 
@@ -49,7 +51,9 @@ import { ref, onMounted } from 'vue';
 import { useNuxtApp } from '#app';
 import { format } from 'date-fns';
 import ScreenLoader from '@/layouts/screen_loader.vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const stripe_subscription_id = ref('');
 const currency = ref('');
 const price = ref('');
@@ -100,12 +104,22 @@ const fetchData = async () => {
     } else {
       throw new Error('Failed to retrieve subscription data.');
     }
-  }catch(error){
+  } catch (error) {
 
-  }finally{
+  } finally {
     loading.value = false;
   }
 
 }
 
+
+const navigateTo = async (path) => {
+  loading.value = true; // Show loader
+
+  try {
+    await router.push(path); // Navigate to the route
+  } finally {
+    loading.value = false; // Hide loader after navigation completes
+  }
+};
 </script>
