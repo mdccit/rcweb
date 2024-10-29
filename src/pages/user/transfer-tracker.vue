@@ -159,6 +159,6 @@ onMounted(fetchData);
 definePageMeta({
     layout: 'socialhub-three-column',
     middleware: ['role'],
-    requiredRole: ['coach'],
+    requiredRole: ['coach','admin'],
 });
 </script>

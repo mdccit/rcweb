@@ -116,7 +116,7 @@
                             </li>
                             <li>
                                 <!-- v-if="role === 'coach' && userTypeId == 3" -->
-                                <NuxtLink to="/user/transfer-tracker"  v-if="role === 'coach' && userTypeId == 3"
+                                <NuxtLink to="/user/transfer-tracker"  v-if="role === 'coach' && userTypeId == 3 ||role === 'admin' "
                                     class="block py-2 px-3 text-periwinkleBlue md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:text-white md:dark:hover:bg-transparent group">
                                     <div class="flex items-center justify-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
