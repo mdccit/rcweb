@@ -21,7 +21,7 @@
                         <!-- member card start-->
                         <div class=" grid grid-cols-12 gap-4">
                             <div class="col-span-3">
-                                <img class=" rounded-2xl w-[85px] h-[85px]" src="../../assets/user/images/avtar.png"
+                                <img class=" rounded-2xl w-[85px] h-[85px]" src="@/assets/user/images/avtar.png"
                                     alt="Neil image">
                             </div>
                             <div class="col-span-9">
@@ -224,7 +224,7 @@
                         <div class=" grid grid-cols-12 gap-4">
                             <div class="col-span-3">
                                 <img class=" rounded-2xl w-[85px] h-[85px]"
-                                    src="../../assets/user/images/Rectangle 193.png" alt="Neil image">
+                                    src="@/assets/user/images/Rectangle 193.png" alt="Neil image">
                             </div>
                             <div class="col-span-6">
                                 <h4 class="text-black font-bold">Ronald Richards</h4>

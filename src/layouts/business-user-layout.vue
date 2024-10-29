@@ -87,6 +87,8 @@ const tab = ref('feed');
 const profilePicture = ref(null);
 const coverPicture = ref(null);
 const businessSlug = ref('');
+const businessProfilePicture = ref(null)
+
 const setSelectedTab = (selectedTab) => {
   tab.value = selectedTab;
 };
@@ -121,7 +123,6 @@ useHead({
 const fetchBusinessUserDetails = async () => {
   try {
     const response = await $publicService.get_business_user(route.params.slug); // Replaced 'dataSets' with 'response'
-
     if (response.user_basic_info) {
       businessUserId.value = response?.user_basic_info?.id || '';
       bio.value = response.user_basic_info.bio || 'User has not entered bio';
@@ -143,6 +144,7 @@ const fetchBusinessUserDetails = async () => {
       position.value = response.business_manager_info.position;
       business.value = response.business_manager_info.business_name;
       businessSlug.value = response.business_manager_info.business_slug;
+      businessProfilePicture.value = response.business_manager_info.business_profile_picture;
     }
 
     if (response.user_phone_info) {
@@ -165,7 +167,8 @@ const fetchBusinessUserDetails = async () => {
       slug: route.params.slug,
       profile: profilePicture.value,
       cover: coverPicture.value,
-      businessSlug: businessSlug.value
+      businessSlug: businessSlug.value,
+      businessProfilePicture:businessProfilePicture.value
     };
 
     // loadInfinitePost();
@@ -248,7 +251,8 @@ const loadInfinitePost = async () => {
     //  isLoading.value = true;
     const response = await $feedService.list_posts(currentPage.value);
     //const filteredData = response.filter(item => item.user_id === businessUserId.value);
-    posts.value.push(...response.data);
+    const filteredData = response.data.filter(item => item.user_id === businessUserId.value);
+       posts.value.push(...filteredData);
 
     lastPage.value = response.last_page
     currentPage.value = response.current_page + 1

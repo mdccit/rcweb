@@ -73,10 +73,15 @@ const filter =ref([])
 const data  = ref({})
 const utrMinChange = () =>{
     searchStore.setUtrMin(utrMin.value)
+    let maxValue = searchStore.utrMax??''
+    let newValue = ""
+    if(maxValue != ''){
+       newValue ="-"+maxValue
+    }
     data.value = {
-        name:'utrMin',
+        name:'utr',
         value:utrMin.value,
-        display_name:"Utr Min | "+utrMin.value
+        display_name:"Utr | "+utrMin.value+" "+newValue
     }
 
     dataFilter(data.value)
@@ -84,10 +89,15 @@ const utrMinChange = () =>{
 
 const utrMaxChange = () =>{
     searchStore.setUtrMax(utrMax.value)
+    let minValue = searchStore.utrMin??''
+    let newValue = ""
+    if(minValue != ''){
+       newValue =minValue+"-"
+    }
     data.value = {
-        name:'utrMax',
+        name:'utr',
         value:utrMax.value,
-        display_name:"Utr Max | "+utrMax.value
+        display_name:"Utr |"+newValue+" " +utrMax.value
     }
 
     dataFilter(data.value)
@@ -95,10 +105,15 @@ const utrMaxChange = () =>{
 
 const wtnMinChange = () =>{
     searchStore.setWtnMin(wtnMin.value)
+    let maxValue = searchStore.wtnMax ?? ''
+    let newValue = ""
+    if(maxValue != ''){
+       newValue ="-"+maxValue
+    }
     data.value = {
-        name:'wtnMin',
+        name:'wtn',
         value:wtnMin.value,
-        display_name:"WTN Min |"+wtnMin.value
+        display_name:"WTN  |"+wtnMin.value+" "+newValue
        
     }
 
@@ -107,10 +122,15 @@ const wtnMinChange = () =>{
 
 const wtnMaxChange = () =>{
     searchStore.setWtnMax(wtnMax.value)
+    let minValue = searchStore.wtnMin??''
+    let newValue = ""
+    if(minValue != ''){
+       newValue =minValue+"-"
+    }
     data.value = {
-        name:'wtnMax',
+        name:'wtn',
         value:wtnMin.value,
-        display_name:"WTN Max |"+wtnMax.value
+        display_name:"WTN  |"+newValue+" "+wtnMax.value
        
     }
     dataFilter(data.value)

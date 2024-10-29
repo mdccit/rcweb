@@ -1,66 +1,32 @@
 <template>
-
-    <!-- common full screen loader -->
-    <ScreenLoader v-if="loading"/>
-    <!-- / common full screen loader -->
-    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <!-- common full screen loader -->
+  <ScreenLoader v-if="loading"/>
+  <!-- / common full screen loader -->
+  <div class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
+      
+      <!-- Stripe Logo and Subscription Text -->
+      <div class="flex items-center justify-center mb-4">
+        <img src="https://stripe.com/img/v3/home/twitter.png" alt="Stripe Logo" class="h-6 mr-2"/>
+        <p class="text-gray-600 text-sm">
+          You are subscribing to <strong>Recruited Premium</strong> using Stripe.
+        </p>
+      </div>
+
       <!-- Trial Subscription Notice -->
       <div v-if="subscriptionType === 'trial'"
         class="mb-4 p-3 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700">
         <p class="text-sm">
           Please note that a payment method is required for trial subscriptions because Payment Processing needs it to
-          create a
-          subscription, even for a free trial to continue later. No amount will be charged from your card
+          create a subscription, even for a free trial to continue later. No amount will be charged from your card.
         </p>
       </div>
-
 
       <!-- Name Input Field -->
       <div class="mb-4">
         <label for="customer-name" class="block text-sm font-medium text-gray-700">Name on Card</label>
         <input v-model="customerName" type="text" id="customer-name" class="mt-1 p-2 border rounded-md w-full" />
       </div>
-
-      <!-- Email Input Field -->
-      <!-- <div class="mb-4">
-        <label for="customer-email" class="block text-sm font-medium text-gray-700">Email</label>
-        <input v-model="customerEmail" type="email" id="customer-email" class="mt-1 p-2 border rounded-md w-full" />
-      </div> -->
-
-      <!-- Phone Input Field -->
-      <!-- <div class="mb-4">
-        <label for="customer-phone" class="block text-sm font-medium text-gray-700">Phone</label>
-        <input v-model="customerPhone" type="tel" id="customer-phone" class="mt-1 p-2 border rounded-md w-full" />
-      </div> -->
-
-      <!-- Address Input Fields -->
-
-      <!-- <div class="mb-4">
-        <label for="address-line1" class="block text-sm font-medium text-gray-700">Address Line 1</label>
-        <input v-model="addressLine1" type="text" id="address-line1" class="mt-1 p-2 border rounded-md w-full" />
-      </div>
-      <div class="mb-4">
-        <label for="address-line2" class="block text-sm font-medium text-gray-700">Address Line 2</label>
-        <input v-model="addressLine2" type="text" id="address-line2" class="mt-1 p-2 border rounded-md w-full" />
-      </div>
-      <div class="mb-4">
-        <label for="city" class="block text-sm font-medium text-gray-700">City</label>
-        <input v-model="city" type="text" id="city" class="mt-1 p-2 border rounded-md w-full" />
-      </div>
-      <div class="mb-4">
-        <label for="state" class="block text-sm font-medium text-gray-700">State</label>
-        <input v-model="state" type="text" id="state" class="mt-1 p-2 border rounded-md w-full" />
-      </div>
-      <div class="mb-4">
-        <label for="postal-code" class="block text-sm font-medium text-gray-700">Postal Code</label>
-        <input v-model="postalCode" type="text" id="postal-code" class="mt-1 p-2 border rounded-md w-full" />
-      </div>
-      <div class="mb-4">
-        <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
-        <input v-model="country" type="text" id="country" class="mt-1 p-2 border rounded-md w-full" />
-      </div> -->
-
 
       <h2 class="text-center text-lg font-semibold mb-4">Enter your card details</h2>
 
@@ -78,6 +44,7 @@
   </div>
 </template>
 
+
 <script setup>
 import { ref, onMounted } from 'vue';
 import { loadStripe } from '@stripe/stripe-js';
@@ -93,6 +60,7 @@ const router = useRouter(); // Initialize router
 const route = useRoute();
 
 const subscriptionType = ref('');
+const is_auto_renewal = ref(false);
 
 // Refs and state
 const stripe = ref(null);
@@ -110,12 +78,6 @@ const stripePublicKey = ref('');
 const customerName = ref('');
 const customerEmail = ref('');
 const customerPhone = ref('');
-// const addressLine1 = ref('');
-// const addressLine2 = ref('');
-// const city = ref('');
-// const state = ref('');
-// const postalCode = ref('');
-// const country = ref('');
 
 // Debugging helper to ensure mounting process works correctly
 const mountCardElement = async (stripePublicKey) => {
@@ -160,6 +122,7 @@ onMounted(async () => {
     setupIntentId.value = localStorage.getItem('setupIntentId');
     stripePublicKey.value = RuntimeConfig.public.stripePublicKey;
     subscriptionType.value = route.query.package || 'monthly';
+    is_auto_renewal.value = route.query.is_auto_renewal || false;
 
     if (!clientSecret.value || !setupIntentId.value) {
       cardError.value = 'Payment details are missing. Please refresh the page.';
@@ -209,7 +172,7 @@ const confirmPayment = async () => {
       // Now create the subscription
       const subscriptionDetails = {
         subscription_type: subscriptionType.value,
-        is_auto_renewal: true,
+        is_auto_renewal: is_auto_renewal.value === 'true',
         payment_method_id: paymentMethodId,
       };
 
@@ -229,6 +192,7 @@ const confirmPayment = async () => {
     }
 
   } catch (error) {
+    router.push('/payment-fail');
     cardError.value = error.message || 'An error occurred during payment processing.';
     console.error('Error during payment process:', error);
   } finally {

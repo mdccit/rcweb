@@ -12,7 +12,7 @@
         </div> -->
 
         <div v-for="data in props.data" class="bg-culturedBlue p-4 rounded-lg flex items-center space-x-4 col-span-3">
-            <div class="grid grid-cols-10 w-full">
+            <div @click="redirectResource(data)" class="grid grid-cols-10 w-full">
                 <div class="col-span-2">
                     <div class="bg-lightGray1 p-3 rounded-full w-[60px] h-[60px]">
                         <img :src="data.icon" alt="" class="w-[35px] h-[35px] m-auto">
@@ -94,6 +94,12 @@
 
 <script setup>
 import { ref, defineEmits, onMounted } from 'vue';
+import { useNuxtApp } from '#app';
+import { useUserStore } from '@/stores/userStore';
+
+const userStore = useUserStore();
+const nuxtApp = useNuxtApp();
+
 const props = defineProps({
 
     data: {
@@ -102,5 +108,13 @@ const props = defineProps({
     }
 });
 
+const redirectResource = (resource) =>{
+    userStore.setResourceId(resource.id)
+    if(resource.resources.length > 0){
 
+        userStore.setResourceData(resource.resources[0])
+    }
+    
+    
+}
 </script>

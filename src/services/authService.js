@@ -251,8 +251,23 @@ const createAuthService = (apiService) => {
     }
   };
 
-  
+ 
 
+  const accountDelete = async (request_body) => {
+    const url = '/auth/account-delete';
+    const body = request_body;
+  
+    try {
+      const response = await apiService.postRequest(url, body);
+      return response;
+    } catch (error) {
+      if (error.response) {
+        throw error.response;
+      } else {
+        throw new Error(error.message || 'Failed to create subscription');
+      }
+    }
+  };
   return {
     login,
     logout,
@@ -269,7 +284,8 @@ const createAuthService = (apiService) => {
     createSetupIntent,
     confirmSetupIntent,
     createSubscription,
-    getStripeCustomerId
+    getStripeCustomerId,
+    accountDelete
   };
 };
 

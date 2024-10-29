@@ -213,7 +213,7 @@ const deleteSearch = async (id) => {
 }
 
 const applySearch = (data) => {
-
+    console.log(data)
     searchStore.setSearchFilter([])
     if (data.search_data.user_role != null) {
         searchStore.setUserRole(data.search_data.user_role)
@@ -332,6 +332,13 @@ const applySearch = (data) => {
     if (data.search_data.national_ranking != null) {
         searchStore.setNationalRanking(data.search_data.national_ranking)
         filter.value.push({ name: 'national ranking', value: data.search_data.national_ranking, display_value: "National Ranking |" + data.search_data.national_ranking });
+        searchStore.setSearchFilter(filter.value)
+
+    }
+
+    if (data.search_data.search_key != null) {
+        searchStore.setSearchKey(data.search_data.search_key)
+        filter.value.push({ name: 'key', value: data.search_data.search_key, display_value: "Key |" + data.search_data.search_key });
         searchStore.setSearchFilter(filter.value)
 
     }

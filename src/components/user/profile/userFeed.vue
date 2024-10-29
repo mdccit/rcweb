@@ -227,6 +227,12 @@
           </div>
         </div>
       </div>
+      <div class="mx-auto text-center w-full">
+        <div v-if="props.posts.length ==0">
+            <h4 class="text-black font-normal"> No post</h4>
+            <p>This user has not added  post.</p>
+        </div>
+      </div>
     </div>
     <div v-if="isLoading" class="loading">Loading more...</div>
 

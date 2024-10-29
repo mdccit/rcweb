@@ -9,7 +9,7 @@
                 </div>
             </div>
     </div>
-    <div class="flex">
+    <div class="flex mb-8">
     <div class="grid gap-4 grid-cols-6  w-full">
         <div v-for="data in limitedArray" class="col-span-3 p-2">
             <div
@@ -110,13 +110,13 @@
                     <div class="flex-1 text-right">
                         <div class="flex">
                             <div class="flex-1 text-right">
-                                <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
+                                <!-- <button class="bg-lighterGray rounded-full w-[35px] h-[35px] p-0 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 text-blue-500 m-auto">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                     </svg>
-                                </button>
+                                </button> -->
                             </div>
 
                             <div class="flex">
@@ -158,6 +158,9 @@ import { ref, defineEmits, onMounted ,computed } from 'vue';
 import { defineProps, defineExpose } from 'vue';
 import { useNuxtApp } from '#app';
 import { useRoute, useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/userStore';
+
+const userStore = useUserStore();
 
 const route = useRoute();
 const router = useRouter();
@@ -187,7 +190,7 @@ const connectRemove = async (id) => {
         const response = await $userService.connection_remove(id, {
             connection_status: "removed"
         });
-
+        userStore.setConnection(true)
         emit('updatedData')
 
     } catch (error) {
@@ -208,8 +211,16 @@ const chatStart = async (data) => {
         const response = await $userService.create_conversiontion({
             user2_id: user_id
         });
+        console.log(1119)
+
         console.log(response)
-        router.push('/user/chat');
+        // router.push('/user/chat');
+        router.push({
+            path: '/user/chat',
+            query: {
+                conversation_id: response.data.dataSets.id
+            }
+        });
 
     } catch (error) {
         console.error('Failed to load posts:', error.message);

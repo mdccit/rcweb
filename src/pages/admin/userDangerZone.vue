@@ -136,6 +136,7 @@ const openModal = () => {
 const notification = (message) => {
 
     notificationMessage.value = message;
+    nuxtApp.$notification.triggerNotification(notificationMessage.value, 'success');
     showNotification.value = true
 }
 

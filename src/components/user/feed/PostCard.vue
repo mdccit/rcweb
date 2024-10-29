@@ -6,10 +6,14 @@
           <div class="flex items-center justify-between">
             <div v-if="post.school_id != null" class="flex items-center space-x-3">
               <!-- <img src="@/assets/images/school.png" alt="" class="rounded-lg w-12 h-12"> -->
-              <img v-if="post.school_profile_picture ==null" src="@/assets/images/user.png" alt="" class="rounded-lg w-12 h-12">
-              <img v-if="post.school_profile_picture !=null" :src="post.school_profile_picture.url" alt="" class="rounded-lg w-12 h-12">
+              <NuxtLink :to="`/app/profile/school/${post.school.slug}`">
+                <img v-if="post.school_profile_picture ==null" src="@/assets/images/user.png" alt="" class="rounded-lg w-12 h-12">
+                <img v-if="post.school_profile_picture !=null" :src="post.school_profile_picture.url" alt="" class="rounded-lg w-12 h-12">
+              </NuxtLink>
               <div>
-                <div class="text-md font-bold text-black">{{ post.school.name }}</div>
+                <NuxtLink :to="`/app/profile/school/${post.school.slug}`">
+                   <div class="text-md font-bold text-black">{{ post.school.name }}</div>
+                </NuxtLink>
                 <div class="flex space-x-2 items-center">
                   <!-- Display only for the coach - start -->
                   <!-- <div class="bg-mintGreen p-1 rounded-md flex items-center justify-center">
