@@ -98,6 +98,7 @@
 import { ref, watch, computed, onMounted, defineEmits } from "vue";
 import { useRouter } from "vue-router";
 import { useNuxtApp } from "#app";
+import { useFlowbite } from '~/composables/useFlowbite';
 
 const props = defineProps({
   showModal: {
@@ -155,8 +156,12 @@ const handleRowClick = (row) => {
 // Watch options and search to update filtered items
 watch([options, search, utrMin, utrMax], fetchData, { immediate: true });
 
-onMounted(fetchData);
-
+onMounted(() => {
+  fetchData();
+  useFlowbite(() => {
+      initFlowbite();
+  })
+});
 const filteredItems = computed(() => {
   let filtered = items.value;
   // Paginate items
