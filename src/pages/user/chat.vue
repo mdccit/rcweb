@@ -18,6 +18,7 @@ import ChatView from '~/components/chat/chatView.vue';
 import { useNuxtApp } from '#app';
 import { ref, computed, watch, onMounted ,inject  } from 'vue';
 import { useUserStore } from '~/stores/userStore';
+import { useRoute } from 'vue-router';
 
 definePageMeta({
   layout: 'chat',
@@ -25,6 +26,7 @@ definePageMeta({
 useHead({
   title: 'Recruited Chat',
 })
+const route = useRoute(); // Use useRoute to access query parameters
 
 const nuxtApp = useNuxtApp();
 const $userService = nuxtApp.$userService;
@@ -47,9 +49,9 @@ onMounted(() => {
   updateHeight();
   window.addEventListener('resize', updateHeight);
   loginUserId.value =userStore.user.user_id
-
+     
   conversation()
-
+  console.log("Conversation Id "+route.query.conversation_id);
 });
 
 onBeforeUnmount(() => {
@@ -61,7 +63,17 @@ const conversation = async () =>{
         const response = await $userService.get_all_conversiontion();
         listChat.value = response.dataSets
 
-        console.log(response)
+        if(route.query.conversation_id != null){
+          const chatFound = listChat.value.find(item => item.id == route.query.conversation_id);
+          if (chatFound) {
+              chatViewList(chatFound)
+           }else{
+            chatViewList(listChat.value[0])
+           }
+        }else{
+          chatViewList(listChat.value[0])
+        }
+        
     } catch (error) {
         console.error('Failed to load posts:', error.message);
     }
@@ -70,7 +82,6 @@ const conversation = async () =>{
 const chatViewList = (data) =>{
     chat.value = data
     console.log("Chat")
-
-    console.log(chat.value)
+    route.query.conversation_id = data.id
 }
 </script>

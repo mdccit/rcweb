@@ -472,8 +472,13 @@ const chatStart = async (data) =>{
             user2_id: data
         });
         console.log(response)
-        router.push('/user/chat');
-
+        // router.push('/user/chat');
+        router.push({
+            path: '/user/chat',
+            query: {
+                conversation_id: response.data.dataSets.id
+            }
+        });
     } catch (error) {
         console.error('Failed to load posts:', error.message);
     }

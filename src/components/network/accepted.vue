@@ -211,8 +211,16 @@ const chatStart = async (data) => {
         const response = await $userService.create_conversiontion({
             user2_id: user_id
         });
+        console.log(1119)
+
         console.log(response)
-        router.push('/user/chat');
+        // router.push('/user/chat');
+        router.push({
+            path: '/user/chat',
+            query: {
+                conversation_id: response.data.dataSets.id
+            }
+        });
 
     } catch (error) {
         console.error('Failed to load posts:', error.message);
