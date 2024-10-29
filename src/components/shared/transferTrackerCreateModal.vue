@@ -11,7 +11,7 @@
           <!-- Modal Header -->
           <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-200">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-gray">Create New Transfer Player</h3>
-            <button
+            <button @click="handleClose"
               class="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center light:hover:bg-gray-600 light:hover:text-white">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">
