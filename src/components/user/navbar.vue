@@ -153,8 +153,8 @@
                 <div class="flex justify-end" v-if="isAuthenticated">
 
                     <div class="flex space-x-3">
-                        <NuxtLink v-if="userRole != 'admin'" :to="`/app/profile/${userSlug}`">
-                            <div class="flex space-x-2 items-center">
+                        <!-- <NuxtLink v-if="userRole != 'admin'" :to="`/app/profile/${userSlug}`"> -->
+                            <div  v-if="userRole != 'admin'" class="flex space-x-2 items-center">
                                 <div class="hidden sm:hidden md:hidden lg:block">
                                     <img v-if="profilePicture == 'null'"
                                         class="w-10 h-10 rounded-lg border border-white shadow-lg"
@@ -168,7 +168,7 @@
                                     <p class="text-xs text-limegreen">Online</p>
                                 </div>
                             </div>
-                        </NuxtLink>
+                        <!-- </NuxtLink> -->
                         <NuxtLink v-if="userRole == 'admin'">
                             <div class="flex space-x-2 items-center">
                                 <div class="hidden sm:hidden md:hidden lg:block">
@@ -204,6 +204,10 @@
                                         Admin Dashboard</NuxtLink>
                                 </li>
                             </ul>
+                            <div v-if="userRole != 'admin'" class="py-2">
+                                <NuxtLink  :to="`/app/profile/${userSlug}`" class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                    Profile</NuxtLink>
+                            </div>
                             <div class="py-2">
                                 <NuxtLink to="/user/user-setting" @click.stop
                                     class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">

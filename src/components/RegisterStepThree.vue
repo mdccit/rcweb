@@ -1,4 +1,8 @@
 <template>
+
+
+  <!-- common full screen loader -->
+  <ScreenLoader v-if="loading" />
   <div
     class="min-h-screen w-full bg-generic bg-cover bg-no-repeat flex flex-col sm:justify-center items-center py-12 px-4">
     <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl">
@@ -21,13 +25,13 @@
       <!-- Package Selection Section -->
       <div class="flex justify-center space-x-4">
         <div v-for="pkg in packages" :key="pkg.value" :class="[
-          'flex-1 flex flex-col justify-between border w-[300px] rounded-lg text-center p-3 relative cursor-pointer',
-          selectedPackage === pkg.value
-            ? pkg.value === 'premium'
-              ? 'border-blue-500 bg-blue-100'  // Gold color for premium package
-              : 'border-blue-500 bg-blue-100'  // Default blue for other packages
-            : ''  // Not selected
-        ]" @click="selectPackage(pkg.value)">
+    'flex-1 flex flex-col justify-between border w-[300px] rounded-lg text-center p-3 relative cursor-pointer',
+    selectedPackage === pkg.value
+      ? pkg.value === 'premium'
+        ? 'border-blue-500 bg-blue-100'  // Gold color for premium package
+        : 'border-blue-500 bg-blue-100'  // Default blue for other packages
+      : ''  // Not selected
+  ]" @click="selectPackage(pkg.value)">
           <input class="radio-input absolute h-24 m-0 cursor-pointer z-2 opacity-0 peer" :id="pkg.value" type="radio"
             :value="pkg.value" v-model="selectedPackage" name="pkg" />
 
@@ -51,7 +55,7 @@
 
           <!-- Standard Package -->
           <div v-if="pkg.value === 'standard'" class="mt-auto">
-            <!-- Subscribe Button (more promineddddddddddddddddddddddddddddddddnt) -->
+            <!-- Subscribe Button (more prominent) -->
             <button @click.stop="subscribeStandard"
               class="bg-blue-600 text-white font-light px-4 py-2 rounded-full mt-4 w-full">
               Subscribe
@@ -61,7 +65,7 @@
           <!-- Premium Package -->
           <div v-else-if="pkg.value === 'premium'" class="mt-auto">
            <!-- Auto-Renew Toggle -->
-             <!-- 
+             
             <div class="flex items-center justify-center mb-4">
               <input type="checkbox" id="autoRenew" v-model="autoRenew" class="hidden" />
               <label for="autoRenew" class="flex items-center cursor-pointer space-x-3">
@@ -72,7 +76,7 @@
                 </div>
                 <span class="text-sm font-medium text-gray-900 dark:text-gray-300">Auto renew</span>
               </label>
-            </div> -->
+            </div>
 
             <!-- Try Trial Button (less prominent) -->
             <button @click.stop="subscribeTrial" class="mt-3 text-blue-700">
@@ -102,6 +106,8 @@ import { useNuxtApp } from '#app';
 import { usePackageStore } from '~/stores/packageStore';
 import { usePackages } from '@/composables/usePackages';
 import { useFlowbite } from '~/composables/useFlowbite';
+import ScreenLoader from '@/layouts/screen_loader.vue';
+
 
 // Access authService from the context
 const nuxtApp = useNuxtApp();
@@ -132,9 +138,9 @@ onMounted(async () => {
 
 const subscribeStandard = () => {
   const userRole = localStorage.getItem('user_role');
-  if(userRole == 'coach'){
+  if (userRole == 'coach') {
     router.push(`/user/approval-pending`);
-  }else{
+  } else {
     router.push(`/app`);
   }
 
@@ -166,7 +172,7 @@ const subscribeTrial = async () => {
           packageStore.setPaymentToken(payment_token);
 
           // Step 4: Redirect to the /payment page
-          router.push(`/payment/${payment_token}?package=trial`);
+          router.push(`/payment/${payment_token}?package=trial&is_auto_renewal=${autoRenew.value}`);
 
         } else {
           // Throw error if setupIntent is invalid
@@ -216,7 +222,7 @@ const subscribePremium = async () => {
           packageStore.setPaymentToken(payment_token);
 
           // Step 4: Redirect to the /payment page
-          router.push(`/payment/${payment_token}?package=premium`);
+          router.push(`/payment/${payment_token}?package=premium&is_auto_renewal=${autoRenew.value}`);
 
         } else {
           // Throw error if setupIntent is invalid

@@ -9,7 +9,7 @@
                 </div>
             </div>
     </div>
-    <div class="flex">
+    <div class="flex mb-8">
     <div class="grid gap-4 grid-cols-6  w-full">
         <div v-for="data in limitedArray" class="col-span-3 p-2">
             <div

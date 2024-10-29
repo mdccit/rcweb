@@ -1,14 +1,16 @@
 <template>
 
-  <div  v-if="(userRole === 'coach') || (userRole === 'player')">
+  <div v-if="(userRole === 'coach') || (userRole === 'player')">
     <h2 class="text-2xl font-bold mb-6 text-black">Subscription & Billing</h2>
     <hr class="mt-5 mb-3 text-pigeonBlue">
     <div>
 
       <!-- Subscription Section -->
-      <div class="mt-6" >
+      <div class="mt-6">
         <h3 class="font-semibold text-xl mb-4 text-black">Subscription</h3>
-        <p class="text-sm text-darkSlateBlue mb-4">Enjoy uninterrupted access to premium features and services with our flexible subscription plans. Manage your plan easily, and stay up to date with the latest benefits. Upgrade, downgrade, or cancel anytime you're in control!</p>
+        <p class="text-sm text-darkSlateBlue mb-4">Enjoy uninterrupted access to premium features and services with our
+          flexible subscription plans. Manage your plan easily, and stay up to date with the latest benefits. Upgrade,
+          downgrade, or cancel anytime you're in control!</p>
 
         <div class="flex gap-4 bg-white p-6">
 
@@ -18,16 +20,18 @@
             <ButtonSpinner v-if="loading" class="inline-block" />
 
             <p v-if="Price" class="text-4xl font-bold text-steelBlue mb-4 mt-2">${{ Price }}</p>
-            
+
             <p v-if="Price" class="text-xl font-semibold text-black">PREMIUM</p>
             <p class="text-darkSlateBlue mt-4 text-sm">
-              You're all set with your active plan ! Upgrade, switch plans, or manage payments anytime to fit your needs.
+              You're all set with your active plan ! Upgrade, switch plans, or manage payments anytime to fit your
+              needs.
             </p>
             <p v-if="activeStatus === 'active'"
               class="bg-green-100 text-green-600 font-semibold mt-4 text-xl px-4 py-2 rounded-full">
               Activated
             </p>
-            <p v-else-if="activeStatus === 'trailing'" class="bg-red-100 text-red-600 font-semibold mt-4 text-xl px-4 py-2 rounded-full">
+            <p v-else-if="activeStatus === 'trailing'"
+              class="bg-red-100 text-red-600 font-semibold mt-4 text-xl px-4 py-2 rounded-full">
               Trial
             </p>
             <p v-else-if="!loading" class="bg-red-100 text-red-600 font-semibold mt-4 text-xl px-4 py-2 rounded-full">
@@ -48,12 +52,15 @@
               </div>
             </div>
 
-            <div class="border border-gainsboroGray rounded-lg p-4"  v-if="(userRole == 'coach') || (userRole == 'player')">
+            <div class="border border-gainsboroGray rounded-lg p-4"
+              v-if="(userRole == 'coach') || (userRole == 'player')">
               <p class="font-semibold text-black mb-2">Change plan</p>
               <p class="text-darkSlateBlue mb-4 text-sm">
-                Upgrade, downgrade, or switch your subscription to better suit your needs. Review the available plans and adjust your subscription effortlessly.
+                Upgrade, downgrade, or switch your subscription to better suit your needs. Review the available plans
+                and adjust your subscription effortlessly.
               </p>
-              <button class="bg-steelBlue text-white px-4 py-2 rounded-full text-sm" @click="changeSubscription">Change plan</button>
+              <button class="bg-steelBlue text-white px-4 py-2 rounded-full text-sm" @click="changeSubscription">Change
+                plan</button>
             </div>
           </div>
         </div>
@@ -63,14 +70,32 @@
     <!-- Card Details Section -->
     <div class="mt-6" v-if="!loading">
       <hr class="mt-5 mb-3 text-pigeonBlue">
-      <h3 class="font-semibold text-xl mb-4 text-black">Card details</h3>
-      <p class="text-sm text-darkSlateBlue mb-4"> Securely manage your saved payment methods. Update card information, add a new card, or remove existing ones to ensure seamless billing and uninterrupted service.</p>
+
+      <!-- Flex container to align heading and button -->
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-semibold text-xl text-black">Card details</h3>
+        <!-- Button with styled plus icon -->
+        <button @click="isAddCardModalVisible = true" class="flex items-center justify-center w-10 h-10 rounded-full bg-transparent border border-gray-300 
+                       hover:bg-red-50 transition duration-200 shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 text-darkRed transition-colors duration-200 hover:text-red-700" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+        </button>
+      </div>
+
+      <p class="text-sm text-darkSlateBlue mb-4">
+        Securely manage your saved payment methods. Update card information, add a new card, or remove existing ones to
+        ensure seamless billing and uninterrupted service.
+      </p>
 
       <div class="flex space-x-4">
 
         <div class="flex-1">
           <div
             class="bg-gradient-to-r from-blue-900 to-gray-800 text-white p-6 rounded-lg w-85 shadow-lg h-60 flex flex-col justify-end">
+            <span class="text-xs text-blue-200 font-semibold">Default</span>
             <div class="mt-auto flex justify-between items-center" v-if="!loading">
               <div class="mt-4">
                 <span class="font-semibold">Selected card</span>
@@ -89,27 +114,50 @@
           </div>
         </div>
 
-
-        <div class="flex-1"  v-if="!loading" >
-          <div class="space-y-4 w-full">
-            <!-- Loop through the payment methods and display each one -->
+        <div class="flex-1">
+          <div class="space-y-4 w-full h-80 overflow-y-auto"> <!-- Set height and enable vertical scroll -->
+            <!-- Loop through the payment methods and display the default and other cards separately -->
             <div v-for="(method, index) in paymentMethods" :key="method.id"
-              class="relative flex items-center justify-between p-4 bg-white rounded-lg shadow border">
-              <div>
-                <span class="text-xs text-darkSlateBlue block">Card Brand: {{ method.card.brand }} </span>
-                <span class="font-semibold text-black">XXXX XXXX XXXX {{ method.card.last4 }}</span>
-                <p class="text-xs text-gray-500">Expires {{ method.card.exp_month }}/{{ method.card.exp_year }}</p>
+              class="relative flex items-center justify-between p-4 bg-white rounded-lg shadow border"
+              :class="{ 'default-card-select': method.is_default }">
+
+              <div class="flex w-full">
+                <!-- Card Details on the left -->
+                <div class="flex-1">
+                  <span class="text-xs text-darkSlateBlue block">Card Brand: {{ method.brand }}</span>
+                  <span class="font-semibold text-black">XXXX XXXX XXXX {{ method.last4 }}</span>
+                  <p class="text-xs text-gray-500">Expires {{ method.exp_month }}/{{ method.exp_year }}</p>
+                </div>
+
+                <!-- Actions on the right -->
+                <div class="flex items-center space-x-4">
+                  <!-- Default/Set as Default Button -->
+                  <div>
+                    <button v-if="method.is_default" class="bg-green-100 text-green-700 text-xs py-1 px-2 rounded-full">
+                      Default
+                    </button>
+                    <button v-else @click="setDefaultPaymentMethod(method.id)"
+                      class="text-steelBlue text-xs pt-1 hover:underline">
+                      Set as default
+                    </button>
+                  </div>
+
+                  <!-- Remove Button (only visible if the card is not default) -->
+                  <button v-if="!method.is_default" @click="deletePaymentMethod(method.id)"
+                    class="text-red-500 hover:text-red-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="w-5 h-5">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21a47.63 47.63 0 00-1.022.166L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0V4.884c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                    </svg>
+                  </button>
+                </div>
               </div>
-              <button @click="deletePaymentMethod(method.id)" class="text-red hover:text-red-700">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" class="size-4">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                </svg>
-              </button>
             </div>
           </div>
         </div>
+
+
 
       </div>
 
@@ -120,17 +168,19 @@
     <div class="mt-6" v-if="activeStatus === 'active' && !isSetToCancel">
       <hr class="mt-5 mb-3 text-pigeonBlue">
       <h3 class="font-semibold text-xl mb-4 text-black">Cancel subscription</h3>
-      <p class="text-sm text-darkSlateBlue mb-4">Once your account is canceled, you can re-add any subscription you need.
+      <p class="text-sm text-darkSlateBlue mb-4">Once your account is canceled, you can re-add any subscription you
+        need.
       </p>
 
       <div class="space-y-4">
         <div class="card rounded-2xl overflow-hidden border border-gainsboroGray bg-white w-full p-3 mt-3">
-          <p class="text-sm text-darkSlateBlue mb-6">Your cancellation will take effect from the next renewal date. You can continue to enjoy all premium features until the end of your current paid period.</p>
+          <p class="text-sm text-darkSlateBlue mb-6">Your cancellation will take effect from the next renewal date. You
+            can continue to enjoy all premium features until the end of your current paid period.</p>
 
           <div class="mt-6" v-if="(userRole == 'coach') || (userRole == 'player')">
             <button @click="cancelSubscription"
               class="w-50 py-3 px-2 bg-redOrange text-white  text-xs font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Cancel
-              Subscription {{isSetToCancel}}</button>
+              Subscription {{ isSetToCancel }}</button>
           </div>
         </div>
       </div>
@@ -139,11 +189,18 @@
     <div class="mt-6 bg-red-100 p-6 rounded-lg shadow-md border border-red-300" v-else-if="isSetToCancel">
       <h3 class="font-semibold text-2xl mb-4 text-red-800">Subscription Cancellation Scheduled</h3>
       <p class="text-sm text-red-700 mb-4">
-        Your subscription is set to be cancelled at the end of your current billing cycle. You will continue to have access to the premium features until then. If you wish to continue your subscription, you can reactivate it at any time before the cancellation date.
+        Your subscription is set to be cancelled at the end of your current billing cycle. You will continue to have
+        access to the premium features until then. If you wish to continue your subscription, you can reactivate it at
+        any time before the cancellation date.
       </p>
     </div>
-     
+
+    <!-- Add Card Modal -->
+    <AddCardModal :isVisible="isAddCardModalVisible" @close="closeModal" />
+
   </div>
+
+
 
 </template>
 
@@ -151,9 +208,10 @@
 import { ref, onMounted } from 'vue';
 import { usePackageStore } from '@/stores/packageStore';
 import { useNuxtApp, useRuntimeConfig } from '#app';
-import { useRouter , useRoute} from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import ButtonSpinner from '@/components/common/ButtonSpinner.vue';
 import ScreenLoader from '@/layouts/screen_loader.vue';
+import AddCardModal from '@/components/subscription/AddCardModal.vue';
 
 import VisaImg from '@/assets/images/visa-img.png';
 import AmexImg from '@/assets/images/amex-img.png';
@@ -186,20 +244,21 @@ const selectedCard = ref(null);
 const loading = ref(false);
 const userRole = ref('');
 const isSetToCancel = ref(false);
+const isAddCardModalVisible = ref(false);
 
 onMounted(async () => {
   userRole.value = localStorage.getItem('user_role');
   try {
     // Fetch user subscription information
     loading.value = true;
-   
+
     const response = await $subscriptionService.get_subscription();
     subscription.value = response;
 
     const payment_methods = await $subscriptionService.get_customer_payment_methods();
 
     if (payment_methods && payment_methods.status == 200) {
-      paymentMethods.value = payment_methods.data;
+      paymentMethods.value = payment_methods.data.original.data;
 
       // Fetch the active card and set it in selectedCard
       await getCustomerActiveCard();
@@ -209,17 +268,23 @@ onMounted(async () => {
       Price.value = response.price;
       activeStatus.value = response.status;
       isSetToCancel.value = response.cancel_at_period_end || null;
-    }else{
+    } else {
       console.error('No payment mehods found.');
     }
 
   } catch (error) {
     console.error('Error fetching subscription data:', error);
-  }finally{
+  } finally {
     loading.value = false;
   }
 });
 
+
+
+const closeModal = async () => {
+  isAddCardModalVisible.value = false;
+  await refreshCards();
+};
 
 const getCustomerActiveCard = async () => {
   try {
@@ -263,7 +328,7 @@ const cancelSubscription = async () => {
     }
   } catch (error) {
     console.error('Error canceling subscription:', error);
-  }finally{
+  } finally {
     loading.value = false;
   }
 };
@@ -271,11 +336,14 @@ const cancelSubscription = async () => {
 const deletePaymentMethod = async (paymentMethodId) => {
   try {
     const response = await $subscriptionService.delete_stripe_payment_method(paymentMethodId);
-    
+
     // Check for a successful response
     if (response && response.status === 200) {
       // Success case
       nuxtApp.$notification.triggerNotification(response.display_message || 'Payment method removed successfully.', 'success');
+
+      // Re-fetch the payment methods to refresh the list
+      await refreshCards();
     } else {
       // Handle non-success status codes, show display_message if available
       nuxtApp.$notification.triggerNotification(response.display_message || 'Failed to remove payment method.', 'failure');
@@ -290,6 +358,33 @@ const deletePaymentMethod = async (paymentMethodId) => {
       nuxtApp.$notification.triggerNotification(error.message || 'An unexpected error occurred.', 'failure');
     }
     console.error('Error removing card:', error);
+  }
+};
+
+
+// Function to set a payment method as the default
+const setDefaultPaymentMethod = async (id) => {
+  let request_body = {
+    payment_method_id: id
+  }
+  try {
+    loading.value = true;
+    const response = await $subscriptionService.update_default_payment_method(request_body);
+    if (response && response.status === 200) {
+      // Success case
+      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+      refreshCards();
+      // Fetch the active card and set it in selectedCard
+      await getCustomerActiveCard();
+
+    } else {
+      // Handle non-success status codes
+      nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+    }
+  } catch (error) {
+    console.error('Error canceling subscription:', error);
+  } finally {
+    loading.value = false;
   }
 };
 
@@ -318,7 +413,19 @@ function formatDate(dateString) {
       return cards.default;
   }
 };
+
+const refreshCards = async () => {
+  // Re-fetch the payment methods to refresh the list
+  const payment_methods = await $subscriptionService.get_customer_payment_methods();
+  if (payment_methods && payment_methods.status === 200) {
+    paymentMethods.value = payment_methods.data.original.data;
+  }
+
+  // Optionally, re-fetch the active card if necessary
+  await getCustomerActiveCard();
+}
+
 const changeSubscription = async () => {
- router.push('/user/change-subscription')
+  router.push('/user/change-subscription')
 }
 </script>

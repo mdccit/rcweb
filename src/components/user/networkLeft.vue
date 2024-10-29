@@ -1,5 +1,5 @@
 <template>
-     <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue p-3 mt-3 bg-white">
+     <div class=" card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 p-3 mt-3 bg-white">
 
  <div class="flex flex-col items-center space-y-2">
     <!-- Circle with number -->
