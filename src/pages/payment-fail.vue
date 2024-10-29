@@ -16,8 +16,11 @@
           <button @click="goBackTwoSteps" class="bg-red-600 text-white px-7 py-2 rounded-md mt-8 m-2">
             Retry
           </button>
-          <Button class="bg-gray-200 text-black px-7 py-2 rounded-md mt-4 m-2">
-            <NuxtLink to="/">Exit</NuxtLink>
+          <Button v-if="userRole == 'coach'" class="bg-gray-200 text-black px-7 py-2 rounded-md mt-4 m-2">
+            <NuxtLink to="/user/approval-pending">Exit</NuxtLink>
+          </Button>
+          <Button v-if="userRole == 'player'" class="bg-gray-200 text-black px-7 py-2 rounded-md mt-4 m-2">
+            <NuxtLink to="/user/user-setting">Exit</NuxtLink>
           </Button>
         </div>
       </div>
@@ -31,6 +34,18 @@
     middleware: ['role'],
     requiredRole: ['default', 'undefined', 'coach', 'player'],
   });
+
+  import { ref, onMounted } from 'vue';
+import { useNuxtApp } from '#app';
+const userRole = ref('');
+
+const nuxtApp = useNuxtApp();
+
+onMounted(async () => {
+  userRole.value = localStorage.getItem('user_role');
+
+
+});
   
   const goBackTwoSteps = () => {
     history.go(-2);
