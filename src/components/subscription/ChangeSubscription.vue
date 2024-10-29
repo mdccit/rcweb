@@ -9,7 +9,7 @@
 
     <div class="flex">
       <!-- Iterate through the packages array -->
-      <div v-for="(pkg, index) in packages" :key="pkg.value" class="flex-1 flex justify-center">
+      <div v-for="(pkg, index) in filteredPackages" :key="pkg.value" class="flex-1 flex justify-center">
         <div :key="refreshKey" :class="[
     'border w-[230px] rounded-lg text-center p-3 relative flex flex-col cursor-pointer',
     pkg.name === 'Premium' ? 'pro-pack' : '',
@@ -20,10 +20,6 @@
 
           <h1 class="text-3xl font-medium text-black mb-2">{{ pkg.price }}</h1>
           <p class="text-xs mb-5">{{ pkg.description }}</p>
-          <!-- <span> {{ activeStatus }}</span>
-          <span> {{ pkg.value }}</span>
-          <span> {{ isSetToCancel }}</span>
-          <p> {{ hasPaymentMethodSet }}</p> -->
           <!-- Features List -->
           <div class="grid justify-center">
             <p v-for="(feature, fIndex) in pkg.features" :key="fIndex" class="text-xs flex text-left mb-2">
@@ -94,8 +90,8 @@
     </div>
 
 
-      <!-- Add Card Modal -->
-      <AddCardModal :isVisible="isAddCardModalVisible" @close="closeCardModal" @success="closeCardModalSuccess" />
+    <!-- Add Card Modal -->
+    <AddCardModal :isVisible="isAddCardModalVisible" @close="closeCardModal" @success="closeCardModalSuccess" />
 
   </div>
 
@@ -169,7 +165,9 @@ const $authService = nuxtApp.$authService;
 const router = useRouter(); // Initialize router
 const packageStore = usePackageStore();
 // Packages array with all required details
-const { packages } = usePackages()
+const { packages } = usePackages();
+
+const filteredPackages = ref([]);
 
 const $subscriptionService = nuxtApp.$subscriptionService;
 const subscription = ref([]);
@@ -181,6 +179,18 @@ const paymentMethods = ref([]);
 const selectedCard = ref(null);
 const refreshKey = ref(0);
 const isAddCardModalVisible = ref(false);
+const userRole = ref('');
+
+
+// Watch userRole for updates, and re-compute filteredPackages accordingly
+watchEffect(() => {
+  if (userRole.value) {
+    // Logs to confirm the role and packages are set as expected
+    console.log(`User Role: ${userRole.value}`);
+    filteredPackages.value = packages.value.filter(pkg => pkg.role === userRole.value)
+    console.log('Filtered Packages:', filteredPackages.value);
+  }
+})
 
 // Open the confirmation modal
 const openModal = () => {
@@ -446,6 +456,9 @@ onMounted(async () => {
   useFlowbite(() => {
     initFlowbite();
   });
+
+  userRole.value = localStorage.getItem('user_role');
+
   await fetchSubscriptionDetails();
 
 });

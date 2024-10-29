@@ -113,6 +113,7 @@ const fetchData = async () => {
 
 const handlePasswordChange = async () => {
   try {
+    errors.value = {};
     nuxtApp.$nprogress.start();
     loading.value = true;
 
