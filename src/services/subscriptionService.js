@@ -130,6 +130,19 @@ const createSubscriptionService = (apiService) => {
     }
   };
 
+  const add_new_default_card = async (request_body) => {
+    const url = '/subscription/add-new-default-card';
+    const body = request_body;
+
+    try {
+      const response = await apiService.putRequest(url, body);
+      return response;
+    } catch (error) {
+      throw new Error(error.message || 'Failed to register');
+    }
+  };
+
+
 
 
   return {
@@ -142,6 +155,7 @@ const createSubscriptionService = (apiService) => {
     stop_premium_cancellation,
     update_default_payment_method,
     add_new_card,
+    add_new_default_card,
   };
 
 

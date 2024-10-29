@@ -11,20 +11,22 @@
       <!-- Iterate through the packages array -->
       <div v-for="(pkg, index) in packages" :key="pkg.value" class="flex-1 flex justify-center">
         <div :key="refreshKey" :class="[
-        'border w-[230px] rounded-lg text-center p-3 relative flex flex-col cursor-pointer',
-        pkg.name === 'Premium' ? 'pro-pack' : '',
-        selectedPackage === pkg.name ? 'highlighted-package' : ''
-      ]" @click="selectPackage(pkg.value)">
+    'border w-[230px] rounded-lg text-center p-3 relative flex flex-col cursor-pointer',
+    pkg.name === 'Premium' ? 'pro-pack' : '',
+    selectedPackage === pkg.name ? 'highlighted-package' : ''
+  ]" @click="selectPackage(pkg.value)">
           <h3 class="font-medium text-black mb-2">{{ pkg.name }}
           </h3>
 
           <h1 class="text-3xl font-medium text-black mb-2">{{ pkg.price }}</h1>
           <p class="text-xs mb-5">{{ pkg.description }}</p>
-
+          <!-- <span> {{ activeStatus }}</span>
+          <span> {{ pkg.value }}</span>
+          <span> {{ isSetToCancel }}</span>
+          <p> {{ hasPaymentMethodSet }}</p> -->
           <!-- Features List -->
           <div class="grid justify-center">
-            <p v-for="(feature, fIndex) in pkg.features" :key="fIndex"
-              class="text-xs flex text-left mb-2">
+            <p v-for="(feature, fIndex) in pkg.features" :key="fIndex" class="text-xs flex text-left mb-2">
               <span class="text-limegreen ml-1 me-2">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
                   <path fill-rule="evenodd"
@@ -47,24 +49,53 @@
             </button>
 
             <!-- Show this button if activeStatus is NOT 'active' -->
-            <button v-else-if="activeStatus !== 'active' && pkg.value === 'premium'" @click="subscribePremium()"
-              :value="pkg.value"
+            <button
+              v-else-if="activeStatus !== 'active' && pkg.value === 'premium' && isSetToCancel === false && hasPaymentMethodSet === false"
+              @click="subscribePremium()" :value="pkg.value"
               class="border shadow-sm rounded-full font-normal py-2 px-4 text-xs bg-steelBlue text-white w-full">
               <ButtonSpinner v-if="loading" />
               Subscribe to {{ pkg.name }}
             </button>
 
-            <button v-else-if="activeStatus == 'active' && pkg.value === 'premium' && isSetToCancel === true"
+            <button
+              v-else-if="activeStatus == 'active' && pkg.value === 'premium' && isSetToCancel === true && hasPaymentMethodSet === true"
               @click="stopPremiumCancellation()" :value="pkg.value"
               class="border shadow-sm font-normal rounded-full py-2 px-4 text-xs bg-steelBlue text-white w-full">
               <ButtonSpinner v-if="loading" />
               Subscribe to {{ pkg.name }} Again
+            </button>
+            <button
+              v-else-if="activeStatus !== 'active' && pkg.value === 'premium' && isSetToCancel === true && hasPaymentMethodSet === true"
+              @click="stopPremiumCancellation()" :value="pkg.value"
+              class="border shadow-sm font-normal rounded-full py-2 px-4 text-xs bg-steelBlue text-white w-full">
+              <ButtonSpinner v-if="loading" />
+              Subscribe to {{ pkg.name }} Again
+            </button>
+
+            <button
+              v-else-if="activeStatus != 'active' && pkg.value === 'premium' && isSetToCancel === true && hasPaymentMethodSet === false"
+              @click="stopPremiumCancellationAndContinueWithNewCard()" :value="pkg.value"
+              class="border shadow-sm font-normal rounded-full py-2 px-4 text-xs bg-steelBlue text-white w-full">
+              <ButtonSpinner v-if="loading" />
+              Add Card and Continue {{ pkg.name }}
+            </button>
+
+            <button
+              v-else-if="activeStatus == 'active' && pkg.value === 'premium' && isSetToCancel === true && hasPaymentMethodSet === false"
+              @click="stopPremiumCancellationAndContinueWithNewCard()" :value="pkg.value"
+              class="border shadow-sm font-normal rounded-full py-2 px-4 text-xs bg-steelBlue text-white w-full">
+              <ButtonSpinner v-if="loading" />
+              Add Card and Continue {{ pkg.name }}
             </button>
           </div>
 
         </div>
       </div>
     </div>
+
+
+      <!-- Add Card Modal -->
+      <AddCardModal :isVisible="isAddCardModalVisible" @close="closeCardModal" @success="closeCardModalSuccess" />
 
   </div>
 
@@ -114,6 +145,8 @@
     </div>
   </div>
 
+
+
 </template>
 
 <script setup>
@@ -124,6 +157,7 @@ import { usePackageStore } from '~/stores/packageStore';
 import { usePackages } from '@/composables/usePackages';
 import { useFlowbite } from '~/composables/useFlowbite';
 import ScreenLoader from '@/layouts/screen_loader.vue';
+import AddCardModal from '@/components/subscription/AddDefaultCardModal.vue';
 
 
 const nuxtApp = useNuxtApp();
@@ -142,9 +176,11 @@ const subscription = ref([]);
 const activeStatus = ref('');
 const isModalVisible = ref(false);
 const isSetToCancel = ref(false);
+const hasPaymentMethodSet = ref(false);
 const paymentMethods = ref([]);
 const selectedCard = ref(null);
 const refreshKey = ref(0);
+const isAddCardModalVisible = ref(false);
 
 // Open the confirmation modal
 const openModal = () => {
@@ -155,6 +191,19 @@ const openModal = () => {
 const closeModal = () => {
   isModalVisible.value = false;
 }
+
+const closeCardModal = async () => {
+  isAddCardModalVisible.value = false;
+  await refreshButtons();
+};
+
+const closeCardModalSuccess = async () => {
+  isAddCardModalVisible.value = false;
+  await stopPremiumCancellation();
+  await refreshButtons();
+};
+
+
 
 // Handle package selection
 const selectPackage = (pkgValue) => {
@@ -220,7 +269,8 @@ const cancelSubscription = async () => {
     isModalVisible.value = false;
     const response = await $subscriptionService.cancel_subscription();
     if (response && response.status === 200) {
-      activeStatus.value = 'cancelled'; 
+      activeStatus.value = 'cancelled';
+      await fetchSubscriptionDetails();
       // Success case
       nuxtApp.$notification.triggerNotification(response.display_message, 'success');
     } else {
@@ -230,20 +280,22 @@ const cancelSubscription = async () => {
   } catch (error) {
     console.error('Error canceling subscription:', error);
   } finally {
-    await fetchSubscriptionDetails();
-    refreshButtons();
+
+    await refreshButtons();
     loading.value = false;
   }
 };
 
 
-const reloadPage = () => {
+const reloadPage = async () => {
   window.location.reload(); // Reload the full page
 };
 
 // Function to refresh buttons
-const refreshButtons = () => {
+const refreshButtons = async () => {
   refreshKey.value++;  // Update the key to trigger reactivity
+  await fetchSubscriptionDetails();
+
   // Update activeStatus or isSetToCancel based on the updated subscription state
   if (activeStatus.value === 'active') {
     isSetToCancel.value = false;
@@ -274,6 +326,12 @@ const stopPremiumCancellation = async () => {
 };
 
 
+const stopPremiumCancellationAndContinueWithNewCard = async () => {
+  isAddCardModalVisible.value = true;
+
+};
+
+
 const getCustomerActiveCard = async () => {
   try {
     // Fetch the active payment method (active card)
@@ -281,6 +339,8 @@ const getCustomerActiveCard = async () => {
 
     // Assuming the response has the card details, map the relevant data to selectedCard
     if (activeCardResponse && activeCardResponse.status === 200) {
+
+      hasPaymentMethodSet.value = true;
       selectedCard.value = {
         brand: activeCardResponse.data.brand,
         last4: activeCardResponse.data.last4,
@@ -294,9 +354,11 @@ const getCustomerActiveCard = async () => {
         }
       };
     } else {
+      hasPaymentMethodSet.value = false;
       console.error('No active card found.');
     }
   } catch (error) {
+    hasPaymentMethodSet.value = false;
     console.error('Error fetching active payment method:', error);
   }
 };
@@ -350,6 +412,32 @@ const fetchSubscriptionDetails = async () => {
     } finally {
       loading.value = false;
     }
+  }
+};
+
+
+const setDefaultPaymentMethod = async (id) => {
+  let request_body = {
+    payment_method_id: id
+  }
+  try {
+    loading.value = true;
+    const response = await $subscriptionService.update_default_payment_method(request_body);
+    if (response && response.status === 200) {
+      // Success case
+      nuxtApp.$notification.triggerNotification(response.display_message, 'success');
+      refreshCards();
+      // Fetch the active card and set it in selectedCard
+      await getCustomerActiveCard();
+
+    } else {
+      // Handle non-success status codes
+      nuxtApp.$notification.triggerNotification(response.display_message, 'failure');
+    }
+  } catch (error) {
+    console.error('Error canceling subscription:', error);
+  } finally {
+    loading.value = false;
   }
 };
 
@@ -415,8 +503,8 @@ onMounted(async () => {
   border-radius: 2px;
 }
 
-.pro-pack{
-    background: #f9fbff;
-    border: solid 1px #4090dd;
+.pro-pack {
+  background: #f9fbff;
+  border: solid 1px #4090dd;
 }
 </style>
