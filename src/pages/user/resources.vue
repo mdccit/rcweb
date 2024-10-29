@@ -3,7 +3,7 @@
 
         <!-- Resources -->
 
-        <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
+        <div v-if="userStore.resourceId == null" class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
             <!-- Section Header -->
             <div class="mb-6">
                 <h2 class="text-2xl text-black font-bold">{{ tab==1?'Resources':'Tutorial'}}</h2>
@@ -32,32 +32,7 @@
 
         </div>
 
-        <!--/ Resources -->
-
-        <!-- Tutorial -->
-        <!-- <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-4 mt-3">
-            <div class="mb-6">
-                <h2 class="text-2xl text-black font-bold">Tutorial</h2>
-                <p class="text-darkSlateBlue mt-2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.
-                </p>
-            </div>
-
-            <div class="flex space-x-8 border-b">
-                <button class="pb-2 border-b-2 border-transparent text-black hover:text-lightSteelBlue hover:border-lightSteelBlue focus:outline-none">
-                    Free Resources
-                </button>
-                <button
-                    class=" pb-2 border-b-2 border-steelBlue text-steelBlue focus:outline-none ">
-                    Tutorial
-                </button>
-            </div>
-
-          
-         
-        </div> -->
-
+      
         <!-- Pro Tennis Eligibility Guide -->
 
         <div v-if="userStore.resource != null" class="card rounded-2xl overflow-hidden border border-lightSteelBlue border-opacity-40 bg-white w-full p-4 mt-3">
@@ -147,8 +122,9 @@ const $userService = nuxtApp.$userService;
 const category = ref([])
 
 onMounted(() => {
+    userStore.setResourceData(null)
+    
     fetchResourcresCategory()
-    console.log("Resouce Store")
     console.log(userStore.resourceData)
 });
 

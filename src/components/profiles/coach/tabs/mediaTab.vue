@@ -76,6 +76,12 @@
         </button>
       </div>
     </div>
+    <div class="mx-auto text-center w-full">
+        <div v-if="galleryItems.length ==0">
+            <h4 class="text-black font-normal"> No Media</h4>
+            <p>This user has not added  media.</p>
+        </div>
+    </div>
 
 
   </div>

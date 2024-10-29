@@ -19,7 +19,9 @@ export const useUserStore = defineStore('user', {
     user_type_id: null,
     profile_picture:{},
     resource:null,
-    user_setting_active_tab: "security"
+    resource_id:null,
+    user_setting_active_tab: "security",
+    connection_update:false
   }),
   getters: {
     isAuthenticated: (state) => !!state.user && !!state.token,
@@ -31,16 +33,24 @@ export const useUserStore = defineStore('user', {
     userSlug: (state) => state.user_slug || null,
     userPermissionType:(state) => state.user_permission_type || null,
     resourceData: (state) => state.resource || null,
+    resourceId: (state) => state.resource_id || null,
     // user: (state) => state.user || null
 
     userProfilePicture:(state)=> state.profile_picture || null,
     userSettingActiveTab:(state)=> state.user_setting_active_tab || "security",
-    userTypeId:(state)=> state.user_type_id || ""
+    userTypeId:(state)=> state.user_type_id || "",
+    connectionUpdate:(state)=> state.connection_update || false,
   },
   actions: {
     setResourceData(resouces) {
       this.resource = resouces;
       
+    },
+    setResourceId(id) {
+      console.log("store")
+      console.log(id)
+      this.resource_id = id;
+      console.log(this.resource_id)
     },
     setToken(token) {
       this.token = token;
@@ -99,7 +109,10 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem('user_type_id', user_type_id);
       }
     },
-
+    
+    setConnection(data){
+      this.connection_update = data
+    },
     
     setUser(user) {
       if (!user) return;

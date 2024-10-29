@@ -74,6 +74,7 @@ const cover = ref(null)
 const userId = ref(null);
 const userpermissionType = ref('none')
 const editor = ref(false)
+const businessId = ref('');
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
     showNotification.value = nuxtApp.$notification.showNotification.value;
@@ -92,7 +93,7 @@ useHead({
 
 onMounted(() => {
     fetchbusinessDetatils();
-   fetchPost();
+   
    userId.value = userStore.user?.user_id || null;
    userpermissionType.value = userStore.user?.user_permission_type;
    console.log(userStore.user?.user_permission_type)
@@ -102,8 +103,9 @@ onMounted(() => {
 const fetchbusinessDetatils = async () =>{
     try {
        const dataSets = await $publicService.get_business(route.params.slug);
-       console.log(dataSets.business_info.joined_at)
+       console.log(dataSets.business_info)
         if(dataSets.business_info){
+            businessId.value = dataSets.business_info.id
             bio.value =dataSets.business_info.bio
             name.value =dataSets.business_info.name
             const date = new Date(dataSets.business_info.joined_at);
@@ -115,6 +117,7 @@ const fetchbusinessDetatils = async () =>{
             const month = monthNames[date.getMonth()];
             const day = date.getDate();
             joinAt.value = `${year} ${month} ${day}`
+            fetchPost()
         }
         console.log(dataSets)
 
@@ -168,10 +171,9 @@ const redirectPage = (url) =>{
 
 const fetchPost = async () => {
   try {
-    const response = await $feedService.list_posts({});
-    //console.log(response)
+    const response = await $feedService.list_business_posts(businessId.value,{});
     //const filteredData = response.filter(item => item.user_id === coachId.value);
-    // posts.value = response
+     posts.value = response.data??[]
    
   } catch (error) {
     console.error('Failed to load posts:', error.message);

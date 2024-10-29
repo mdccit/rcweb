@@ -28,9 +28,19 @@ const props = defineProps({
   initialTab: {
     type: String,
     default: ''
+  },
+  userSlug: {
+    type: String,
+    required: true,
   }
 });
 
+watch(
+    () => props.userSlug,
+    () => {
+      activeTab.value = 'feed'
+    }
+);
 // Emits event to parent component when tab is changed
 const emit = defineEmits(['tabChanged']);
 

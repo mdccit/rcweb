@@ -478,7 +478,7 @@ const fetchUserDetails = async (userId) => {
         display_name.value = response.user_basic_info.display_name
         slug.value = response.user_basic_info.slug
     } catch (error) {
-        nuxtApp.$notification.triggerNotification(error.message, 'failure');
+       // nuxtApp.$notification.triggerNotification(error.message, 'failure');
     }
 };
 

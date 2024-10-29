@@ -1,4 +1,6 @@
 <template>
+     <!-- common full screen loader -->
+     <ScreenLoader v-if="loading"/>
     <div class="mt-16">
         <!-- Start Content Section -->
         <div class="col-span-5 sm:col-span-4 md:col-span-5 lg:col-span-3 xl:col-span-4">
@@ -78,7 +80,7 @@
                                                 JSON.parse(user.other_data).utr ?? '' }}</p> -->
                                         </div>
                                         <p v-if="user.other_data != null" class="text-xs mr-3">ATP Score : <span>{{
-                                            JSON.parse(user.other_data).atp_score ?? '' }}</span></p>
+                                            JSON.parse(user.other_data).atp_ranking ?? '' }}</span></p>
                                         <p v-if="user.other_data != null" class="text-xs mr-3">GPA :<span>{{ user.gpa
                                                 }}</span></p>
                                         <p v-if="user.other_data != null" class="text-xs">SAT Score : <span>{{
@@ -240,11 +242,15 @@ import { ref, computed, watch, onMounted, inject } from 'vue';
 import { useNuxtApp } from '#app';
 import { useUserStore } from '~/stores/userStore';
 import { useSearchStore } from '~/stores/searchStore';
+import ScreenLoader from '@/layouts/screen_loader.vue';
 
 import { useRouter, useRoute } from 'vue-router';
 import SaveSearch from '~/components/user/search/saveSearch.vue';
 import ViewSaveSearch from '~/components/user/search/viewSaveSearch.vue';
+
 const nuxtApp = useNuxtApp();
+const nprogress = nuxtApp.$nprogress;
+
 const userStore = useUserStore();
 const router = useRouter();
 const searchStore = useSearchStore();
@@ -262,6 +268,8 @@ const outStateMxn = ref('')
 const filterNewSet = ref([])
 const route = useRoute();
 const loginUserId = ref('')
+const loading = ref(false);
+
 onMounted(() => {
     fetchData();
 
@@ -282,7 +290,8 @@ watch(
 );
 
 const fetchData = async () => {
-
+   nprogress.start();
+    loading.value = true;
     if (searchStore.searchButton) {
         searchStore.setSearchButton(false)
         const data = {
@@ -328,6 +337,9 @@ const fetchData = async () => {
             console.error('Failed to load posts:', error.message);
         }
     }
+    loading.value = false;
+
+    nprogress.done();
 
 }
 
@@ -384,18 +396,17 @@ const filterRemove = (data) => {
         searchStore.setCountryId('')
     }
 
-    if (data == 'utrMin') {
+    if (data == 'utr') {
         searchStore.setUtrMin('')
-    }
-    if (data == 'utrMax') {
         searchStore.setUtrMax('')
     }
-    if (data == 'wtnMin') {
+
+    if (data == 'wtn') {
         searchStore.setWtnMin('')
-    }
-    if (data == 'wtnMax') {
         searchStore.setWtnMax('')
     }
+   
+    
     if (data == 'apt') {
         searchStore.setAtpRanking('')
     }
@@ -404,6 +415,11 @@ const filterRemove = (data) => {
     }
     if (data == 'national ranking') {
         searchStore.setNationalRanking('')
+    }
+
+    if(data == 'key'){
+        searchStore.setSearchKey('')
+
     }
 
 

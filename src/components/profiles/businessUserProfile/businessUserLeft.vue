@@ -12,7 +12,7 @@
                 </div>
             </div>
             <p class="text-xs text-darkSlateBlue leading-relaxed mb-4 break-all">
-                {{ props.data.bio }}
+                {{ bio }}
             </p>
             <div v-if="seeMoreBtnHide">
                 <button id="seeMoreBtn" @click="toggleText">{{ expandBtnName }}</button>
@@ -168,7 +168,12 @@ onMounted(() => {
         loggedUserSlug.value = localStorage.getItem('user_slug')
     }
 });
-
+watch(
+    () => props.data,
+    () => {
+        setBio()
+    }
+);
 
 const setBio = () => {
     let fullBio = props.data.bio || ''; // This ensures fullBio is at least an empty string

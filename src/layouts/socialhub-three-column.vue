@@ -13,7 +13,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-6 gap-4 mt-16">
           <!-- Left pane -->
           <div class=" md:col-span-1 lg:col-span-1 sm:col-span-6 sx:col-span-6">
-            <!-- <Filter /> -->
+            <!-- <FilterCard /> -->
             <!-- <CallCard/> -->
              <!-- <transfer-tracker-left-bar /> -->
              <NetworkLeft v-if="networkView" />
@@ -67,6 +67,8 @@ import userSettingLeftBar from '~/components/user/userSettingLeftBar.vue';
 import CallCard from '~/components/user/feed/CallCard.vue';
 import ScreenLoader from '@/layouts/screen_loader.vue';
 import { useLoadingStore } from '@/stores/loadingStore';
+import FilterCard from '~/components/user/filter-card.vue';
+
 const loadingStore = useLoadingStore();
 
 
