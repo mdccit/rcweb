@@ -6,7 +6,7 @@
 
 
   <div class="w-full mt-6 mx-4 p-12 bg-white rounded-lg overflow-hidden sm:max-w-3xl mx-auto">
-    <div class="">
+    <div>
       <button class="flex mb-4 text-sm rounded-full bg-gray-100 p-1"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
           stroke="currentColor" class="size-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
@@ -572,9 +572,6 @@ onMounted(async () => {
   border-radius: 2px;
 }
 
-.pro-pack {
-  background: #f9fbff;
-  border: solid 1px #4090dd;
 .pro-pack {
   background: #f9fbff;
   border: solid 1px #4090dd;
