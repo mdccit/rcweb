@@ -16,7 +16,7 @@
                             {{ props.data.colleage }}
                         </p>
                         <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto">
-                            Location
+                             {{ props.data.govId != null? props.data.govId:'Not linked to a government school.' }}
                         </p>
                         <button type="button" v-if="loggedUserSlug == props.userSlug" @click="redirectToManage(props.data.school_slug)"
                             class="mt-3 btn-sm py-2.5 px-5 me-2 mb-2 text-xs text-blue-500 focus:outline-none bg-white rounded-full border border-blue-500 hover:bg-blue-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-blue-700 light:focus:ring-gray-700 light:bg-gray-800 light:text-gray-400 dark:border-blue-600 light:hover:text-white light:hover:bg-gray-700">
