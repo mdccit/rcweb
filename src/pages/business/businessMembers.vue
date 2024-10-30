@@ -27,7 +27,6 @@
             </NuxtLink>
         </div>
     </header>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Use the BusinessNavigation component -->
@@ -78,7 +77,7 @@
                 <div class="mb-6">
                     <label for="userType" class="block text-sm font-medium text-gray-700 mb-2">Member Name : {{
                         firstName + ' ' + lastName }}</label>
-                </div 
+                </div> 
 
                 <!-- User Type Selection -->
                 <div class="mb-6">

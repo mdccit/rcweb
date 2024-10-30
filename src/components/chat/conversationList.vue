@@ -6,7 +6,8 @@
                 </div>
 
                 <div :style="{ height: leftListHeight + 'px' }" class="overflow-y-auto -me-1">
-                    <div class="pe-5 flex flex-col space-y-3">
+                   
+                    <div style="max-height: 75vh;" class="pe-5 flex flex-col space-y-3">
 
                         <div v-for="chat in props.listChat">
                             <button @click="chatShow(chat)" :class="active == chat.id ?'bg-white flex items-center px-3 py-2 rounded-xl  space-x-4  cursor-pointer w-full':'flex items-center px-3 py-2 rounded-xl  space-x-4  cursor-pointer w-full'">

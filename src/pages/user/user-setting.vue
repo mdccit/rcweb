@@ -28,7 +28,7 @@ definePageMeta({
   showUserSettingLeftBar: true,
 });
 useHead({
-  title: 'sSettings',
+  title: 'Settings',
 })
 const userStore = useUserStore();
 const userSettingActiveTab = computed(() => userStore.userSettingActiveTab);

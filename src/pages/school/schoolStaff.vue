@@ -117,12 +117,42 @@
                 <div class="mb-6">
                     <label for="userType" class="block text-sm font-medium text-gray-700 mb-2">User Name : {{
                         firstName + ' ' + lastName }}</label>
-                    </div>
-
+                </div>
+                <!-- User Type Selection -->
                 <div class="mb-6">
                     <label for="userType" class="block text-sm font-medium text-gray-700 mb-2"> Role : {{ userRole
                         }}</label>
                 </div>
+
+                <!-- <div class="my-8"></div>
+                <h2 class="font-bold text-xl mb-3">Assigned teams</h2> -->
+                <!-- <div class="flex flex-col gap-2">
+                    <div><label class="flex items-center"><input name="teams[]" type="checkbox"
+                                data-validation-key="teams[]"
+                                class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
+                                checked="" true-value="2023" false-value="false" value="2023"><span
+                                class="ml-4">QATest_Team1</span></label></div>
+                    <div><label class="flex items-center"><input name="teams[]" type="checkbox"
+                                data-validation-key="teams[]"
+                                class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
+                                checked="" true-value="2024" false-value="false" value="2024"
+                                data-gtm-form-interact-field-id="2"><span class="ml-4">QATest_Team2</span></label></div>
+                    <div><label class="flex items-center"><input name="teams[]" type="checkbox"
+                                data-validation-key="teams[]"
+                                class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
+                                checked="" true-value="2027" false-value="false" value="2027"><span
+                                class="ml-4">teamnew</span></label></div>
+                    <div><label class="flex items-center"><input name="teams[]" type="checkbox"
+                                data-validation-key="teams[]"
+                                class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
+                                checked="" true-value="2028" false-value="false" value="2028"><span
+                                class="ml-4">wwww</span></label></div>
+                    <div><label class="flex items-center"><input name="teams[]" type="checkbox"
+                                data-validation-key="teams[]"
+                                class="rounded-full p-3 border-border-alt text-primary shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:opacity-50"
+                                checked="" true-value="2029" false-value="false" value="2029"><span class="ml-4">Test
+                                User</span></label></div>
+                </div> -->
 
                 <!-- User Type Selection -->
                 <div class="mb-6">
@@ -160,6 +190,7 @@
 
 
     </div>
+
 </template>
 
 <script setup>

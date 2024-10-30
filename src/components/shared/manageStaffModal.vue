@@ -11,7 +11,7 @@
                 <h1 class="font-bold text-2xl mb-3 text-black">Updating Coach 3276</h1>
                 <h3 class="text-black">Role: Coach</h3>
                 <form data-splade-id="A0D7EkrDRCZY8Xs6" method="PUT"
-                    action="https://qa1.recruited.qualitapps.com/admin/schools/9c0a3542-8593-429e-b703-2e6afdf86c63/users/9bd0c874-d523-4444-806c-5999cf19533d">
+                    action="/">
                     <fieldset>
 
                         <div class="my-8"></div>
@@ -65,7 +65,7 @@
                     </fieldset>
                 </form>
                 <form data-splade-id="ptYyBdSS1bxnLoAp" method="DELETE"
-                    action="https://qa1.recruited.qualitapps.com/admin/schools/9c0a3542-8593-429e-b703-2e6afdf86c63/users/215">
+                    action="/">
                     <fieldset>
                         <div class="my-8"></div>
                         <div class="self-center"><button type="submit"

@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="flex w-full justify-between gap-8">
                 <div class="flex items-center gap-4"><a
-                        href="https://qa1.recruited.qualitapps.com/admin/businesses"><svg class="w-6 h-6 text-gray-500"
+                        href="admin/business"><svg class="w-6 h-6 text-gray-500"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
                             stroke-linejoin="round">
@@ -57,7 +57,7 @@
                     </div>
                     <div class="grid gap-4">
                         <div class="flex flex-col lg:flex-row gap-6 py-2">
-                            <img src="https://qa1.recruited.qualitapps.com/storage/profile-photos/JuWLtk75Qtv2Wj9i3CMfbZYxZ9kgH8JJJhPivyZn.png"
+                            <img src="@/assets/images/avataruser.png"
                                 alt="User profile picture" class="h-12 w-12 rounded-full">
                             <div class="self-center flex-1"><strong
                                     class="capitalize text-black">QATest_Player01</strong>
@@ -74,7 +74,7 @@
                         </div>
 
                         <div class="flex flex-col lg:flex-row gap-6 py-2">
-                            <img src="https://qa1.recruited.qualitapps.com/storage/profile-photos/JuWLtk75Qtv2Wj9i3CMfbZYxZ9kgH8JJJhPivyZn.png"
+                            <img src="@/assets/images/avataruser.png"
                                 alt="User profile picture" class="h-12 w-12 rounded-full">
                             <div class="self-center flex-1"><strong
                                     class="capitalize text-black">QATest_Player01</strong>
