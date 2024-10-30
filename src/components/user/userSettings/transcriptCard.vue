@@ -87,8 +87,31 @@
         Simply select your file, and we’ll process it for you to review, edit, and manage.</p>
 
       <div class="flex" v-if="!transcript">
+
         <div class="flex-1">
-          <div
+
+          <!-- Show preview if file is selected -->
+          <div v-if="previewUrl" class="relative border-2 border-blue-500 rounded-lg bg-blue-50 h-[320px] m-2 p-4">
+            <embed :src="previewUrl" type="application/pdf" width="100%" height="100%" class="rounded-lg" />
+            <button @click.stop="clearPreview" class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1">
+              <!-- Trash Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                  d="M6.5 5a1 1 0 00-.7.3l-.8.7H3a1 1 0 000 2h1v8a2 2 0 002 2h8a2 2 0 002-2V8h1a1 1 0 100-2h-2l-.8-.7a1 1 0 00-.7-.3H6.5zm1 3a1 1 0 012 0v7a1 1 0 11-2 0V8zm5 0a1 1 0 012 0v7a1 1 0 11-2 0V8z"
+                  clip-rule="evenodd" />
+              </svg>
+            </button>
+
+            <!-- Button to open modal for full-screen preview -->
+            <button @click="openModal"
+              class="mt-8 bg-blue-600 text-white rounded-full px-4 py-2 w-full hover:bg-blue-700">
+              Preview
+            </button>
+          </div>
+
+
+          <!-- Show upload section if no preview available -->
+          <div v-else
             class="upload-section mb-4 border-2 border-dashed border-blue-500 rounded-lg p-4 bg-blue-50 hover:bg-blue-100 card rounded-lg bg-lightGray1 h-[320px] m-2">
             <label for="media-upload" class="cursor-pointer flex flex-col items-center justify-center">
               <!-- Icon for upload -->
@@ -104,6 +127,7 @@
               class="hidden" />
           </div>
         </div>
+
         <div class="flex-1">
           <div class="p-2">
             <form @submit.prevent="handleSubmit" class="space-y-4">
@@ -163,6 +187,21 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal for enlarged view with zoom controls -->
+  <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+    <div class="relative bg-white rounded-lg p-4 w-4/5 h-4/5 flex flex-col items-center">
+      <embed :src="previewUrl" type="application/pdf" :style="{ transform: `scale(${zoomLevel})` }"
+        class="w-full h-full" />
+
+      <!-- Zoom Controls -->
+      <div class="absolute top-4 right-4 flex space-x-2">
+        <!-- <button @click="zoomIn" class="bg-blue-500 text-white p-2 rounded">+</button>
+        <button @click="zoomOut" class="bg-blue-500 text-white p-2 rounded">-</button> -->
+        <button @click="closeModal" class="bg-red-500 text-white p-2 rounded">Close</button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -184,6 +223,10 @@ const file = ref({}); // To hold the uploaded files
 const fileName = ref("");
 const country = ref("");
 const language = ref("");
+const previewUrl = ref(null);
+const isModalOpen = ref(false);
+const zoomLevel = ref(1);
+
 
 const errors = ref({});
 const notification_type = ref('');
@@ -233,11 +276,39 @@ const handleFileUpload = (event) => {
   const selected = Array.from(event.target.files);
   file.value = selected[0];
   fileName.value = selected[0].name;
+
+  if (selected[0]) {
+    previewUrl.value = URL.createObjectURL(selected[0]); // Generate preview URL
+  }
+};
+
+const clearPreview = () => {
+  previewUrl.value = null;
+  file.value = null;
+  clearForm();
+};
+
+const openModal = () => {
+  isModalOpen.value = true;
+};
+
+const closeModal = () => {
+  isModalOpen.value = false;
+  zoomLevel.value = 1; // Reset zoom on close
+};
+
+const zoomIn = () => {
+  zoomLevel.value += 0.2;
+};
+
+const zoomOut = () => {
+  if (zoomLevel.value > 0.4) zoomLevel.value -= 0.2; // Minimum zoom level
 };
 
 const handleSubmit = async () => {
   try {
     nuxtApp.$nprogress.start();
+    errors.value = {};
     loading.value = true;
     const formData = new FormData();
     formData.append("country", country.value);
@@ -250,6 +321,7 @@ const handleSubmit = async () => {
       file.value = {};
       nuxtApp.$notification.triggerNotification(response.display_message, "success");
       clearForm();
+      clearPreview();
       fetchData();
     } else {
       nuxtApp.$notification.triggerNotification(response.display_message, "warning");

@@ -7,7 +7,7 @@
         <button @click="userStore.setUserSettingActiveTab('security')" :class="`${userSettingActiveTab == 'security'? 'bg-steelBlue text-white my-3' : 'bg-lightGray text-darkSlateBlue'} px-4 py-2 mb-4 rounded-lg text-sm w-full text-left`">Security</button>
 
         <!-- Subscription & Billing Option -->
-        <button @click="userStore.setUserSettingActiveTab('subscription')" :class="`${userSettingActiveTab == 'subscription'? 'bg-steelBlue text-white my-3' : 'bg-lightGray text-darkSlateBlue'} px-4 py-2 rounded-lg text-sm w-full text-left`"> Subscription & Billing</button>
+        <button v-if="role == 'coach' || role == 'player'" @click="userStore.setUserSettingActiveTab('subscription')" :class="`${userSettingActiveTab == 'subscription'? 'bg-steelBlue text-white my-3' : 'bg-lightGray text-darkSlateBlue'} px-4 py-2 rounded-lg text-sm w-full text-left`"> Subscription & Billing</button>
 
         <button v-if="role == 'player' && userTypeId == 3" @click="userStore.setUserSettingActiveTab('transcript')" :class="`${userSettingActiveTab == 'transcript'? 'bg-steelBlue text-white my-3' : 'bg-lightGray text-darkSlateBlue'} px-4 py-2 mt-4 rounded-lg text-sm w-full text-left`"> Transcript</button>
     </div>

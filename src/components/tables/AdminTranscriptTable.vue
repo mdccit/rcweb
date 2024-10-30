@@ -24,7 +24,7 @@
               <select name="filter-role" v-model="status" @change="fetchData"
                 class="lock text-black px-5 w-full border-0 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg">
                 <option value="">-</option>
-                <option value="ai_approved">A.I.Ferified</option>
+                <option value="ai_approved">A.I.Verified</option>
                 <option value="failed">A.I.Faild</option>
                 <option value="pending">Pending</option>
                 <option value="manual_approved">Manual</option>
@@ -36,7 +36,7 @@
     </div>
 
     <!-- Data Table -->
-    <el-table :default-sort="{ prop: 'display_name', order: 'descending' }" :data="filteredItems"
+    <el-table :default-sort="{ prop: 'display_name', order: 'descending' }" :data="filteredItems"   class="mouse-pointer"
       @row-click="handleRowClick">
       <!-- Display Name Column -->
       <el-table-column prop="display_name" label="DISPLAY NAME" sortable></el-table-column>
@@ -261,5 +261,9 @@ export default {
 .input-with-select {
   width: 300px;
   margin-bottom: 20px;
+}
+
+.mouse-pointer{
+  cursor: pointer;
 }
 </style>

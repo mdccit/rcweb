@@ -34,8 +34,15 @@
             </p>
           </div>
 
+
           <!-- Subscription Button -->
           <div class="mb-4 mt-auto" v-if="!loading">
+
+            <!-- <button v-if="activeStatus !== 'active'"  @click.stop="subscribeTrial" class="mt-3 text-blue-700">
+              Try Trial
+            </button> -->
+  
+
             <!-- Show this button if activeStatus is 'active' -->
             <button v-if="activeStatus === 'active' && pkg.value === 'standard' && isSetToCancel === false"
               @click="openModal()" :value="pkg.value"
@@ -252,7 +259,7 @@ const subscribePremium = async () => {
         packageStore.setPaymentToken(payment_token);
 
         // Step 4: Redirect to the /payment page
-        router.push(`/payment/${payment_token}?package=premium`);
+        router.push(`/payment/${payment_token}?package=premium&is_auto_renewal=${autoRenew.value}`);
 
       } else {
         // Throw error if setupIntent is invalid
@@ -270,6 +277,49 @@ const subscribePremium = async () => {
     console.log('Standard package selected, no payment needed.');
   }
 
+};
+
+const subscribeTrial = async () => {
+  if (!selectedPackage.value) {
+    nuxtApp.$notification.triggerNotification('Please select a package!', 'warning');
+  } else {
+    errors.value.pkg = '';
+
+    if (selectedPackage.value === 'premium') {
+      try {
+        loading.value = true;
+        // Step 1: Get Stripe customer ID
+        const customerId = await $authService.getStripeCustomerId();
+        packageStore.setStripeCustomerId(customerId);
+        // Step 2: Create SetupIntent on the backend
+        const setupIntent = await createSetupIntent(customerId);
+
+        // Check if setupIntent has client_secret and setup_intent_id
+        if (setupIntent && setupIntent.client_secret && setupIntent.setup_intent_id) {
+          // Store the setup intent data in Pinia store
+          packageStore.setSetupIntentData(setupIntent.client_secret, setupIntent.setup_intent_id);
+
+          // Generate a unique reference (e.g., using token or customerId) and store it
+          const payment_token = customerId; // For example, you can use customerId or a generated token
+          packageStore.setPaymentToken(payment_token);
+
+          // Step 4: Redirect to the /payment page
+          router.push(`/payment/${payment_token}?package=trial&is_auto_renewal=${autoRenew.value}`);
+
+        } else {
+          // Throw error if setupIntent is invalid
+          throw new Error('Invalid SetupIntent response from the backend.');
+        }
+      } catch (error) {
+        // nuxtApp.$notification.triggerNotification('Error during subscription process', 'failure');
+        console.error('Error during payment method setup:', error);
+      } finally {
+        loading.value = false;
+      }
+    } else {
+      console.log('Standard package selected, no payment needed.');
+    }
+  }
 };
 
 
