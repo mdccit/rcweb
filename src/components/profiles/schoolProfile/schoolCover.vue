@@ -119,6 +119,8 @@ const nuxtApp = useNuxtApp();
 
 const $publicService = nuxtApp.$publicService;
 
+const galleryItems = ref([]);
+
 const { data, schoolSlug } = defineProps({
     data: {
         type: Object,
@@ -129,11 +131,9 @@ const { data, schoolSlug } = defineProps({
         required: true,
     }
 });
-
+const route = useRoute();
 const tab = ref('feed');
-const profile_picture = ref(null);
 const slug = ref('');
-const cover_picture = ref(null);
 const loggedUserSlug = ref(null);
 
 
@@ -176,9 +176,65 @@ const handleModalClose = (modalName) => {
     }
 };
 
-// Computed profile picture URL
-const profilePictureUrl = computed(() => profile_picture.value);
-const coverPictureUrl = computed(() => cover_picture.value);
+
+const setGalleryItems = (mediaInfo) => {
+    galleryItems.value = mediaInfo.media_urls.map(media => {
+      // Append a timestamp to the URL to prevent browser caching
+      const cacheBustedUrl = `${media.url}?t=${new Date().getTime()}`;
+  
+      if (media.media_type === 'image') {
+        return {
+          type: 'image',
+          href: cacheBustedUrl,
+          src: cacheBustedUrl,
+          media_id: media.media_id,
+        };
+      } else if (media.media_type === 'video') {
+        return {
+          type: 'video',
+          href: cacheBustedUrl,
+          src: cacheBustedUrl || 'https://via.placeholder.com/200x150.png?text=Video',
+          media_id: media.media_id,
+        };
+      }
+    });
+  };
+  
+
+// Reactive data properties for URLs
+const profile_picture = ref(defaultProfilePicture);
+const cover_picture = ref(defaultCoverPicture);
+
+// Computed properties for profile and cover picture URLs
+const profilePictureUrl = ref('');
+const coverPictureUrl =  ref('');
+
+
+
+const fetchSchoolDetails = async () => {
+    try {
+        const dataSets = await $publicService.get_school(route.params.slug);
+        if (dataSets.media_info) {
+            profilePictureUrl.value = dataSets.media_info?.profile_picture?.url;
+            coverPictureUrl.value = dataSets.media_info?.cover_picture?.url;
+            setGalleryItems(dataSets.media_info);
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error.message);
+    }
+}
+
+
+onMounted(async () => {
+  slug.value = schoolSlug;
+
+  if (process.client) {
+    loggedUserSlug.value = localStorage.getItem('user_slug');
+  }
+
+  await fetchSchoolDetails();
+});
+
 
 // Watch for changes in data
 watch(
@@ -207,38 +263,30 @@ watch(
 );
 
 
-const fetchSchoolDetails = async () => {
-    try {
-        const dataSets = await $publicService.get_school(route.params.slug);
-
-        if (dataSets.media_info) {
-            profilePictureUrl.value = dataSets.media_info.profile_picture
-            profilePictureUrl.value = dataSets.media_info.cover_picture
-            setGalleryItems(dataSets.media_info);
-        }
-    } catch (error) {
-        console.error('Error fetching data:', error.message);
-    }
-}
 
 
-onMounted(() => {
-    slug.value = schoolSlug;
 
-    if (process.client) {
-        loggedUserSlug.value = localStorage.getItem('user_slug')
-    }
 
-    // Set profile picture when data becomes available
-    if (data && data.media_info) {
-        profile_picture.value = data.media_info.profile_picture?.url || defaultProfilePicture;
-        cover_picture.value = data.media_info.cover_picture?.url || defaultProfilePicture;
-    } else {
-        console.log('media not available');
-        cover_picture.value = defaultCoverPicture;
-    }
 
-})
+// onMounted(() => {
+//     slug.value = schoolSlug;
+
+//     if (process.client) {
+//         loggedUserSlug.value = localStorage.getItem('user_slug')
+//     }
+
+    
+//     await fetchSchoolDetails();
+    // // Set profile picture when data becomes available
+    // if (data) {
+    //     profile_picture.value = data.cover?.url || defaultProfilePicture;
+    //     cover_picture.value = data.profile?.url || defaultProfilePicture;
+    // } else {
+    //     console.log('media not available');
+    //     cover_picture.value = defaultCoverPicture;
+    // }
+
+// })
 
 </script>
 
