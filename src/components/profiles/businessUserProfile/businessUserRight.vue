@@ -6,8 +6,7 @@
 
                 <div class="">
 
-                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto text-center mb-3">{{
-                        position }} with </p>
+                    <p class="text-xs text-darkSlateBlue leading-relaxed mx-auto text-center mb-3"> Associated with </p>
                     <div class="... text-center">
                         <!-- <img class="mx-auto w-[85px] h-[85px] rounded-[20px] mb-3"
                             src="@/assets/user/images/whitter collage.png" alt=""> -->

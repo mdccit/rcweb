@@ -375,18 +375,17 @@ const handleSubmit = async () => {
       height_in: heightIn.value,
       gender: gender.value,
     };
-  console.log(data)
-    // const response = await $adminService.create_transfer_player(data);
+    const response = await $adminService.create_transfer_player(data);
 
-    // if (response.status === 200) {
-    //   nuxtApp.$notification.triggerNotification(response.display_message, "success");
-    //   handleClose();
-    // } else if (response.status === 401) {
-    //   nuxtApp.$notification.triggerNotification(response.display_message, "failure");
-    //   await router.push("/login");
-    // } else {
-    //   nuxtApp.$notification.triggerNotification(response.display_message, "failure");
-    // }
+    if (response.status === 200) {
+      nuxtApp.$notification.triggerNotification(response.display_message, "success");
+      handleClose();
+    } else if (response.status === 401) {
+      nuxtApp.$notification.triggerNotification(response.display_message, "failure");
+      await router.push("/login");
+    } else {
+      nuxtApp.$notification.triggerNotification(response.display_message, "failure");
+    }
   } catch (error) {
     console.log(error);
 
