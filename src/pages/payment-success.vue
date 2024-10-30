@@ -26,10 +26,10 @@
         </p>
       </div>
       <div class="mt-4">
-        <Button v-if="userRole == 'coach'" class="bg-limegreen text-white px-7 py-2 rounded-md mt-8">
-          <NuxtLink to="/user/approval-pending">Continue</NuxtLink>
+        <Button v-if="userRole == 'coach'" @click="navigateTo('/app')" class="bg-limegreen text-white px-7 py-2 rounded-md mt-8">
+         Continue
         </Button>
-        <Button v-if="userRole == 'player'" class="bg-limegreen text-white px-7 py-2 rounded-md mt-8">
+        <Button v-if="userRole == 'player'"  @click="navigateTo('/app')" class="bg-limegreen text-white px-7 py-2 rounded-md mt-8">
           <NuxtLink to="/app">Continue</NuxtLink>
         </Button>
       </div>

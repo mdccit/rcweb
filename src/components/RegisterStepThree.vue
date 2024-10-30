@@ -24,7 +24,7 @@
 
       <!-- Package Selection Section -->
       <div class="flex justify-center space-x-4">
-        <div v-for="pkg in packages" :key="pkg.value" :class="[
+        <div v-for="pkg in filteredPackages" :key="pkg.value" :class="[
     'flex-1 flex flex-col justify-between border w-[300px] rounded-lg text-center p-3 relative cursor-pointer',
     selectedPackage === pkg.value
       ? pkg.value === 'premium'
@@ -66,7 +66,7 @@
           <div v-else-if="pkg.value === 'premium'" class="mt-auto">
            <!-- Auto-Renew Toggle -->
              
-            <div class="flex items-center justify-center mb-4">
+            <!-- <div class="flex items-center justify-center mb-4">
               <input type="checkbox" id="autoRenew" v-model="autoRenew" class="hidden" />
               <label for="autoRenew" class="flex items-center cursor-pointer space-x-3">
                 <div class="relative">
@@ -76,7 +76,7 @@
                 </div>
                 <span class="text-sm font-medium text-gray-900 dark:text-gray-300">Auto renew</span>
               </label>
-            </div>
+            </div> -->
 
             <!-- Try Trial Button (less prominent) -->
             <button @click.stop="subscribeTrial" class="mt-3 text-blue-700">
@@ -121,6 +121,19 @@ const errors = ref({});
 const loading = ref(false);
 const autoRenew = ref(false);
 const selectedPackage = ref('premium');
+const userRole = ref('');
+const filteredPackages = ref([]);
+
+
+// Watch userRole for updates, and re-compute filteredPackages accordingly
+watchEffect(() => {
+  if (userRole.value) {
+    // Logs to confirm the role and packages are set as expected
+    console.log(`User Role: ${userRole.value}`);
+    filteredPackages.value = packages.value.filter(pkg => pkg.role === userRole.value)
+    console.log('Filtered Packages:', filteredPackages.value);
+  }
+})
 
 const selectPackage = (pkgName) => {
   selectedPackage.value = pkgName;
@@ -131,6 +144,7 @@ onMounted(async () => {
 
   selectedPackage.value = 'premium';
   autoRenew.value = true;
+  userRole.value = localStorage.getItem('user_role');
   useFlowbite(() => {
     initFlowbite();
   })

@@ -117,7 +117,8 @@
                 <div class="mb-6">
                     <label for="userType" class="block text-sm font-medium text-gray-700 mb-2">User Name : {{
                         firstName + ' ' + lastName }}</label>
-                </div <!-- User Type Selection -->
+                    </div>
+
                 <div class="mb-6">
                     <label for="userType" class="block text-sm font-medium text-gray-700 mb-2"> Role : {{ userRole
                         }}</label>
@@ -211,6 +212,7 @@ onMounted(() => {
 
 // Function to open the modal
 const openModal = async (userData) => {
+    console.log(userData);
     userRole.value = userData.user_role || '';
     userType.value = userData.user_permission_type?.toLowerCase() || '';
     userID.value = userData.user_id || '';
@@ -268,8 +270,13 @@ const changeSchoolUserType = async () => {
 const removeSchoolUser = async () => {
     try {
         loading.value = true;
-        const response = await $adminService.remove_school_user();
+        let request_body ={
+            user_id: userID.value,
+            school: school_id.value
+        }
+        const response = await $adminService.remove_school_user(request_body);
         if (response && response.status === 200) {
+            closeModal();
             nuxtApp.$notification.triggerNotification(response.display_message, 'success');
         } else {
             // Handle non-success status codes

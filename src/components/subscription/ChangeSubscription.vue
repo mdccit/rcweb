@@ -9,7 +9,7 @@
 
     <div class="flex">
       <!-- Iterate through the packages array -->
-      <div v-for="(pkg, index) in packages" :key="pkg.value" class="flex-1 flex justify-center">
+      <div v-for="(pkg, index) in filteredPackages" :key="pkg.value" class="flex-1 flex justify-center">
         <div :key="refreshKey" :class="[
     'border w-[230px] rounded-lg text-center p-3 relative flex flex-col cursor-pointer',
     pkg.name === 'Premium' ? 'pro-pack' : '',
@@ -20,10 +20,6 @@
 
           <h1 class="text-3xl font-medium text-black mb-2">{{ pkg.price }}</h1>
           <p class="text-xs mb-5">{{ pkg.description }}</p>
-          <!-- <span> {{ activeStatus }}</span>
-          <span> {{ pkg.value }}</span>
-          <span> {{ isSetToCancel }}</span>
-          <p> {{ hasPaymentMethodSet }}</p> -->
           <!-- Features List -->
           <div class="grid justify-center">
             <p v-for="(feature, fIndex) in pkg.features" :key="fIndex" class="text-xs flex text-left mb-2">
@@ -38,8 +34,15 @@
             </p>
           </div>
 
+
           <!-- Subscription Button -->
           <div class="mb-4 mt-auto" v-if="!loading">
+
+            <!-- <button v-if="activeStatus !== 'active'"  @click.stop="subscribeTrial" class="mt-3 text-blue-700">
+              Try Trial
+            </button> -->
+  
+
             <!-- Show this button if activeStatus is 'active' -->
             <button v-if="activeStatus === 'active' && pkg.value === 'standard' && isSetToCancel === false"
               @click="openModal()" :value="pkg.value"
@@ -94,8 +97,8 @@
     </div>
 
 
-      <!-- Add Card Modal -->
-      <AddCardModal :isVisible="isAddCardModalVisible" @close="closeCardModal" @success="closeCardModalSuccess" />
+    <!-- Add Card Modal -->
+    <AddCardModal :isVisible="isAddCardModalVisible" @close="closeCardModal" @success="closeCardModalSuccess" />
 
   </div>
 
@@ -169,7 +172,9 @@ const $authService = nuxtApp.$authService;
 const router = useRouter(); // Initialize router
 const packageStore = usePackageStore();
 // Packages array with all required details
-const { packages } = usePackages()
+const { packages } = usePackages();
+
+const filteredPackages = ref([]);
 
 const $subscriptionService = nuxtApp.$subscriptionService;
 const subscription = ref([]);
@@ -181,6 +186,18 @@ const paymentMethods = ref([]);
 const selectedCard = ref(null);
 const refreshKey = ref(0);
 const isAddCardModalVisible = ref(false);
+const userRole = ref('');
+
+
+// Watch userRole for updates, and re-compute filteredPackages accordingly
+watchEffect(() => {
+  if (userRole.value) {
+    // Logs to confirm the role and packages are set as expected
+    console.log(`User Role: ${userRole.value}`);
+    filteredPackages.value = packages.value.filter(pkg => pkg.role === userRole.value)
+    console.log('Filtered Packages:', filteredPackages.value);
+  }
+})
 
 // Open the confirmation modal
 const openModal = () => {
@@ -242,7 +259,7 @@ const subscribePremium = async () => {
         packageStore.setPaymentToken(payment_token);
 
         // Step 4: Redirect to the /payment page
-        router.push(`/payment/${payment_token}?package=premium`);
+        router.push(`/payment/${payment_token}?package=premium&is_auto_renewal=${autoRenew.value}`);
 
       } else {
         // Throw error if setupIntent is invalid
@@ -260,6 +277,49 @@ const subscribePremium = async () => {
     console.log('Standard package selected, no payment needed.');
   }
 
+};
+
+const subscribeTrial = async () => {
+  if (!selectedPackage.value) {
+    nuxtApp.$notification.triggerNotification('Please select a package!', 'warning');
+  } else {
+    errors.value.pkg = '';
+
+    if (selectedPackage.value === 'premium') {
+      try {
+        loading.value = true;
+        // Step 1: Get Stripe customer ID
+        const customerId = await $authService.getStripeCustomerId();
+        packageStore.setStripeCustomerId(customerId);
+        // Step 2: Create SetupIntent on the backend
+        const setupIntent = await createSetupIntent(customerId);
+
+        // Check if setupIntent has client_secret and setup_intent_id
+        if (setupIntent && setupIntent.client_secret && setupIntent.setup_intent_id) {
+          // Store the setup intent data in Pinia store
+          packageStore.setSetupIntentData(setupIntent.client_secret, setupIntent.setup_intent_id);
+
+          // Generate a unique reference (e.g., using token or customerId) and store it
+          const payment_token = customerId; // For example, you can use customerId or a generated token
+          packageStore.setPaymentToken(payment_token);
+
+          // Step 4: Redirect to the /payment page
+          router.push(`/payment/${payment_token}?package=trial&is_auto_renewal=${autoRenew.value}`);
+
+        } else {
+          // Throw error if setupIntent is invalid
+          throw new Error('Invalid SetupIntent response from the backend.');
+        }
+      } catch (error) {
+        // nuxtApp.$notification.triggerNotification('Error during subscription process', 'failure');
+        console.error('Error during payment method setup:', error);
+      } finally {
+        loading.value = false;
+      }
+    } else {
+      console.log('Standard package selected, no payment needed.');
+    }
+  }
 };
 
 
@@ -446,6 +506,9 @@ onMounted(async () => {
   useFlowbite(() => {
     initFlowbite();
   });
+
+  userRole.value = localStorage.getItem('user_role');
+
   await fetchSubscriptionDetails();
 
 });

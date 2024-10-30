@@ -1,13 +1,13 @@
 <template>
   <!-- common full screen loader -->
-  <ScreenLoader v-if="loading"/>
+  <ScreenLoader v-if="loading" />
   <!-- / common full screen loader -->
   <div class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
-      
+
       <!-- Stripe Logo and Subscription Text -->
       <div class="flex items-center justify-center mb-4">
-        <img src="https://stripe.com/img/v3/home/twitter.png" alt="Stripe Logo" class="h-6 mr-2"/>
+        <img src="https://stripe.com/img/v3/home/twitter.png" alt="Stripe Logo" class="h-6 mr-2" />
         <p class="text-gray-600 text-sm">
           You are subscribing to <strong>Recruited Premium</strong> using Stripe.
         </p>
@@ -51,6 +51,10 @@ import { loadStripe } from '@stripe/stripe-js';
 import { useNuxtApp, useRuntimeConfig } from '#app';
 import { useRouter, useRoute } from 'vue-router';
 import ScreenLoader from '@/layouts/screen_loader.vue';
+import { useUserStore } from '~/stores/userStore';
+
+const userStore = useUserStore();
+
 
 // Access services and configurations from Nuxt context
 const nuxtApp = useNuxtApp();
@@ -115,6 +119,7 @@ const mountCardElement = async (stripePublicKey) => {
 };
 
 onMounted(async () => {
+  console.log(userStore.userId);
   // Ensure this code runs only in the browser (client-side)
   if (process.client) {
     // Fetch client secret and setup intent from localStorage
@@ -179,8 +184,8 @@ const confirmPayment = async () => {
       const subscription = await $authService.createSubscription(subscriptionDetails);
 
       if (subscription.status === 'success') {
+        userStore.setUserTypeId(3);
         paymentRedirect.value = true;
-        console.log('Subscription created successfully');
         router.push('/payment-success');
       } else {
         // throw new Error(subscription.message);
