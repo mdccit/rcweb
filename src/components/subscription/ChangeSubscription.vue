@@ -119,15 +119,14 @@
           <h3 class="text-xl font-medium text-gray-900 dark:text-white">
             Confirm Plan Change
           </h3>
-          <button @click="closeModal" type="button"
+          <!-- <button @click="closeModal" type="button"
             class="text-white bg-red-600 hover:bg-red-700 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700"
             data-modal-hide="confirmModal">
-            <!-- Close (X) icon SVG -->
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
-          </button>
+          </button> -->
 
 
         </div>
