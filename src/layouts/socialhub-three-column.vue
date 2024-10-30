@@ -15,7 +15,8 @@
           <div class=" md:col-span-1 lg:col-span-1 sm:col-span-6 sx:col-span-6">
             <!-- <FilterCard /> -->
             <!-- <CallCard/> -->
-             <!-- <transfer-tracker-left-bar /> -->
+            <transfer-tracker-left-bar v-if="viewTransfer"/>
+
              <NetworkLeft v-if="networkView" />
             <!-- <Filter v-if="route.meta.showFilterLeft" /> -->
             <ResourcesLeftBar v-if="resourceView"/>
@@ -26,6 +27,7 @@
 
           <!-- Middle pane -->
           <div class="col-span-4">
+
             <LoadingSpinner v-if="loading" />
             <NuxtPage v-else />
           </div>
@@ -33,7 +35,7 @@
           <!-- Right pane -->
           <div>
             <!-- <Filter /> -->
-            <!-- <transfer-tracker-right-bar /> -->
+            <transfer-tracker-right-bar v-if="viewTransfer" />
           </div>
         </div>
       </div>
@@ -79,7 +81,7 @@ const router = useRouter();
 const route = useRoute();
 
 const showFilterLeft = ref(false);
-
+const viewTransfer = ref(false)
 router.beforeEach((to, from, next) => {
   loading.value = true;
   next();
@@ -102,8 +104,14 @@ watch(()=>{
   console.log("Route meta")
   console.log(route.fullPath)
   resourceView.value = false
+  viewTransfer.value = false
+
    if(route.fullPath =='/user/resources'){
     resourceView.value = true
+  }
+
+  if(route.fullPath =='/user/transfer-tracker'){
+    viewTransfer.value = true
   }
 
   

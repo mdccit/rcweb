@@ -10,7 +10,7 @@
       <PaymentHistory />
     </div>
 
-    <TranscriptCard v-if="userSettingActiveTab === 'transcript'" />
+    <TranscriptCard  v-if="userSettingActiveTab === 'transcript'" />
   </div>
 </template>
 

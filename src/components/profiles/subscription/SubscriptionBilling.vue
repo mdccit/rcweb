@@ -143,7 +143,7 @@
                   </div>
 
                   <!-- Remove Button (only visible if the card is not default) -->
-                  <button v-if="!method.is_default" @click="deletePaymentMethod(method.id)"
+                  <button v-if="!method.is_default || isSetToCancel" @click="deletePaymentMethod(method.id)"
                     class="text-red-500 hover:text-red-700">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" class="w-5 h-5">
@@ -259,15 +259,14 @@ onMounted(async () => {
 
     if (payment_methods && payment_methods.status == 200) {
       paymentMethods.value = payment_methods.data.original.data;
-
-      // Fetch the active card and set it in selectedCard
-      await getCustomerActiveCard();
-
       startDate.value = formatDate(response.start_date);
       endDate.value = formatDate(response.end_date);
       Price.value = response.price;
       activeStatus.value = response.status;
       isSetToCancel.value = response.cancel_at_period_end || null;
+
+      // Fetch the active card and set it in selectedCard
+      await getCustomerActiveCard();
     } else {
       console.error('No payment mehods found.');
     }
@@ -330,6 +329,7 @@ const cancelSubscription = async () => {
     console.error('Error canceling subscription:', error);
   } finally {
     loading.value = false;
+    await fetchData();
   }
 };
 
@@ -401,7 +401,12 @@ function formatDate(dateString) {
 /**
  * Get the logo for the card brand
  */
- const getCardBrandLogo = (brand) => {
+const getCardBrandLogo = (brand) => {
+  if (!brand) {
+    // Return default logo if brand is null, undefined, or an empty string
+    return cards.default;
+  }
+
   switch (brand.toLowerCase()) {
     case 'visa':
       return cards.visa;
@@ -414,6 +419,7 @@ function formatDate(dateString) {
   }
 };
 
+
 const refreshCards = async () => {
   // Re-fetch the payment methods to refresh the list
   const payment_methods = await $subscriptionService.get_customer_payment_methods();
@@ -423,6 +429,39 @@ const refreshCards = async () => {
 
   // Optionally, re-fetch the active card if necessary
   await getCustomerActiveCard();
+}
+
+const fetchData = async () => {
+  try {
+    // Fetch user subscription information
+    loading.value = true;
+
+    const response = await $subscriptionService.get_subscription();
+    subscription.value = response;
+
+    const payment_methods = await $subscriptionService.get_customer_payment_methods();
+
+    if (payment_methods && payment_methods.status == 200) {
+      paymentMethods.value = payment_methods.data.original.data;
+
+      // Fetch the active card and set it in selectedCard
+      await getCustomerActiveCard();
+
+      startDate.value = formatDate(response.start_date);
+      endDate.value = formatDate(response.end_date);
+      Price.value = response.price;
+      activeStatus.value = response.status;
+      isSetToCancel.value = response.cancel_at_period_end || null;
+    } else {
+      console.error('No payment mehods found.');
+    }
+
+  } catch (error) {
+    console.error('Error fetching subscription data:', error);
+  } finally {
+    loading.value = false;
+  }
+
 }
 
 const changeSubscription = async () => {

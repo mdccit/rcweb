@@ -1,4 +1,7 @@
 <template>
+    <!-- common full screen loader -->
+    <ScreenLoader v-if="loading" />
+
   <div>
     <div class="card rounded-2xl overflow-hidden border border-lightSteelBlue bg-white w-full p-8 mt-3">
       <h2 class="text-2xl font-bold mb-6 text-black">Security</h2>
@@ -69,7 +72,7 @@
           <p class="text-sm text-black mb-6">Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.</p>
         </div>
         <div class="mt-6">
-          <button @click="showModal =true" class="w-60 py-3 px-4 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-orangeRed focus:outline-none focus:ring-2 focus:ring-blue-500">Delete Account</button>
+          <button @click="openModal" class="w-60 py-3 px-4 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-orangeRed focus:outline-none focus:ring-2 focus:ring-blue-500">Delete Account</button>
         </div>
        
       </div>
@@ -84,6 +87,8 @@ import { useNuxtApp } from "#app";
 import { handleError } from "@/utils/handleError";
 import InputError from "@/components/common/input/InputError.vue";
 import AccountDeleteModel from '~/components/user/userSettings/accountDeleteModel.vue';
+
+import ScreenLoader from '@/layouts/screen_loader.vue';
 const loading = ref(false);
 const nuxtApp = useNuxtApp();
 const $authService = nuxtApp.$authService;
@@ -111,8 +116,15 @@ const fetchData = async () => {
   }
 };
 
+const openModal = () =>{
+  loading.value = true;
+  showModal.value = true;
+  loading.value = false;
+}
+
 const handlePasswordChange = async () => {
   try {
+    errors.value = {};
     nuxtApp.$nprogress.start();
     loading.value = true;
 

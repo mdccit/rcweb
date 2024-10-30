@@ -98,7 +98,15 @@
 import { ref, watch, computed, onMounted, defineEmits } from "vue";
 import { useRouter } from "vue-router";
 import { useNuxtApp } from "#app";
+import { useFlowbite } from '~/composables/useFlowbite';
 
+const props = defineProps({
+  showModal: {
+        type: Boolean,
+        required: true,
+    },
+   
+});
 const router = useRouter();
 const search = ref("");
 const utrMin = ref("");
@@ -118,6 +126,7 @@ const fetchData = async () => {
   loading.value = true;
   try {
     const transferPlayers = await $adminService.get_transfer_players(search.value, utrMin.value, utrMax.value);
+    console.log(transferPlayers)
     items.value = transferPlayers.data.dataSets;
     totalItems.value = transferPlayers.length;
   } catch (error) {
@@ -126,6 +135,13 @@ const fetchData = async () => {
     loading.value = false;
   }
 };
+
+watch(
+    () => props.showModal,
+  () => {
+    fetchData()
+  },
+)
 
 const handleRowClick = (row) => {
   router.push({
@@ -140,8 +156,12 @@ const handleRowClick = (row) => {
 // Watch options and search to update filtered items
 watch([options, search, utrMin, utrMax], fetchData, { immediate: true });
 
-onMounted(fetchData);
-
+onMounted(() => {
+  fetchData();
+  useFlowbite(() => {
+      initFlowbite();
+  })
+});
 const filteredItems = computed(() => {
   let filtered = items.value;
   // Paginate items

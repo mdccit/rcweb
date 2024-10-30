@@ -11,7 +11,7 @@
           <!-- Modal Header -->
           <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-200">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-gray">Create New Transfer Player</h3>
-            <button
+            <button @click="handleClose"
               class="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center light:hover:bg-gray-600 light:hover:text-white">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">
@@ -88,7 +88,7 @@
                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                   <select :required="true" v-model="year"
                     class="block px-5 py-3 w-full border-0 focus:border-lightAzure focus:ring focus:ring-lightPastalBlue focus:ring-opacity-50 disabled:opacity-50 disabled:bg-gray-50 disabled:cursor-not-allowed rounded-lg">
-                    <option selected>Choose a gender</option>
+                    <!-- <option selected>Choose a gender</option> -->
                     <option value="freshman">Freshman</option>
                     <option value="sophomore">Sophomore</option>
                     <option value="junior">Junior</option>
@@ -100,7 +100,7 @@
 
               <!-- Handed Fields -->
               <div class="col-span-3">
-                <label class="block text-sm font-normal text-gray-900 mb-1">Handed <span
+                <label class="block text-sm font-normal text-gray-900 mb-1">Handedness <span
                     class="text-red-500">*</span></label>
                 <div class="flex border border-gray-300 rounded-lg shadow-sm">
                   <HandednessDropdown :required="true" :handedness="handednesses" v-model="handed"
@@ -301,6 +301,7 @@ const loadGenders = async () => {
 const loadHandness = async () => {
   try {
     handednesses.value = await loadHandnessList();
+    console.log( handednesses.value)
   } catch (err) {
     console.error("Error loading handess:", err);
   }
@@ -374,18 +375,18 @@ const handleSubmit = async () => {
       height_in: heightIn.value,
       gender: gender.value,
     };
+  console.log(data)
+    // const response = await $adminService.create_transfer_player(data);
 
-    const response = await $adminService.create_transfer_player(data);
-
-    if (response.status === 200) {
-      nuxtApp.$notification.triggerNotification(response.display_message, "success");
-      handleClose();
-    } else if (response.status === 401) {
-      nuxtApp.$notification.triggerNotification(response.display_message, "failure");
-      await router.push("/login");
-    } else {
-      nuxtApp.$notification.triggerNotification(response.display_message, "failure");
-    }
+    // if (response.status === 200) {
+    //   nuxtApp.$notification.triggerNotification(response.display_message, "success");
+    //   handleClose();
+    // } else if (response.status === 401) {
+    //   nuxtApp.$notification.triggerNotification(response.display_message, "failure");
+    //   await router.push("/login");
+    // } else {
+    //   nuxtApp.$notification.triggerNotification(response.display_message, "failure");
+    // }
   } catch (error) {
     console.log(error);
 
