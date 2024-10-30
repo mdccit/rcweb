@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     ],
   },
   srcDir: 'src/',
-  ssr: false,
+  ssr: true,
   target: 'server',
   components: true,
   router: {
