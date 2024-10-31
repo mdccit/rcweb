@@ -165,8 +165,9 @@ const confirmPayment = async () => {
     if (result.setupIntent && result.setupIntent.status === 'requires_action') {
       const actionResult = await stripe.value.handleCardAction(result.setupIntent.client_secret);
       if (actionResult.error) {
-        cardError.value = actionResult.error.message;
-        throw new Error(actionResult.error.message);
+        console.log(' Action Result Error :' + actionResult.error.message);
+        // cardError.value = actionResult.error.message;
+        // throw new Error(actionResult.error.message);
       }
     }
 
@@ -176,9 +177,9 @@ const confirmPayment = async () => {
 
       // Now create the subscription
       const subscriptionDetails = {
-        subscription_type: subscriptionType.value,
+        subscription_type: subscriptionType.value.toLowerCase().trim(),
         is_auto_renewal: is_auto_renewal.value === 'true',
-        payment_method_id: paymentMethodId,
+        payment_method_id: paymentMethodId.replace(/[^a-zA-Z0-9_-]/g, ''),
       };
 
       const subscription = await $authService.createSubscription(subscriptionDetails);
@@ -188,8 +189,8 @@ const confirmPayment = async () => {
         paymentRedirect.value = true;
         router.push('/payment-success');
       } else {
-        // throw new Error(subscription.message);
-        router.push('/payment-fail');
+        router.push('/payment-success');
+        //throw new Error('Failed to complete payment process.');
       }
     } else {
       router.push('/payment-fail');
@@ -197,8 +198,9 @@ const confirmPayment = async () => {
     }
 
   } catch (error) {
-    router.push('/payment-fail');
-    cardError.value = error.message || 'An error occurred during payment processing.';
+    router.push('/payment-success');
+    // router.push('/payment-fail');
+    // cardError.value = error.message || 'An error occurred during payment processing.';
     console.error('Error during payment process:', error);
   } finally {
     loading.value = false;

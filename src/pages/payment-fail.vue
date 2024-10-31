@@ -48,6 +48,7 @@ import { useRouter } from 'vue-router';
 
 const userRole = ref('');
 const router = useRouter();
+const loading = ref(false);
 
 const nuxtApp = useNuxtApp();
 
