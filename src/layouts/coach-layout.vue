@@ -87,6 +87,7 @@ const gender =ref('none')
 const dateOfBirth =ref('');
 const schoolProfilePicture = ref(null)
 const addressValue = ref(null)
+const govId = ref(null)
 // Sync the state from the notification plugin to the layout
 watchEffect(() => {
     showNotification.value = nuxtApp.$notification.showNotification.value;
@@ -122,6 +123,8 @@ watch(
 const fetchUserDetailsBySlug = async () => {
   try {
     const dataSets = await $publicService.get_user_profile(route.params.slug);
+    console.log(12555)
+
     console.log(dataSets)
     if (dataSets.user_basic_info) {
         bio.value = dataSets?.user_basic_info?.bio || 'User has not entered bio';
@@ -160,6 +163,8 @@ const fetchUserDetailsBySlug = async () => {
         colleage.value = dataSets?.profile_info?.school_name || '';
         sportName.value = dataSets?.profile_info?.sport_name || '';
         schoolProfilePicture.value = dataSets?.profile_info?.school_profile_picture || null;
+        govId.value = dataSets?.profile_info?.school_gov_id || null;
+
     }
 
     if(dataSets.user_address_info){
@@ -184,7 +189,8 @@ const fetchUserDetailsBySlug = async () => {
         gender:gender.value,
         nationality_id:nationality_id.value,
         dateOfBirth:dateOfBirth.value,
-        schoolProfilePicture:schoolProfilePicture.value
+        schoolProfilePicture:schoolProfilePicture.value,
+        govId:govId.value
     }
     
     if (dataSets.media_info) {
